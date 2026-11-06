@@ -980,4 +980,275 @@ const ABU_MUSA: DeepUnit = {
   ]
 };
 
-export const COMPANION_UNITS: DeepUnit[] = [JAFAR, ABU_HURAIRAH, KAB, SAD_MUADH, ABDUR_RAHMAN, MUADH, UBAYY, ZAYD_THABIT, ABU_MUSA];
+const JABIR: DeepUnit = {
+  key: "jabir",
+  topicId: "sahabah",
+  branchId: "sahabi-jabir-ibn-abdullah",
+  branch: { title: "Jabir ibn Abdullah", description: "The young Ansari who lost his father at Uhud and cared for his sisters." },
+  name: "Jabir ibn Abdullah",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "father-at-uhud",
+      title: "His father at Uhud",
+      line: "Jabir's father was martyred at Uhud.",
+      facts: ["Jabir lifted the cloth from his father's face and wept.", "The Prophet ﷺ did not stop him from weeping.", "The angels kept shading his father with their wings."],
+      source: hadith("bukhari", "1244", "Jabir ibn Abdullah", "Sahih", "When my father was martyred I lifted the sheet from his face and wept, and the Prophet ﷺ did not forbid me. He said: the angels kept shading him with their wings until you moved him.", "The angels were shading him continuously with their wings"),
+      difficulty: 2,
+      questions: [
+        { q: "Where was Jabir's father martyred?", a: "At Uhud", wrong: ["At Badr", "At Tabuk", "At Khaybar"], why: "His father fell at the battle of Uhud." },
+        { q: "What were the angels doing for his father?", a: "Shading him with their wings", wrong: ["Carrying swords", "Building a house", "Calling the adhan"], why: "The angels kept shading him with their wings." },
+        { q: "The Prophet ﷺ forbade Jabir from crying.", tf: false, why: "The Prophet ﷺ did not forbid him." }
+      ]
+    },
+    {
+      slug: "fathers-debt",
+      title: "Blessing in the dates",
+      line: "Jabir's father left debts, and the dates were blessed.",
+      facts: ["The lenders thought his dates would not cover the debt.", "The Prophet ﷺ sat on the dates and made dua.", "All was paid, and thirteen loads of dates were left over."],
+      source: hadith("bukhari", "2709", "Jabir ibn Abdullah", "Sahih", "My father died in debt. The Prophet ﷺ came with Abu Bakr and Umar, sat on the dates and asked Allah to bless them. I paid every lender in full and thirteen wasqs of dates were left over.", "thirteen extra Wasqs of dates remained"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Jabir's father leave behind?", a: "Debts", wrong: ["A palace", "Gold mines", "A big army"], why: "My father died and was in debt." },
+        { q: "What did the Prophet ﷺ do with the dates?", a: "Sat on them and made dua", wrong: ["Sold them", "Threw them away", "Gave them to Rome"], why: "He sat on the dates and asked Allah to bless them." },
+        { q: "How many loads were left after paying everyone?", a: "Thirteen", wrong: ["None", "Two", "One hundred"], why: "Thirteen wasqs of dates remained." }
+      ]
+    },
+    {
+      slug: "his-sisters",
+      title: "Caring for his sisters",
+      line: "Jabir married to care for his young sisters.",
+      facts: ["His father left seven or nine daughters.", "Jabir married a woman who had been married before.", "She could look after his sisters, and the Prophet ﷺ blessed him."],
+      source: hadith("bukhari", "5367", "Jabir ibn Abdullah", "Sahih", "My father died and left seven or nine girls, so I married a woman who had been married before, so that she could look after them. The Prophet ﷺ said: may Allah bless you.", "so that she may look after them"),
+      difficulty: 3,
+      questions: [
+        { q: "Why did Jabir marry an older woman?", a: "To look after his sisters", wrong: ["For her money", "To travel far", "To leave Madinah"], why: "So that she could look after them." },
+        { q: "How many sisters did Jabir have?", a: "Seven or nine", wrong: ["One", "Two", "Twenty"], why: "His father left seven or nine girls." },
+        { q: "The Prophet ﷺ made dua for Jabir.", tf: true, why: "He said: may Allah bless you." }
+      ]
+    },
+    {
+      slug: "trench-feast",
+      title: "The feast at the Trench",
+      line: "Jabir's small meal fed the whole army at the Trench.",
+      facts: ["Jabir saw the Prophet ﷺ very hungry while digging.", "He had one goat and some barley at home.", "About a thousand ate, and the pot was still full."],
+      source: hadith("bukhari", "4102", "Jabir ibn Abdullah", "Sahih", "At the Trench I saw the Prophet ﷺ very hungry, so we cooked a small goat and some barley. He called: O people of the Trench, Jabir has made food. About a thousand ate and the pot was still full.", "Jabir has prepared a meal so let us go"),
+      difficulty: 3,
+      questions: [
+        { q: "Why did Jabir prepare food?", a: "He saw the Prophet ﷺ hungry", wrong: ["It was Eid", "A guest from Rome came", "He sold his camel"], why: "I saw the Prophet ﷺ in severe hunger." },
+        { q: "About how many people ate from it?", a: "About a thousand", wrong: ["Two", "Ten", "Fifty"], why: "They were a thousand, and all of them ate." },
+        { q: "The food ran out before everyone ate.", tf: false, why: "The pot was still bubbling as if nothing was taken." }
+      ]
+    },
+    {
+      slug: "the-camel",
+      title: "Jabir's tired camel",
+      line: "The Prophet ﷺ bought Jabir's camel, then gave it back.",
+      facts: ["Jabir's camel was slow and tired.", "After the Prophet's ﷺ dua it ran faster than ever.", "He paid its price, then gave the camel back as a gift."],
+      source: hadith("bukhari", "2718", "Jabir ibn Abdullah", "Sahih", "My camel was tired; the Prophet ﷺ struck it and prayed for it and it became fast. He bought it from me, paid me in Madinah, then said: take your camel as a gift.", "Take your camel as a gift for you"),
+      difficulty: 3,
+      questions: [
+        { q: "What happened to the camel after the dua?", a: "It became very fast", wrong: ["It ran away", "It fell asleep", "It got lost"], why: "It became fast as never before." },
+        { q: "What did the Prophet ﷺ do after paying?", a: "Gave the camel back as a gift", wrong: ["Sold it again", "Kept it", "Asked for more"], why: "Take your camel as a gift for you." },
+        { q: "The Prophet ﷺ paid for the camel.", tf: true, why: "He gave Jabir its price." }
+      ]
+    },
+    {
+      slug: "the-visit",
+      title: "A visit when he was sick",
+      line: "The Prophet ﷺ visited Jabir when he was very sick.",
+      facts: ["Jabir was so sick he had fainted.", "The Prophet ﷺ made wudu and sprinkled the water on him.", "Jabir asked about inheritance, and the verses of shares came."],
+      source: hadith("bukhari", "194", "Jabir ibn Abdullah", "Sahih", "The Prophet ﷺ visited me when I was sick and unconscious. He made wudu and sprinkled the water on me and I woke up. I asked about my inheritance, and the verses of inheritance were revealed.", "He performed ablution and sprinkled the remaining water on me"),
+      difficulty: 4,
+      questions: [
+        { q: "What did the Prophet ﷺ sprinkle on Jabir?", a: "His wudu water", wrong: ["Perfume", "Milk", "Sand"], why: "He made wudu and sprinkled the water on him." },
+        { q: "What did Jabir ask about?", a: "His inheritance", wrong: ["The weather", "A battle", "A camel race"], why: "To whom will my inheritance go?" },
+        { q: "Visiting the sick is part of the sunnah.", tf: true, why: "The Prophet ﷺ himself visited Jabir." }
+      ]
+    }
+  ]
+};
+
+const ABU_TALHAH: DeepUnit = {
+  key: "abu-talhah",
+  topicId: "sahabah",
+  branchId: "sahabi-abu-talhah",
+  branch: { title: "Abu Talhah al-Ansari", description: "The brave archer of Uhud who gave his best garden for Allah." },
+  name: "Abu Talhah",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "anas-serves",
+      title: "A servant for the Prophet ﷺ",
+      line: "Abu Talhah brought young Anas to serve the Prophet ﷺ.",
+      facts: ["The Prophet ﷺ had no servant when he came to Madinah.", "Abu Talhah was Anas's stepfather.", "Anas served him at home and on journeys."],
+      source: hadith("bukhari", "2768", "Anas", "Sahih", "When the Prophet ﷺ came to Madinah he had no servant. Abu Talhah took me to him and said: Anas is a wise boy, let him serve you. So I served him at home and on journeys.", "Anas is a wise boy, so let him serve you"),
+      difficulty: 2,
+      questions: [
+        { q: "Who brought Anas to serve the Prophet ﷺ?", a: "Abu Talhah", wrong: ["Abu Jahl", "Abu Musa", "Abu Sufyan"], why: "Abu Talhah took Anas to him." },
+        { q: "How was Abu Talhah related to Anas?", a: "His stepfather", wrong: ["His teacher", "His grandson", "His neighbor only"], why: "Abu Talhah was Anas's stepfather." },
+        { q: "Anas served the Prophet ﷺ only at home.", tf: false, why: "He served him at home and on journeys." }
+      ]
+    },
+    {
+      slug: "shield-at-uhud",
+      title: "A shield at Uhud",
+      line: "At Uhud, Abu Talhah stood as a shield for the Prophet ﷺ.",
+      facts: ["Many people ran, but Abu Talhah stayed in front.", "He was a strong archer and broke two or three bows.", "He said: let my neck be hit instead of yours."],
+      source: hadith("bukhari", "3811", "Anas ibn Malik", "Sahih", "At Uhud, when people ran, Abu Talhah shielded the Prophet ﷺ. He was a strong archer and broke two or three bows, and said: do not raise your head, let my neck and chest be hit instead of yours.", "Let my neck and chest be wounded instead of yours"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Abu Talhah do at Uhud?", a: "Shielded the Prophet ﷺ", wrong: ["Ran away", "Stayed home", "Joined Quraysh"], why: "He was shielding the Prophet ﷺ with his shield." },
+        { q: "What was Abu Talhah known for in battle?", a: "Archery", wrong: ["Cooking", "Poetry", "Trading"], why: "He was a strong, experienced archer." },
+        { q: "What did he ask the Prophet ﷺ not to do?", a: "Raise his head", wrong: ["Speak", "Eat", "Pray"], why: "Do not raise your head, lest an arrow hit you." }
+      ]
+    },
+    {
+      slug: "bayruha",
+      title: "The garden of Bayruha",
+      line: "Abu Talhah gave his most loved garden for Allah.",
+      facts: ["Bayruha was his favorite garden, facing the masjid.", "When 3:92 came, he gave it in charity.", "The Prophet ﷺ told him to give it to his relatives."],
+      quote: quranQuote(3, 92),
+      source: hadith("bukhari", "1461", "Anas ibn Malik", "Sahih", "Abu Talhah's most loved property was Bayruha garden, facing the masjid. When 'you will not attain righteousness until you spend from what you love' came down, he gave it for Allah, and the Prophet ﷺ told him to give it to his relatives.", "So I want to give it in charity in Allah"),
+      difficulty: 3,
+      questions: [
+        { q: "Which ayah made Abu Talhah give his garden?", a: "Spend from what you love", wrong: ["The ayah of the veil", "The ayah of fasting", "The ayah of Hajj"], why: "Righteousness comes by spending from what you love, Quran 3:92." },
+        { q: "Whom did the Prophet ﷺ tell him to give it to?", a: "His relatives", wrong: ["The army", "Rome", "Nobody"], why: "He gave it to his relatives and cousins." },
+        { q: "Bayruha was the garden Abu Talhah loved least.", tf: false, why: "It was the most loved of all his property." }
+      ]
+    },
+    {
+      slug: "the-guest",
+      title: "The guest and the lamp",
+      line: "Abu Talhah fed a guest and his family slept hungry.",
+      facts: ["A hungry man came, and the Prophet's ﷺ homes had only water.", "Abu Talhah put out the lamp so the guest ate alone.", "Allah was pleased with what they did."],
+      source: hadith("muslim", "2054c", "Abu Hurairah", "Sahih", "A hungry man came and the Prophet's ﷺ homes had only water. Abu Talhah took him home, put out the lamp and let the guest eat while his family went without. Allah was pleased, and the verse about preferring others came down.", "A person from the Ansar who was called Abu Talha stood up"),
+      difficulty: 3,
+      questions: [
+        { q: "Why did they put out the lamp?", a: "So the guest would eat alone", wrong: ["To sleep early", "To save oil", "To hide from enemies"], why: "So he thought they were eating too." },
+        { q: "What did the Prophet's ﷺ homes have that night?", a: "Only water", wrong: ["Meat", "Bread", "Honey"], why: "There is nothing with me but water." },
+        { q: "Allah was pleased with Abu Talhah and his wife.", tf: true, why: "Allah was well pleased with what you both did." }
+      ]
+    },
+    {
+      slug: "the-horse",
+      title: "The fast horse",
+      line: "The Prophet ﷺ rode Abu Talhah's horse in a scare.",
+      facts: ["Madinah was frightened one night.", "The Prophet ﷺ borrowed Abu Talhah's horse, Al-Mandub.", "He found nothing to fear and said the horse was fast."],
+      source: hadith("bukhari", "2627", "Anas", "Sahih", "Madinah was frightened, so the Prophet ﷺ borrowed Abu Talhah's horse Al-Mandub and rode it. He came back and said: we saw nothing, and we found the horse fast like the sea.", "the horse was very fast"),
+      difficulty: 2,
+      questions: [
+        { q: "Whose horse did the Prophet ﷺ borrow?", a: "Abu Talhah's", wrong: ["Abu Jahl's", "Caesar's", "A stranger's"], why: "He borrowed a horse from Abu Talhah." },
+        { q: "What did the Prophet ﷺ find when he rode out?", a: "Nothing to fear", wrong: ["A big army", "A lion", "A fire"], why: "We have not seen anything to be afraid of." },
+        { q: "What was the horse's name?", a: "Al-Mandub", wrong: ["Al-Buraq", "Al-Qaswa", "Duldul"], why: "A horse from Abu Talha called Al-Mandub." }
+      ]
+    },
+    {
+      slug: "patient-night",
+      title: "A patient night",
+      line: "Abu Talhah's son died, and his wife broke it gently.",
+      facts: ["His son died while he was away.", "His wife Umm Sulaym told him only in the morning.", "The Prophet ﷺ prayed for blessing on their night."],
+      source: hadith("bukhari", "1301", "Anas ibn Malik", "Sahih", "A son of Abu Talhah died while he was away. His wife prepared him and told Abu Talhah only in the morning. The Prophet ﷺ said: may Allah bless you in your night. They later had nine sons who all knew the Quran.", "May Allah bless you concerning your night"),
+      difficulty: 4,
+      questions: [
+        { q: "Who was Abu Talhah's wife?", a: "Umm Sulaym", wrong: ["Umm Salamah", "Hafsah", "Asma"], why: "Umm Sulaym was Abu Talhah's wife and Anas's mother." },
+        { q: "What did the Prophet ﷺ pray for them?", a: "Blessing in their night", wrong: ["Wealth", "A long journey", "A big house"], why: "May Allah bless you concerning your night." },
+        { q: "Their later sons all became reciters of the Quran.", tf: true, why: "They had nine sons, all reciters of the Quran." }
+      ]
+    }
+  ]
+};
+
+const HUDHAYFAH: DeepUnit = {
+  key: "hudhayfah",
+  topicId: "sahabah",
+  branchId: "sahabi-hudhayfah-ibn-al-yaman",
+  branch: { title: "Hudhayfah ibn al-Yaman", description: "The companion who asked about the trials to come, and kept his word." },
+  name: "Hudhayfah ibn al-Yaman",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "kept-his-word",
+      title: "Keeping a promise",
+      line: "Hudhayfah missed Badr because of a promise.",
+      facts: ["Quraysh caught Hudhayfah and his father on the road.", "They let them go after a promise not to fight.", "The Prophet ﷺ said: we will keep our word to them."],
+      source: hadith("muslim", "1787", "Hudhayfah ibn al-Yaman", "Sahih", "Quraysh caught me and my father and took a promise that we would not fight with the Prophet ﷺ. He said: go back to Madinah; we will keep our promise to them and ask Allah for help against them.", "we will fulfil the covenant made with them"),
+      difficulty: 3,
+      questions: [
+        { q: "Why did Hudhayfah miss Badr?", a: "He had made a promise", wrong: ["He was sick", "He was asleep", "He was in Yemen"], why: "Quraysh took a promise that they would not fight." },
+        { q: "What did the Prophet ﷺ tell them to do?", a: "Keep the promise", wrong: ["Break the promise", "Hide", "Fight anyway"], why: "We will fulfil the covenant made with them." },
+        { q: "Muslims keep their promises, even to enemies.", tf: true, why: "The Prophet ﷺ kept the promise made to Quraysh." }
+      ]
+    },
+    {
+      slug: "his-father",
+      title: "Forgiving at Uhud",
+      line: "Hudhayfah forgave those who killed his father by mistake.",
+      facts: ["In the confusion at Uhud, Muslims fought each other.", "Hudhayfah's father was killed by mistake.", "Hudhayfah said: may Allah forgive you."],
+      source: hadith("bukhari", "4065", "Aishah", "Sahih", "At Uhud, in the confusion, Muslims struck Hudhayfah's father al-Yaman by mistake. Hudhayfah said: may Allah forgive you, and he kept asking forgiveness for them until he died.", "May Allah forgive you"),
+      difficulty: 4,
+      questions: [
+        { q: "What did Hudhayfah say about his father's killers?", a: "May Allah forgive you", wrong: ["I will take revenge", "Leave Madinah", "Nothing at all"], why: "Hudhayfah said: may Allah forgive you." },
+        { q: "Was Hudhayfah's father killed on purpose?", a: "No, by mistake", wrong: ["Yes, by Quraysh", "Yes, by Rome", "He was not killed"], why: "In the confusion, they did not know him." },
+        { q: "Hudhayfah kept praying for them his whole life.", tf: true, why: "He kept asking forgiveness for them until he died." }
+      ]
+    },
+    {
+      slug: "night-mission",
+      title: "The cold night mission",
+      line: "On a freezing night, Hudhayfah went to spy on the enemy.",
+      facts: ["It was the night of the Confederates, cold and windy.", "No one answered, so the Prophet ﷺ called Hudhayfah by name.", "He saw Abu Sufyan but did not shoot, as he was told."],
+      source: hadith("muslim", "1788", "Hudhayfah", "Sahih", "On the night of the Confederates, in wind and cold, the Prophet ﷺ said: get up Hudhayfah and bring me news of the enemy, and do not provoke them. I saw Abu Sufyan and could have shot him, but I remembered his words.", "Get up Hudhaifa, bring me the news of the enemy"),
+      difficulty: 4,
+      questions: [
+        { q: "What was Hudhayfah sent to do?", a: "Bring news of the enemy", wrong: ["Cook food", "Carry water", "Build a wall"], why: "Bring me the news of the enemy." },
+        { q: "Why did Hudhayfah not shoot Abu Sufyan?", a: "He was told not to provoke them", wrong: ["He had no arrows", "He fell asleep", "He was afraid"], why: "Do nothing that may provoke them." },
+        { q: "The night was warm and calm.", tf: false, why: "It was a night of violent wind and severe cold." }
+      ]
+    },
+    {
+      slug: "asked-about-evil",
+      title: "Asking about evil",
+      line: "Hudhayfah asked about evil so it would not catch him.",
+      facts: ["People asked the Prophet ﷺ about good things.", "Hudhayfah asked about evil, to stay safe from it.", "He was told to stick with the Muslims and their leader."],
+      source: hadith("bukhari", "3606", "Hudhayfah ibn al-Yaman", "Sahih", "People asked about good, but I asked about evil for fear it would reach me. The Prophet ﷺ told me to stick to the group of Muslims and their leader, and if there are none, to keep away from all the sects.", "but I used to ask him about evil for fear that it might overtake me"),
+      difficulty: 4,
+      questions: [
+        { q: "Why did Hudhayfah ask about evil?", a: "So it would not catch him", wrong: ["To do it", "To scare people", "For fun"], why: "For fear that it might overtake me." },
+        { q: "What did the Prophet ﷺ tell him to stick to?", a: "The Muslims and their leader", wrong: ["The richest man", "His own tribe only", "Living alone always"], why: "Adhere to the group of Muslims and their chief." },
+        { q: "Knowing about dangers helps you stay safe.", tf: true, why: "Hudhayfah asked so that evil would not overtake him." }
+      ]
+    },
+    {
+      slug: "trust-leaves",
+      title: "When trust leaves hearts",
+      line: "Hudhayfah learned how honesty would leave people's hearts.",
+      facts: ["Honesty was placed deep in people's hearts.", "Then they learned it from the Quran and the Sunnah.", "Later, trustworthy people would become rare."],
+      source: hadith("bukhari", "6497", "Hudhayfah", "Sahih", "The Prophet ﷺ told us that honesty came down into the roots of men's hearts, then they learned it from the Quran and the Sunnah. Then it will be taken away, until a trustworthy man is hard to find.", "honesty was preserved in the roots of the hearts of men"),
+      difficulty: 5,
+      questions: [
+        { q: "Where was honesty first placed?", a: "In the roots of hearts", wrong: ["In the markets", "In gold", "In the sky"], why: "Honesty was preserved in the roots of men's hearts." },
+        { q: "Where did people then learn honesty from?", a: "The Quran and the Sunnah", wrong: ["Poets", "Kings", "Traders"], why: "They learnt it from the Quran, then from the Sunnah." },
+        { q: "Trustworthy people will always be easy to find.", tf: false, why: "There will hardly be any trustworthy people among them." }
+      ]
+    },
+    {
+      slug: "the-door",
+      title: "Umar and the door",
+      line: "Hudhayfah told Umar about a closed door before the trials.",
+      facts: ["Umar asked about trials that spread like sea waves.", "Hudhayfah said a closed door stands before them.", "Later he explained: the door was Umar himself."],
+      source: hadith("bukhari", "525", "Hudhayfah", "Sahih", "Umar asked about the trial that would spread like the waves of the sea. Hudhayfah said: there is a closed door between you and it, and it will be broken. Later he said the door was Umar himself.", "there is a closed door between you and it"),
+      difficulty: 5,
+      questions: [
+        { q: "What were the trials compared to?", a: "Waves of the sea", wrong: ["Falling stars", "Desert sand", "Rain clouds"], why: "Trials that spread like the waves of the sea." },
+        { q: "Who was the closed door?", a: "Umar himself", wrong: ["Abu Bakr", "Hudhayfah", "A city gate"], why: "Hudhayfah said the door was Umar." },
+        { q: "Would the door be opened or broken?", a: "Broken", wrong: ["Opened", "Locked forever", "Painted"], why: "It will be broken, and never closed again." }
+      ]
+    }
+  ]
+};
+
+export const COMPANION_UNITS: DeepUnit[] = [JAFAR, ABU_HURAIRAH, KAB, SAD_MUADH, ABDUR_RAHMAN, MUADH, UBAYY, ZAYD_THABIT, ABU_MUSA, JABIR, ABU_TALHAH, HUDHAYFAH];
