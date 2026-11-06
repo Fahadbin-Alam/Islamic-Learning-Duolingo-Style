@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Ahzab ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -331,6 +331,20 @@ const AHZAB_ONE: DeepUnit = {
       ]
     },
     {
+      slug: "good-and-bad-examples",
+      title: "Good and bad examples",
+      line: "Following him ﷺ is the good example; going against him is bad.",
+      facts: ["As-Sa'di explains", "Uswah Hasanah"],
+      quote: q33(21),
+      source: saadi(33, 21, "As-Sa'di says there are two kinds of example: the good one is following the Messenger ﷺ, the road to Allah's honor, and the bad one is following others against him, like the deniers who followed their fathers.", "فالأسوة نوعان: أسوة حسنة، وأسوة سيئة"),
+      difficulty: 2,
+      questions: [
+        { q: "What are the two kinds of example, per as-Sa'di on 33:21?", a: "Good and bad", wrong: ["Old and new", "Near and far", "Big and small"], why: "An example can be good or bad, says as-Sa'di." },
+        { q: "Who follows the good example, per as-Sa'di?", a: "Those who hope for Allah and the Last Day", wrong: ["Only the rich", "Only the strong", "Only scholars"], why: "Faith and hope in Allah push a person to follow him ﷺ." },
+        { tf: true, q: "The Prophet ﷺ himself was present at the hardest moments of battle.", why: "As-Sa'di on 33:21." }
+      ]
+    },
+    {
       slug: "what-allah-promised-us",
       title: "What Allah promised us",
       line: "Believers saw the armies and said: Allah spoke the truth.",
@@ -626,6 +640,20 @@ const AHZAB_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "the-least-of-much-dhikr",
+      title: "The least of much dhikr",
+      line: "At least keep the morning, evening and after-prayer adhkar.",
+      facts: ["As-Sa'di explains", "Adhkar"],
+      quote: q33(41),
+      source: saadi(33, 41, "As-Sa'di says much remembrance includes tahlil, tahmid, tasbih and takbir; the least of it is keeping the morning and evening adhkar and those after the five prayers, and it is worship done even while resting.", "وأقل ذلك، أن يلازم الإنسان، أوراد الصباح، والمساء، وأدبار الصلوات الخمس"),
+      difficulty: 2,
+      questions: [
+        { q: "What is the least of much dhikr, per as-Sa'di?", a: "Morning, evening and after-prayer adhkar", wrong: ["Once a year", "Only on Fridays", "Only in Ramadan"], why: "The least is keeping the morning, evening and after-prayer adhkar." },
+        { q: "What does dhikr protect the tongue from, per as-Sa'di on 33:41?", a: "Ugly speech", wrong: ["Eating", "Smiling", "Greeting"], why: "Dhikr helps hold the tongue back from ugly speech." },
+        { tf: true, q: "Dhikr is worship a person can do even while resting.", why: "As-Sa'di on 33:41." }
+      ]
+    },
+    {
       slug: "morning-and-evening",
       title: "Morning and evening",
       line: "Glorify Allah in the morning and in the evening.",
@@ -851,6 +879,20 @@ const AHZAB_THREE: DeepUnit = {
       ]
     },
     {
+      slug: "the-best-salah-on-him",
+      title: "The best Salah on him",
+      line: "The best Salah on him ﷺ is the one he taught us.",
+      facts: ["As-Sa'di explains", "As-Salat al-Ibrahimiyyah"],
+      quote: q33(56),
+      source: saadi(33, 56, "As-Sa'di says Allah praises the Prophet ﷺ among the angels, and the best way to send Salah on him is what he taught his Companions: O Allah, send Salah on Muhammad and the family of Muhammad, as You did on the family of Ibrahim.", "وأفضل هيئات الصلاة عليه عليه الصلاة والسلام، ما علم به أصحابه"),
+      difficulty: 2,
+      questions: [
+        { q: "What is the best way to send Salah on the Prophet ﷺ, per as-Sa'di?", a: "The words he taught his Companions", wrong: ["Any new words", "Only in Ramadan", "Only silently"], why: "The best form is what he ﷺ taught his Companions." },
+        { q: "What does Allah's Salah on the Prophet ﷺ mean, per as-Sa'di?", a: "Praising him among the angels", wrong: ["Praying to him", "Forgetting him", "Testing him"], why: "Allah praises him among the angels on high." },
+        { tf: true, q: "Sending Salah on the Prophet ﷺ adds good deeds and wipes out bad ones.", why: "As-Sa'di on 33:56." }
+      ]
+    },
+    {
       slug: "do-not-hurt-the-messenger",
       title: "Do not hurt the Messenger ﷺ",
       line: "Those who hurt Allah and His Messenger ﷺ lose His mercy.",
@@ -1047,6 +1089,20 @@ const AHZAB_THREE: DeepUnit = {
       ]
     },
     {
+      slug: "gentle-words-are-straight",
+      title: "Gentle words are straight",
+      line: "Gentle words and good advice are part of the straight word.",
+      facts: ["As-Sa'di explains", "Qawl Sadid"],
+      quote: q33(70),
+      source: saadi(33, 70, "As-Sa'di says the straight word is speech that hits the truth or comes close, like reciting, dhikr, and teaching, and it includes speaking to people gently and kindly, with sincere advice.", "ومن القول السديد، لين الكلام ولطفه، في مخاطبة الأنام"),
+      difficulty: 2,
+      questions: [
+        { q: "What is part of the straight word, per as-Sa'di on 33:70?", a: "Speaking gently to people", wrong: ["Shouting", "Mocking", "Staying silent always"], why: "Gentle, kind speech is part of the straight word, says as-Sa'di." },
+        { q: "What does the straight word include, per as-Sa'di?", a: "Dhikr and teaching good", wrong: ["Gossip", "Jokes that hurt", "Lies"], why: "Reciting, dhikr, enjoining good and teaching knowledge." },
+        { tf: true, q: "Trying hard to reach the right answer is part of the straight word.", why: "As-Sa'di on 33:70." }
+      ]
+    },
+    {
       slug: "a-great-victory",
       title: "A great victory",
       line: "Allah fixes your deeds and forgives you; obeying Him is victory.",
@@ -1073,6 +1129,20 @@ const AHZAB_THREE: DeepUnit = {
         { q: "What is the Amanah, per Ibn Abbas?", a: "The obligatory duties", wrong: ["Gold", "A house", "A book"], why: "Al-Amanah means Al-Fara'id (the obligatory duties)." },
         { q: "Why did they refuse, per Ibn Kathir?", a: "Respect for the religion", wrong: ["They were lazy", "They were proud", "They were asleep"], why: "Not because their intention was sinful, but because of their respect for the religion of Allah." },
         { tf: true, q: "Ibn Kathir says the views on the Trust agree.", why: "There is no contradiction between all of these views." }
+      ]
+    },
+    {
+      slug: "the-trust-in-secret",
+      title: "The Trust in secret",
+      line: "The Trust is obeying Allah in private just as in public.",
+      facts: ["As-Sa'di explains", "Al-Amanah"],
+      quote: q33(72),
+      source: saadi(33, 72, "As-Sa'di says the Trust is obeying Allah's commands and avoiding what He forbade, in secret just as in public; the heavens, earth and mountains declined it out of fear, not disobedience.", "التي هي امتثال الأوامر، واجتناب المحارم، في حال السر والخفية، كحال العلانية"),
+      difficulty: 3,
+      questions: [
+        { q: "What is the Trust, per as-Sa'di on 33:72?", a: "Obeying Allah in secret as in public", wrong: ["Keeping money safe", "Only keeping secrets", "Building homes"], why: "Obeying His commands and avoiding the forbidden, in secret as in public." },
+        { q: "Why did the heavens and mountains decline the Trust, per as-Sa'di?", a: "Fear of failing it", wrong: ["Disobedience", "Pride", "Boredom"], why: "Out of fear of not fulfilling it, not out of disobedience." },
+        { tf: true, q: "Hypocrites carry the Trust only on the outside.", why: "As-Sa'di on 33:72." }
       ]
     },
     {
