@@ -17,7 +17,7 @@ class Settings(BaseSettings):
     environment: str = "development"
     database_url: str = Field(default=f"sqlite:///{DEFAULT_SQLITE_PATH.as_posix()}")
     session_ttl_hours: int = 24 * 30
-    cors_origins_raw: str = "http://localhost:8082,http://localhost:19006,http://localhost:3000"
+    cors_origins_raw: str = "https://fahadbin-alam.github.io,http://localhost:8082,http://localhost:19006,http://localhost:3000"
     # Sign in with Google: the OAuth client ids an id token may be issued for (comma separated). The
     # app asks for tokens with its web client id, so that one is enough. Empty turns Google off.
     google_client_ids_raw: str = ""
@@ -25,6 +25,8 @@ class Settings(BaseSettings):
     apple_client_ids_raw: str = "com.islamiclearning.muslimo"
     # Shared secret RevenueCat sends in the Authorization header of every webhook call.
     revenuecat_webhook_auth: str = ""
+    # Owner's password for the stats page (GET /api/admin/stats, header X-Admin-Key). Empty turns the route off.
+    admin_key: str = ""
 
     model_config = SettingsConfigDict(
         env_file=".env",

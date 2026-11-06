@@ -3,6 +3,7 @@ from __future__ import annotations
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from backend.app.api.routes.admin import router as admin_router
 from backend.app.api.routes.analytics import router as analytics_router
 from backend.app.api.routes.auth import router as auth_router
 from backend.app.api.routes.battles import router as battles_router
@@ -48,3 +49,4 @@ app.include_router(catalog_router, prefix="/api")
 app.include_router(learning_router, prefix="/api")
 app.include_router(subscriptions_router, prefix="/api")
 app.include_router(analytics_router, prefix="/api")
+app.include_router(admin_router, prefix="/api")
