@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Balad ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -148,6 +148,20 @@ const BALAD_ONE: DeepUnit = {
       ]
     },
     {
+      slug: "spent-on-sin-is-lost",
+      title: "Spent on sin is lost",
+      line: "Spending on sins is lost; spending for Allah is a trade.",
+      facts: ["As-Sa'di explains", "Trade with Allah"],
+      quote: q90(6),
+      source: saadi(90, 6, "As-Sa'di says Allah calls spending on sins destroying wealth, because it brings only regret, while spending for Allah is a trade that earns many times more.", "فإن هذا قد تاجر مع الله، وربح أضعاف أضعاف ما أنفق"),
+      difficulty: 2,
+      questions: [
+        { q: "Why is money spent on sins called destroyed?", a: "It brings only regret", wrong: ["It grows", "It is saved", "It earns reward"], why: "Only regret, loss and tiredness come back, says as-Sa'di." },
+        { q: "Spending for Allah is like...?", a: "A winning trade", wrong: ["A loss", "A game", "A debt"], why: "He traded with Allah and gained many times more." },
+        { tf: true, q: "Charity for Allah is never wasted.", why: "As-Sa'di on 90:6." }
+      ]
+    },
+    {
       slug: "allah-sees-him",
       title: "Allah sees him",
       line: "Man forgets that Allah sees all he does and all he spends.",
@@ -201,6 +215,20 @@ const BALAD_ONE: DeepUnit = {
         { q: "What did Allah show man, per 90:10?", a: "The two ways", wrong: ["Ten roads", "One door", "The stars"], why: "And shown him the two ways?" },
         { q: "What are the two ways, per Ibn Mas'ud?", a: "The good and the evil", wrong: ["East and west", "Land and sea", "Day and night"], why: "The good and the evil." },
         { tf: false, q: "Man has no way to tell good from evil.", why: "And shown him the two ways?" }
+      ]
+    },
+    {
+      slug: "blessings-not-for-sins",
+      title: "Blessings not for sins",
+      line: "Eyes, tongue and guidance must never be used to disobey Allah.",
+      facts: ["As-Sa'di explains", "Thank Him with them"],
+      quote: q90(10),
+      source: saadi(90, 10, "As-Sa'di says eyes, tongue, lips and guidance are great gifts, so we must thank Allah and never use His gifts to disobey Him.", "وأن لا يستعين بها على معاصيه"),
+      difficulty: 2,
+      questions: [
+        { q: "How should we use Allah's gifts?", a: "To obey Him", wrong: ["To disobey Him", "To show off", "Any way at all"], why: "Never use them to help in sins, says as-Sa'di." },
+        { q: "Which gift is named in Al-Balad?", a: "Two eyes", wrong: ["Two wings", "A tail", "Gills"], why: "Eyes, a tongue and two lips." },
+        { tf: true, q: "Guidance to the good path is a gift for our faith.", why: "As-Sa'di on 90:10." }
       ]
     }
   ]

@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Ghashiyah ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -271,6 +271,20 @@ const GHASHIYAH_THREE: DeepUnit = {
       ]
     },
     {
+      slug: "spread-and-still-round",
+      title: "Spread out, still round",
+      line: "The earth is spread out for us, yet it is still round.",
+      facts: ["As-Sa'di explains", "Huge things look flat"],
+      quote: q88(20),
+      source: saadi(88, 20, "As-Sa'di says the earth was spread out so we can live, farm and travel on it, and this does not go against it being round, because it is so huge.", "واعلم أن تسطيحها لا ينافي أنها كرة مستديرة"),
+      difficulty: 2,
+      questions: [
+        { q: "Does a spread-out earth clash with a round one?", a: "No, it is huge", wrong: ["Yes, always", "The Quran says flat", "No one knows"], why: "Spreading does not go against roundness for something so big, says as-Sa'di." },
+        { q: "Why was the earth spread out?", a: "To live and farm on", wrong: ["To scare us", "For no reason", "Only for birds"], why: "To settle, farm, build and travel." },
+        { tf: true, q: "As-Sa'di says the earth is round.", why: "As-Sa'di on 88:20." }
+      ]
+    },
+    {
       slug: "the-questions-of-dimam",
       title: "The questions of Dimam",
       line: "A desert man asked who made the sky and earth, then believed.",
@@ -310,6 +324,20 @@ const GHASHIYAH_THREE: DeepUnit = {
         { q: "What is he not, per 88:22?", a: "A Musaytir over them", wrong: ["A Messenger", "A reminder", "A guide"], why: "You are not a Musaytir over them." },
         { q: "What did Ibn Abbas say Musaytir means?", a: "A dictator", wrong: ["A teacher", "A friend", "A trader"], why: "Ibn Abbas, Mujahid and others said, You are not a dictator over them." },
         { tf: false, q: "Faith can be forced into a heart.", why: "Ibn Zayd said, You are not the one who can force them to have faith." }
+      ]
+    },
+    {
+      slug: "your-part-is-done",
+      title: "Do your part",
+      line: "Once you have reminded people, the rest is not on you.",
+      facts: ["As-Sa'di explains", "Remind, then rest"],
+      quote: q88(22),
+      source: saadi(88, 22, "As-Sa'di says the Prophet ﷺ was sent to remind, not to rule over people's deeds; once you have done your duty, there is no blame on you after that.", "فإذا قمت بما عليك، فلا عليك بعد ذلك لوم"),
+      difficulty: 1,
+      questions: [
+        { q: "After reminding someone, what is on you?", a: "No blame", wrong: ["Their sins", "Forcing them", "Their reward"], why: "Once you do your duty, there is no blame on you, says as-Sa'di." },
+        { q: "The Prophet ﷺ was sent to...?", a: "Remind people", wrong: ["Force faith", "Rule all hearts", "Punish people"], why: "Not as a controller over their deeds." },
+        { tf: true, q: "We remind; guidance is from Allah.", why: "As-Sa'di on 88:22." }
       ]
     },
     {

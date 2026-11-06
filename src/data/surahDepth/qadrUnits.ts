@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Qadr ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -46,6 +46,20 @@ const QADR_ONE: DeepUnit = {
         { q: "In which night was the Quran sent down, per 97:1?", a: "The Night of Al-Qadr", wrong: ["The night of Eid", "The night of Hijrah", "The night of Badr"], why: "Verily, We have sent it down in the Night of Al-Qadr." },
         { q: "Which other ayah calls it a blessed night?", a: "44:3", wrong: ["2:255", "112:1", "36:1"], why: "We sent it down on a blessed night. 44:3" },
         { tf: true, q: "Laylat al-Qadr is a blessed night.", why: "It is a blessed night about which Allah says." }
+      ]
+    },
+    {
+      slug: "why-al-qadr",
+      title: "Why is it called Al-Qadr?",
+      line: "A night of great worth, when the year's decrees are set.",
+      facts: ["As-Sa'di explains", "Qadr: worth and decree"],
+      quote: q97(1),
+      source: saadi(97, 1, "As-Sa'di says it is called Laylat al-Qadr for its great worth with Allah, and because the year's lifespans, provision and decrees are measured out in it.", "ولأنه يقدر فيها ما يكون في العام"),
+      difficulty: 2,
+      questions: [
+        { q: "Why is it called the Night of Al-Qadr?", a: "Great worth and decree", wrong: ["Its moon is full", "It is the longest", "It is cold"], why: "For its great worth, and the year's decree, says as-Sa'di." },
+        { q: "What is set on that night?", a: "The year's decrees", wrong: ["Prayer times", "Market prices", "Nothing"], why: "Lifespans, provision and decrees of the year." },
+        { tf: true, q: "Allah began sending the Quran down in Ramadan.", why: "As-Sa'di on 97:1." }
       ]
     },
     {
@@ -102,6 +116,20 @@ const QADR_ONE: DeepUnit = {
         { q: "The Night of Al-Qadr is better than what, per 97:3?", a: "A thousand months", wrong: ["A hundred days", "Ten years", "A thousand nights"], why: "The Night of Al-Qadr is better than a thousand months." },
         { q: "About how many years are a thousand months?", a: "Over 83 years", wrong: ["About 10 years", "About 40 years", "About 100 years"], why: "One thousand months is a little over eighty-three years." },
         { tf: true, q: "Worship on this night is worth a thousand months.", why: "Worship during the Night of Al-Qadr is equivalent to worship performed for a period of one thousand months." }
+      ]
+    },
+    {
+      slug: "more-than-a-lifetime",
+      title: "More than a lifetime",
+      line: "A thousand months is over eighty years, a whole long life.",
+      facts: ["As-Sa'di explains", "A gift to this Ummah"],
+      quote: q97(3),
+      source: saadi(97, 3, "As-Sa'di says deeds on that night beat deeds of a thousand months, the long life of a man past eighty, a gift to this weak Ummah.", "نيفًا وثمانين سنة"),
+      difficulty: 1,
+      questions: [
+        { q: "About how long is a thousand months?", a: "Over 80 years", wrong: ["10 years", "1 year", "200 years"], why: "A long life of eighty years and more, says as-Sa'di." },
+        { q: "To whom is the night a gift, per as-Sa'di?", a: "This Ummah", wrong: ["Only angels", "Only kings", "No one"], why: "Allah favored this Ummah with it." },
+        { tf: true, q: "One night of worship can beat a lifetime of deeds.", why: "As-Sa'di on 97:3." }
       ]
     },
     {
