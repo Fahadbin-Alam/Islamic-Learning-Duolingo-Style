@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Kahf ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -854,6 +854,48 @@ const KAHF_THREE: DeepUnit = {
         { q: "What was under the wall, in 18:82?", a: "A treasure for two orphans", wrong: ["A spring", "A cave", "A map"], why: "There was under it a treasure belonging to them." },
         { q: "Why was it protected, in 18:82?", a: "Their father was righteous", wrong: ["They were rich", "The king asked", "The town was kind"], why: "And their father was a righteous man." },
         { q: "Did Al-Khidr act on his own, per Ibn Kathir?", a: "No, he was commanded", wrong: ["Yes, by himself", "Yes, for wages", "Yes, for fame"], why: "I was only commanded to do these things that were enjoined upon me." }
+      ]
+    },
+    {
+      slug: "patience-needs-knowing",
+      title: "Patience needs knowing",
+      line: "Knowing the purpose of something makes patience with it easier.",
+      facts: ["As-Sa'di explains", "Lessons of Musa and Al-Khidr"],
+      quote: q18(82),
+      source: saadi(18, 82, "Among the many lessons as-Sa'di draws from the story, he says the main cause of patience is knowing the matter well: one who does not know its purpose and fruit has no reason to be patient, as Al-Khidr said, how can you be patient with what you do not know?", "أن السبب الكبير لحصول الصبر إحاطة الإنسان علما وخبرة بذلك الأمر"),
+      difficulty: 2,
+      questions: [
+        { q: "What helps most to be patient, per as-Sa'di on Al-Kahf 18:82?", a: "Knowing the matter and its purpose", wrong: ["Being angry", "Ignoring it", "Rushing ahead"], why: "The main cause of patience is knowing the matter well." },
+        { q: "What did as-Sa'di say about judging things quickly, from Al-Kahf?", a: "Wait until you understand", wrong: ["Judge at once", "Never ask", "Guess"], why: "Take your time and be sure before judging a thing." },
+        { tf: true, q: "Whoever lacks patience will miss much knowledge.", why: "As-Sa'di on 18:82." }
+      ]
+    },
+    {
+      slug: "learn-from-the-skilled",
+      title: "Learn from the skilled",
+      line: "A great scholar still learns from those skilled in a field.",
+      facts: ["As-Sa'di explains", "Humility in learning"],
+      quote: q18(82),
+      source: saadi(18, 82, "As-Sa'di says Musa, one of the greatest Messengers, still eagerly learned a special knowledge from Al-Khidr; so a scholar weak in a field, like Arabic grammar, should learn it from someone skilled in it, even if that teacher is below him in other knowledge.", "تعلم العالم الفاضل للعلم الذي لم يتمهر فيه، ممن مهر فيه"),
+      difficulty: 2,
+      questions: [
+        { q: "What does Musa learning from Al-Khidr teach, per as-Sa'di?", a: "Learn from those skilled in a field", wrong: ["Learn only from kings", "Never ask anyone", "Learn alone"], why: "A scholar should learn what he lacks from one skilled in it." },
+        { q: "How should a student speak to a teacher, per as-Sa'di on Al-Kahf?", a: "Gently and humbly", wrong: ["Proudly", "Harshly", "As an equal"], why: "Showing need for a teacher's knowledge benefits a student most." },
+        { tf: true, q: "A student should thank Allah for knowledge, since it is from Him.", why: "As-Sa'di on 18:82." }
+      ]
+    },
+    {
+      slug: "what-useful-knowledge-is",
+      title: "What useful knowledge is",
+      line: "Useful knowledge guides you to good and warns you of evil.",
+      facts: ["As-Sa'di explains", "Beneficial knowledge"],
+      quote: q18(82),
+      source: saadi(18, 82, "As-Sa'di says useful knowledge is knowledge that guides to good: any knowledge with guidance to the ways of good and warning against evil, or a means to that, is useful, and anything else is either harmful or of no benefit, as Musa asked to be taught right guidance.", "أن العلم النافع هو العلم المرشد إلى الخير"),
+      difficulty: 2,
+      questions: [
+        { q: "What is useful knowledge, per as-Sa'di on Al-Kahf?", a: "Knowledge that guides to good", wrong: ["Any knowledge at all", "Only maths", "Gossip about people"], why: "Useful knowledge guides to good and warns of evil." },
+        { q: "What did Musa ask Al-Khidr to teach him?", a: "Right guidance", wrong: ["Magic", "Wealth", "Poetry"], why: "He asked to be taught some of the right guidance he was given." },
+        { tf: true, q: "Knowledge that is a means to good is also useful knowledge.", why: "As-Sa'di on 18:82." }
       ]
     }
   ]
