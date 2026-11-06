@@ -7513,6 +7513,10 @@
   },
   {
     "kind": "course",
+    "text": "Face to face in Paradise"
+  },
+  {
+    "kind": "course",
     "text": "No tiredness there"
   },
   {
@@ -7598,6 +7602,10 @@
   {
     "kind": "course",
     "text": "Do not look with envy"
+  },
+  {
+    "kind": "course",
+    "text": "The believers are better"
   },
   {
     "kind": "course",
@@ -7793,6 +7801,10 @@
   },
   {
     "kind": "course",
+    "text": "Ask the people of knowledge"
+  },
+  {
+    "kind": "course",
     "text": "To explain the Quran"
   },
   {
@@ -7981,6 +7993,10 @@
   },
   {
     "kind": "course",
+    "text": "What a good life feels like"
+  },
+  {
+    "kind": "course",
     "text": "Content with Allah's gift"
   },
   {
@@ -8090,6 +8106,10 @@
   {
     "kind": "course",
     "text": "Invite with wisdom"
+  },
+  {
+    "kind": "course",
+    "text": "Three steps of da'wah"
   },
   {
     "kind": "course",
@@ -143169,10 +143189,6 @@
   },
   {
     "kind": "question",
-    "text": "Ask the people of knowledge"
-  },
-  {
-    "kind": "question",
     "text": "Guess"
   },
   {
@@ -244453,6 +244469,62 @@
   },
   {
     "kind": "lesson",
+    "text": "In Paradise, friends face each other, never turning their backs."
+  },
+  {
+    "kind": "lesson",
+    "text": "Brotherhood in Paradise"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 15:47"
+  },
+  {
+    "kind": "question",
+    "text": "What does facing each other on thrones show, per as-Sa'di on 15:47?"
+  },
+  {
+    "kind": "question",
+    "text": "Their fine manners and visits"
+  },
+  {
+    "kind": "question",
+    "text": "They are tired"
+  },
+  {
+    "kind": "question",
+    "text": "It shows they visit, gather and treat each other with fine manners."
+  },
+  {
+    "kind": "question",
+    "text": "What is removed from their hearts in Paradise, per as-Sa'di?"
+  },
+  {
+    "kind": "question",
+    "text": "Bitterness and envy"
+  },
+  {
+    "kind": "question",
+    "text": "Their memories"
+  },
+  {
+    "kind": "question",
+    "text": "Their joy"
+  },
+  {
+    "kind": "question",
+    "text": "Their hearts become clean of all envy, pure and loving."
+  },
+  {
+    "kind": "question",
+    "text": "In Paradise, believers sit facing one another, not turning away."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 15:47."
+  },
+  {
+    "kind": "lesson",
     "text": "In Paradise no tiredness touches them and none is sent out."
   },
   {
@@ -245890,6 +245962,50 @@
   {
     "kind": "question",
     "text": "He forbade a man to wish for what his companion has."
+  },
+  {
+    "kind": "lesson",
+    "text": "The believers are a better company than the proud deniers."
+  },
+  {
+    "kind": "lesson",
+    "text": "Lower your wing"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 15:88"
+  },
+  {
+    "kind": "question",
+    "text": "Who is the best replacement for the deniers, per as-Sa'di on 15:88?"
+  },
+  {
+    "kind": "question",
+    "text": "What does lowering your wing to believers mean, per as-Sa'di?"
+  },
+  {
+    "kind": "question",
+    "text": "Being strict"
+  },
+  {
+    "kind": "question",
+    "text": "Flying away"
+  },
+  {
+    "kind": "question",
+    "text": "Being gentle and kind to them"
+  },
+  {
+    "kind": "question",
+    "text": "It means softening your side and good manners with love."
+  },
+  {
+    "kind": "question",
+    "text": "With the Quran, a believer need not long for the world's pleasures."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 15:88."
   },
   {
     "kind": "lesson",
@@ -248258,6 +248374,50 @@
   {
     "kind": "question",
     "text": "What is meant by Ahl Adh-Dhikr is the People of the Book."
+  },
+  {
+    "kind": "lesson",
+    "text": "If you do not know, ask those with knowledge of Allah's Book."
+  },
+  {
+    "kind": "lesson",
+    "text": "Asking the scholars"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 16:43"
+  },
+  {
+    "kind": "question",
+    "text": "What should a person who does not know do, per as-Sa'di on 16:43?"
+  },
+  {
+    "kind": "question",
+    "text": "Ask anyone"
+  },
+  {
+    "kind": "question",
+    "text": "Allah ordered those who do not know to ask the people of knowledge."
+  },
+  {
+    "kind": "question",
+    "text": "Who are the best people of dhikr, per as-Sa'di on 16:43?"
+  },
+  {
+    "kind": "question",
+    "text": "The people of the Quran"
+  },
+  {
+    "kind": "question",
+    "text": "The people of the Quran are truly the people of dhikr."
+  },
+  {
+    "kind": "question",
+    "text": "Asking the scholars frees the one who does not know from blame."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 16:43."
   },
   {
     "kind": "lesson",
@@ -251533,6 +251693,50 @@
   },
   {
     "kind": "lesson",
+    "text": "A good life is a calm heart and lawful provision."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hayat tayyibah"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 16:97"
+  },
+  {
+    "kind": "question",
+    "text": "What is the good life in An-Nahl 16:97, per as-Sa'di?"
+  },
+  {
+    "kind": "question",
+    "text": "Endless parties"
+  },
+  {
+    "kind": "question",
+    "text": "A calm heart and lawful provision"
+  },
+  {
+    "kind": "question",
+    "text": "It is a calm heart, a settled soul and lawful provision."
+  },
+  {
+    "kind": "question",
+    "text": "What must come with good deeds for them to count, per as-Sa'di?"
+  },
+  {
+    "kind": "question",
+    "text": "Faith is a condition for good deeds to be accepted."
+  },
+  {
+    "kind": "question",
+    "text": "Allah may give provision from where a person does not expect."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 16:97."
+  },
+  {
+    "kind": "lesson",
     "text": "Successful is the one who is content with what Allah gives."
   },
   {
@@ -253170,6 +253374,66 @@
   {
     "kind": "question",
     "text": "It is not your task to guide them."
+  },
+  {
+    "kind": "lesson",
+    "text": "Call with wisdom, then good advice, then the best way to argue."
+  },
+  {
+    "kind": "lesson",
+    "text": "Da'wah"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 16:125"
+  },
+  {
+    "kind": "question",
+    "text": "What is the aim of a debate in da'wah, per as-Sa'di on 16:125?"
+  },
+  {
+    "kind": "question",
+    "text": "To win"
+  },
+  {
+    "kind": "question",
+    "text": "To embarrass"
+  },
+  {
+    "kind": "question",
+    "text": "To guide people to the truth"
+  },
+  {
+    "kind": "question",
+    "text": "The aim is guiding people to the truth, not beating them."
+  },
+  {
+    "kind": "question",
+    "text": "How does wisdom call people, per as-Sa'di on 16:125?"
+  },
+  {
+    "kind": "question",
+    "text": "By each person's state and understanding"
+  },
+  {
+    "kind": "question",
+    "text": "The same way for all"
+  },
+  {
+    "kind": "question",
+    "text": "Only with threats"
+  },
+  {
+    "kind": "question",
+    "text": "Wisdom calls each person according to his state and understanding."
+  },
+  {
+    "kind": "question",
+    "text": "Good admonition mixes hope with warning."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 16:125."
   },
   {
     "kind": "lesson",
@@ -266694,10 +266958,6 @@
   {
     "kind": "lesson",
     "text": "A caller to Allah needs a wide chest to bear people's harm."
-  },
-  {
-    "kind": "lesson",
-    "text": "Da'wah"
   },
   {
     "kind": "source",
@@ -287749,10 +288009,6 @@
   },
   {
     "kind": "question",
-    "text": "Only with threats"
-  },
-  {
-    "kind": "question",
     "text": "So he called them to Allah with words of encouragement and words of warning."
   },
   {
@@ -290110,10 +290366,6 @@
   {
     "kind": "question",
     "text": "What could save the hoopoe, in 27:21?"
-  },
-  {
-    "kind": "question",
-    "text": "Flying away"
   },
   {
     "kind": "question",
@@ -317433,10 +317685,6 @@
   },
   {
     "kind": "question",
-    "text": "They are tired"
-  },
-  {
-    "kind": "question",
     "text": "The realm of reward and punishment, not the realm of trial and testing."
   },
   {
@@ -320134,10 +320382,6 @@
   {
     "kind": "question",
     "text": "Their flight from truth"
-  },
-  {
-    "kind": "question",
-    "text": "Their joy"
   },
   {
     "kind": "question",
