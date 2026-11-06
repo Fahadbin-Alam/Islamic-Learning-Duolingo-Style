@@ -58,7 +58,7 @@ const NAJM_ONE: DeepUnit = {
       questions: [
         { q: "Why swear by the stars on revelation, per as-Sa'di?", a: "Both bring light and beauty", wrong: ["Stars tell the future", "By chance", "Stars are gods"], why: "Stars adorn the sky and revelation adorns the earth, says as-Sa'di." },
         { q: "Without the prophets' knowledge, people would be...?", a: "In deep darkness", wrong: ["Better off", "Just the same", "Richer"], why: "Darker than the blackest night." },
-        { tf: true, q: "An-Najm here can mean all the stars.", why: "As-Sa'di on 53:1." }
+        { tf: true, q: "In An-Najm 53:1, the star can mean all the stars.", why: "As-Sa'di on 53:1." }
       ]
     },
     {
