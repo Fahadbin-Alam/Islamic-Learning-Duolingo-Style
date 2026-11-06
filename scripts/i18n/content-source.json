@@ -28429,6 +28429,42 @@
   },
   {
     "kind": "course",
+    "text": "Jabir ibn Abdullah"
+  },
+  {
+    "kind": "course",
+    "text": "The young Ansari who lost his father at Uhud and cared for his sisters."
+  },
+  {
+    "kind": "arabic",
+    "text": "The caring brother"
+  },
+  {
+    "kind": "course",
+    "text": "Abu Talhah al-Ansari"
+  },
+  {
+    "kind": "course",
+    "text": "The brave archer of Uhud who gave his best garden for Allah."
+  },
+  {
+    "kind": "arabic",
+    "text": "The archer of Uhud"
+  },
+  {
+    "kind": "course",
+    "text": "Hudhayfah ibn al-Yaman"
+  },
+  {
+    "kind": "course",
+    "text": "The companion who asked about the trials to come, and kept his word."
+  },
+  {
+    "kind": "arabic",
+    "text": "Asked about the trials"
+  },
+  {
+    "kind": "course",
     "text": "The Muhajirun"
   },
   {
@@ -29429,6 +29465,78 @@
   },
   {
     "kind": "course",
+    "text": "His father at Uhud"
+  },
+  {
+    "kind": "course",
+    "text": "Blessing in the dates"
+  },
+  {
+    "kind": "course",
+    "text": "Caring for his sisters"
+  },
+  {
+    "kind": "course",
+    "text": "The feast at the Trench"
+  },
+  {
+    "kind": "course",
+    "text": "Jabir's tired camel"
+  },
+  {
+    "kind": "course",
+    "text": "A visit when he was sick"
+  },
+  {
+    "kind": "course",
+    "text": "A servant for the Prophet ﷺ"
+  },
+  {
+    "kind": "course",
+    "text": "A shield at Uhud"
+  },
+  {
+    "kind": "course",
+    "text": "The garden of Bayruha"
+  },
+  {
+    "kind": "course",
+    "text": "The guest and the lamp"
+  },
+  {
+    "kind": "course",
+    "text": "The fast horse"
+  },
+  {
+    "kind": "course",
+    "text": "A patient night"
+  },
+  {
+    "kind": "course",
+    "text": "Keeping a promise"
+  },
+  {
+    "kind": "course",
+    "text": "Forgiving at Uhud"
+  },
+  {
+    "kind": "course",
+    "text": "The cold night mission"
+  },
+  {
+    "kind": "course",
+    "text": "Asking about evil"
+  },
+  {
+    "kind": "course",
+    "text": "When trust leaves hearts"
+  },
+  {
+    "kind": "course",
+    "text": "Umar and the door"
+  },
+  {
+    "kind": "course",
     "text": "Who were the Muhajirun?"
   },
   {
@@ -29626,10 +29734,6 @@
   {
     "kind": "course",
     "text": "Ikrimah ibn Abi Jahl"
-  },
-  {
-    "kind": "course",
-    "text": "Jabir ibn Abdullah"
   },
   {
     "kind": "course",
@@ -74089,10 +74193,6 @@
   },
   {
     "kind": "question",
-    "text": "Hudhayfah ibn al-Yaman"
-  },
-  {
-    "kind": "question",
     "text": "He saw it among the armies of Sham and Iraq."
   },
   {
@@ -82041,6 +82141,1154 @@
   },
   {
     "kind": "lesson",
+    "text": "Jabir's father was martyred at Uhud."
+  },
+  {
+    "kind": "lesson",
+    "text": "Jabir lifted the cloth from his father's face and wept."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ did not stop him from weeping."
+  },
+  {
+    "kind": "lesson",
+    "text": "The angels kept shading his father with their wings."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1244"
+  },
+  {
+    "kind": "question",
+    "text": "Where was Jabir's father martyred?"
+  },
+  {
+    "kind": "question",
+    "text": "At Tabuk"
+  },
+  {
+    "kind": "question",
+    "text": "His father fell at the battle of Uhud."
+  },
+  {
+    "kind": "question",
+    "text": "What were the angels doing for his father?"
+  },
+  {
+    "kind": "question",
+    "text": "Calling the adhan"
+  },
+  {
+    "kind": "question",
+    "text": "Shading him with their wings"
+  },
+  {
+    "kind": "question",
+    "text": "Carrying swords"
+  },
+  {
+    "kind": "question",
+    "text": "The angels kept shading him with their wings."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ forbade Jabir from crying."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ did not forbid him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Jabir's father left debts, and the dates were blessed."
+  },
+  {
+    "kind": "lesson",
+    "text": "The lenders thought his dates would not cover the debt."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ sat on the dates and made dua."
+  },
+  {
+    "kind": "lesson",
+    "text": "All was paid, and thirteen loads of dates were left over."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 2709"
+  },
+  {
+    "kind": "question",
+    "text": "What did Jabir's father leave behind?"
+  },
+  {
+    "kind": "question",
+    "text": "A big army"
+  },
+  {
+    "kind": "question",
+    "text": "Debts"
+  },
+  {
+    "kind": "question",
+    "text": "My father died and was in debt."
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ do with the dates?"
+  },
+  {
+    "kind": "question",
+    "text": "Sold them"
+  },
+  {
+    "kind": "question",
+    "text": "Threw them away"
+  },
+  {
+    "kind": "question",
+    "text": "Gave them to Rome"
+  },
+  {
+    "kind": "question",
+    "text": "Sat on them and made dua"
+  },
+  {
+    "kind": "question",
+    "text": "He sat on the dates and asked Allah to bless them."
+  },
+  {
+    "kind": "question",
+    "text": "How many loads were left after paying everyone?"
+  },
+  {
+    "kind": "question",
+    "text": "Thirteen"
+  },
+  {
+    "kind": "question",
+    "text": "Thirteen wasqs of dates remained."
+  },
+  {
+    "kind": "lesson",
+    "text": "Jabir married to care for his young sisters."
+  },
+  {
+    "kind": "lesson",
+    "text": "His father left seven or nine daughters."
+  },
+  {
+    "kind": "lesson",
+    "text": "Jabir married a woman who had been married before."
+  },
+  {
+    "kind": "lesson",
+    "text": "She could look after his sisters, and the Prophet ﷺ blessed him."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 5367"
+  },
+  {
+    "kind": "question",
+    "text": "Why did Jabir marry an older woman?"
+  },
+  {
+    "kind": "question",
+    "text": "For her money"
+  },
+  {
+    "kind": "question",
+    "text": "To travel far"
+  },
+  {
+    "kind": "question",
+    "text": "To leave Madinah"
+  },
+  {
+    "kind": "question",
+    "text": "To look after his sisters"
+  },
+  {
+    "kind": "question",
+    "text": "So that she could look after them."
+  },
+  {
+    "kind": "question",
+    "text": "How many sisters did Jabir have?"
+  },
+  {
+    "kind": "question",
+    "text": "Seven or nine"
+  },
+  {
+    "kind": "question",
+    "text": "His father left seven or nine girls."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ made dua for Jabir."
+  },
+  {
+    "kind": "question",
+    "text": "He said: may Allah bless you."
+  },
+  {
+    "kind": "lesson",
+    "text": "Jabir's small meal fed the whole army at the Trench."
+  },
+  {
+    "kind": "lesson",
+    "text": "Jabir saw the Prophet ﷺ very hungry while digging."
+  },
+  {
+    "kind": "lesson",
+    "text": "He had one goat and some barley at home."
+  },
+  {
+    "kind": "lesson",
+    "text": "About a thousand ate, and the pot was still full."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 4102"
+  },
+  {
+    "kind": "question",
+    "text": "Why did Jabir prepare food?"
+  },
+  {
+    "kind": "question",
+    "text": "He sold his camel"
+  },
+  {
+    "kind": "question",
+    "text": "He saw the Prophet ﷺ hungry"
+  },
+  {
+    "kind": "question",
+    "text": "A guest from Rome came"
+  },
+  {
+    "kind": "question",
+    "text": "I saw the Prophet ﷺ in severe hunger."
+  },
+  {
+    "kind": "question",
+    "text": "About how many people ate from it?"
+  },
+  {
+    "kind": "question",
+    "text": "About a thousand"
+  },
+  {
+    "kind": "question",
+    "text": "They were a thousand, and all of them ate."
+  },
+  {
+    "kind": "question",
+    "text": "The food ran out before everyone ate."
+  },
+  {
+    "kind": "question",
+    "text": "The pot was still bubbling as if nothing was taken."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ bought Jabir's camel, then gave it back."
+  },
+  {
+    "kind": "lesson",
+    "text": "Jabir's camel was slow and tired."
+  },
+  {
+    "kind": "lesson",
+    "text": "After the Prophet's ﷺ dua it ran faster than ever."
+  },
+  {
+    "kind": "lesson",
+    "text": "He paid its price, then gave the camel back as a gift."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 2718"
+  },
+  {
+    "kind": "question",
+    "text": "What happened to the camel after the dua?"
+  },
+  {
+    "kind": "question",
+    "text": "It got lost"
+  },
+  {
+    "kind": "question",
+    "text": "It became very fast"
+  },
+  {
+    "kind": "question",
+    "text": "It fell asleep"
+  },
+  {
+    "kind": "question",
+    "text": "It became fast as never before."
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ do after paying?"
+  },
+  {
+    "kind": "question",
+    "text": "Asked for more"
+  },
+  {
+    "kind": "question",
+    "text": "Gave the camel back as a gift"
+  },
+  {
+    "kind": "question",
+    "text": "Sold it again"
+  },
+  {
+    "kind": "question",
+    "text": "Take your camel as a gift for you."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ paid for the camel."
+  },
+  {
+    "kind": "question",
+    "text": "He gave Jabir its price."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ visited Jabir when he was very sick."
+  },
+  {
+    "kind": "lesson",
+    "text": "Jabir was so sick he had fainted."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ made wudu and sprinkled the water on him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Jabir asked about inheritance, and the verses of shares came."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 194"
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ sprinkle on Jabir?"
+  },
+  {
+    "kind": "question",
+    "text": "His wudu water"
+  },
+  {
+    "kind": "question",
+    "text": "Milk"
+  },
+  {
+    "kind": "question",
+    "text": "Sand"
+  },
+  {
+    "kind": "question",
+    "text": "He made wudu and sprinkled the water on him."
+  },
+  {
+    "kind": "question",
+    "text": "What did Jabir ask about?"
+  },
+  {
+    "kind": "question",
+    "text": "A camel race"
+  },
+  {
+    "kind": "question",
+    "text": "His inheritance"
+  },
+  {
+    "kind": "question",
+    "text": "The weather"
+  },
+  {
+    "kind": "question",
+    "text": "Visiting the sick is part of the sunnah."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ himself visited Jabir."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Jabir ibn Abdullah!"
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ had no servant when he came to Madinah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Talhah was Anas's stepfather."
+  },
+  {
+    "kind": "lesson",
+    "text": "Anas served him at home and on journeys."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Talhah took Anas to him."
+  },
+  {
+    "kind": "question",
+    "text": "How was Abu Talhah related to Anas?"
+  },
+  {
+    "kind": "question",
+    "text": "His grandson"
+  },
+  {
+    "kind": "question",
+    "text": "His neighbor only"
+  },
+  {
+    "kind": "question",
+    "text": "His stepfather"
+  },
+  {
+    "kind": "question",
+    "text": "He served him at home and on journeys."
+  },
+  {
+    "kind": "lesson",
+    "text": "At Uhud, Abu Talhah stood as a shield for the Prophet ﷺ."
+  },
+  {
+    "kind": "lesson",
+    "text": "Many people ran, but Abu Talhah stayed in front."
+  },
+  {
+    "kind": "lesson",
+    "text": "He was a strong archer and broke two or three bows."
+  },
+  {
+    "kind": "lesson",
+    "text": "He said: let my neck be hit instead of yours."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3811"
+  },
+  {
+    "kind": "question",
+    "text": "What did Abu Talhah do at Uhud?"
+  },
+  {
+    "kind": "question",
+    "text": "Stayed home"
+  },
+  {
+    "kind": "question",
+    "text": "Joined Quraysh"
+  },
+  {
+    "kind": "question",
+    "text": "Shielded the Prophet ﷺ"
+  },
+  {
+    "kind": "question",
+    "text": "Ran away"
+  },
+  {
+    "kind": "question",
+    "text": "What was Abu Talhah known for in battle?"
+  },
+  {
+    "kind": "question",
+    "text": "Cooking"
+  },
+  {
+    "kind": "question",
+    "text": "Archery"
+  },
+  {
+    "kind": "question",
+    "text": "He was a strong, experienced archer."
+  },
+  {
+    "kind": "question",
+    "text": "What did he ask the Prophet ﷺ not to do?"
+  },
+  {
+    "kind": "question",
+    "text": "Raise his head"
+  },
+  {
+    "kind": "question",
+    "text": "Do not raise your head, lest an arrow hit you."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Talhah gave his most loved garden for Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Bayruha was his favorite garden, facing the masjid."
+  },
+  {
+    "kind": "lesson",
+    "text": "When 3:92 came, he gave it in charity."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ told him to give it to his relatives."
+  },
+  {
+    "kind": "question",
+    "text": "Which ayah made Abu Talhah give his garden?"
+  },
+  {
+    "kind": "question",
+    "text": "Spend from what you love"
+  },
+  {
+    "kind": "question",
+    "text": "The ayah of the veil"
+  },
+  {
+    "kind": "question",
+    "text": "Righteousness comes by spending from what you love, Quran 3:92."
+  },
+  {
+    "kind": "question",
+    "text": "Whom did the Prophet ﷺ tell him to give it to?"
+  },
+  {
+    "kind": "question",
+    "text": "His relatives"
+  },
+  {
+    "kind": "question",
+    "text": "He gave it to his relatives and cousins."
+  },
+  {
+    "kind": "question",
+    "text": "Bayruha was the garden Abu Talhah loved least."
+  },
+  {
+    "kind": "question",
+    "text": "It was the most loved of all his property."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Talhah fed a guest and his family slept hungry."
+  },
+  {
+    "kind": "lesson",
+    "text": "A hungry man came, and the Prophet's ﷺ homes had only water."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Talhah put out the lamp so the guest ate alone."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah was pleased with what they did."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 2054c"
+  },
+  {
+    "kind": "question",
+    "text": "Why did they put out the lamp?"
+  },
+  {
+    "kind": "question",
+    "text": "So the guest would eat alone"
+  },
+  {
+    "kind": "question",
+    "text": "To sleep early"
+  },
+  {
+    "kind": "question",
+    "text": "To save oil"
+  },
+  {
+    "kind": "question",
+    "text": "To hide from enemies"
+  },
+  {
+    "kind": "question",
+    "text": "So he thought they were eating too."
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet's ﷺ homes have that night?"
+  },
+  {
+    "kind": "question",
+    "text": "Only water"
+  },
+  {
+    "kind": "question",
+    "text": "There is nothing with me but water."
+  },
+  {
+    "kind": "question",
+    "text": "Allah was pleased with Abu Talhah and his wife."
+  },
+  {
+    "kind": "question",
+    "text": "Allah was well pleased with what you both did."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ rode Abu Talhah's horse in a scare."
+  },
+  {
+    "kind": "lesson",
+    "text": "Madinah was frightened one night."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ borrowed Abu Talhah's horse, Al-Mandub."
+  },
+  {
+    "kind": "lesson",
+    "text": "He found nothing to fear and said the horse was fast."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 2627"
+  },
+  {
+    "kind": "question",
+    "text": "Whose horse did the Prophet ﷺ borrow?"
+  },
+  {
+    "kind": "question",
+    "text": "A stranger's"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Talhah's"
+  },
+  {
+    "kind": "question",
+    "text": "Caesar's"
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ find when he rode out?"
+  },
+  {
+    "kind": "question",
+    "text": "Nothing to fear"
+  },
+  {
+    "kind": "question",
+    "text": "A lion"
+  },
+  {
+    "kind": "question",
+    "text": "A fire"
+  },
+  {
+    "kind": "question",
+    "text": "We have not seen anything to be afraid of."
+  },
+  {
+    "kind": "question",
+    "text": "What was the horse's name?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Qaswa"
+  },
+  {
+    "kind": "question",
+    "text": "Duldul"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Mandub"
+  },
+  {
+    "kind": "question",
+    "text": "A horse from Abu Talha called Al-Mandub."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Talhah's son died, and his wife broke it gently."
+  },
+  {
+    "kind": "lesson",
+    "text": "His son died while he was away."
+  },
+  {
+    "kind": "lesson",
+    "text": "His wife Umm Sulaym told him only in the morning."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ prayed for blessing on their night."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1301"
+  },
+  {
+    "kind": "question",
+    "text": "Who was Abu Talhah's wife?"
+  },
+  {
+    "kind": "question",
+    "text": "Umm Sulaym was Abu Talhah's wife and Anas's mother."
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ pray for them?"
+  },
+  {
+    "kind": "question",
+    "text": "Blessing in their night"
+  },
+  {
+    "kind": "question",
+    "text": "May Allah bless you concerning your night."
+  },
+  {
+    "kind": "question",
+    "text": "Their later sons all became reciters of the Quran."
+  },
+  {
+    "kind": "question",
+    "text": "They had nine sons, all reciters of the Quran."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Abu Talhah!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Hudhayfah missed Badr because of a promise."
+  },
+  {
+    "kind": "lesson",
+    "text": "Quraysh caught Hudhayfah and his father on the road."
+  },
+  {
+    "kind": "lesson",
+    "text": "They let them go after a promise not to fight."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ said: we will keep our word to them."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 1787"
+  },
+  {
+    "kind": "question",
+    "text": "Why did Hudhayfah miss Badr?"
+  },
+  {
+    "kind": "question",
+    "text": "He was in Yemen"
+  },
+  {
+    "kind": "question",
+    "text": "He had made a promise"
+  },
+  {
+    "kind": "question",
+    "text": "Quraysh took a promise that they would not fight."
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ tell them to do?"
+  },
+  {
+    "kind": "question",
+    "text": "Keep the promise"
+  },
+  {
+    "kind": "question",
+    "text": "Break the promise"
+  },
+  {
+    "kind": "question",
+    "text": "Hide"
+  },
+  {
+    "kind": "question",
+    "text": "Fight anyway"
+  },
+  {
+    "kind": "question",
+    "text": "We will fulfil the covenant made with them."
+  },
+  {
+    "kind": "question",
+    "text": "Muslims keep their promises, even to enemies."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ kept the promise made to Quraysh."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hudhayfah forgave those who killed his father by mistake."
+  },
+  {
+    "kind": "lesson",
+    "text": "In the confusion at Uhud, Muslims fought each other."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hudhayfah's father was killed by mistake."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hudhayfah said: may Allah forgive you."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 4065"
+  },
+  {
+    "kind": "question",
+    "text": "What did Hudhayfah say about his father's killers?"
+  },
+  {
+    "kind": "question",
+    "text": "May Allah forgive you"
+  },
+  {
+    "kind": "question",
+    "text": "I will take revenge"
+  },
+  {
+    "kind": "question",
+    "text": "Was Hudhayfah's father killed on purpose?"
+  },
+  {
+    "kind": "question",
+    "text": "He was not killed"
+  },
+  {
+    "kind": "question",
+    "text": "No, by mistake"
+  },
+  {
+    "kind": "question",
+    "text": "Yes, by Quraysh"
+  },
+  {
+    "kind": "question",
+    "text": "Yes, by Rome"
+  },
+  {
+    "kind": "question",
+    "text": "In the confusion, they did not know him."
+  },
+  {
+    "kind": "question",
+    "text": "Hudhayfah kept praying for them his whole life."
+  },
+  {
+    "kind": "question",
+    "text": "He kept asking forgiveness for them until he died."
+  },
+  {
+    "kind": "lesson",
+    "text": "On a freezing night, Hudhayfah went to spy on the enemy."
+  },
+  {
+    "kind": "lesson",
+    "text": "It was the night of the Confederates, cold and windy."
+  },
+  {
+    "kind": "lesson",
+    "text": "No one answered, so the Prophet ﷺ called Hudhayfah by name."
+  },
+  {
+    "kind": "lesson",
+    "text": "He saw Abu Sufyan but did not shoot, as he was told."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 1788"
+  },
+  {
+    "kind": "question",
+    "text": "What was Hudhayfah sent to do?"
+  },
+  {
+    "kind": "question",
+    "text": "Bring news of the enemy"
+  },
+  {
+    "kind": "question",
+    "text": "Cook food"
+  },
+  {
+    "kind": "question",
+    "text": "Build a wall"
+  },
+  {
+    "kind": "question",
+    "text": "Why did Hudhayfah not shoot Abu Sufyan?"
+  },
+  {
+    "kind": "question",
+    "text": "He had no arrows"
+  },
+  {
+    "kind": "question",
+    "text": "He was told not to provoke them"
+  },
+  {
+    "kind": "question",
+    "text": "Do nothing that may provoke them."
+  },
+  {
+    "kind": "question",
+    "text": "The night was warm and calm."
+  },
+  {
+    "kind": "question",
+    "text": "It was a night of violent wind and severe cold."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hudhayfah asked about evil so it would not catch him."
+  },
+  {
+    "kind": "lesson",
+    "text": "People asked the Prophet ﷺ about good things."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hudhayfah asked about evil, to stay safe from it."
+  },
+  {
+    "kind": "lesson",
+    "text": "He was told to stick with the Muslims and their leader."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3606"
+  },
+  {
+    "kind": "question",
+    "text": "Why did Hudhayfah ask about evil?"
+  },
+  {
+    "kind": "question",
+    "text": "To scare people"
+  },
+  {
+    "kind": "question",
+    "text": "For fun"
+  },
+  {
+    "kind": "question",
+    "text": "So it would not catch him"
+  },
+  {
+    "kind": "question",
+    "text": "To do it"
+  },
+  {
+    "kind": "question",
+    "text": "For fear that it might overtake me."
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ tell him to stick to?"
+  },
+  {
+    "kind": "question",
+    "text": "Living alone always"
+  },
+  {
+    "kind": "question",
+    "text": "The Muslims and their leader"
+  },
+  {
+    "kind": "question",
+    "text": "His own tribe only"
+  },
+  {
+    "kind": "question",
+    "text": "Adhere to the group of Muslims and their chief."
+  },
+  {
+    "kind": "question",
+    "text": "Knowing about dangers helps you stay safe."
+  },
+  {
+    "kind": "question",
+    "text": "Hudhayfah asked so that evil would not overtake him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hudhayfah learned how honesty would leave people's hearts."
+  },
+  {
+    "kind": "lesson",
+    "text": "Honesty was placed deep in people's hearts."
+  },
+  {
+    "kind": "lesson",
+    "text": "Then they learned it from the Quran and the Sunnah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Later, trustworthy people would become rare."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 6497"
+  },
+  {
+    "kind": "question",
+    "text": "Where was honesty first placed?"
+  },
+  {
+    "kind": "question",
+    "text": "In gold"
+  },
+  {
+    "kind": "question",
+    "text": "In the sky"
+  },
+  {
+    "kind": "question",
+    "text": "In the roots of hearts"
+  },
+  {
+    "kind": "question",
+    "text": "In the markets"
+  },
+  {
+    "kind": "question",
+    "text": "Honesty was preserved in the roots of men's hearts."
+  },
+  {
+    "kind": "question",
+    "text": "Where did people then learn honesty from?"
+  },
+  {
+    "kind": "question",
+    "text": "The Quran and the Sunnah"
+  },
+  {
+    "kind": "question",
+    "text": "Trustworthy people will always be easy to find."
+  },
+  {
+    "kind": "question",
+    "text": "There will hardly be any trustworthy people among them."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hudhayfah told Umar about a closed door before the trials."
+  },
+  {
+    "kind": "lesson",
+    "text": "Umar asked about trials that spread like sea waves."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hudhayfah said a closed door stands before them."
+  },
+  {
+    "kind": "lesson",
+    "text": "Later he explained: the door was Umar himself."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 525"
+  },
+  {
+    "kind": "question",
+    "text": "What were the trials compared to?"
+  },
+  {
+    "kind": "question",
+    "text": "Falling stars"
+  },
+  {
+    "kind": "question",
+    "text": "Desert sand"
+  },
+  {
+    "kind": "question",
+    "text": "Rain clouds"
+  },
+  {
+    "kind": "question",
+    "text": "Waves of the sea"
+  },
+  {
+    "kind": "question",
+    "text": "Trials that spread like the waves of the sea."
+  },
+  {
+    "kind": "question",
+    "text": "Who was the closed door?"
+  },
+  {
+    "kind": "question",
+    "text": "A city gate"
+  },
+  {
+    "kind": "question",
+    "text": "Hudhayfah said the door was Umar."
+  },
+  {
+    "kind": "question",
+    "text": "Would the door be opened or broken?"
+  },
+  {
+    "kind": "question",
+    "text": "Painted"
+  },
+  {
+    "kind": "question",
+    "text": "Broken"
+  },
+  {
+    "kind": "question",
+    "text": "Opened"
+  },
+  {
+    "kind": "question",
+    "text": "Locked forever"
+  },
+  {
+    "kind": "question",
+    "text": "It will be broken, and never closed again."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Hudhayfah ibn al-Yaman!"
+  },
+  {
+    "kind": "lesson",
     "text": "The Muhajirun left their homes and wealth in Makkah for Allah."
   },
   {
@@ -83385,10 +84633,6 @@
   },
   {
     "kind": "question",
-    "text": "In the sky"
-  },
-  {
-    "kind": "question",
     "text": "On the moon"
   },
   {
@@ -84425,10 +85669,6 @@
   },
   {
     "kind": "question",
-    "text": "A lion"
-  },
-  {
-    "kind": "question",
     "text": "When the most wretched of them rose up (Quran 91:12)."
   },
   {
@@ -84590,10 +85830,6 @@
   {
     "kind": "question",
     "text": "What did Ibrahim see first that night?"
-  },
-  {
-    "kind": "question",
-    "text": "A fire"
   },
   {
     "kind": "question",
@@ -85153,10 +86389,6 @@
   },
   {
     "kind": "question",
-    "text": "Stayed home"
-  },
-  {
-    "kind": "question",
     "text": "Emigrated for Allah"
   },
   {
@@ -85298,10 +86530,6 @@
   {
     "kind": "question",
     "text": "Hail"
-  },
-  {
-    "kind": "question",
-    "text": "Sand"
   },
   {
     "kind": "question",
@@ -85821,10 +87049,6 @@
   },
   {
     "kind": "question",
-    "text": "Archery"
-  },
-  {
-    "kind": "question",
     "text": "Writing"
   },
   {
@@ -85990,10 +87214,6 @@
   {
     "kind": "question",
     "text": "What is Ya'qub to Ibrahim?"
-  },
-  {
-    "kind": "question",
-    "text": "His grandson"
   },
   {
     "kind": "question",
@@ -87837,10 +89057,6 @@
   },
   {
     "kind": "question",
-    "text": "Ran away"
-  },
-  {
-    "kind": "question",
     "text": "Laughed"
   },
   {
@@ -88318,10 +89534,6 @@
   {
     "kind": "question",
     "text": "Why did al-Khidr damage the boat?"
-  },
-  {
-    "kind": "question",
-    "text": "For fun"
   },
   {
     "kind": "question",
@@ -90809,10 +92021,6 @@
   },
   {
     "kind": "question",
-    "text": "Milk"
-  },
-  {
-    "kind": "question",
     "text": "In a golden basin."
   },
   {
@@ -91866,10 +93074,6 @@
   {
     "kind": "question",
     "text": "To bring two mountains down on them"
-  },
-  {
-    "kind": "question",
-    "text": "A big army"
   },
   {
     "kind": "question",
@@ -93626,10 +94830,6 @@
   {
     "kind": "question",
     "text": "They disobeyed the order"
-  },
-  {
-    "kind": "question",
-    "text": "The weather"
   },
   {
     "kind": "question",
@@ -96090,10 +97290,6 @@
   {
     "kind": "question",
     "text": "Their own mother's"
-  },
-  {
-    "kind": "question",
-    "text": "A stranger's"
   },
   {
     "kind": "question",
@@ -109061,10 +110257,6 @@
   },
   {
     "kind": "question",
-    "text": "Cooking"
-  },
-  {
-    "kind": "question",
     "text": "Who is reliable and who is not."
   },
   {
@@ -116798,10 +117990,6 @@
   {
     "kind": "question",
     "text": "Prayer, zakat, and what else did Jarir promise?"
-  },
-  {
-    "kind": "question",
-    "text": "To travel far"
   },
   {
     "kind": "question",
@@ -130461,10 +131649,6 @@
   },
   {
     "kind": "question",
-    "text": "Hide"
-  },
-  {
-    "kind": "question",
     "text": "Ayahs 172-189: what are they about?"
   },
   {
@@ -131818,10 +133002,6 @@
   {
     "kind": "question",
     "text": "Wait forty years"
-  },
-  {
-    "kind": "question",
-    "text": "Build a wall"
   },
   {
     "kind": "question",
@@ -135385,10 +136565,6 @@
   },
   {
     "kind": "question",
-    "text": "Thirteen"
-  },
-  {
-    "kind": "question",
     "text": "Ayah 34: what do some hoard and not spend for Allah?"
   },
   {
@@ -135934,10 +137110,6 @@
   {
     "kind": "question",
     "text": "So we can count the years"
-  },
-  {
-    "kind": "question",
-    "text": "To scare people"
   },
   {
     "kind": "question",
@@ -174881,10 +176053,6 @@
   },
   {
     "kind": "question",
-    "text": "Rain clouds"
-  },
-  {
-    "kind": "question",
     "text": "Do not set up rivals while you know."
   },
   {
@@ -184881,10 +186049,6 @@
   },
   {
     "kind": "question",
-    "text": "Only water"
-  },
-  {
-    "kind": "question",
     "text": "The living"
   },
   {
@@ -186606,10 +187770,6 @@
   {
     "kind": "question",
     "text": "Yes, they knew"
-  },
-  {
-    "kind": "question",
-    "text": "No, by mistake"
   },
   {
     "kind": "question",
@@ -192494,10 +193654,6 @@
   {
     "kind": "question",
     "text": "Where do disputes go, in 4:59?"
-  },
-  {
-    "kind": "question",
-    "text": "The Quran and the Sunnah"
   },
   {
     "kind": "question",
@@ -215861,10 +217017,6 @@
   },
   {
     "kind": "lesson",
-    "text": "May Allah forgive you"
-  },
-  {
-    "kind": "lesson",
     "text": "A very soft correction"
   },
   {
@@ -236233,10 +237385,6 @@
   },
   {
     "kind": "question",
-    "text": "Falling stars"
-  },
-  {
-    "kind": "question",
     "text": "Land after land for the Prophet ﷺ"
   },
   {
@@ -240102,10 +241250,6 @@
   {
     "kind": "question",
     "text": "Where are the supplies of everything, in 15:21?"
-  },
-  {
-    "kind": "question",
-    "text": "In the markets"
   },
   {
     "kind": "question",
@@ -259809,10 +260953,6 @@
   },
   {
     "kind": "question",
-    "text": "A city gate"
-  },
-  {
-    "kind": "question",
     "text": "The trunk of a date palm"
   },
   {
@@ -261926,10 +263066,6 @@
   {
     "kind": "question",
     "text": "Where does Allah plant love, per Ibn Kathir?"
-  },
-  {
-    "kind": "question",
-    "text": "In gold"
   },
   {
     "kind": "question",
@@ -280870,10 +282006,6 @@
   {
     "kind": "question",
     "text": "What did most people do with each reminder?"
-  },
-  {
-    "kind": "question",
-    "text": "Asked for more"
   },
   {
     "kind": "question",
@@ -302989,10 +304121,6 @@
   },
   {
     "kind": "question",
-    "text": "Broken"
-  },
-  {
-    "kind": "question",
     "text": "Who made everything He has created good."
   },
   {
@@ -304762,10 +305890,6 @@
   {
     "kind": "question",
     "text": "Who inherits a believer's wealth, in the hadith?"
-  },
-  {
-    "kind": "question",
-    "text": "His relatives"
   },
   {
     "kind": "question",
@@ -311400,10 +312524,6 @@
     "text": "When was it recited, per Ibn Kathir?"
   },
   {
-    "kind": "question",
-    "text": "At Tabuk"
-  },
-  {
     "kind": "lesson",
     "text": "If guided, it is by my Lord's revelation; He is Ever Near."
   },
@@ -317322,10 +318442,6 @@
   {
     "kind": "question",
     "text": "What are they busy with, per Mujahid?"
-  },
-  {
-    "kind": "question",
-    "text": "Debts"
   },
   {
     "kind": "question",
@@ -370049,10 +371165,6 @@
   },
   {
     "kind": "question",
-    "text": "Sold them"
-  },
-  {
-    "kind": "question",
     "text": "Sent them to sea"
   },
   {
@@ -407517,10 +408629,6 @@
   },
   {
     "kind": "question",
-    "text": "Threw them away"
-  },
-  {
-    "kind": "question",
     "text": "Kept account of them"
   },
   {
@@ -412221,10 +413329,6 @@
   },
   {
     "kind": "question",
-    "text": "To leave Madinah"
-  },
-  {
-    "kind": "question",
     "text": "To divide their palms"
   },
   {
@@ -412374,14 +413478,6 @@
   {
     "kind": "question",
     "text": "Why did they put out the light?"
-  },
-  {
-    "kind": "question",
-    "text": "To sleep early"
-  },
-  {
-    "kind": "question",
-    "text": "To save oil"
   },
   {
     "kind": "question",
@@ -445629,10 +446725,6 @@
   },
   {
     "kind": "question",
-    "text": "Cook food"
-  },
-  {
-    "kind": "question",
     "text": "Call the tribe"
   },
   {
@@ -458902,10 +459994,6 @@
   {
     "kind": "question",
     "text": "What did Ibn Abbas say Bu'thirat means?"
-  },
-  {
-    "kind": "question",
-    "text": "Painted"
   },
   {
     "kind": "question",
@@ -489814,10 +490902,6 @@
   {
     "kind": "question",
     "text": "Speaking truthfully"
-  },
-  {
-    "kind": "question",
-    "text": "Keeping a promise"
   },
   {
     "kind": "question",
