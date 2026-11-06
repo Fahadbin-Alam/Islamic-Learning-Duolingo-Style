@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah At-Taghabun ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -508,6 +508,20 @@ const TAGHABUN_THREE: DeepUnit = {
       ]
     },
     {
+      slug: "trust-grows-with-faith",
+      title: "Trust grows with faith",
+      line: "The stronger your faith, the stronger your trust in Allah.",
+      facts: ["As-Sa'di explains", "Think well of Allah"],
+      quote: q64(13),
+      source: saadi(64, 13, "As-Sa'di says trust in Allah is not complete until a person thinks well of his Lord and is sure He will suffice him, and trust is as strong as faith: the more faith, the more trust.", "وبحسب إيمان العبد يكون توكله، فكلما قوي الإيمان قوي التوكل"),
+      difficulty: 2,
+      questions: [
+        { q: "What makes trust in Allah stronger, per as-Sa'di?", a: "Stronger faith", wrong: ["More money", "More friends", "Less work"], why: "The more faith grows, the more trust grows, says as-Sa'di." },
+        { q: "Trust in Allah is complete only when we...?", a: "Think well of Allah", wrong: ["Stop working", "Doubt Him", "Rely on people"], why: "Think well of your Lord and be sure He suffices." },
+        { tf: true, q: "Nothing becomes easy except by Allah.", why: "As-Sa'di on 64:13." }
+      ]
+    },
+    {
       slug: "trust-in-their-lord",
       title: "Those who trust Allah",
       line: "Seventy thousand who trust Allah enter Paradise without account.",
@@ -574,6 +588,20 @@ const TAGHABUN_FOUR: DeepUnit = {
         { q: "What three things does 64:14 ask?", a: "Pardon, overlook, forgive", wrong: ["Shout, blame, leave", "Run, hide, wait", "Buy, sell, save"], why: "But if you pardon them and overlook, and forgive, then verily, Allah is Oft-Forgiving." },
         { q: "How is Allah described after forgiving?", a: "Oft-Forgiving, Most Merciful", wrong: ["Swift to punish", "Far away", "Silent"], why: "Then verily, Allah is Oft-Forgiving, Most Merciful." },
         { tf: true, q: "Forgiving family is loved by Allah.", why: "If you pardon and overlook, and forgive, then verily, Allah is Oft-Forgiving, Most Merciful." }
+      ]
+    },
+    {
+      slug: "pardon-and-be-pardoned",
+      title: "Pardon and be pardoned",
+      line: "Whoever pardons others, Allah pardons him in return.",
+      facts: ["As-Sa'di explains", "Like for like"],
+      quote: q64(14),
+      source: saadi(64, 14, "As-Sa'di says the reward is like the deed: whoever pardons, Allah pardons him; whoever overlooks, Allah overlooks; and whoever forgives, Allah forgives him.", "فمن عفا عفا الله عنه"),
+      difficulty: 2,
+      questions: [
+        { q: "What does the one who pardons others get?", a: "Allah pardons him", wrong: ["Nothing", "Less reward", "More trouble"], why: "Whoever pardons, Allah pardons him, says as-Sa'di." },
+        { q: "Why does pardoning bring Allah's pardon?", a: "Reward matches the deed", wrong: ["By luck", "It does not", "Only for kings"], why: "The reward is of the same kind as the deed." },
+        { tf: true, q: "Being careful with family does not mean being harsh to them.", why: "As-Sa'di on 64:14." }
       ]
     },
     {

@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Munafiqun ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -213,6 +213,20 @@ const MUNAFIQUN_ONE: DeepUnit = {
         { q: "What did Allah tell the believers to do?", a: "Beware of them", wrong: ["Copy them", "Follow them", "Praise them"], why: "They are the enemies, so beware of them." },
         { q: "What did Allah call the hypocrites?", a: "The enemies", wrong: ["The guests", "The helpers", "The leaders"], why: "They are the enemies, so beware of them." },
         { tf: true, q: "A believer should not be fooled by fine words.", why: "They are the enemies, so beware of them, even when their bodies please you." }
+      ]
+    },
+    {
+      slug: "the-hidden-enemy",
+      title: "The hidden enemy",
+      line: "An enemy you cannot see is worse than one in the open.",
+      facts: ["As-Sa'di explains", "They are the enemy"],
+      quote: q63(4),
+      source: saadi(63, 4, "As-Sa'di says the hypocrites are called the real enemy because an open, known enemy is easier than a hidden one who tricks you and claims to be your friend.", "لأن العدو البارز المتميز، أهون من العدو الذي لا يشعر به"),
+      difficulty: 2,
+      questions: [
+        { q: "Why are hypocrites the real enemy, per as-Sa'di?", a: "They hide and pretend to be friends", wrong: ["They are strong", "They are many", "They live far away"], why: "A hidden enemy is worse than an open one, says as-Sa'di." },
+        { q: "Which enemy is easier to face?", a: "One in the open", wrong: ["One who hides", "One who smiles", "One who pretends"], why: "The open, known enemy is easier." },
+        { tf: true, q: "Hypocrites claim to be friends while being enemies.", why: "As-Sa'di on 63:4." }
       ]
     },
     {
@@ -519,6 +533,20 @@ const MUNAFIQUN_THREE: DeepUnit = {
         { q: "Who gave us what we spend?", a: "Allah", wrong: ["Our luck", "The market", "Our friends only"], why: "And spend of that with which We have provided you." },
         { q: "What does Allah encourage, per Ibn Kathir?", a: "Spending in His cause", wrong: ["Saving everything", "Buying more", "Hiding money"], why: "Allah encourages the believers to spend in His cause." },
         { tf: true, q: "63:10 tells us to give before death comes.", why: "And spend of that with which We have provided you before death comes to one of you." }
+      ]
+    },
+    {
+      slug: "only-a-part",
+      title: "Only a part",
+      line: "Allah asks us to give only some of what He gave us.",
+      facts: ["As-Sa'di explains", "Min ma: from what"],
+      quote: q63(10),
+      source: saadi(63, 10, "As-Sa'di says the words from what We provided show Allah did not ask for spending that is too hard, only a part of what He made easy for us, so we thank Him by helping the needy.", "ليدل ذلك على أنه تعالى، لم يكلف العباد من النفقة، ما يعنتهم ويشق عليهم"),
+      difficulty: 2,
+      questions: [
+        { q: "What do the words from what We provided show?", a: "Allah asks only a part", wrong: ["Give it all", "Give nothing", "Give only gold"], why: "Allah did not ask for spending that is too hard, says as-Sa'di." },
+        { q: "How do we thank Allah for what He gave, per as-Sa'di?", a: "By helping the needy", wrong: ["By hiding it", "By boasting", "By wasting it"], why: "Thank the Giver by sharing with brothers in need." },
+        { tf: true, q: "Zakat and spending on family are part of Al-Munafiqun 63:10.", why: "As-Sa'di on 63:10." }
       ]
     },
     {

@@ -21129,6 +21129,10 @@
   },
   {
     "kind": "course",
+    "text": "Above health and wealth"
+  },
+  {
+    "kind": "course",
     "text": "Carrying but not living it"
   },
   {
@@ -21236,6 +21240,10 @@
     "text": "What Allah has is better"
   },
   {
+    "kind": "course",
+    "text": "Allowed, but not now"
+  },
+  {
     "kind": "arabic",
     "text": "The Hypocrites"
   },
@@ -21286,6 +21294,10 @@
   {
     "kind": "course",
     "text": "Be careful of them"
+  },
+  {
+    "kind": "course",
+    "text": "The hidden enemy"
   },
   {
     "kind": "course",
@@ -21358,6 +21370,10 @@
   {
     "kind": "course",
     "text": "Spend from what you have"
+  },
+  {
+    "kind": "course",
+    "text": "Only a part"
   },
   {
     "kind": "course",
@@ -21509,6 +21525,10 @@
   },
   {
     "kind": "course",
+    "text": "Trust grows with faith"
+  },
+  {
+    "kind": "course",
     "text": "Those who trust Allah"
   },
   {
@@ -21522,6 +21542,10 @@
   {
     "kind": "course",
     "text": "Pardon and forgive"
+  },
+  {
+    "kind": "course",
+    "text": "Pardon and be pardoned"
   },
   {
     "kind": "course",
@@ -21593,11 +21617,19 @@
   },
   {
     "kind": "course",
+    "text": "Witness only for Allah"
+  },
+  {
+    "kind": "course",
     "text": "The ayah of relief"
   },
   {
     "kind": "course",
     "text": "From where you never expect"
+  },
+  {
+    "kind": "course",
+    "text": "In its right time"
   },
   {
     "kind": "course",
@@ -21696,6 +21728,10 @@
     "text": "Power over all things"
   },
   {
+    "kind": "course",
+    "text": "Why we were made"
+  },
+  {
     "kind": "arabic",
     "text": "The Prohibition"
   },
@@ -21737,6 +21773,10 @@
   },
   {
     "kind": "course",
+    "text": "Only part was mentioned"
+  },
+  {
+    "kind": "course",
     "text": "Turn back to Allah"
   },
   {
@@ -21774,6 +21814,10 @@
   {
     "kind": "course",
     "text": "No excuses that Day"
+  },
+  {
+    "kind": "course",
+    "text": "For every sin"
   },
   {
     "kind": "course",
@@ -21834,6 +21878,10 @@
   {
     "kind": "course",
     "text": "She believed and obeyed"
+  },
+  {
+    "kind": "course",
+    "text": "Knowledge and deeds"
   },
   {
     "kind": "course",
@@ -372569,10 +372617,6 @@
   },
   {
     "kind": "question",
-    "text": "Knowledge and deeds"
-  },
-  {
-    "kind": "question",
     "text": "Indeed, the Islamic Shari'ah has two factors, knowledge and deeds."
   },
   {
@@ -422713,6 +422757,62 @@
   },
   {
     "kind": "lesson",
+    "text": "The gift of the religion is greater than health or wealth."
+  },
+  {
+    "kind": "lesson",
+    "text": "The greatest blessing"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 62:4"
+  },
+  {
+    "kind": "question",
+    "text": "Which blessing is greatest, per as-Sa'di on 62:4?"
+  },
+  {
+    "kind": "question",
+    "text": "Good health"
+  },
+  {
+    "kind": "question",
+    "text": "The religion"
+  },
+  {
+    "kind": "question",
+    "text": "No blessing is greater than the religion, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "Why is the religion the greatest gift?"
+  },
+  {
+    "kind": "question",
+    "text": "It brings lasting happiness"
+  },
+  {
+    "kind": "question",
+    "text": "It makes us rich"
+  },
+  {
+    "kind": "question",
+    "text": "It makes us famous"
+  },
+  {
+    "kind": "question",
+    "text": "It is the way to success and happiness forever."
+  },
+  {
+    "kind": "question",
+    "text": "Allah did not leave His servants without guidance."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 62:4."
+  },
+  {
+    "kind": "lesson",
     "text": "The last test: everything about Al-Jumu'ah, ayahs 1 to 4!"
   },
   {
@@ -424033,6 +424133,70 @@
   },
   {
     "kind": "lesson",
+    "text": "An allowed thing is wrong when it makes you miss a duty."
+  },
+  {
+    "kind": "lesson",
+    "text": "Selling at the Friday call"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 62:11"
+  },
+  {
+    "kind": "question",
+    "text": "Why was selling stopped at the Friday call?"
+  },
+  {
+    "kind": "question",
+    "text": "Selling is always wrong"
+  },
+  {
+    "kind": "question",
+    "text": "Money is dirty"
+  },
+  {
+    "kind": "question",
+    "text": "Markets close"
+  },
+  {
+    "kind": "question",
+    "text": "It makes people miss a duty"
+  },
+  {
+    "kind": "question",
+    "text": "It makes a person miss the duty, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "An allowed game that makes you miss a prayer is...?"
+  },
+  {
+    "kind": "question",
+    "text": "Not allowed then"
+  },
+  {
+    "kind": "question",
+    "text": "Always fine"
+  },
+  {
+    "kind": "question",
+    "text": "Better than prayer"
+  },
+  {
+    "kind": "question",
+    "text": "Anything allowed is not allowed when it makes a duty missed."
+  },
+  {
+    "kind": "question",
+    "text": "After the Friday prayer, buying and selling are fine again."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 62:9-11."
+  },
+  {
+    "kind": "lesson",
     "text": "The last test: everything about Al-Jumu'ah, ayahs 9 to 11!"
   },
   {
@@ -424282,10 +424446,6 @@
   {
     "kind": "question",
     "text": "Great harm to many"
-  },
-  {
-    "kind": "question",
-    "text": "Good health"
   },
   {
     "kind": "question",
@@ -424670,6 +424830,58 @@
   {
     "kind": "question",
     "text": "They are the enemies, so beware of them, even when their bodies please you."
+  },
+  {
+    "kind": "lesson",
+    "text": "An enemy you cannot see is worse than one in the open."
+  },
+  {
+    "kind": "lesson",
+    "text": "They are the enemy"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 63:4"
+  },
+  {
+    "kind": "question",
+    "text": "Why are hypocrites the real enemy, per as-Sa'di?"
+  },
+  {
+    "kind": "question",
+    "text": "They hide and pretend to be friends"
+  },
+  {
+    "kind": "question",
+    "text": "A hidden enemy is worse than an open one, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "Which enemy is easier to face?"
+  },
+  {
+    "kind": "question",
+    "text": "One who pretends"
+  },
+  {
+    "kind": "question",
+    "text": "One in the open"
+  },
+  {
+    "kind": "question",
+    "text": "One who hides"
+  },
+  {
+    "kind": "question",
+    "text": "The open, known enemy is easier."
+  },
+  {
+    "kind": "question",
+    "text": "Hypocrites claim to be friends while being enemies."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 63:4."
   },
   {
     "kind": "lesson",
@@ -425589,6 +425801,70 @@
   },
   {
     "kind": "lesson",
+    "text": "Allah asks us to give only some of what He gave us."
+  },
+  {
+    "kind": "lesson",
+    "text": "Min ma: from what"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 63:10"
+  },
+  {
+    "kind": "question",
+    "text": "What do the words from what We provided show?"
+  },
+  {
+    "kind": "question",
+    "text": "Give nothing"
+  },
+  {
+    "kind": "question",
+    "text": "Give only gold"
+  },
+  {
+    "kind": "question",
+    "text": "Allah asks only a part"
+  },
+  {
+    "kind": "question",
+    "text": "Allah did not ask for spending that is too hard, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "How do we thank Allah for what He gave, per as-Sa'di?"
+  },
+  {
+    "kind": "question",
+    "text": "By hiding it"
+  },
+  {
+    "kind": "question",
+    "text": "By wasting it"
+  },
+  {
+    "kind": "question",
+    "text": "By helping the needy"
+  },
+  {
+    "kind": "question",
+    "text": "Thank the Giver by sharing with brothers in need."
+  },
+  {
+    "kind": "question",
+    "text": "Zakat and spending on family are part of Al-Munafiqun 63:10."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 63:10."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Al-Munafiqun, ayahs 9 to 11?"
+  },
+  {
+    "kind": "lesson",
     "text": "The best charity is given while healthy and hoping for wealth."
   },
   {
@@ -425646,10 +425922,6 @@
   {
     "kind": "question",
     "text": "Abu Hurairah narrated the best-charity hadith."
-  },
-  {
-    "kind": "lesson",
-    "text": "Can you still remember these about Al-Munafiqun, ayahs 9 to 11?"
   },
   {
     "kind": "lesson",
@@ -427253,6 +427525,50 @@
   },
   {
     "kind": "lesson",
+    "text": "The stronger your faith, the stronger your trust in Allah."
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 64:13"
+  },
+  {
+    "kind": "question",
+    "text": "What makes trust in Allah stronger, per as-Sa'di?"
+  },
+  {
+    "kind": "question",
+    "text": "Stronger faith"
+  },
+  {
+    "kind": "question",
+    "text": "The more faith grows, the more trust grows, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "Trust in Allah is complete only when we...?"
+  },
+  {
+    "kind": "question",
+    "text": "Doubt Him"
+  },
+  {
+    "kind": "question",
+    "text": "Rely on people"
+  },
+  {
+    "kind": "question",
+    "text": "Think well of your Lord and be sure He suffices."
+  },
+  {
+    "kind": "question",
+    "text": "Nothing becomes easy except by Allah."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 64:13."
+  },
+  {
+    "kind": "lesson",
     "text": "Seventy thousand who trust Allah enter Paradise without account."
   },
   {
@@ -427445,6 +427761,54 @@
   },
   {
     "kind": "lesson",
+    "text": "Whoever pardons others, Allah pardons him in return."
+  },
+  {
+    "kind": "lesson",
+    "text": "Like for like"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 64:14"
+  },
+  {
+    "kind": "question",
+    "text": "What does the one who pardons others get?"
+  },
+  {
+    "kind": "question",
+    "text": "More trouble"
+  },
+  {
+    "kind": "question",
+    "text": "Allah pardons him"
+  },
+  {
+    "kind": "question",
+    "text": "Whoever pardons, Allah pardons him, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "Why does pardoning bring Allah's pardon?"
+  },
+  {
+    "kind": "question",
+    "text": "It does not"
+  },
+  {
+    "kind": "question",
+    "text": "The reward is of the same kind as the deed."
+  },
+  {
+    "kind": "question",
+    "text": "Being careful with family does not mean being harsh to them."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 64:14."
+  },
+  {
+    "kind": "lesson",
     "text": "Wealth and children are a test of who obeys Allah."
   },
   {
@@ -427525,6 +427889,10 @@
   },
   {
     "kind": "lesson",
+    "text": "Can you still remember these about At-Taghabun, ayahs 14 to 18?"
+  },
+  {
+    "kind": "lesson",
     "text": "Fear Allah as much as you are able; He asks no more."
   },
   {
@@ -427566,10 +427934,6 @@
   {
     "kind": "question",
     "text": "Allah asks only what we are able to do."
-  },
-  {
-    "kind": "lesson",
-    "text": "Can you still remember these about At-Taghabun, ayahs 14 to 18?"
   },
   {
     "kind": "lesson",
@@ -428269,6 +428633,62 @@
   },
   {
     "kind": "lesson",
+    "text": "Give witness truly, without favouring a relative or a friend."
+  },
+  {
+    "kind": "lesson",
+    "text": "No more, no less"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 65:2"
+  },
+  {
+    "kind": "question",
+    "text": "How should a witness speak, per as-Sa'di on 65:2?"
+  },
+  {
+    "kind": "question",
+    "text": "As it is, for Allah"
+  },
+  {
+    "kind": "question",
+    "text": "To help a friend"
+  },
+  {
+    "kind": "question",
+    "text": "To help family"
+  },
+  {
+    "kind": "question",
+    "text": "Add a little"
+  },
+  {
+    "kind": "question",
+    "text": "No adding, no leaving out, for Allah alone, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "Who should a witness never favour?"
+  },
+  {
+    "kind": "question",
+    "text": "A relative or a friend"
+  },
+  {
+    "kind": "question",
+    "text": "Not a relative for being family, nor a friend for love."
+  },
+  {
+    "kind": "question",
+    "text": "Witnesses help stop quarrels later."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 65:2."
+  },
+  {
+    "kind": "lesson",
     "text": "Whoever has Taqwa, Allah makes a way out of every difficulty."
   },
   {
@@ -428442,6 +428862,58 @@
   {
     "kind": "question",
     "text": "Allah is enough for whoever relies on Him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah suffices the one who trusts, yet may bring it later."
+  },
+  {
+    "kind": "lesson",
+    "text": "A measure for all"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 65:3"
+  },
+  {
+    "kind": "question",
+    "text": "If help seems late after trusting Allah, why?"
+  },
+  {
+    "kind": "question",
+    "text": "Wisdom picks the right time"
+  },
+  {
+    "kind": "question",
+    "text": "Trust failed"
+  },
+  {
+    "kind": "question",
+    "text": "Help is not coming"
+  },
+  {
+    "kind": "question",
+    "text": "His wisdom may delay it to its right time, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "What did Allah set for everything in At-Talaq?"
+  },
+  {
+    "kind": "question",
+    "text": "A time and amount"
+  },
+  {
+    "kind": "question",
+    "text": "A time and measure it never passes or falls short of."
+  },
+  {
+    "kind": "question",
+    "text": "Trust means relying on Allah for both religion and this world."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 65:3."
   },
   {
     "kind": "lesson",
@@ -428649,10 +429121,6 @@
   },
   {
     "kind": "question",
-    "text": "More trouble"
-  },
-  {
-    "kind": "question",
     "text": "Allah will make his matters lenient for him and will soon bring forth relief."
   },
   {
@@ -428782,10 +429250,6 @@
   {
     "kind": "question",
     "text": "Give the corner"
-  },
-  {
-    "kind": "question",
-    "text": "Give nothing"
   },
   {
     "kind": "question",
@@ -429617,6 +430081,58 @@
   },
   {
     "kind": "lesson",
+    "text": "Allah made all things so we would know Him and worship Him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Know Him, worship Him"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 65:12"
+  },
+  {
+    "kind": "question",
+    "text": "What is the goal of creation, per as-Sa'di on 65:12?"
+  },
+  {
+    "kind": "question",
+    "text": "To know and worship Allah"
+  },
+  {
+    "kind": "question",
+    "text": "The goal is knowing Allah and worshipping Him, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "How do we come to know Allah?"
+  },
+  {
+    "kind": "question",
+    "text": "We cannot"
+  },
+  {
+    "kind": "question",
+    "text": "By His names and qualities"
+  },
+  {
+    "kind": "question",
+    "text": "By stars"
+  },
+  {
+    "kind": "question",
+    "text": "Knowing Him by His holy qualities and beautiful names."
+  },
+  {
+    "kind": "question",
+    "text": "Allah's command includes the rules He sent to His Messengers."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 65:12."
+  },
+  {
+    "kind": "lesson",
     "text": "The last test: everything about At-Talaq, ayahs 8 to 12!"
   },
   {
@@ -429970,6 +430486,58 @@
   {
     "kind": "question",
     "text": "The All-Knower, the All-Aware has told me."
+  },
+  {
+    "kind": "lesson",
+    "text": "He mentioned only part of what was said, out of kindness."
+  },
+  {
+    "kind": "lesson",
+    "text": "Kind and gentle"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 66:3"
+  },
+  {
+    "kind": "question",
+    "text": "Why did the Prophet ﷺ mention only part of it?"
+  },
+  {
+    "kind": "question",
+    "text": "Out of kindness and gentleness"
+  },
+  {
+    "kind": "question",
+    "text": "He left some out from generosity, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "What can we learn from At-Tahrim 66:3?"
+  },
+  {
+    "kind": "question",
+    "text": "Never forgive"
+  },
+  {
+    "kind": "question",
+    "text": "Do not list every mistake"
+  },
+  {
+    "kind": "question",
+    "text": "Shout at people"
+  },
+  {
+    "kind": "question",
+    "text": "He overlooked part of it, out of gentleness."
+  },
+  {
+    "kind": "question",
+    "text": "Allah knows every secret, even what is most hidden."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 66:3."
   },
   {
     "kind": "lesson",
@@ -430530,6 +431098,42 @@
   {
     "kind": "question",
     "text": "Directing him to quit the evil that he used to do."
+  },
+  {
+    "kind": "lesson",
+    "text": "Sincere repentance covers all sins, is for Allah, and lasts."
+  },
+  {
+    "kind": "lesson",
+    "text": "Tawbah Nasuh"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 66:8"
+  },
+  {
+    "kind": "question",
+    "text": "What does sincere repentance cover, per as-Sa'di?"
+  },
+  {
+    "kind": "question",
+    "text": "It is a repentance that covers all sins, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "Who is sincere repentance for?"
+  },
+  {
+    "kind": "question",
+    "text": "Seeking only His Face and nearness."
+  },
+  {
+    "kind": "question",
+    "text": "Sincere repentance is kept up, not dropped the next day."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 66:8."
   },
   {
     "kind": "lesson",
@@ -431254,6 +431858,54 @@
   {
     "kind": "question",
     "text": "And she was of the Qanitin."
+  },
+  {
+    "kind": "lesson",
+    "text": "Maryam was a siddiqah: complete in knowledge and in deeds."
+  },
+  {
+    "kind": "lesson",
+    "text": "Siddiqiyyah"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 66:12"
+  },
+  {
+    "kind": "question",
+    "text": "What is siddiqiyyah, per as-Sa'di?"
+  },
+  {
+    "kind": "question",
+    "text": "Only talking"
+  },
+  {
+    "kind": "question",
+    "text": "Full knowledge and full deeds"
+  },
+  {
+    "kind": "question",
+    "text": "Siddiqiyyah is complete knowledge and action, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "What does believing in Allah's books need?"
+  },
+  {
+    "kind": "question",
+    "text": "Knowing them"
+  },
+  {
+    "kind": "question",
+    "text": "Believing in them needs knowledge and action."
+  },
+  {
+    "kind": "question",
+    "text": "Maryam kept obeying Allah with humility."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 66:12."
   },
   {
     "kind": "lesson",
