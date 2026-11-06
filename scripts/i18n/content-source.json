@@ -2325,6 +2325,10 @@
   },
   {
     "kind": "course",
+    "text": "Why prophets say Rabb"
+  },
+  {
+    "kind": "course",
     "text": "The Merciful"
   },
   {
@@ -2333,11 +2337,23 @@
   },
   {
     "kind": "course",
+    "text": "Kings and servants equal"
+  },
+  {
+    "kind": "course",
+    "text": "Two conditions of worship"
+  },
+  {
+    "kind": "course",
     "text": "A talk with Allah"
   },
   {
     "kind": "course",
     "text": "Keep us on the path"
+  },
+  {
+    "kind": "course",
+    "text": "To the path, and on it"
   },
   {
     "kind": "course",
@@ -26041,6 +26057,18 @@
   },
   {
     "kind": "course",
+    "text": "Levels of loss"
+  },
+  {
+    "kind": "course",
+    "text": "Faith needs knowledge"
+  },
+  {
+    "kind": "course",
+    "text": "Yourself and others"
+  },
+  {
+    "kind": "course",
     "text": "Enough for people"
   },
   {
@@ -26521,6 +26549,14 @@
   },
   {
     "kind": "course",
+    "text": "Say it and mean it"
+  },
+  {
+    "kind": "course",
+    "text": "The One all turn to"
+  },
+  {
+    "kind": "course",
     "text": "A third in one night"
   },
   {
@@ -26553,6 +26589,18 @@
   },
   {
     "kind": "course",
+    "text": "Refuge from all evil"
+  },
+  {
+    "kind": "course",
+    "text": "Harm of the night"
+  },
+  {
+    "kind": "course",
+    "text": "The envier"
+  },
+  {
+    "kind": "course",
     "text": "When he was ill"
   },
   {
@@ -26574,6 +26622,10 @@
   {
     "kind": "course",
     "text": "The whisperer who hides"
+  },
+  {
+    "kind": "course",
+    "text": "Whispers from people too"
   },
   {
     "kind": "course",
@@ -58037,6 +58089,78 @@
   },
   {
     "kind": "lesson",
+    "text": "Prophets call on Rabb, the Lord who cares for His friends."
+  },
+  {
+    "kind": "lesson",
+    "text": "As-Sa'di explains"
+  },
+  {
+    "kind": "lesson",
+    "text": "General and special care"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 1:2"
+  },
+  {
+    "kind": "question",
+    "text": "Which word begins most duas of the prophets?"
+  },
+  {
+    "kind": "question",
+    "text": "Rabb, Lord"
+  },
+  {
+    "kind": "question",
+    "text": "Malik, King"
+  },
+  {
+    "kind": "question",
+    "text": "Nur, Light"
+  },
+  {
+    "kind": "question",
+    "text": "Ahad, One"
+  },
+  {
+    "kind": "question",
+    "text": "Their requests fall under His special care, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "What is Allah's special care for His friends?"
+  },
+  {
+    "kind": "question",
+    "text": "Only more money"
+  },
+  {
+    "kind": "question",
+    "text": "Only long life"
+  },
+  {
+    "kind": "question",
+    "text": "Nothing extra"
+  },
+  {
+    "kind": "question",
+    "text": "Guiding them to faith"
+  },
+  {
+    "kind": "question",
+    "text": "He helps them to every good and keeps them from evil."
+  },
+  {
+    "kind": "question",
+    "text": "Every blessing anyone has is from Allah."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 1:2."
+  },
+  {
+    "kind": "lesson",
     "text": "Ar-Rahman's mercy covers all; Ar-Rahim's is for believers."
   },
   {
@@ -58054,10 +58178,6 @@
   {
     "kind": "question",
     "text": "Ar-Rahman and Ar-Rahim come from which word?"
-  },
-  {
-    "kind": "question",
-    "text": "Rabb, Lord"
   },
   {
     "kind": "question",
@@ -58221,6 +58341,66 @@
   },
   {
     "kind": "lesson",
+    "text": "On that Day kings and servants stand the same before Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "All hope and fear"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 1:4"
+  },
+  {
+    "kind": "question",
+    "text": "Who is equal on the Day of Recompense?"
+  },
+  {
+    "kind": "question",
+    "text": "Only kings"
+  },
+  {
+    "kind": "question",
+    "text": "Kings and servants"
+  },
+  {
+    "kind": "question",
+    "text": "Kings, people, slaves and free are all equal, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "What shows fully on that Day?"
+  },
+  {
+    "kind": "question",
+    "text": "Our homes"
+  },
+  {
+    "kind": "question",
+    "text": "Allah's rule and justice"
+  },
+  {
+    "kind": "question",
+    "text": "Our wealth"
+  },
+  {
+    "kind": "question",
+    "text": "Our fame"
+  },
+  {
+    "kind": "question",
+    "text": "His full rule, justice and wisdom appear to all."
+  },
+  {
+    "kind": "question",
+    "text": "Allah owns every day, not only the Day of Recompense."
+  },
+  {
+    "kind": "question",
+    "text": "That Day is named because His rule shows fully."
+  },
+  {
+    "kind": "lesson",
     "text": "Iyyaka comes first: You alone we worship, and no one else."
   },
   {
@@ -58302,6 +58482,66 @@
   {
     "kind": "question",
     "text": "It means all help and strength come from Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Worship counts when it follows the Prophet ﷺ and is for Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Sincere and correct"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 1:5"
+  },
+  {
+    "kind": "question",
+    "text": "What two things make a deed true worship?"
+  },
+  {
+    "kind": "question",
+    "text": "Following the Prophet ﷺ, for Allah"
+  },
+  {
+    "kind": "question",
+    "text": "Being long and loud"
+  },
+  {
+    "kind": "question",
+    "text": "Being seen by many"
+  },
+  {
+    "kind": "question",
+    "text": "Being new and fun"
+  },
+  {
+    "kind": "question",
+    "text": "Taken from the Messenger ﷺ and seeking Allah's Face, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "Why do we ask Allah for help in worship too?"
+  },
+  {
+    "kind": "question",
+    "text": "He needs us"
+  },
+  {
+    "kind": "question",
+    "text": "It is a habit"
+  },
+  {
+    "kind": "question",
+    "text": "We cannot do it without Him"
+  },
+  {
+    "kind": "question",
+    "text": "Without His help we cannot obey."
+  },
+  {
+    "kind": "question",
+    "text": "Worship covers words and deeds, open and hidden."
   },
   {
     "kind": "lesson",
@@ -58474,6 +58714,62 @@
   {
     "kind": "question",
     "text": "That is how the Arabs used the word."
+  },
+  {
+    "kind": "lesson",
+    "text": "Guide us to Islam, and in every detail of it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Asked in every rak'ah"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 1:6"
+  },
+  {
+    "kind": "question",
+    "text": "Ihdina asks for guidance to the path and...?"
+  },
+  {
+    "kind": "question",
+    "text": "Nothing more"
+  },
+  {
+    "kind": "question",
+    "text": "On the path"
+  },
+  {
+    "kind": "question",
+    "text": "Off the path"
+  },
+  {
+    "kind": "question",
+    "text": "Away from it"
+  },
+  {
+    "kind": "question",
+    "text": "Guide us to it and in it, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "How often must we make the dua of Al-Fatihah?"
+  },
+  {
+    "kind": "question",
+    "text": "In every rak'ah"
+  },
+  {
+    "kind": "question",
+    "text": "We need it so much that it is in every rak'ah."
+  },
+  {
+    "kind": "question",
+    "text": "Ihdina is one of the most complete duas."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 1:6."
   },
   {
     "kind": "lesson",
@@ -63358,10 +63654,6 @@
   {
     "kind": "question",
     "text": "Who kept doing i'tikaf after he ﷺ passed away?"
-  },
-  {
-    "kind": "question",
-    "text": "Only kings"
   },
   {
     "kind": "question",
@@ -114681,10 +114973,6 @@
   },
   {
     "kind": "question",
-    "text": "Nothing more"
-  },
-  {
-    "kind": "question",
     "text": "To never be angry with them"
   },
   {
@@ -130481,19 +130769,11 @@
   },
   {
     "kind": "question",
-    "text": "Our homes"
-  },
-  {
-    "kind": "question",
     "text": "Our clothes"
   },
   {
     "kind": "question",
     "text": "Our religion"
-  },
-  {
-    "kind": "question",
-    "text": "Our wealth"
   },
   {
     "kind": "question",
@@ -142390,10 +142670,6 @@
   {
     "kind": "question",
     "text": "Our knowledge"
-  },
-  {
-    "kind": "question",
-    "text": "Our fame"
   },
   {
     "kind": "question",
@@ -171925,6 +172201,126 @@
   },
   {
     "kind": "lesson",
+    "text": "Shaytan makes evil look beautiful and good deeds look ugly."
+  },
+  {
+    "kind": "lesson",
+    "text": "Spot the trick"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 114:1"
+  },
+  {
+    "kind": "question",
+    "text": "How does Shaytan trick people, per as-Sa'di?"
+  },
+  {
+    "kind": "question",
+    "text": "Makes evil look ugly"
+  },
+  {
+    "kind": "question",
+    "text": "Shows the truth"
+  },
+  {
+    "kind": "question",
+    "text": "Does nothing"
+  },
+  {
+    "kind": "question",
+    "text": "Makes evil look good"
+  },
+  {
+    "kind": "question",
+    "text": "He makes evil look beautiful and good look ugly."
+  },
+  {
+    "kind": "question",
+    "text": "What makes him pull back?"
+  },
+  {
+    "kind": "question",
+    "text": "Ignoring prayer"
+  },
+  {
+    "kind": "question",
+    "text": "Staying up late"
+  },
+  {
+    "kind": "question",
+    "text": "Getting angry"
+  },
+  {
+    "kind": "question",
+    "text": "He withdraws when the servant remembers his Lord."
+  },
+  {
+    "kind": "question",
+    "text": "Shaytan is the root of all evils."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on An-Nas."
+  },
+  {
+    "kind": "lesson",
+    "text": "Bad whispers can come from people as well as from jinn."
+  },
+  {
+    "kind": "lesson",
+    "text": "Of jinn and mankind"
+  },
+  {
+    "kind": "question",
+    "text": "Where can bad whispers come from?"
+  },
+  {
+    "kind": "question",
+    "text": "Only dreams"
+  },
+  {
+    "kind": "question",
+    "text": "Only jinn"
+  },
+  {
+    "kind": "question",
+    "text": "Whispering is from jinn and from humans, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "How does An-Nas end?"
+  },
+  {
+    "kind": "question",
+    "text": "Of the sky"
+  },
+  {
+    "kind": "question",
+    "text": "Of the sea"
+  },
+  {
+    "kind": "question",
+    "text": "Of the angels"
+  },
+  {
+    "kind": "question",
+    "text": "Of jinn and of mankind"
+  },
+  {
+    "kind": "question",
+    "text": "Quran 114:6."
+  },
+  {
+    "kind": "question",
+    "text": "A friend who urges sin can be a whisperer."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 114:6."
+  },
+  {
+    "kind": "lesson",
     "text": "Each night the Prophet ﷺ read the last three and wiped himself."
   },
   {
@@ -172161,6 +172557,170 @@
   },
   {
     "kind": "lesson",
+    "text": "We ask the Creator to guard us from harm in creation."
+  },
+  {
+    "kind": "lesson",
+    "text": "Humans, jinn, animals"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 113:2"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 113:2"
+  },
+  {
+    "kind": "question",
+    "text": "Whom do we ask for safety from creation's harm?"
+  },
+  {
+    "kind": "question",
+    "text": "Its Creator"
+  },
+  {
+    "kind": "question",
+    "text": "A charm"
+  },
+  {
+    "kind": "question",
+    "text": "We seek refuge with the Creator, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "What does the evil of what He created include?"
+  },
+  {
+    "kind": "question",
+    "text": "Humans, jinn and animals"
+  },
+  {
+    "kind": "question",
+    "text": "It covers all that Allah created."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Falaq covers all kinds of harm, in general and in detail."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 113:5."
+  },
+  {
+    "kind": "lesson",
+    "text": "Night is named because many harmful things spread in the dark."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ghasiq: the dark night"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 113:3"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 113:3"
+  },
+  {
+    "kind": "question",
+    "text": "Why is the night named in Al-Falaq?"
+  },
+  {
+    "kind": "question",
+    "text": "It is always safe"
+  },
+  {
+    "kind": "question",
+    "text": "Stars fall"
+  },
+  {
+    "kind": "question",
+    "text": "Harmful things spread then"
+  },
+  {
+    "kind": "question",
+    "text": "Evil spirits and harmful animals spread at night, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "Ghasiq means...?"
+  },
+  {
+    "kind": "question",
+    "text": "The dark night"
+  },
+  {
+    "kind": "question",
+    "text": "The bright sun"
+  },
+  {
+    "kind": "question",
+    "text": "The night when it covers all."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Falaq names general evil first, then special ones."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 113:3."
+  },
+  {
+    "kind": "lesson",
+    "text": "An envier wants your blessing gone; the evil eye is envy."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hasad and the evil eye"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 113:5"
+  },
+  {
+    "kind": "question",
+    "text": "What does an envier want?"
+  },
+  {
+    "kind": "question",
+    "text": "To help you"
+  },
+  {
+    "kind": "question",
+    "text": "Your blessing to be gone"
+  },
+  {
+    "kind": "question",
+    "text": "You to have more"
+  },
+  {
+    "kind": "question",
+    "text": "He loves that the blessing leave, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "The evil eye is part of...?"
+  },
+  {
+    "kind": "question",
+    "text": "Envy"
+  },
+  {
+    "kind": "question",
+    "text": "Weather"
+  },
+  {
+    "kind": "question",
+    "text": "The eye only comes from an envier."
+  },
+  {
+    "kind": "question",
+    "text": "We seek refuge in Allah from the envier."
+  },
+  {
+    "kind": "lesson",
     "text": "When ill, the Prophet ﷺ read Al-Falaq and An-Nas on himself."
   },
   {
@@ -172266,6 +172826,118 @@
   {
     "kind": "question",
     "text": "Short, yet equal to a third of the Quran."
+  },
+  {
+    "kind": "lesson",
+    "text": "Say Al-Ikhlas firmly, believing it and knowing what it means."
+  },
+  {
+    "kind": "lesson",
+    "text": "Qul: say"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 112:1"
+  },
+  {
+    "kind": "question",
+    "text": "How should we say Al-Ikhlas, per as-Sa'di?"
+  },
+  {
+    "kind": "question",
+    "text": "Firmly, knowing its meaning"
+  },
+  {
+    "kind": "question",
+    "text": "Quickly, without thinking"
+  },
+  {
+    "kind": "question",
+    "text": "Only in a whisper"
+  },
+  {
+    "kind": "question",
+    "text": "Say it firmly, believing it and knowing its meaning."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Ahad means Allah is...?"
+  },
+  {
+    "kind": "question",
+    "text": "One, with no like"
+  },
+  {
+    "kind": "question",
+    "text": "First of three"
+  },
+  {
+    "kind": "question",
+    "text": "Alone in perfection, with no equal."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Ikhlas teaches Allah's names and attributes."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 112:4."
+  },
+  {
+    "kind": "lesson",
+    "text": "As-Samad: all creation turns to Allah for every need."
+  },
+  {
+    "kind": "lesson",
+    "text": "As-Samad"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 112:2"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 112:2"
+  },
+  {
+    "kind": "question",
+    "text": "What does As-Samad mean, per as-Sa'di?"
+  },
+  {
+    "kind": "question",
+    "text": "The One who sleeps"
+  },
+  {
+    "kind": "question",
+    "text": "The One who needs help"
+  },
+  {
+    "kind": "question",
+    "text": "The far One"
+  },
+  {
+    "kind": "question",
+    "text": "The One turned to for every need"
+  },
+  {
+    "kind": "question",
+    "text": "He is turned to for all needs."
+  },
+  {
+    "kind": "question",
+    "text": "Who needs Allah completely?"
+  },
+  {
+    "kind": "question",
+    "text": "Everyone in heaven and earth"
+  },
+  {
+    "kind": "question",
+    "text": "All of creation needs Him fully."
+  },
+  {
+    "kind": "question",
+    "text": "Allah has no child because He needs nothing."
   },
   {
     "kind": "lesson",
@@ -172546,6 +173218,138 @@
   {
     "kind": "question",
     "text": "It names faith and good deeds together."
+  },
+  {
+    "kind": "lesson",
+    "text": "Loss has levels: some lose everything, others lose a part."
+  },
+  {
+    "kind": "lesson",
+    "text": "Khusr: loss"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 103:2"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 103:2"
+  },
+  {
+    "kind": "question",
+    "text": "Is all loss the same, per as-Sa'di?"
+  },
+  {
+    "kind": "question",
+    "text": "No, it has levels"
+  },
+  {
+    "kind": "question",
+    "text": "There is no loss"
+  },
+  {
+    "kind": "question",
+    "text": "Only money is lost"
+  },
+  {
+    "kind": "question",
+    "text": "Loss has many different levels."
+  },
+  {
+    "kind": "question",
+    "text": "What is the worst loss?"
+  },
+  {
+    "kind": "question",
+    "text": "Losing sleep"
+  },
+  {
+    "kind": "question",
+    "text": "Losing both worlds"
+  },
+  {
+    "kind": "question",
+    "text": "Losing a pen"
+  },
+  {
+    "kind": "question",
+    "text": "Losing this world and the next."
+  },
+  {
+    "kind": "question",
+    "text": "Someone can lose in some ways and not others."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 103:3."
+  },
+  {
+    "kind": "lesson",
+    "text": "There is no faith without knowledge; it grows from knowing."
+  },
+  {
+    "kind": "lesson",
+    "text": "Learn to believe"
+  },
+  {
+    "kind": "question",
+    "text": "What does faith need, per as-Sa'di on 103:3?"
+  },
+  {
+    "kind": "question",
+    "text": "There is no faith without knowledge."
+  },
+  {
+    "kind": "question",
+    "text": "Which is the first of the four in Al-Asr?"
+  },
+  {
+    "kind": "question",
+    "text": "Faith comes first."
+  },
+  {
+    "kind": "question",
+    "text": "Learning about Islam helps our faith grow."
+  },
+  {
+    "kind": "lesson",
+    "text": "Faith and deeds perfect you; urging truth helps others."
+  },
+  {
+    "kind": "lesson",
+    "text": "Two for you, two for them"
+  },
+  {
+    "kind": "question",
+    "text": "Which two of the four perfect yourself?"
+  },
+  {
+    "kind": "question",
+    "text": "Wealth and fame"
+  },
+  {
+    "kind": "question",
+    "text": "The first two perfect yourself, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "Which two help perfect others?"
+  },
+  {
+    "kind": "question",
+    "text": "Faith and prayer"
+  },
+  {
+    "kind": "question",
+    "text": "Urging truth and patience"
+  },
+  {
+    "kind": "question",
+    "text": "The last two perfect others."
+  },
+  {
+    "kind": "question",
+    "text": "With all four, a person is saved from loss."
   },
   {
     "kind": "lesson",
@@ -176598,10 +177402,6 @@
   {
     "kind": "question",
     "text": "Why did they reject him, in 2:90?"
-  },
-  {
-    "kind": "question",
-    "text": "Envy"
   },
   {
     "kind": "question",
@@ -197549,10 +198349,6 @@
   },
   {
     "kind": "question",
-    "text": "A charm"
-  },
-  {
-    "kind": "question",
     "text": "Fala kashifa lahu illa hu."
   },
   {
@@ -197810,10 +198606,6 @@
   {
     "kind": "question",
     "text": "Rest and sleep"
-  },
-  {
-    "kind": "question",
-    "text": "Wealth and fame"
   },
   {
     "kind": "question",
@@ -198806,10 +199598,6 @@
   {
     "kind": "question",
     "text": "What does Al-Qahir mean, per Ibn Kathir?"
-  },
-  {
-    "kind": "question",
-    "text": "The One who sleeps"
   },
   {
     "kind": "question",
@@ -203854,10 +204642,6 @@
   {
     "kind": "question",
     "text": "None has more ghayrah than Allah"
-  },
-  {
-    "kind": "question",
-    "text": "He needs us"
   },
   {
     "kind": "question",
@@ -219377,10 +220161,6 @@
   },
   {
     "kind": "question",
-    "text": "Nothing extra"
-  },
-  {
-    "kind": "question",
     "text": "For those who have done good is the best, and even more."
   },
   {
@@ -221118,10 +221898,6 @@
   {
     "kind": "question",
     "text": "Fir'awn might punish them"
-  },
-  {
-    "kind": "question",
-    "text": "Of the sea"
   },
   {
     "kind": "question",
@@ -244026,10 +244802,6 @@
   {
     "kind": "question",
     "text": "Why do people call Allah in harm, per Ibn Kathir?"
-  },
-  {
-    "kind": "question",
-    "text": "It is a habit"
   },
   {
     "kind": "question",
@@ -271693,10 +272465,6 @@
   },
   {
     "kind": "question",
-    "text": "Only jinn"
-  },
-  {
-    "kind": "question",
     "text": "Angels and people"
   },
   {
@@ -283342,10 +284110,6 @@
   {
     "kind": "question",
     "text": "Nothing after death"
-  },
-  {
-    "kind": "question",
-    "text": "Only dreams"
   },
   {
     "kind": "question",
@@ -302982,10 +303746,6 @@
   {
     "kind": "question",
     "text": "About what will He judge, per Ibn Kathir?"
-  },
-  {
-    "kind": "question",
-    "text": "Weather"
   },
   {
     "kind": "question",
@@ -428476,10 +429236,6 @@
     "text": "Quality over quantity"
   },
   {
-    "kind": "lesson",
-    "text": "Sincere and correct"
-  },
-  {
     "kind": "question",
     "text": "What does Allah test us for?"
   },
@@ -432446,10 +433202,6 @@
   {
     "kind": "question",
     "text": "What did Ibn Abbas say the garden became like?"
-  },
-  {
-    "kind": "question",
-    "text": "The dark night"
   },
   {
     "kind": "question",
@@ -451786,10 +452538,6 @@
   {
     "kind": "lesson",
     "text": "No one pays for a sin not done; no deed is lost."
-  },
-  {
-    "kind": "lesson",
-    "text": "As-Sa'di explains"
   },
   {
     "kind": "lesson",
@@ -483306,10 +484054,6 @@
   {
     "kind": "lesson",
     "text": "Al-Kafirun declares a clean break from worshipping idols."
-  },
-  {
-    "kind": "lesson",
-    "text": "Qul: say"
   },
   {
     "kind": "lesson",
