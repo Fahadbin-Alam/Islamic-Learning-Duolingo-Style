@@ -1020,7 +1020,7 @@ const MUJADILA_THREE: DeepUnit = {
       source: saadi(58, 18, "As-Sa'di says the hypocrites will even swear to Allah, because their disbelief and false beliefs settled in their minds little by little until they fooled them into thinking they had something.", "لم تزل ترسخ في أذهانهم شيئا فشيئا، حتى غرتهم"),
       difficulty: 3,
       questions: [
-        { q: "Why will hypocrites swear even to Allah, per as-Sa'di?", a: "Their lies grew until they believed them", wrong: ["They are truthful", "They forgot to pray", "They are angels"], why: "False beliefs settled little by little until they fooled them, says as-Sa'di." },
+        { q: "Why will hypocrites swear even to Allah, per as-Sa'di?", a: "Their lies grew until they believed them", wrong: ["They are truthful", "They forgot to pray", "They are angels"], why: "Their false beliefs settled little by little until they fooled them, says as-Sa'di." },
         { q: "How did the false beliefs settle in them?", a: "Little by little", wrong: ["All at once", "Never", "By a dream"], why: "Bit by bit, until they were fooled." },
         { tf: true, q: "Lies will not work with Allah on Judgment Day.", why: "As-Sa'di on 58:18." }
       ]
