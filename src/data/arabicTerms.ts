@@ -235,6 +235,9 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "sahabi-sad-ibn-muadh": { ar: "سعد بن معاذ", translit: "Sa'd ibn Mu'adh", meaning: "Chief of the Ansar" },
   "sahabi-abdur-rahman-ibn-awf": { ar: "عبد الرحمن بن عوف", translit: "Abdur-Rahman ibn Awf", meaning: "The humble trader" },
   "sahabi-muadh-ibn-jabal": { ar: "معاذ بن جبل", translit: "Mu'adh ibn Jabal", meaning: "Knower of halal and haram" },
+  "sahabi-ubayy-ibn-kab": { ar: "أبي بن كعب", translit: "Ubayy ibn Ka'b", meaning: "Master of the reciters" },
+  "sahabi-zayd-ibn-thabit": { ar: "زيد بن ثابت", translit: "Zayd ibn Thabit", meaning: "Scribe of the revelation" },
+  "sahabi-abu-musa-al-ashari": { ar: "أبو موسى الأشعري", translit: "Abu Musa al-Ash'ari", meaning: "The sweet voice" },
 
   // Women of the Book: women of the Quran and the Mothers of the Believers
   "women-quran": { ar: "النساء في القرآن", translit: "An-nisa fil-Quran", meaning: "Women in the Quran" },
@@ -768,7 +771,7 @@ const LEARN_FORMS = [
   "خَالِدُ بْنُ الْوَلِيدِ", "بِلَالُ بْنُ رَبَاحٍ", "أَبُو عُبَيْدَةَ بْنُ الْجَرَّاحِ",
   "طَلْحَةُ بْنُ عُبَيْدِ اللَّهِ", "الزُّبَيْرُ بْنُ الْعَوَّامِ", "سَعْدُ بْنُ أَبِي وَقَّاصٍ",
   "سَلْمَانُ الْفَارِسِيُّ", "أَبُو ذَرٍّ الْغِفَارِيُّ", "عَبْدُ اللَّهِ بْنُ مَسْعُودٍ",
-  "أَنَسُ بْنُ مَالِكٍ", "جَعْفَرُ بْنُ أَبِي طَالِبٍ", "أَبُو هُرَيْرَةَ", "كَعْبُ بْنُ مَالِكٍ", "سَعْدُ بْنُ مُعَاذٍ", "عَبْدُ الرَّحْمَنِ بْنُ عَوْفٍ", "مُعَاذُ بْنُ جَبَلٍ", "النِّسَاءُ فِي الْقُرْآنِ", "أُمَّهَاتُ الْمُؤْمِنِينَ",
+  "أَنَسُ بْنُ مَالِكٍ", "جَعْفَرُ بْنُ أَبِي طَالِبٍ", "أَبُو هُرَيْرَةَ", "كَعْبُ بْنُ مَالِكٍ", "سَعْدُ بْنُ مُعَاذٍ", "عَبْدُ الرَّحْمَنِ بْنُ عَوْفٍ", "مُعَاذُ بْنُ جَبَلٍ", "أُبَيُّ بْنُ كَعْبٍ", "زَيْدُ بْنُ ثَابِتٍ", "أَبُو مُوسَى الْأَشْعَرِيُّ", "النِّسَاءُ فِي الْقُرْآنِ", "أُمَّهَاتُ الْمُؤْمِنِينَ",
   "سُوَرُ الْقُرْآنِ", "الْأَنْبِيَاءُ", "النِّسَاءُ", "الصَّحَابَةُ",
   "الْحَدِيثُ", "الْأُمَّهَاتُ", "آلُ عَلِيٍّ", "أَحَادِيثُ لِلْأَطْفَالِ", "فِي حِفْظِ اللَّهِ",
   "الزَّوَاجُ فِي السُّنَّةِ", "أَهْلًا رَمَضَانُ", "أَعْمَالُ رَمَضَانَ", "الْعَشْرُ الْأَوَاخِرُ",

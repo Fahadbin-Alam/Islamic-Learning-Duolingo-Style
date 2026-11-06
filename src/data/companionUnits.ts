@@ -707,4 +707,277 @@ const MUADH: DeepUnit = {
   ]
 };
 
-export const COMPANION_UNITS: DeepUnit[] = [JAFAR, ABU_HURAIRAH, KAB, SAD_MUADH, ABDUR_RAHMAN, MUADH];
+// Ubayy ibn Ka'b, the master of the reciters, whose name Allah mentioned to the Prophet ﷺ.
+const UBAYY: DeepUnit = {
+  key: "ubayy",
+  topicId: "sahabah",
+  branchId: "sahabi-ubayy-ibn-kab",
+  branch: { title: "Ubayy ibn Ka'b", description: "The best reciter of the Quran, whose name Allah Himself mentioned." },
+  name: "Ubayy ibn Ka'b",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "named-by-allah",
+      title: "Allah mentioned his name",
+      line: "Allah told the Prophet ﷺ to recite the Quran to Ubayy.",
+      facts: ["Ubayy asked: did Allah mention me by name?", "The Prophet ﷺ said: yes.", "Ubayy burst into tears."],
+      source: hadith("bukhari", "4961", "Anas ibn Malik", "Sahih", "The Prophet ﷺ said to Ubayy ibn Ka'b: Allah has ordered me to recite the Quran to you. Ubayy said: did Allah mention me by name? He said: yes. Ubayy said: was I mentioned by the Lord of the worlds? He said: yes. Then Ubayy burst into tears.", "Then Ubai burst into tears"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Allah order the Prophet ﷺ to do for Ubayy?", a: "Recite the Quran to him", wrong: ["Give him gold", "Make him a king", "Send him to Rome"], why: "Allah has ordered me to recite the Quran to you." },
+        { q: "What did Ubayy ask?", a: "Did Allah mention me by name?", wrong: ["Can I go home?", "Where is my reward?", "Who told you?"], why: "And the Prophet ﷺ said: yes." },
+        { q: "How did Ubayy react?", a: "He burst into tears", wrong: ["He laughed", "He ran away", "He stayed silent"], why: "He wept that the Lord of the worlds named him." }
+      ]
+    },
+    {
+      slug: "greatest-ayah",
+      title: "The greatest ayah",
+      line: "Ubayy knew the greatest ayah: Ayat al-Kursi.",
+      facts: ["The Prophet ﷺ called him Abul-Mundhir.", "He asked: which ayah is the greatest?", "The Prophet ﷺ struck his chest: may knowledge delight you!"],
+      source: hadith("muslim", "810", "Ubayy ibn Ka'b", "Sahih", "The Prophet ﷺ asked: Abul-Mundhir, which ayah of Allah's Book is the greatest? I said: Allah, there is no god but He, the Living, the Eternal. He struck my chest and said: may knowledge be pleasant for you, Abul-Mundhir.", "May knowledge be pleasant for you"),
+      difficulty: 3,
+      questions: [
+        { q: "Which ayah did Ubayy say is the greatest?", a: "Ayat al-Kursi", wrong: ["The last ayah of Al-Baqarah", "The first ayah of Al-Fatihah", "An ayah of Yasin"], why: "Allah, there is no god but He, the Living, the Eternal." },
+        { q: "What did the Prophet ﷺ call Ubayy?", a: "Abul-Mundhir", wrong: ["Abu Hurairah", "Abu Turab", "Abu Bakr"], why: "His kunyah was Abul-Mundhir." },
+        { q: "The Prophet ﷺ was pleased with Ubayy's answer.", tf: true, why: "May knowledge be pleasant for you, he said." }
+      ]
+    },
+    {
+      slug: "best-reciter",
+      title: "The best reciter",
+      line: "The Prophet ﷺ said Ubayy was the best reciter of his ummah.",
+      facts: ["The same hadith praises many companions.", "Zayd ibn Thabit knew inheritance best.", "Ubayy recited the Quran best of all."],
+      source: hadith("tirmidhi", "3790", "Anas ibn Malik", "Sahih", "The Prophet ﷺ said: ... the most knowledgeable of inheritance is Zayd ibn Thabit, and the best reciter among them is Ubayy ibn Ka'b.", "the best reciter"),
+      difficulty: 3,
+      questions: [
+        { q: "Who was the best reciter of the ummah?", a: "Ubayy ibn Ka'b", wrong: ["Abu Jahl", "Khalid ibn al-Walid", "Abu Sufyan"], why: "The best reciter among them is Ubayy ibn Ka'b." },
+        { q: "Who knew inheritance best?", a: "Zayd ibn Thabit", wrong: ["Ubayy ibn Ka'b", "Bilal", "Abu Hurairah"], why: "The most knowledgeable of inheritance is Zayd." },
+        { q: "Ubayy was famous for poetry, not the Quran.", tf: false, why: "He was the best reciter of the Quran." }
+      ]
+    },
+    {
+      slug: "musa-and-khidr",
+      title: "The story of Musa and Al-Khidr",
+      line: "Ubayy passed on the story of Musa and Al-Khidr.",
+      facts: ["He heard it from the Prophet ﷺ.", "Ibn Abbas learned it from Ubayy.", "It is the same story told in Surah Al-Kahf."],
+      source: hadith("bukhari", "122", "Ubayy ibn Ka'b", "Sahih", "Ubayy ibn Ka'b narrated that the Prophet ﷺ said: once Prophet Musa stood up and addressed the Children of Israel... and then told the story of his journey with Al-Khidr.", "Once the Prophet Moses"),
+      difficulty: 3,
+      questions: [
+        { q: "Which story did Ubayy narrate from the Prophet ﷺ?", a: "Musa and Al-Khidr", wrong: ["Yusuf and his brothers", "Nuh and the flood", "Yunus and the whale"], why: "Bukhari 122, narrated by Ubayy." },
+        { q: "Which companion learned this story from Ubayy?", a: "Ibn Abbas", wrong: ["Abu Jahl", "Ka'b ibn Malik", "Khalid"], why: "Ibn Abbas passed it on from Ubayy." },
+        { q: "In which surah is this story told?", a: "Al-Kahf", wrong: ["Al-Fatihah", "Al-Ikhlas", "An-Nas"], why: "Musa's journey with Al-Khidr is in Surah Al-Kahf." }
+      ]
+    },
+    {
+      slug: "witness",
+      title: "\"The youngest will go\"",
+      line: "When Abu Musa needed a witness, Ubayy sent the youngest of them.",
+      facts: ["Umar asked Abu Musa for a witness to a hadith.", "Ubayy said: the youngest of us will go with you.", "Abu Sa'id went, and Umar accepted it."],
+      source: hadith("bukhari", "6245", "Abu Sa'id al-Khudri", "Sahih", "Abu Musa asked the Ansar if anyone had heard the hadith about asking permission three times. Ubayy ibn Ka'b said: by Allah, none will go with you but the youngest of the people. I was the youngest, so I went and told Umar.", "none will go with you but the youngest of the people"),
+      difficulty: 4,
+      questions: [
+        { q: "Who did Ubayy send as the witness?", a: "The youngest of them", wrong: ["The oldest man", "Ubayy himself", "No one"], why: "It showed the hadith was well known to all of them." },
+        { q: "Who was the youngest, who went?", a: "Abu Sa'id al-Khudri", wrong: ["Abu Musa", "Umar", "Mu'adh"], why: "Abu Sa'id went and told Umar." },
+        { q: "Why send the youngest?", a: "Even the youngest knew that hadith", wrong: ["He was the strongest", "He was the richest", "He was the leader"], why: "No need for an elder: everyone knew it." }
+      ]
+    },
+    {
+      slug: "taraweeh",
+      title: "Leading the night prayer",
+      line: "Umar gathered the people for Ramadan night prayer behind Ubayy.",
+      facts: ["People were praying in small, separate groups.", "Umar wanted them behind one reciter.", "He chose Ubayy ibn Ka'b."],
+      source: hadith("bukhari", "2010", "Abdur-Rahman ibn Abd al-Qari", "Sahih", "One night in Ramadan Umar found the people praying in separate groups in the mosque. He decided to gather them behind one reciter, and he gathered them behind Ubayy ibn Ka'b.", "congregate them behind Ubai"),
+      difficulty: 3,
+      questions: [
+        { q: "In which month did Umar gather the people behind Ubayy?", a: "Ramadan", wrong: ["Muharram", "Shawwal", "Rajab"], why: "It was the Ramadan night prayer." },
+        { q: "How were people praying before?", a: "In small separate groups", wrong: ["They did not pray", "Only at home", "Behind Umar"], why: "A man alone, or a man with a small group." },
+        { q: "Umar chose Ubayy to lead because he recited so well.", tf: true, why: "He was the best reciter among them." }
+      ]
+    }
+  ]
+};
+
+// Zayd ibn Thabit, the young scribe of the revelation who gathered the Quran into one book.
+const ZAYD_THABIT: DeepUnit = {
+  key: "zayd-thabit",
+  topicId: "sahabah",
+  branchId: "sahabi-zayd-ibn-thabit",
+  branch: { title: "Zayd ibn Thabit", description: "The young scribe who wrote the revelation and gathered the Quran into one book." },
+  name: "Zayd ibn Thabit",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "scribe",
+      title: "\"Call Zayd\"",
+      line: "A new ayah came down: call Zayd to write it!",
+      facts: ["Zayd brought a board, an inkpot and a shoulder bone.", "He wrote down ayah 95 of An-Nisa.", "Then Allah added the words for those with an excuse."],
+      source: hadith("bukhari", "4990", "Al-Bara ibn Azib", "Sahih", "When 'Not equal are those believers who sit at home' (4:95) came down, the Prophet ﷺ said: call Zayd and let him bring the board, the inkpot and the shoulder bone. Then he said: write.", "Call Zaid for me and let him bring the board"),
+      difficulty: 2,
+      questions: [
+        { q: "What job did Zayd do for the Prophet ﷺ?", a: "He wrote down the revelation", wrong: ["He cooked", "He guarded the door", "He traded"], why: "Call Zayd and let him bring the board." },
+        { q: "What did Zayd write on?", a: "A board and a shoulder bone", wrong: ["Printed paper", "A laptop", "Silk sheets"], why: "He brought the board, the inkpot and the shoulder bone." },
+        { q: "Which ayah did he write that day?", a: "An-Nisa 4:95", wrong: ["Al-Fatihah 1:1", "Al-Ikhlas 112:1", "Yasin 36:1"], why: "Not equal are those believers who sit at home." }
+      ]
+    },
+    {
+      slug: "four-collectors",
+      title: "One of four",
+      line: "Zayd was one of four Ansar who gathered the whole Quran.",
+      facts: ["They did it in the Prophet's ﷺ lifetime.", "The four: Ubayy, Mu'adh, Abu Zayd and Zayd.", "All four were from the Ansar."],
+      source: hadith("bukhari", "3810", "Anas ibn Malik", "Sahih", "Anas said: the Quran was collected in the lifetime of the Prophet ﷺ by four men, all of them from the Ansar: Ubayy, Mu'adh ibn Jabal, Abu Zayd and Zayd ibn Thabit.", "was collected in the lifetime of the Prophet"),
+      difficulty: 3,
+      questions: [
+        { q: "How many Ansar collected the Quran in the Prophet's ﷺ lifetime, said Anas?", a: "Four", wrong: ["One", "Ten", "Forty"], why: "Ubayy, Mu'adh, Abu Zayd and Zayd ibn Thabit." },
+        { q: "Which of these was NOT one of the four?", a: "Abu Hurairah", wrong: ["Ubayy", "Mu'adh", "Abu Zayd"], why: "The four were all from the Ansar." },
+        { q: "All four were from the Ansar.", tf: true, why: "All of whom were from the Ansar." }
+      ]
+    },
+    {
+      slug: "chosen",
+      title: "\"A wise young man\"",
+      line: "After Yamamah, Abu Bakr chose Zayd to gather the Quran.",
+      facts: ["Many Quran memorizers died at the Battle of Yamamah.", "Umar feared parts of the Quran could be lost.", "Abu Bakr said: you are a wise young man we trust."],
+      source: hadith("bukhari", "4986", "Zayd bin Thabit", "Sahih", "Abu Bakr called me after many reciters were killed at Yamamah and said: you are a wise young man, we do not suspect you, and you used to write the revelation, so search for the Quran and collect it.", "You are a wise young man"),
+      difficulty: 3,
+      questions: [
+        { q: "After which battle was the Quran gathered into one book?", a: "Yamamah", wrong: ["Badr", "Uhud", "Khaybar"], why: "Many reciters were killed there." },
+        { q: "Who first suggested gathering the Quran?", a: "Umar", wrong: ["Zayd", "Ali", "Abu Hurairah"], why: "Umar feared parts could be lost." },
+        { q: "Why did Abu Bakr choose Zayd?", a: "Young, wise, trusted, a scribe of revelation", wrong: ["He was the oldest", "He was the richest", "He was a king"], why: "You used to write the revelation." }
+      ]
+    },
+    {
+      slug: "heavier-than-mountains",
+      title: "Heavier than a mountain",
+      line: "Moving a mountain would have been lighter for Zayd.",
+      facts: ["He gathered the Quran from what was written and from hearts.", "He found the end of At-Tawbah only with Abu Khuzaymah.", "The pages stayed with Abu Bakr, then Umar, then Hafsah."],
+      source: hadith("bukhari", "4986", "Zayd bin Thabit", "Sahih", "Zayd said: by Allah, if they had told me to move a mountain it would not have been heavier than gathering the Quran. I gathered it from what was written and from the men who knew it by heart, and found the end of At-Tawbah with Abu Khuzaymah al-Ansari.", "it would not have been heavier for me than this"),
+      difficulty: 4,
+      questions: [
+        { q: "What did Zayd say would be lighter than gathering the Quran?", a: "Moving a mountain", wrong: ["Crossing a sea", "Fasting a year", "Building a house"], why: "It would not have been heavier for me than this." },
+        { q: "Where did Zayd gather the Quran from?", a: "Written pieces and people's memory", wrong: ["Only one old book", "Dreams", "Poets"], why: "From what was written and from the men who knew it by heart." },
+        { q: "Who kept the pages after Umar?", a: "Hafsah", wrong: ["Zayd", "Aishah", "Ali"], why: "With Abu Bakr, then Umar, then Hafsah, Umar's daughter." }
+      ]
+    },
+    {
+      slug: "two-witnesses",
+      title: "Worth two witnesses",
+      line: "One ayah of Al-Ahzab, Zayd found only with Khuzaymah ibn Thabit.",
+      facts: ["Zayd had heard the Prophet ﷺ recite it.", "The Prophet ﷺ counted Khuzaymah's witness as two men.", "The ayah: among the believers are men true to their promise."],
+      source: hadith("bukhari", "2807", "Zayd ibn Thabit", "Sahih", "Zayd said: an ayah of Al-Ahzab I used to hear the Prophet ﷺ recite was missing; I found it only with Khuzaymah ibn Thabit, whose witness the Prophet ﷺ counted as equal to two men: among the believers are men who were true to their covenant with Allah (33:23).", "equal to the witness of two men"),
+      difficulty: 4,
+      questions: [
+        { q: "With whom did Zayd find the ayah of Al-Ahzab?", a: "Khuzaymah ibn Thabit", wrong: ["Abu Jahl", "Abu Sufyan", "Ubayy ibn Ka'b"], why: "I found it only with Khuzaymah ibn Thabit." },
+        { q: "Khuzaymah's witness counted as how many men?", a: "Two", wrong: ["One", "Ten", "Half"], why: "Equal to the witness of two men." },
+        { q: "Zayd had never heard that ayah before.", tf: false, why: "He used to hear the Prophet ﷺ recite it." }
+      ]
+    },
+    {
+      slug: "uthman-copies",
+      title: "One Quran for every land",
+      line: "Uthman had Zayd write copies of the Quran for every land.",
+      facts: ["People in different lands began to recite differently.", "Uthman took Abu Bakr's pages from Hafsah.", "Copies were sent out to every region."],
+      source: hadith("bukhari", "4987", "Anas ibn Malik", "Sahih", "Hudhayfah warned Uthman about people differing in recitation. Uthman got the pages from Hafsah and ordered Zayd ibn Thabit and others to write them into copies, and sent a copy to every region.", "ordered Zaid bin Thabit"),
+      difficulty: 4,
+      questions: [
+        { q: "Which caliph had Zayd write copies of the Quran?", a: "Uthman", wrong: ["Abu Bakr", "Umar", "Mu'awiyah"], why: "He ordered Zayd and others to make the copies." },
+        { q: "Who warned Uthman about people differing?", a: "Hudhayfah", wrong: ["Zayd", "Ka'b", "Bilal"], why: "Save this nation before they differ about the Book." },
+        { q: "Where were the pages of Abu Bakr kept?", a: "With Hafsah", wrong: ["In Zayd's house", "In Makkah", "In Sham"], why: "Uthman sent for them from Hafsah." }
+      ]
+    }
+  ]
+};
+
+// Abu Musa al-Ash'ari, from Yemen, with the sweetest voice of the Quran.
+const ABU_MUSA: DeepUnit = {
+  key: "abu-musa",
+  topicId: "sahabah",
+  branchId: "sahabi-abu-musa-al-ashari",
+  branch: { title: "Abu Musa al-Ash'ari", description: "The companion from Yemen with a voice like the family of Dawud." },
+  name: "Abu Musa al-Ash'ari",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "soft-hearts",
+      title: "Soft hearts from Yemen",
+      line: "The people of Yemen have come, with soft hearts.",
+      facts: ["Abu Musa and his people came from Yemen.", "Faith is Yemeni, wisdom is Yemeni.", "They were gentle and soft-hearted."],
+      source: hadith("bukhari", "4388", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: the people of Yemen have come to you, and they are gentler and softer of heart. Faith is Yemeni and wisdom is Yemeni.", "more gentle and soft-hearted"),
+      difficulty: 2,
+      questions: [
+        { q: "Where did Abu Musa's people come from?", a: "Yemen", wrong: ["Persia", "Rome", "Egypt"], why: "He was from the Ash'aris of Yemen." },
+        { q: "How did the Prophet ﷺ describe the people of Yemen?", a: "Gentle and soft-hearted", wrong: ["Hard and proud", "Rich and lazy", "Loud and angry"], why: "More gentle and soft-hearted." },
+        { q: "The Prophet ﷺ said faith and wisdom are Yemeni.", tf: true, why: "Faith is Yemeni and wisdom is Yemeni." }
+      ]
+    },
+    {
+      slug: "voice-of-dawud",
+      title: "A voice like Dawud's family",
+      line: "Abu Musa was given a voice like Dawud's family.",
+      facts: ["Abu Musa recited the Quran beautifully.", "Prophet Dawud was known for his lovely voice.", "A beautiful voice is a gift from Allah."],
+      source: hadith("bukhari", "5048", "Abu Musa al-Ash'ari", "Sahih", "The Prophet ﷺ said to Abu Musa: you have been given one of the sweet voices of the family of Dawud.", "one of the mazamir"),
+      difficulty: 2,
+      questions: [
+        { q: "What gift did Abu Musa have?", a: "A beautiful voice for the Quran", wrong: ["Great wealth", "A huge army", "A big palace"], why: "One of the sweet voices of Dawud's family." },
+        { q: "Whose family's voice was his compared to?", a: "Prophet Dawud's", wrong: ["Prophet Nuh's", "Prophet Yusuf's", "Prophet Hud's"], why: "The family of Dawud." },
+        { q: "The Prophet ﷺ praised Abu Musa's recitation.", tf: true, why: "He said he was given a voice like Dawud's family." }
+      ]
+    },
+    {
+      slug: "night-recitation",
+      title: "Known by their recitation",
+      line: "The Ash'aris' houses were known by their Quran at night.",
+      facts: ["The Ash'aris were Abu Musa's tribe.", "They recited the Quran in their homes at night.", "He knew their houses by their voices, without seeing them by day."],
+      source: hadith("bukhari", "4232", "Abu Musa al-Ash'ari", "Sahih", "The Prophet ﷺ said: I recognize the voices of the Ash'aris reciting the Quran when they go home at night, and I know their houses from their voices at night, though I did not see their houses by day.", "I recognize the voice of the group of Al"),
+      difficulty: 3,
+      questions: [
+        { q: "How did the Prophet ﷺ recognize the Ash'aris' houses?", a: "By their Quran at night", wrong: ["By their flags", "By big doors", "By their camels"], why: "He knew their houses from their voices." },
+        { q: "Who were the Ash'aris?", a: "Abu Musa's tribe", wrong: ["A Roman army", "Makkan traders", "The people of Taif"], why: "Abu Musa came with his people, the Ash'aris." },
+        { q: "What does this teach about a home?", a: "Fill it with the Quran", wrong: ["Keep it silent always", "Only decorate it", "Keep the Quran outside"], why: "Their homes were known by the Quran." }
+      ]
+    },
+    {
+      slug: "treasure",
+      title: "A treasure of Paradise",
+      line: "Abu Musa learned a treasure of Paradise.",
+      facts: ["Abu Musa was saying it quietly to himself.", "Earlier: you call One who hears and sees, so no need to shout.", "It means: there is no power or might except with Allah."],
+      source: hadith("bukhari", "6384", "Abu Musa al-Ash'ari", "Sahih", "The Prophet ﷺ came to me while I was saying quietly: la hawla wa la quwwata illa billah. He said: O Abdullah ibn Qays, say la hawla wa la quwwata illa billah, for it is one of the treasures of Paradise.", "it is one of the treasures of Paradise"),
+      difficulty: 3,
+      questions: [
+        { q: "Which words did the Prophet ﷺ call a treasure of Paradise?", a: "La hawla wa la quwwata illa billah", wrong: ["Good morning", "Thank you", "See you later"], why: "It is one of the treasures of Paradise." },
+        { q: "What was Abu Musa's real name?", a: "Abdullah ibn Qays", wrong: ["Abdullah ibn Umar", "Abdur-Rahman", "Zayd ibn Thabit"], why: "The Prophet ﷺ called him O Abdullah ibn Qays." },
+        { q: "We must shout our dhikr so Allah hears it.", tf: false, why: "You call One who hears and sees, not someone deaf or far." }
+      ]
+    },
+    {
+      slug: "awtas",
+      title: "A dua after Awtas",
+      line: "After Awtas, the Prophet ﷺ prayed: forgive Abdullah ibn Qays.",
+      facts: ["Abu Musa's uncle Abu Amir fell at Awtas, after Hunayn.", "Abu Musa led the army after him.", "The Prophet ﷺ made wudu and raised his hands in dua."],
+      source: hadith("bukhari", "4323", "Abu Musa al-Ash'ari", "Sahih", "After Hunayn, Abu Amir led an army to Awtas and was struck by an arrow; he made Abu Musa his successor. The Prophet ﷺ made wudu, raised his hands and prayed for Abu Amir, then said: O Allah, forgive the sins of Abdullah ibn Qays and admit him to a noble entrance on the Day of Resurrection.", "forgive the sins of"),
+      difficulty: 4,
+      questions: [
+        { q: "Who led the army at Awtas first?", a: "Abu Amir, Abu Musa's uncle", wrong: ["Abu Musa", "Khalid", "Ali"], why: "Abu Amir made Abu Musa his successor." },
+        { q: "What did the Prophet ﷺ do before the dua?", a: "He made wudu and raised his hands", wrong: ["He slept", "He ate", "He rode away"], why: "He asked for water, made wudu and raised his hands." },
+        { q: "What did the Prophet ﷺ ask for Abu Musa?", a: "Forgiveness and a noble entrance", wrong: ["Gold and silver", "A long life only", "A kingdom"], why: "Admit him to a noble entrance on the Day of Resurrection." }
+      ]
+    },
+    {
+      slug: "three-knocks",
+      title: "Ask three times",
+      line: "Abu Musa knocked three times on Umar's door, then left.",
+      facts: ["The Prophet ﷺ said: ask permission three times; if not allowed, go back.", "Umar asked for a witness.", "Abu Sa'id al-Khudri came and said he heard it too."],
+      source: hadith("bukhari", "6245", "Abu Sa'id al-Khudri", "Sahih", "Abu Musa said: I asked permission to enter on Umar three times and was not given it, so I went back, for the Messenger of Allah ﷺ said: if one of you asks permission three times and is not given it, let him go back.", "I asked permission three times, and I was not given it"),
+      difficulty: 3,
+      questions: [
+        { q: "How many times should you ask to enter?", a: "Three times", wrong: ["Once", "Ten times", "Until they open"], why: "If not allowed after three, go back." },
+        { q: "What should you do if no one allows you in?", a: "Go back politely", wrong: ["Break the door", "Shout louder", "Wait all night"], why: "Then he should return." },
+        { q: "Who backed up Abu Musa's hadith?", a: "Abu Sa'id al-Khudri", wrong: ["Abu Jahl", "Abu Sufyan", "No one"], why: "He was the youngest, and he went with him to Umar." }
+      ]
+    }
+  ]
+};
+
+export const COMPANION_UNITS: DeepUnit[] = [JAFAR, ABU_HURAIRAH, KAB, SAD_MUADH, ABDUR_RAHMAN, MUADH, UBAYY, ZAYD_THABIT, ABU_MUSA];
