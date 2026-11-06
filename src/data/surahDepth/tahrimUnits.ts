@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah At-Tahrim ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -129,6 +129,20 @@ const TAHRIM_ONE: DeepUnit = {
         { q: "What did the Prophet ﷺ answer?", a: "The All-Aware told me", wrong: ["A bird told me", "I guessed", "Someone wrote it"], why: "He said: The All-Knower, the All-Aware has told me." },
         { q: "What did she ask him?", a: "Who told you this?", wrong: ["Where are you going?", "What time is it?", "Is it raining?"], why: "She said: Who told you this?" },
         { tf: true, q: "Nothing said in secret is hidden from Allah.", why: "The All-Knower, the All-Aware has told me." }
+      ]
+    },
+    {
+      slug: "only-part-was-mentioned",
+      title: "Only part was mentioned",
+      line: "He mentioned only part of what was said, out of kindness.",
+      facts: ["As-Sa'di explains", "Kind and gentle"],
+      quote: q66(3),
+      source: saadi(66, 3, "As-Sa'di says the Prophet ﷺ told his wife only some of what she had said and left the rest unmentioned, out of generosity and gentleness.", "فعرفها صلى الله عليه وسلم، ببعض ما قالت، وأعرض عن بعضه، كرمًا منه"),
+      difficulty: 2,
+      questions: [
+        { q: "Why did the Prophet ﷺ mention only part of it?", a: "Out of kindness and gentleness", wrong: ["He forgot", "He was angry", "He did not know"], why: "He left some out from generosity, says as-Sa'di." },
+        { q: "What can we learn from At-Tahrim 66:3?", a: "Do not list every mistake", wrong: ["Shout at people", "Tell everyone", "Never forgive"], why: "He overlooked part of it, out of gentleness." },
+        { tf: true, q: "Allah knows every secret, even what is most hidden.", why: "As-Sa'di on 66:3." }
       ]
     },
     {
@@ -310,6 +324,20 @@ const TAHRIM_TWO: DeepUnit = {
         { q: "What kind of repentance does 66:8 ask for?", a: "Sincere repentance", wrong: ["Half-hearted", "Only spoken", "Only once a year"], why: "O you who believe! Turn to Allah with sincere repentance!" },
         { q: "What does sincere repentance do to past sins?", a: "Erases them", wrong: ["Doubles them", "Hides them", "Nothing"], why: "A true, firm repentance that erases the evil sins that preceded it." },
         { tf: false, q: "Sincere repentance means planning to repeat the sin.", why: "Directing him to quit the evil that he used to do." }
+      ]
+    },
+    {
+      slug: "for-every-sin",
+      title: "For every sin",
+      line: "Sincere repentance covers all sins, is for Allah, and lasts.",
+      facts: ["As-Sa'di explains", "Tawbah Nasuh"],
+      quote: q66(8),
+      source: saadi(66, 8, "As-Sa'di says sincere repentance is a full repentance from all sins, made for Allah alone, seeking only His Face and nearness, and kept up in every state.", "التوبة العامة الشاملة للذنوب كلها"),
+      difficulty: 3,
+      questions: [
+        { q: "What does sincere repentance cover, per as-Sa'di?", a: "All sins", wrong: ["Only big sins", "Only one sin", "Only old sins"], why: "It is a repentance that covers all sins, says as-Sa'di." },
+        { q: "Who is sincere repentance for?", a: "Allah alone", wrong: ["People", "Fame", "Friends"], why: "Seeking only His Face and nearness." },
+        { tf: true, q: "Sincere repentance is kept up, not dropped the next day.", why: "As-Sa'di on 66:8." }
       ]
     },
     {
@@ -533,6 +561,20 @@ const TAHRIM_THREE: DeepUnit = {
         { q: "What did Maryam testify to?", a: "Her Lord's words and books", wrong: ["Firawn's power", "Old idols", "Magic"], why: "And she testified to the truth of her Lords Kalimat, and His Kutub." },
         { q: "What do Kalimat and Kutub mean?", a: "His decree and legislation", wrong: ["Songs and poems", "Stories for fun", "Old maps"], why: "Her Lords Kalimat, and His Kutub, meaning His decree and His legislation." },
         { tf: true, q: "Maryam was among the devoutly obedient.", why: "And she was of the Qanitin." }
+      ]
+    },
+    {
+      slug: "knowledge-and-deeds",
+      title: "Knowledge and deeds",
+      line: "Maryam was a siddiqah: complete in knowledge and in deeds.",
+      facts: ["As-Sa'di explains", "Siddiqiyyah"],
+      quote: q66(12),
+      source: saadi(66, 12, "As-Sa'di says believing Allah's words and books shows Maryam's knowledge, being obedient shows her deeds, and being a siddiqah means having both in full.", "والصديقية: هي كمال العلم والعمل"),
+      difficulty: 3,
+      questions: [
+        { q: "What is siddiqiyyah, per as-Sa'di?", a: "Full knowledge and full deeds", wrong: ["Only fasting", "Only wealth", "Only talking"], why: "Siddiqiyyah is complete knowledge and action, says as-Sa'di." },
+        { q: "What does believing in Allah's books need?", a: "Knowing them", wrong: ["Nothing", "Money", "Travel"], why: "Believing in them needs knowledge and action." },
+        { tf: true, q: "Maryam kept obeying Allah with humility.", why: "As-Sa'di on 66:12." }
       ]
     },
     {

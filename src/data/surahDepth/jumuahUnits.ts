@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Jumu'ah ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -227,6 +227,20 @@ const JUMUAH_ONE: DeepUnit = {
         { q: "What grace does 62:4 mean, per Ibn Kathir?", a: "Muhammad's prophethood", wrong: ["Rain", "Gold", "Long life"], why: "Refers to the great prophethood that He granted Muhammad." },
         { q: "To whom does Allah give His grace?", a: "Whom He wills", wrong: ["Whoever is rich", "Whoever is strong", "No one"], why: "That is the grace of Allah, which He bestows on whom He wills." },
         { tf: true, q: "His Ummah was favored by his being sent.", why: "The qualities that He favored his Ummah with, by sending Muhammad to them." }
+      ]
+    },
+    {
+      slug: "faith-above-health-and-wealth",
+      title: "Above health and wealth",
+      line: "The gift of the religion is greater than health or wealth.",
+      facts: ["As-Sa'di explains", "The greatest blessing"],
+      quote: q62(4),
+      source: saadi(62, 4, "As-Sa'di says sending the Messenger is a bigger favour than good health and wide provision, because no blessing is greater than the religion, which brings lasting happiness.", "وهو أفضل من نعمته عليهم بعافية البدن وسعة الرزق"),
+      difficulty: 2,
+      questions: [
+        { q: "Which blessing is greatest, per as-Sa'di on 62:4?", a: "The religion", wrong: ["Good health", "Lots of money", "A big house"], why: "No blessing is greater than the religion, says as-Sa'di." },
+        { q: "Why is the religion the greatest gift?", a: "It brings lasting happiness", wrong: ["It makes us rich", "It ends all work", "It makes us famous"], why: "It is the way to success and happiness forever." },
+        { tf: true, q: "Allah did not leave His servants without guidance.", why: "As-Sa'di on 62:4." }
       ]
     }
   ]
@@ -659,6 +673,20 @@ const JUMUAH_THREE: DeepUnit = {
         { q: "What is better than any trade, in 62:11?", a: "What Allah has", wrong: ["A bigger caravan", "More gold", "A new market"], why: "Say: That which Allah has is better than any amusement or merchandise!" },
         { q: "How does 62:11 end?", a: "Allah is the best of providers", wrong: ["Allah is the King", "Allah is the Near", "Allah is the Light"], why: "And Allah is the best of providers." },
         { tf: true, q: "Allah provides for those who trust in Him.", why: "For those who trust in Him and seek His provisions when they are allowed to do so." }
+      ]
+    },
+    {
+      slug: "allowed-but-not-now",
+      title: "Allowed, but not now",
+      line: "An allowed thing is wrong when it makes you miss a duty.",
+      facts: ["As-Sa'di explains", "Selling at the Friday call"],
+      quote: q62(11),
+      source: saadi(62, 11, "As-Sa'di says selling was forbidden after the Friday call only because it makes people miss a duty, so anything allowed becomes not allowed when it causes a duty to be missed.", "فدل ذلك على أن كل أمر ولو كان مباحًا في الأصل، إذا كان ينشأ عنه تفويت واجب، فإنه لا يجوز في تلك الحال"),
+      difficulty: 3,
+      questions: [
+        { q: "Why was selling stopped at the Friday call?", a: "It makes people miss a duty", wrong: ["Selling is always wrong", "Money is dirty", "Markets close"], why: "It makes a person miss the duty, says as-Sa'di." },
+        { q: "An allowed game that makes you miss a prayer is...?", a: "Not allowed then", wrong: ["Always fine", "Better than prayer", "A good deed"], why: "Anything allowed is not allowed when it makes a duty missed." },
+        { tf: true, q: "After the Friday prayer, buying and selling are fine again.", why: "As-Sa'di on 62:9-11." }
       ]
     }
   ]
