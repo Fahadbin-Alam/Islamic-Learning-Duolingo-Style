@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Fajr ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -271,6 +271,20 @@ const FAJR_THREE: DeepUnit = {
       ]
     },
     {
+      slug: "care-beyond-yourself",
+      title: "Care beyond yourself",
+      line: "Caring only about your own wants is a weak goal.",
+      facts: ["As-Sa'di explains", "Think of the needy"],
+      quote: q89(17),
+      source: saadi(89, 17, "As-Sa'di says caring only about what you want yourself is weak, so Allah blamed people who did not care for the needy, like the orphan.", "فإن وقوف همة العبد عند مراد نفسه فقط، من ضعف الهمة"),
+      difficulty: 2,
+      questions: [
+        { q: "Caring only for your own wants is...?", a: "Weak", wrong: ["Wise", "Brave", "Best"], why: "Stopping at your own wants is weak aim, says as-Sa'di." },
+        { q: "Who did Al-Fajr say people failed to honour?", a: "The orphan", wrong: ["The king", "The rich", "The guest"], why: "They did not honour the orphan who lost his father." },
+        { tf: true, q: "Not caring for orphans shows no mercy in the heart.", why: "As-Sa'di on 89:17." }
+      ]
+    },
+    {
       slug: "close-to-him-in-paradise",
       title: "Close to him in Paradise",
       line: "Whoever cares for an orphan will be near Muhammad ﷺ in Paradise.",
@@ -449,6 +463,20 @@ const FAJR_FOUR: DeepUnit = {
         { q: "Among whom does the soul enter, per 89:29?", a: "Among My servants", wrong: ["Among the kings", "Among strangers", "Among the deniers"], why: "Enter then among My servants." },
         { q: "What is the final call in 89:30?", a: "Enter My Paradise", wrong: ["Wait outside", "Go back", "Stand still"], why: "And enter My Paradise!" },
         { q: "When is it said, per Ibn Kathir?", a: "At death and on the Day of Judgement", wrong: ["Only in dreams", "Never", "Every morning"], why: "This will be said to it at the time of death and on the Day of Judgement." }
+      ]
+    },
+    {
+      slug: "said-at-death-too",
+      title: "Said at death too",
+      line: "The calm soul hears these words at death and on Judgment Day.",
+      facts: ["As-Sa'di explains", "Twice good news"],
+      quote: q89(29),
+      source: saadi(89, 29, "As-Sa'di says the words come back to your Lord and enter My Paradise are said to the believing soul on the Day of Judgment, and also when it dies.", "وتخاطب به حال الموت"),
+      difficulty: 2,
+      questions: [
+        { q: "When does the tranquil soul hear Al-Fajr 89:27-30?", a: "At death and on Judgment Day", wrong: ["Only at birth", "Never", "Only in dreams"], why: "On the Day of Judgment and at the time of death, says as-Sa'di." },
+        { q: "The tranquil soul is calm with...?", a: "Remembering Allah", wrong: ["Money", "Fame", "Games"], why: "At peace with dhikr and His love." },
+        { tf: true, q: "The tranquil soul is pleased with Allah and He with it.", why: "As-Sa'di on 89:28." }
       ]
     }
   ]
