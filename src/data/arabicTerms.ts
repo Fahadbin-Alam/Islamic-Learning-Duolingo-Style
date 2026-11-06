@@ -229,6 +229,9 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "sahabi-abdullah-ibn-masud": { ar: "عبد الله بن مسعود", translit: "Abdullah ibn Mas'ud", meaning: "Quran reciter" },
   "sahabi-anas-ibn-malik": { ar: "أنس بن مالك", translit: "Anas ibn Malik", meaning: "The Prophet's ﷺ servant" },
   "sahabi-muhajirun": { ar: "المهاجرون", translit: "Al-Muhajirun", meaning: "The emigrants" },
+  "sahabi-jafar-ibn-abi-talib": { ar: "جعفر بن أبي طالب", translit: "Ja'far ibn Abi Talib", meaning: "The one with two wings" },
+  "sahabi-abu-hurairah": { ar: "أبو هريرة", translit: "Abu Hurairah", meaning: "Keeper of the hadith" },
+  "sahabi-kab-ibn-malik": { ar: "كعب بن مالك", translit: "Ka'b ibn Malik", meaning: "One of the three forgiven" },
 
   // Women of the Book: women of the Quran and the Mothers of the Believers
   "women-quran": { ar: "النساء في القرآن", translit: "An-nisa fil-Quran", meaning: "Women in the Quran" },
@@ -762,7 +765,7 @@ const LEARN_FORMS = [
   "خَالِدُ بْنُ الْوَلِيدِ", "بِلَالُ بْنُ رَبَاحٍ", "أَبُو عُبَيْدَةَ بْنُ الْجَرَّاحِ",
   "طَلْحَةُ بْنُ عُبَيْدِ اللَّهِ", "الزُّبَيْرُ بْنُ الْعَوَّامِ", "سَعْدُ بْنُ أَبِي وَقَّاصٍ",
   "سَلْمَانُ الْفَارِسِيُّ", "أَبُو ذَرٍّ الْغِفَارِيُّ", "عَبْدُ اللَّهِ بْنُ مَسْعُودٍ",
-  "أَنَسُ بْنُ مَالِكٍ", "النِّسَاءُ فِي الْقُرْآنِ", "أُمَّهَاتُ الْمُؤْمِنِينَ",
+  "أَنَسُ بْنُ مَالِكٍ", "جَعْفَرُ بْنُ أَبِي طَالِبٍ", "أَبُو هُرَيْرَةَ", "كَعْبُ بْنُ مَالِكٍ", "النِّسَاءُ فِي الْقُرْآنِ", "أُمَّهَاتُ الْمُؤْمِنِينَ",
   "سُوَرُ الْقُرْآنِ", "الْأَنْبِيَاءُ", "النِّسَاءُ", "الصَّحَابَةُ",
   "الْحَدِيثُ", "الْأُمَّهَاتُ", "آلُ عَلِيٍّ", "أَحَادِيثُ لِلْأَطْفَالِ", "فِي حِفْظِ اللَّهِ",
   "الزَّوَاجُ فِي السُّنَّةِ", "أَهْلًا رَمَضَانُ", "أَعْمَالُ رَمَضَانَ", "الْعَشْرُ الْأَوَاخِرُ",

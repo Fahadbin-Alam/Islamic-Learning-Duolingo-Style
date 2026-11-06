@@ -1,0 +1,421 @@
+import { hadith, quran, quranQuote, type DeepUnit } from "./deepKit";
+
+// More companions, each a unit of its own in the Sahabah topic, told in the order their lives happened. Every
+// lesson rests on a sahih hadith from Bukhari or Muslim (or an ayah of the Quran), with the words on the
+// sunnah.com page lit up. Stories from weak chains, and anything the scholars differ on, are left out.
+
+// Ka'b ibn Malik tells his own story of Tabuk (Sahih al-Bukhari 4418), from the night of Al-Aqabah to the
+// day Allah accepted his repentance.
+const KAB: DeepUnit = {
+  key: "kab",
+  topicId: "sahabah",
+  branchId: "sahabi-kab-ibn-malik",
+  branch: { title: "Ka'b ibn Malik", description: "The companion who stayed behind from Tabuk, told the truth, and was forgiven by Allah." },
+  name: "Ka'b ibn Malik",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "aqabah",
+      title: "The night of Al-Aqabah",
+      line: "Ka'b pledged to the Prophet ﷺ on the night of Al-Aqabah.",
+      facts: ["Ka'b was one of the Ansar of Madinah.", "He loved that night more than the Battle of Badr.", "He was not at Badr, and no one was blamed for missing it."],
+      source: hadith("bukhari", "4418", "Ka'b ibn Malik", "Sahih", "Ka'b said: I was at the night of Al-Aqabah when we pledged for Islam, and I would not swap it for Badr, though Badr is better known among the people.", "when we pledged for Islam"),
+      difficulty: 2,
+      questions: [
+        { q: "Which night did Ka'b see with the Prophet ﷺ?", a: "The night of Al-Aqabah", wrong: ["The night of the Hijrah", "The night of Badr", "The night of Isra"], why: "He pledged for Islam on that night." },
+        { q: "Which did Ka'b love more: Al-Aqabah or Badr?", a: "Al-Aqabah", wrong: ["Badr", "He loved neither", "Uhud"], why: "He said he would not swap Al-Aqabah for Badr." },
+        { q: "Ka'b was blamed for missing the Battle of Badr.", tf: false, why: "Allah did not blame anyone who missed Badr." }
+      ]
+    },
+    {
+      slug: "strongest",
+      title: "Never stronger, never richer",
+      line: "When Tabuk came, Ka'b had two camels and was never stronger.",
+      facts: ["It was his first time owning two she-camels.", "Tabuk was far away, in great heat, against a big army.", "The Prophet ﷺ told everyone clearly where they were going."],
+      source: hadith("bukhari", "4418", "Ka'b ibn Malik", "Sahih", "Ka'b said: I had never been stronger or richer than when I stayed behind from Tabuk; I owned two she-camels for the first time. The march was in great heat, over a long desert, against a large enemy.", "I had never been stronger or wealthier than I was when I remained behind"),
+      difficulty: 2,
+      questions: [
+        { q: "How many she-camels did Ka'b own before Tabuk?", a: "Two", wrong: ["None", "Ten", "One hundred"], why: "It was the first time he had two." },
+        { q: "What was the weather when the army left for Tabuk?", a: "Very hot", wrong: ["Snowy", "Rainy and cold", "Mild spring"], why: "Tabuk was fought in severe heat." },
+        { q: "Ka'b stayed behind because he was too poor to go.", tf: false, why: "He was never stronger or richer than then." },
+        { q: "For Tabuk, the Prophet ﷺ said clearly where the army was going.", tf: true, why: "So that the Muslims could get ready for the long trip." }
+      ]
+    },
+    {
+      slug: "delay",
+      title: "\"I can do it tomorrow\"",
+      line: "Ka'b kept saying \"later\" until the army had gone.",
+      facts: ["Each morning he went out to get ready and came back with nothing done.", "He told himself he would catch up in a day or two.", "Putting off a good deed can make you miss it."],
+      source: hadith("bukhari", "4418", "Ka'b ibn Malik", "Sahih", "Ka'b said: I would tell myself, I can do that, and I kept delaying, until the people had left and I had prepared nothing.", "So I kept on delaying it every now and then till the people got ready"),
+      difficulty: 2,
+      questions: [
+        { q: "Why did Ka'b miss the army leaving for Tabuk?", a: "He kept putting it off", wrong: ["He was sick", "He was told to stay", "He had no camel"], why: "He kept delaying until they left." },
+        { q: "What did Ka'b tell himself each time?", a: "I can do that", wrong: ["I will never go", "I am afraid", "It is too hot"], why: "He was sure he could catch up later." },
+        { q: "What does Ka'b's delay teach us?", a: "Do a good deed now, not later", wrong: ["Wait for the perfect day", "Good deeds can always wait", "Never travel in summer"], why: "Putting it off made him miss it." }
+      ]
+    },
+    {
+      slug: "at-tabuk",
+      title: "\"What did Ka'b do?\"",
+      line: "At Tabuk, Mu'adh spoke up for the absent Ka'b.",
+      facts: ["A man said Ka'b stayed home proud of his fine clothes.", "Mu'adh ibn Jabal said: we know only good about him.", "In Madinah, Ka'b saw only the excused and those accused of hypocrisy."],
+      source: hadith("bukhari", "4418", "Ka'b ibn Malik", "Sahih", "At Tabuk the Prophet ﷺ asked: what did Ka'b do? A man blamed his fine clothes. Mu'adh ibn Jabal said: what a bad thing you said! We know nothing about him but good.", "We know nothing about him but good"),
+      difficulty: 3,
+      questions: [
+        { q: "Who spoke up for Ka'b at Tabuk?", a: "Mu'adh ibn Jabal", wrong: ["Abu Bakr", "Khalid ibn al-Walid", "Abu Hurairah"], why: "He said: we know nothing about him but good." },
+        { q: "What did Mu'adh say about Ka'b?", a: "We know nothing but good about him", wrong: ["He is a hypocrite", "He is lazy", "He is proud"], why: "He would not let a brother be spoken badly of." },
+        { q: "Who did Ka'b see left behind in Madinah?", a: "The excused and those accused of hypocrisy", wrong: ["Only the scholars", "All the young men", "The whole army"], why: "It grieved him to see who stayed back." },
+        { q: "Defending an absent brother's honor is a good deed.", tf: true, why: "Mu'adh did it, and Ka'b never forgot it." }
+      ]
+    },
+    {
+      slug: "truth",
+      title: "Only the truth",
+      line: "More than eighty men made up excuses. Ka'b told the truth.",
+      facts: ["The Prophet ﷺ accepted their words and left their hearts to Allah.", "Ka'b said: I had no excuse.", "The Prophet ﷺ said: this man has told the truth."],
+      source: hadith("bukhari", "4418", "Ka'b ibn Malik", "Sahih", "Ka'b said: I knew a lie would never save me, so I decided to speak the truth. Over eighty men gave excuses with oaths. I said: by Allah, I had no excuse. The Prophet ﷺ said: as for this man, he has told the truth.", "Then I decided firmly to speak the truth"),
+      difficulty: 3,
+      questions: [
+        { q: "About how many men gave excuses after Tabuk?", a: "Over eighty", wrong: ["Three", "Ten", "Over a thousand"], why: "Something over eighty men came with excuses." },
+        { q: "What did Ka'b decide to tell the Prophet ﷺ?", a: "The plain truth", wrong: ["A clever excuse", "Nothing at all", "That he was sick"], why: "He knew a lie could never save him." },
+        { q: "What did the Prophet ﷺ say about Ka'b?", a: "He has told the truth", wrong: ["He is lying", "He is excused", "He must leave Madinah"], why: "Then he told him to wait for Allah's decision." },
+        { q: "Ka'b said he had a good excuse for staying behind.", tf: false, why: "He said: by Allah, I had no excuse." }
+      ]
+    },
+    {
+      slug: "three",
+      title: "The three",
+      line: "Ka'b was not alone: Murarah and Hilal had told the truth too.",
+      facts: ["Murarah ibn ar-Rabi and Hilal ibn Umayyah were good men.", "Both had fought at Badr.", "People told Ka'b to go back and make an excuse, but he stayed firm."],
+      source: hadith("bukhari", "4418", "Ka'b ibn Malik", "Sahih", "People from his tribe blamed Ka'b for not giving an excuse. He asked if anyone else was in his place. They said: Murarah ibn ar-Rabi and Hilal ibn Umayyah, two righteous men who fought at Badr.", "two pious men who had attended the Ghazwa (Battle) of Badr"),
+      difficulty: 3,
+      questions: [
+        { q: "Who were the other two who told the truth?", a: "Murarah and Hilal", wrong: ["Abu Bakr and Umar", "Talhah and Zubayr", "Khalid and Bilal"], why: "Murarah ibn ar-Rabi and Hilal ibn Umayyah." },
+        { q: "Which battle had Murarah and Hilal fought in?", a: "Badr", wrong: ["Mu'tah", "Hunayn", "Yarmuk"], why: "They were two pious men of Badr." },
+        { q: "Ka'b went back and made an excuse after people blamed him.", tf: false, why: "When he heard of the other two, he stayed firm." }
+      ]
+    },
+    {
+      slug: "fifty-nights",
+      title: "Fifty silent nights",
+      line: "For fifty nights, no one in Madinah spoke to the three.",
+      facts: ["Ka'b still prayed with the Muslims and greeted the Prophet ﷺ.", "Even Abu Qatadah, his dear cousin, did not answer him.", "Abu Qatadah only said: Allah and His Messenger know best."],
+      source: hadith("bukhari", "4418", "Ka'b ibn Malik", "Sahih", "The Prophet ﷺ told the Muslims not to speak to the three. We stayed like that for fifty nights. Ka'b climbed his cousin Abu Qatadah's wall and greeted him, but he did not answer.", "We remained in that condition for fifty nights"),
+      difficulty: 3,
+      questions: [
+        { q: "How long did people not speak to the three?", a: "Fifty nights", wrong: ["Three nights", "Seven nights", "One year"], why: "We remained in that condition for fifty nights." },
+        { q: "During those nights, Ka'b kept praying with the Muslims.", tf: true, why: "He went to the prayers and greeted the Prophet ﷺ." },
+        { q: "Which cousin did Ka'b visit over the wall?", a: "Abu Qatadah", wrong: ["Abu Hurairah", "Abu Dharr", "Abu Talhah"], why: "He was the dearest person to Ka'b." },
+        { q: "What did Abu Qatadah finally say to him?", a: "Allah and His Messenger know best", wrong: ["Go away", "I forgive you", "Leave Madinah"], why: "Ka'b's eyes filled with tears." }
+      ]
+    },
+    {
+      slug: "kings-letter",
+      title: "A letter from a king",
+      line: "A king offered Ka'b a home. Ka'b burned the letter.",
+      facts: ["The letter came from the king of Ghassan.", "It said: come to us, we will comfort you.", "Ka'b said: this is another test."],
+      source: hadith("bukhari", "4418", "Ka'b ibn Malik", "Sahih", "A man from Sham brought Ka'b a letter from the king of Ghassan inviting him to come and be comforted. Ka'b said: this too is a test, and put it in the oven.", "This is also a sort of a test"),
+      difficulty: 3,
+      questions: [
+        { q: "Who sent Ka'b the letter?", a: "The king of Ghassan", wrong: ["The king of Persia", "The Negus", "Abu Sufyan"], why: "He wanted Ka'b to leave the Muslims." },
+        { q: "What did Ka'b do with the letter?", a: "Burned it in the oven", wrong: ["Wrote back yes", "Kept it in secret", "Showed it off"], why: "He said: this is also a test." },
+        { q: "Ka'b left Madinah to join the king.", tf: false, why: "He burned the letter and stayed." }
+      ]
+    },
+    {
+      slug: "be-happy",
+      title: "\"O Ka'b, be happy!\"",
+      line: "On the fiftieth morning, a voice called: O Ka'b, good news!",
+      facts: ["The call came from the mountain of Sala'.", "Ka'b fell into sujud to Allah.", "He gave his only clothes to the man with the good news."],
+      source: hadith("bukhari", "4418", "Ka'b ibn Malik", "Sahih", "After Fajr on the fiftieth morning, a man on the mountain of Sala' called: O Ka'b ibn Malik, be happy! I fell down in prostration, knowing relief had come.", "I fell down in prostration before Allah"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Ka'b do when he heard the good news?", a: "He fell into sujud", wrong: ["He ran away", "He shouted back", "He slept"], why: "He fell down in prostration before Allah." },
+        { q: "After which prayer did the good news come?", a: "Fajr", wrong: ["Dhuhr", "Asr", "Isha"], why: "On the fiftieth morning, after Fajr." },
+        { q: "What did Ka'b give the man who brought the news?", a: "His clothes", wrong: ["A camel", "Gold", "His house"], why: "They were the only clothes he owned that day." }
+      ]
+    },
+    {
+      slug: "best-day",
+      title: "The best day of your life",
+      line: "Talhah ran to greet him, and the Prophet ﷺ smiled with joy.",
+      facts: ["Talhah stood up, shook his hand and congratulated him.", "The Prophet's ﷺ face shone like a piece of the moon.", "He said the forgiveness came from Allah."],
+      source: hadith("bukhari", "4418", "Ka'b ibn Malik", "Sahih", "Talhah ibn Ubaydillah rushed to shake my hand. The Prophet ﷺ, his face bright with joy, said: be happy with the best day you have had since your mother gave birth to you.", "Be happy with the best day that you have got ever since your mother delivered you"),
+      difficulty: 3,
+      questions: [
+        { q: "Which Muhajir stood up to congratulate Ka'b?", a: "Talhah", wrong: ["Umar", "Ali", "Bilal"], why: "Ka'b said he would never forget this for Talhah." },
+        { q: "What did the Prophet ﷺ call that day for Ka'b?", a: "His best day since he was born", wrong: ["A sad day", "A normal day", "His last day"], why: "The best day since your mother gave birth to you." },
+        { q: "Ka'b's forgiveness came from Allah.", tf: true, why: "The Prophet ﷺ said: no, it is from Allah." }
+      ]
+    },
+    {
+      slug: "allah-forgave",
+      title: "Allah forgave the three",
+      line: "Allah sent down: and the three who were left behind.",
+      facts: ["The earth felt narrow to them, wide as it was.", "They knew there was no escape from Allah but to Him.", "Then Allah turned to them so they could repent."],
+      quote: quranQuote(9, 118),
+      source: quran(9, 118, "And to the three who were left behind, until the earth closed in on them despite its vastness, and they knew there was no refuge from Allah except in Him. Then He turned to them so they could repent. Allah is the Accepting of repentance, the Merciful."),
+      difficulty: 4,
+      questions: [
+        { q: "In which surah are the three mentioned?", a: "At-Tawbah", wrong: ["Al-Baqarah", "Al-Kahf", "Yasin"], why: "Quran 9:118, in Surah At-Tawbah." },
+        { q: "How did the earth feel to the three?", a: "Narrow, wide as it was", wrong: ["Very wide", "Cold", "Full of friends"], why: "The earth closed in on them despite its vastness." },
+        { q: "Where did they learn the only refuge from Allah is?", a: "In Allah Himself", wrong: ["In a king", "In their tribe", "In their wealth"], why: "There was no refuge from Allah except in Him." }
+      ]
+    },
+    {
+      slug: "truth-forever",
+      title: "Truthful for life",
+      line: "Truth saved Ka'b, so he promised to tell only the truth.",
+      facts: ["He wanted to give all his wealth away; he was told to keep some.", "Allah said: be with those who are truthful.", "Ka'b never meant to lie again."],
+      source: hadith("bukhari", "4418", "Ka'b ibn Malik", "Sahih", "Ka'b said: Allah saved me for telling the truth, so part of my repentance is to speak only the truth as long as I live. Then Allah revealed: and be with those who are truthful (9:119).", "it is a part of my repentance not to tell but the truth as long as I am alive"),
+      difficulty: 4,
+      questions: [
+        { q: "What did Ka'b promise after his repentance?", a: "To tell only the truth", wrong: ["To never travel", "To give up prayer at night", "To stay silent"], why: "As long as he was alive." },
+        { q: "The Prophet ﷺ told Ka'b to keep some of his wealth.", tf: true, why: "Keep some of your wealth; it is better for you." },
+        { q: "Which ayah came down with Ka'b's story?", a: "Be with those who are truthful", wrong: ["Read in the name of your Lord", "Allah is One", "By time"], why: "Quran 9:119, after the three were forgiven." },
+        { q: "What saved Ka'b in the end?", a: "Telling the truth", wrong: ["A clever excuse", "His wealth", "His tribe"], why: "He said Allah saved him for telling the truth." }
+      ]
+    }
+  ]
+};
+
+// Abu Hurairah, who came at Khaybar, stayed close to the Prophet ﷺ, and carried more of his hadith than anyone.
+const ABU_HURAIRAH: DeepUnit = {
+  key: "abu-hurairah",
+  topicId: "sahabah",
+  branchId: "sahabi-abu-hurairah",
+  branch: { title: "Abu Hurairah", description: "The poor man of the Suffah who stayed close to the Prophet ﷺ and kept his words for us." },
+  name: "Abu Hurairah",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "khaybar",
+      title: "He came at Khaybar",
+      line: "Abu Hurairah reached the Prophet ﷺ at Khaybar.",
+      facts: ["Khaybar had just fallen to the Muslims.", "He asked the Prophet ﷺ for a share of Khaybar.", "From then on he stayed close to the Prophet ﷺ."],
+      source: hadith("bukhari", "2827", "Abu Hurairah", "Sahih", "Abu Hurairah said: I came to the Messenger of Allah ﷺ while he was at Khaybar, after it had fallen to the Muslims.", "while he was at Khaibar after it had fallen"),
+      difficulty: 2,
+      questions: [
+        { q: "Where did Abu Hurairah reach the Prophet ﷺ?", a: "At Khaybar", wrong: ["At Badr", "In the cave of Hira", "At Taif"], why: "He came while the Prophet ﷺ was at Khaybar." },
+        { q: "Was Khaybar already conquered when he came?", a: "Yes, it had just fallen", wrong: ["No, not yet", "It was never conquered", "It was years later"], why: "He came after it had fallen to the Muslims." },
+        { q: "Abu Hurairah was one of the first Muslims in Makkah.", tf: false, why: "He came later, at the time of Khaybar." }
+      ]
+    },
+    {
+      slug: "his-mother",
+      title: "A dua for his mother",
+      line: "The Prophet ﷺ made dua, and his mother accepted Islam.",
+      facts: ["Abu Hurairah came to the Prophet ﷺ crying.", "He ran home and found the door closed; she was washing.", "He came back crying again, this time from joy."],
+      source: hadith("muslim", "2491", "Abu Hurairah", "Sahih", "Abu Hurairah said: I invited my mother to Islam and she refused. The Prophet ﷺ prayed: O Allah, guide the mother of Abu Hurairah. When I got home she bore witness that there is no god but Allah and that Muhammad is His slave and Messenger.", "O Allah, set the mother of Abu Huraira on the right path"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Abu Hurairah ask the Prophet ﷺ?", a: "To make dua for his mother", wrong: ["To give him money", "To let him travel", "To teach him poetry"], why: "His mother had refused Islam." },
+        { q: "What happened when he got home?", a: "His mother became Muslim", wrong: ["She was not there", "She was angry", "She left Madinah"], why: "She said the Shahadah at the door." },
+        { q: "Abu Hurairah cried a second time, from joy.", tf: true, why: "He shed tears of joy at Allah's answer." },
+        { q: "What does this teach about our parents?", a: "Keep making dua for them", wrong: ["Give up on them", "Leave them alone", "Argue with them"], why: "Abu Hurairah asked for dua, and Allah answered." }
+      ]
+    },
+    {
+      slug: "loved",
+      title: "Loved by the believers",
+      line: "A dua that the believers love him and his mother.",
+      facts: ["Abu Hurairah asked for this dua himself.", "He said: every believer who hears of me loves me.", "Loving the believers is part of faith."],
+      source: hadith("muslim", "2491", "Abu Hurairah", "Sahih", "The Prophet ﷺ prayed: O Allah, make these servants of Yours, Abu Hurairah and his mother, loved by the believers, and make the believers loved by them.", "let there be love of these servants of yours"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the Prophet ﷺ pray for Abu Hurairah and his mother?", a: "That the believers love them", wrong: ["That they become rich", "That they live long", "That they become kings"], why: "And that they love the believers too." },
+        { q: "Who asked for this dua?", a: "Abu Hurairah", wrong: ["His mother", "Umar", "Aishah"], why: "He asked right after his mother became Muslim." },
+        { q: "Abu Hurairah said believers who hear of him love him.", tf: true, why: "He said the dua was answered that well." }
+      ]
+    },
+    {
+      slug: "hunger",
+      title: "A stone for hunger",
+      line: "Abu Hurairah was so hungry he tied a stone over his stomach.",
+      facts: ["He waited by the road, hoping someone would feed him.", "He asked Abu Bakr and Umar about an ayah; they walked on.", "The Prophet ﷺ smiled: he knew what was in his heart."],
+      source: hadith("bukhari", "6452", "Abu Hurairah", "Sahih", "Abu Hurairah said: I used to tie a stone over my belly from hunger. One day I sat by the road. The Prophet ﷺ passed, smiled when he saw me, for he knew what was in my heart and on my face, and said: follow me.", "he smiled when he saw me"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Abu Hurairah tie over his stomach?", a: "A stone", wrong: ["A rope", "A cloth of gold", "A leather bag"], why: "Because of hunger." },
+        { q: "What did the Prophet ﷺ do when he saw him?", a: "He smiled and said: follow me", wrong: ["He walked past", "He scolded him", "He sent him away"], why: "He knew what was on his face and in his heart." },
+        { q: "Who walked past before the Prophet ﷺ came?", a: "Abu Bakr and Umar", wrong: ["Uthman and Ali", "Khalid and Bilal", "No one"], why: "He asked them about an ayah, hoping they would feed him." }
+      ]
+    },
+    {
+      slug: "milk-bowl",
+      title: "One bowl of milk",
+      line: "One bowl of milk filled all the people of the Suffah.",
+      facts: ["The Suffah were poor guests of Islam with no family or money.", "Abu Hurairah served them one by one.", "Then he drank until full, and the Prophet ﷺ drank last."],
+      source: hadith("bukhari", "6452", "Abu Hurairah", "Sahih", "The Prophet ﷺ told me to call the people of the Suffah. I gave the one bowl to each man until all had drunk their fill. He said: there remain you and I. Drink. I drank until I had no room, and he drank what was left.", "There remain you and I"),
+      difficulty: 3,
+      questions: [
+        { q: "Who were the people of the Suffah?", a: "Poor guests of Islam", wrong: ["Rich traders", "Soldiers of Rome", "The Prophet's ﷺ family"], why: "They had no family, no money and no one to rely on." },
+        { q: "How many bowls of milk were there?", a: "One", wrong: ["Ten", "One for each man", "Seventy"], why: "One bowl filled them all, by Allah's blessing." },
+        { q: "Who drank last?", a: "The Prophet ﷺ", wrong: ["Abu Hurairah", "Abu Bakr", "The youngest man"], why: "He drank what remained, after everyone." },
+        { q: "Abu Hurairah drank before the people of the Suffah.", tf: false, why: "He served them all first." }
+      ]
+    },
+    {
+      slug: "never-forgot",
+      title: "He never forgot",
+      line: "Abu Hurairah spread his cloak, and after that he never forgot.",
+      facts: ["He told the Prophet ﷺ: I hear many hadith and forget them.", "The Prophet ﷺ moved his hands as if filling the cloak.", "Abu Hurairah wrapped it to himself."],
+      source: hadith("bukhari", "119", "Abu Hurairah", "Sahih", "I said: I hear many things from you but I forget them. He said: spread your cloak. I spread it, he moved his hands as if filling it, and said: wrap it around you. After that I never forgot anything.", "after that I never forgot any thing"),
+      difficulty: 3,
+      questions: [
+        { q: "What was Abu Hurairah's problem?", a: "He forgot the hadith he heard", wrong: ["He could not read", "He had no clothes", "He lived too far"], why: "He told the Prophet ﷺ he forgot them." },
+        { q: "What did the Prophet ﷺ tell him to spread?", a: "His cloak", wrong: ["His hands", "A prayer mat", "A scroll"], why: "Then he told him to wrap it around himself." },
+        { q: "After that day, Abu Hurairah never forgot anything.", tf: true, why: "After that I never forgot any thing." }
+      ]
+    },
+    {
+      slug: "why-so-many",
+      title: "Why so many hadith?",
+      line: "Others traded and farmed; he stayed by the Prophet ﷺ.",
+      facts: ["The Muhajirun were busy in the markets.", "The Ansar were busy with their farms.", "He was happy with just enough food to fill his stomach."],
+      source: hadith("bukhari", "118", "Abu Hurairah", "Sahih", "People say Abu Hurairah narrates a lot. Were it not for two ayahs (2:159-160) I would not narrate a single hadith. My brothers were busy in the markets and the farms, while I stayed with the Prophet ﷺ, content with what filled my stomach.", "contented with what will fill my stomach"),
+      difficulty: 3,
+      questions: [
+        { q: "Why do we have so many hadith from Abu Hurairah?", a: "He stayed close to the Prophet ﷺ", wrong: ["He wrote books", "He lived in Makkah", "He was a king"], why: "He was there when others were busy." },
+        { q: "What kept the Ansar busy?", a: "Their farms", wrong: ["The market", "Travel", "Poetry"], why: "And the Muhajirun were busy trading." },
+        { q: "Ayahs of the Quran warn against hiding knowledge.", tf: true, why: "Abu Hurairah said those ayahs (2:159-160) made him narrate." }
+      ]
+    },
+    {
+      slug: "eager",
+      title: "The keen student",
+      line: "He asked who is luckiest with the intercession.",
+      facts: ["The Prophet ﷺ knew he would be the first to ask.", "It was because of his love for hadith.", "The answer: whoever says la ilaha illallah sincerely from the heart."],
+      source: hadith("bukhari", "99", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: O Abu Hurairah, I thought no one would ask me this before you, as I know your eagerness for hadith. The luckiest with my intercession is whoever says la ilaha illallah sincerely from his heart.", "I have thought that none will ask me about it before you"),
+      difficulty: 3,
+      questions: [
+        { q: "Why did the Prophet ﷺ expect Abu Hurairah to ask first?", a: "His love for hadith", wrong: ["He was the oldest", "He was his cousin", "He asked every day"], why: "I know your eagerness for hadith." },
+        { q: "Who is luckiest with the Prophet's ﷺ intercession?", a: "Whoever says la ilaha illallah sincerely", wrong: ["Whoever is richest", "Whoever lives longest", "Whoever is from Makkah"], why: "Sincerely, from the bottom of the heart." },
+        { q: "Asking good questions is part of seeking knowledge.", tf: true, why: "The Prophet ﷺ praised his eagerness." }
+      ]
+    },
+    {
+      slug: "three-things",
+      title: "Three things for life",
+      line: "Three deeds the Prophet ﷺ taught him, kept for life.",
+      facts: ["Fast three days every month.", "Pray the Duha prayer.", "Pray witr before sleeping."],
+      source: hadith("bukhari", "1178", "Abu Hurairah", "Sahih", "My friend ﷺ advised me to do three things, and I will not leave them until I die: fasting three days every month, the Duha prayer, and witr before sleeping.", "To fast three days every month"),
+      difficulty: 2,
+      questions: [
+        { q: "How many days a month did he fast on this advice?", a: "Three", wrong: ["One", "Ten", "Fifteen"], why: "Fast three days every month." },
+        { q: "Which prayer did he pray in the late morning?", a: "Duha", wrong: ["Tahajjud", "Eid", "Janazah"], why: "The Duha prayer was one of the three." },
+        { q: "When did he pray witr?", a: "Before sleeping", wrong: ["After Fajr", "Only in Ramadan", "At noon"], why: "Witr before sleeping." },
+        { q: "Abu Hurairah stopped these deeds when he grew old.", tf: false, why: "He said he would not leave them until he died." }
+      ]
+    }
+  ]
+};
+
+// Ja'far ibn Abi Talib, the Prophet's ﷺ cousin: the Muslims' leader in Abyssinia, the father of the poor, and a
+// leader at Mu'tah.
+const JAFAR: DeepUnit = {
+  key: "jafar",
+  topicId: "sahabah",
+  branchId: "sahabi-jafar-ibn-abi-talib",
+  branch: { title: "Ja'far ibn Abi Talib", description: "The Prophet's ﷺ cousin who led the Muslims in Abyssinia and fell at Mu'tah." },
+  name: "Ja'far ibn Abi Talib",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "abyssinia",
+      title: "Far away in Abyssinia",
+      line: "Ja'far led the Muslims who lived with the Negus in Abyssinia.",
+      facts: ["The Prophet ﷺ had told them to stay there.", "Abu Musa's people came by ship from Yemen and found him.", "Ja'far told them: stay with us."],
+      source: hadith("bukhari", "3136", "Abu Musa al-Ash'ari", "Sahih", "Abu Musa said: our ship took us to the Negus in Abyssinia, and there we found Ja'far and his companions. Ja'far said: the Messenger of Allah ﷺ sent us here and told us to stay, so stay with us.", "has sent us here and ordered us to stay here"),
+      difficulty: 2,
+      questions: [
+        { q: "Where did Ja'far live for years?", a: "Abyssinia", wrong: ["Persia", "Rome", "Yemen"], why: "With the Negus, the just king." },
+        { q: "Who told Ja'far to stay in Abyssinia?", a: "The Prophet ﷺ", wrong: ["The Negus", "Abu Sufyan", "His father"], why: "He said: the Messenger of Allah ﷺ sent us here." },
+        { q: "How did Abu Musa's people reach Abyssinia?", a: "By ship", wrong: ["On horses", "On foot", "By camel caravan"], why: "Their ship took them to the Negus." }
+      ]
+    },
+    {
+      slug: "khaybar",
+      title: "Home at Khaybar",
+      line: "Ja'far came back just as Khaybar was won, and got a share.",
+      facts: ["The people of the ship came with him.", "They had not fought at Khaybar.", "The Prophet ﷺ still gave them a share."],
+      source: hadith("bukhari", "3136", "Abu Musa al-Ash'ari", "Sahih", "We stayed until we all left and met the Prophet ﷺ when he had conquered Khaybar. He gave shares only to those who fought, except the people of our ship, with Ja'far and his companions.", "except the people of our ship"),
+      difficulty: 3,
+      questions: [
+        { q: "When did Ja'far return to the Prophet ﷺ?", a: "When Khaybar was conquered", wrong: ["Before Badr", "At the Hijrah", "After the Prophet ﷺ died"], why: "They met him at the conquest of Khaybar." },
+        { q: "Ja'far's group got a share of Khaybar though they did not fight.", tf: true, why: "The people of the ship were the only exception." },
+        { q: "Who came back with Ja'far?", a: "The people of the ship", wrong: ["The army of Rome", "The Quraysh", "The people of Taif"], why: "Abu Musa and his people came with him." }
+      ]
+    },
+    {
+      slug: "like-me",
+      title: "\"You look like me\"",
+      line: "The Prophet ﷺ told Ja'far: you resemble me in looks and manners.",
+      facts: ["Ali, Ja'far and Zayd each wanted to care for Hamzah's daughter.", "She went to her aunt, Ja'far's wife.", "The Prophet ﷺ said: the aunt is like the mother."],
+      source: hadith("bukhari", "4251", "Al-Bara ibn Azib", "Sahih", "The Prophet ﷺ gave Hamzah's daughter to her aunt, saying: the aunt is like the mother. He said to Ali: you are from me and I am from you; to Ja'far: you resemble me in appearance and character; and to Zayd: you are our brother.", "You resemble me in appearance and character"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the Prophet ﷺ tell Ja'far?", a: "You resemble me in looks and manners", wrong: ["You are the bravest", "You are the richest", "You are the oldest"], why: "In appearance and character." },
+        { q: "Who got to care for Hamzah's daughter?", a: "Her aunt, Ja'far's wife", wrong: ["Ali", "Zayd", "Abu Bakr"], why: "The aunt is like the mother." },
+        { q: "The Prophet ﷺ spoke kindly to all three cousins.", tf: true, why: "Each one heard a sweet word from him." }
+      ]
+    },
+    {
+      slug: "the-poor",
+      title: "Best to the poor",
+      line: "Ja'far was the most generous of all people to the poor.",
+      facts: ["He took the poor to his home.", "He gave them whatever he had.", "Once he even split a butter skin so they could lick it."],
+      source: hadith("bukhari", "3708", "Abu Hurairah", "Sahih", "Abu Hurairah said: the most generous of people to the poor was Ja'far ibn Abi Talib. He took us to his home and fed us what he had, even an empty butter skin, which we split open and licked.", "the most generous of all the people to the poor"),
+      difficulty: 3,
+      questions: [
+        { q: "Who was the most generous to the poor, said Abu Hurairah?", a: "Ja'far", wrong: ["Abu Sufyan", "Abu Jahl", "No one"], why: "He took the poor to his home." },
+        { q: "What did Ja'far split open for the poor?", a: "An empty butter skin", wrong: ["A watermelon", "A bag of gold", "A loaf of bread"], why: "So they could lick what was left inside." },
+        { q: "Ja'far gave even when he had very little.", tf: true, why: "He offered whatever was in his home." }
+      ]
+    },
+    {
+      slug: "mutah",
+      title: "Second to carry the flag",
+      line: "At Mu'tah, the Prophet ﷺ named Ja'far to lead after Zayd.",
+      facts: ["Zayd ibn Harithah led first.", "Then Ja'far, then Abdullah ibn Rawahah.", "All three were martyred carrying the flag."],
+      source: hadith("bukhari", "4262", "Anas ibn Malik", "Sahih", "The Prophet ﷺ told the people of the deaths of Zayd, Ja'far and Ibn Rawahah before the news arrived, his eyes full of tears. Then a sword of Allah took the flag and Allah gave victory.", "had informed the people of the martyrdom of Zaid"),
+      difficulty: 3,
+      questions: [
+        { q: "Who led the army at Mu'tah first?", a: "Zayd ibn Harithah", wrong: ["Ja'far", "Khalid", "Umar"], why: "Then Ja'far, then Ibn Rawahah." },
+        { q: "How did the people of Madinah first hear the news?", a: "The Prophet ﷺ told them", wrong: ["A letter came", "A traveler", "They saw it"], why: "He told them before the news arrived." },
+        { q: "The Prophet ﷺ cried when he told of their deaths.", tf: true, why: "His eyes were shedding tears." }
+      ]
+    },
+    {
+      slug: "wounds",
+      title: "No wound in his back",
+      line: "Ja'far had fifty wounds, and not one was in his back.",
+      facts: ["Ibn Umar stood by him and counted them.", "Every wound was in front.", "He never turned his back to run."],
+      source: hadith("bukhari", "4260", "Abdullah ibn Umar", "Sahih", "Ibn Umar said that on the day of Mu'tah he stood beside Ja'far, who had been killed, and counted fifty wounds from stabs and blows, and none of them was in his back.", "none of those wounds was in his back"),
+      difficulty: 4,
+      questions: [
+        { q: "How many wounds did Ibn Umar count on Ja'far?", a: "Fifty", wrong: ["Two", "Ten", "Five hundred"], why: "Fifty wounds, from stabs and blows." },
+        { q: "Where were none of his wounds?", a: "In his back", wrong: ["In his chest", "In his arms", "On his face"], why: "He faced the enemy and never ran." },
+        { q: "Who counted the wounds?", a: "Ibn Umar", wrong: ["Abu Hurairah", "Khalid", "Anas"], why: "He stood beside Ja'far that day." }
+      ]
+    },
+    {
+      slug: "two-wings",
+      title: "The one with two wings",
+      line: "Ibn Umar called Ja'far's son: son of the two-winged one.",
+      facts: ["Ja'far is known as Dhul-Janahayn: the one with two wings.", "Ibn Umar said this every time he greeted Ja'far's son.", "It honors Ja'far, who gave his life at Mu'tah."],
+      source: hadith("bukhari", "3709", "Ash-Sha'bi", "Sahih", "Whenever Ibn Umar greeted the son of Ja'far, he said: peace be upon you, O son of the one with two wings.", "O son of Dhu-l-Janahain"),
+      difficulty: 4,
+      questions: [
+        { q: "What was Ja'far called?", a: "The one with two wings", wrong: ["The sword of Allah", "The truthful one", "The lion of Allah"], why: "Dhul-Janahayn, the one with two wings." },
+        { q: "Whom did Ibn Umar greet this way?", a: "Ja'far's son", wrong: ["Ja'far himself", "Khalid", "The Negus"], why: "Peace on you, son of the two-winged one." },
+        { q: "Ibn Umar greeted him this way only once.", tf: false, why: "He said it whenever he greeted him." }
+      ]
+    }
+  ]
+};
+
+export const COMPANION_UNITS: DeepUnit[] = [JAFAR, ABU_HURAIRAH, KAB];
