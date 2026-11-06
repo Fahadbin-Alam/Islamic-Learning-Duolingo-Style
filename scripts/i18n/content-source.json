@@ -28561,6 +28561,42 @@
   },
   {
     "kind": "course",
+    "text": "Hamzah ibn Abdul-Muttalib"
+  },
+  {
+    "kind": "course",
+    "text": "The brave uncle of the Prophet ﷺ, a hero of Badr, martyred at Uhud."
+  },
+  {
+    "kind": "arabic",
+    "text": "The brave uncle"
+  },
+  {
+    "kind": "course",
+    "text": "Zayd ibn Harithah"
+  },
+  {
+    "kind": "course",
+    "text": "The beloved freed slave of the Prophet ﷺ, named in the Quran, who led the army at Mu'tah."
+  },
+  {
+    "kind": "arabic",
+    "text": "The beloved"
+  },
+  {
+    "kind": "course",
+    "text": "Usamah ibn Zayd"
+  },
+  {
+    "kind": "course",
+    "text": "The beloved son of a beloved father, who led an army while still young."
+  },
+  {
+    "kind": "arabic",
+    "text": "Son of the beloved"
+  },
+  {
+    "kind": "course",
     "text": "The Muhajirun"
   },
   {
@@ -29633,6 +29669,74 @@
   },
   {
     "kind": "course",
+    "text": "Uncle and foster brother"
+  },
+  {
+    "kind": "course",
+    "text": "The duel at Badr"
+  },
+  {
+    "kind": "course",
+    "text": "Bravery at Uhud"
+  },
+  {
+    "kind": "course",
+    "text": "Martyred at Uhud"
+  },
+  {
+    "kind": "course",
+    "text": "Remembered with tears"
+  },
+  {
+    "kind": "course",
+    "text": "Wahshi comes to Islam"
+  },
+  {
+    "kind": "course",
+    "text": "Called by his father's name"
+  },
+  {
+    "kind": "course",
+    "text": "Named in the Quran"
+  },
+  {
+    "kind": "course",
+    "text": "Father and son"
+  },
+  {
+    "kind": "course",
+    "text": "Our brother"
+  },
+  {
+    "kind": "course",
+    "text": "Commander at Mu'tah"
+  },
+  {
+    "kind": "course",
+    "text": "Tears for Zayd"
+  },
+  {
+    "kind": "course",
+    "text": "A loved child"
+  },
+  {
+    "kind": "course",
+    "text": "What Allah takes"
+  },
+  {
+    "kind": "course",
+    "text": "Did you open his heart?"
+  },
+  {
+    "kind": "course",
+    "text": "Worthy to lead"
+  },
+  {
+    "kind": "course",
+    "text": "The army to Sham"
+  },
+  {
+    "kind": "course",
     "text": "Who were the Muhajirun?"
   },
   {
@@ -29690,10 +29794,6 @@
   {
     "kind": "course",
     "text": "Mus'ab's last cloth"
-  },
-  {
-    "kind": "course",
-    "text": "Zayd ibn Harithah"
   },
   {
     "kind": "course",
@@ -29930,10 +30030,6 @@
   {
     "kind": "course",
     "text": "Urwah ibn Abi al-Ja'd al-Bariqi"
-  },
-  {
-    "kind": "course",
-    "text": "Usamah ibn Zayd"
   },
   {
     "kind": "course",
@@ -30662,10 +30758,6 @@
   {
     "kind": "course",
     "text": "Golden locusts"
-  },
-  {
-    "kind": "arabic",
-    "text": "Named in the Quran"
   },
   {
     "kind": "course",
@@ -66540,10 +66632,6 @@
     "text": "Ibrahim and Ismail raised the House: Our Lord, accept from us."
   },
   {
-    "kind": "lesson",
-    "text": "Father and son"
-  },
-  {
     "kind": "question",
     "text": "Who raised the foundations of the Ka'bah?"
   },
@@ -74186,10 +74274,6 @@
   {
     "kind": "question",
     "text": "The money was for which army?"
-  },
-  {
-    "kind": "question",
-    "text": "The army to Sham"
   },
   {
     "kind": "question",
@@ -83625,6 +83709,1042 @@
   },
   {
     "kind": "lesson",
+    "text": "Hamzah was the Prophet's ﷺ uncle and his foster brother."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hamzah was the son of Abdul-Muttalib, the Prophet's ﷺ grandfather."
+  },
+  {
+    "kind": "lesson",
+    "text": "He and the Prophet ﷺ were nursed by the same woman."
+  },
+  {
+    "kind": "lesson",
+    "text": "So the Prophet ﷺ called him his foster brother."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 2645"
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ call Hamzah besides uncle?"
+  },
+  {
+    "kind": "question",
+    "text": "His foster brother"
+  },
+  {
+    "kind": "question",
+    "text": "His servant"
+  },
+  {
+    "kind": "question",
+    "text": "His neighbor"
+  },
+  {
+    "kind": "question",
+    "text": "She is the daughter of my foster brother."
+  },
+  {
+    "kind": "question",
+    "text": "Who was Hamzah's father?"
+  },
+  {
+    "kind": "question",
+    "text": "Harithah"
+  },
+  {
+    "kind": "question",
+    "text": "Abdul-Muttalib"
+  },
+  {
+    "kind": "question",
+    "text": "He is Hamzah ibn Abdul-Muttalib."
+  },
+  {
+    "kind": "question",
+    "text": "Foster ties count like blood ties for marriage."
+  },
+  {
+    "kind": "question",
+    "text": "Foster relations are treated like blood relations."
+  },
+  {
+    "kind": "lesson",
+    "text": "At Badr, Hamzah stepped out first to fight in single combat."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hamzah, Ali and Ubaydah faced three leaders of Quraysh."
+  },
+  {
+    "kind": "lesson",
+    "text": "They faced Utbah, Shaybah and Al-Walid."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah revealed 22:19 about these two sides."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 22:19"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3969"
+  },
+  {
+    "kind": "question",
+    "text": "Who stepped out with Hamzah at Badr?"
+  },
+  {
+    "kind": "question",
+    "text": "Ali and Ubaydah"
+  },
+  {
+    "kind": "question",
+    "text": "Zayd and Usamah"
+  },
+  {
+    "kind": "question",
+    "text": "Hamzah, Ali and Ubaydah ibn al-Harith."
+  },
+  {
+    "kind": "question",
+    "text": "Which ayah came down about them?"
+  },
+  {
+    "kind": "question",
+    "text": "These two opponents dispute about their Lord, 22:19."
+  },
+  {
+    "kind": "question",
+    "text": "Hamzah stayed away from Badr."
+  },
+  {
+    "kind": "question",
+    "text": "He was among the first to fight at Badr."
+  },
+  {
+    "kind": "lesson",
+    "text": "At Uhud, Hamzah bravely answered a challenge to a duel."
+  },
+  {
+    "kind": "lesson",
+    "text": "An enemy fighter called out for a duel."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hamzah stepped out and asked: do you challenge Allah and His Messenger?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Hamzah defeated him."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 4072"
+  },
+  {
+    "kind": "question",
+    "text": "What did Hamzah say to the challenger?"
+  },
+  {
+    "kind": "question",
+    "text": "Let us make peace"
+  },
+  {
+    "kind": "question",
+    "text": "Wait for tomorrow"
+  },
+  {
+    "kind": "question",
+    "text": "Do you challenge Allah and His Messenger?"
+  },
+  {
+    "kind": "question",
+    "text": "Who won the duel?"
+  },
+  {
+    "kind": "question",
+    "text": "Siba'"
+  },
+  {
+    "kind": "question",
+    "text": "It was stopped"
+  },
+  {
+    "kind": "question",
+    "text": "Hamzah attacked and defeated him."
+  },
+  {
+    "kind": "question",
+    "text": "Hamzah was a brave fighter."
+  },
+  {
+    "kind": "question",
+    "text": "He stepped out to answer the challenge."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hamzah was martyred at Uhud by Wahshi's spear."
+  },
+  {
+    "kind": "lesson",
+    "text": "Wahshi was a slave promised freedom if he killed Hamzah."
+  },
+  {
+    "kind": "lesson",
+    "text": "He hid behind a rock and threw his spear."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hamzah fell as a martyr at Uhud."
+  },
+  {
+    "kind": "question",
+    "text": "Who killed Hamzah?"
+  },
+  {
+    "kind": "question",
+    "text": "Wahshi"
+  },
+  {
+    "kind": "question",
+    "text": "Wahshi threw his spear at him."
+  },
+  {
+    "kind": "question",
+    "text": "What was Wahshi promised?"
+  },
+  {
+    "kind": "question",
+    "text": "His freedom"
+  },
+  {
+    "kind": "question",
+    "text": "If you kill Hamzah, you will be set free."
+  },
+  {
+    "kind": "question",
+    "text": "In which battle was Hamzah martyred?"
+  },
+  {
+    "kind": "question",
+    "text": "He was killed at the battle of Uhud."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abdur-Rahman ibn Awf wept remembering Hamzah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abdur-Rahman was given food while fasting."
+  },
+  {
+    "kind": "lesson",
+    "text": "He said: Hamzah was martyred, and he was better than me."
+  },
+  {
+    "kind": "lesson",
+    "text": "He feared his reward had come in this world, and wept."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 4045"
+  },
+  {
+    "kind": "question",
+    "text": "Who wept remembering Hamzah?"
+  },
+  {
+    "kind": "question",
+    "text": "Abdur-Rahman wept and left the food."
+  },
+  {
+    "kind": "question",
+    "text": "What did he say about Hamzah?"
+  },
+  {
+    "kind": "question",
+    "text": "He was weak"
+  },
+  {
+    "kind": "question",
+    "text": "He was better than me"
+  },
+  {
+    "kind": "question",
+    "text": "Hamzah was martyred and he was better than I."
+  },
+  {
+    "kind": "question",
+    "text": "Abdur-Rahman was fasting at the time."
+  },
+  {
+    "kind": "question",
+    "text": "The meal came while he was fasting."
+  },
+  {
+    "kind": "lesson",
+    "text": "Years later, Wahshi came to the Prophet ﷺ as a Muslim."
+  },
+  {
+    "kind": "lesson",
+    "text": "Wahshi came with the delegation of Taif."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ asked: can you keep your face from me?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Wahshi later fought Musaylimah the liar to make amends."
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ ask Wahshi?"
+  },
+  {
+    "kind": "question",
+    "text": "Pay a fine"
+  },
+  {
+    "kind": "question",
+    "text": "Fight me"
+  },
+  {
+    "kind": "question",
+    "text": "Can you hide your face from me?"
+  },
+  {
+    "kind": "question",
+    "text": "Leave Arabia now"
+  },
+  {
+    "kind": "question",
+    "text": "Whom did Wahshi later fight to make amends?"
+  },
+  {
+    "kind": "question",
+    "text": "The Persians only"
+  },
+  {
+    "kind": "question",
+    "text": "Hamzah's family"
+  },
+  {
+    "kind": "question",
+    "text": "Musaylimah the liar"
+  },
+  {
+    "kind": "question",
+    "text": "He went out to Musaylimah to make amends for killing Hamzah."
+  },
+  {
+    "kind": "question",
+    "text": "He went out with the messengers of Taif to the Prophet ﷺ."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Hamzah!"
+  },
+  {
+    "kind": "lesson",
+    "text": "People called him Zayd ibn Muhammad, until an ayah came."
+  },
+  {
+    "kind": "lesson",
+    "text": "Zayd was the freed slave the Prophet ﷺ raised like a son."
+  },
+  {
+    "kind": "lesson",
+    "text": "People called him Zayd ibn Muhammad."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah said: call them by their fathers' names."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 33:5"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 4782"
+  },
+  {
+    "kind": "question",
+    "text": "What did people call Zayd at first?"
+  },
+  {
+    "kind": "question",
+    "text": "Zayd al-Yamani"
+  },
+  {
+    "kind": "question",
+    "text": "Zayd ibn Muhammad"
+  },
+  {
+    "kind": "question",
+    "text": "Zayd ibn Umar"
+  },
+  {
+    "kind": "question",
+    "text": "What did the ayah tell people to do?"
+  },
+  {
+    "kind": "question",
+    "text": "Call them by tribes only"
+  },
+  {
+    "kind": "question",
+    "text": "Call them by their fathers' names"
+  },
+  {
+    "kind": "question",
+    "text": "Give them new names"
+  },
+  {
+    "kind": "question",
+    "text": "Never use names"
+  },
+  {
+    "kind": "question",
+    "text": "Who was Zayd's real father?"
+  },
+  {
+    "kind": "question",
+    "text": "Thabit"
+  },
+  {
+    "kind": "question",
+    "text": "He is Zayd ibn Harithah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah mentions Zayd by name in Surah Al-Ahzab."
+  },
+  {
+    "kind": "lesson",
+    "text": "Zayd's name comes in Quran 33:37."
+  },
+  {
+    "kind": "lesson",
+    "text": "It is the only place in the Quran that names him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Surah Al-Ahzab is the 33rd surah."
+  },
+  {
+    "kind": "question",
+    "text": "In which surah is Zayd named?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Ahzab"
+  },
+  {
+    "kind": "question",
+    "text": "Which number is Surah Al-Ahzab?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Ahzab is the 33rd surah."
+  },
+  {
+    "kind": "question",
+    "text": "Zayd's name appears in the Quran."
+  },
+  {
+    "kind": "question",
+    "text": "Allah names him in 33:37."
+  },
+  {
+    "kind": "lesson",
+    "text": "A man saw Zayd's and Usamah's feet and knew they were family."
+  },
+  {
+    "kind": "lesson",
+    "text": "Zayd and his son Usamah were asleep under a cover."
+  },
+  {
+    "kind": "lesson",
+    "text": "An expert in family looks saw only their feet."
+  },
+  {
+    "kind": "lesson",
+    "text": "He said they were father and son, and the Prophet ﷺ was pleased."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3731"
+  },
+  {
+    "kind": "question",
+    "text": "Who was Zayd's son?"
+  },
+  {
+    "kind": "question",
+    "text": "Usamah"
+  },
+  {
+    "kind": "question",
+    "text": "Usamah ibn Zayd was his son."
+  },
+  {
+    "kind": "question",
+    "text": "What did the man look at?"
+  },
+  {
+    "kind": "question",
+    "text": "Their faces"
+  },
+  {
+    "kind": "question",
+    "text": "Their clothes"
+  },
+  {
+    "kind": "question",
+    "text": "Their camels"
+  },
+  {
+    "kind": "question",
+    "text": "Their feet"
+  },
+  {
+    "kind": "question",
+    "text": "These feet are of persons of the same lineage."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ was happy with what he said."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ was pleased and told Aishah."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ told Zayd: you are our brother."
+  },
+  {
+    "kind": "lesson",
+    "text": "After Umrat al-Qada, Ali, Ja'far and Zayd each wanted to care for Hamzah's daughter."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ gave each of them kind words."
+  },
+  {
+    "kind": "lesson",
+    "text": "To Zayd he said: you are our brother and our freed slave."
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ call Zayd?"
+  },
+  {
+    "kind": "question",
+    "text": "Our enemy"
+  },
+  {
+    "kind": "question",
+    "text": "You are our brother and our freed slave."
+  },
+  {
+    "kind": "question",
+    "text": "Whose daughter did they all want to care for?"
+  },
+  {
+    "kind": "question",
+    "text": "Hamzah's"
+  },
+  {
+    "kind": "question",
+    "text": "They each asked to care for Hamzah's daughter."
+  },
+  {
+    "kind": "question",
+    "text": "Zayd was harshly sent away."
+  },
+  {
+    "kind": "question",
+    "text": "He was told: you are our brother."
+  },
+  {
+    "kind": "lesson",
+    "text": "Zayd was made the first commander of the army at Mu'tah."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ chose Zayd to lead the army."
+  },
+  {
+    "kind": "lesson",
+    "text": "If Zayd fell, Ja'far would lead; then Abdullah ibn Rawahah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Mu'tah was a battle against the Romans."
+  },
+  {
+    "kind": "question",
+    "text": "Who was the first commander at Mu'tah?"
+  },
+  {
+    "kind": "question",
+    "text": "He appointed Zayd as the commander."
+  },
+  {
+    "kind": "question",
+    "text": "Who would lead if Zayd fell?"
+  },
+  {
+    "kind": "question",
+    "text": "If Zayd is martyred, Ja'far takes over."
+  },
+  {
+    "kind": "question",
+    "text": "Who was third in line?"
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ told of Zayd's death with tears in his eyes."
+  },
+  {
+    "kind": "lesson",
+    "text": "Zayd took the flag first and was martyred."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ told the people before the news came."
+  },
+  {
+    "kind": "lesson",
+    "text": "Then Khalid, a Sword of Allah, took the flag."
+  },
+  {
+    "kind": "question",
+    "text": "How did the Prophet ﷺ know before the news?"
+  },
+  {
+    "kind": "question",
+    "text": "A letter came first"
+  },
+  {
+    "kind": "question",
+    "text": "Zayd wrote to him"
+  },
+  {
+    "kind": "question",
+    "text": "A trader told him"
+  },
+  {
+    "kind": "question",
+    "text": "He told them before it came"
+  },
+  {
+    "kind": "question",
+    "text": "He informed them before the news reached."
+  },
+  {
+    "kind": "question",
+    "text": "Who took the flag after the three martyrs?"
+  },
+  {
+    "kind": "question",
+    "text": "Khalid, a Sword of Allah"
+  },
+  {
+    "kind": "question",
+    "text": "A Sword amongst the Swords of Allah took it."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ wept for them."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet's ﷺ eyes were shedding tears."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Zayd ibn Harithah!"
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ held Usamah and Al-Hasan and prayed for them."
+  },
+  {
+    "kind": "lesson",
+    "text": "Usamah was the son of Zayd ibn Harithah."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ took him and Al-Hasan on his lap."
+  },
+  {
+    "kind": "lesson",
+    "text": "He said: O Allah, love them, for I love them."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3735"
+  },
+  {
+    "kind": "question",
+    "text": "Who was Usamah's father?"
+  },
+  {
+    "kind": "question",
+    "text": "Who was held with Usamah?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Hasan"
+  },
+  {
+    "kind": "question",
+    "text": "He took Usamah and Al-Hasan."
+  },
+  {
+    "kind": "question",
+    "text": "That Allah loves them"
+  },
+  {
+    "kind": "question",
+    "text": "That they get rich"
+  },
+  {
+    "kind": "question",
+    "text": "That they travel"
+  },
+  {
+    "kind": "question",
+    "text": "O Allah, love them, as I love them."
+  },
+  {
+    "kind": "lesson",
+    "text": "Usamah heard the Prophet ﷺ teach patience at a child's death."
+  },
+  {
+    "kind": "lesson",
+    "text": "A daughter of the Prophet ﷺ sent word that her child was dying."
+  },
+  {
+    "kind": "lesson",
+    "text": "He sent: what Allah takes and gives belongs to Him."
+  },
+  {
+    "kind": "lesson",
+    "text": "When he saw the child, his eyes filled with tears."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1284"
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ say belongs to Allah?"
+  },
+  {
+    "kind": "question",
+    "text": "Only the Kaaba"
+  },
+  {
+    "kind": "question",
+    "text": "What He takes and what He gives"
+  },
+  {
+    "kind": "question",
+    "text": "Only the sky"
+  },
+  {
+    "kind": "question",
+    "text": "Whatever Allah takes and gives is for Him."
+  },
+  {
+    "kind": "question",
+    "text": "What did he tell his daughter to be?"
+  },
+  {
+    "kind": "question",
+    "text": "Silent forever"
+  },
+  {
+    "kind": "question",
+    "text": "Afraid"
+  },
+  {
+    "kind": "question",
+    "text": "Patient"
+  },
+  {
+    "kind": "question",
+    "text": "She should be patient and hope for reward."
+  },
+  {
+    "kind": "question",
+    "text": "Crying with tears from sadness is allowed."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet's ﷺ own eyes shed tears."
+  },
+  {
+    "kind": "lesson",
+    "text": "Usamah learned not to judge what is in a heart."
+  },
+  {
+    "kind": "lesson",
+    "text": "In a raid, a man said la ilaha illallah and Usamah still struck him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Usamah thought he said it only out of fear."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ asked: did you open his heart to know?"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 96"
+  },
+  {
+    "kind": "question",
+    "text": "What did the man say before Usamah struck him?"
+  },
+  {
+    "kind": "question",
+    "text": "I surrender my camel"
+  },
+  {
+    "kind": "question",
+    "text": "Spare my tribe"
+  },
+  {
+    "kind": "question",
+    "text": "He said: there is no god but Allah."
+  },
+  {
+    "kind": "question",
+    "text": "What is the lesson for us?"
+  },
+  {
+    "kind": "question",
+    "text": "Trust nobody"
+  },
+  {
+    "kind": "question",
+    "text": "Words never matter"
+  },
+  {
+    "kind": "question",
+    "text": "Only Allah knows the heart"
+  },
+  {
+    "kind": "question",
+    "text": "Guess people's hearts"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ said it only once."
+  },
+  {
+    "kind": "question",
+    "text": "He kept repeating it to Usamah."
+  },
+  {
+    "kind": "lesson",
+    "text": "On Hajj, Usamah rode behind the Prophet ﷺ from Arafah."
+  },
+  {
+    "kind": "lesson",
+    "text": "It was the Farewell Hajj."
+  },
+  {
+    "kind": "lesson",
+    "text": "Usamah rode behind him from Arafah to Muzdalifah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Fadl rode behind him from Muzdalifah to Mina."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1544"
+  },
+  {
+    "kind": "question",
+    "text": "Where did Usamah ride behind the Prophet ﷺ?"
+  },
+  {
+    "kind": "question",
+    "text": "From Arafah to Muzdalifah"
+  },
+  {
+    "kind": "question",
+    "text": "From Makkah to Taif"
+  },
+  {
+    "kind": "question",
+    "text": "From Madinah to Uhud"
+  },
+  {
+    "kind": "question",
+    "text": "From Mina to Yemen"
+  },
+  {
+    "kind": "question",
+    "text": "Who rode behind him after Muzdalifah?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Fadl"
+  },
+  {
+    "kind": "question",
+    "text": "Usamah again"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Fadl rode from Muzdalifah to Mina."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ kept saying the talbiyah."
+  },
+  {
+    "kind": "question",
+    "text": "He kept on reciting the talbiyah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Some doubted young Usamah as leader; the Prophet ﷺ defended him."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ made Usamah commander of an army."
+  },
+  {
+    "kind": "lesson",
+    "text": "Some had also doubted his father Zayd as leader."
+  },
+  {
+    "kind": "lesson",
+    "text": "He said both were worthy, and among the dearest to him."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3730"
+  },
+  {
+    "kind": "question",
+    "text": "What did some people do when Usamah was made leader?"
+  },
+  {
+    "kind": "question",
+    "text": "Made him king"
+  },
+  {
+    "kind": "question",
+    "text": "Gave him gold"
+  },
+  {
+    "kind": "question",
+    "text": "Criticized it"
+  },
+  {
+    "kind": "question",
+    "text": "Whose leadership was criticized before?"
+  },
+  {
+    "kind": "question",
+    "text": "His father Zayd's"
+  },
+  {
+    "kind": "question",
+    "text": "You used to criticize his father's leadership before."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ said Zayd was worthy to lead."
+  },
+  {
+    "kind": "question",
+    "text": "By Allah, he was worthy of leadership."
+  },
+  {
+    "kind": "lesson",
+    "text": "Usamah led the army to Sham, loved by the Prophet ﷺ."
+  },
+  {
+    "kind": "lesson",
+    "text": "The army was being sent to Sham, toward the Romans."
+  },
+  {
+    "kind": "lesson",
+    "text": "People spoke about Usamah leading it."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ said: he is most beloved of people to me."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 4468"
+  },
+  {
+    "kind": "question",
+    "text": "Where was Usamah's army going?"
+  },
+  {
+    "kind": "question",
+    "text": "The troops were sent to Syria, called Sham."
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ say about Usamah?"
+  },
+  {
+    "kind": "question",
+    "text": "Send someone else"
+  },
+  {
+    "kind": "question",
+    "text": "He must stay home"
+  },
+  {
+    "kind": "question",
+    "text": "He is most beloved to me"
+  },
+  {
+    "kind": "question",
+    "text": "He is too young"
+  },
+  {
+    "kind": "question",
+    "text": "He is the most beloved of all people to me."
+  },
+  {
+    "kind": "question",
+    "text": "Being young stopped Usamah from leading."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ made him commander."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Usamah ibn Zayd!"
+  },
+  {
+    "kind": "lesson",
     "text": "The Muhajirun left their homes and wealth in Makkah for Allah."
   },
   {
@@ -83914,10 +85034,6 @@
   {
     "kind": "question",
     "text": "Happier than ever"
-  },
-  {
-    "kind": "question",
-    "text": "Afraid"
   },
   {
     "kind": "question",
@@ -84488,24 +85604,8 @@
     "text": "Call them by their fathers' names."
   },
   {
-    "kind": "source",
-    "text": "Quran 33:5"
-  },
-  {
-    "kind": "source",
-    "text": "Sahih al-Bukhari 4782"
-  },
-  {
     "kind": "question",
     "text": "What did people call Zayd before Quran 33:5?"
-  },
-  {
-    "kind": "question",
-    "text": "Zayd ibn Muhammad"
-  },
-  {
-    "kind": "question",
-    "text": "Zayd ibn Umar"
   },
   {
     "kind": "question",
@@ -84534,10 +85634,6 @@
   {
     "kind": "question",
     "text": "Give everyone new names"
-  },
-  {
-    "kind": "question",
-    "text": "Never use names"
   },
   {
     "kind": "question",
@@ -85258,10 +86354,6 @@
   {
     "kind": "question",
     "text": "Gave him gifts"
-  },
-  {
-    "kind": "question",
-    "text": "Made him king"
   },
   {
     "kind": "question",
@@ -88434,10 +89526,6 @@
   {
     "kind": "question",
     "text": "What did Allah find Ayyub to be?"
-  },
-  {
-    "kind": "question",
-    "text": "Patient"
   },
   {
     "kind": "question",
@@ -98573,10 +99661,6 @@
   },
   {
     "kind": "question",
-    "text": "Al-Ahzab"
-  },
-  {
-    "kind": "question",
     "text": "Ayah 6 of Surah Al-Ahzab, the 33rd surah."
   },
   {
@@ -100865,10 +101949,6 @@
   },
   {
     "kind": "question",
-    "text": "Thabit"
-  },
-  {
-    "kind": "question",
     "text": "He is Malik ibn Anas."
   },
   {
@@ -102262,10 +103342,6 @@
   {
     "kind": "question",
     "text": "Who in his family was also a great imam?"
-  },
-  {
-    "kind": "question",
-    "text": "His neighbor"
   },
   {
     "kind": "question",
@@ -108238,10 +109314,6 @@
   {
     "kind": "source",
     "text": "Siyar A'lam an-Nubala 10/513"
-  },
-  {
-    "kind": "question",
-    "text": "He was weak"
   },
   {
     "kind": "question",
@@ -114586,10 +115658,6 @@
   {
     "kind": "question",
     "text": "Their height"
-  },
-  {
-    "kind": "question",
-    "text": "Their clothes"
   },
   {
     "kind": "question",
@@ -124796,10 +125864,6 @@
     "text": "As I love them"
   },
   {
-    "kind": "source",
-    "text": "Sahih al-Bukhari 3735"
-  },
-  {
     "kind": "question",
     "text": "Which two children did he ﷺ hold?"
   },
@@ -124858,14 +125922,6 @@
   {
     "kind": "question",
     "text": "Whom did Abu Bakr carry?"
-  },
-  {
-    "kind": "question",
-    "text": "Al-Hasan"
-  },
-  {
-    "kind": "question",
-    "text": "Usamah"
   },
   {
     "kind": "question",
@@ -142229,10 +143285,6 @@
   },
   {
     "kind": "question",
-    "text": "Pay a fine"
-  },
-  {
-    "kind": "question",
     "text": "Ayah 15: does Allah punish before sending a messenger?"
   },
   {
@@ -144962,10 +146014,6 @@
   {
     "kind": "question",
     "text": "Everything"
-  },
-  {
-    "kind": "question",
-    "text": "Only the sky"
   },
   {
     "kind": "lesson",
@@ -173169,10 +174217,6 @@
   },
   {
     "kind": "question",
-    "text": "Their camels"
-  },
-  {
-    "kind": "question",
     "text": "Small things, like a pot"
   },
   {
@@ -180078,10 +181122,6 @@
   {
     "kind": "question",
     "text": "Choose clear, respectful words"
-  },
-  {
-    "kind": "question",
-    "text": "Words never matter"
   },
   {
     "kind": "question",
@@ -202757,10 +203797,6 @@
   },
   {
     "kind": "lesson",
-    "text": "Musaylimah the liar"
-  },
-  {
-    "kind": "lesson",
     "text": "Iftara: invented"
   },
   {
@@ -213082,10 +214118,6 @@
   {
     "kind": "question",
     "text": "That the truth triumph"
-  },
-  {
-    "kind": "question",
-    "text": "That they get rich"
   },
   {
     "kind": "question",
@@ -252061,10 +253093,6 @@
   },
   {
     "kind": "question",
-    "text": "His servant"
-  },
-  {
-    "kind": "question",
     "text": "We have blessed"
   },
   {
@@ -267770,10 +268798,6 @@
   {
     "kind": "question",
     "text": "What was the Prophet ﷺ told to be, in 20:130?"
-  },
-  {
-    "kind": "question",
-    "text": "Silent forever"
   },
   {
     "kind": "question",
@@ -360317,10 +361341,6 @@
   },
   {
     "kind": "question",
-    "text": "Fight me"
-  },
-  {
-    "kind": "question",
     "text": "Follow me by force"
   },
   {
@@ -411393,10 +412413,6 @@
   },
   {
     "kind": "question",
-    "text": "Their faces"
-  },
-  {
-    "kind": "question",
     "text": "Concealed disbelief under the shield of their false oaths."
   },
   {
@@ -413430,10 +414446,6 @@
   {
     "kind": "question",
     "text": "Cavalry or camelry"
-  },
-  {
-    "kind": "question",
-    "text": "Their feet"
   },
   {
     "kind": "question",
@@ -417046,10 +418058,6 @@
   {
     "kind": "question",
     "text": "What do they wish for the believers, in 60:2?"
-  },
-  {
-    "kind": "question",
-    "text": "That they travel"
   },
   {
     "kind": "question",
@@ -479666,10 +480674,6 @@
   {
     "kind": "question",
     "text": "The Jews and the Christians"
-  },
-  {
-    "kind": "question",
-    "text": "The Persians only"
   },
   {
     "kind": "question",

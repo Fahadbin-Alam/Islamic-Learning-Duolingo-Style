@@ -1251,4 +1251,277 @@ const HUDHAYFAH: DeepUnit = {
   ]
 };
 
-export const COMPANION_UNITS: DeepUnit[] = [JAFAR, ABU_HURAIRAH, KAB, SAD_MUADH, ABDUR_RAHMAN, MUADH, UBAYY, ZAYD_THABIT, ABU_MUSA, JABIR, ABU_TALHAH, HUDHAYFAH];
+const ZAYD_HARITHAH: DeepUnit = {
+  key: "zayd-harithah",
+  topicId: "sahabah",
+  branchId: "sahabi-zayd-ibn-harithah",
+  branch: { title: "Zayd ibn Harithah", description: "The beloved freed slave of the Prophet ﷺ, named in the Quran, who led the army at Mu'tah." },
+  name: "Zayd ibn Harithah",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "zayd-ibn-muhammad",
+      title: "Called by his father's name",
+      line: "People called him Zayd ibn Muhammad, until an ayah came.",
+      facts: ["Zayd was the freed slave the Prophet ﷺ raised like a son.", "People called him Zayd ibn Muhammad.", "Allah said: call them by their fathers' names."],
+      quote: quranQuote(33, 5),
+      source: hadith("bukhari", "4782", "Abdullah ibn Umar", "Sahih", "We used to call Zayd ibn Harithah only Zayd ibn Muhammad, until the ayah came: call them by their fathers; that is more just with Allah.", "Call them (adopted sons) by (the names of) their fathers"),
+      difficulty: 2,
+      questions: [
+        { q: "What did people call Zayd at first?", a: "Zayd ibn Muhammad", wrong: ["Zayd ibn Umar", "Zayd ibn Thabit", "Zayd al-Yamani"], why: "They called him Zayd ibn Muhammad." },
+        { q: "What did the ayah tell people to do?", a: "Call them by their fathers' names", wrong: ["Give them new names", "Never use names", "Call them by tribes only"], why: "Call them by the names of their fathers." },
+        { q: "Who was Zayd's real father?", a: "Harithah", wrong: ["Muhammad ﷺ", "Abu Talib", "Thabit"], why: "He is Zayd ibn Harithah." }
+      ]
+    },
+    {
+      slug: "named-in-quran",
+      title: "Named in the Quran",
+      line: "Allah mentions Zayd by name in Surah Al-Ahzab.",
+      facts: ["Zayd's name comes in Quran 33:37.", "It is the only place in the Quran that names him.", "Surah Al-Ahzab is the 33rd surah."],
+      quote: quranQuote(33, 37),
+      source: quran(33, 37, "Allah mentions Zayd by name in Surah Al-Ahzab, ayah 37."),
+      difficulty: 3,
+      questions: [
+        { q: "In which surah is Zayd named?", a: "Al-Ahzab", wrong: ["Al-Baqarah", "Yusuf", "Al-Kahf"], why: "Zayd's name comes in Quran 33:37." },
+        { q: "Which number is Surah Al-Ahzab?", a: "33", wrong: ["2", "12", "18"], why: "Al-Ahzab is the 33rd surah." },
+        { q: "Zayd's name appears in the Quran.", tf: true, why: "Allah names him in 33:37." }
+      ]
+    },
+    {
+      slug: "same-feet",
+      title: "Father and son",
+      line: "A man saw Zayd's and Usamah's feet and knew they were family.",
+      facts: ["Zayd and his son Usamah were asleep under a cover.", "An expert in family looks saw only their feet.", "He said they were father and son, and the Prophet ﷺ was pleased."],
+      source: hadith("bukhari", "3731", "Aishah", "Sahih", "Usamah ibn Zayd and Zayd ibn Harithah were lying asleep. A man skilled in family likeness said: these feet are from one another. The Prophet ﷺ was pleased and told Aishah about it.", "These feet (of Usama and his father) are of persons belonging to the same lineage"),
+      difficulty: 3,
+      questions: [
+        { q: "Who was Zayd's son?", a: "Usamah", wrong: ["Anas", "Jabir", "Ka'b"], why: "Usamah ibn Zayd was his son." },
+        { q: "What did the man look at?", a: "Their feet", wrong: ["Their faces", "Their clothes", "Their camels"], why: "These feet are of persons of the same lineage." },
+        { q: "The Prophet ﷺ was happy with what he said.", tf: true, why: "The Prophet ﷺ was pleased and told Aishah." }
+      ]
+    },
+    {
+      slug: "our-brother",
+      title: "Our brother",
+      line: "The Prophet ﷺ told Zayd: you are our brother.",
+      facts: ["After Umrat al-Qada, Ali, Ja'far and Zayd each wanted to care for Hamzah's daughter.", "The Prophet ﷺ gave each of them kind words.", "To Zayd he said: you are our brother and our freed slave."],
+      source: hadith("bukhari", "2699", "Al-Bara ibn Azib", "Sahih", "Ali, Ja'far and Zayd each asked to care for Hamzah's daughter. The Prophet ﷺ gave her to her aunt, and said to Zayd: you are our brother and our freed slave.", "You are our brother (in faith) and our freed slave"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the Prophet ﷺ call Zayd?", a: "Our brother", wrong: ["A stranger", "Our guest", "Our enemy"], why: "You are our brother and our freed slave." },
+        { q: "Whose daughter did they all want to care for?", a: "Hamzah's", wrong: ["Abu Jahl's", "Umar's", "Uthman's"], why: "They each asked to care for Hamzah's daughter." },
+        { q: "Zayd was harshly sent away.", tf: false, why: "He was told: you are our brother." }
+      ]
+    },
+    {
+      slug: "commander-mutah",
+      title: "Commander at Mu'tah",
+      line: "Zayd was made the first commander of the army at Mu'tah.",
+      facts: ["The Prophet ﷺ chose Zayd to lead the army.", "If Zayd fell, Ja'far would lead; then Abdullah ibn Rawahah.", "Mu'tah was a battle against the Romans."],
+      source: hadith("bukhari", "4261", "Abdullah ibn Umar", "Sahih", "The Prophet ﷺ made Zayd ibn Harithah commander at Mu'tah and said: if Zayd is killed, Ja'far; and if Ja'far is killed, Abdullah ibn Rawahah.", "appointed Zaid bin Haritha as the commander of the army"),
+      difficulty: 3,
+      questions: [
+        { q: "Who was the first commander at Mu'tah?", a: "Zayd ibn Harithah", wrong: ["Khalid ibn al-Walid", "Abu Bakr", "Umar"], why: "He appointed Zayd as the commander." },
+        { q: "Who would lead if Zayd fell?", a: "Ja'far", wrong: ["Ali", "Usamah", "Bilal"], why: "If Zayd is martyred, Ja'far takes over." },
+        { q: "Who was third in line?", a: "Abdullah ibn Rawahah", wrong: ["Hamzah", "Anas", "Abu Hurairah"], why: "Then Abdullah ibn Rawahah." }
+      ]
+    },
+    {
+      slug: "tears-for-zayd",
+      title: "Tears for Zayd",
+      line: "The Prophet ﷺ told of Zayd's death with tears in his eyes.",
+      facts: ["Zayd took the flag first and was martyred.", "The Prophet ﷺ told the people before the news came.", "Then Khalid, a Sword of Allah, took the flag."],
+      source: hadith("bukhari", "4262", "Anas ibn Malik", "Sahih", "Before the news came, the Prophet ﷺ said with tears: Zayd took the flag and was martyred, then Ja'far, then Ibn Rawahah; then a Sword of Allah took it and Allah gave them victory.", "Zaid took the flag (as the commander of the army) and was martyred"),
+      difficulty: 4,
+      questions: [
+        { q: "How did the Prophet ﷺ know before the news?", a: "He told them before it came", wrong: ["A letter came first", "Zayd wrote to him", "A trader told him"], why: "He informed them before the news reached." },
+        { q: "Who took the flag after the three martyrs?", a: "Khalid, a Sword of Allah", wrong: ["Usamah", "Abu Musa", "Hudhayfah"], why: "A Sword amongst the Swords of Allah took it." },
+        { q: "The Prophet ﷺ wept for them.", tf: true, why: "The Prophet's ﷺ eyes were shedding tears." }
+      ]
+    }
+  ]
+};
+
+const USAMAH: DeepUnit = {
+  key: "usamah",
+  topicId: "sahabah",
+  branchId: "sahabi-usamah-ibn-zayd",
+  branch: { title: "Usamah ibn Zayd", description: "The beloved son of a beloved father, who led an army while still young." },
+  name: "Usamah ibn Zayd",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "loved-child",
+      title: "A loved child",
+      line: "The Prophet ﷺ held Usamah and Al-Hasan and prayed for them.",
+      facts: ["Usamah was the son of Zayd ibn Harithah.", "The Prophet ﷺ took him and Al-Hasan on his lap.", "He said: O Allah, love them, for I love them."],
+      source: hadith("bukhari", "3735", "Usamah ibn Zayd", "Sahih", "The Prophet ﷺ used to take me and Al-Hasan and say: O Allah, love them, for I love them.", "O Allah! Love them, as I love them"),
+      difficulty: 2,
+      questions: [
+        { q: "Who was Usamah's father?", a: "Zayd ibn Harithah", wrong: ["Zayd ibn Thabit", "Abu Bakr", "Hamzah"], why: "Usamah was the son of Zayd ibn Harithah." },
+        { q: "Who was held with Usamah?", a: "Al-Hasan", wrong: ["Anas", "Ibn Umar", "Jabir"], why: "He took Usamah and Al-Hasan." },
+        { q: "What did the Prophet ﷺ pray for them?", a: "That Allah loves them", wrong: ["That they get rich", "That they travel", "That they become kings"], why: "O Allah, love them, as I love them." }
+      ]
+    },
+    {
+      slug: "to-allah-belongs",
+      title: "What Allah takes",
+      line: "Usamah heard the Prophet ﷺ teach patience at a child's death.",
+      facts: ["A daughter of the Prophet ﷺ sent word that her child was dying.", "He sent: what Allah takes and gives belongs to Him.", "When he saw the child, his eyes filled with tears."],
+      source: hadith("bukhari", "1284", "Usamah ibn Zayd", "Sahih", "The Prophet's ﷺ daughter sent for him as her child was dying. He sent her his salam and said: whatever Allah takes is His and whatever He gives is His; so be patient. Then he went, and his eyes shed tears.", "Whatever Allah takes is for Him and whatever He gives, is for Him"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the Prophet ﷺ say belongs to Allah?", a: "What He takes and what He gives", wrong: ["Only gold", "Only the sky", "Only the Kaaba"], why: "Whatever Allah takes and gives is for Him." },
+        { q: "What did he tell his daughter to be?", a: "Patient", wrong: ["Angry", "Silent forever", "Afraid"], why: "She should be patient and hope for reward." },
+        { q: "Crying with tears from sadness is allowed.", tf: true, why: "The Prophet's ﷺ own eyes shed tears." }
+      ]
+    },
+    {
+      slug: "his-heart",
+      title: "Did you open his heart?",
+      line: "Usamah learned not to judge what is in a heart.",
+      facts: ["In a raid, a man said la ilaha illallah and Usamah still struck him.", "Usamah thought he said it only out of fear.", "The Prophet ﷺ asked: did you open his heart to know?"],
+      source: hadith("muslim", "96a", "Usamah ibn Zayd", "Sahih", "In a raid a man said: there is no god but Allah, and I killed him. The Prophet ﷺ said: did you cut open his heart to find out? He kept repeating it until I wished I had become Muslim only that day.", "Did you tear his heart in order to find out whether it had professed or not"),
+      difficulty: 4,
+      questions: [
+        { q: "What did the man say before Usamah struck him?", a: "La ilaha illallah", wrong: ["I surrender my camel", "Spare my tribe", "Nothing"], why: "He said: there is no god but Allah." },
+        { q: "What is the lesson for us?", a: "Only Allah knows the heart", wrong: ["Guess people's hearts", "Trust nobody", "Words never matter"], why: "Did you open his heart to find out?" },
+        { q: "The Prophet ﷺ said it only once.", tf: false, why: "He kept repeating it to Usamah." }
+      ]
+    },
+    {
+      slug: "from-arafah",
+      title: "Riding behind the Prophet ﷺ",
+      line: "On Hajj, Usamah rode behind the Prophet ﷺ from Arafah.",
+      facts: ["It was the Farewell Hajj.", "Usamah rode behind him from Arafah to Muzdalifah.", "Al-Fadl rode behind him from Muzdalifah to Mina."],
+      source: hadith("bukhari", "1544", "Ibn Abbas", "Sahih", "Usamah rode behind the Prophet ﷺ from Arafah to Muzdalifah, then Al-Fadl rode behind him from Muzdalifah to Mina, and he kept saying the talbiyah.", "Usama rode behind Allah"),
+      difficulty: 3,
+      questions: [
+        { q: "Where did Usamah ride behind the Prophet ﷺ?", a: "From Arafah to Muzdalifah", wrong: ["From Makkah to Taif", "From Madinah to Uhud", "From Mina to Yemen"], why: "Usamah rode behind him from Arafah to Muzdalifah." },
+        { q: "Who rode behind him after Muzdalifah?", a: "Al-Fadl", wrong: ["Usamah again", "Abu Bakr", "Bilal"], why: "Al-Fadl rode from Muzdalifah to Mina." },
+        { q: "The Prophet ﷺ kept saying the talbiyah.", tf: true, why: "He kept on reciting the talbiyah." }
+      ]
+    },
+    {
+      slug: "worthy-leader",
+      title: "Worthy to lead",
+      line: "Some doubted young Usamah as leader; the Prophet ﷺ defended him.",
+      facts: ["The Prophet ﷺ made Usamah commander of an army.", "Some had also doubted his father Zayd as leader.", "He said both were worthy, and among the dearest to him."],
+      source: hadith("bukhari", "3730", "Abdullah ibn Umar", "Sahih", "Some criticized Usamah's command. The Prophet ﷺ said: you criticized his father's command before. By Allah, he was worthy of it and among the dearest people to me, and this one is among the dearest to me after him.", "He was worthy of leadership"),
+      difficulty: 4,
+      questions: [
+        { q: "What did some people do when Usamah was made leader?", a: "Criticized it", wrong: ["Ran away", "Made him king", "Gave him gold"], why: "Some people criticized his leadership." },
+        { q: "Whose leadership was criticized before?", a: "His father Zayd's", wrong: ["Abu Bakr's", "Umar's", "Ali's"], why: "You used to criticize his father's leadership before." },
+        { q: "The Prophet ﷺ said Zayd was worthy to lead.", tf: true, why: "By Allah, he was worthy of leadership." }
+      ]
+    },
+    {
+      slug: "most-beloved",
+      title: "The army to Sham",
+      line: "Usamah led the army to Sham, loved by the Prophet ﷺ.",
+      facts: ["The army was being sent to Sham, toward the Romans.", "People spoke about Usamah leading it.", "The Prophet ﷺ said: he is most beloved of people to me."],
+      source: hadith("bukhari", "4468", "Abdullah ibn Umar", "Sahih", "The Prophet ﷺ made Usamah commander of the army to Sham. When people spoke about him, he said: I have heard what you said about Usamah; he is the most beloved of people to me.", "he is the most beloved of all people to me"),
+      difficulty: 4,
+      questions: [
+        { q: "Where was Usamah's army going?", a: "Sham", wrong: ["Yemen", "Persia", "Egypt"], why: "The troops were sent to Syria, called Sham." },
+        { q: "What did the Prophet ﷺ say about Usamah?", a: "He is most beloved to me", wrong: ["He is too young", "Send someone else", "He must stay home"], why: "He is the most beloved of all people to me." },
+        { q: "Being young stopped Usamah from leading.", tf: false, why: "The Prophet ﷺ made him commander." }
+      ]
+    }
+  ]
+};
+
+const HAMZAH: DeepUnit = {
+  key: "hamzah",
+  topicId: "sahabah",
+  branchId: "sahabi-hamzah-ibn-abdul-muttalib",
+  branch: { title: "Hamzah ibn Abdul-Muttalib", description: "The brave uncle of the Prophet ﷺ, a hero of Badr, martyred at Uhud." },
+  name: "Hamzah",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "uncle-and-brother",
+      title: "Uncle and foster brother",
+      line: "Hamzah was the Prophet's ﷺ uncle and his foster brother.",
+      facts: ["Hamzah was the son of Abdul-Muttalib, the Prophet's ﷺ grandfather.", "He and the Prophet ﷺ were nursed by the same woman.", "So the Prophet ﷺ called him his foster brother."],
+      source: hadith("bukhari", "2645", "Ibn Abbas", "Sahih", "The Prophet ﷺ said about Hamzah's daughter: she is not lawful for me, for foster ties count like blood ties; she is the daughter of my foster brother.", "She is the daughter of my foster brother"),
+      difficulty: 2,
+      questions: [
+        { q: "What did the Prophet ﷺ call Hamzah besides uncle?", a: "His foster brother", wrong: ["His teacher", "His servant", "His neighbor"], why: "She is the daughter of my foster brother." },
+        { q: "Who was Hamzah's father?", a: "Abdul-Muttalib", wrong: ["Abu Talib", "Abu Lahab", "Harithah"], why: "He is Hamzah ibn Abdul-Muttalib." },
+        { q: "Foster ties count like blood ties for marriage.", tf: true, why: "Foster relations are treated like blood relations." }
+      ]
+    },
+    {
+      slug: "duel-at-badr",
+      title: "The duel at Badr",
+      line: "At Badr, Hamzah stepped out first to fight in single combat.",
+      facts: ["Hamzah, Ali and Ubaydah faced three leaders of Quraysh.", "They faced Utbah, Shaybah and Al-Walid.", "Allah revealed 22:19 about these two sides."],
+      quote: quranQuote(22, 19),
+      source: hadith("bukhari", "3969", "Abu Dharr", "Sahih", "Abu Dharr swore that the ayah 'these two opponents dispute about their Lord' came down about those who fought at Badr: Hamzah, Ali and Ubaydah ibn al-Harith against Utbah, Shaybah and Al-Walid.", "namely, Hamza"),
+      difficulty: 3,
+      questions: [
+        { q: "Who stepped out with Hamzah at Badr?", a: "Ali and Ubaydah", wrong: ["Abu Bakr and Umar", "Zayd and Usamah", "Bilal and Anas"], why: "Hamzah, Ali and Ubaydah ibn al-Harith." },
+        { q: "Which ayah came down about them?", a: "22:19", wrong: ["2:255", "112:1", "3:92"], why: "These two opponents dispute about their Lord, 22:19." },
+        { q: "Hamzah stayed away from Badr.", tf: false, why: "He was among the first to fight at Badr." }
+      ]
+    },
+    {
+      slug: "lion-at-uhud",
+      title: "Bravery at Uhud",
+      line: "At Uhud, Hamzah bravely answered a challenge to a duel.",
+      facts: ["An enemy fighter called out for a duel.", "Hamzah stepped out and asked: do you challenge Allah and His Messenger?", "Hamzah defeated him."],
+      source: hadith("bukhari", "4072", "Wahshi ibn Harb", "Sahih", "At Uhud, Siba' called for a duel. Hamzah came out and said: do you challenge Allah and His Messenger? and he defeated him.", "Do you challenge Allah and His Apostle"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Hamzah say to the challenger?", a: "Do you challenge Allah and His Messenger?", wrong: ["I give up", "Let us make peace", "Wait for tomorrow"], why: "Do you challenge Allah and His Apostle?" },
+        { q: "Who won the duel?", a: "Hamzah", wrong: ["Siba'", "Nobody", "It was stopped"], why: "Hamzah attacked and defeated him." },
+        { q: "Hamzah was a brave fighter.", tf: true, why: "He stepped out to answer the challenge." }
+      ]
+    },
+    {
+      slug: "martyr",
+      title: "Martyred at Uhud",
+      line: "Hamzah was martyred at Uhud by Wahshi's spear.",
+      facts: ["Wahshi was a slave promised freedom if he killed Hamzah.", "He hid behind a rock and threw his spear.", "Hamzah fell as a martyr at Uhud."],
+      source: hadith("bukhari", "4072", "Wahshi ibn Harb", "Sahih", "My master promised me freedom if I killed Hamzah. At Uhud I hid behind a rock and, when he came near, I threw my spear and he died.", "I hid myself under a rock"),
+      difficulty: 3,
+      questions: [
+        { q: "Who killed Hamzah?", a: "Wahshi", wrong: ["Abu Jahl", "Abu Sufyan", "Khalid"], why: "Wahshi threw his spear at him." },
+        { q: "What was Wahshi promised?", a: "His freedom", wrong: ["A palace", "A sword", "A camel race"], why: "If you kill Hamzah, you will be set free." },
+        { q: "In which battle was Hamzah martyred?", a: "Uhud", wrong: ["Badr", "Khaybar", "Tabuk"], why: "He was killed at the battle of Uhud." }
+      ]
+    },
+    {
+      slug: "remembered",
+      title: "Remembered with tears",
+      line: "Abdur-Rahman ibn Awf wept remembering Hamzah.",
+      facts: ["Abdur-Rahman was given food while fasting.", "He said: Hamzah was martyred, and he was better than me.", "He feared his reward had come in this world, and wept."],
+      source: hadith("bukhari", "4045", "Sa'd ibn Ibrahim", "Sahih", "Food was brought to Abdur-Rahman ibn Awf while he was fasting. He said: Mus'ab was martyred and he was better than me; Hamzah was martyred and he was better than me. Then wealth was given to us; we fear our reward came early. He wept and left the food.", "Hamza was martyred and he was better than I"),
+      difficulty: 4,
+      questions: [
+        { q: "Who wept remembering Hamzah?", a: "Abdur-Rahman ibn Awf", wrong: ["Abu Jahl", "Wahshi", "Abu Lahab"], why: "Abdur-Rahman wept and left the food." },
+        { q: "What did he say about Hamzah?", a: "He was better than me", wrong: ["He was weak", "He was rich", "He was a trader"], why: "Hamzah was martyred and he was better than I." },
+        { q: "Abdur-Rahman was fasting at the time.", tf: true, why: "The meal came while he was fasting." }
+      ]
+    },
+    {
+      slug: "wahshi-returns",
+      title: "Wahshi comes to Islam",
+      line: "Years later, Wahshi came to the Prophet ﷺ as a Muslim.",
+      facts: ["Wahshi came with the delegation of Taif.", "The Prophet ﷺ asked: can you keep your face from me?", "Wahshi later fought Musaylimah the liar to make amends."],
+      source: hadith("bukhari", "4072", "Wahshi ibn Harb", "Sahih", "I came to the Prophet ﷺ with the people of Taif. He asked: are you Wahshi, who killed Hamzah? Then he said: can you hide your face from me? Later I went out against Musaylimah to make amends for Hamzah.", "Can you hide your face from me"),
+      difficulty: 4,
+      questions: [
+        { q: "What did the Prophet ﷺ ask Wahshi?", a: "Can you hide your face from me?", wrong: ["Leave Arabia now", "Pay a fine", "Fight me"], why: "Can you hide your face from me?" },
+        { q: "Whom did Wahshi later fight to make amends?", a: "Musaylimah the liar", wrong: ["Abu Bakr", "The Persians only", "Hamzah's family"], why: "He went out to Musaylimah to make amends for killing Hamzah." },
+        { q: "Wahshi came with the delegation of Taif.", tf: true, why: "He went out with the messengers of Taif to the Prophet ﷺ." }
+      ]
+    }
+  ]
+};
+
+export const COMPANION_UNITS: DeepUnit[] = [JAFAR, ABU_HURAIRAH, KAB, SAD_MUADH, ABDUR_RAHMAN, MUADH, UBAYY, ZAYD_THABIT, ABU_MUSA, JABIR, ABU_TALHAH, HUDHAYFAH, HAMZAH, ZAYD_HARITHAH, USAMAH];
