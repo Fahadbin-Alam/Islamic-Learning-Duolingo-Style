@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Jinn ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -158,6 +158,20 @@ const JINN_ONE: DeepUnit = {
         { q: "What did they wrongly think, per 72:7?", a: "No messenger would be sent", wrong: ["The sky would fall", "Rain would stop", "Jinn would rule"], why: "And they thought as you thought, that Allah will not send any Messenger." },
         { q: "Why did they think this?", a: "A long time had passed", wrong: ["A king said so", "A book said so", "The stars said so"], why: "Allah would never send a Messenger after this long period of time." },
         { tf: false, q: "Allah never sent a messenger after that long gap.", why: "He sent His Messenger Muhammad and revealed the Quran to him." }
+      ]
+    },
+    {
+      slug: "denial-leads-to-sin",
+      title: "Denial leads to sin",
+      line: "Denying the rising again led them into shirk and wrong.",
+      facts: ["As-Sa'di explains", "Belief guards deeds"],
+      quote: q72(7),
+      source: saadi(72, 7, "As-Sa'di says when the jinn and people denied that Allah would raise anyone, that denial led them boldly into shirk and transgression.", "فلما أنكروا البعث أقدموا على الشرك والطغيان"),
+      difficulty: 2,
+      questions: [
+        { q: "What did denying the resurrection lead to, per as-Sa'di?", a: "Shirk and transgression", wrong: ["More prayer", "Kindness", "Nothing"], why: "When they denied it, they rushed into shirk, says as-Sa'di." },
+        { q: "Who also thought no one would be raised, in Al-Jinn?", a: "Some jinn and people", wrong: ["The angels", "The prophets", "The believers"], why: "They thought as you thought." },
+        { tf: true, q: "Believing in the Last Day helps keep us from sin.", why: "As-Sa'di on 72:7." }
       ]
     }
   ]
@@ -366,6 +380,20 @@ const JINN_THREE: DeepUnit = {
         { q: "To whom do the masjids belong, per 72:18?", a: "To Allah", wrong: ["To kings", "To tribes", "To the rich"], why: "And the Masjids are for Allah, so invoke not anyone along with Allah." },
         { q: "What must we not do in them?", a: "Call on anyone besides Allah", wrong: ["Pray", "Read the Quran", "Make dua"], why: "So invoke not anyone along with Allah." },
         { tf: true, q: "Every masjid is for worshipping Allah alone.", why: "Allah commands His servants to single Him out alone for worship." }
+      ]
+    },
+    {
+      slug: "two-kinds-of-dua",
+      title: "Two kinds of dua",
+      line: "Call on Allah alone, in worship and in asking.",
+      facts: ["As-Sa'di explains", "Dua of worship, dua of asking"],
+      quote: q72(18),
+      source: saadi(72, 18, "As-Sa'di says do not call on anyone with Allah, neither in the dua of worship nor in the dua of asking, because masjids are built on sincerity to Allah.", "لا دعاء عبادة، ولا دعاء مسألة"),
+      difficulty: 3,
+      questions: [
+        { q: "Which kinds of dua belong only to Allah?", a: "Worship and asking", wrong: ["Only worship", "Only asking", "Neither"], why: "No dua of worship and no dua of asking to others, says as-Sa'di." },
+        { q: "What are masjids built on, per as-Sa'di?", a: "Sincerity to Allah", wrong: ["Wealth", "Fame", "Tribes"], why: "Built on sincerity and humility to Allah." },
+        { tf: true, q: "We ask Allah alone for what only He can give.", why: "As-Sa'di on 72:18." }
       ]
     },
     {
