@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah An-Nahl ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -519,6 +519,20 @@ const NAHL_THREE: DeepUnit = {
         { q: "Whom did Allah send as Messengers, in 16:43?", a: "Men", wrong: ["Angels", "Jinn", "Kings only"], why: "And We sent not (as Our Messengers) before you any but men, whom We sent revelation." },
         { q: "Whom should they ask, in 16:43?", a: "Ahl Adh-Dhikr", wrong: ["The poets", "The fortune-tellers", "The children"], why: "So ask Ahl Adh-Dhikr, if you know not." },
         { q: "Who are Ahl Adh-Dhikr, per Ibn Abbas?", a: "The People of the Book", wrong: ["The angels", "The jinn", "The Quraysh"], why: "What is meant by Ahl Adh-Dhikr is the People of the Book." }
+      ]
+    },
+    {
+      slug: "ask-the-people-of-knowledge",
+      title: "Ask the people of knowledge",
+      line: "If you do not know, ask those with knowledge of Allah's Book.",
+      facts: ["As-Sa'di explains", "Asking the scholars"],
+      quote: q16(43),
+      source: saadi(16, 43, "As-Sa'di says this ayah praises people of knowledge: Allah orders those who do not know to ask them, which shows He trusts them with His revelation and frees the one who asks from blame; and the best people of dhikr are the people of the Quran.", "وأفضل أهل الذكر أهل هذا القرآن العظيم"),
+      difficulty: 2,
+      questions: [
+        { q: "What should a person who does not know do, per as-Sa'di on 16:43?", a: "Ask the people of knowledge", wrong: ["Guess", "Stay silent", "Ask anyone"], why: "Allah ordered those who do not know to ask the people of knowledge." },
+        { q: "Who are the best people of dhikr, per as-Sa'di on 16:43?", a: "The people of the Quran", wrong: ["The poets", "The traders", "The kings"], why: "The people of the Quran are truly the people of dhikr." },
+        { tf: true, q: "Asking the scholars frees the one who does not know from blame.", why: "As-Sa'di on 16:43." }
       ]
     },
     {
@@ -1277,6 +1291,20 @@ const NAHL_SIX: DeepUnit = {
       ]
     },
     {
+      slug: "what-a-good-life-feels-like",
+      title: "What a good life feels like",
+      line: "A good life is a calm heart and lawful provision.",
+      facts: ["As-Sa'di explains", "Hayat tayyibah"],
+      quote: q16(97),
+      source: saadi(16, 97, "As-Sa'di says faith is a condition for good deeds to be accepted, and whoever joins faith with good deeds gets a good life: a calm heart, a settled soul, no worry that troubles the heart, and lawful provision from where he did not expect.", "وذلك بطمأنينة قلبه، وسكون نفسه"),
+      difficulty: 2,
+      questions: [
+        { q: "What is the good life in An-Nahl 16:97, per as-Sa'di?", a: "A calm heart and lawful provision", wrong: ["A big house", "Fame", "Endless parties"], why: "It is a calm heart, a settled soul and lawful provision." },
+        { q: "What must come with good deeds for them to count, per as-Sa'di?", a: "Faith", wrong: ["Wealth", "Fame", "Strength"], why: "Faith is a condition for good deeds to be accepted." },
+        { tf: true, q: "Allah may give provision from where a person does not expect.", why: "As-Sa'di on 16:97." }
+      ]
+    },
+    {
       slug: "content-with-what-allah-gives",
       title: "Content with Allah's gift",
       line: "Successful is the one who is content with what Allah gives.",
@@ -1697,6 +1725,20 @@ const NAHL_SEVEN: DeepUnit = {
         { q: "How should we argue, per Ibn Kathir?", a: "With kindness and gentleness", wrong: ["Loudly", "Rudely", "Never kindly"], why: "With kindness, gentleness and good speech." },
         { q: "Who were told to speak gently to Pharaoh, per Ibn Kathir?", a: "Musa and Harun", wrong: ["Nuh and Hud", "Yusuf and Yaqub", "Isa and Yahya"], why: "Allah commanded him to speak gently, as He commanded Musa and Harun to do when he sent them to Pharaoh." },
         { q: "Is guiding people the caller's task, per Ibn Kathir?", tf: false, why: "It is not your task to guide them. You are just a warner." }
+      ]
+    },
+    {
+      slug: "three-steps-of-dawah",
+      title: "Three steps of da'wah",
+      line: "Call with wisdom, then good advice, then the best way to argue.",
+      facts: ["As-Sa'di explains", "Da'wah"],
+      quote: q16(125),
+      source: saadi(16, 125, "As-Sa'di says call each person by wisdom, by their state and understanding, with knowledge, starting with the most important, gently; if that is not enough, then good admonition with hope and warning; and if they think they are right, discuss in the best way, aiming to guide them to the truth, not to win.", "بل يكون القصد منها هداية الخلق إلى الحق لا المغالبة"),
+      difficulty: 3,
+      questions: [
+        { q: "What is the aim of a debate in da'wah, per as-Sa'di on 16:125?", a: "To guide people to the truth", wrong: ["To win", "To embarrass", "To show off"], why: "The aim is guiding people to the truth, not beating them." },
+        { q: "How does wisdom call people, per as-Sa'di on 16:125?", a: "By each person's state and understanding", wrong: ["The same way for all", "With anger", "Only with threats"], why: "Wisdom calls each person according to his state and understanding." },
+        { tf: true, q: "Good admonition mixes hope with warning.", why: "As-Sa'di on 16:125." }
       ]
     },
     {

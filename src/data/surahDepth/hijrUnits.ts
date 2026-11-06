@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Hijr ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -397,6 +397,20 @@ const HIJR_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "face-to-face-in-paradise",
+      title: "Face to face in Paradise",
+      line: "In Paradise, friends face each other, never turning their backs.",
+      facts: ["As-Sa'di explains", "Brotherhood in Paradise"],
+      quote: q15(47),
+      source: saadi(15, 47, "As-Sa'di says Allah removes all bitterness so their hearts are clean of envy, pure and loving; sitting on thrones facing one another shows they visit and gather and have fine manners with each other, each one facing the other, not turning his back.", "دل ذلك على تزاورهم واجتماعهم وحسن أدبهم"),
+      difficulty: 2,
+      questions: [
+        { q: "What does facing each other on thrones show, per as-Sa'di on 15:47?", a: "Their fine manners and visits", wrong: ["They are strangers", "They are tired", "They argue"], why: "It shows they visit, gather and treat each other with fine manners." },
+        { q: "What is removed from their hearts in Paradise, per as-Sa'di?", a: "Bitterness and envy", wrong: ["Their memories", "Their joy", "Their names"], why: "Their hearts become clean of all envy, pure and loving." },
+        { tf: true, q: "In Paradise, believers sit facing one another, not turning away.", why: "As-Sa'di on 15:47." }
+      ]
+    },
+    {
       slug: "no-fatigue-there",
       title: "No tiredness there",
       line: "In Paradise no tiredness touches them and none is sent out.",
@@ -770,6 +784,20 @@ const HIJR_FOUR: DeepUnit = {
         { q: "What should one not look at ambitiously, in 15:88?", a: "What others were given", wrong: ["The Quran", "The sky", "The Kabah"], why: "Look not with your eyes ambitiously at what We have given to certain classes of them." },
         { q: "How should the Prophet ﷺ treat the believers, in 15:88?", a: "Lower his wing to them", wrong: ["Rule them harshly", "Avoid them", "Test them"], why: "And lower your wings to the believers." },
         { q: "What did Ibn Abbas say the ayah forbids?", a: "Wishing for what a companion has", wrong: ["Eating dates", "Travelling", "Trading"], why: "He forbade a man to wish for what his companion has." }
+      ]
+    },
+    {
+      slug: "the-believers-are-better",
+      title: "The believers are better",
+      line: "The believers are a better company than the proud deniers.",
+      facts: ["As-Sa'di explains", "Lower your wing"],
+      quote: q15(88),
+      source: saadi(15, 88, "As-Sa'di says do not let the world's pleasures, which fooled the ignorant, fill your thoughts, and be content with the Quran; do not grieve over the deniers, for in the believers you have the best replacement, so be gentle and kind to them with love and honour.", "فلك في المؤمنين عنهم أحسن البدل"),
+      difficulty: 2,
+      questions: [
+        { q: "Who is the best replacement for the deniers, per as-Sa'di on 15:88?", a: "The believers", wrong: ["The rich", "The kings", "The poets"], why: "In the believers you have the best replacement." },
+        { q: "What does lowering your wing to believers mean, per as-Sa'di?", a: "Being gentle and kind to them", wrong: ["Ignoring them", "Being strict", "Flying away"], why: "It means softening your side and good manners with love." },
+        { tf: true, q: "With the Quran, a believer need not long for the world's pleasures.", why: "As-Sa'di on 15:88." }
       ]
     },
     {
