@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Yunus ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -676,6 +676,20 @@ const YUNUS_THREE: DeepUnit = {
       ]
     },
     {
+      slug: "heal-the-heart-first",
+      title: "Heal the heart first",
+      line: "When the heart is healed, all the limbs follow it.",
+      facts: ["As-Sa'di explains", "Cure of the heart"],
+      quote: q10(57),
+      source: saadi(10, 57, "As-Sa'di says the Quran cures the two sicknesses of the heart, desires that stop obedience and doubts that harm certainty; its hope and warning make what pleases Allah dearer than one's desires, and when the heart is healed and well, all the limbs follow it, being good when it is good.", "وإذا صح القلب من مرضه، ورفل بأثواب العافية، تبعته الجوارح كلها"),
+      difficulty: 2,
+      questions: [
+        { q: "Which two sicknesses does the Quran cure, per as-Sa'di on 10:57?", a: "Desires and doubts", wrong: ["Hunger and thirst", "Fever and cough", "Heat and cold"], why: "It cures desires that block obedience and doubts that harm certainty." },
+        { q: "What happens when the heart is healed, per as-Sa'di on 10:57?", a: "All the limbs follow it", wrong: ["The body gets weaker", "Nothing changes", "Only the eyes change"], why: "The limbs become good when the heart is good." },
+        { tf: true, q: "The Quran is guidance and mercy for the believers.", why: "As-Sa'di on 10:57." }
+      ]
+    },
+    {
       slug: "rejoice-in-his-bounty",
       title: "Rejoice in Allah's bounty",
       line: "Rejoice in Allah's bounty and mercy; it beats all you gather.",
@@ -687,6 +701,20 @@ const YUNUS_THREE: DeepUnit = {
         { q: "What should believers rejoice in, in 10:58?", a: "Allah's bounty and mercy", wrong: ["Their wealth", "Their fame", "Their houses"], why: "In the bounty of Allah, and in His mercy; therein let them rejoice." },
         { q: "What is guidance better than, in 10:58?", a: "All the wealth they amass", wrong: ["Nothing", "Only gold", "Only silver"], why: "That is better than what the wealth they amass." },
         { q: "Ibn Kathir says the joy is in guidance and true religion.", tf: true, why: "Let them rejoice in the guidance and the religion of the truth." }
+      ]
+    },
+    {
+      slug: "joy-that-is-praised",
+      title: "Joy that is praised",
+      line: "Rejoicing in the Quran and faith is a praised joy.",
+      facts: ["As-Sa'di explains", "Two kinds of joy"],
+      quote: q10(58),
+      source: saadi(10, 58, "As-Sa'di says Allah's bounty is the Quran and His mercy is faith and worship; He commands joy in them, because it gives the soul energy, thanks and a greater wish for knowledge and faith, and this joy is praised, unlike joy in worldly desires or in falsehood, as Qarun's people told him: do not exult.", "وهذا فرح محمود، بخلاف الفرح بشهوات الدنيا ولذاتها"),
+      difficulty: 2,
+      questions: [
+        { q: "Which joy is praised, per as-Sa'di on 10:58?", a: "Joy in the Quran and faith", wrong: ["Joy in fame", "Joy in falsehood", "Joy in showing off"], why: "Joy in Allah's bounty and mercy is praised." },
+        { q: "What is Allah's bounty in 10:58, per as-Sa'di?", a: "The Quran", wrong: ["Gold", "Rain", "Kingdoms"], why: "He says Allah's bounty is the Quran, the greatest blessing." },
+        { tf: true, q: "Praised joy makes a person want more knowledge and faith.", why: "As-Sa'di on 10:58." }
       ]
     },
     {
