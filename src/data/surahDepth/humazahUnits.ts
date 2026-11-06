@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Humazah ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -130,6 +130,20 @@ const HUMAZAH_ONE: DeepUnit = {
         { q: "What does he think, per 104:3?", a: "His wealth will make him last forever", wrong: ["He will be poor", "He will move away", "He will forget"], why: "He thinks that his wealth will make him last forever!" },
         { q: "Where does he hope to last, per Ibn Kathir?", a: "In this worldly life", wrong: ["In Paradise", "On the moon", "In the sea"], why: "Make him last forever in this abode, the worldly life." },
         { tf: false, q: "Money can keep a person alive forever.", why: "But no! The matter is not as he claims." }
+      ]
+    },
+    {
+      slug: "goodness-lengthens-life",
+      title: "Goodness and long life",
+      line: "Stinginess cuts life short, while goodness adds to it.",
+      facts: ["As-Sa'di explains", "Birr: goodness"],
+      quote: q104(3),
+      source: saadi(104, 3, "As-Sa'di says the miser thinks wealth makes him last, not knowing stinginess cuts lives short and goodness adds to life.", "وأن البر يزيد في العمر"),
+      difficulty: 2,
+      questions: [
+        { q: "What adds to life, per as-Sa'di?", a: "Goodness", wrong: ["Gold", "Fame", "Stinginess"], why: "Goodness adds to life, says as-Sa'di." },
+        { q: "What does stinginess do?", a: "Cuts life short", wrong: ["Makes you live forever", "Nothing", "Brings friends"], why: "Stinginess cuts lives short and ruins homes." },
+        { tf: false, q: "Hoarding money keeps a person alive forever.", why: "As-Sa'di on 104:3." }
       ]
     },
     {

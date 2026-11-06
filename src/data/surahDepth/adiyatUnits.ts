@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-'Adiyat ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -146,6 +146,20 @@ const ADIYAT_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "holding-back-what-is-owed",
+      title: "Holding back what is owed",
+      line: "Kanud: one who holds back the good he owes his Lord.",
+      facts: ["As-Sa'di explains", "Unless Allah guides him"],
+      quote: q100(6),
+      source: saadi(100, 6, "As-Sa'di says kanud is one who holds back the rights he owes his Lord; the self tends to laziness, except those Allah guides.", "لمنوع للخير الذي عليه لربه"),
+      difficulty: 2,
+      questions: [
+        { q: "What is kanud, per as-Sa'di?", a: "Holding back what is owed", wrong: ["Running fast", "Giving freely", "Sleeping long"], why: "One who withholds the good he owes his Lord." },
+        { q: "Who is saved from being kanud?", a: "Whom Allah guides", wrong: ["The rich", "The strong", "Nobody"], why: "Except the one Allah guides, says as-Sa'di." },
+        { tf: true, q: "We owe Allah duties of the body and of wealth.", why: "Rights of wealth and body. As-Sa'di on 100:6." }
+      ]
+    },
+    {
       slug: "counting-troubles",
       title: "Counting troubles",
       line: "The ungrateful count their troubles and forget Allah's gifts.",
@@ -283,6 +297,20 @@ const ADIYAT_TWO: DeepUnit = {
         { q: "What will their Lord be that Day, per 100:11?", a: "Well-Acquainted with them", wrong: ["Far from them", "Unaware", "Asleep"], why: "Verily, that Day their Lord will be Well-Acquainted with them." },
         { q: "What will Allah never do, per Ibn Kathir?", a: "The slightest injustice", wrong: ["Reward good", "Know deeds", "Forgive"], why: "He does not do even the slightest amount of injustice." },
         { tf: true, q: "Allah knows everything people used to do.", why: "He knows all of that they used to do." }
+      ]
+    },
+    {
+      slug: "why-that-day",
+      title: "Why name that Day?",
+      line: "Allah always knows us; that Day He rewards what He knows.",
+      facts: ["As-Sa'di explains", "Al-Khabir: the All-Aware"],
+      quote: q100(11),
+      source: saadi(100, 11, "As-Sa'di says Allah knows His servants at all times; He names that Day because it is when He rewards what He knows.", "وخص خبره بذلك اليوم"),
+      difficulty: 3,
+      questions: [
+        { q: "Does Allah know us only on the Last Day?", a: "No, at all times", wrong: ["Yes, only then", "Only at night", "Only in Ramadan"], why: "He is aware of them at all times, says as-Sa'di." },
+        { q: "Why does 100:11 name that Day?", a: "Reward comes then", wrong: ["He learns then", "He forgets before", "No reason"], why: "The meaning is the reward for deeds." },
+        { tf: true, q: "Allah knows both our hidden and open deeds.", why: "As-Sa'di on 100:11." }
       ]
     }
   ]

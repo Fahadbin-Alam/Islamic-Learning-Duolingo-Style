@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah At-Takathur ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -49,6 +49,20 @@ const TAKATHUR_ONE: DeepUnit = {
       ]
     },
     {
+      slug: "more-of-anything",
+      title: "More of anything",
+      line: "Allah does not say more of what, so it covers everything.",
+      facts: ["As-Sa'di explains", "Money, children, fame"],
+      quote: q102(1),
+      source: saadi(102, 1, "As-Sa'di says the thing competed for is not named so it covers all of it: wealth, children, followers, status and more.", "ولم يذكر المتكاثر به"),
+      difficulty: 2,
+      questions: [
+        { q: "Why does 102:1 not say more of what?", a: "To cover everything", wrong: ["It was forgotten", "Only gold", "Only camels"], why: "Not named so it includes all, says as-Sa'di." },
+        { q: "Which of these is also a race for more?", a: "Fame and status", wrong: ["Prayer", "Fasting", "Charity"], why: "Wealth, children, followers, status and more." },
+        { tf: true, q: "Competing for more can distract from worship.", why: "As-Sa'di on 102:1." }
+      ]
+    },
+    {
       slug: "until-you-visit-the-graves",
       title: "Until you visit the graves",
       line: "The distraction lasts until death brings people to the graves.",
@@ -60,6 +74,20 @@ const TAKATHUR_ONE: DeepUnit = {
         { q: "How long does the distraction last, per 102:2?", a: "Until you visit the graves", wrong: ["Until noon", "Until Eid", "Until you are rich"], why: "Until you visit the graves." },
         { q: "What does visit the graves mean, per Ibn Kathir?", a: "Death comes to you", wrong: ["You go on a trip", "You build a house", "You buy land"], why: "This delays you until death comes to you and you visit the graves." },
         { tf: true, q: "We should prepare for the Hereafter before death comes.", why: "This delays you until death comes to you." }
+      ]
+    },
+    {
+      slug: "only-visitors",
+      title: "Only visitors",
+      line: "Allah calls them visitors to the graves, not people who stay.",
+      facts: ["As-Sa'di explains", "Barzakh: a stop on the way"],
+      quote: q102(2),
+      source: saadi(102, 2, "As-Sa'di says Allah called them visitors, not residents, so the grave is a stop on the way to the lasting home.", "أن الله سماهم زائرين"),
+      difficulty: 2,
+      questions: [
+        { q: "What does Allah call people in the graves?", a: "Visitors", wrong: ["Owners", "Kings", "Residents"], why: "Allah named them visitors, not residents." },
+        { q: "The grave is a stop on the way to...?", a: "The lasting home", wrong: ["A second life on earth", "Nowhere", "A new city"], why: "On the way to the lasting home, says as-Sa'di." },
+        { tf: false, q: "The grave is where people stay forever.", why: "They are visitors. As-Sa'di on 102:2." }
       ]
     },
     {
