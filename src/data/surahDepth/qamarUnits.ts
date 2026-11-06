@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Qamar ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -202,6 +202,20 @@ const QAMAR_ONE: DeepUnit = {
       ]
     },
     {
+      slug: "easy-for-the-believers",
+      title: "Easy for the believers",
+      line: "A hard Day for disbelievers means an easy Day for believers.",
+      facts: ["As-Sa'di explains", "Read what is implied"],
+      quote: q54(8),
+      source: saadi(54, 8, "As-Sa'di says the disbelievers call it a hard Day, as Allah says it is not easy for the disbelievers, and what this implies is that it is easy for the believers.", "مفهوم ذلك أنه يسير سهل على المؤمنين"),
+      difficulty: 2,
+      questions: [
+        { q: "If the Day is hard for disbelievers, for believers it is...?", a: "Easy", wrong: ["Harder", "The same", "Forgotten"], why: "It implies the Day is easy for the believers, says as-Sa'di." },
+        { q: "Who calls it a hard Day in Al-Qamar 54:8?", a: "The disbelievers", wrong: ["The angels", "The prophets", "The believers"], why: "The disbelievers say: this is a hard day." },
+        { tf: true, q: "People rush toward the caller on that Day.", why: "As-Sa'di on 54:8." }
+      ]
+    },
+    {
       slug: "nuh-was-denied",
       title: "Nuh was denied",
       line: "The people of Nuh denied him and called him mad.",
@@ -342,6 +356,20 @@ const QAMAR_ONE: DeepUnit = {
       ]
     },
     {
+      slug: "easiest-and-greatest",
+      title: "Easiest and greatest",
+      line: "Learning the Quran is the easiest and greatest of all knowledge.",
+      facts: ["As-Sa'di explains", "Words to memorize, meanings to grasp"],
+      quote: q54(17),
+      source: saadi(54, 17, "As-Sa'di says Allah made the Quran's words easy to memorize and its meanings easy to understand, so knowing the Quran by memory and meaning is the easiest and greatest of all knowledge.", "ولهذا كان علم القرآن حفظا وتفسيرا، أسهل العلوم، وأجلها على الإطلاق"),
+      difficulty: 1,
+      questions: [
+        { q: "Which knowledge is easiest and greatest, per as-Sa'di?", a: "Knowledge of the Quran", wrong: ["Knowledge of poetry", "Knowledge of trade", "Knowledge of stars"], why: "Quran memory and meaning is the easiest and greatest knowledge, says as-Sa'di." },
+        { q: "What did Allah make easy about the Quran?", a: "Its words and meanings", wrong: ["Only its words", "Only its cover", "Nothing"], why: "Words easy to memorize, meanings easy to understand." },
+        { tf: true, q: "Whoever turns to the Quran, Allah makes it easy for him.", why: "As-Sa'di on 54:17." }
+      ]
+    },
+    {
       slug: "learn-and-teach",
       title: "Learn and teach",
       line: "The best of you learn the Quran and teach it.",
@@ -478,6 +506,20 @@ const QAMAR_TWO: DeepUnit = {
         { q: "What did Thamud ask, in 54:24?", a: "Shall we follow one man?", wrong: ["Shall we build a ship?", "Shall we travel?", "Shall we fast?"], why: "A man, alone among us, shall we follow him?" },
         { q: "What did they think following him would bring?", a: "Failure and loss", wrong: ["Wealth", "Rain", "Victory"], why: "We would have earned failure and loss if we all submitted to a man from among us." },
         { tf: true, q: "They were amazed the Reminder came to him alone.", why: "They were amazed that the Reminder was sent to him alone among them." }
+      ]
+    },
+    {
+      slug: "why-messengers-are-human",
+      title: "Why Messengers are human",
+      line: "Allah sent human Messengers so people could learn from them.",
+      facts: ["As-Sa'di explains", "Mercy and wisdom"],
+      quote: q54(25),
+      source: saadi(54, 25, "As-Sa'di says it is from Allah's mercy and wisdom that the Messengers were human, because if they were angels, people could not have learned from them.", "ومن رحمته وحكمته أن كانوا من البشر"),
+      difficulty: 2,
+      questions: [
+        { q: "Why were the Messengers human, per as-Sa'di?", a: "So people could learn from them", wrong: ["Angels were busy", "By chance", "To be weak"], why: "If they were angels, people could not learn from them, says as-Sa'di." },
+        { q: "What made the Messengers fit for the message?", a: "Gifts and character from Allah", wrong: ["Their wealth", "Their tribe", "Their strength"], why: "Allah favoured them with qualities that made them fit." },
+        { tf: true, q: "Sending human Messengers is a mercy from Allah.", why: "As-Sa'di on 54:25." }
       ]
     },
     {
