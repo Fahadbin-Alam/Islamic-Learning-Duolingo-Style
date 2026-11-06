@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Alaq ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -88,6 +88,20 @@ const ALAQ_ONE: DeepUnit = {
         { q: "From what did Allah create man, per 96:2?", a: "A clot", wrong: ["Light", "Fire", "Gold"], why: "He has created man from a clot." },
         { q: "What does the name Al-Alaq mean?", a: "The clinging clot", wrong: ["The pen", "The cave", "The night"], why: "These Ayat inform of the beginning of creation from a dangling clot." },
         { tf: true, q: "Man starts very small, then Allah grows him.", why: "These Ayat inform of the beginning of creation from a dangling clot." }
+      ]
+    },
+    {
+      slug: "the-maker-guides",
+      title: "The Maker also guides",
+      line: "Who made man will guide him with commands, Messengers and Books.",
+      facts: ["As-Sa'di explains", "Why creation comes next"],
+      quote: q96(2),
+      source: saadi(96, 2, "As-Sa'di says the One who created man and cares for him must guide him with commands, by sending Messengers and Books; so creation is named right after Read.", "لا بد أن يدبره بالأمر والنهي"),
+      difficulty: 3,
+      questions: [
+        { q: "How does the Maker guide people?", a: "Messengers and Books", wrong: ["Only dreams", "Only stars", "Not at all"], why: "By sending Messengers and sending down the Books." },
+        { q: "Why is creation named right after Read?", a: "The Maker sends guidance", wrong: ["By chance", "For rhyme only", "No reason"], why: "The One who made man must guide him, says as-Sa'di." },
+        { tf: true, q: "Allah made all things, then named man by himself.", why: "All creation, then man. As-Sa'di on 96:1." }
       ]
     },
     {

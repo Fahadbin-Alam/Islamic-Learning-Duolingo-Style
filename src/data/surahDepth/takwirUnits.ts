@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah At-Takwir ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -394,6 +394,20 @@ const TAKWIR_THREE: DeepUnit = {
         { q: "What did he not withhold, per Qatadah?", a: "The revelation", wrong: ["His wealth only", "His food", "His home"], why: "Allah revealed it to Muhammad and he did not withhold it from the people." },
         { q: "What does Danin mean, per Sufyan?", a: "Stingy", wrong: ["Brave", "Tired", "Hungry"], why: "The Danin is one who is stingy." },
         { tf: true, q: "Both readings, Zanin and Danin, are confirmed.", why: "Both of recitations have been confirmed by numerous routes of transmission." }
+      ]
+    },
+    {
+      slug: "from-unlettered-to-scholars",
+      title: "From unlettered to scholars",
+      line: "He ﷺ taught everyone, and his people became great scholars.",
+      facts: ["As-Sa'di explains", "Rich, poor, man, woman"],
+      quote: q81(24),
+      source: saadi(81, 24, "As-Sa'di says the Prophet ﷺ held nothing back from rich or poor, man or woman, town or desert; he was sent to a people who could not read, and before he died they had become great scholars.", "فلم يمت صلى الله عليه وسلم حتى كانوا علماء ربانيين"),
+      difficulty: 2,
+      questions: [
+        { q: "Whom did the Prophet ﷺ teach, per as-Sa'di?", a: "Everyone, rich and poor", wrong: ["Only the rich", "Only men", "Only leaders"], why: "He held back nothing from rich or poor, man or woman, says as-Sa'di." },
+        { q: "What had his people become before he ﷺ died?", a: "Great scholars", wrong: ["Still unlettered", "Only traders", "Poets only"], why: "They became godly scholars, and others became their students." },
+        { tf: true, q: "The Prophet ﷺ is trusted by the people of heaven and earth.", why: "As-Sa'di on 81:24." }
       ]
     },
     {

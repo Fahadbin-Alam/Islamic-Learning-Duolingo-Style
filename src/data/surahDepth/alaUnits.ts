@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-A'la ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -286,6 +286,20 @@ const ALA_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "prayer-the-scale-of-faith",
+      title: "Prayer, the scale of faith",
+      line: "A heart full of Allah's remembrance shows itself in prayer.",
+      facts: ["As-Sa'di explains", "Salah measures iman"],
+      quote: q87(15),
+      source: saadi(87, 15, "As-Sa'di says when remembering Allah fills the heart, it leads to deeds that please Him, above all the prayer, which is the scale of faith.", "خصوصًا الصلاة، التي هي ميزان الإيمان"),
+      difficulty: 2,
+      questions: [
+        { q: "As-Sa'di calls prayer the scale of...?", a: "Faith", wrong: ["Wealth", "Strength", "Age"], why: "Prayer is the scale of iman. As-Sa'di on 87:15." },
+        { q: "What does a heart full of dhikr lead to?", a: "Deeds that please Allah", wrong: ["Laziness", "Pride", "Nothing"], why: "Above all, the prayer." },
+        { tf: false, q: "Al-A'la 87:15 is only about the Eid prayer.", why: "Eid is included, but it is not the only meaning, says as-Sa'di." }
+      ]
+    },
+    {
       slug: "you-prefer-this-world",
       title: "You prefer this world",
       line: "People put this world first, chasing its short benefits.",
@@ -311,6 +325,20 @@ const ALA_TWO: DeepUnit = {
         { q: "How is the Hereafter described in 87:17?", a: "Better and more lasting", wrong: ["Shorter", "Weaker", "Smaller"], why: "Although the Hereafter is better and more lasting." },
         { q: "How does Ibn Kathir describe this world?", a: "Lowly and temporal", wrong: ["Eternal", "Perfect", "Noble"], why: "This worldly life is lowly and temporal, whereas the Hereafter is noble and eternal." },
         { tf: true, q: "A wise person chooses what lasts over what fades.", why: "How can an intelligent person prefer that which is short-lived over that which is eternal." }
+      ]
+    },
+    {
+      slug: "an-hour-for-forever",
+      title: "An hour for forever",
+      line: "A wise believer never trades an hour of fun for lasting sorrow.",
+      facts: ["As-Sa'di explains", "Choose the better"],
+      quote: q87(17),
+      source: saadi(87, 17, "As-Sa'di says the Hereafter is better in every way and lasts, so a wise believer does not pick the worse, nor sell an hour of pleasure for lasting sorrow.", "ولا يبيع لذة ساعة، بترحة الأبد"),
+      difficulty: 2,
+      questions: [
+        { q: "What does a wise believer never sell?", a: "Forever for one hour", wrong: ["His old shoes", "Extra food", "Spare time"], why: "He does not sell lasting joy for an hour of pleasure, says as-Sa'di." },
+        { q: "How is the Hereafter better?", a: "In every way", wrong: ["Only in size", "In no way", "Only in colour"], why: "Better in every wanted quality, and lasting." },
+        { tf: true, q: "This world is a home that ends.", why: "The Hereafter is the home of forever. As-Sa'di on 87:17." }
       ]
     },
     {

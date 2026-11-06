@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Ash-Sharh ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -158,6 +158,20 @@ const SHARH_TWO: DeepUnit = {
         { q: "What does 94:6 do?", a: "Repeats the promise of ease", wrong: ["Takes it back", "Changes topic", "Asks a question"], why: "Verily, along with every hardship is relief." },
         { q: "Why is it repeated, per Ibn Kathir?", a: "To reaffirm it", wrong: ["By mistake", "To fill space", "For a rhyme only"], why: "And then reaffirms this information, by repeating it." },
         { tf: false, q: "Repeating it means the first promise was weak.", why: "Allah informs that with difficulty there is ease, and then reaffirms this information." }
+      ]
+    },
+    {
+      slug: "one-hardship-two-eases",
+      title: "One hardship, two eases",
+      line: "The same hardship is named twice, ease is new: two eases.",
+      facts: ["As-Sa'di explains", "Al-usr: the hardship"],
+      quote: q94(5),
+      source: saadi(94, 5, "As-Sa'di says al-usr, the hardship, is the same one both times, while yusr, ease, is new each time, so one hardship never beats two eases.", "فلن يغلب عسر يسرين"),
+      difficulty: 3,
+      questions: [
+        { q: "How many eases come with one hardship?", a: "Two", wrong: ["None", "Half of one", "Only one"], why: "One hardship will never beat two eases, says as-Sa'di." },
+        { q: "Why is the hardship the same both times?", a: "It has al-, the", wrong: ["It is longer", "It is shorter", "It is plural"], why: "Al-usr is defined, so it is one; yusr is not, so it is repeated." },
+        { tf: true, q: "Every hardship, however hard, has ease with it.", why: "As-Sa'di on 94:5." }
       ]
     },
     {
