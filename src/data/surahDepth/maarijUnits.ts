@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Ma'arij ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -369,6 +369,20 @@ const MAARIJ_THREE: DeepUnit = {
       ]
     },
     {
+      slug: "thankful-and-patient",
+      title: "Thankful and patient",
+      line: "Those who pray give thanks in good times, patience in hard.",
+      facts: ["As-Sa'di explains", "Shukr and sabr"],
+      quote: q70(22),
+      source: saadi(70, 22, "As-Sa'di says the people of prayer are unlike the impatient: when good touches them they thank Allah and spend, and when harm touches them they are patient.", "فإنهم إذا مسهم الخير شكروا الله"),
+      difficulty: 2,
+      questions: [
+        { q: "What do the people of prayer do in good times?", a: "Thank Allah and spend", wrong: ["Hold back", "Boast", "Forget Allah"], why: "They thank Allah and spend from what He gave, says as-Sa'di." },
+        { q: "And in hard times?", a: "They are patient", wrong: ["They panic", "They give up", "They blame others"], why: "When harm touches them, they are patient." },
+        { tf: true, q: "Prayer helps cure impatience and stinginess.", why: "As-Sa'di on 70:22." }
+      ]
+    },
+    {
       slug: "constant-in-prayer",
       title: "Constant in prayer",
       line: "They keep up their prayers on time, every time.",
@@ -422,6 +436,20 @@ const MAARIJ_THREE: DeepUnit = {
         { q: "What is in their wealth, per 70:24?", a: "A recognized right", wrong: ["A secret lock", "Nothing for others", "Only debts"], why: "And those in whose wealth there is a recognized right." },
         { q: "For whom is that right?", a: "The asker and the deprived", wrong: ["The rich", "Their rivals", "The king"], why: "For the one who asks, and for the deprived." },
         { tf: false, q: "The poor have no share in a believer's wealth.", why: "In their wealth is a determined portion for those who are in need." }
+      ]
+    },
+    {
+      slug: "the-quiet-needy",
+      title: "The quiet needy",
+      line: "Al-mahrum: the needy one who does not ask and goes unseen.",
+      facts: ["As-Sa'di explains", "Look for them"],
+      quote: q70(25),
+      source: saadi(70, 25, "As-Sa'di says al-mahrum is the poor person who does not ask people and is not noticed, so no one gives to him; the believers' wealth has a share for him too.", "وهو المسكين الذي لا يسأل الناس فيعطوه، ولا يفطن له فيتصدق عليه"),
+      difficulty: 2,
+      questions: [
+        { q: "Who is al-mahrum, per as-Sa'di?", a: "A needy person who does not ask", wrong: ["A rich trader", "A beggar who shouts", "A king"], why: "He does not ask and is not noticed, says as-Sa'di." },
+        { q: "Why does al-mahrum often get nothing?", a: "No one notices him", wrong: ["He is rich", "He refuses all help", "He lives far away"], why: "He is not noticed, so no one gives to him." },
+        { tf: true, q: "We should look out for needy people who stay quiet.", why: "As-Sa'di on 70:25." }
       ]
     },
     {
