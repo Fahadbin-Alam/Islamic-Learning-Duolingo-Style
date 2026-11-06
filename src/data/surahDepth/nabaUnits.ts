@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah An-Naba ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -328,6 +328,20 @@ const NABA_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "no-one-wronged",
+      title: "No one is wronged",
+      line: "No one pays for a sin not done; no deed is lost.",
+      facts: ["As-Sa'di explains", "A perfect record"],
+      quote: q78(29),
+      source: saadi(78, 29, "As-Sa'di says every deed is written in the Preserved Tablet, so no one is punished for a sin they did not do, and not one atom of a deed is lost or forgotten.", "فلا يخشى المجرمون أنا عذبناهم بذنوب لم يعملوها"),
+      difficulty: 2,
+      questions: [
+        { q: "Can anyone be punished for a sin they did not do?", a: "No, never", wrong: ["Yes, often", "Only sometimes", "Only on Fridays"], why: "Every deed is written, so no one is punished for what they did not do, says as-Sa'di." },
+        { q: "How much of a deed is ever lost?", a: "Not even an atom", wrong: ["Half", "Most of it", "The small ones"], why: "Not one atom of it is lost or forgotten." },
+        { tf: true, q: "Allah wrongs no one on Judgment Day.", why: "They wronged themselves. As-Sa'di on 78:26-29." }
+      ]
+    },
+    {
       slug: "good-intentions-written",
       title: "Good intentions are written",
       line: "Even a good deed you only intend is written for you.",
@@ -506,6 +520,20 @@ const NABA_THREE: DeepUnit = {
         { q: "What will man see, per 78:40?", a: "What his hands sent forth", wrong: ["His old house", "His friends", "The stars"], why: "The Day when man will see that which his hands have sent forth." },
         { q: "Which deeds will be shown, per Ibn Kathir?", a: "Good and bad, old and new", wrong: ["Only good", "Only bad", "Only new"], why: "All of his deeds will be presented to him, the good and bad, and the old and new." },
         { tf: true, q: "The Day is called near because everything coming will come.", why: "Its occurrence has become close, because everything that is coming will certainly come to pass." }
+      ]
+    },
+    {
+      slug: "what-comes-is-near",
+      title: "What comes is near",
+      line: "Everything that is surely coming is close, so get ready now.",
+      facts: ["As-Sa'di explains", "Prepare today"],
+      quote: q78(40),
+      source: saadi(78, 40, "As-Sa'di says the warned Day is near because everything that is coming is near, so a person should look now, in this world, at what he is sending ahead.", "وكل ما هو آت فهو قريب"),
+      difficulty: 2,
+      questions: [
+        { q: "Why is the Day called near in An-Naba?", a: "All that is coming is near", wrong: ["It is tomorrow", "It already came", "No reason"], why: "Everything that is coming is near, says as-Sa'di." },
+        { q: "When should we look at our deeds?", a: "Now, in this world", wrong: ["Only when old", "After death", "Never"], why: "Look now at what you send ahead." },
+        { tf: true, q: "Whoever wishes can take a path back to his Lord.", why: "By good deeds. As-Sa'di on 78:39." }
       ]
     },
     {

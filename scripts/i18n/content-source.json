@@ -23801,6 +23801,10 @@
   },
   {
     "kind": "course",
+    "text": "No one is wronged"
+  },
+  {
+    "kind": "course",
     "text": "Good intentions are written"
   },
   {
@@ -23845,6 +23849,10 @@
   },
   {
     "kind": "course",
+    "text": "What comes is near"
+  },
+  {
+    "kind": "course",
     "text": "Even the animals get justice"
   },
   {
@@ -23870,6 +23878,10 @@
   {
     "kind": "course",
     "text": "Swimmers and racers"
+  },
+  {
+    "kind": "course",
+    "text": "Revelation kept safe"
   },
   {
     "kind": "course",
@@ -23985,6 +23997,10 @@
   },
   {
     "kind": "course",
+    "text": "Why the Hour is hidden"
+  },
+  {
+    "kind": "course",
     "text": "Jibril asks about the Hour"
   },
   {
@@ -24057,6 +24073,10 @@
   },
   {
     "kind": "course",
+    "text": "Burial, an honour"
+  },
+  {
+    "kind": "course",
     "text": "One bone remains"
   },
   {
@@ -24078,6 +24098,10 @@
   {
     "kind": "course",
     "text": "Olives and dates"
+  },
+  {
+    "kind": "course",
+    "text": "Why these four?"
   },
   {
     "kind": "course",
@@ -24213,6 +24237,10 @@
   },
   {
     "kind": "course",
+    "text": "From unlettered to scholars"
+  },
+  {
+    "kind": "course",
     "text": "Not from Shaytan"
   },
   {
@@ -24269,11 +24297,19 @@
   },
   {
     "kind": "course",
+    "text": "Honour the recorders"
+  },
+  {
+    "kind": "course",
     "text": "Angels in shifts"
   },
   {
     "kind": "course",
     "text": "The righteous in delight"
+  },
+  {
+    "kind": "course",
+    "text": "Delight in three homes"
   },
   {
     "kind": "course",
@@ -24318,6 +24354,10 @@
   {
     "kind": "course",
     "text": "Whoever cheats"
+  },
+  {
+    "kind": "course",
+    "text": "Fair in arguments too"
   },
   {
     "kind": "course",
@@ -24393,6 +24433,10 @@
   },
   {
     "kind": "course",
+    "text": "Wrong, yet feeling safe"
+  },
+  {
+    "kind": "course",
     "text": "They went home jesting"
   },
   {
@@ -24465,6 +24509,10 @@
   },
   {
     "kind": "course",
+    "text": "Not left for nothing"
+  },
+  {
+    "kind": "course",
     "text": "By the twilight"
   },
   {
@@ -24486,6 +24534,10 @@
   {
     "kind": "course",
     "text": "A warning for the deniers"
+  },
+  {
+    "kind": "course",
+    "text": "News shows on the skin"
   },
   {
     "kind": "arabic",
@@ -247708,10 +247760,6 @@
     "text": "No one else pleads for him"
   },
   {
-    "kind": "lesson",
-    "text": "No one is wronged"
-  },
-  {
     "kind": "source",
     "text": "Quran 16:111"
   },
@@ -451737,6 +451785,50 @@
   },
   {
     "kind": "lesson",
+    "text": "No one pays for a sin not done; no deed is lost."
+  },
+  {
+    "kind": "lesson",
+    "text": "As-Sa'di explains"
+  },
+  {
+    "kind": "lesson",
+    "text": "A perfect record"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 78:29"
+  },
+  {
+    "kind": "question",
+    "text": "Can anyone be punished for a sin they did not do?"
+  },
+  {
+    "kind": "question",
+    "text": "Every deed is written, so no one is punished for what they did not do, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "How much of a deed is ever lost?"
+  },
+  {
+    "kind": "question",
+    "text": "The small ones"
+  },
+  {
+    "kind": "question",
+    "text": "Not one atom of it is lost or forgotten."
+  },
+  {
+    "kind": "question",
+    "text": "Allah wrongs no one on Judgment Day."
+  },
+  {
+    "kind": "question",
+    "text": "They wronged themselves."
+  },
+  {
+    "kind": "lesson",
     "text": "Even a good deed you only intend is written for you."
   },
   {
@@ -452333,6 +452425,46 @@
   },
   {
     "kind": "lesson",
+    "text": "Everything that is surely coming is close, so get ready now."
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 78:40"
+  },
+  {
+    "kind": "question",
+    "text": "Why is the Day called near in An-Naba?"
+  },
+  {
+    "kind": "question",
+    "text": "All that is coming is near"
+  },
+  {
+    "kind": "question",
+    "text": "It is tomorrow"
+  },
+  {
+    "kind": "question",
+    "text": "Everything that is coming is near, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "When should we look at our deeds?"
+  },
+  {
+    "kind": "question",
+    "text": "Now, in this world"
+  },
+  {
+    "kind": "question",
+    "text": "Look now at what you send ahead."
+  },
+  {
+    "kind": "question",
+    "text": "Whoever wishes can take a path back to his Lord."
+  },
+  {
+    "kind": "lesson",
     "text": "Allah's justice is so full that even animals get their rights."
   },
   {
@@ -452470,6 +452602,54 @@
   {
     "kind": "question",
     "text": "Ali said the racers are the horses of war."
+  },
+  {
+    "kind": "lesson",
+    "text": "Angels race ahead of devils so revelation cannot be stolen."
+  },
+  {
+    "kind": "lesson",
+    "text": "Wahy reaches safely"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 79:4"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 79:4"
+  },
+  {
+    "kind": "question",
+    "text": "Why do the angels race ahead with revelation?"
+  },
+  {
+    "kind": "question",
+    "text": "To rest sooner"
+  },
+  {
+    "kind": "question",
+    "text": "So devils cannot steal it"
+  },
+  {
+    "kind": "question",
+    "text": "They get ahead of the devils so revelation is not stolen, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "Who carries revelation to the Messengers?"
+  },
+  {
+    "kind": "question",
+    "text": "The angels deliver it safely."
+  },
+  {
+    "kind": "question",
+    "text": "Revelation reached the Messengers safely."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 79:4."
   },
   {
     "kind": "lesson",
@@ -452629,6 +452809,10 @@
   },
   {
     "kind": "lesson",
+    "text": "Can you still remember these about An-Nazi'at, ayahs 1-14?"
+  },
+  {
+    "kind": "lesson",
     "text": "Deniers asked how decayed bones could ever come back to life."
   },
   {
@@ -452678,10 +452862,6 @@
   {
     "kind": "question",
     "text": "Ibn Abbas said a decayed bone is one that air enters."
-  },
-  {
-    "kind": "lesson",
-    "text": "Can you still remember these about An-Nazi'at, ayahs 1-14?"
   },
   {
     "kind": "lesson",
@@ -454085,6 +454265,62 @@
   },
   {
     "kind": "lesson",
+    "text": "Knowing the date would not help us; hiding it is good."
+  },
+  {
+    "kind": "lesson",
+    "text": "Get ready instead"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 79:43"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 79:43"
+  },
+  {
+    "kind": "question",
+    "text": "Why did Allah hide the time of the Hour?"
+  },
+  {
+    "kind": "question",
+    "text": "He does not know"
+  },
+  {
+    "kind": "question",
+    "text": "To trick us"
+  },
+  {
+    "kind": "question",
+    "text": "Hiding it is for our good"
+  },
+  {
+    "kind": "question",
+    "text": "The benefit is in it being hidden, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "What should we do instead of asking when?"
+  },
+  {
+    "kind": "question",
+    "text": "Ask fortune tellers"
+  },
+  {
+    "kind": "question",
+    "text": "Get ready for it"
+  },
+  {
+    "kind": "question",
+    "text": "The warning helps those who prepare."
+  },
+  {
+    "kind": "question",
+    "text": "Some creature knows the date of the Hour."
+  },
+  {
+    "kind": "lesson",
     "text": "Asked about the Hour, the Prophet ﷺ knew no more than Jibril."
   },
   {
@@ -454933,6 +455169,58 @@
   },
   {
     "kind": "lesson",
+    "text": "Allah honoured people with graves, unlike animals."
+  },
+  {
+    "kind": "lesson",
+    "text": "Qabr: a grave"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 80:21"
+  },
+  {
+    "kind": "question",
+    "text": "What does as-Sa'di say burial is?"
+  },
+  {
+    "kind": "question",
+    "text": "Only a custom"
+  },
+  {
+    "kind": "question",
+    "text": "Not needed"
+  },
+  {
+    "kind": "question",
+    "text": "He honoured him with burial."
+  },
+  {
+    "kind": "question",
+    "text": "How is the human body treated, unlike animals?"
+  },
+  {
+    "kind": "question",
+    "text": "It is left out"
+  },
+  {
+    "kind": "question",
+    "text": "It is burned"
+  },
+  {
+    "kind": "question",
+    "text": "It is thrown away"
+  },
+  {
+    "kind": "question",
+    "text": "Animals are left on the ground; people are buried."
+  },
+  {
+    "kind": "question",
+    "text": "Only Allah gives life, death and the rising again."
+  },
+  {
+    "kind": "lesson",
     "text": "From one tiny bone that never decays, people will be rebuilt."
   },
   {
@@ -454970,6 +455258,10 @@
   {
     "kind": "question",
     "text": "Allah sends rain and bodies grow like plants."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Abasa, ayahs 17-32?"
   },
   {
     "kind": "lesson",
@@ -455038,10 +455330,6 @@
   {
     "kind": "question",
     "text": "The disbeliever truly fulfilled all of Allah's rights."
-  },
-  {
-    "kind": "lesson",
-    "text": "Can you still remember these about Abasa, ayahs 17-32?"
   },
   {
     "kind": "lesson",
@@ -455294,6 +455582,50 @@
   {
     "kind": "question",
     "text": "Dates are eaten unripe, ripe and dried."
+  },
+  {
+    "kind": "lesson",
+    "text": "Grain, grapes, olives and dates are named for their benefits."
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 80:29"
+  },
+  {
+    "kind": "question",
+    "text": "Why are grain, grapes, olives and dates named?"
+  },
+  {
+    "kind": "question",
+    "text": "For their many benefits"
+  },
+  {
+    "kind": "question",
+    "text": "They are rare"
+  },
+  {
+    "kind": "question",
+    "text": "They are cheap"
+  },
+  {
+    "kind": "question",
+    "text": "Named for how many benefits they have, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "Which food is one of the four in Abasa?"
+  },
+  {
+    "kind": "question",
+    "text": "Grain, grapes, olives and dates."
+  },
+  {
+    "kind": "question",
+    "text": "Looking at our food should make us thank Allah."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 80:32."
   },
   {
     "kind": "lesson",
@@ -457009,6 +457341,58 @@
   },
   {
     "kind": "lesson",
+    "text": "He ﷺ taught everyone, and his people became great scholars."
+  },
+  {
+    "kind": "lesson",
+    "text": "Rich, poor, man, woman"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 81:24"
+  },
+  {
+    "kind": "question",
+    "text": "Whom did the Prophet ﷺ teach, per as-Sa'di?"
+  },
+  {
+    "kind": "question",
+    "text": "Everyone, rich and poor"
+  },
+  {
+    "kind": "question",
+    "text": "He held back nothing from rich or poor, man or woman, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "What had his people become before he ﷺ died?"
+  },
+  {
+    "kind": "question",
+    "text": "Great scholars"
+  },
+  {
+    "kind": "question",
+    "text": "Still unlettered"
+  },
+  {
+    "kind": "question",
+    "text": "Poets only"
+  },
+  {
+    "kind": "question",
+    "text": "They became godly scholars, and others became their students."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ is trusted by the people of heaven and earth."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 81:24."
+  },
+  {
+    "kind": "lesson",
     "text": "Shaytan could never produce the Quran, nor would it suit him."
   },
   {
@@ -457162,10 +457546,6 @@
   {
     "kind": "question",
     "text": "Follow his whims"
-  },
-  {
-    "kind": "question",
-    "text": "Ask fortune tellers"
   },
   {
     "kind": "question",
@@ -457773,6 +458153,54 @@
   },
   {
     "kind": "lesson",
+    "text": "The angels who write our deeds deserve our respect."
+  },
+  {
+    "kind": "lesson",
+    "text": "They write heart deeds too"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 82:10"
+  },
+  {
+    "kind": "question",
+    "text": "How should we treat the recording angels?"
+  },
+  {
+    "kind": "question",
+    "text": "Fear nothing"
+  },
+  {
+    "kind": "question",
+    "text": "Hide from them"
+  },
+  {
+    "kind": "question",
+    "text": "Honour and respect them"
+  },
+  {
+    "kind": "question",
+    "text": "It is right to honour and respect them, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "Do the angels record deeds of the heart?"
+  },
+  {
+    "kind": "question",
+    "text": "Deeds of hearts and limbs are included."
+  },
+  {
+    "kind": "question",
+    "text": "Every word we say is written down."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 82:10-12."
+  },
+  {
+    "kind": "lesson",
     "text": "Angels take turns with us and meet at Fajr and Asr."
   },
   {
@@ -457869,6 +458297,54 @@
   },
   {
     "kind": "lesson",
+    "text": "The righteous have joy now, in the grave, and in the Hereafter."
+  },
+  {
+    "kind": "lesson",
+    "text": "Heart, soul and body"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 82:13"
+  },
+  {
+    "kind": "question",
+    "text": "Where do the righteous find delight, per as-Sa'di?"
+  },
+  {
+    "kind": "question",
+    "text": "Here, in the grave, and after"
+  },
+  {
+    "kind": "question",
+    "text": "In this world, the barzakh and the lasting home."
+  },
+  {
+    "kind": "question",
+    "text": "Whose rights do the righteous give?"
+  },
+  {
+    "kind": "question",
+    "text": "Only Allah's"
+  },
+  {
+    "kind": "question",
+    "text": "Allah's and people's"
+  },
+  {
+    "kind": "question",
+    "text": "They keep the rights of Allah and of His servants."
+  },
+  {
+    "kind": "question",
+    "text": "The delight of the righteous is in heart, soul and body."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 82:13."
+  },
+  {
+    "kind": "lesson",
     "text": "Those who chose evil will enter the Fire and not leave it."
   },
   {
@@ -457914,6 +458390,10 @@
   {
     "kind": "question",
     "text": "They will not be absent for even one hour from the torment."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Al-Infitar, ayahs 10-19?"
   },
   {
     "kind": "lesson",
@@ -458018,10 +458498,6 @@
   {
     "kind": "question",
     "text": "No one will be able to benefit anyone else, or help him."
-  },
-  {
-    "kind": "lesson",
-    "text": "Can you still remember these about Al-Infitar, ayahs 10-19?"
   },
   {
     "kind": "lesson",
@@ -458317,6 +458793,62 @@
   },
   {
     "kind": "lesson",
+    "text": "Give others their full due, even their good points in a debate."
+  },
+  {
+    "kind": "lesson",
+    "text": "Fairness shows humility"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 83:3"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Mutaffifin teaches fairness in weighing and...?"
+  },
+  {
+    "kind": "question",
+    "text": "In arguments too"
+  },
+  {
+    "kind": "question",
+    "text": "Only in gold"
+  },
+  {
+    "kind": "question",
+    "text": "Even proofs and views are included, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "In a debate, what must we also show?"
+  },
+  {
+    "kind": "question",
+    "text": "The other side's good proofs"
+  },
+  {
+    "kind": "question",
+    "text": "Only our proofs"
+  },
+  {
+    "kind": "question",
+    "text": "Their mistakes only"
+  },
+  {
+    "kind": "question",
+    "text": "Show the proofs of the other side too."
+  },
+  {
+    "kind": "question",
+    "text": "Short-measuring people is a kind of stealing."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 83:3."
+  },
+  {
+    "kind": "lesson",
     "text": "Cheaters forget that they will be raised on a great Day."
   },
   {
@@ -458378,6 +458910,10 @@
   {
     "kind": "question",
     "text": "Standing before He Who knows the hidden matters and the innermost secrets."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Al-Mutaffifin, ayahs 1-6?"
   },
   {
     "kind": "lesson",
@@ -459357,6 +459893,54 @@
   },
   {
     "kind": "lesson",
+    "text": "The worst self-deception: doing great wrong and feeling safe."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ightirar: being fooled"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 83:32"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 83:32"
+  },
+  {
+    "kind": "question",
+    "text": "What is the worst self-deception, per as-Sa'di?"
+  },
+  {
+    "kind": "question",
+    "text": "Doing good quietly"
+  },
+  {
+    "kind": "question",
+    "text": "Doing wrong and feeling safe"
+  },
+  {
+    "kind": "question",
+    "text": "Fearing Allah"
+  },
+  {
+    "kind": "question",
+    "text": "They joined the worst wrong with feeling safe, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "What did the mockers call the believers?"
+  },
+  {
+    "kind": "question",
+    "text": "They said the believers were astray."
+  },
+  {
+    "kind": "question",
+    "text": "Allah gave the mockers a promise of success."
+  },
+  {
+    "kind": "lesson",
     "text": "They went home happy and joking, yet never thanked Allah."
   },
   {
@@ -459422,10 +460006,6 @@
   {
     "kind": "lesson",
     "text": "Mind your own deeds"
-  },
-  {
-    "kind": "source",
-    "text": "Quran 83:32"
   },
   {
     "kind": "source",
@@ -460225,6 +460805,46 @@
   },
   {
     "kind": "lesson",
+    "text": "Allah sees us; He never leaves us without commands or reward."
+  },
+  {
+    "kind": "lesson",
+    "text": "Commanded and rewarded"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 84:15"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 84:15"
+  },
+  {
+    "kind": "question",
+    "text": "Would Allah leave people with no commands?"
+  },
+  {
+    "kind": "question",
+    "text": "It does not fit Him to leave man to waste, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "Why will people return to Allah?"
+  },
+  {
+    "kind": "question",
+    "text": "He sees all they do"
+  },
+  {
+    "kind": "question",
+    "text": "Their Lord was ever seeing of them."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 84:6."
+  },
+  {
+    "kind": "lesson",
     "text": "The last test: everything about Al-Inshiqaq, ayahs 1-15!"
   },
   {
@@ -460622,6 +461242,70 @@
   {
     "kind": "question",
     "text": "Warning people before the Day is a kindness to them."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Arabic word for good news comes from the word for skin."
+  },
+  {
+    "kind": "lesson",
+    "text": "Bushra and bashara"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 84:24"
+  },
+  {
+    "kind": "question",
+    "text": "Why is news called bisharah?"
+  },
+  {
+    "kind": "question",
+    "text": "It is written"
+  },
+  {
+    "kind": "question",
+    "text": "It shows on the skin"
+  },
+  {
+    "kind": "question",
+    "text": "It is always long"
+  },
+  {
+    "kind": "question",
+    "text": "It comes at night"
+  },
+  {
+    "kind": "question",
+    "text": "It affects the skin with joy or sadness, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "Basharah in Arabic means...?"
+  },
+  {
+    "kind": "question",
+    "text": "Eye"
+  },
+  {
+    "kind": "question",
+    "text": "Heart"
+  },
+  {
+    "kind": "question",
+    "text": "Skin"
+  },
+  {
+    "kind": "question",
+    "text": "Bisharah is named after the skin."
+  },
+  {
+    "kind": "question",
+    "text": "The believers get a reward that never ends."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 84:25."
   },
   {
     "kind": "lesson",
@@ -461406,10 +462090,6 @@
   {
     "kind": "lesson",
     "text": "When sinners repent, Allah forgives them and loves them too."
-  },
-  {
-    "kind": "lesson",
-    "text": "As-Sa'di explains"
   },
   {
     "kind": "lesson",

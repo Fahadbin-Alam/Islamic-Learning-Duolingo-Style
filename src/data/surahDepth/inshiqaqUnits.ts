@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Inshiqaq ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -187,6 +187,20 @@ const INSHIQAQ_ONE: DeepUnit = {
         { q: "What does 84:15 say about his Lord?", a: "He was ever beholding him", wrong: ["He forgot him", "He was far away", "He did not care"], why: "Yes! Verily, his Lord has been ever beholding him!" },
         { tf: true, q: "Allah brings people back to life just as He first created them.", why: "Certainly Allah will repeat his creation just as he began his creation." }
       ]
+    },
+    {
+      slug: "not-left-for-nothing",
+      title: "Not left for nothing",
+      line: "Allah sees us; He never leaves us without commands or reward.",
+      facts: ["As-Sa'di explains", "Commanded and rewarded"],
+      quote: q84(15),
+      source: saadi(84, 15, "As-Sa'di says because Allah sees His servant, it does not fit that He would leave him to waste, with no commands, no reward and no punishment.", "فلا يحسن أن يتركه سدى"),
+      difficulty: 2,
+      questions: [
+        { q: "Would Allah leave people with no commands?", a: "No, never", wrong: ["Yes", "Sometimes", "Only kings"], why: "It does not fit Him to leave man to waste, says as-Sa'di." },
+        { q: "Why will people return to Allah?", a: "He sees all they do", wrong: ["They forgot", "By chance", "For no reason"], why: "Their Lord was ever seeing of them." },
+        { tf: true, q: "Every person will meet Allah.", why: "As-Sa'di on 84:6." }
+      ]
     }
   ]
 };
@@ -297,6 +311,20 @@ const INSHIQAQ_TWO: DeepUnit = {
         { q: "What news is given to the deniers, per 84:24?", a: "A painful torment", wrong: ["A great reward", "Nothing", "A long rest"], why: "So, announce to them a painful torment." },
         { q: "Who was told to inform them, per Ibn Kathir?", a: "Muhammad ﷺ", wrong: ["The angels only", "Their kings", "No one"], why: "Inform them, O Muhammad, that Allah has prepared for them a painful torment." },
         { tf: true, q: "Warning people before the Day is a kindness to them.", why: "Inform them, O Muhammad, that Allah has prepared for them a painful torment." }
+      ]
+    },
+    {
+      slug: "news-shows-on-the-skin",
+      title: "News shows on the skin",
+      line: "The Arabic word for good news comes from the word for skin.",
+      facts: ["As-Sa'di explains", "Bushra and bashara"],
+      quote: q84(24),
+      source: saadi(84, 24, "As-Sa'di says news is called bisharah because it shows on the skin, the basharah, as joy or sadness.", "وسميت البشارة بشارة، لأنها تؤثر في البشرة سرورًا أو غمًا"),
+      difficulty: 3,
+      questions: [
+        { q: "Why is news called bisharah?", a: "It shows on the skin", wrong: ["It is always long", "It comes at night", "It is written"], why: "It affects the skin with joy or sadness, says as-Sa'di." },
+        { q: "Basharah in Arabic means...?", a: "Skin", wrong: ["Hand", "Eye", "Heart"], why: "Bisharah is named after the skin." },
+        { tf: true, q: "The believers get a reward that never ends.", why: "As-Sa'di on 84:25." }
       ]
     },
     {
