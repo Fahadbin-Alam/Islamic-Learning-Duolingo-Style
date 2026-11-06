@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah An-Nazi'at ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -60,6 +60,20 @@ const NAZIAT_ONE: DeepUnit = {
         { q: "Who are the swimmers, per Ibn Masud?", a: "The angels", wrong: ["Fish", "Ships", "Clouds"], why: "And by the swimmers, swimming. Ibn Masud said, They are the angels." },
         { q: "What does 79:4 swear by?", a: "The racers, racing", wrong: ["The horses, running", "The birds, flying", "The trees, growing"], why: "And by the racers, racing." },
         { tf: false, q: "Ali said the racers are the horses of war.", why: "It has been narrated from Ali, Masruq, Mujahid, Abu Salih, and Al-Hasan Al-Basri that this means the angels." }
+      ]
+    },
+    {
+      slug: "revelation-kept-safe",
+      title: "Revelation kept safe",
+      line: "Angels race ahead of devils so revelation cannot be stolen.",
+      facts: ["As-Sa'di explains", "Wahy reaches safely"],
+      quote: q79(4),
+      source: saadi(79, 4, "As-Sa'di says the racing angels rush to obey Allah and get ahead of the devils when carrying revelation to the Messengers, so the devils cannot steal it.", "وتسبق الشياطين في إيصال الوحي إلى رسل الله حتى لا تسترقه"),
+      difficulty: 2,
+      questions: [
+        { q: "Why do the angels race ahead with revelation?", a: "So devils cannot steal it", wrong: ["To win a prize", "To rest sooner", "For fun"], why: "They get ahead of the devils so revelation is not stolen, says as-Sa'di." },
+        { q: "Who carries revelation to the Messengers?", a: "The angels", wrong: ["The devils", "The jinn", "The birds"], why: "The angels deliver it safely." },
+        { tf: true, q: "Revelation reached the Messengers safely.", why: "As-Sa'di on 79:4." }
       ]
     },
     {
@@ -533,6 +547,20 @@ const NAZIAT_FOUR: DeepUnit = {
         { q: "What did they ask about, per 79:42?", a: "When the Hour will come", wrong: ["When it will rain", "Who will be king", "Where gold is"], why: "They ask you about the Hour, when will be its appointed time?" },
         { q: "With whom is its knowledge, per 79:44?", a: "With your Lord", wrong: ["With the angels", "With the scholars", "With the stars"], why: "To your Lord it is limited." },
         { tf: false, q: "Some people know the exact day of the Hour.", why: "Its knowledge is not with you, nor with any creature." }
+      ]
+    },
+    {
+      slug: "why-the-hour-is-hidden",
+      title: "Why the Hour is hidden",
+      line: "Knowing the date would not help us; hiding it is good.",
+      facts: ["As-Sa'di explains", "Get ready instead"],
+      quote: q79(43),
+      source: saadi(79, 43, "As-Sa'di says knowing when the Hour comes would bring people no good in faith or life; the good is in it being hidden, so Allah kept it from all creation.", "بل المصلحة في خفائه عليهم"),
+      difficulty: 2,
+      questions: [
+        { q: "Why did Allah hide the time of the Hour?", a: "Hiding it is for our good", wrong: ["He does not know", "To trick us", "No one asked"], why: "The benefit is in it being hidden, says as-Sa'di." },
+        { q: "What should we do instead of asking when?", a: "Get ready for it", wrong: ["Guess the date", "Forget it", "Ask fortune tellers"], why: "The warning helps those who prepare." },
+        { tf: false, q: "Some creature knows the date of the Hour.", why: "Its knowledge ends with Allah. As-Sa'di on 79:44." }
       ]
     },
     {
