@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Anbiya ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -144,6 +144,20 @@ const ANBIYA_ONE: DeepUnit = {
         { q: "What does Allah fling against falsehood, in 21:18?", a: "The truth", wrong: ["A rock", "Fire", "Wind"], why: "Nay, We fling the truth against the falsehood, so it destroys it, and behold, it disappears." },
         { q: "What happens to falsehood, in 21:18?", a: "It disappears", wrong: ["It grows", "It wins", "It hides"], why: "So it destroys it, and behold, it disappears." },
         { q: "How is falsehood beaten, per Ibn Kathir?", a: "By explaining the truth", wrong: ["By shouting", "By force", "By ignoring it"], why: "We explain the truth and thus defeat falsehood." }
+      ]
+    },
+    {
+      slug: "every-doubt-has-an-answer",
+      title: "Every doubt has an answer",
+      line: "For every false doubt, Allah's proofs hold a clear answer.",
+      facts: ["As-Sa'di explains", "Proofs of the truth"],
+      quote: q21(18),
+      source: saadi(21, 18, "As-Sa'di says Allah has taken it on Himself to make the truth win: no one brings a doubt, from reason or from texts, to support falsehood or reject the truth, except that Allah's proofs hold what crushes it, and he says this is true for every religious question, one by one.", "وهذا عام في جميع المسائل الدينية"),
+      difficulty: 2,
+      questions: [
+        { q: "What answers a false doubt about the religion, per as-Sa'di on 21:18?", a: "Allah's clear proofs", wrong: ["Nothing can", "Shouting louder", "Only silence"], why: "Allah's proofs of reason and revelation crush every doubt." },
+        { q: "Which questions does the rule cover, per as-Sa'di on 21:18?", a: "Every religious question", wrong: ["Only a few", "Only about prayer", "Only about money"], why: "He says it holds for all religious questions, one by one." },
+        { tf: true, q: "Falsehood fades away once the truth is shown.", why: "As-Sa'di on 21:18." }
       ]
     },
     {
@@ -729,6 +743,20 @@ const ANBIYA_THREE: DeepUnit = {
         { q: "Whom did Allah give Zakariyya, in 21:90?", a: "Yahya", wrong: ["Isa", "Isma'il", "Yusuf"], why: "So We answered his call, and We bestowed upon him Yahya." },
         { q: "How did they call on Allah, in 21:90?", a: "With hope and fear", wrong: ["With pride", "Only in hard times", "With anger"], why: "They used to call on Us with hope and fear." },
         { q: "What does hastening to good mean, per Ibn Kathir?", a: "Rushing to worship and obedience", wrong: ["Rushing to trade", "Walking fast", "Racing horses"], why: "Acts of worship and acts of obedience towards Allah." }
+      ]
+    },
+    {
+      slug: "a-blessed-companion",
+      title: "A blessed companion",
+      line: "A good companion brings blessing to the one beside them.",
+      facts: ["As-Sa'di explains", "Good company"],
+      quote: q21(90),
+      source: saadi(21, 90, "As-Sa'di says Allah healed the wife of Zakariyya so she could bear Yahya, for the sake of His Prophet, and this shows that a righteous companion is a blessing to the one with him; the Prophets called on Allah in hope and fear, never heedless.", "وهذا من فوائد الجليس، والقرين الصالح، أنه مبارك على قرينه"),
+      difficulty: 2,
+      questions: [
+        { q: "Why was Zakariyya's wife healed to have a child, per as-Sa'di?", a: "For the sake of Zakariyya", wrong: ["By chance", "For her wealth", "For her family name"], why: "Allah healed her for His Prophet Zakariyya." },
+        { q: "What lesson does as-Sa'di draw from 21:90 about company?", a: "A good companion brings blessing", wrong: ["Friends do not matter", "Live alone", "Pick rich friends"], why: "A righteous companion is blessed for the one beside him." },
+        { tf: true, q: "The Prophets called on Allah with both hope and fear.", why: "As-Sa'di on 21:90." }
       ]
     },
     {
