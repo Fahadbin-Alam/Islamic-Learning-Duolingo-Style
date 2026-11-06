@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Az-Zalzalah ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -171,6 +171,20 @@ const ZALZALAH_TWO: DeepUnit = {
         { q: "How small is the good in 99:7?", a: "A speck of dust", wrong: ["A mountain", "A house", "A tree"], why: "Whosoever does good equal to the weight of a speck of dust shall see it." },
         { q: "What happens to that small good?", a: "He shall see it", wrong: ["It is lost", "It is forgotten", "It turns bad"], why: "Shall see it." },
         { tf: true, q: "Allah rewards even the tiniest deed.", why: "The Recompense for Every Minute Deed." }
+      ]
+    },
+    {
+      slug: "if-a-speck-counts",
+      title: "If a speck counts",
+      line: "If even a speck is weighed, bigger deeds count even more.",
+      facts: ["As-Sa'di explains", "Every deed is counted"],
+      quote: q99(7),
+      source: saadi(99, 7, "As-Sa'di says a speck is the smallest thing, so if it is seen and rewarded, anything bigger is all the more.", "فما فوق ذلك من باب أولى وأحرى"),
+      difficulty: 1,
+      questions: [
+        { q: "If a speck of good is rewarded, what about bigger deeds?", a: "They count even more", wrong: ["They are forgotten", "They count less", "They are lost"], why: "Anything above it, all the more, says as-Sa'di." },
+        { q: "What does 99:7-8 push us toward?", a: "Good, even a little", wrong: ["Only big deeds", "Nothing", "Showing off"], why: "The greatest push to do good, even if small." },
+        { tf: true, q: "Small sins should not be taken lightly either.", why: "A warning against evil, even if small. As-Sa'di on 99:7." }
       ]
     },
     {
