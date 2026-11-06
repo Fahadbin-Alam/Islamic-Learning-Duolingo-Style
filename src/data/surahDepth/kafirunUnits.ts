@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Kafirun ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -102,6 +102,20 @@ const KAFIRUN_ONE: DeepUnit = {
         { q: "Whom does the Prophet ﷺ worship, per 109:3?", a: "Allah alone, with no partner", wrong: ["Allah and idols", "The stars", "His ancestors"], why: "He is Allah Alone, Who has no partner." },
         { q: "What does Ma mean in the ayah, per Ibn Kathir?", a: "Man, meaning who", wrong: ["Water", "Never", "Maybe"], why: "So the word Ma, what, means Man, who." },
         { tf: true, q: "The idolaters did not truly worship Allah alone.", why: "Nor will you worship whom I worship." }
+      ]
+    },
+    {
+      slug: "why-said-twice",
+      title: "Why is it said twice?",
+      line: "Said twice: first the act, then a fixed way of theirs.",
+      facts: ["As-Sa'di explains", "Repeated on purpose"],
+      quote: q109(3),
+      source: saadi(109, 3, "As-Sa'di says the first saying denies the act, and the repeat shows it had become a fixed trait of theirs.", "ثم كرر ذلك ليدل الأول على عدم وجود الفعل"),
+      difficulty: 3,
+      questions: [
+        { q: "What does the first saying show, per as-Sa'di?", a: "The act is not done", wrong: ["A new law", "A story", "A question"], why: "The first shows the act does not exist." },
+        { q: "What does the repeat show?", a: "It became a fixed trait", wrong: ["A mistake", "A new idol", "Nothing new"], why: "The second shows it has become a fixed trait." },
+        { tf: true, q: "Worship mixed with shirk is not true worship of Allah.", why: "As-Sa'di on 109:3." }
       ]
     }
   ]

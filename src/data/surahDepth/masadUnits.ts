@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Masad ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -171,6 +171,20 @@ const MASAD_TWO: DeepUnit = {
         { q: "What is in her neck, per 111:5?", a: "A twisted rope of Masad", wrong: ["A gold necklace", "A silk scarf", "A pearl chain"], why: "In her neck is a twisted rope of Masad." },
         { q: "What is Masad made from, per Al-Jawhari?", a: "Fibers or palm leaves", wrong: ["Silver", "Glass", "Wool only"], why: "It is also a rope made from fibers or palm leaves." },
         { tf: true, q: "Al-Masad is the surah named after the rope.", why: "In her neck is a twisted rope of Masad." }
+      ]
+    },
+    {
+      slug: "a-sign-that-came-true",
+      title: "A sign that came true",
+      line: "Allah foretold they would not believe, and so it was.",
+      facts: ["As-Sa'di explains", "Only Allah knows the unseen"],
+      quote: q111(5),
+      source: saadi(111, 5, "As-Sa'di says the surah came while Abu Lahab and his wife were alive and told they would never accept Islam, and it happened just so.", "ومن لازم ذلك أنهما لا يسلمان"),
+      difficulty: 2,
+      questions: [
+        { q: "Were Abu Lahab and his wife alive when it came?", a: "Yes, both", wrong: ["No, both had died", "Only his wife", "Only Abu Lahab"], why: "The surah came while they had not yet died." },
+        { q: "What did the surah show about them?", a: "They would not believe", wrong: ["They would become rich", "They would move away", "They would win"], why: "It follows that they would not accept Islam." },
+        { tf: true, q: "Al-Masad is a clear sign of the Quran's truth.", why: "It happened as the Knower of the unseen told. As-Sa'di on 111:5." }
       ]
     }
   ]

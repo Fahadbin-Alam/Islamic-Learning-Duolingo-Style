@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah An-Nasr ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -143,6 +143,34 @@ const NASR_TWO: DeepUnit = {
         { q: "What did his Lord tell him he would see?", a: "A sign in his Ummah", wrong: ["A new star", "A great flood", "A golden city"], why: "My Lord informed me that I would soon see a sign in my Ummah." },
         { q: "What was the sign, per the hadith?", a: "Allah's help and victory", wrong: ["An eclipse", "A strong wind", "A dream"], why: "Indeed I saw it: When Allah's help and victory came." },
         { tf: true, q: "Aishah noticed him repeating these words often.", why: "I see that you often repeat the saying Subhan Allahi bihamdihi astaghfirullahi." }
+      ]
+    },
+    {
+      slug: "good-deeds-end-with-istighfar",
+      title: "Good deeds end with istighfar",
+      line: "Great deeds end with istighfar; this hinted his life was ending.",
+      facts: ["As-Sa'di explains", "Get ready to meet Allah"],
+      quote: q110(3),
+      source: saadi(110, 3, "As-Sa'di says great deeds like prayer and Hajj are closed with seeking forgiveness, so this command hinted his ﷺ life was near its end.", "وقد عهد أن الأمور الفاضلة تختم بالاستغفار"),
+      difficulty: 2,
+      questions: [
+        { q: "Which deeds end with seeking forgiveness?", a: "Prayer and Hajj", wrong: ["Sleep and food", "Trade", "Travel"], why: "Great deeds like prayer and Hajj end with istighfar." },
+        { q: "What did the command hint at?", a: "His life was near its end", wrong: ["A new war", "A long trip", "A new city"], why: "His appointed time had come near, says as-Sa'di." },
+        { tf: true, q: "We can end our good deeds with Astaghfirullah.", why: "As-Sa'di on 110:3." }
+      ]
+    },
+    {
+      slug: "thanks-bring-more-help",
+      title: "Thanks bring more help",
+      line: "Praise and seeking forgiveness keep Allah's help coming.",
+      facts: ["As-Sa'di explains", "14:7: thank and get more"],
+      quote: q110(3),
+      source: saadi(110, 3, "As-Sa'di says praise and seeking forgiveness are thanks, and thanks keep Allah's help growing, as in 14:7.", "إشارة لأن يستمر النصر لهذا الدين"),
+      difficulty: 2,
+      questions: [
+        { q: "What keeps Allah's help coming, per as-Sa'di?", a: "Praise and istighfar", wrong: ["Big armies", "Gold", "Strong walls"], why: "Help continues and grows with praise and seeking forgiveness." },
+        { q: "Which ayah does he link this to?", a: "14:7", wrong: ["2:255", "112:1", "1:1"], why: "If you are grateful, I will surely give you more." },
+        { tf: true, q: "Thanking Allah is a reason for more blessing.", why: "As-Sa'di on 110:3." }
       ]
     },
     {

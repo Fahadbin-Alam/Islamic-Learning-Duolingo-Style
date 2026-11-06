@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Quraysh ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -185,6 +185,34 @@ const QURAYSH_TWO: DeepUnit = {
         { q: "What does a believer do when good comes?", a: "Thanks Allah", wrong: ["Boasts", "Forgets Allah", "Hides it"], why: "If he has an occasion to feel delight, he thanks God." },
         { q: "What does a believer do in trouble?", a: "Stays patient", wrong: ["Complains loudly", "Gives up", "Blames others"], why: "If he gets into trouble and endures it patiently, there is good for him." },
         { tf: true, q: "Every affair holds good for a believer.", why: "There is good in every affair of his." }
+      ]
+    },
+    {
+      slug: "two-great-gifts",
+      title: "Two of the greatest gifts",
+      line: "Plenty of food and safety are among life's biggest gifts.",
+      facts: ["As-Sa'di explains", "Gifts that call for thanks"],
+      quote: q106(4),
+      source: saadi(106, 4, "As-Sa'di says plenty of provision and safety from fear are among the greatest blessings of this life, and they call for thanking Allah.", "من أكبر النعم الدنيوية"),
+      difficulty: 1,
+      questions: [
+        { q: "Which two gifts does as-Sa'di call among the greatest?", a: "Food and safety", wrong: ["Gold and silver", "Fame and power", "Horses and camels"], why: "Plenty of provision and safety, says as-Sa'di." },
+        { q: "What do such gifts call for?", a: "Thanking Allah", wrong: ["Showing off", "Hoarding", "Nothing"], why: "Blessings that make thanks to Allah due." },
+        { tf: true, q: "Feeling safe at home is a blessing from Allah.", why: "As-Sa'di on 106:4." }
+      ]
+    },
+    {
+      slug: "lord-of-this-house",
+      title: "Lord of this House",
+      line: "Allah is Lord of all, yet names the House to honor it.",
+      facts: ["As-Sa'di explains", "The Ka'bah's high rank"],
+      quote: q106(4),
+      source: saadi(106, 4, "As-Sa'di says Allah linked His Lordship to the House because of its virtue and honor, though He is Lord of all things.", "وخص الله بالربوبية البيت لفضله وشرفه"),
+      difficulty: 2,
+      questions: [
+        { q: "Why does Allah say Lord of this House?", a: "To honor the House", wrong: ["He owns only it", "It was new", "To please Quraysh"], why: "Because of its virtue and honor, says as-Sa'di." },
+        { q: "Of what is Allah the Lord?", a: "Of everything", wrong: ["Only Makkah", "Only the Arabs", "Only the Ka'bah"], why: "Otherwise He is the Lord of all things." },
+        { tf: false, q: "Allah is Lord of the Ka'bah only.", why: "He is Lord of everything. As-Sa'di on 106:4." }
       ]
     }
   ]
