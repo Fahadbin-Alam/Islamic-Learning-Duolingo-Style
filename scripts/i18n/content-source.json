@@ -11961,6 +11961,10 @@
   },
   {
     "kind": "course",
+    "text": "Knowing is not enough"
+  },
+  {
+    "kind": "course",
     "text": "The tongue and the heart"
   },
   {
@@ -11985,6 +11989,10 @@
   },
   {
     "kind": "course",
+    "text": "What calling to good needs"
+  },
+  {
+    "kind": "course",
     "text": "No turned-away face"
   },
   {
@@ -11994,6 +12002,10 @@
   {
     "kind": "course",
     "text": "Walk gently, speak softly"
+  },
+  {
+    "kind": "course",
+    "text": "Not proud, not lifeless"
   },
   {
     "kind": "course",
@@ -12125,6 +12137,10 @@
   },
   {
     "kind": "course",
+    "text": "Sweeter than sleep"
+  },
+  {
+    "kind": "course",
     "text": "The doors of good"
   },
   {
@@ -12142,6 +12158,10 @@
   {
     "kind": "course",
     "text": "Smaller trials first"
+  },
+  {
+    "kind": "course",
+    "text": "A taste before the Fire"
   },
   {
     "kind": "course",
@@ -180545,10 +180565,6 @@
   },
   {
     "kind": "lesson",
-    "text": "Knowing is not enough"
-  },
-  {
-    "kind": "lesson",
     "text": "Honesty with revelation"
   },
   {
@@ -304501,6 +304517,54 @@
   },
   {
     "kind": "lesson",
+    "text": "Wisdom is useful knowledge with good deeds, not knowledge alone."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hikmah"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 31:12"
+  },
+  {
+    "kind": "question",
+    "text": "What is Hikmah, per as-Sa'di on 31:12?"
+  },
+  {
+    "kind": "question",
+    "text": "Only old age"
+  },
+  {
+    "kind": "question",
+    "text": "Only reading"
+  },
+  {
+    "kind": "question",
+    "text": "Useful knowledge with good deeds"
+  },
+  {
+    "kind": "question",
+    "text": "Wisdom is useful knowledge and good deeds, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "Can a learned person lack wisdom, per as-Sa'di?"
+  },
+  {
+    "kind": "question",
+    "text": "A person may be learned and not wise."
+  },
+  {
+    "kind": "question",
+    "text": "Thanking Allah for a gift makes Him bless it and give more."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 31:12."
+  },
+  {
+    "kind": "lesson",
     "text": "Luqman said nothing is better than tongue and heart, if good."
   },
   {
@@ -304893,6 +304957,58 @@
   },
   {
     "kind": "lesson",
+    "text": "Calling to good needs knowledge, gentleness and patience."
+  },
+  {
+    "kind": "lesson",
+    "text": "Enjoining good"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 31:17"
+  },
+  {
+    "kind": "question",
+    "text": "What does calling to good need, per as-Sa'di on 31:17?"
+  },
+  {
+    "kind": "question",
+    "text": "Many friends"
+  },
+  {
+    "kind": "question",
+    "text": "Knowledge, gentleness and patience"
+  },
+  {
+    "kind": "question",
+    "text": "It needs knowledge, gentleness and patience, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "Why did Luqman tell his son to be patient after it?"
+  },
+  {
+    "kind": "question",
+    "text": "Calling to good brings hardship"
+  },
+  {
+    "kind": "question",
+    "text": "He was slow"
+  },
+  {
+    "kind": "question",
+    "text": "One who enjoins and forbids will surely be tested."
+  },
+  {
+    "kind": "question",
+    "text": "One who calls to good should do it himself."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 31:17."
+  },
+  {
+    "kind": "lesson",
     "text": "Do not turn your face from people in pride."
   },
   {
@@ -305054,6 +305170,58 @@
   {
     "kind": "question",
     "text": "Verily, the harshest of all voices is the braying of the asses."
+  },
+  {
+    "kind": "lesson",
+    "text": "Walk humbly: not with pride, and not like a lifeless person."
+  },
+  {
+    "kind": "lesson",
+    "text": "Moderate walking"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 31:19"
+  },
+  {
+    "kind": "question",
+    "text": "What are the two wrong ways of walking, per as-Sa'di?"
+  },
+  {
+    "kind": "question",
+    "text": "Proudly and lifelessly"
+  },
+  {
+    "kind": "question",
+    "text": "Fast and slow"
+  },
+  {
+    "kind": "question",
+    "text": "Left and right"
+  },
+  {
+    "kind": "question",
+    "text": "Barefoot and in shoes"
+  },
+  {
+    "kind": "question",
+    "text": "Not the walk of pride, nor the walk of pretended weakness."
+  },
+  {
+    "kind": "question",
+    "text": "Lowering the voice is good manners with whom, per as-Sa'di on 31:19?"
+  },
+  {
+    "kind": "question",
+    "text": "People and Allah"
+  },
+  {
+    "kind": "question",
+    "text": "Luqman's advice gathers the main points of wisdom."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 31:19."
   },
   {
     "kind": "lesson",
@@ -306853,6 +307021,58 @@
   },
   {
     "kind": "lesson",
+    "text": "For them, night prayer is sweeter than a comfortable bed."
+  },
+  {
+    "kind": "lesson",
+    "text": "Night prayer"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 32:16"
+  },
+  {
+    "kind": "question",
+    "text": "Why do believers leave their beds at night, per as-Sa'di?"
+  },
+  {
+    "kind": "question",
+    "text": "They cannot sleep"
+  },
+  {
+    "kind": "question",
+    "text": "Night prayer is sweeter to them"
+  },
+  {
+    "kind": "question",
+    "text": "Night prayer is sweeter and dearer to them, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "What do they fear and hope for, per as-Sa'di on 32:16?"
+  },
+  {
+    "kind": "question",
+    "text": "Rejection and acceptance of deeds"
+  },
+  {
+    "kind": "question",
+    "text": "Rain and drought"
+  },
+  {
+    "kind": "question",
+    "text": "Profit and loss"
+  },
+  {
+    "kind": "question",
+    "text": "Spending in As-Sajdah 32:16 includes Zakah and spending on family."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 32:16."
+  },
+  {
+    "kind": "lesson",
     "text": "Fasting is a shield and charity puts out sins."
   },
   {
@@ -307013,6 +307233,10 @@
   },
   {
     "kind": "lesson",
+    "text": "Can you still remember these about As-Sajdah, ayahs 15 to 30?"
+  },
+  {
+    "kind": "lesson",
     "text": "Believers who do good get Gardens of Abode, a welcome."
   },
   {
@@ -307074,10 +307298,6 @@
   {
     "kind": "question",
     "text": "Something to welcome and honor a guest."
-  },
-  {
-    "kind": "lesson",
-    "text": "Can you still remember these about As-Sajdah, ayahs 15 to 30?"
   },
   {
     "kind": "lesson",
@@ -307190,6 +307410,50 @@
   {
     "kind": "question",
     "text": "As a test from Allah to His servants so that they will repent to Him."
+  },
+  {
+    "kind": "lesson",
+    "text": "The lesser punishment includes the punishment of the grave."
+  },
+  {
+    "kind": "lesson",
+    "text": "Punishment of the grave"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 32:21"
+  },
+  {
+    "kind": "question",
+    "text": "What does As-Sajdah 32:21 prove, per as-Sa'di?"
+  },
+  {
+    "kind": "question",
+    "text": "Reincarnation"
+  },
+  {
+    "kind": "question",
+    "text": "Life on other planets"
+  },
+  {
+    "kind": "question",
+    "text": "The ayah is a proof of the punishment of the grave, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "What is the greater punishment, per as-Sa'di on 32:21?"
+  },
+  {
+    "kind": "question",
+    "text": "Illness"
+  },
+  {
+    "kind": "question",
+    "text": "Hardships in this life can be a chance to return to Allah."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 32:21."
   },
   {
     "kind": "lesson",
@@ -311638,10 +311902,6 @@
   {
     "kind": "question",
     "text": "Whom will they find, in 33:65?"
-  },
-  {
-    "kind": "question",
-    "text": "Many friends"
   },
   {
     "kind": "question",
@@ -319957,10 +320217,6 @@
   },
   {
     "kind": "question",
-    "text": "Reincarnation"
-  },
-  {
-    "kind": "question",
     "text": "This was the belief in the cycle of reincarnation; Allah refuted their false belief."
   },
   {
@@ -324730,10 +324986,6 @@
   {
     "kind": "question",
     "text": "Why would they not say it, per Ibn Kathir?"
-  },
-  {
-    "kind": "question",
-    "text": "Illness"
   },
   {
     "kind": "question",
