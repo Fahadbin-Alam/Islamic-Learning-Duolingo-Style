@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Jathiyah ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -36,7 +36,7 @@ const JATHIYAH_ONE: DeepUnit = {
     {
       slug: "ha-mim-opens-jathiyah",
       title: "Ha Mim opens Al-Jathiyah",
-      line: "Al-Jathiyah opens with Ha Mim, like the six surahs before it.",
+      line: "Al-Jathiyah opens with Ha Mim, like the five surahs before it.",
       facts: ["Al-Jathiyah means The Kneeling", "Named after 45:28"],
       quote: q45(1),
       source: ik(1, "Ibn Kathir lists the opening: Ha Mim, then the Book sent down from Allah, the Almighty, the All-Wise.", "The revelation of the Book is from Allah, the Almighty, the All-Wise"),
@@ -227,6 +227,20 @@ const JATHIYAH_ONE: DeepUnit = {
         { q: "What has Allah subjected to us, in 45:13?", a: "All in the heavens and the earth", wrong: ["Only the sea", "Only animals", "Nothing"], why: "And has subjected to you all that is in the heavens and all that is on the earth." },
         { q: "Who shares in giving these gifts?", a: "No one, only Allah", wrong: ["The stars", "Kings", "Idols"], why: "Alone without partners in giving any of it." },
         { q: "Who in 45:13 sees these signs?", a: "A people who think deeply", wrong: ["People who sleep", "People who boast", "Nobody"], why: "Verily, in it are signs for a people who think deeply." }
+      ]
+    },
+    {
+      slug: "gifts-call-for-thanks",
+      title: "Gifts call for thanks",
+      line: "All that serves us calls us to thank Allah and reflect.",
+      facts: ["As-Sa'di explains", "Shukr and Tafakkur"],
+      quote: q45(13),
+      source: saadi(45, 13, "As-Sa'di says Allah made the heavens, the earth, the sun, moon, animals, trees and metals serve people, so we must do our best to thank Him and think deeply about His signs.", "فهذا يوجب عليهم أن يبذلوا غاية جهدهم في شكر نعمته وأن تتغلغل أفكارهم في تدبر آياته وحكمه"),
+      difficulty: 2,
+      questions: [
+        { q: "What must we do since all things were made to serve us, per as-Sa'di?", a: "Thank Allah and reflect", wrong: ["Use them and forget", "Boast about them", "Fear them"], why: "We must do our best to thank Him and reflect, says as-Sa'di." },
+        { q: "What do the benefits in creation point to, per as-Sa'di on 45:13?", a: "Allah's wide mercy", wrong: ["Luck", "Many gods", "Nothing"], why: "Their benefits prove His wide mercy and kindness." },
+        { tf: true, q: "The signs in creation also show the Messengers spoke the truth.", why: "As-Sa'di on 45:13." }
       ]
     },
     {
@@ -436,6 +450,20 @@ const JATHIYAH_TWO: DeepUnit = {
         { q: "When was he left astray, per Ibn Kathir?", a: "After knowledge reached him", wrong: ["Before he was born", "Without any proof", "In his sleep"], why: "After knowledge reached him and the proof was established." },
         { q: "What does 45:23 ask at the end?", a: "Will you not then remember?", wrong: ["Will you not then eat?", "Will you not travel?", "Will you not sleep?"], why: "Who then will guide him after Allah? Will you not then remember?" },
         { tf: true, q: "With his heart sealed, he does not see the proof that would guide him.", why: "Sees not the evidence with which he can be enlightened." }
+      ]
+    },
+    {
+      slug: "he-wronged-himself",
+      title: "He wronged himself",
+      line: "One who follows his desire wrongs himself; Allah wrongs no one.",
+      facts: ["As-Sa'di explains", "Allah is never unjust"],
+      quote: q45(23),
+      source: saadi(45, 23, "As-Sa'di says one who takes his desire as his god follows it whether it pleases Allah or angers Him; Allah did not wrong him, he wronged himself and blocked Allah's mercy from himself.", "وما ظلمه الله ولكن هو الذي ظلم نفسه وتسبب لمنع رحمة الله عليه"),
+      difficulty: 2,
+      questions: [
+        { q: "Who wronged the one who took his desire as his god?", a: "He wronged himself", wrong: ["Allah wronged him", "His friends", "The angels"], why: "Allah did not wrong him; he wronged himself, says as-Sa'di." },
+        { q: "How does one who takes his desire as a god choose what to do?", a: "He follows whatever he wants", wrong: ["He asks scholars", "He reads the Quran", "He prays first"], why: "He follows his desire whether it pleases Allah or angers Him." },
+        { tf: true, q: "One who follows his desire can block Allah's mercy from himself.", why: "As-Sa'di on 45:23." }
       ]
     },
     {
