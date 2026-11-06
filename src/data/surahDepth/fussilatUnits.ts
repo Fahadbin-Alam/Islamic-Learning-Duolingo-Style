@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Fussilat ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -551,6 +551,20 @@ const FUSSILAT_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "make-allah-beloved",
+      title: "Make Allah beloved",
+      line: "Calling to Allah includes telling people of His many blessings.",
+      facts: ["As-Sa'di explains", "Da'wah"],
+      quote: q41(33),
+      source: saadi(41, 33, "As-Sa'di says calling to Allah includes teaching, advising and making Allah beloved to people by telling them about His blessings, His generosity and His perfect mercy, while doing good oneself.", "ومن الدعوة إلى الله، تحبيبه إلى عباده، بذكر تفاصيل نعمه، وسعة جوده، وكمال رحمته"),
+      difficulty: 2,
+      questions: [
+        { q: "How can we make Allah beloved to people, per as-Sa'di?", a: "Tell them of His blessings", wrong: ["Scare them only", "Stay silent", "Argue harshly"], why: "Mention His blessings, generosity and mercy, says as-Sa'di." },
+        { q: "What must a caller to Allah also do, in Fussilat 41:33?", a: "Do good deeds himself", wrong: ["Only talk", "Get paid", "Stay away from people"], why: "He calls others and also rushes to obey Allah himself." },
+        { tf: true, q: "Urging good manners and kindness to parents is part of calling to Allah.", why: "As-Sa'di on 41:33." }
+      ]
+    },
+    {
       slug: "repel-evil-with-good",
       title: "Repel evil with good",
       line: "Repel evil with what is better, and an enemy becomes a friend.",
@@ -562,6 +576,20 @@ const FUSSILAT_TWO: DeepUnit = {
         { q: "How should we repel evil, in 41:34?", a: "With what is better", wrong: ["With more evil", "With shouting", "With silence forever"], why: "Repel the evil with one which is better." },
         { q: "What can the enemy become?", a: "A close friend", wrong: ["A worse enemy", "A stranger", "A king"], why: "Then verily he, between whom and you there was enmity, will become as though he was a close friend." },
         { q: "What does kindness lead to, per Ibn Kathir?", a: "Reconciliation and love", wrong: ["More fights", "Loneliness", "Shame"], why: "This good deed will lead to reconciliation, love and empathy." }
+      ]
+    },
+    {
+      slug: "if-he-cuts-you-off",
+      title: "If he cuts you off",
+      line: "Keep ties with one who cuts you; forgive one who wrongs you.",
+      facts: ["As-Sa'di explains", "Ihsan to those who hurt you"],
+      quote: q41(34),
+      source: saadi(41, 34, "As-Sa'di says repel evil with good, above all with relatives and friends: if one cuts you off, keep the tie; if he wrongs you, forgive; if he shuns you, speak kindly and greet him.", "فإن قطعك فَصلْهُ، وإن ظلمك، فاعف عنه"),
+      difficulty: 2,
+      questions: [
+        { q: "If a relative cuts you off, what should you do, per as-Sa'di?", a: "Keep the tie with him", wrong: ["Cut him off too", "Tell everyone", "Never speak again"], why: "If he cuts you off, keep the tie, says as-Sa'di." },
+        { q: "If someone shuns you, what does as-Sa'di advise?", a: "Speak kindly and give Salam", wrong: ["Shun him back", "Mock him", "Complain about him"], why: "Make your words gentle and give him Salam." },
+        { tf: true, q: "Repelling evil with good matters most with those who have rights over you.", why: "As-Sa'di on 41:34." }
       ]
     },
     {
@@ -729,6 +757,20 @@ const FUSSILAT_THREE: DeepUnit = {
         { q: "What is the Quran for believers, in 41:44?", a: "A guide and a cure", wrong: ["A puzzle", "A burden", "A story only"], why: "Say: It is for those who believe, a guide and a cure." },
         { q: "What does it cure, per Ibn Kathir?", a: "Doubts and confusion", wrong: ["Only fevers", "Hunger", "Tiredness"], why: "This Quran, for the one who believes in it, is guidance for his heart and a cure for the doubts and confusion." },
         { q: "Why was it sent in Arabic, per 41:44?", a: "So they could not complain it was foreign", wrong: ["It is the only language", "For poets only", "By chance"], why: "If We had sent this as a Quran in a foreign language, they would have said: Why are not its verses explained in detail?" }
+      ]
+    },
+    {
+      slug: "cure-for-body-and-heart",
+      title: "Cure for body and heart",
+      line: "The Quran cures illnesses of the heart and of the body.",
+      facts: ["As-Sa'di explains", "Shifa"],
+      quote: q41(44),
+      source: saadi(41, 44, "As-Sa'di says the Quran guides believers and is a cure for illnesses of the body and of the heart, because it warns against bad manners and deeds and calls to sincere repentance that washes sins away.", "وشفاء لهم من الأسقام البدنية، والأسقام القلبية"),
+      difficulty: 2,
+      questions: [
+        { q: "What does the Quran cure, per as-Sa'di?", a: "Illness of body and heart", wrong: ["Only hunger", "Only boredom", "Nothing"], why: "It cures illnesses of the body and of the heart, says as-Sa'di." },
+        { q: "How does the Quran heal the heart, per as-Sa'di on 41:44?", a: "It calls to sincere repentance", wrong: ["It makes us rich", "It ends all trials", "It removes all work"], why: "It urges sincere repentance that washes sins and heals." },
+        { tf: true, q: "Allah sent the Quran in Arabic so its first hearers could understand it.", why: "As-Sa'di on 41:44." }
       ]
     },
     {

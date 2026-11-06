@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Ghafir ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -1149,6 +1149,20 @@ const GHAFIR_THREE: DeepUnit = {
         { q: "What is supplication, per Tirmidhi 3247?", a: "The worship", wrong: ["A small habit", "Only for scholars", "For hard times only"], why: "The Prophet ﷺ said: Supplication is the worship." },
         { q: "Which ayah did the Prophet ﷺ recite after?", a: "40:60", wrong: ["1:1", "2:255", "112:1"], why: "Then he recited: And your Lord said: Call upon Me, I will answer you." },
         { q: "Who scorn Allah's worship, per Ibn Kathir?", a: "Those too proud to call on Him", wrong: ["The humble", "The young", "The poor"], why: "Those who are too proud to call on Me and single Me out." }
+      ]
+    },
+    {
+      slug: "two-kinds-of-dua",
+      title: "Two kinds of dua",
+      line: "Dua is both asking Allah and every act of worship.",
+      facts: ["As-Sa'di explains", "Dua of worship and asking"],
+      quote: q40(60),
+      source: saadi(40, 60, "As-Sa'di says 40:60 commands two kinds of dua: the dua of worship, which is all our worship, and the dua of asking, which is asking for needs; Allah promises to answer, and warns the proud.", "وأمرهم بدعائه، دعاء العبادة، ودعاء المسألة"),
+      difficulty: 2,
+      questions: [
+        { q: "What are the two kinds of dua, per as-Sa'di?", a: "Worship and asking", wrong: ["Loud and quiet", "Long and short", "Morning and night"], why: "Dua of worship and dua of asking, says as-Sa'di." },
+        { q: "What awaits those too proud to call on Allah, in Ghafir 40:60?", a: "Hell, humbled", wrong: ["A small reward", "Nothing", "Praise"], why: "They will enter Hell humbled." },
+        { tf: true, q: "Allah promised to answer those who call on Him.", why: "As-Sa'di on 40:60." }
       ]
     }
   ]
