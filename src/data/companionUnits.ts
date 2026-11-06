@@ -418,4 +418,293 @@ const JAFAR: DeepUnit = {
   ]
 };
 
-export const COMPANION_UNITS: DeepUnit[] = [JAFAR, ABU_HURAIRAH, KAB];
+// Sa'd ibn Mu'adh, chief of the Aws in Madinah: brave in Makkah, wounded at the Trench, and honored at his death.
+const SAD_MUADH: DeepUnit = {
+  key: "sad-muadh",
+  topicId: "sahabah",
+  branchId: "sahabi-sad-ibn-muadh",
+  branch: { title: "Sa'd ibn Mu'adh", description: "The chief of the Ansar whose death shook the Throne of the Most Merciful." },
+  name: "Sa'd ibn Mu'adh",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "umrah",
+      title: "Brave at the Kaaba",
+      line: "In Makkah, Sa'd stood up to Abu Jahl at the Kaaba.",
+      facts: ["Sa'd came to Makkah for Umrah.", "Abu Jahl tried to stop his tawaf.", "Sa'd said: stop me, and I will block your trade road to Sham."],
+      source: hadith("bukhari", "3632", "Abdullah ibn Mas'ud", "Sahih", "Sa'd ibn Mu'adh came to Makkah for Umrah. While he made tawaf, Abu Jahl said: you go around the Kaaba safely though you sheltered Muhammad? Sa'd said: if you stop me, I will spoil your trade with Sham.", "I will spoil your trade with Sham"),
+      difficulty: 2,
+      questions: [
+        { q: "Why did Sa'd go to Makkah?", a: "To do Umrah", wrong: ["To trade", "To fight", "To visit family"], why: "He came to make tawaf around the Kaaba." },
+        { q: "Who tried to stop Sa'd's tawaf?", a: "Abu Jahl", wrong: ["Abu Sufyan", "Abu Talib", "Abu Lahab"], why: "He was angry that Madinah sheltered the Muslims." },
+        { q: "What did Sa'd say he would block?", a: "Their trade road to Sham", wrong: ["Their well of Zamzam", "Their markets in Yemen", "Their Kaaba"], why: "I will spoil your trade with Sham." },
+        { q: "Sa'd was afraid and left without tawaf.", tf: false, why: "He stood firm against Abu Jahl." }
+      ]
+    },
+    {
+      slug: "wound",
+      title: "A tent in the mosque",
+      line: "At the Trench, an arrow struck Sa'd's arm.",
+      facts: ["The arrow cut the big vein of his arm.", "The Prophet ﷺ put up a tent for him in the mosque.", "So he could be near and visit him often."],
+      source: hadith("bukhari", "4122", "Aishah", "Sahih", "Sa'd was wounded on the day of the Trench by an arrow in the vein of his arm. The Prophet ﷺ pitched a tent for him in the mosque so that he could visit him from near.", "so that he might be near to the Prophet"),
+      difficulty: 2,
+      questions: [
+        { q: "In which battle was Sa'd wounded?", a: "The Trench", wrong: ["Badr", "Hunayn", "Tabuk"], why: "On the day of Al-Khandaq, the Trench." },
+        { q: "Where did the Prophet ﷺ put a tent for Sa'd?", a: "In the mosque", wrong: ["In the desert", "On a mountain", "In Makkah"], why: "So he could be near and visit him." },
+        { q: "What hit Sa'd's arm?", a: "An arrow", wrong: ["A sword", "A stone", "A spear"], why: "An arrow cut the vein of his arm." }
+      ]
+    },
+    {
+      slug: "dua",
+      title: "Sa'd's dua",
+      line: "Sa'd asked Allah: keep me alive only if more fighting is left.",
+      facts: ["He loved striving for Allah more than anything.", "He asked: if the war is over, let this wound be my end.", "His wound bled again, and he passed away."],
+      source: hadith("bukhari", "4122", "Aishah", "Sahih", "Sa'd prayed: O Allah, nothing is more beloved to me than to strive in Your cause against those who denied Your Messenger. If any fight with them remains, keep me alive for it; if You have ended it, let this wound open. It bled, and he died.", "keep me alive till I fight against them for Your Sake"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Sa'd love most?", a: "Striving in Allah's cause", wrong: ["His wealth", "His farms", "Being chief"], why: "Nothing was more beloved to him." },
+        { q: "What did Sa'd ask, if the war was over?", a: "That his wound be his end", wrong: ["To become rich", "To travel to Sham", "To be made king"], why: "Let this wound burst, he prayed." },
+        { q: "Sa'd's dua was answered.", tf: true, why: "His wound bled, and he died in his tent." }
+      ]
+    },
+    {
+      slug: "your-chief",
+      title: "\"Stand for your chief\"",
+      line: "The Prophet ﷺ told the Ansar: stand up for your chief.",
+      facts: ["Sa'd came riding a donkey, still wounded.", "A tribe had agreed to accept his judgment.", "The Prophet ﷺ said: you judged with Allah's judgment."],
+      source: hadith("bukhari", "4121", "Abu Sa'id al-Khudri", "Sahih", "When Sa'd came riding a donkey and neared the mosque, the Prophet ﷺ said to the Ansar: get up for your chief, or the best among you. After Sa'd judged, he said: you have judged with Allah's judgment.", "Get up for your chief"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the Prophet ﷺ tell the Ansar when Sa'd came?", a: "Stand up for your chief", wrong: ["Sit down", "Go home", "Bring your swords"], why: "Get up for your chief, or the best among you." },
+        { q: "What was Sa'd riding?", a: "A donkey", wrong: ["A horse", "A camel", "Nothing; he walked"], why: "He was still wounded from the Trench." },
+        { q: "The Prophet ﷺ said Sa'd judged with Allah's judgment.", tf: true, why: "You have judged according to Allah's judgment." }
+      ]
+    },
+    {
+      slug: "throne",
+      title: "The Throne shook",
+      line: "When Sa'd died, the Throne of the Most Merciful shook.",
+      facts: ["The Prophet ﷺ said this himself.", "Jabir heard him say it.", "It shows how great Sa'd was with Allah."],
+      source: hadith("bukhari", "3803", "Jabir ibn Abdullah", "Sahih", "I heard the Prophet ﷺ say: the Throne of the Most Merciful shook at the death of Sa'd ibn Mu'adh.", "The Throne of the Beneficent shook"),
+      difficulty: 3,
+      questions: [
+        { q: "What shook when Sa'd ibn Mu'adh died?", a: "The Throne of the Most Merciful", wrong: ["The Kaaba", "Mount Uhud", "The mosque"], why: "The Prophet ﷺ said the Throne shook." },
+        { q: "Who heard the Prophet ﷺ say this?", a: "Jabir ibn Abdullah", wrong: ["Abu Jahl", "Ka'b ibn Malik", "Abu Musa"], why: "Jabir narrated it in Bukhari 3803." },
+        { q: "This shows Sa'd's high place with Allah.", tf: true, why: "Such honor was told of very few." }
+      ]
+    },
+    {
+      slug: "handkerchiefs",
+      title: "Softer than silk",
+      line: "Sa'd's handkerchiefs in Paradise are softer than silk.",
+      facts: ["Someone gave the Prophet ﷺ a silk cloth.", "The companions touched it and loved its softness.", "He said Sa'd's handkerchiefs in Paradise are better."],
+      source: hadith("bukhari", "3802", "Al-Bara ibn Azib", "Sahih", "A silk cloth was given to the Prophet ﷺ and his companions admired its softness. He said: you admire its softness? The handkerchiefs of Sa'd ibn Mu'adh in Paradise are better and softer.", "are better and softer than it"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the companions admire?", a: "A soft silk cloth", wrong: ["A golden sword", "A fast horse", "A big house"], why: "They touched it and loved its softness." },
+        { q: "What of Sa'd's is better in Paradise?", a: "His handkerchiefs", wrong: ["His sword", "His house", "His camel"], why: "Even his handkerchiefs there are better and softer." },
+        { q: "The best things of this world are small next to Paradise.", tf: true, why: "Even a handkerchief there beats fine silk here." }
+      ]
+    }
+  ]
+};
+
+// Abdur-Rahman ibn Awf: an early Muslim from Makkah who started again with nothing in Madinah, grew rich, and
+// stayed humble.
+const ABDUR_RAHMAN: DeepUnit = {
+  key: "abdur-rahman",
+  topicId: "sahabah",
+  branchId: "sahabi-abdur-rahman-ibn-awf",
+  branch: { title: "Abdur-Rahman ibn Awf", description: "The Muhajir who asked only for the market, grew rich, and wept that he might have his reward in this world." },
+  name: "Abdur-Rahman ibn Awf",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "brother",
+      title: "A brother in Madinah",
+      line: "In Madinah, the Prophet ﷺ made Sa'd ibn ar-Rabi his brother.",
+      facts: ["Sa'd ibn ar-Rabi was a rich man of the Ansar.", "He offered Abdur-Rahman half of all he owned.", "This was the brotherhood of the Muhajirun and the Ansar."],
+      source: hadith("bukhari", "3781", "Anas ibn Malik", "Sahih", "When Abdur-Rahman ibn Awf came to us, the Prophet ﷺ made him a brother of Sa'd ibn ar-Rabi, a rich man, who said: I will divide my property into two halves between me and you.", "I will divide my property into two parts between me and you"),
+      difficulty: 2,
+      questions: [
+        { q: "Who became Abdur-Rahman's brother in Madinah?", a: "Sa'd ibn ar-Rabi", wrong: ["Sa'd ibn Mu'adh", "Abu Bakr", "Bilal"], why: "The Prophet ﷺ joined them as brothers." },
+        { q: "What did Sa'd ibn ar-Rabi offer him?", a: "Half of his property", wrong: ["A horse", "Nothing", "A job"], why: "I will divide my property between me and you." },
+        { q: "Sa'd ibn ar-Rabi was from the Ansar.", tf: true, why: "He was a rich man of the Ansar of Madinah." }
+      ]
+    },
+    {
+      slug: "market",
+      title: "\"Show me the market\"",
+      line: "Abdur-Rahman said: Allah bless your wealth. Show me the market.",
+      facts: ["He did not take his brother's wealth.", "He traded and came back with butter and dried yogurt.", "He earned his own living from his first day."],
+      source: hadith("bukhari", "2049", "Anas ibn Malik", "Sahih", "Abdur-Rahman said: may Allah bless you in your family and your property. Show me the market. He did not come back until he had earned some dried yogurt and butter.", "Show me the market"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Abdur-Rahman ask his new brother for?", a: "The way to the market", wrong: ["Half his money", "A house", "A camel"], why: "He said: show me the market." },
+        { q: "What did he bring home from the market?", a: "Dried yogurt and butter", wrong: ["Gold coins", "A sheep", "Silk"], why: "His first profit from trading." },
+        { q: "Abdur-Rahman took half of Sa'd's wealth.", tf: false, why: "He made dua for him and went to trade instead." }
+      ]
+    },
+    {
+      slug: "wedding",
+      title: "Even with one sheep",
+      line: "At his wedding: hold a walimah, even with one sheep.",
+      facts: ["He married a woman of the Ansar.", "Her mahr was gold the weight of a date stone.", "The Prophet ﷺ made dua for barakah for him."],
+      source: hadith("bukhari", "5155", "Anas ibn Malik", "Sahih", "The Prophet ﷺ saw traces of yellow scent on Abdur-Rahman and asked about it. He said: I married a woman for gold the weight of a date stone. He said: may Allah bless you. Offer a wedding feast, even with one sheep.", "Offer a wedding banquet even with one sheep"),
+      difficulty: 3,
+      questions: [
+        { q: "How did the Prophet ﷺ know he had married?", a: "He saw yellow scent on him", wrong: ["Someone wrote a letter", "He heard drums", "Abdur-Rahman shouted it"], why: "He saw the traces of yellow perfume." },
+        { q: "What mahr did Abdur-Rahman give?", a: "Gold the weight of a date stone", wrong: ["A hundred camels", "A house", "Nothing"], why: "Gold equal to the weight of a date stone." },
+        { q: "What did the Prophet ﷺ tell him to do?", a: "Give a walimah, even with one sheep", wrong: ["Keep it secret", "Leave Madinah", "Give away his gold"], why: "A wedding feast, even with one sheep." }
+      ]
+    },
+    {
+      slug: "badr",
+      title: "Two boys at Badr",
+      line: "At Badr, two Ansari boys asked him: where is Abu Jahl?",
+      facts: ["Abu Jahl insulted the Prophet ﷺ.", "Abdur-Rahman pointed him out.", "The two boys were both named Mu'adh."],
+      source: hadith("bukhari", "3141", "Abdur-Rahman ibn Awf", "Sahih", "At Badr I saw two young Ansari boys beside me. Each asked: uncle, do you know Abu Jahl? I heard he insults the Messenger of Allah ﷺ. When I pointed him out, they both went for him.", "saw two young Ansari boys"),
+      difficulty: 3,
+      questions: [
+        { q: "Who asked Abdur-Rahman about Abu Jahl at Badr?", a: "Two young Ansari boys", wrong: ["Two old men", "Two Makkan leaders", "Two women"], why: "Each one asked him on his own." },
+        { q: "Why did the boys look for Abu Jahl?", a: "He insulted the Prophet ﷺ", wrong: ["He owed them money", "He was their uncle", "He was lost"], why: "They heard he abused the Messenger of Allah ﷺ." },
+        { q: "What was the name of both boys?", a: "Mu'adh", wrong: ["Ali", "Zayd", "Anas"], why: "Mu'adh ibn Afra and Mu'adh ibn Amr ibn al-Jamuh." }
+      ]
+    },
+    {
+      slug: "tears",
+      title: "Tears at iftar",
+      line: "Rich and fasting, he wept remembering Mus'ab and Hamzah.",
+      facts: ["Mus'ab had only one sheet to be shrouded in.", "He said Hamzah was better than him too.", "He feared getting his reward in this world."],
+      source: hadith("bukhari", "1275", "Ibrahim", "Sahih", "Food was brought to Abdur-Rahman ibn Awf while he was fasting. He said: Mus'ab was better than me and was shrouded in one sheet; Hamzah was better than me. Now the world has been opened for us. I fear our rewards were given early in this world. Then he wept and left the food.", "I fear that the rewards of my deeds might have been given earlier in this world"),
+      difficulty: 4,
+      questions: [
+        { q: "Whom did Abdur-Rahman remember at his meal?", a: "Mus'ab and Hamzah", wrong: ["Abu Jahl and Abu Lahab", "Khalid and Amr", "His children"], why: "Both were better than him, he said." },
+        { q: "What was Mus'ab shrouded in?", a: "A single sheet", wrong: ["Fine silk", "Three white cloths", "His armor"], why: "Cover his head and his feet showed." },
+        { q: "What did Abdur-Rahman fear?", a: "Getting his reward in this world", wrong: ["Losing his money", "Being hungry", "Going on a journey"], why: "So he wept and left the food." },
+        { q: "Wealth made Abdur-Rahman proud and careless.", tf: false, why: "He wept, afraid of being rewarded only in this life." }
+      ]
+    },
+    {
+      slug: "shura",
+      title: "Choosing the next caliph",
+      line: "Abdur-Rahman stepped aside so he could help choose the caliph.",
+      facts: ["Umar named a small group to choose among themselves.", "Abdur-Rahman barely slept for three nights, asking people.", "Then the people pledged to Uthman."],
+      source: hadith("bukhari", "7207", "Al-Miswar ibn Makhramah", "Sahih", "Abdur-Rahman told the group Umar had named: I will not compete with you for this, but if you wish I will choose for you one of you. He consulted the people for three nights, and then they gave the pledge to Uthman.", "I am not going to compete with you in this matter"),
+      difficulty: 4,
+      questions: [
+        { q: "What did Abdur-Rahman do for the caliphate?", a: "Stepped aside to help choose", wrong: ["Took it by force", "Left Madinah", "Refused to help"], why: "I am not going to compete with you in this matter." },
+        { q: "How long did he consult the people?", a: "Three nights", wrong: ["One hour", "A month", "A year"], why: "He hardly slept for three nights." },
+        { q: "Who became caliph after Umar?", a: "Uthman", wrong: ["Ali", "Abdur-Rahman", "Talhah"], why: "The people gave the pledge to Uthman." }
+      ]
+    }
+  ]
+};
+
+// Mu'adh ibn Jabal: a young man of the Ansar who knew halal and haram best, and was sent to teach Yemen.
+const MUADH: DeepUnit = {
+  key: "muadh",
+  topicId: "sahabah",
+  branchId: "sahabi-muadh-ibn-jabal",
+  branch: { title: "Mu'adh ibn Jabal", description: "The young scholar of the Ansar the Prophet ﷺ loved and sent to teach Yemen." },
+  name: "Mu'adh ibn Jabal",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "four-teachers",
+      title: "Learn the Quran from four",
+      line: "One of four people to learn the Quran from.",
+      facts: ["The four: Ibn Mas'ud, Salim, Ubayy ibn Ka'b and Mu'adh.", "They recited the Quran very well.", "Abdullah ibn Amr heard the Prophet ﷺ say this."],
+      source: hadith("bukhari", "3758", "Abdullah ibn Amr", "Sahih", "The Prophet ﷺ said: learn the recitation of the Quran from four: Abdullah ibn Mas'ud, Salim the freed slave of Abu Hudhayfah, Ubayy ibn Ka'b and Mu'adh ibn Jabal.", "four persons"),
+      difficulty: 2,
+      questions: [
+        { q: "How many people did the Prophet ﷺ name to learn the Quran from?", a: "Four", wrong: ["Two", "Ten", "Seventy"], why: "Learn the Quran from four people." },
+        { q: "Who was NOT one of the four?", a: "Abu Hurairah", wrong: ["Ibn Mas'ud", "Ubayy ibn Ka'b", "Salim"], why: "The four were Ibn Mas'ud, Salim, Ubayy and Mu'adh." },
+        { q: "The Prophet ﷺ trusted Mu'adh to teach the Quran.", tf: true, why: "He named him among the four." }
+      ]
+    },
+    {
+      slug: "riding-behind",
+      title: "Riding behind the Prophet ﷺ",
+      line: "Riding behind him, Mu'adh learned Allah's right on us.",
+      facts: ["The Prophet ﷺ called his name three times.", "Allah's right: worship Him alone.", "Their right on Him: He will not punish those who do so."],
+      source: hadith("bukhari", "6500", "Mu'adh ibn Jabal", "Sahih", "I was riding behind the Prophet ﷺ with only the back of the saddle between us. He said: O Mu'adh, do you know Allah's right over His servants? To worship Him and join nothing with Him. And their right on Allah is that He does not punish them.", "there was nothing between me and him except the back of the saddle"),
+      difficulty: 2,
+      questions: [
+        { q: "What is Allah's right over His servants?", a: "To worship Him alone", wrong: ["To pay taxes", "To travel", "To build houses"], why: "Worship Him and join nothing with Him." },
+        { q: "Where was Mu'adh when he learned this?", a: "Riding behind the Prophet ﷺ", wrong: ["In the market", "At Badr", "In Yemen"], why: "Only the back of the saddle was between them." },
+        { q: "The Prophet ﷺ called Mu'adh only once.", tf: false, why: "He called him again and again, to make him listen well." }
+      ]
+    },
+    {
+      slug: "i-love-you",
+      title: "\"I love you, Mu'adh\"",
+      line: "The Prophet ﷺ held his hand: by Allah, I love you, Mu'adh.",
+      facts: ["Then he taught him a dua for after every prayer.", "O Allah, help me remember You, thank You, and worship You well.", "Mu'adh passed it on to his students."],
+      source: hadith("abudawud", "1522", "Mu'adh ibn Jabal", "Sahih", "The Prophet ﷺ took Mu'adh's hand and said: by Allah, I love you, Mu'adh. Never leave saying after every prayer: O Allah, help me to remember You, to thank You and to worship You well.", "By Allah, I love you"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the Prophet ﷺ tell Mu'adh as he held his hand?", a: "By Allah, I love you", wrong: ["Go to Yemen now", "You are late", "Pray more"], why: "Then he gave him advice." },
+        { q: "When should this dua be said?", a: "After every prayer", wrong: ["Only on Friday", "Only in Ramadan", "Before eating"], why: "Never leave it after every prayer." },
+        { q: "What do we ask Allah's help for in this dua?", a: "Remembering, thanking and worshipping Him well", wrong: ["Getting rich fast", "Winning arguments", "Becoming famous"], why: "Help me to remember You, thank You and worship You well." }
+      ]
+    },
+    {
+      slug: "halal-haram",
+      title: "Knows halal and haram best",
+      line: "Mu'adh knew best of all the ummah what is halal and haram.",
+      facts: ["The Prophet ﷺ praised several companions for one gift each.", "Abu Bakr was the most merciful.", "Mu'adh knew best the lawful and the unlawful."],
+      source: hadith("tirmidhi", "3790", "Anas ibn Malik", "Sahih", "The Prophet ﷺ said: the most merciful of my ummah is Abu Bakr... the most knowledgeable of the lawful and unlawful is Mu'adh ibn Jabal... and the trustworthy one of this ummah is Abu Ubaydah.", "concerning the lawful and unlawful"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Mu'adh know best of all?", a: "What is halal and haram", wrong: ["Poetry", "Trade", "Horse riding"], why: "The most knowledgeable of the lawful and unlawful." },
+        { q: "Whom did the Prophet ﷺ call the most merciful of the ummah?", a: "Abu Bakr", wrong: ["Umar", "Mu'adh", "Khalid"], why: "The most merciful of my ummah is Abu Bakr." },
+        { q: "Who was called the trustworthy one of this ummah?", a: "Abu Ubaydah", wrong: ["Mu'adh", "Uthman", "Ali"], why: "Every nation has a trustworthy one." }
+      ]
+    },
+    {
+      slug: "long-prayer",
+      title: "Keep it light",
+      line: "Mu'adh led Isha with Al-Baqarah and was told: lighter!",
+      facts: ["A tired farmer left the long prayer.", "The Prophet ﷺ asked: are you putting people to trial?", "Behind the imam are the old, the weak and the needy."],
+      source: hadith("bukhari", "705", "Jabir ibn Abdullah", "Sahih", "Mu'adh recited Al-Baqarah in Isha and a man with his camels left. The Prophet ﷺ said: O Mu'adh, are you putting the people to trial? Recite Al-A'la, Ash-Shams or Al-Layl, for the old, the weak and the needy pray behind you.", "for the old, the weak and the needy pray behind you"),
+      difficulty: 3,
+      questions: [
+        { q: "Which surah did Mu'adh recite in Isha?", a: "Al-Baqarah", wrong: ["Al-Ikhlas", "Al-Kawthar", "Al-Asr"], why: "A very long surah for a tired man." },
+        { q: "Which surahs did the Prophet ﷺ suggest instead?", a: "Al-A'la, Ash-Shams, Al-Layl", wrong: ["Al-Baqarah and Ali Imran", "No surahs at all", "Only Al-Kahf"], why: "Shorter surahs for the people." },
+        { q: "Why should an imam keep the prayer light?", a: "The old, weak and needy pray behind", wrong: ["Imams must hurry home", "Long prayers are always wrong", "To finish before the market"], why: "He cares for everyone behind him." }
+      ]
+    },
+    {
+      slug: "make-it-easy",
+      title: "\"Make things easy\"",
+      line: "Sending him to Yemen, the Prophet ﷺ said: make things easy.",
+      facts: ["Mu'adh and Abu Musa each led one part of Yemen.", "Give good news, do not drive people away.", "When near each other's land, they visited each other."],
+      source: hadith("bukhari", "4341", "Abu Burdah", "Sahih", "The Prophet ﷺ sent Abu Musa and Mu'adh to Yemen, each over one province, and said: make things easy for the people and do not make them hard; give good news and do not drive them away.", "Facilitate things for the people and do not make things difficult for them"),
+      difficulty: 3,
+      questions: [
+        { q: "Where was Mu'adh sent?", a: "Yemen", wrong: ["Sham", "Egypt", "Persia"], why: "With Abu Musa, each over one part." },
+        { q: "What was the Prophet's ﷺ advice to them?", a: "Make things easy, not hard", wrong: ["Be very strict", "Take their wealth", "Stay silent"], why: "Facilitate, and give good news." },
+        { q: "Who went to Yemen with Mu'adh?", a: "Abu Musa al-Ash'ari", wrong: ["Abu Jahl", "Abu Hurairah", "Abu Dharr"], why: "Yemen had two provinces, one each." }
+      ]
+    },
+    {
+      slug: "first-things-first",
+      title: "First things first",
+      line: "Teach Tawhid first, then prayer, then zakat.",
+      facts: ["Zakat is taken from the rich and given to their poor.", "Do not take the best of their wealth.", "Fear the dua of the oppressed: nothing blocks it from Allah."],
+      source: hadith("bukhari", "1496", "Ibn Abbas", "Sahih", "The Prophet ﷺ told Mu'adh: invite them first to the testimony of faith, then the five prayers, then zakat from their rich to their poor. Avoid taking the best of their wealth, and fear the dua of the oppressed, for there is no screen between it and Allah.", "there is no screen between his invocation and Allah"),
+      difficulty: 4,
+      questions: [
+        { q: "What was Mu'adh to teach first?", a: "The testimony of faith", wrong: ["Zakat", "Hajj", "Trade rules"], why: "Tawhid comes first, then prayer, then zakat." },
+        { q: "Whose dua has no screen before Allah?", a: "The oppressed", wrong: ["The richest man", "The king", "Only the scholars"], why: "Fear the dua of the oppressed." },
+        { q: "Zakat is taken from the poor and given to the rich.", tf: false, why: "It is taken from the rich and given to the poor." }
+      ]
+    }
+  ]
+};
+
+export const COMPANION_UNITS: DeepUnit[] = [JAFAR, ABU_HURAIRAH, KAB, SAD_MUADH, ABDUR_RAHMAN, MUADH];
