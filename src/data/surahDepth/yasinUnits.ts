@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Ya-Sin ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -203,6 +203,20 @@ const YASIN_ONE: DeepUnit = {
       ]
     },
     {
+      slug: "good-that-outlives-you",
+      title: "Good that outlives you",
+      line: "Knowledge you taught and good you started keep earning reward.",
+      facts: ["As-Sa'di explains", "Lasting deeds"],
+      quote: q36(12),
+      source: saadi(36, 12, "As-Sa'di says what people leave behind includes every good done because of their teaching, advice, books, or a mosque or useful place they built, and the same is true of evil they started.", "فكل خير عمل به أحد من الناس، بسبب علم العبد وتعليمه ونصحه"),
+      difficulty: 2,
+      questions: [
+        { q: "What counts as good we leave behind, per as-Sa'di?", a: "Knowledge we taught others", wrong: ["Our clothes", "Our sleep", "Our games"], why: "Good done because of your teaching is written for you, says as-Sa'di." },
+        { q: "Which hadith does as-Sa'di quote on 36:12?", a: "Whoever starts a good sunnah", wrong: ["Actions are by intentions", "Religion is advice", "Smile is charity"], why: "Whoever starts a good sunnah gets its reward and the reward of those who act on it." },
+        { tf: true, q: "Building a mosque can keep earning reward after death.", why: "As-Sa'di on 36:12." }
+      ]
+    },
+    {
       slug: "the-dwellers-of-the-town",
       title: "The people of the town",
       line: "Tell them the parable of a town that Messengers visited.",
@@ -396,6 +410,20 @@ const YASIN_ONE: DeepUnit = {
         { q: "What was he told, in 36:26?", a: "Enter Paradise", wrong: ["Go home", "Run away", "Wait"], why: "It was said: Enter Paradise." },
         { q: "What did he wish, in 36:26?", a: "That his people knew", wrong: ["Revenge", "Gold", "A palace"], why: "He said: Would that my people knew." },
         { q: "How was he towards his people, per Ibn Abbas?", a: "Sincere, even after death", wrong: ["Angry", "Bitter", "Silent"], why: "He was sincere towards his people during his lifetime and after his death." }
+      ]
+    },
+    {
+      slug: "advising-even-after-death",
+      title: "Advising even after death",
+      line: "The believing man still wished good for his people after death.",
+      facts: ["As-Sa'di explains", "Sincere advice"],
+      quote: q36(26),
+      source: saadi(36, 26, "As-Sa'di says the believing man, told to enter Paradise, still advised his people after his death as he did in life, wishing they knew how Allah forgave and honored him, so they would leave shirk.", "وناصحا لقومه بعد وفاته، كما نصح لهم في حياته"),
+      difficulty: 2,
+      questions: [
+        { q: "What did the believing man wish after entering Paradise?", a: "That his people knew", wrong: ["Revenge on them", "To forget them", "Nothing"], why: "He wished his people knew how Allah forgave him." },
+        { q: "Why did he wish they knew, per as-Sa'di on 36:26?", a: "So they would leave shirk", wrong: ["To make them jealous", "To boast", "To scare them"], why: "If they knew, they would not stay on shirk." },
+        { tf: true, q: "He advised his people after death as he did in life.", why: "As-Sa'di on 36:26." }
       ]
     },
     {
@@ -1038,6 +1066,20 @@ const YASIN_THREE: DeepUnit = {
         { q: "Whom does the Quran warn, in 36:70?", a: "Whoever is living", wrong: ["Only the dead", "Only kings", "Only scholars"], why: "That he or it may give warning to him who is living." },
         { q: "What does living mean, per Qatadah?", a: "Alive of heart and insight", wrong: ["Young in age", "Rich", "Strong"], why: "Qatadah said, Alive of heart and alive of insight." },
         { q: "What is the Quran to believers, per Ibn Kathir?", a: "A mercy", wrong: ["A burden", "A riddle", "A story only"], why: "It is a mercy to the believers and evidence against the disbelievers." }
+      ]
+    },
+    {
+      slug: "rain-on-good-land",
+      title: "Rain on good land",
+      line: "To a living heart, the Quran is like rain on good land.",
+      facts: ["As-Sa'di explains", "A living heart"],
+      quote: q36(70),
+      source: saadi(36, 70, "As-Sa'di says the Quran benefits one whose heart is alive and aware; he grows in knowledge and deeds through it, and the Quran is to his heart like rain to good, fertile land.", "ويكون القرآن لقلبه بمنزلة المطر للأرض الطيبة الزاكية"),
+      difficulty: 2,
+      questions: [
+        { q: "What is the Quran like for a living heart, per as-Sa'di?", a: "Rain on good land", wrong: ["A heavy rock", "A cold wind", "A locked door"], why: "Like rain to good, fertile land, says as-Sa'di." },
+        { q: "Who benefits from the Quran, in Ya Sin 36:70?", a: "One whose heart is alive", wrong: ["Only the rich", "Only the old", "Everyone equally"], why: "It warns whoever is truly alive at heart." },
+        { tf: true, q: "The Quran leaves the deniers with no excuse left.", why: "As-Sa'di on 36:70." }
       ]
     },
     {
