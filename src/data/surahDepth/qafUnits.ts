@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Qaf ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -272,6 +272,20 @@ const QAF_ONE: DeepUnit = {
       ]
     },
     {
+      slug: "what-creation-proves",
+      title: "What creation proves",
+      line: "Creation's strength, beauty and gifts point to Allah.",
+      facts: ["As-Sa'di explains", "Power, wisdom, mercy"],
+      quote: q50(9),
+      source: saadi(50, 9, "As-Sa'di says the strength of creation proves Allah's power, its beauty and precision prove His wisdom and knowledge, its benefits for us prove His mercy, and its vast order proves He is One.", "وما فيها من المنافع والمصالح للعباد، دليل على رحمة الله"),
+      difficulty: 2,
+      questions: [
+        { q: "What do creation's benefits for us show, per as-Sa'di?", a: "Allah's mercy", wrong: ["Luck", "Nothing", "Nature alone"], why: "Its benefits for people prove Allah's mercy, says as-Sa'di." },
+        { q: "What does the beauty and precision of creation prove?", a: "Allah's wisdom and knowledge", wrong: ["Chance", "Many gods", "Weakness"], why: "Its fine making shows He is the Wisest and All-Knowing." },
+        { tf: true, q: "The vast order of creation points to Allah being One.", why: "As-Sa'di on 50:9." }
+      ]
+    },
+    {
       slug: "tall-date-palms",
       title: "Tall date palms",
       line: "Tall date palms with fruit in neat clusters.",
@@ -436,6 +450,20 @@ const QAF_TWO: DeepUnit = {
         { q: "Nearer than what, in 50:16?", a: "His jugular vein", wrong: ["His shadow", "His house", "His friend"], why: "And We are nearer to him than his jugular vein." },
         { q: "What does Allah affirm over mankind, per Ibn Kathir?", a: "His absolute dominance", wrong: ["Nothing", "Only some power", "Only in the past"], why: "Allah the Exalted affirms His absolute dominance over mankind." },
         { tf: false, q: "Some of our secrets are hidden from Allah.", why: "Being their Creator and the Knower of everything about them." }
+      ]
+    },
+    {
+      slug: "shy-before-allah",
+      title: "Shy before Allah",
+      line: "Knowing Allah is so near, we feel shy to disobey Him.",
+      facts: ["As-Sa'di explains", "Muraqabah"],
+      quote: q50(16),
+      source: saadi(50, 16, "As-Sa'di says knowing Allah is nearer than the jugular vein makes a person watch himself and feel shy that Allah sees him where He forbade, or misses him where He commanded.", "فيستحي منه أن يراه، حيث نهاه، أو يفقده، حيث أمره"),
+      difficulty: 2,
+      questions: [
+        { q: "What should Allah's nearness make us feel, per as-Sa'di?", a: "Shy to disobey Him", wrong: ["Careless", "Proud", "Bored"], why: "Shy that He sees us where He forbade, says as-Sa'di." },
+        { q: "Where should Allah never miss us, per as-Sa'di?", a: "Where He commanded us", wrong: ["At the market", "At home", "Nowhere"], why: "Shy that He misses us where He commanded." },
+        { tf: true, q: "We should also respect the angels who write our deeds.", why: "As-Sa'di on 50:16." }
       ]
     },
     {
