@@ -21256,6 +21256,7 @@
   "Can you still remember these about Abu Bakr?": "هل ما زلت تذكر هذه عن أبي بكر؟",
   "Can you still remember these about Abu Hanifah?": "هل ما زلت تذكر هذه عن أبي حنيفة؟",
   "Can you still remember these about Abu Hurairah?": "هل ما زلت تذكر هذه عن أبي هريرة؟",
+  "Can you still remember these about Abu Musa al-Ash'ari?": "هل ما زلت تذكر هذه عن أبي موسى الأشعري؟",
   "Can you still remember these about Ad-Duha, ayahs 1-5?": "هل ما زلت تتذكر هذه عن الضحى، الآيات 1-5؟",
   "Can you still remember these about Ad-Dukhan, ayahs 1 to 16?": "هل تتذكر هذه عن الدخان، الآيات 1 إلى 16؟",
   "Can you still remember these about Ad-Dukhan, ayahs 17 to 37?": "هل تتذكر هذه عن الدخان، الآيات 17 إلى 37؟",
@@ -21615,6 +21616,7 @@
   "Can you still remember these about Ta-Ha, ayahs 53 to 98?": "هل ما زلت تتذكر هذه عن طه، الآيات 53 إلى 98؟",
   "Can you still remember these about Ta-Ha, ayahs 99 to 135?": "هل ما زلت تتذكر هذه عن طه، الآيات 99 إلى 135؟",
   "Can you still remember these about Taha?": "هل ما زلت تذكر هذه عن سورة طه؟",
+  "Can you still remember these about Ubayy ibn Ka'b?": "هل ما زلت تذكر هذه عن أبي بن كعب؟",
   "Can you still remember these about Umar?": "هل ما زلت تذكر هذه عن عمر؟",
   "Can you still remember these about Uthman?": "هل ما زلت تذكر هذه عن عثمان؟",
   "Can you still remember these about Ya-Sin, ayahs 1 to 27?": "هل تتذكر هذه عن يس، الآيات 1 إلى 27؟",
@@ -21633,6 +21635,7 @@
   "Can you still remember these about Yusuf, ayahs 58 to 82?": "هل ما زلت تذكر هذا عن سورة يوسف، الآيات 58 إلى 82؟",
   "Can you still remember these about Yusuf, ayahs 83 to 101?": "هل ما زلت تذكر هذا عن سورة يوسف، الآيات 83 إلى 101؟",
   "Can you still remember these about Yusuf?": "هل ما زلت تذكر هذه عن سورة يوسف؟",
+  "Can you still remember these about Zayd ibn Thabit?": "هل ما زلت تذكر هذه عن زيد بن ثابت؟",
   "Can you still remember these about al-Albani?": "هل ما زلت تذكر هذه عن الألباني؟",
   "Can you still remember these about children?": "هل ما زلت تذكر هذه عن الأولاد؟",
   "Can you still remember these about death and the grave?": "هل ما زلت تتذكر هذا عن الموت والقبر؟",
@@ -123395,8 +123398,5 @@
   "yes": "نعم",
   "young": "صغيرًا",
   "your Lord's punishment will surely come; no one can push it back.": "إن عذاب ربك لواقع، ما له من دافع.",
-  "zakat": "الزكاة",
-  "Can you still remember these about Ubayy ibn Ka'b?": "هل ما زلت تذكر هذه عن أبي بن كعب؟",
-  "Can you still remember these about Zayd ibn Thabit?": "هل ما زلت تذكر هذه عن زيد بن ثابت؟",
-  "Can you still remember these about Abu Musa al-Ash'ari?": "هل ما زلت تذكر هذه عن أبي موسى الأشعري؟"
+  "zakat": "الزكاة"
 }

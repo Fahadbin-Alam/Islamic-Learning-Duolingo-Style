@@ -21256,6 +21256,7 @@
   "Can you still remember these about Abu Bakr?": "আবু বকর সম্পর্কে এগুলো কি এখনো মনে আছে?",
   "Can you still remember these about Abu Hanifah?": "আবু হানিফা সম্পর্কে এগুলো কি এখনো মনে আছে?",
   "Can you still remember these about Abu Hurairah?": "আবু হুরায়রা সম্পর্কে এগুলো কি এখনো মনে আছে?",
+  "Can you still remember these about Abu Musa al-Ash'ari?": "আবু মূসা আশআরি সম্পর্কে এগুলো কি এখনো মনে আছে?",
   "Can you still remember these about Ad-Duha, ayahs 1-5?": "তুমি কি এখনো আদ-দুহা, আয়াত ১-৫ সম্পর্কে এগুলো মনে রাখতে পারো?",
   "Can you still remember these about Ad-Dukhan, ayahs 1 to 16?": "আদ-দুখান, আয়াত ১ থেকে ১৬ সম্পর্কে এগুলো কি এখনও মনে আছে?",
   "Can you still remember these about Ad-Dukhan, ayahs 17 to 37?": "আদ-দুখান, আয়াত ১৭ থেকে ৩৭ সম্পর্কে এগুলো কি এখনও মনে আছে?",
@@ -21615,6 +21616,7 @@
   "Can you still remember these about Ta-Ha, ayahs 53 to 98?": "ত্বা-হা, আয়াত ৫৩ থেকে ৯৮ সম্পর্কে এগুলো কি এখনো মনে আছে?",
   "Can you still remember these about Ta-Ha, ayahs 99 to 135?": "ত্বা-হা, আয়াত ৯৯ থেকে ১৩৫ সম্পর্কে এগুলো কি এখনো মনে আছে?",
   "Can you still remember these about Taha?": "ত্বা-হা সম্পর্কে এগুলো কি এখনো মনে আছে?",
+  "Can you still remember these about Ubayy ibn Ka'b?": "উবাই ইবনে কা'ব সম্পর্কে এগুলো কি এখনো মনে আছে?",
   "Can you still remember these about Umar?": "উমর সম্পর্কে এগুলো কি এখনো মনে আছে?",
   "Can you still remember these about Uthman?": "উসমান সম্পর্কে এগুলো কি এখনো মনে আছে?",
   "Can you still remember these about Ya-Sin, ayahs 1 to 27?": "ইয়া-সীন, আয়াত ১ থেকে ২৭ সম্পর্কে এগুলো মনে আছে?",
@@ -21633,6 +21635,7 @@
   "Can you still remember these about Yusuf, ayahs 58 to 82?": "সূরা ইউসুফের আয়াত ৫৮ থেকে ৮২ সম্পর্কে এগুলো কি এখনো মনে আছে?",
   "Can you still remember these about Yusuf, ayahs 83 to 101?": "সূরা ইউসুফের আয়াত ৮৩ থেকে ১০১ সম্পর্কে এগুলো কি এখনো মনে আছে?",
   "Can you still remember these about Yusuf?": "ইউসুফ সম্পর্কে এগুলো কি এখনো মনে আছে?",
+  "Can you still remember these about Zayd ibn Thabit?": "যায়েদ ইবনে সাবিত সম্পর্কে এগুলো কি এখনো মনে আছে?",
   "Can you still remember these about al-Albani?": "আলবানী সম্পর্কে এগুলো কি এখনো মনে আছে?",
   "Can you still remember these about children?": "সন্তানদের সম্পর্কে এগুলো কি এখনো মনে আছে?",
   "Can you still remember these about death and the grave?": "মৃত্যু ও কবর নিয়ে এগুলো কি এখনো মনে আছে?",
@@ -123395,8 +123398,5 @@
   "yes": "হ্যাঁ",
   "young": "ছোট",
   "your Lord's punishment will surely come; no one can push it back.": "তোমার রবের শাস্তি অবশ্যই আসবে; কেউ তা ঠেকাতে পারবে না।",
-  "zakat": "যাকাত",
-  "Can you still remember these about Ubayy ibn Ka'b?": "উবাই ইবনে কা'ব সম্পর্কে এগুলো কি এখনো মনে আছে?",
-  "Can you still remember these about Zayd ibn Thabit?": "যায়েদ ইবনে সাবিত সম্পর্কে এগুলো কি এখনো মনে আছে?",
-  "Can you still remember these about Abu Musa al-Ash'ari?": "আবু মূসা আশআরি সম্পর্কে এগুলো কি এখনো মনে আছে?"
+  "zakat": "যাকাত"
 }
