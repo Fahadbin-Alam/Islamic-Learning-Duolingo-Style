@@ -19,13 +19,13 @@ import { t } from "../i18n";
 import { DAILY_HADITH } from "../data/dailyCard";
 import { openWebPage } from "../services/network";
 
-// A hidden trick on the home path: tap the same picture (the camel, a sheep, the sun, a cloud...) 50 times in a row and
+// A hidden trick on the home path: tap the same picture (the camel, a sheep, the sun, a cloud...) 25 times in a row and
 // a hadith pops up. The hadith come from the daily card's list (hadithBasics.ts): short sayings of the Prophet ﷺ already
 // checked word for word on sunnah.com and translated, each with its reference and a link to it. Nothing new, nothing
 // disputed, and no gems or rewards change hands, so it never undercuts the Shop's hadith chest.
 
 /** Taps on one picture that open the hidden hadith. */
-export const SECRET_TAPS = 50;
+export const SECRET_TAPS = 25;
 /** A longer pause than this between two taps starts the count again: the trick is for tapping on and on. */
 export const SECRET_GAP_MS = 4000;
 
@@ -45,7 +45,7 @@ export function pickSecretHadith(
 
 /**
  * The tap counter for one picture: call it from the picture's own tap handler. Each picture counts on its own, so two
- * sheep side by side each need their 50. Outside the home path (no SecretHadithProvider) it does nothing.
+ * sheep side by side each need their 25. Outside the home path (no SecretHadithProvider) it does nothing.
  */
 export function useSecretTap(label: string) {
   const tap = useContext(SecretContext);
@@ -55,7 +55,7 @@ export function useSecretTap(label: string) {
   return useCallback(() => tap(id.current as string), [tap]);
 }
 
-/** Counts the home path's picture taps and shows the hidden hadith on the 50th tap in a row on one picture. */
+/** Counts the home path's picture taps and shows the hidden hadith on the 25th tap in a row on one picture. */
 export function SecretHadithProvider({
   children,
   taps = SECRET_TAPS,
