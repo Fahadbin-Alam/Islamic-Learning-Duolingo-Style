@@ -1,6 +1,7 @@
 import * as Notifications from "expo-notifications";
 import { Platform } from "react-native";
 import type { SupportedLanguage, UserProfile } from "../types";
+import { dueCount } from "./reviewDeck";
 import { LEAGUE_REMINDER_IDS, planLeagueReminders } from "./leagueReminders";
 import { COMEBACK_DAYS, comebackMessage, messageVariant, stepForDay, type ComebackStep } from "./comebackReminders";
 import {
@@ -117,7 +118,12 @@ async function rescheduleReminders(user: UserProfile, language: SupportedLanguag
 
   await ensureChannel();
   await Promise.all(slots.map((slot) => {
-    const message = comebackMessage(language, slot.step, messageVariant(lastLearningAt), { streakDays: user.streakDays, streakFreezes: user.streakFreezes });
+    const message = comebackMessage(language, slot.step, messageVariant(lastLearningAt), {
+      streakDays: user.streakDays,
+      streakFreezes: user.streakFreezes,
+      // How many missed questions will be due again when this one goes out.
+      reviewDue: dueCount(user.reviewCards, slot.at)
+    });
     return Notifications.scheduleNotificationAsync({
       identifier: slot.id,
       content: { title: message.title, body: message.body, data: { kind: slot.step === "streak" ? "streak" : "resume", step: slot.step } },

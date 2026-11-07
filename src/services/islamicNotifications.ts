@@ -1,4 +1,5 @@
 import type { SupportedLanguage, UserProfile } from "../types";
+import { dueCount } from "./reviewDeck";
 import { calendarDaysBetween, comebackMessage, latestStepForDays, messageVariant, type ComebackStep } from "./comebackReminders";
 import {
   RESUME_REMINDER_AFTER_MS,
@@ -78,7 +79,11 @@ export async function maybeSendIslamicReminder(user: UserProfile, language: Supp
     return false;
   }
 
-  const message = comebackMessage(language, step, messageVariant(lastLearningAt), { streakDays: user.streakDays, streakFreezes: user.streakFreezes });
+  const message = comebackMessage(language, step, messageVariant(lastLearningAt), {
+    streakDays: user.streakDays,
+    streakFreezes: user.streakFreezes,
+    reviewDue: dueCount(user.reviewCards)
+  });
   new Notification(message.title, { body: message.body });
 
   if (step === "streak") {

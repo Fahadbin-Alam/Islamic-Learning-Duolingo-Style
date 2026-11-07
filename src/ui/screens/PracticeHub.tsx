@@ -5,6 +5,7 @@ import { getTopicArabic } from "../../data/arabicTerms";
 import type { UiStrings } from "../../i18n";
 import { translateStudyText } from "../../services/contentLocalization";
 import { getLearnerLevel } from "../../services/foundationAssessment";
+import { calendarDaysUntil, nextDueAt } from "../../services/reviewDeck";
 import type { LearnerProfile, SupportedLanguage, UserProfile } from "../../types";
 import { ArabicText } from "../ArabicText";
 import { GameButton } from "../GameButton";
@@ -199,8 +200,19 @@ export function PracticeHub({
   const basics = getTopicArabic("foundation");
   // Tapping the grey review tile makes the mascot say why it is resting.
   const [restNote, setRestNote] = useState(false);
+  // Caught up: say when the next missed question comes back (1, 3, then 7 days after, see services/reviewDeck).
+  const nextBack = waiting ? nextDueAt(user.reviewCards) : undefined;
+  const daysToNext = nextBack ? calendarDaysUntil(nextBack) : undefined;
+  const nextBackLine =
+    daysToNext === undefined
+      ? undefined
+      : daysToNext === 0
+        ? t("All caught up! A missed question comes back later today.")
+        : daysToNext === 1
+          ? t("All caught up! A missed question comes back tomorrow.")
+          : t("All caught up! A missed question comes back in {count} days.").replace("{count}", String(daysToNext));
   const bubble = restNote
-    ? t(waiting ? "All caught up!" : "No mistakes yet!")
+    ? nextBackLine ?? t(waiting ? "All caught up!" : "No mistakes yet!")
     : deckDue > 0
       ? t("Let's fix your mistakes!")
       : placed
