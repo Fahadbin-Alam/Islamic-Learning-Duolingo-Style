@@ -2644,6 +2644,355 @@ const ADHAN: DeepUnit = {
   ]
 };
 
+const FUNERALS: DeepUnit = {
+  key: "book-funerals",
+  topicId: "sahihayn",
+  branchId: "hadith-book-janaiz",
+  branch: { title: "The Book of Funerals", description: "From the Books of Funerals: patience at a death, washing and shrouding, the prayer and the graves." },
+  name: "the Book of Funerals",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "how-you-die-matters",
+      title: "How you die matters",
+      line: "Whoever dies worshipping none but Allah enters Paradise.",
+      facts: ["Shirk at death leads to the Fire", "Told by Ibn Mas'ud"],
+      source: hadith("bukhari", "1238", "Abdullah ibn Mas'ud", "Sahih", "The Prophet ﷺ said: whoever dies worshipping others with Allah enters the Fire. Ibn Mas'ud said: so whoever dies worshipping none with Allah enters Paradise.", "Anyone who dies worshipping none along with Allah will definitely enter Paradise"),
+      difficulty: 1,
+      questions: [
+        { q: "Who enters Paradise, by this hadith?", a: "One who dies on tawhid", wrong: ["One who dies rich", "One who dies old", "One who dies famous"], why: "Anyone who dies worshipping none along with Allah enters Paradise." },
+        { q: "What leads to the Fire at death?", a: "Worshipping others with Allah", wrong: ["Being poor", "Dying young", "Dying far from home"], why: "Anyone who dies worshipping others along with Allah enters the Fire." },
+        { q: "The state we die in is what counts.", tf: true, why: "Sahih al-Bukhari 1238." }
+      ]
+    },
+    {
+      slug: "patience-at-the-grave",
+      title: "Patience at the grave",
+      line: "To a woman crying at a grave: fear Allah and be patient.",
+      facts: ["Patience is for the first shock", "Told by Anas"],
+      source: hadith("bukhari", "1252", "Anas ibn Malik", "Sahih", "The Prophet ﷺ passed a woman weeping beside a grave and said to her: fear Allah and be patient.", "Fear Allah and be patient"),
+      difficulty: 1,
+      questions: [
+        { q: "What did he ﷺ tell the crying woman?", a: "Fear Allah and be patient", wrong: ["Go home", "Cry louder", "Blame others"], why: "Fear Allah and be patient." },
+        { q: "Where was the woman sitting?", a: "Beside a grave", wrong: ["In the market", "In the masjid", "On a mountain"], why: "She was sitting and weeping beside a grave." },
+        { q: "Patience is asked of us when we lose someone.", tf: true, why: "Sahih al-Bukhari 1252." }
+      ]
+    },
+    {
+      slug: "three-children-who-died",
+      title: "Children who died young",
+      line: "A Muslim whose three young children die is given Paradise.",
+      facts: ["By Allah's mercy to them", "Told by Anas"],
+      source: hadith("bukhari", "1248", "Anas ibn Malik", "Sahih", "The Prophet ﷺ said: a Muslim whose three children die before puberty will be given Paradise by Allah, out of His mercy for them.", "will be granted Paradise by Allah due to his mercy for them"),
+      difficulty: 2,
+      questions: [
+        { q: "What does Allah give such a parent?", a: "Paradise", wrong: ["Wealth", "Fame", "Long life"], why: "He will be granted Paradise by Allah." },
+        { q: "Why is it given?", a: "Allah's mercy for the children", wrong: ["The parent's money", "Luck", "The doctor"], why: "Due to His mercy for them." },
+        { q: "Losing a child is never forgotten by Allah.", tf: true, why: "Sahih al-Bukhari 1248." }
+      ]
+    },
+    {
+      slug: "no-slapping-or-tearing",
+      title: "No slapping or tearing",
+      line: "Slapping cheeks or tearing clothes in grief is not our way.",
+      facts: ["Tears are allowed, wailing is not", "Told by Ibn Mas'ud"],
+      source: hadith("bukhari", "1294", "Abdullah ibn Mas'ud", "Sahih", "The Prophet ﷺ said: whoever slaps his cheeks, tears his clothes and follows the ways of the Days of Ignorance is not one of us.", "He who slaps his cheeks, tears his clothes"),
+      difficulty: 1,
+      questions: [
+        { q: "Which is NOT allowed in grief?", a: "Tearing your clothes", wrong: ["Quiet tears", "Making dua", "Saying inna lillah"], why: "He who tears his clothes is not one of us." },
+        { q: "Such acts come from...?", a: "The Days of Ignorance", wrong: ["The Sunnah", "The Quran", "The Sahabah"], why: "Follows the ways of the Days of Ignorance." },
+        { q: "Crying quietly at a death is forbidden.", tf: false, why: "Only wailing, slapping and tearing are meant. Sahih al-Bukhari 1294." }
+      ]
+    },
+    {
+      slug: "washing-starts-on-the-right",
+      title: "Washing starts on the right",
+      line: "Wash the dead from the right, starting with the wudu parts.",
+      facts: ["Said for his ﷺ daughter", "Told by Umm Atiyyah"],
+      source: hadith("bukhari", "1255", "Umm Atiyyah", "Sahih", "When his daughter died, the Prophet ﷺ told the women washing her: start with the right side and the parts washed in wudu.", "Start with the right side, and the parts which are washed in ablution"),
+      difficulty: 2,
+      questions: [
+        { q: "Which side is washed first?", a: "The right", wrong: ["The left", "The back", "The feet"], why: "Start with the right side." },
+        { q: "Which parts come first?", a: "The wudu parts", wrong: ["The hair only", "The back only", "No order"], why: "The parts which are washed in ablution." },
+        { q: "Umm Atiyyah helped wash his ﷺ daughter.", tf: true, why: "Sahih al-Bukhari 1255." }
+      ]
+    },
+    {
+      slug: "three-white-sheets",
+      title: "Three white sheets",
+      line: "He ﷺ was shrouded in three white cotton sheets.",
+      facts: ["No shirt and no turban", "Told by Aishah"],
+      source: hadith("bukhari", "1264", "Aishah", "Sahih", "Aishah said the Prophet ﷺ was shrouded in three white Yemeni cotton sheets, with no shirt or turban among them.", "shrouded in three Yemenite white Suhuliya (pieces of cloth) of cotton"),
+      difficulty: 1,
+      questions: [
+        { q: "How many sheets was he ﷺ shrouded in?", a: "Three", wrong: ["One", "Seven", "Ten"], why: "Shrouded in three white pieces of cloth." },
+        { q: "What colour were they?", a: "White", wrong: ["Green", "Black", "Red"], why: "Three Yemenite white cotton cloths." },
+        { q: "His ﷺ shroud had a shirt and a turban.", tf: false, why: "There was neither a shirt nor a turban. Sahih al-Bukhari 1264." }
+      ]
+    },
+    {
+      slug: "hurry-with-the-funeral",
+      title: "Hurry with the funeral",
+      line: "Do not delay a burial; hurry the body to what awaits it.",
+      facts: ["Good awaits the righteous", "Told by Abu Hurairah"],
+      source: hadith("bukhari", "1315", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: hurry with the body; if it was righteous you send it to good, and if not, you put a burden off your necks.", "Hurry up with the dead body"),
+      difficulty: 2,
+      questions: [
+        { q: "What should we do with the funeral?", a: "Hurry with it", wrong: ["Delay it for days", "Hide it", "Leave it"], why: "Hurry up with the dead body." },
+        { q: "If the person was righteous, you send them to...?", a: "Good", wrong: ["Harm", "The market", "Nothing"], why: "You are forwarding it to welfare." },
+        { q: "Delaying burial for no need is the Sunnah.", tf: false, why: "He ﷺ said to hurry. Sahih al-Bukhari 1315." }
+      ]
+    },
+    {
+      slug: "forty-who-pray",
+      title: "Forty who pray",
+      line: "If forty believers pray over a Muslim, Allah accepts their plea.",
+      facts: ["They must not do shirk", "Told by Ibn Abbas"],
+      source: hadith("muslim", "948", "Abdullah ibn Abbas", "Sahih", "The Prophet ﷺ said: if a Muslim dies and forty men who associate nothing with Allah pray over him, Allah accepts them as intercessors for him.", "forty men who associate nothing with Allah stand over his prayer"),
+      difficulty: 2,
+      questions: [
+        { q: "How many believers are named in the hadith?", a: "Forty", wrong: ["Three", "Ten", "A thousand"], why: "Forty men who associate nothing with Allah." },
+        { q: "What does Allah do with their prayer?", a: "Accepts them as intercessors", wrong: ["Rejects it", "Ignores it", "Delays it"], why: "Allah will accept them as intercessors for him." },
+        { q: "Ibn Abbas waited for forty people for his son's funeral.", tf: true, why: "Sahih Muslim 948." }
+      ]
+    },
+    {
+      slug: "a-dua-for-the-dead",
+      title: "A dua for the dead",
+      line: "He ﷺ prayed: O Allah, forgive Abu Salamah and light his grave.",
+      facts: ["Say only good near the dying", "Told by Umm Salamah"],
+      source: hadith("muslim", "920a", "Umm Salamah", "Sahih", "When Abu Salamah died, the Prophet ﷺ closed his eyes, told the family to say only good, as angels say amin, and prayed for his forgiveness, a spacious grave and light in it.", "O Allah, forgive Abu Salama"),
+      difficulty: 2,
+      questions: [
+        { q: "Why say only good when someone dies?", a: "Angels say amin to it", wrong: ["It is shorter", "No one hears", "It is a custom"], why: "Angels say Amen to what you say." },
+        { q: "What did he ﷺ ask for Abu Salamah's grave?", a: "Space and light", wrong: ["Gold", "A tall dome", "Flowers"], why: "Make his grave spacious, and grant him light in it." },
+        { q: "He ﷺ closed Abu Salamah's eyes.", tf: true, why: "When the soul is taken away the sight follows it. Sahih Muslim 920a." }
+      ]
+    },
+    {
+      slug: "martyrs-buried-as-they-fell",
+      title: "Martyrs buried as they fell",
+      line: "The martyrs of Uhud were buried in their blood, unwashed.",
+      facts: ["Their blood is their witness", "Told by Jabir"],
+      source: hadith("bukhari", "1346", "Jabir ibn Abdullah", "Sahih", "On the day of Uhud the Prophet ﷺ said: bury them with their blood, and they were not washed.", "Bury them (i.e. martyrs) with their blood"),
+      difficulty: 3,
+      questions: [
+        { q: "How were the martyrs of Uhud buried?", a: "With their blood", wrong: ["After a long wash", "In silk", "In gold"], why: "Bury them with their blood." },
+        { q: "Were they washed?", a: "No", wrong: ["Yes, three times", "Yes, with musk", "Only their hands"], why: "He did not get them washed." },
+        { q: "This was after the Battle of Uhud.", tf: true, why: "Sahih al-Bukhari 1346." }
+      ]
+    },
+    {
+      slug: "a-nurse-in-paradise",
+      title: "A nurse in Paradise",
+      line: "When baby Ibrahim died, he ﷺ said: he has a nurse in Paradise.",
+      facts: ["Ibrahim was his ﷺ son", "Told by al-Bara"],
+      source: hadith("bukhari", "1382", "al-Bara ibn Azib", "Sahih", "When the Prophet's ﷺ little son Ibrahim died, he said: there is a wet-nurse for him in Paradise.", "There is a wet-nurse for him in Paradise"),
+      difficulty: 1,
+      questions: [
+        { q: "Who was Ibrahim here?", a: "The Prophet's ﷺ son", wrong: ["A prophet", "A king", "A neighbour"], why: "Ibrahim, the son of the Prophet ﷺ." },
+        { q: "What did he ﷺ say Ibrahim has?", a: "A nurse in Paradise", wrong: ["A palace on earth", "A horse", "Nothing"], why: "There is a wet-nurse for him in Paradise." },
+        { q: "Young children who die are in Allah's care.", tf: true, why: "Sahih al-Bukhari 1382." }
+      ]
+    },
+    {
+      slug: "respect-the-graves",
+      title: "Respect the graves",
+      line: "Do not sit on graves, and do not pray facing them.",
+      facts: ["Graves are not for worship", "Told by Abu Marthad"],
+      source: hadith("muslim", "972a", "Abu Marthad al-Ghanawi", "Sahih", "The Prophet ﷺ said: do not sit on the graves and do not pray facing them.", "Do not sit on the graves and do not pray facing towards them"),
+      difficulty: 2,
+      questions: [
+        { q: "What must we not do on graves?", a: "Sit on them", wrong: ["Make dua for the dead", "Say salam", "Remember death"], why: "Do not sit on the graves." },
+        { q: "What else is forbidden?", a: "Praying facing graves", wrong: ["Visiting them", "Walking past", "Crying"], why: "Do not pray facing towards them." },
+        { q: "This keeps worship for Allah alone.", tf: true, why: "Sahih Muslim 972a." }
+      ]
+    },
+    {
+      slug: "salam-to-the-graves",
+      title: "Salam to the graves",
+      line: "At a graveyard say: peace be upon you, people of these homes.",
+      facts: ["We will join them, insha'Allah", "Told by Buraidah"],
+      source: hadith("muslim", "975", "Buraidah", "Sahih", "The Prophet ﷺ taught: peace be upon you, people of these homes, believers and Muslims; we shall join you, if Allah wills; I ask Allah for safety for us and you.", "Peace be upon you, the inhabitants of the city, among the believers, and Muslims, and God willing we shall join you"),
+      difficulty: 2,
+      questions: [
+        { q: "What do we say at a graveyard?", a: "Peace be upon you", wrong: ["Nothing", "Good morning", "Help us"], why: "Peace be upon you, the inhabitants of the city." },
+        { q: "What do we ask Allah for?", a: "Safety for us and them", wrong: ["Riches", "Fame", "A long trip"], why: "I beg of Allah peace for us and for you." },
+        { q: "The dua reminds us we will die too.", tf: true, why: "God willing we shall join you. Sahih Muslim 975." }
+      ]
+    }
+  ]
+};
+
+const HAJJ: DeepUnit = {
+  key: "book-hajj",
+  topicId: "sahihayn",
+  branchId: "hadith-book-hajj",
+  branch: { title: "The Book of Hajj", description: "From the Books of Hajj: ihram, the talbiyah, tawaf, Muzdalifah, Mina and the farewell tawaf." },
+  name: "the Book of Hajj",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "scent-before-ihram",
+      title: "Scent before ihram",
+      line: "Aishah perfumed him ﷺ before he entered ihram.",
+      facts: ["Before ihram, not after", "Told by Aishah"],
+      source: hadith("bukhari", "1539", "Aishah", "Sahih", "Aishah said she used to put scent on the Prophet ﷺ when he was about to enter ihram, and again on leaving it before Tawaf al-Ifadah.", "when he wanted to assume Ihram"),
+      difficulty: 2,
+      questions: [
+        { q: "When did Aishah put scent on him ﷺ?", a: "Before ihram", wrong: ["During tawaf", "At Arafah", "Never"], why: "When he wanted to assume ihram." },
+        { q: "When else did she scent him?", a: "On leaving ihram", wrong: ["At Mina's start", "At Fajr only", "On the way home"], why: "On finishing ihram before Tawaf al-Ifadah." },
+        { q: "Putting new perfume on while in ihram is fine.", tf: false, why: "The scent was before ihram and after it. Sahih al-Bukhari 1539." }
+      ]
+    },
+    {
+      slug: "labbayk-as-the-camel-rose",
+      title: "Labbayk as the camel rose",
+      line: "He ﷺ began the talbiyah as his camel stood up.",
+      facts: ["The miqat of Madinah", "Told by Ibn Umar"],
+      source: hadith("bukhari", "1514", "Abdullah ibn Umar", "Sahih", "Ibn Umar saw the Prophet ﷺ mount at Dhul-Hulaifah and begin saying labbayk when his camel stood up.", "when the Mount stood upright"),
+      difficulty: 2,
+      questions: [
+        { q: "Where did he ﷺ start the talbiyah?", a: "Dhul-Hulaifah", wrong: ["Arafah", "Mina", "Taif"], why: "He rode his mount at Dhul-Hulaifah." },
+        { q: "When exactly did he ﷺ begin?", a: "When his camel stood up", wrong: ["At night", "After tawaf", "At Arafah"], why: "He started saying labbaik when the mount stood upright." },
+        { q: "Dhul-Hulaifah is the miqat for people from Madinah.", tf: true, why: "Sahih al-Bukhari 1514." }
+      ]
+    },
+    {
+      slug: "the-words-of-talbiyah",
+      title: "The words of the talbiyah",
+      line: "Labbayk Allahumma labbayk: here I am, O Allah, here I am.",
+      facts: ["No partner have You", "Told by Aishah"],
+      source: hadith("bukhari", "1550", "Aishah", "Sahih", "Aishah said the Prophet's ﷺ talbiyah was: here I am, O Allah, here I am; here I am, You have no partner; all praise, blessing and kingdom are Yours; You have no partner.", "Labbaika Allahumma Labbaik, Labbaika la sharika Laka labbaik"),
+      difficulty: 1,
+      questions: [
+        { q: "What does labbayk mean?", a: "Here I am", wrong: ["Goodbye", "Thank you", "Wait for me"], why: "Labbaika Allahumma labbaik: here I am, O Allah." },
+        { q: "What does la sharika laka mean?", a: "You have no partner", wrong: ["You are far", "You are many", "You are new"], why: "Labbaika la sharika laka labbaik." },
+        { q: "The talbiyah praises Allah for all blessings.", tf: true, why: "All praise and blessings are Yours. Sahih al-Bukhari 1550." }
+      ]
+    },
+    {
+      slug: "into-makkah-from-the-top",
+      title: "Into Makkah from the top",
+      line: "He ﷺ entered Makkah from the high side, left from the low.",
+      facts: ["Different way in and out", "Told by Aishah"],
+      source: hadith("bukhari", "1577", "Aishah", "Sahih", "Aishah said: when the Prophet ﷺ came to Makkah he entered from its upper side and left from its lower side.", "he entered from its higher side and left from its lower side"),
+      difficulty: 2,
+      questions: [
+        { q: "From which side did he ﷺ enter Makkah?", a: "The higher side", wrong: ["The lower side", "The sea side", "No side"], why: "He entered from its higher side." },
+        { q: "Did he ﷺ leave the same way?", a: "No, from the lower side", wrong: ["Yes, the same", "He never left", "By ship"], why: "And left from its lower side." },
+        { q: "Aishah told this hadith.", tf: true, why: "Sahih al-Bukhari 1577." }
+      ]
+    },
+    {
+      slug: "ramal-in-three-rounds",
+      title: "Brisk in three rounds",
+      line: "In the first three rounds of tawaf he ﷺ walked briskly.",
+      facts: ["Called ramal", "Told by Ibn Umar"],
+      source: hadith("bukhari", "1604", "Abdullah ibn Umar", "Sahih", "Ibn Umar said the Prophet ﷺ did ramal, a brisk walk, in the first three rounds of tawaf and walked in the other four, in Hajj and Umrah.", "did Ramal in (first) three rounds (of Tawaf), and walked in the remaining four"),
+      difficulty: 2,
+      questions: [
+        { q: "In how many rounds is ramal done?", a: "The first three", wrong: ["All seven", "The last two", "None"], why: "He did ramal in the first three rounds." },
+        { q: "What about the other four rounds?", a: "Normal walking", wrong: ["Running fast", "Sitting", "Crawling"], why: "He walked in the remaining four." },
+        { q: "A tawaf has seven rounds.", tf: true, why: "Three with ramal and four walking. Sahih al-Bukhari 1604." }
+      ]
+    },
+    {
+      slug: "the-two-yemeni-corners",
+      title: "The two corners he touched",
+      line: "He ﷺ touched only the two Yemen-side corners of the Ka'bah.",
+      facts: ["The Black Stone and Yemeni corners", "Told by Ibn Umar"],
+      source: hadith("bukhari", "1609", "Abdullah ibn Umar", "Sahih", "Ibn Umar said he never saw the Prophet ﷺ touch any part of the Ka'bah except the two corners facing Yemen.", "touching except the two Yemenite Corners"),
+      difficulty: 3,
+      questions: [
+        { q: "Which corners did he ﷺ touch?", a: "The two facing Yemen", wrong: ["All four", "None", "Only the Syrian ones"], why: "Touching except the two Yemenite corners." },
+        { q: "The Black Stone sits in one of...?", a: "Those two corners", wrong: ["The roof", "The door", "The Hijr"], why: "The two Yemeni-side corners are the Black Stone corner and the Yemeni corner." },
+        { q: "Ibn Umar watched closely how he ﷺ did tawaf.", tf: true, why: "Sahih al-Bukhari 1609." }
+      ]
+    },
+    {
+      slug: "two-rakahs-at-mina",
+      title: "Two rak'ahs at Mina",
+      line: "At Mina he ﷺ shortened the four-rak'ah prayers to two.",
+      facts: ["Even in safety", "Told by Harithah ibn Wahb"],
+      source: hadith("bukhari", "1656", "Harithah ibn Wahb", "Sahih", "Harithah said: the Prophet ﷺ led us in two rak'ahs at Mina, though we were more and safer than ever.", "led us in a two-rak`at prayer at Mina"),
+      difficulty: 2,
+      questions: [
+        { q: "How many rak'ahs did he ﷺ pray at Mina?", a: "Two", wrong: ["Four", "Six", "One"], why: "He led us in a two-rak'at prayer at Mina." },
+        { q: "Were they in danger then?", a: "No, safer than ever", wrong: ["Yes, in war", "Yes, in a storm", "They were hiding"], why: "We were in better security than ever." },
+        { q: "Shortening prayer was a gift, not only for fear.", tf: true, why: "Sahih al-Bukhari 1656." }
+      ]
+    },
+    {
+      slug: "maghrib-and-isha-together",
+      title: "Maghrib and Isha together",
+      line: "At Muzdalifah he ﷺ prayed Maghrib and Isha together.",
+      facts: ["The night after Arafah", "Told by Abu Ayyub"],
+      source: hadith("bukhari", "1674", "Abu Ayyub al-Ansari", "Sahih", "Abu Ayyub said: the Prophet ﷺ prayed Maghrib and Isha together at Muzdalifah.", "prayers together at Al-Muzdalifa"),
+      difficulty: 1,
+      questions: [
+        { q: "Which prayers were joined at Muzdalifah?", a: "Maghrib and Isha", wrong: ["Fajr and Dhuhr", "Dhuhr and Asr", "Asr and Maghrib"], why: "He offered the Maghrib and Isha prayers together at Muzdalifah." },
+        { q: "Muzdalifah comes after...?", a: "The day of Arafah", wrong: ["Eid prayer", "Farewell tawaf", "Umrah"], why: "Pilgrims go to Muzdalifah on the night after Arafah." },
+        { q: "Abu Ayyub al-Ansari told this hadith.", tf: true, why: "Sahih al-Bukhari 1674." }
+      ]
+    },
+    {
+      slug: "the-weak-go-early",
+      title: "The weak go early",
+      line: "He ﷺ let the weak of his family leave Muzdalifah early at night.",
+      facts: ["Ease for the weak", "Told by Ibn Abbas"],
+      source: hadith("bukhari", "1678", "Abdullah ibn Abbas", "Sahih", "Ibn Abbas said: I was among the weak of his family whom the Prophet ﷺ sent early on the night of Muzdalifah.", "sent on the night of Al-Muzdalifa early being among the weak members of his family"),
+      difficulty: 2,
+      questions: [
+        { q: "Who was sent early from Muzdalifah?", a: "The weak of his family", wrong: ["The strongest men", "Only the camels", "No one"], why: "Among the weak members of his family." },
+        { q: "What does this show about Islam?", a: "It eases things for the weak", wrong: ["It is always hard", "Rules never change", "Only the rich matter"], why: "He sent the weak early to spare them the crowds." },
+        { q: "Ibn Abbas was a boy then.", tf: true, why: "He was among the weak of the family. Sahih al-Bukhari 1678." }
+      ]
+    },
+    {
+      slug: "shave-or-shorten",
+      title: "Shave or shorten",
+      line: "After Hajj, some shaved their heads and some cut it short.",
+      facts: ["He ﷺ shaved", "Told by Ibn Umar"],
+      source: hadith("bukhari", "1729", "Abdullah ibn Umar", "Sahih", "Ibn Umar said: the Prophet ﷺ and some companions shaved their heads, and others cut their hair short.", "got their heads shaved and some others got their hair cut short"),
+      difficulty: 1,
+      questions: [
+        { q: "What did the men do with their hair?", a: "Shaved or shortened it", wrong: ["Dyed it", "Braided it", "Nothing"], why: "Some got their heads shaved and some cut their hair short." },
+        { q: "What did the Prophet ﷺ do?", a: "He shaved his head", wrong: ["He left it", "He dyed it", "He cut one side"], why: "The Prophet ﷺ and some companions got their heads shaved." },
+        { q: "Both shaving and shortening were done.", tf: true, why: "Sahih al-Bukhari 1729." }
+      ]
+    },
+    {
+      slug: "no-harm-in-the-order",
+      title: "No harm in the order",
+      line: "Rites done out of order on Eid? He ﷺ said: no harm.",
+      facts: ["Sacrifice, shaving, stoning", "Told by Ibn Abbas"],
+      source: hadith("bukhari", "1734", "Abdullah ibn Abbas", "Sahih", "The Prophet ﷺ was asked about the sacrifice, shaving and stoning done before or after their time, and he said: there is no harm in that.", "There is no harm in that"),
+      difficulty: 3,
+      questions: [
+        { q: "What did he ﷺ say about the mixed-up order?", a: "No harm", wrong: ["Redo Hajj", "Pay a big fine", "Leave Makkah"], why: "There is no harm in that." },
+        { q: "Which rites were asked about?", a: "Sacrifice, shaving and stoning", wrong: ["Fasting and zakat", "Wudu and adhan", "Trade and travel"], why: "About the sacrifice, shaving and the stoning." },
+        { q: "He ﷺ made Hajj easy for people.", tf: true, why: "Sahih al-Bukhari 1734." }
+      ]
+    },
+    {
+      slug: "the-farewell-tawaf",
+      title: "The farewell tawaf",
+      line: "The last thing before leaving Makkah is the farewell tawaf.",
+      facts: ["Women in their period are excused", "Told by Ibn Abbas"],
+      source: hadith("bukhari", "1755", "Abdullah ibn Abbas", "Sahih", "Ibn Abbas said: people were told to make tawaf of the Ka'bah the last thing before leaving, except women in their period, who were excused.", "the Tawaf of the Ka`ba (Tawaf-al-Wada`) as the lastly thing, before leaving"),
+      difficulty: 2,
+      questions: [
+        { q: "What is the last rite before leaving Makkah?", a: "The farewell tawaf", wrong: ["Stoning", "Shaving", "Fasting"], why: "Tawaf al-Wada as the last thing before leaving." },
+        { q: "Who is excused from it?", a: "Women in their period", wrong: ["The rich", "Young men", "No one"], why: "Except the menstruating women who were excused." },
+        { q: "The farewell tawaf is done on arrival in Makkah.", tf: false, why: "It is the last thing before leaving. Sahih al-Bukhari 1755." }
+      ]
+    }
+  ]
+};
+
 /** The Bukhari and Muslim topic. Its units hold only deep lessons, added by addDeepUnits. */
 export const SAHIHAYN_SECTION: LearningSection = {
   id: "sahihayn",
@@ -2659,4 +3008,4 @@ export const SAHIHAYN_SECTION: LearningSection = {
   nodes: []
 };
 
-export const HADITH_BOOK_UNITS: readonly DeepUnit[] = [FAITH, PURITY, ADAB, FOOD, DUA, RIQAQ, DRESS, TRADE, MEDICINE, COMPANIONS, PRAYER, FASTING, ZAKAT, MARRIAGE, ADHAN];
+export const HADITH_BOOK_UNITS: readonly DeepUnit[] = [FAITH, PURITY, ADAB, FOOD, DUA, RIQAQ, DRESS, TRADE, MEDICINE, COMPANIONS, PRAYER, FASTING, ZAKAT, MARRIAGE, ADHAN, FUNERALS, HAJJ];
