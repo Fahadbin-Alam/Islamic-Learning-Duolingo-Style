@@ -73,6 +73,7 @@ import {
   setActiveLanguage,
   t
 } from "./i18n";
+import { CHARITY, charityEnabled } from "./config/charity";
 import { localizeLessonContent } from "./services/contentLocalization";
 import { localizedLessonLine, localizedWhy } from "./ui/lesson/localizedLines";
 import {
@@ -3916,6 +3917,7 @@ export default function TopicApp() {
             onShareApp={() => void shareApp(invite?.code, invite?.rewardDates)}
             certificateCount={earnedCertificates.length}
             onOpenCertificates={() => setCertificatesSheetVisible(true)}
+            charity={charityEnabled() ? CHARITY : undefined}
             hasSavedAccount={hasSavedAccount}
             onCreateAccount={() => openAccountPanel()}
           />

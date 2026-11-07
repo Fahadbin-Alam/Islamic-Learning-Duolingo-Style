@@ -23,6 +23,7 @@ export { RewardPop, type RewardPopProps } from "./RewardPop";
 export { AgeSheet, type AgeSheetProps } from "./AgeSheet";
 export { BackgroundSheet, type BackgroundSheetProps } from "./BackgroundSheet";
 export { LanguageSheet, type LanguageSheetProps } from "./LanguageSheet";
+export { DonateSheet, type DonateSheetProps } from "./DonateSheet";
 export { PrayerSheet, cityName, type PrayerSheetProps } from "./PrayerSheet";
 export {
   ConfirmSheet,
