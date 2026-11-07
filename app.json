@@ -19,6 +19,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.islamiclearning.muslimo",
+      "appleTeamId": "Y7872Y57FA",
       "buildNumber": "1",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
@@ -58,7 +59,8 @@
       "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#14B86A"
+        "backgroundImage": "./assets/adaptive-icon-background.png",
+        "backgroundColor": "#FF9F45"
       },
       "blockedPermissions": [
         "android.permission.RECORD_AUDIO",
@@ -87,7 +89,9 @@
           "enableBackgroundPlayback": false
         }
       ],
-      "expo-system-ui"
+      "expo-system-ui",
+      "@bacons/apple-targets",
+      "./plugins/withDailyAyahWidget"
     ],
     "runtimeVersion": {
       "policy": "appVersion"

@@ -36,8 +36,8 @@ beforeEach(() => {
 
 it("clears only its own nudges and schedules the planned ones", async () => {
   await schedulePrayerNudges(on, undefined, "en");
-  expect(mockCancelled.length).toBe(15);
-  expect(mockCancelled.every((id) => id.startsWith("muslimo-prayer-"))).toBe(true);
+  expect(mockCancelled.length).toBe(21);
+  expect(mockCancelled.every((id) => id.startsWith("muslimo-prayer-") || id.startsWith("muslimo-ramadan-"))).toBe(true);
   expect(mockScheduled.length).toBeGreaterThan(0);
   expect(mockScheduled.every((request) => request.identifier.startsWith("muslimo-prayer-") && request.content.data.kind === "prayer")).toBe(true);
 });
@@ -50,7 +50,7 @@ it("schedules nothing without notification permission or when off", async () => 
   mockGranted = true;
   await schedulePrayerNudges({ ...on, enabled: false }, undefined, "en");
   expect(mockScheduled).toEqual([]);
-  expect(mockCancelled.length).toBe(30);
+  expect(mockCancelled.length).toBe(42);
 });
 
 it("opens a lesson only for a tapped prayer nudge", () => {

@@ -143,8 +143,8 @@ describe("lesson ui (round 2)", () => {
       expect(sign).toHaveStyle({ fontFamily: NASKH });
     }
     expect(screen.getAllByText("ﷺ").length).toBeGreaterThanOrEqual(3);
-    // Up to three chips; "Father:" is the soft key of the first one.
-    expect(screen.getByTestId("learn-facts")).toHaveTextContent(/Father: Abdullah.*Born in Makkah.*Mother: Aminah/);
+    // Up to three key points; "Father" is the soft label of the first one.
+    expect(screen.getByTestId("learn-facts")).toHaveTextContent(/Father.*Abdullah.*Born in Makkah.*Mother.*Aminah/);
     expect(screen.queryByText("One too many")).toBeNull();
     // The quote is shown in full, and its reference doubles as the source link (not said twice).
     expect(screen.getByTestId("learn-quote-text")).toHaveTextContent(quote.text);
@@ -152,6 +152,30 @@ describe("lesson ui (round 2)", () => {
     expect(screen.getByTestId("learn-source")).toHaveTextContent("Test Collection 12a");
     await fireEvent.press(screen.getByTestId("learn-source"));
     expect(onOpenSource).toHaveBeenCalledWith("https://example.org/collection:12a");
+  });
+
+  it("LearnCard reads its facts as a short lesson and puts who told it and the grade with the source at the end", async () => {
+    await render(
+      <LearnCard
+        title="Two days, better than before"
+        line="Allah gave Muslims two Eids: al-Fitr and al-Adha."
+        facts={["They replaced two old days of play", "in Madinah", "Told by Anas"]}
+        learnSource={{ reference: "Test Collection 1134", url: "https://example.org/collection:1134", category: "hadith" }}
+        mascotVariant="girl"
+        accent={accent}
+        onContinue={jest.fn()}
+      />
+    );
+    expect(screen.getByText("What you learn")).toBeTruthy();
+    const lines = screen.getAllByTestId("learn-fact");
+    expect(lines).toHaveLength(2);
+    // Each fact is a sentence: a capital letter and a full stop.
+    expect(lines[0]).toHaveTextContent("1They replaced two old days of play.");
+    expect(lines[1]).toHaveTextContent("2In Madinah.");
+    expect(screen.getByTestId("learn-facts")).not.toHaveTextContent(/Told by/);
+    expect(screen.getByText("Source")).toBeTruthy();
+    expect(screen.getByTestId("learn-source")).toHaveTextContent("Test Collection 1134");
+    expect(screen.getByTestId("learn-credits")).toHaveTextContent("Told by Anas");
   });
 
   it("LearnCard keeps NEW for a new word and shows a different source next to the quote reference", async () => {

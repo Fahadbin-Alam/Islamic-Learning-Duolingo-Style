@@ -10,11 +10,11 @@ import { quranAyahArabic } from "./quranAyahs";
 
 export const RAMADAN_TOPIC = "ramadan" as const;
 
-type Question =
+export type Question =
   | { prompt: string; answer: string; wrong: [string, string]; explanation: string }
   | { statement: string; answer: boolean; explanation: string };
 
-type Source =
+export type Source =
   | { quran: string; title: string; summary: string }
   | {
       /** sunnah.com address, "bukhari:1899". */
@@ -28,7 +28,7 @@ type Source =
       summary: string;
     };
 
-interface Day {
+export interface Day {
   slug: string;
   title: string;
   line: string;
@@ -444,7 +444,7 @@ const UNITS: Unit[] = [
 
 export const ramadanNodeId = (slug: string) => `ramadan-${slug}`;
 
-function sourceOf(day: Day, lessonId: string): LessonSource {
+export function sourceOf(day: Day, lessonId: string): LessonSource {
   const id = `${lessonId.replace(/-/g, "_")}_src_1`;
   const source = day.source;
   if ("quran" in source) {
@@ -475,7 +475,7 @@ function sourceOf(day: Day, lessonId: string): LessonSource {
   };
 }
 
-function quoteOf(day: Day): Lesson["quote"] {
+export function quoteOf(day: Day): Lesson["quote"] {
   const source = day.source;
   if ("quran" in source) {
     const arabic = day.quote === true ? quranAyahArabic(source.quran) : undefined;
@@ -486,7 +486,7 @@ function quoteOf(day: Day): Lesson["quote"] {
 }
 
 // The right answer moves around the tiles, so its place gives nothing away.
-function challengesOf(day: Day, lessonId: string, nodeId: string, source: LessonSource, index: number): Challenge[] {
+export function challengesOf(day: Day, lessonId: string, nodeId: string, source: LessonSource, index: number): Challenge[] {
   return day.questions.map((question, number) => {
     const base = {
       id: `${lessonId}_q${number + 1}`,

@@ -143,7 +143,9 @@ function score(entry: Entry, query: string, compactQuery: string, skeletonQuery:
   if (best !== undefined) return best;
   if (compactQuery.length >= 3 && entry.compact.some((key) => key.includes(compactQuery))) return 4;
   if (skeletonQuery.length >= 2) {
-    if (entry.skeletons.some((key) => ` ${key} `.includes(` ${skeletonQuery} `))) return 5;
+    // A name that starts with the word ("Al-Hasan ibn Ali") beats one that has it further on ("Muhammad ibn al-Hasan").
+    if (entry.skeletons.some((key) => `${key} `.startsWith(`${skeletonQuery} `))) return 5;
+    if (entry.skeletons.some((key) => ` ${key} `.includes(` ${skeletonQuery} `))) return 5.5;
     if (entry.skeletons.some((key) => ` ${key}`.includes(` ${skeletonQuery}`))) return 6;
   }
   return undefined;

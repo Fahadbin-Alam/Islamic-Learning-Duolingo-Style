@@ -201,5 +201,27 @@ describe("learn card source chip", () => {
     );
     fireEvent.press(screen.getByTestId("learn-source"));
     expect(onOpenSource).toHaveBeenCalledWith("https://islamqa.info/en/answers/119256#:~:text=He%20studied%20with%20Ibn,Imam%20Ibn%20Shihab%20az%2DZuhri");
+    // The line to look for is also shown under the chip.
+    expect(screen.getByTestId("learn-look-for")).toHaveTextContent(/He studied with Ibn Hormuz/);
+  });
+
+  it("opens an Arabic book on its page, and says in English what its highlighted line says", async () => {
+    const onOpenSource = jest.fn();
+    await render(
+      <LearnCard
+        {...base}
+        learnSource={{
+          reference: "Siyar A'lam an-Nubala 9/134",
+          url: "https://shamela.ws/book/10906/5800",
+          summary: "Muhammad ibn al-Hasan ash-Shaybani, faqih of Iraq.",
+          highlight: "محمد بن الحسن بن فرقد … ومالك بن أنس"
+        }}
+        onOpenSource={onOpenSource}
+      />
+    );
+    fireEvent.press(screen.getByTestId("learn-source"));
+    expect(onOpenSource.mock.calls[0][0]).toMatch(/^https:\/\/shamela\.ws\/book\/10906\/5800#:~:text=/);
+    expect(screen.getByTestId("learn-look-for-arabic")).toHaveTextContent(/محمد بن الحسن بن فرقد/);
+    expect(screen.getByTestId("learn-look-for")).toHaveTextContent(/faqih of Iraq/);
   });
 });

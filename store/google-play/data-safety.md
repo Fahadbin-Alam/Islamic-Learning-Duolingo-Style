@@ -11,7 +11,7 @@ For Play Console → Policy and programs → App content → Data safety. These 
 | RevenueCat SDK | App user id, purchase history |
 | On device only | Learning progress for guests, local reminders (`expo-notifications`, scheduled on the device), sound settings, Family codes (`src/services/familyCode.ts`), the city picked for prayer-time lessons (prayer times are worked out on the phone; no location permission) |
 
-No precise location, contacts, photos, files, microphone, camera, health, messages, calendar or web browsing data is collected. The age group from the age screen stays on the device and is not collected. Push tokens are not collected: reminders are local notifications. Family codes are not collected either: the Family page (behind the grown-up check) puts a numbers-only progress code into the phone's own share menu when a grown-up taps SEND TO A PARENT, and the parent pastes it into the app on their phone, where it is stored. Nothing goes to our servers or to an SDK, so it is not "collected", and a transfer the user starts to an app they pick is exempt from "shared". No Data safety answer changes.
+No precise location, contacts, photos, files, microphone, camera, health, messages, calendar or web browsing data is collected. The age group from the age screen stays on the device and is not collected. Push tokens are not collected: reminders are local notifications. Family codes are not collected either: the Family page (behind the grown-up check) puts a numbers-only progress code into the phone's own share menu when a grown-up taps SEND TO A PARENT, and the parent pastes it into the app on their phone, where it is stored. Nothing goes to our servers or to an SDK, so it is not "collected", and a transfer the user starts to an app they pick is exempt from "shared". No Data safety answer changes. Family links (2026-11-02): a signed-in child can show a one-time code so a parent's account sees their progress (name, XP, streak, lessons, topics; never the email). That data is already collected for the account, and showing it to a parent the child picked is a user-initiated transfer, so it is not "shared"; still no Data safety answer changes.
 
 ## Section 1: Data collection and security
 
@@ -47,6 +47,7 @@ Notes:
 
 - "Required" vs "Optional": Google says data is optional only if users can choose not to provide it and still use the app. Ads data is collected for every free user, so it is required. Account data is optional because the app works without an account.
 - Answers include response time and the confidence rating the learner gives. They are learning analytics under App interactions; they are never sent to AdMob.
+- Server sync (docs/hosting.md, Render + Neon) only turns on the backend row above, which was already declared: name, email, user id, other info and app interactions. Render and Neon are service providers, so this is "collected", not "shared". No Data safety answer changes.
 - If you add Firebase, Crashlytics, Sentry or any analytics SDK later, update Crash logs, Diagnostics and App interactions.
 - Google's own guide for the ads SDK: https://developers.google.com/admob/android/privacy/play-data-disclosure.
 

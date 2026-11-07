@@ -140,8 +140,8 @@ describe("LearnPath locked circles and open units", () => {
   it("hides the banner key when the current unit cannot be tested out", async () => {
     await renderPath(units({ aTestOut: false, cTestOut: true }));
     expect(screen.queryByTestId("unit-test-out-unit-a")).toBeNull();
-    // The key stays on the current unit only; later units jump from their locked circles.
-    expect(screen.queryByTestId("unit-test-out-unit-c")).toBeNull();
+    // A later unit that can be tested out shows its own TEST OUT key too.
+    expect(screen.getByTestId("unit-test-out-unit-c")).toBeTruthy();
   });
 
   it("keeps one START with several open circles, and an open circle elsewhere still starts", async () => {
@@ -464,7 +464,7 @@ describe("ShopView with purchases off", () => {
     const onDone = jest.fn();
     const section = COURSE.sections[0];
     await render(
-      <ShopView user={makeUser()} strings={getUiStrings("en")} items={SHOP_ITEMS} storePrices={{}} busy={false} section={section} canBuyWithMoney={false} onUseItem={jest.fn()} onRestore={jest.fn()} onDone={onDone} />
+      <ShopView user={makeUser()} strings={getUiStrings("en")} items={SHOP_ITEMS} storePrices={{}} busy={false} section={section} canBuyWithMoney={false} onUseItem={jest.fn()} onRestore={jest.fn()} onDone={onDone} shelf="dates" />
     );
     expect(screen.queryByText(/in the app/i)).toBeNull();
     // One short, true line a 6-year-old can read: no "Premium", at most 6 words.

@@ -139,7 +139,7 @@ export function QuizComplete({
             <Pill icon="trophy" label={t("Best: {percent}%", { percent: previousBest })} face={colors.mist} ink={colors.ink} delay={700} testID="quiz-best" />
           ) : null}
           {xp > 0 ? <Pill icon="bolt" label={`+${t("{count} XP", { count: xp })}`} face={lighten(colors.gold, 0.7)} ink={GOLD_INK} delay={820} testID="quiz-xp" /> : null}
-          {gems ? <Pill icon="gem" label={t("+{count} gems", { count: gems })} face={lighten(colors.gem, 0.85)} ink={colors.gemLip} delay={940} testID="quiz-gems" /> : null}
+          {gems ? <Pill icon="date" label={t("+{count} dates", { count: gems })} face={lighten(colors.date, 0.86)} ink={colors.dateLip} delay={940} testID="quiz-gems" /> : null}
         </View>
 
         {goOver.length ? (

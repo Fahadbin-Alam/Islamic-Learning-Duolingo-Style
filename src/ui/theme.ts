@@ -9,6 +9,9 @@ export const colors = {
   flame: "#FF8A1F",
   gem: "#2FA8FF",
   gemLip: "#1683D1",
+  /** The app's coin is a date (the fruit): its count, its buttons and its pills. */
+  date: "#B5541E",
+  dateLip: "#7E3510",
   heart: "#FF4D5E",
   heartLip: "#D3374A",
   ink: "#1F2D27",

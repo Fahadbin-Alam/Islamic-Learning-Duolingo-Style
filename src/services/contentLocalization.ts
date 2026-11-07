@@ -22,6 +22,14 @@ export function localizeLessonContent(lesson: Lesson, language: SupportedLanguag
       : lesson.quote,
     learnLine: lesson.learnLine ? translateStudyText(lesson.learnLine, language) : lesson.learnLine,
     learnFacts: lesson.learnFacts?.map((fact) => translateStudyText(fact, language)),
+    learnDeeper: lesson.learnDeeper
+      ? {
+          meaning: lesson.learnDeeper.meaning.map((line) => translateStudyText(line, language)),
+          story: lesson.learnDeeper.story ? translateStudyText(lesson.learnDeeper.story, language) : lesson.learnDeeper.story,
+          takeaway: lesson.learnDeeper.takeaway ? translateStudyText(lesson.learnDeeper.takeaway, language) : lesson.learnDeeper.takeaway,
+          sources: lesson.learnDeeper.sources.map((source) => localizeSource(source, language))
+        }
+      : lesson.learnDeeper,
     teachingMoments: lesson.teachingMoments?.map((moment) => ({
       ...moment,
       eyebrow: translateStudyText(moment.eyebrow, language),
@@ -94,10 +102,8 @@ export function translateStudyText(text: string, language: SupportedLanguage) {
   return translated === trimmed ? text : translated;
 }
 
-function localizeSourceUrl(url: string, site: LessonSource["site"], language: SupportedLanguage) {
-  if (language === "en" || site === "YouTube") {
-    return url;
-  }
-
-  return `https://translate.google.com/translate?sl=auto&tl=${language}&u=${encodeURIComponent(url)}`;
+// Source links always open the English page (Fahad, 2026-11-01): the tafsir and hadith are read in English, at the
+// highlighted line, never through a machine translation that loses the highlight and garbles the wording.
+function localizeSourceUrl(url: string, _site: LessonSource["site"], _language: SupportedLanguage) {
+  return url;
 }

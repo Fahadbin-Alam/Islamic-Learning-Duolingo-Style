@@ -36,6 +36,7 @@ import { monetizationClient } from "../services/monetization";
 import {
   addHeartVideo,
   canSellInStore,
+  plansOnSale,
   LESSONS_BETWEEN_PLAN_OFFERS,
   mayOfferPlans,
   MIN_MS_BETWEEN_PLAN_OFFERS,
@@ -117,6 +118,12 @@ describe("plan offer rules", () => {
     expect(canSellInStore("live", "android")).toBe(false);
     expect(canSellInStore("disabled", "android")).toBe(false);
   });
+
+  it("waits in a live build until the store has priced at least one plan", () => {
+    expect(plansOnSale("live", "android", 0)).toBe(false);
+    expect(plansOnSale("disabled", "android", 4)).toBe(false);
+    expect(plansOnSale("sandbox", "android", 0)).toBe(true);
+  });
 });
 
 describe("the plans sheet", () => {
@@ -174,7 +181,8 @@ describe("the plans when hearts run out", () => {
     await press("plan-offer-buy-membership-yearly");
     await passGrownUp();
     expect(purchaseShopItem).toHaveBeenCalledWith(expect.objectContaining({ id: "membership-yearly" }));
-    expect(screen.getByTestId("exercise-view")).toBeTruthy();
+    // The lesson goes on: the next page after the missed question (the sheet may still be sliding away).
+    expect(screen.getByTestId("learn-card")).toBeTruthy();
     expect(savedUser().hearts.unlimited).toBe(true);
   });
 

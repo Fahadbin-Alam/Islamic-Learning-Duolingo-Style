@@ -10,7 +10,7 @@ import { Mascot } from "../Mascot";
 import { PopIn } from "../PopIn";
 import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, radii, text } from "../theme";
-import { FormattedCount } from "./FormattedCount";
+import { FormattedCount, formatNumber } from "./FormattedCount";
 import { DonateSheet } from "./DonateSheet";
 import { useGrownUpGate } from "./GrownUpGate";
 import { SwitchTrack } from "./sheetParts";
@@ -25,8 +25,12 @@ export type ProfileViewProps = {
   onOpenSettings: () => void;
   /** Family row: a parent's view of this phone's progress and of kids they follow. Opens after the grown-up gate. */
   onOpenFamily?: () => void;
-  /** Share row: the phone's share menu with an invite and the store link. Opens after the grown-up gate. */
+  /** Share row: the phone's share menu with an invite and the store link. No grown-up check: the person picks who gets it in the share menu. */
   onShareApp?: () => void;
+  /** Certificates row: opens the list of certificates earned for finishing big units. */
+  onOpenCertificates?: () => void;
+  /** How many certificates are earned, shown on the Certificates row. */
+  certificateCount?: number;
   /** Give charity row: amounts, a QR code and a link to the charity's donation page. Opens after the grown-up gate. */
   charity?: CharityConfig;
   /** Crew and Shop are bottom tabs now; kept optional so the old call site still type-checks. */
@@ -173,6 +177,8 @@ export function ProfileView({
   onOpenSettings,
   onOpenFamily,
   onShareApp,
+  onOpenCertificates,
+  certificateCount = 0,
   charity,
   onCreateAccount,
   hasSavedAccount = false,
@@ -196,7 +202,7 @@ export function ProfileView({
   // Sign up, log in or log out changes the avatar and the name at the top: scroll back up so they show
   // whole, not cut off under the top bar, and pop the avatar in again.
   const accountKey = profileAccountKey(user, hasSavedAccount);
-  // Family, Share and Give charity send things out of the app, so a grown-up opens them.
+  // Family and Give charity send things out of the app, so a grown-up opens them.
   const { ask, gate } = useGrownUpGate();
   const [donateOpen, setDonateOpen] = useState(false);
   const scrollRef = useRef<ScrollView>(null);
@@ -251,7 +257,7 @@ export function ProfileView({
         <StatCard testID="profile-streak" icon="flame" value={user.streakDays} label={t("Day streak")} color={colors.flame} dim={user.streakDays <= 0} />
         <StatCard testID="profile-xp" icon="bolt" value={user.totalXp} label={t("Total XP")} color={GOLD_INK} />
         <StatCard testID="profile-stars" icon="star" value={totalStars} label={t("Stars")} color={GOLD_INK} />
-        <StatCard testID="profile-gems" icon="gem" value={user.gems} label={t("Gems")} color={colors.gemLip} />
+        <StatCard testID="profile-gems" icon="date" value={user.gems} label={t("Dates")} color={colors.dateLip} />
       </View>
 
       {guest && onCreateAccount ? (
@@ -269,8 +275,26 @@ export function ProfileView({
       ) : null}
 
       <View style={styles.menu}>
+        {onOpenCertificates ? (
+          <MenuRow
+            icon="trophy"
+            label={t("Certificates")}
+            onPress={onOpenCertificates}
+            testID="profile-certificates"
+            right={
+              certificateCount > 0 ? (
+                <View style={styles.countRow}>
+                  <Text style={styles.countPill} testID="profile-certificates-count">
+                    {formatNumber(certificateCount)}
+                  </Text>
+                  <Icon name="chevronRight" size={18} color={colors.lineLip} />
+                </View>
+              ) : undefined
+            }
+          />
+        ) : null}
         {onOpenFamily ? <MenuRow icon="family" label={t("Family")} onPress={() => ask(onOpenFamily)} testID="profile-family" /> : null}
-        {onShareApp ? <MenuRow icon="share" label={t("Invite friends")} onPress={() => ask(onShareApp)} testID="profile-share" /> : null}
+        {onShareApp ? <MenuRow icon="share" label={t("Invite friends")} onPress={onShareApp} testID="profile-share" /> : null}
         {charity ? <MenuRow icon="handHeart" label={t("Give charity")} onPress={() => ask(() => setDonateOpen(true))} testID="profile-charity" /> : null}
         <MenuRow icon="settings" label={strings.settings} onPress={onOpenSettings} testID="profile-settings" last={!onToggleSound} />
         {onToggleSound ? (
@@ -295,6 +319,23 @@ export function ProfileView({
 const AVATAR = 108;
 
 const styles = StyleSheet.create({
+  countRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 2
+  },
+  countPill: {
+    minWidth: 26,
+    paddingHorizontal: 6,
+    borderRadius: 13,
+    overflow: "hidden",
+    textAlign: "center",
+    fontFamily: fonts.displayHeavy,
+    fontSize: 15,
+    lineHeight: 26,
+    color: colors.white,
+    backgroundColor: colors.goldLip
+  },
   root: {
     flex: 1,
     backgroundColor: colors.snow

@@ -1,14 +1,15 @@
 from __future__ import annotations
 
 from datetime import date, datetime, timedelta, timezone
-from typing import Any, Dict, Literal, Optional
+from typing import Any, Dict, Literal, Optional, Tuple
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from pydantic import BaseModel
 from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
 
 from backend.app.api.deps import DbSession, current_user
-from backend.app.models import Friendship, User
+from backend.app.models import FriendStreak, Friendship, User
 from backend.app.service_layer import LEAGUE_TOP_TIER, initials, normalize_email
 
 
@@ -77,6 +78,74 @@ def pending_payload(user: User, relation: str, name: str) -> Dict[str, Any]:
     }
 
 
+def learned_days(user: User) -> set:
+    return {day for day, xp in (user.xp_history_json or {}).items() if int(xp or 0) > 0}
+
+
+def latest_shared_run(me: User, friend: User, since: str) -> Optional[Tuple[date, date]]:
+    """First and last day of the newest run of days in a row on which both learned, from `since` on."""
+    shared = sorted(day for day in learned_days(me) & learned_days(friend) if day >= since)
+    if not shared:
+        return None
+    try:
+        days = [date.fromisoformat(day) for day in shared]
+    except ValueError:
+        return None
+    end = start = days[-1]
+    for day in reversed(days[:-1]):
+        if day != start - timedelta(days=1):
+            break
+        start = day
+    return start, end
+
+
+def friend_streak_payload(db, me: User, friend: User, today: date, since: date) -> Dict[str, Any]:
+    """The pair's shared streak, on the caller's clock. It lives while the last day both learned is today or
+    yesterday, like a learner's own streak. The saved row carries a run longer than the short XP history."""
+    low, high = sorted((me.id, friend.id))
+    row = db.scalar(select(FriendStreak).where(FriendStreak.user_low_id == low, FriendStreak.user_high_id == high))
+    run = latest_shared_run(me, friend, since.isoformat())
+    days = 0
+    if run:
+        start, end = run
+        saved_end = None
+        if row and row.last_day and row.days:
+            try:
+                saved_end = date.fromisoformat(row.last_day)
+            except ValueError:
+                saved_end = None
+        if saved_end and start - timedelta(days=1) <= saved_end <= end:
+            # The saved streak runs into this run (its start may have dropped out of the history).
+            days = row.days + (end - saved_end).days
+        else:
+            days = (end - start).days + 1
+        if not row:
+            row = FriendStreak(user_low_id=low, user_high_id=high, days=0, best_days=0)
+            db.add(row)
+        if row.days != days or row.last_day != end.isoformat():
+            row.days = days
+            row.last_day = end.isoformat()
+            row.best_days = max(row.best_days or 0, days)
+        if end < today - timedelta(days=1):
+            days = 0
+    # A friend whose own date is already tomorrow counts as having learned "today" too.
+    friend_today = any(day >= today.isoformat() for day in learned_days(friend))
+    return {
+        "days": days,
+        "best": max(row.best_days if row else 0, days),
+        "meToday": today.isoformat() in learned_days(me),
+        "friendToday": friend_today,
+    }
+
+
+def friends_since(db, me: User, friend_id: int, mine: Friendship) -> date:
+    """The day the two became friends: the later of the two adds, less a day because that stamp is the server's UTC
+    date and the learners' own dates can be behind it. Days before that don't count."""
+    theirs = db.scalar(select(Friendship).where(Friendship.user_id == friend_id, Friendship.friend_id == me.id))
+    stamps = [stamp for stamp in (mine.created_at, theirs.created_at if theirs else None) if stamp]
+    return max(stamps).date() - timedelta(days=1) if stamps else date.min
+
+
 def follower_ids(db, user: User) -> set:
     return set(db.scalars(select(Friendship.user_id).where(Friendship.friend_id == user.id)).all())
 
@@ -91,9 +160,16 @@ def list_friends(db: DbSession, today: Optional[str] = Query(default=None), user
     following = {friendship.friend_id for friendship in friendships}
     # People who added this learner and are waiting for an answer. Their own name is shown: they chose to ask.
     requests = db.scalars(select(Friendship).where(Friendship.friend_id == user.id).order_by(Friendship.created_at)).all()
-    return {
+    payload = {
         "me": member_payload(user, day, "you"),
-        "friends": [member_payload(friendship.friend, day, friendship.relation) for friendship in friendships if friendship.friend_id in followers],
+        "friends": [
+            {
+                **member_payload(friendship.friend, day, friendship.relation),
+                "friendStreak": friend_streak_payload(db, user, friendship.friend, day, friends_since(db, user, friendship.friend_id, friendship)),
+            }
+            for friendship in friendships
+            if friendship.friend_id in followers
+        ],
         "pending": [
             # The email the learner typed is all they get back until the other side agrees.
             pending_payload(friendship.friend, friendship.relation, friendship.friend.email)
@@ -106,6 +182,13 @@ def list_friends(db: DbSession, today: Optional[str] = Query(default=None), user
             if request.user_id not in following
         ],
     }
+    # Friend streaks saved above while they were worked out. If the friend's phone saved the same new pair a moment
+    # earlier, theirs stands: both work it out the same way.
+    try:
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+    return payload
 
 
 @router.post("/friends", status_code=status.HTTP_201_CREATED)

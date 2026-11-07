@@ -83,6 +83,9 @@ function playTones(context: AudioContext, event: GameSoundEvent, preferences?: S
   }
 }
 
+/** Web sounds are made live, so there is nothing to load ahead (see gameAudio.native.ts). */
+export function preloadGameSounds(_preferences?: SoundPreferences) {}
+
 export function primeGameAudio(preferences?: SoundPreferences) {
   if (preferences?.enabled === false) {
     return false;

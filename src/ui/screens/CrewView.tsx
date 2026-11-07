@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, RefreshControl, ScrollView, StyleSheet, Text, View } from "react-native";
 import { COURSE } from "../../data/course";
 // Type-only: backendSync pulls in device storage, which a presentational screen must not load.
-import type { CrewMember, CrewPayload } from "../../services/backendSync";
+import type { CrewMember, CrewPayload, FriendBattle, FriendStreak, InviteInfo } from "../../services/backendSync";
 import type { LeagueState, SocialRelation, UserProfile } from "../../types";
 import { GameButton } from "../GameButton";
 import { Icon } from "../Icon";
@@ -57,7 +57,22 @@ export type CrewViewProps = {
   /** This week's league, ended up to today (settleLeague). Shown on top, with or without a crew server. */
   league?: LeagueState;
   /** The Ummah ranks page (arenas, battles, the ranking of everyone). With it the tab has Ranks and Friends pages. */
-  ranks?: Omit<UmmahRanksProps, "user" | "mascotVariant" | "accent">;
+  ranks?: Omit<UmmahRanksProps, "user" | "mascotVariant" | "accent" | "onBattleFriend">;
+  /** Battles with friends: asked, waiting, ready to play and finished. */
+  battles?: FriendBattle[];
+  /** Asks a friend (both added each other) to a battle. */
+  onChallenge?: (member: CrewMember) => void;
+  /** A friend asked for a battle: true says yes (and plays it now), false says no. */
+  onAnswerBattle?: (battle: FriendBattle, accept: boolean) => void;
+  onPlayBattle?: (battle: FriendBattle) => void;
+  /** Takes back a battle this learner asked for that has not started. */
+  onCancelBattle?: (battle: FriendBattle) => void;
+  /** The phone's share menu with an invite to Muslimo (no grown-up check: the person picks who gets it). */
+  onShareApp?: () => void;
+  /** The signed-in learner's invite code; absent when signed out or the server could not be reached. */
+  invite?: InviteInfo;
+  /** A new learner types a friend's code: both get dates. */
+  onRedeemInvite?: (code: string) => void;
 };
 
 // Friend avatars take a topic world color, picked from their id.
@@ -197,6 +212,173 @@ function PendingRow({ member, onCancel }: { member: CrewMember; onCancel: () => 
   );
 }
 
+/** One battle with a friend, in whatever state it is in, with the one button that moves it on. */
+function BattleRow({ battle, onAnswer, onPlay, onCancel }: { battle: FriendBattle; onAnswer?: (accept: boolean) => void; onPlay?: () => void; onCancel?: () => void }) {
+  const name = firstName(battle.friend.name);
+  const member = { id: battle.friend.id, name: battle.friend.name } as CrewMember;
+  const incoming = battle.status === "pending" && !battle.youStarted;
+  const ready = battle.status === "accepted" && battle.yourScore === null;
+  const done = battle.status === "done";
+  let line: string;
+  if (incoming) line = t("Wants to battle you!");
+  else if (battle.status === "pending") line = t("Waiting for {name} to say yes", { name });
+  else if (ready) line = battle.theyPlayed ? t("{name} played. Your turn!", { name }) : t("Your turn to play!");
+  else if (!done) line = t("You got {count}. Waiting for {name}.", { count: battle.yourScore ?? 0, name });
+  else line = battle.outcome === "win" ? t("You won {mine} to {theirs}!", { mine: battle.yourScore ?? 0, theirs: battle.theirScore ?? 0 }) : battle.outcome === "draw" ? t("Tie, {mine} to {theirs}", { mine: battle.yourScore ?? 0, theirs: battle.theirScore ?? 0 }) : t("They won {theirs} to {mine}", { mine: battle.yourScore ?? 0, theirs: battle.theirScore ?? 0 });
+  const tone = done ? (battle.outcome === "win" ? styles.battleWin : battle.outcome === "loss" ? styles.battleLoss : null) : incoming || ready ? styles.battleHot : null;
+  return (
+    <PopIn from="up">
+      <View style={[styles.raceRow, tone]} testID={`battle-row-${battle.id}`}>
+        <View style={styles.battleIcon}>
+          <Icon name={done ? "trophy" : "bolt"} size={20} />
+        </View>
+        <Avatar member={member} size={36} />
+        <View style={styles.raceMain}>
+          <Text style={styles.raceName} numberOfLines={1}>{name}</Text>
+          <Text style={styles.raceMetaText} numberOfLines={2} testID={`battle-line-${battle.id}`}>{line}</Text>
+        </View>
+        {incoming ? (
+          <>
+            <GameButton label={t("Play")} size="sm" variant="gold" onPress={() => onAnswer?.(true)} testID={`battle-accept-${battle.id}`} />
+            <Tappable onPress={() => onAnswer?.(false)} style={styles.noLink} accessibilityLabel={t("Say no to {name}", { name })} hitSlop={6} testID={`battle-decline-${battle.id}`}>
+              <Icon name="close" size={18} color={colors.inkSoft} />
+            </Tappable>
+          </>
+        ) : ready ? (
+          <GameButton label={t("Play")} size="sm" variant="gold" onPress={onPlay} testID={`battle-play-${battle.id}`} />
+        ) : battle.status === "pending" ? (
+          <Tappable onPress={onCancel} style={styles.noLink} accessibilityLabel={t("Cancel battle with {name}", { name })} hitSlop={6} testID={`battle-cancel-${battle.id}`}>
+            <Icon name="close" size={18} color={colors.inkSoft} />
+          </Tappable>
+        ) : null}
+      </View>
+    </PopIn>
+  );
+}
+
+/** The learner's invite code, how many friends used it, and (for new accounts) a box to type a friend's code. */
+/** What the pair still has to do today to keep (or start) their friend streak. */
+export function friendStreakLine(streak: FriendStreak, name: string) {
+  if (streak.meToday && streak.friendToday) return t("You both learned today!");
+  if (streak.meToday) return t("Waiting for {name} to learn today", { name });
+  if (streak.friendToday) return t("{name} learned today. Your turn!", { name });
+  return streak.days > 0 ? t("Both do a lesson today to keep it!") : t("Both do a lesson today to start one!");
+}
+
+/** Friends whose streak needs the learner today come first, then the longest streaks. */
+export function sortFriendStreaks(friends: CrewMember[]) {
+  const needsMe = (member: CrewMember) => Number(Boolean(member.friendStreak && !member.friendStreak.meToday && member.friendStreak.days > 0));
+  return friends
+    .filter((member) => member.friendStreak)
+    .sort((left, right) => needsMe(right) - needsMe(left) || (right.friendStreak?.days ?? 0) - (left.friendStreak?.days ?? 0) || left.name.localeCompare(right.name));
+}
+
+function TwinFlame({ lit, size = 18 }: { lit: boolean; size?: number }) {
+  const color = lit ? undefined : colors.lockedLip;
+  return (
+    <View style={[styles.twinFlame, { width: size * 1.55, height: size }]}>
+      <View style={styles.twinFlameBack}>
+        <Icon name="flame" size={size * 0.8} color={color} />
+      </View>
+      <Icon name="flame" size={size} color={color} />
+    </View>
+  );
+}
+
+function FriendStreakRow({ member, me, onOpen }: { member: CrewMember; me: CrewMember; onOpen: (member: CrewMember) => void }) {
+  const streak = member.friendStreak as FriendStreak;
+  const name = firstName(member.name);
+  const bothToday = streak.meToday && streak.friendToday;
+  const yourTurn = !streak.meToday && streak.days > 0;
+  return (
+    <Tappable
+      onPress={() => onOpen(member)}
+      style={[styles.raceRow, bothToday ? styles.streakLit : yourTurn ? styles.battleHot : null]}
+      testID={`friend-streak-${member.id}`}
+      accessibilityLabel={`${t("{count} day friend streak with {name}", { count: streak.days, name })}. ${friendStreakLine(streak, name)}`}
+      pressScale={0.98}
+    >
+      <View style={styles.streakAvatars}>
+        <Avatar member={me} size={30} />
+        <View style={styles.streakAvatarFriend}>
+          <Avatar member={member} size={30} />
+        </View>
+      </View>
+      <View style={styles.raceMain}>
+        <Text style={styles.raceName} numberOfLines={1}>{t("You and {name}", { name })}</Text>
+        <Text style={styles.raceMetaText} numberOfLines={2} testID={`friend-streak-line-${member.id}`}>{friendStreakLine(streak, name)}</Text>
+      </View>
+      <View style={styles.score}>
+        <TwinFlame lit={streak.days > 0} />
+        <Text style={[styles.scoreText, streak.days > 0 ? styles.streakDays : null]} numberOfLines={1} testID={`friend-streak-days-${member.id}`}>
+          {formatNumber(streak.days)}
+        </Text>
+      </View>
+    </Tappable>
+  );
+}
+
+export function InviteCodeCard({ invite, onRedeem }: { invite: InviteInfo; onRedeem?: (code: string) => void }) {
+  const [typing, setTyping] = useState(false);
+  const [code, setCode] = useState("");
+  const canRedeem = Boolean(onRedeem) && invite.canUseCode && !invite.usedCode;
+  const redeem = () => {
+    if (!code.trim()) return;
+    onRedeem?.(code.trim());
+    setTyping(false);
+    setCode("");
+  };
+  return (
+    <View style={styles.inviteCard} testID="invite-card">
+      <Text style={styles.inviteTitle}>{t("Invite a friend and you both get {count} dates!", { count: invite.rewardDates })}</Text>
+      <Text style={styles.inviteLabel}>{t("Your invite code")}</Text>
+      <Text style={styles.inviteCode} selectable testID="invite-code">
+        {invite.code}
+      </Text>
+      <Text style={styles.hint}>
+        {invite.joined ? t("Friends who joined with your code: {count}", { count: invite.joined }) : t("Your friend types it after signing up.")}
+      </Text>
+      {canRedeem && typing ? (
+        <View style={styles.redeemWrap}>
+          <TextField
+            value={code}
+            onChangeText={setCode}
+            placeholder={t("Friend's code")}
+            autoCapitalize="characters"
+            autoCorrect={false}
+            maxLength={12}
+            returnKeyType="done"
+            onSubmitEditing={redeem}
+            testID="invite-code-input"
+            accessibilityLabel={t("Friend's code")}
+          />
+          <GameButton label={t("Use code")} fullWidth disabled={!code.trim()} onPress={redeem} testID="invite-code-use" />
+        </View>
+      ) : canRedeem ? (
+        <Tappable onPress={() => setTyping(true)} style={styles.redeemLink} testID="invite-code-open" pressScale={0.96}>
+          <Text style={styles.redeemLinkText}>{t("Got a code from a friend?")}</Text>
+        </Tappable>
+      ) : null}
+    </View>
+  );
+}
+
+/** Open battles first (the ones waiting on this learner on top), then the last few finished. */
+export function sortBattles(battles: FriendBattle[]) {
+  const weight = (battle: FriendBattle) => {
+    if (battle.status === "pending" && !battle.youStarted) return 0;
+    if (battle.status === "accepted" && battle.yourScore === null) return 1;
+    if (battle.status !== "done") return 2;
+    return 3;
+  };
+  return battles.slice().sort((left, right) => weight(left) - weight(right));
+}
+
+/** Battles that wait on this learner: a friend asked, or it's their turn to play. */
+export function battlesWaitingOnMe(battles: FriendBattle[] = []) {
+  return battles.filter((battle) => (battle.status === "pending" && !battle.youStarted) || (battle.status === "accepted" && battle.yourScore === null)).length;
+}
+
 type UmmahPage = "ranks" | "friends";
 
 /** Ummah tab: Ranks (arenas, battles, everyone's ranking) and Friends (weekly XP race, a grown-up-gated invite sheet). */
@@ -217,6 +399,14 @@ export function CrewView({
   hasSavedAccount = false,
   league,
   ranks,
+  battles = [],
+  onChallenge,
+  onAnswerBattle,
+  onPlayBattle,
+  onCancelBattle,
+  onShareApp,
+  invite,
+  onRedeemInvite,
   mascotVariant = "muslim_man",
   // The brand green like the Mascot's own default; the app passes the topic accent.
   accent = colors.green
@@ -241,9 +431,10 @@ export function CrewView({
   // Nothing else starts the first load when Crew is a tab.
   const refresh = useRef(onRefresh);
   refresh.current = onRefresh;
+  // Loaded on the Ranks page too, so the Friends button can say when a friend is waiting for a battle.
   useEffect(() => {
-    if (crew.status === "idle" && user.hasAccount && !unavailable && !showRanks) refresh.current();
-  }, [crew.status, showRanks, unavailable, user.hasAccount]);
+    if (crew.status === "idle" && user.hasAccount && !unavailable) refresh.current();
+  }, [crew.status, unavailable, user.hasAccount]);
   useEffect(() => () => clearTimeout(retryTimer.current), []);
 
   const retry = () => {
@@ -253,7 +444,8 @@ export function CrewView({
     onRefresh();
   };
 
-  const openInvite = () => ask(() => setInviteOpen(true));
+  // Inviting needs no grown-up check: the other side must add back, and saying yes to them is still checked.
+  const openInvite = () => setInviteOpen(true);
   const openFriend = (member: CrewMember) => {
     setConfirmRemove(false);
     setLastFriend(member);
@@ -277,6 +469,41 @@ export function CrewView({
         ))}
       </View>
     ) : null;
+  const waitingOnMe = battlesWaitingOnMe(battles);
+  const battleList = battles.length ? (
+    <View style={[styles.race, styles.waiting]} testID="crew-battles">
+      <Text style={styles.listTitle}>{t("Battles")}</Text>
+      {sortBattles(battles).map((battle) => (
+        <BattleRow
+          key={`battle_${battle.id}`}
+          battle={battle}
+          onAnswer={(accept) => onAnswerBattle?.(battle, accept)}
+          onPlay={() => onPlayBattle?.(battle)}
+          onCancel={() => onCancelBattle?.(battle)}
+        />
+      ))}
+    </View>
+  ) : null;
+  const streakFriends = payload ? sortFriendStreaks(payload.friends) : [];
+  const friendStreaks = payload && streakFriends.length ? (
+    <View style={[styles.race, styles.waiting]} testID="crew-friend-streaks">
+      <Text style={styles.listTitle}>{t("Friend streaks")}</Text>
+      <Text style={styles.streakHelp}>{t("Learn on the same day as a friend to grow your streak together.")}</Text>
+      {streakFriends.map((member) => (
+        <FriendStreakRow key={`streak_${member.id}`} member={member} me={payload.me} onOpen={openFriend} />
+      ))}
+    </View>
+  ) : null;
+  const openBattleWith = (member: CrewMember) => battles.find((battle) => battle.friend.id === member.id && battle.status !== "done");
+  const shareButton = onShareApp ? (
+    <GameButton label={t("Invite friends")} icon="share" variant="secondary" fullWidth onPress={onShareApp} testID="crew-share" />
+  ) : null;
+  const inviteButtons = (
+    <View style={styles.inviteWrap}>
+      <GameButton label={t("Invite")} icon="plus" fullWidth onPress={openInvite} testID="crew-invite" />
+      {shareButton}
+    </View>
+  );
   const add = () => {
     if (!canAdd) return;
     setInviteOpen(false);
@@ -285,18 +512,27 @@ export function CrewView({
 
   let body: React.ReactNode;
   if (unavailable) {
-    body = <Empty {...emptyProps} testID="crew-soon" mood="happy" title={t("Friends are coming soon!")} />;
+    body = (
+      <>
+        <Empty {...emptyProps} testID="crew-soon" mood="happy" title={t("Friends are coming soon!")} />
+        {shareButton}
+      </>
+    );
   } else if (signedOut) {
     // An account without a server session (made offline), or a saved one that logged out, logs in; everyone else signs up.
     body = (
-      <Empty
-        {...emptyProps}
-        testID="crew-signed-out"
-        mood="wave"
-        title={t("Race your friends!")}
-        button={user.hasAccount || hasSavedAccount ? t("Log in") : t("Sign up")}
-        onPress={onCreateAccount}
-      />
+      <>
+        <Empty
+          {...emptyProps}
+          testID="crew-signed-out"
+          mood="wave"
+          title={t("Race your friends!")}
+          button={user.hasAccount || hasSavedAccount ? t("Log in") : t("Sign up")}
+          onPress={onCreateAccount}
+        />
+        {/* Inviting needs no account: the phone's share menu sends the store link. */}
+        {shareButton}
+      </>
     );
   } else if (isOffline) {
     body = <Empty {...emptyProps} testID="crew-offline" mood="sad" title={t("No internet")} button={t("Try again")} onPress={retry} busy={retrying} />;
@@ -306,20 +542,25 @@ export function CrewView({
   } else if (!payload) {
     body = <Empty {...emptyProps} testID="crew-loading" mood="think" title={t("Finding your crew...")} busy />;
   } else if (!payload.friends.length && !waiting) {
-    body = <Empty {...emptyProps} testID="crew-empty" mood="wave" title={t("Add a friend to race!")} button={t("Invite")} icon="plus" onPress={openInvite} />;
+    body = (
+      <>
+        <Empty {...emptyProps} testID="crew-empty" mood="wave" title={t("Add a friend to race and battle!")} button={t("Invite")} icon="plus" onPress={openInvite} />
+        {shareButton}
+      </>
+    );
   } else if (!payload.friends.length) {
     body = (
       <>
         {waiting}
-        <View style={styles.inviteWrap}>
-          <GameButton label={t("Invite")} icon="plus" fullWidth onPress={openInvite} testID="crew-invite" />
-        </View>
+        {inviteButtons}
       </>
     );
   } else {
     body = (
       <>
         {waiting}
+        {battleList}
+        {friendStreaks}
         <View style={styles.mascotRow}>
           <Mascot variant={mascotVariant} mood={myRank === 1 ? "cheer" : "happy"} size={78} accent={accent} />
           <View style={styles.bubbleWrap}>
@@ -332,10 +573,9 @@ export function CrewView({
             <RaceRow key={`${entry.relation}_${entry.id}`} entry={entry} index={index} onOpen={openFriend} />
           ))}
         </View>
+        {onChallenge ? <Text style={styles.hint}>{t("Tap a friend to battle them.")}</Text> : null}
 
-        <View style={styles.inviteWrap}>
-          <GameButton label={t("Invite")} icon="plus" fullWidth onPress={openInvite} testID="crew-invite" />
-        </View>
+        {inviteButtons}
       </>
     );
   }
@@ -380,16 +620,22 @@ export function CrewView({
                 <Text style={[styles.pageText, page === key ? styles.pageTextActive : null]} numberOfLines={1}>
                   {key === "ranks" ? t("Ranks") : t("Friends")}
                 </Text>
+                {key === "friends" && waitingOnMe + requests.length > 0 ? (
+                  <View style={styles.badge} testID="ummah-friends-badge">
+                    <Text style={styles.badgeText}>{waitingOnMe + requests.length}</Text>
+                  </View>
+                ) : null}
               </Tappable>
             ))}
           </View>
         ) : null}
         {showRanks && ranks ? (
-          <UmmahRanks {...ranks} user={user} mascotVariant={mascotVariant} accent={accent} />
+          <UmmahRanks {...ranks} user={user} mascotVariant={mascotVariant} accent={accent} onBattleFriend={signedOut || unavailable ? undefined : () => setPage("friends")} />
         ) : (
           <>
             {league ? <LeagueCard league={league} /> : null}
             {body}
+            {invite && !signedOut && !unavailable ? <InviteCodeCard invite={invite} onRedeem={onRedeemInvite} /> : null}
           </>
         )}
       </ScrollView>
@@ -475,7 +721,36 @@ export function CrewView({
                 <Text style={styles.friendStatText}>{formatNumber(shownFriend.weeklyXp)}</Text>
               </View>
             </View>
-            <GameButton label={t("OK")} fullWidth onPress={closeFriend} testID="crew-friend-ok" />
+            {shownFriend.friendStreak ? (
+              <View style={styles.sheetStreak} testID="crew-friend-sheet-streak">
+                <TwinFlame lit={shownFriend.friendStreak.days > 0} size={24} />
+                <View style={styles.raceMain}>
+                  <Text style={styles.raceName}>{t("{count} day friend streak", { count: shownFriend.friendStreak.days })}</Text>
+                  <Text style={styles.raceMetaText}>
+                    {friendStreakLine(shownFriend.friendStreak, firstName(shownFriend.name))}
+                    {shownFriend.friendStreak.best > shownFriend.friendStreak.days ? ` ${t("Best: {count}", { count: shownFriend.friendStreak.best })}` : ""}
+                  </Text>
+                </View>
+              </View>
+            ) : null}
+            {onChallenge ? (
+              openBattleWith(shownFriend) ? (
+                <Text style={styles.hint} testID="crew-friend-battle-open">{t("You already have a battle with {name}.", { name: firstName(shownFriend.name) })}</Text>
+              ) : (
+                <GameButton
+                  label={t("Battle")}
+                  icon="bolt"
+                  variant="gold"
+                  fullWidth
+                  onPress={() => {
+                    closeFriend();
+                    onChallenge(shownFriend);
+                  }}
+                  testID={`crew-challenge-${shownFriend.id}`}
+                />
+              )
+            ) : null}
+            <GameButton label={t("OK")} variant={onChallenge ? "secondary" : undefined} fullWidth onPress={closeFriend} testID="crew-friend-ok" />
             <Tappable onPress={() => setConfirmRemove(true)} style={styles.removeLink} accessibilityLabel={`Remove ${firstName(shownFriend.name)}`} testID={`crew-ask-remove-${shownFriend.id}`}>
               <Text style={styles.removeLinkText}>{t("Remove")}</Text>
             </Tappable>
@@ -496,18 +771,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 12,
     paddingBottom: 32,
-    flexGrow: 1
+    flexGrow: 1,
+    // Centered in a phone-wide column on tablets and the web, like the other tabs.
+    width: "100%",
+    maxWidth: 560,
+    alignSelf: "center"
   },
+  // The title sits in the middle, as on the Me tab.
   titleRow: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     flexWrap: "wrap",
     gap: 8
   },
   title: {
     ...text.h1,
     flexShrink: 1,
-    marginEnd: "auto"
+    textAlign: "center"
   },
   pages: {
     flexDirection: "row",
@@ -648,7 +929,94 @@ const styles = StyleSheet.create({
     color: colors.goldLip
   },
   inviteWrap: {
-    marginTop: 18
+    marginTop: 18,
+    gap: 10
+  },
+  inviteCard: {
+    marginTop: 18,
+    padding: 14,
+    gap: 4,
+    borderRadius: radii.tile,
+    borderWidth: 2,
+    borderBottomWidth: 4,
+    borderColor: lighten(colors.gold, 0.45),
+    borderBottomColor: colors.gold,
+    backgroundColor: lighten(colors.gold, 0.9),
+    alignItems: "center"
+  },
+  inviteTitle: {
+    ...text.h3,
+    textAlign: "center"
+  },
+  inviteLabel: {
+    ...text.small,
+    marginTop: 6
+  },
+  inviteCode: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 30,
+    lineHeight: 38,
+    letterSpacing: 3,
+    color: darken(colors.gold, 0.55)
+  },
+  redeemWrap: {
+    alignSelf: "stretch",
+    gap: 8,
+    marginTop: 10
+  },
+  redeemLink: {
+    marginTop: 8,
+    paddingVertical: 6,
+    paddingHorizontal: 10
+  },
+  redeemLinkText: {
+    ...text.small,
+    fontFamily: fonts.displayHeavy,
+    color: darken(colors.gem, 0.2)
+  },
+  hint: {
+    ...text.small,
+    textAlign: "center",
+    marginTop: 10
+  },
+  listTitle: {
+    ...text.h3,
+    marginBottom: 2
+  },
+  battleIcon: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: lighten(colors.gold, 0.75)
+  },
+  battleHot: {
+    borderColor: lighten(colors.gold, 0.3),
+    borderBottomColor: colors.goldLip,
+    backgroundColor: lighten(colors.gold, 0.88)
+  },
+  battleWin: {
+    borderColor: lighten(colors.green, 0.5),
+    borderBottomColor: colors.green
+  },
+  battleLoss: {
+    borderColor: colors.line
+  },
+  badge: {
+    minWidth: 22,
+    height: 22,
+    paddingHorizontal: 6,
+    borderRadius: 11,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: colors.heart
+  },
+  badgeText: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 13,
+    lineHeight: 18,
+    color: colors.white
   },
   sheetHead: {
     flexDirection: "row",
@@ -700,6 +1068,45 @@ const styles = StyleSheet.create({
   },
   waiting: {
     marginBottom: 16
+  },
+  streakHelp: {
+    ...text.small,
+    marginBottom: 2
+  },
+  streakLit: {
+    backgroundColor: lighten(colors.flame, 0.88),
+    borderColor: lighten(colors.flame, 0.5),
+    borderBottomColor: colors.flame
+  },
+  streakDays: {
+    color: darken(colors.flame, 0.15)
+  },
+  streakAvatars: {
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  streakAvatarFriend: {
+    marginStart: -10
+  },
+  twinFlame: {
+    alignItems: "flex-end",
+    justifyContent: "center"
+  },
+  twinFlameBack: {
+    position: "absolute",
+    start: 0,
+    top: 0
+  },
+  sheetStreak: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    alignSelf: "stretch",
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    borderRadius: radii.tile,
+    backgroundColor: lighten(colors.flame, 0.9),
+    marginBottom: 6
   },
   pendingRow: {
     backgroundColor: colors.snow

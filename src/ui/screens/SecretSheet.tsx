@@ -57,7 +57,7 @@ export function SecretSheet({ secret, isNew, onClose }: { secret?: SecretLesson;
               <Icon name="lantern" size={52} />
             </View>
           </PopIn>
-          {isNew ? <Text style={styles.found}>{t("Secret found! +{count} gems", { count: SECRET_FOUND_GEMS })}</Text> : null}
+          {isNew ? <Text style={styles.found}>{t("Secret found! +{count} dates", { count: SECRET_FOUND_GEMS })}</Text> : null}
           <SecretBody secret={secret} />
           <GameButton label={t("Got it")} fullWidth onPress={onClose} testID="secret-close" />
         </ScrollView>

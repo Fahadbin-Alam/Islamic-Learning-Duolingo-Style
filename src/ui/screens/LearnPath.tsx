@@ -26,7 +26,11 @@ import { Icon, type IconName } from "../Icon";
 import { Camel, useReduceMotion } from "../Camel";
 import { Mascot } from "../Mascot";
 import { GroundTuft, PathScenery, sceneryFor, type SceneryKind } from "../PathScenery";
+import { ROAMERS } from "../roamer";
 import { PathWeather, weatherFor } from "../PathWeather";
+import { WorldTuft, worldFor } from "../pathWorlds";
+import { usePathWorldChoice } from "../../services/pathWorldChoice";
+import { QuakeView, SceneProvider, Snooze, useScene } from "../sceneMood";
 import { PopIn, useShake } from "../PopIn";
 import { ProgressBar } from "../ProgressBar";
 import { Sheet } from "../Sheet";
@@ -60,7 +64,7 @@ export interface PathUnit {
   /** Unit needs Premium: nodes look locked and the card offers UNLOCK. */
   premiumLocked?: boolean;
   /**
-   * Its circles still to play make a fair test-out: the banner key (current unit only) and the
+   * Its circles still to play make a fair test-out: the banner's TEST OUT key and the
    * JUMP HERE button on its locked circles open "Jump ahead?". Default: true for the unit of the
    * circle to play next, false for the others.
    */
@@ -79,7 +83,7 @@ export type LearnPathProps = {
   onStartNode: (node: LearningNodeView) => void;
   onClaimChest: (chest: PathChest) => void;
   /**
-   * Test out of a unit. The current unit's banner key and JUMP HERE on a locked circle (units with
+   * Test out of a unit. The banner's TEST OUT key and JUMP HERE on a locked circle (units with
    * canTestOut, or the circles in jumpNodeIds) ask "Jump ahead?" first, then call this on START TEST.
    * From JUMP HERE it also gets the tapped circle; from the banner key, no circle.
    */
@@ -127,14 +131,14 @@ export type LearnPathProps = {
 // ---------- geometry ----------
 
 const OFFSETS = [0, 48, 72, 48, 0, -48, -72, -48];
-const NODE = 72;
+const NODE = 62;
 const NODE_LIP = 7;
-const RING = 96;
-const ROW_H = 98;
+const RING = 84;
+const ROW_H = 88;
 const CURRENT_EXTRA = 46;
 /** Where a circle's face starts inside its RING box (the hit box is centred with a half-lip top margin). */
 const FACE_TOP = (RING - NODE) / 2 - NODE_LIP / 4;
-const CHEST = 68;
+const CHEST = 58;
 const MASCOT_SIZE = 84;
 const MASCOT_W = MASCOT_SIZE;
 const MASCOT_H = Math.round((MASCOT_SIZE * 7) / 6);
@@ -147,6 +151,15 @@ const TUFT_SIZE = 26;
  * only their plain circles (same size, so nothing moves). Long topics like the Quran stay smooth this way.
  */
 const LIVE_MARGIN = 1;
+/** Units beyond the live ones (on each side) that still draw their circles; the rest are an empty stretch. */
+const MOUNT_MARGIN = 3;
+/**
+ * Units with at least this many rows (Al-Baqarah has over 250) draw their pictures, tufts and clouds only for
+ * the rows near the screen, a few screens at a time, so a long unit stays light on a phone.
+ */
+const LONG_UNIT_ROWS = 30;
+/** Rows either side of the circle the path opens on that a long unit draws in full before the first scroll. */
+const LONG_UNIT_START_ROWS = 12;
 /** Room the unit banner takes above the rows, for sizing the sky (it only needs to be about right). */
 const SKY_BANNER = 130;
 const CAMEL_SIZE = 72;
@@ -162,7 +175,7 @@ const UNIT_PAD = 16;
  * sticky banner has measured itself: a low guess never lets the real banner peek out under it.
  */
 const STICKY_MIN = 64;
-const END_NODE = 88;
+const END_NODE = 76;
 const END_LIP = 8;
 const HINT_MS = 1600;
 
@@ -225,41 +238,42 @@ function pingPong(value: Animated.Value, duration: number, delay = 0) {
   ]);
 }
 
+const AnimatedCircle = Animated.createAnimatedComponent(Circle);
+
 function ProgressRing({ color, track, progress }: { color: string; track: string; progress: number }) {
   const target = Math.min(1, Math.max(0, progress));
-  const [shown, setShown] = useState(0);
   const anim = useRef(new Animated.Value(0)).current;
 
+  // The ring fills by moving its own stroke, frame by frame, without drawing the path again each frame (that used to
+  // keep the phone busy for the second after the path opened, just when a learner taps).
   useEffect(() => {
-    const id = anim.addListener(({ value }) => setShown(value));
     const timing = Animated.timing(anim, { toValue: target, duration: 900, delay: 250, easing: Easing.out(Easing.cubic), useNativeDriver: false });
     timing.start();
-    return () => {
-      timing.stop();
-      anim.removeListener(id);
-    };
+    return () => timing.stop();
   }, [anim, target]);
 
   const stroke = 7;
   const radius = (RING - stroke) / 2;
   const circumference = 2 * Math.PI * radius;
+  const dashOffset = anim.interpolate({ inputRange: [0, 1], outputRange: [circumference, 0] });
+  // Hidden while empty: a round cap on a stroke of no length still draws a dot.
+  const fillOpacity = anim.interpolate({ inputRange: [0, 0.001, 1], outputRange: [0, 1, 1] });
   return (
     <Svg width={RING} height={RING} style={styles.ring} pointerEvents="none">
       <Circle cx={RING / 2} cy={RING / 2} r={radius} stroke={track} strokeWidth={stroke} fill="none" />
-      {shown > 0.001 ? (
-        <Circle
-          cx={RING / 2}
-          cy={RING / 2}
-          r={radius}
-          stroke={color}
-          strokeWidth={stroke}
-          fill="none"
-          strokeLinecap="round"
-          strokeDasharray={`${circumference} ${circumference}`}
-          strokeDashoffset={circumference * (1 - shown)}
-          transform={`rotate(-90 ${RING / 2} ${RING / 2})`}
-        />
-      ) : null}
+      <AnimatedCircle
+        cx={RING / 2}
+        cy={RING / 2}
+        r={radius}
+        stroke={color}
+        strokeWidth={stroke}
+        strokeOpacity={fillOpacity}
+        fill="none"
+        strokeLinecap="round"
+        strokeDasharray={`${circumference} ${circumference}`}
+        strokeDashoffset={dashOffset}
+        transform={`rotate(-90 ${RING / 2} ${RING / 2})`}
+      />
     </Svg>
   );
 }
@@ -388,7 +402,7 @@ const PathNode = memo(function PathNode({
           <View style={[styles.nodeRim, { borderColor: withAlpha(colors.white, locked ? 0.45 : 0.28) }]} />
           <View style={styles.nodeShine} />
           <View style={styles.nodeShineDot} />
-          {showIcon ? <Icon name={look.icon} size={34} color={look.iconColor} detailColor={look.iconDetail} /> : null}
+          {showIcon ? <Icon name={look.icon} size={29} color={look.iconColor} detailColor={look.iconDetail} /> : null}
         </Animated.View>
       </Pressable>
     </View>
@@ -478,20 +492,27 @@ function PathChestView({ chest, onClaim }: { chest: PathChest; onClaim: () => vo
         sound={ready ? "reward_chest" : "soft_ui"}
         hapticKind={ready ? "success" : "light"}
         pressScale={0.9}
-        accessibilityLabel={ready ? t("Open chest, {count} gems", { count: chest.gemsReward }) : chest.claimed ? t("Opened chest") : t("Locked chest")}
+        accessibilityLabel={ready ? t("Open chest, {count} dates", { count: chest.gemsReward }) : chest.claimed ? t("Opened chest") : t("Locked chest")}
         testID={`path-chest-${chest.id}`}
       >
         <Animated.View style={shakeStyle}>
           <Animated.View style={[styles.chestArt, { transform: [{ scale: bounce }] }]}>
+            {/* A solid plate behind the chest, like the circles have, so busy scenery never swallows it. */}
+            <View style={[styles.chestPlate, ready ? styles.chestPlateReady : null]} />
             <View style={styles.groundShadow} />
-            <Animated.View style={[{ transform: [{ rotate }] }, ready ? null : chest.claimed ? styles.chestClaimed : styles.chestLocked]}>
+            <Animated.View style={{ transform: [{ rotate }] }}>
               <Icon name={chest.claimed ? "chestOpen" : "chest"} size={CHEST} />
             </Animated.View>
+            {!ready ? (
+              <View style={[styles.chestBadge, chest.claimed ? styles.chestBadgeDone : null]} pointerEvents="none">
+                <Icon name={chest.claimed ? "check" : "lock"} size={13} />
+              </View>
+            ) : null}
           </Animated.View>
         </Animated.View>
         {ready ? (
           <View style={styles.rewardPill} pointerEvents="none">
-            <Icon name="gem" size={14} />
+            <Icon name="date" size={14} />
             <Text style={styles.rewardText}>{`+${chest.gemsReward}`}</Text>
           </View>
         ) : null}
@@ -502,6 +523,22 @@ function PathChestView({ chest, onClaim }: { chest: PathChest; onClaim: () => vo
 }
 
 // ---------- node card ----------
+
+/** A review circle closes a part of a unit (a story, a group of ayahs): "Deep review", "Review", "Final quiz". */
+const PART_END = /(^|-)(review(-\d+)?|final-quiz)$/;
+
+/**
+ * The first circle of the next part, when `node` is a circle to play that is not itself a review: a test of the
+ * circles from here to the part's review lets a learner who knows the story skip to it.
+ */
+export function nextPartStart(unit: PathUnit, node: LearningNodeView): LearningNodeView | undefined {
+  if (node.status === "locked" || node.status === "completed" || PART_END.test(node.id)) return undefined;
+  const nodes = unit.items.flatMap((item) => (item.kind === "node" ? [item.node] : []));
+  const at = nodes.findIndex((item) => item.id === node.id);
+  if (at < 0) return undefined;
+  const end = nodes.findIndex((item, index) => index > at && PART_END.test(item.id));
+  return end > at ? nodes[end + 1] : undefined;
+}
 
 function NodeCard({
   item,
@@ -516,6 +553,7 @@ function NodeCard({
   onStart,
   onPremium,
   onJump,
+  onSkipPart,
   onCardLayout
 }: {
   item: Extract<PathItem, { kind: "node" }>;
@@ -532,6 +570,8 @@ function NodeCard({
   onPremium?: () => void;
   /** A locked circle whose unit can be tested out: JUMP HERE asks "Jump ahead?" for the unit. */
   onJump?: () => void;
+  /** The circle to play is the start of a part (a story, up to its review): a test can skip the whole part. */
+  onSkipPart?: () => void;
   onCardLayout: (height: number) => void;
 }) {
   const { node, arabic } = item;
@@ -573,6 +613,24 @@ function NodeCard({
         testID="node-card-start"
       />
     );
+    if (onSkipPart && node.status !== "completed") {
+      // Already know this story? A short test skips to the next part.
+      action = (
+        <>
+          {action}
+          <GameButton
+            label={t("I know this part")}
+            icon="key"
+            variant="ghost"
+            color={colors.white}
+            fullWidth
+            onPress={onSkipPart}
+            style={styles.cardSkip}
+            testID="node-card-skip-part"
+          />
+        </>
+      );
+    }
   }
 
   return (
@@ -677,7 +735,10 @@ function UnitBanner({
             testID={`unit-test-out-${unit.id}`}
             style={[styles.keyButton, { borderBottomColor: darken(color, 0.3) }]}
           >
-            <Icon name="key" size={22} />
+            <Icon name="key" size={20} />
+            <Text style={[styles.keyLabel, { color: darken(color, 0.35) }]} numberOfLines={1}>
+              {t("Test out")}
+            </Text>
           </Tappable>
         ) : null}
       </View>
@@ -759,6 +820,25 @@ function TestOutSheet({
   );
 }
 
+// ---------- night and sleep ----------
+
+/** The night sky behind the whole path; it shows when the day skies fade out (see sceneMood.tsx). */
+function NightSky({ top, bottom }: { top: number; bottom: number }) {
+  const { dark } = useScene();
+  return <Animated.View pointerEvents="none" style={[styles.nightSky, { top, bottom, opacity: dark }]} testID="path-night-sky" />;
+}
+
+/** The path's kid: tap for a reaction; falls asleep with the rest when the screen is left alone. */
+function PathMascot({ variant, mood, accent, testID }: { variant: string; mood: "happy" | "cheer"; accent: string; testID: string }) {
+  const { asleep } = useScene();
+  return (
+    <View>
+      <Mascot variant={variant} mood={asleep ? "sleepy" : mood} size={MASCOT_SIZE} accent={accent} tappable testID={testID} />
+      {asleep ? <Snooze x={MASCOT_SIZE * 0.7} y={MASCOT_H * 0.12} size={20} /> : null}
+    </View>
+  );
+}
+
 // ---------- end of the topic ----------
 
 function PathEnd({
@@ -787,7 +867,7 @@ function PathEnd({
     <View style={styles.end} testID="path-end">
       <View style={styles.endStage}>
         <View style={[styles.mascot, { left: mascotLeft, top: (END_NODE + END_LIP - MASCOT_H) / 2 + 4 }]} pointerEvents="box-none">
-          <Mascot variant={mascotVariant} mood={done ? "cheer" : "happy"} size={MASCOT_SIZE} accent={color} tappable testID="path-end-mascot" />
+          <PathMascot variant={mascotVariant} mood={done ? "cheer" : "happy"} accent={color} testID="path-end-mascot" />
         </View>
         {width - 8 - camelStart >= CAMEL_SIZE ? (
           <View style={[styles.mascot, { left: camelStart, top: END_NODE + END_LIP - CAMEL_H }]} pointerEvents="box-none">
@@ -816,11 +896,11 @@ function PathEnd({
               <View style={[styles.endFace, { backgroundColor: done ? colors.gold : colors.locked }]}>
                 <View style={styles.nodeShine} />
                 {done ? (
-                  <Icon name="trophy" size={46} color={colors.white} detailColor={colors.goldLip} />
+                  <Icon name="trophy" size={40} color={colors.white} detailColor={colors.goldLip} />
                 ) : (
                   // The real gold cup, faded: the prize ahead, not one more locked review node.
                   <View style={styles.endFaded}>
-                    <Icon name="trophy" size={50} />
+                    <Icon name="trophy" size={43} />
                   </View>
                 )}
               </View>
@@ -888,6 +968,9 @@ export function LearnPath({
 }: LearnPathProps) {
   const scrollRef = useRef<ScrollView>(null);
   const [width, setWidth] = useState(390);
+  const [headerH, setHeaderH] = useState(0);
+  /** Wakes everyone on the path (they fall asleep when the screen is left alone; see sceneMood.tsx). */
+  const wakeScene = useRef<(() => void) | null>(null);
   const [openId, setOpenId] = useState<string | undefined>(initialOpenNodeId);
   const [cardH, setCardH] = useState<number | undefined>(undefined);
   const [stickyId, setStickyId] = useState<string | undefined>(undefined);
@@ -899,6 +982,8 @@ export function LearnPath({
   const [revealId, setRevealId] = useState<string | undefined>(undefined);
   /** Units drawn in full (see LIVE_MARGIN), by index. Unset until the units have measured themselves. */
   const [live, setLive] = useState<{ lo: number; hi: number } | undefined>(undefined);
+  /** The screen-high stretch of the path on screen (scroll y / screen height), for long units (LONG_UNIT_ROWS). */
+  const [screenBand, setScreenBand] = useState<number | undefined>(undefined);
   const viewport = useRef(0);
   const scrollY = useRef(0);
   const unitY = useRef<Record<string, number>>({});
@@ -925,6 +1010,7 @@ export function LearnPath({
     setStickyId(undefined);
     setTestOut(undefined);
     setLive(undefined);
+    setScreenBand(undefined);
     scrolledToCurrent.current = false;
     focusConsumed.current = true;
     animateFocus.current = false;
@@ -947,6 +1033,7 @@ export function LearnPath({
     }
   }
 
+  const worldChoice = usePathWorldChoice();
   const layout = useMemo(() => {
     let currentUnitId: string | undefined;
     let currentKey: string | undefined;
@@ -981,30 +1068,39 @@ export function LearnPath({
           height: ROW_H + (current ? CURRENT_EXTRA : 0)
         };
       });
+      /** Each row's top inside the unit's rows, before any card opens. */
+      const rowTops: number[] = [];
+      rows.reduce((y, row) => {
+        rowTops.push(y);
+        return y + row.height;
+      }, 0);
       const mascotIndex = rows.findIndex((row) => row.current);
       // The camel walks beside the circle after the one to play next, heading on down the path.
       const camelIndex = mascotIndex < 0 ? -1 : mascotIndex + 1 < rows.length ? mascotIndex + 1 : mascotIndex - 1;
       // Topic pictures beside the path, about one every SCENERY_EVERY rows (at least one a unit), never on the
       // mascot's or the camel's row.
+      const world = worldFor(worldChoice, topicId, unitIndex);
       const scenery: { index: number; kind: SceneryKind }[] = [];
       const free = (candidate: number) =>
         candidate < rows.length && candidate !== mascotIndex && candidate !== camelIndex && !scenery.some((spot) => spot.index === candidate);
       for (let wanted = 2; wanted < rows.length; wanted += SCENERY_EVERY) {
         const candidate = [wanted, wanted + 1, wanted - 1].find(free);
-        if (candidate !== undefined) scenery.push({ index: candidate, kind: sceneryFor(topicId, unitIndex, scenery.length) });
+        if (candidate !== undefined) scenery.push({ index: candidate, kind: sceneryFor(topicId, unitIndex, scenery.length, world) });
       }
       if (scenery.length === 0) {
         const candidate = [1, 0].find(free);
-        if (candidate !== undefined) scenery.push({ index: candidate, kind: sceneryFor(topicId, unitIndex, 0) });
+        if (candidate !== undefined) scenery.push({ index: candidate, kind: sceneryFor(topicId, unitIndex, 0, world) });
       }
       return {
         unit,
         premium,
         color: tints[unitIndex % tints.length],
         rows,
+        rowTops,
         nodeCount: unit.total > 0 ? unit.total : place,
         unitIndex,
         weather: weatherFor(topicId, unitIndex),
+        world,
         /** Rows only; the banner and paddings are added where the sky is drawn. */
         rowsHeight: rows.reduce((sum, row) => sum + row.height, 0),
         mascotIndex,
@@ -1038,7 +1134,7 @@ export function LearnPath({
     return { byUnit, currentUnitId, currentKey, focusKey, focusUnitId, focusRatio, earnedChest };
     // Focus targets are read on mount only (and while a reveal is under way).
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accent, units, topicId, currentNodeId, revealId]);
+  }, [accent, units, topicId, currentNodeId, revealId, worldChoice]);
 
   // When the current node moves (a lesson was finished), follow it.
   if (lastCurrentKey.current !== layout.currentKey) {
@@ -1097,6 +1193,8 @@ export function LearnPath({
     (y: number) => {
       const screen = viewport.current;
       if (screen <= 0) return;
+      const band = Math.max(0, Math.floor(y / screen));
+      setScreenBand((previous) => (previous === band ? previous : band));
       const groups = layout.byUnit;
       let lo = -1;
       let hi = -1;
@@ -1247,6 +1345,32 @@ export function LearnPath({
   // Until the units have measured themselves, draw the ones around where the path opens.
   const focusUnitIndex = Math.max(0, layout.byUnit.findIndex((group) => group.unit.id === layout.focusUnitId));
   const isLive = (unitIndex: number) => (live ? unitIndex >= live.lo && unitIndex <= live.hi : Math.abs(unitIndex - focusUnitIndex) <= 1 || unitIndex === 0);
+  // Units farther away than this keep only their banner and an empty stretch of the same height, so a path of
+  // thousands of circles (the Quran, ayah by ayah) stays light: only units near the screen hold their circles.
+  const isMounted = (unitIndex: number) =>
+    unitIndex === 0 ||
+    unitIndex === currentUnitIndex ||
+    (live ? unitIndex >= live.lo - MOUNT_MARGIN && unitIndex <= live.hi + MOUNT_MARGIN : Math.abs(unitIndex - focusUnitIndex) <= MOUNT_MARGIN + 1);
+  type Group = (typeof layout.byUnit)[number];
+  /** The stretch of a long unit (in its own px, from its top) that draws in full; undefined: all of it. */
+  const unitWindow = (group: Group): { from: number; to: number } | undefined => {
+    if (group.rows.length < LONG_UNIT_ROWS) return undefined;
+    const top = unitY.current[group.unit.id];
+    const screen = viewport.current;
+    if (screenBand === undefined || top === undefined || screen <= 0) return undefined;
+    return { from: (screenBand - 1) * screen - top, to: (screenBand + 3) * screen - top };
+  };
+  /** Whether a row of a unit draws its pictures and tufts (always, unless the unit is long and the row far off). */
+  const rowNear = (group: Group, index: number, span: { from: number; to: number } | undefined) => {
+    if (group.rows.length < LONG_UNIT_ROWS) return true;
+    if (!span) {
+      // Not measured yet: the rows around where the path opens.
+      const focus = group.rows.findIndex((row) => row.key === layout.focusKey || row.key === openId);
+      return Math.abs(index - Math.max(0, focus)) <= LONG_UNIT_START_ROWS;
+    }
+    const y = (itemsY.current[group.unit.id] ?? SKY_BANNER) + group.rowTops[index];
+    return y + ROW_H >= span.from && y <= span.to;
+  };
   const sticky = stickyId ? layout.byUnit.find((group) => group.unit.id === stickyId) : undefined;
   const openRow = findRow(openId);
   const testOutGroup = testOut ? layout.byUnit.find((group) => group.unit.id === testOut.unitId) : undefined;
@@ -1254,7 +1378,7 @@ export function LearnPath({
   const topicDone = units.length > 0 && units.every((unit) => unit.total > 0 && unit.done >= unit.total);
 
   return (
-    <View style={styles.root}>
+    <SceneProvider style={styles.root} wakeRef={wakeScene}>
       <ScrollView
         ref={scrollRef}
         style={styles.scroll}
@@ -1264,6 +1388,7 @@ export function LearnPath({
         onScroll={(event: NativeSyntheticEvent<NativeScrollEvent>) => {
           const y = event.nativeEvent.contentOffset.y;
           scrollY.current = y;
+          wakeScene.current?.();
           updateSticky(y);
           updateLive(y);
           // react-native-web never fires onScrollBeginDrag, so a user scroll closes the card here.
@@ -1279,18 +1404,20 @@ export function LearnPath({
             setWidth(nextWidth);
           }
           tryScrollToCurrent();
+          updateLive(scrollY.current);
         }}
         testID={`learn-path-${topicId}`}
       >
-        <View onStartShouldSetResponder={() => Boolean(openId)} onResponderRelease={tapClose} testID="learn-path-content">
-          {header}
+        <QuakeView onStartShouldSetResponder={() => Boolean(openId)} onResponderRelease={tapClose} testID="learn-path-content">
+          <View onLayout={(event: LayoutChangeEvent) => setHeaderH(event.nativeEvent.layout.height)}>{header}</View>
+          <NightSky top={headerH} bottom={-bottomPadding} />
           {layout.byUnit.map((group) => {
             const { unit, color, rows, premium } = group;
-            // Only units near the circle to play next move their pictures: the rest stay still to spare cheap phones.
-            const nearCurrent = currentUnitIndex < 0 ? group.unitIndex < 2 : Math.abs(group.unitIndex - currentUnitIndex) <= 1;
             const unitDone = unit.total > 0 && unit.done >= unit.total;
             const holdsOpen = openRow?.group.unit.id === unit.id;
             const unitLive = holdsOpen || isLive(group.unitIndex);
+            const unitMounted = holdsOpen || isMounted(group.unitIndex);
+            const nearWindow = unitLive ? unitWindow(group) : undefined;
             return (
               <View
                 key={unit.id}
@@ -1302,12 +1429,12 @@ export function LearnPath({
                 }}
               >
                 {unitLive ? (
-                  <PathWeather weather={group.weather} width={width} height={UNIT_PAD + SKY_BANNER + 22 + group.rowsHeight + 40} animated={group.unitIndex === Math.max(0, currentUnitIndex)} />
+                  <PathWeather weather={group.weather} world={group.world} width={width} height={UNIT_PAD + SKY_BANNER + 22 + group.rowsHeight + 40} animated={unitLive} meteor={group.unitIndex === Math.max(0, currentUnitIndex)} window={nearWindow} />
                 ) : null}
                 <UnitBanner
                   unit={unit}
                   color={color}
-                  onTestOut={onTestOut && unit.id === layout.currentUnitId && unitCanTestOut(unit) ? () => askTestOut(unit.id) : undefined}
+                  onTestOut={onTestOut && unitCanTestOut(unit) ? () => askTestOut(unit.id) : undefined}
                   onPremium={onPremium ? () => onPremium(unit.id) : undefined}
                   onBannerLayout={(height) => {
                     bannerH.current[unit.id] = height;
@@ -1322,7 +1449,11 @@ export function LearnPath({
                     tryScrollToCurrent();
                   }}
                 >
-                  {rows.map((row, index) => {
+                  {!unitMounted ? (
+                    // Far from the screen: one empty stretch the height of the unit's rows. The Quran path has
+                    // over 8,000 circles, and a view for each far one made opening it slow and heavy on a phone.
+                    <View style={{ height: group.rowsHeight }} pointerEvents="none" testID={`path-far-${unit.id}`} />
+                  ) : rows.map((row, index) => {
                     const nodeCenter = center + row.offset;
                     const top = row.current ? CURRENT_EXTRA : 0;
                     const isOpen = openId === row.key && row.item.kind === "node";
@@ -1335,7 +1466,8 @@ export function LearnPath({
                     const laneEnd = side < 0 ? nodeCenter - NODE / 2 - 10 : width - 8;
                     const camelRange = Math.max(0, Math.min(CAMEL_WALK, laneEnd - laneStart - CAMEL_SIZE));
                     const camelLeft = laneStart + Math.max(0, (laneEnd - laneStart - CAMEL_SIZE - camelRange) / 2);
-                    const pictures = group.scenery.find((spot) => spot.index === index);
+                    const near = unitLive && rowNear(group, index, nearWindow);
+                    const pictures = near ? group.scenery.find((spot) => spot.index === index) : undefined;
                     const height = isOpen ? Math.max(row.height, top + CARD_GAP + (cardH ?? CARD_ESTIMATE) + 18) : row.height;
                     return (
                       <View
@@ -1348,28 +1480,41 @@ export function LearnPath({
                         }}
                       >
                         {pictures && unitLive ? (
-                          <View style={[styles.decor, { left: decorCenter - DECOR_SIZE / 2, top: top + 6 }]} pointerEvents="box-none">
-                            <View style={styles.decorShadow} pointerEvents="none" />
-                            <PathScenery kind={pictures.kind} size={DECOR_SIZE} animated={nearCurrent} tappable seed={group.unitIndex * 7 + index} />
+                          <View style={[styles.decor, { left: decorCenter - DECOR_SIZE / 2, top: top + 6 }]} pointerEvents="box-none" testID="path-decor">
+                            {/* Animals wander the whole row (their drawings carry their own shadow); the rest stand on a soft shadow. */}
+                            {ROAMERS.has(pictures.kind) ? null : <View style={styles.decorShadow} pointerEvents="none" />}
+                            <PathScenery
+                              kind={pictures.kind}
+                              size={DECOR_SIZE}
+                              animated={unitLive}
+                              tappable
+                              seed={group.unitIndex * 7 + index}
+                              roam={{ width, left: decorCenter - DECOR_SIZE / 2 }}
+                            />
                           </View>
                         ) : null}
-                        {unitLive && !pictures && index !== group.camelIndex && index !== group.mascotIndex && index % 2 === 1 ? (
+                        {near && !group.scenery.some((spot) => spot.index === index) && index !== group.camelIndex && index !== group.mascotIndex && index % 2 === 1 ? (
                           <View
                             style={[styles.tuft, { left: side < 0 ? 10 + (index % 3) * 8 : width - 10 - TUFT_SIZE - (index % 3) * 8, top: top + NODE - 8 }]}
                             pointerEvents="none"
                           >
-                            <GroundTuft variant={(group.unitIndex + index) % 3} size={TUFT_SIZE} />
+                            {group.world === "desert" ? (
+                              <GroundTuft variant={(group.unitIndex + index) % 3} size={TUFT_SIZE} />
+                            ) : (
+                              <WorldTuft world={group.world} variant={(group.unitIndex + index) % 3} size={TUFT_SIZE} />
+                            )}
                           </View>
                         ) : null}
                         {index === group.camelIndex && unitLive ? (
-                          <View style={[styles.mascot, { left: camelLeft, top: top + (NODE + NODE_LIP - CAMEL_H) / 2 }]} pointerEvents="box-none">
-                            <Camel size={CAMEL_SIZE} range={camelRange} accent={color} walking tappable testID="path-camel" />
+                          // Walks right across the row: off one edge of the screen and back in from the other, passing behind the circle.
+                          <View style={[styles.mascot, { left: 0, top: top + (NODE + NODE_LIP - CAMEL_H) / 2 }]} pointerEvents="box-none">
+                            <Camel size={CAMEL_SIZE} wrapWidth={width} home={camelLeft + camelRange / 2} accent={color} walking tappable testID="path-camel" />
                           </View>
                         ) : null}
                         {index === group.mascotIndex ? (
                           <View style={[styles.mascot, { left: mascotLeft, top: top + (NODE + NODE_LIP - MASCOT_H) / 2 - 8 }]} pointerEvents="box-none">
                             {/* The topic accent, not the unit tint: the mascot keeps one look across the app. */}
-                            <Mascot variant={mascotVariant} mood="happy" size={MASCOT_SIZE} accent={accent} tappable testID="path-mascot" />
+                            <PathMascot variant={mascotVariant} mood="happy" accent={accent} testID="path-mascot" />
                           </View>
                         ) : null}
                         {row.current && !isOpen ? (
@@ -1418,6 +1563,15 @@ export function LearnPath({
                                     }
                                   : undefined
                               }
+                              onSkipPart={(() => {
+                                const target = onTestOut ? nextPartStart(unit, (row.item as { node: LearningNodeView }).node) : undefined;
+                                return target && jumpNodeIds?.has(target.id) && !unit.premiumLocked
+                                  ? () => {
+                                      open(undefined);
+                                      askTestOut(unit.id, target.id);
+                                    }
+                                  : undefined;
+                              })()}
                               onCardLayout={(cardHeight) => onCardLayout(row.key, unit, top, cardHeight)}
                             />
                           </View>
@@ -1432,7 +1586,7 @@ export function LearnPath({
           {units.length > 0 ? (
             <PathEnd done={topicDone} color={accent} mascotVariant={mascotVariant} width={width} onNextTopic={onNextTopic} />
           ) : null}
-        </View>
+        </QuakeView>
       </ScrollView>
       {sticky ? (
         <StickyBanner
@@ -1463,7 +1617,7 @@ export function LearnPath({
           }}
         />
       ) : null}
-    </View>
+    </SceneProvider>
   );
 }
 
@@ -1471,6 +1625,15 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     backgroundColor: colors.snow
+  },
+  cardSkip: {
+    marginTop: 6
+  },
+  nightSky: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    backgroundColor: "#22305C"
   },
   scroll: {
     flex: 1,
@@ -1530,18 +1693,18 @@ const styles = StyleSheet.create({
   },
   nodeShine: {
     position: "absolute",
-    top: 9,
-    left: 13,
-    width: 24,
-    height: 11,
+    top: 8,
+    left: 11,
+    width: 21,
+    height: 10,
     borderRadius: 6,
     backgroundColor: withAlpha(colors.white, 0.4),
     transform: [{ rotate: "-28deg" }]
   },
   nodeShineDot: {
     position: "absolute",
-    top: 22,
-    left: 10,
+    top: 19,
+    left: 9,
     width: 6,
     height: 6,
     borderRadius: 3,
@@ -1637,11 +1800,35 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: withAlpha(colors.ink, 0.08)
   },
-  chestLocked: {
-    opacity: 0.5
+  chestPlate: {
+    position: "absolute",
+    width: CHEST + 18,
+    height: CHEST + 18,
+    borderRadius: (CHEST + 18) / 2,
+    backgroundColor: colors.white,
+    borderWidth: 3,
+    borderColor: colors.line,
+    borderBottomWidth: 6
   },
-  chestClaimed: {
-    opacity: 0.45
+  chestPlateReady: {
+    backgroundColor: "#FFF6D6",
+    borderColor: "#F5B700"
+  },
+  chestBadge: {
+    position: "absolute",
+    right: -4,
+    bottom: -2,
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: colors.white,
+    borderWidth: 2,
+    borderColor: colors.line
+  },
+  chestBadgeDone: {
+    borderColor: colors.green
   },
   sparkle: {
     position: "absolute"
@@ -1670,14 +1857,14 @@ const styles = StyleSheet.create({
     borderRadius: 999,
     backgroundColor: colors.white,
     borderWidth: 2,
-    borderColor: lighten(colors.gem, 0.55)
+    borderColor: lighten(colors.date, 0.6)
   },
   rewardText: {
     marginStart: 3,
     fontFamily: fonts.displayHeavy,
     fontSize: 14,
     lineHeight: 19,
-    color: colors.gemLip
+    color: colors.dateLip
   },
   decor: {
     position: "absolute",
@@ -1836,13 +2023,21 @@ const styles = StyleSheet.create({
   },
   keyButton: {
     marginStart: 10,
-    width: 40,
     height: 38,
+    paddingHorizontal: 10,
     borderRadius: 12,
     backgroundColor: colors.white,
     borderBottomWidth: 4,
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center"
+  },
+  keyLabel: {
+    marginStart: 4,
+    maxWidth: 92,
+    fontFamily: fonts.displayHeavy,
+    fontSize: 13,
+    lineHeight: 18
   },
   stickyWrap: {
     position: "absolute",

@@ -58,10 +58,10 @@ export function RewardPop({ visible, gems, onClose }: RewardPopProps) {
           </PopIn>
           <Text style={styles.popTitle} accessibilityRole="header">{t("Chest opened!")}</Text>
           <View style={styles.gemRow}>
-            <Icon name="gem" size={34} />
+            <Icon name="date" size={34} />
             <CountUp value={gems} prefix="+" duration={800} style={styles.gemValue} />
           </View>
-          <GameButton label={t("Collect")} color={colors.gem} fullWidth onPress={onClose} sound="xp" testID="reward-collect" />
+          <GameButton label={t("Collect")} color={colors.date} fullWidth onPress={onClose} sound="xp" testID="reward-collect" />
         </PopIn>
       </View>
     </Portal>
@@ -100,6 +100,6 @@ const styles = StyleSheet.create({
     fontFamily: fonts.displayHeavy,
     fontSize: 34,
     lineHeight: 42,
-    color: colors.gemLip
+    color: colors.dateLip
   }
 });

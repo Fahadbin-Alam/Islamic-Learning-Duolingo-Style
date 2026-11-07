@@ -1,0 +1,106 @@
+diff --git a/node_modules/react-native/Libraries/Components/ScrollView/ScrollView.js b/node_modules/react-native/Libraries/Components/ScrollView/ScrollView.js
+index fdb830d..18c1726 100644
+--- a/node_modules/react-native/Libraries/Components/ScrollView/ScrollView.js
++++ b/node_modules/react-native/Libraries/Components/ScrollView/ScrollView.js
+@@ -685,6 +685,8 @@ type ScrollViewState = {
+ };
+ 
+ const IS_ANIMATING_TOUCH_START_THRESHOLD_MS = 16;
++// [muslimo patch] No scroll event for this long: the content is still, whatever the momentum events said.
++const GLIDE_QUIET_MS = 100;
+ 
+ export type ScrollViewComponentStatics = $ReadOnly<{
+   Context: typeof ScrollViewContext,
+@@ -750,6 +752,11 @@ class ScrollView extends React.Component<ScrollViewProps, ScrollViewState> {
+   _isTouching: boolean = false;
+   _lastMomentumScrollBeginTime: number = 0;
+   _lastMomentumScrollEndTime: number = 0;
++  // [muslimo patch] When the last scroll event came in, and whether the finger now down has dragged the content
++  // itself (onScrollBeginDrag). iOS sends no momentum end when a touch stops a glide, and a scroll event can still
++  // arrive after a tap begins (a glide's last frames, a scroll the app started): neither may swallow that tap.
++  _lastScrollEventTime: number = 0;
++  _userIsDragging: boolean = false;
+ 
+   // Reset to false every time becomes responder. This is used to:
+   // - Determine if the scroll view has been scrolled and therefore should
+@@ -1135,6 +1142,7 @@ class ScrollView extends React.Component<ScrollViewProps, ScrollViewState> {
+   }
+ 
+   _handleScroll = (e: ScrollEvent) => {
++    this._lastScrollEventTime = global.performance.now();
+     this._observedScrollSinceBecomingResponder = true;
+     this.props.onScroll && this.props.onScroll(e);
+   };
+@@ -1274,6 +1282,7 @@ class ScrollView extends React.Component<ScrollViewProps, ScrollViewState> {
+    * Invoke this from an `onScrollBeginDrag` event.
+    */
+   _handleScrollBeginDrag: (e: ScrollEvent) => void = (e: ScrollEvent) => {
++    this._userIsDragging = true;
+     FrameRateLogger.beginScroll(); // TODO: track all scrolls after implementing onScrollEndAnimation
+ 
+     if (
+@@ -1290,6 +1299,7 @@ class ScrollView extends React.Component<ScrollViewProps, ScrollViewState> {
+    * Invoke this from an `onScrollEndDrag` event.
+    */
+   _handleScrollEndDrag: (e: ScrollEvent) => void = (e: ScrollEvent) => {
++    this._userIsDragging = false;
+     const {velocity} = e.nativeEvent;
+     // - If we are animating, then this is a "drag" that is stopping the scrollview and momentum end
+     //   will fire.
+@@ -1314,9 +1324,16 @@ class ScrollView extends React.Component<ScrollViewProps, ScrollViewState> {
+     const now = global.performance.now();
+     const timeSinceLastMomentumScrollEnd =
+       now - this._lastMomentumScrollEndTime;
++    // [muslimo patch] A glide whose end never came (a touch stopped it on iOS) is over once scroll events stop.
+     const isAnimating =
+       timeSinceLastMomentumScrollEnd < IS_ANIMATING_TOUCH_START_THRESHOLD_MS ||
+-      this._lastMomentumScrollEndTime < this._lastMomentumScrollBeginTime;
++      (this._lastMomentumScrollEndTime < this._lastMomentumScrollBeginTime &&
++        now -
++          Math.max(
++            this._lastScrollEventTime,
++            this._lastMomentumScrollBeginTime,
++          ) <
++          GLIDE_QUIET_MS);
+     return isAnimating;
+   };
+ 
+@@ -1405,7 +1422,9 @@ class ScrollView extends React.Component<ScrollViewProps, ScrollViewState> {
+     if (this.props.disableScrollViewPanResponder === true) {
+       return false;
+     }
+-    return this._isTouching;
++    // [muslimo patch] Only a drag by the finger now down takes the touch from a button: a scroll it did not start
++    // (the last frames of a glide, a scroll the app started) leaves the tap alone.
++    return this._isTouching && this._userIsDragging;
+   };
+ 
+   /**
+@@ -1562,6 +1581,9 @@ class ScrollView extends React.Component<ScrollViewProps, ScrollViewState> {
+   ) => {
+     const nativeEvent = e.nativeEvent;
+     this._isTouching = nativeEvent.touches.length !== 0;
++    if (!this._isTouching) {
++      this._userIsDragging = false;
++    }
+ 
+     const {keyboardShouldPersistTaps} = this.props;
+     const keyboardNeverPersistsTaps =
+@@ -1594,6 +1616,7 @@ class ScrollView extends React.Component<ScrollViewProps, ScrollViewState> {
+     e: GestureResponderEvent,
+   ) => {
+     this._isTouching = false;
++    this._userIsDragging = false;
+     this.props.onTouchCancel && this.props.onTouchCancel(e);
+   };
+ 
+@@ -1611,6 +1634,9 @@ class ScrollView extends React.Component<ScrollViewProps, ScrollViewState> {
+   _handleTouchStart: (e: GestureResponderEvent) => void = (
+     e: GestureResponderEvent,
+   ) => {
++    if (!this._isTouching) {
++      this._userIsDragging = false;
++    }
+     this._isTouching = true;
+     this.props.onTouchStart && this.props.onTouchStart(e);
+   };

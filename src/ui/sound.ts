@@ -1,6 +1,6 @@
 import { Platform } from "react-native";
 import * as Haptics from "expo-haptics";
-import { playGameSound, primeGameAudio } from "../services/gameAudio";
+import { playGameSound, preloadGameSounds, primeGameAudio } from "../services/gameAudio";
 import type { GameSoundEvent, SoundPreferences } from "../services/gameSoundLibrary";
 
 export type HapticKind = "light" | "medium" | "heavy" | "success" | "error" | "warning";
@@ -14,6 +14,19 @@ export function configureUiSound(prefs: SoundPreferences & { haptics?: boolean }
   preferences = { ...preferences, ...sound };
   if (typeof haptics === "boolean") {
     hapticsEnabled = haptics;
+  }
+}
+
+/** Loads the common sounds ahead (on phones), so the first tap on a button plays at once. Never throws. */
+export function preloadUiSounds() {
+  if (preferences.enabled === false) {
+    return;
+  }
+  try {
+    // Test stand-ins for the audio module may leave this out.
+    preloadGameSounds?.(preferences);
+  } catch {
+    // Sound is optional.
   }
 }
 

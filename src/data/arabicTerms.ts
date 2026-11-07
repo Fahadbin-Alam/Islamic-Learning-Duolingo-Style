@@ -4,6 +4,7 @@ import { hadithBasicsNodeId } from "./hadithBasics";
 import { UNIT_LEADS, importedPersonSlug } from "./importedNotes";
 import { IMPORTED_NOTES } from "./importedNotes.generated";
 import { RAMADAN } from "./ramadanDays";
+import { INTRO } from "./introToIslam";
 
 // Every term here was checked by two reviewers. Only add a term you are sure of.
 // Style: topic and unit banners are written without vowel marks. Every word on a node card or a learn card
@@ -41,7 +42,11 @@ export const TOPIC_ARABIC: Record<string, ArabicTerm> = {
   women_of_the_book: { ar: "نساء خالدات", translit: "Nisa' khalidat", meaning: "Great women" },
   hadith: { ar: "الحديث", translit: "Al-hadith", meaning: "The Prophet's ﷺ sayings" },
   scholars: { ar: "العلماء", translit: "Al-'ulama'", meaning: "The scholars" },
-  ramadan: { ar: "رمضان", translit: "Ramadan", meaning: "The month of Ramadan" }
+  ramadan: { ar: "رمضان", translit: "Ramadan", meaning: "The month of Ramadan" },
+  eid: { ar: "العيد", translit: "Al-'Id", meaning: "The Eid" },
+  akhirah: { ar: "اليوم الآخر", translit: "Al-Yawm al-Akhir", meaning: "The Last Day" },
+  sahihayn: { ar: "الصحيحان", translit: "As-Sahihan", meaning: "The two Sahih books" },
+  intro: { ar: "مدخل إلى الإسلام", translit: "Madkhal ila al-Islam", meaning: "A first look at Islam" }
 };
 
 export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
@@ -53,6 +58,33 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "scholar-ibn-taymiyyah": { ar: "ابن تيمية", translit: "Ibn Taymiyyah", meaning: "Shaykh al-Islam Ibn Taymiyyah" },
   "scholar-ibn-baz": { ar: "ابن باز", translit: "Ibn Baz", meaning: "Shaykh Ibn Baz" },
   "scholar-albani": { ar: "الألباني", translit: "Al-Albani", meaning: "Shaykh al-Albani" },
+  // The rest of the family tree (src/data/scholarTreeUnits.ts)
+  "scholar-umar": { ar: "علم عمر", translit: "'Ilm 'Umar", meaning: "Umar's knowledge" },
+  "scholar-aishah": { ar: "علم عائشة", translit: "'Ilm 'A'ishah", meaning: "Aishah's knowledge" },
+  "scholar-ibn-masud": { ar: "ابن مسعود", translit: "Ibn Mas'ud", meaning: "Abdullah ibn Mas'ud" },
+  "scholar-ibn-abbas": { ar: "ابن عباس", translit: "Ibn 'Abbas", meaning: "Abdullah ibn Abbas" },
+  "scholar-ibn-umar": { ar: "ابن عمر", translit: "Ibn 'Umar", meaning: "Abdullah ibn Umar" },
+  "scholar-alqamah-waqqas": { ar: "علقمة بن وقاص", translit: "'Alqamah ibn Waqqas", meaning: "Alqamah ibn Waqqas" },
+  "scholar-urwah": { ar: "عروة بن الزبير", translit: "'Urwah ibn az-Zubayr", meaning: "Urwah ibn az-Zubayr" },
+  "scholar-nafi": { ar: "نافع", translit: "Nafi'", meaning: "Nafi, freed man of Ibn Umar" },
+  "scholar-ata": { ar: "عطاء بن أبي رباح", translit: "'Ata' ibn Abi Rabah", meaning: "Ata ibn Abi Rabah" },
+  "scholar-alqamah-qays": { ar: "علقمة بن قيس", translit: "'Alqamah ibn Qays", meaning: "Alqamah ibn Qays" },
+  "scholar-taymi": { ar: "محمد بن إبراهيم التيمي", translit: "Muhammad ibn Ibrahim at-Taymi", meaning: "Muhammad at-Taymi" },
+  "scholar-zuhri": { ar: "ابن شهاب الزهري", translit: "Ibn Shihab az-Zuhri", meaning: "Ibn Shihab az-Zuhri" },
+  "scholar-nakhai": { ar: "إبراهيم النخعي", translit: "Ibrahim an-Nakha'i", meaning: "Ibrahim an-Nakha'i" },
+  "scholar-yahya-ansari": { ar: "يحيى بن سعيد الأنصاري", translit: "Yahya ibn Sa'id al-Ansari", meaning: "Yahya ibn Sa'id al-Ansari" },
+  "scholar-hammad": { ar: "حماد بن أبي سليمان", translit: "Hammad ibn Abi Sulayman", meaning: "Hammad ibn Abi Sulayman" },
+  "scholar-sufyan": { ar: "سفيان بن عيينة", translit: "Sufyan ibn 'Uyaynah", meaning: "Sufyan ibn Uyaynah" },
+  "scholar-yahya-yahya": { ar: "يحيى بن يحيى", translit: "Yahya ibn Yahya", meaning: "Yahya ibn Yahya at-Tamimi" },
+  "scholar-abu-yusuf": { ar: "أبو يوسف", translit: "Abu Yusuf", meaning: "Judge Abu Yusuf" },
+  "scholar-shaybani": { ar: "محمد بن الحسن الشيباني", translit: "Muhammad ibn al-Hasan ash-Shaybani", meaning: "Muhammad ash-Shaybani" },
+  "scholar-humaydi": { ar: "الحميدي", translit: "Al-Humaydi", meaning: "Al-Humaydi" },
+  "scholar-bukhari": { ar: "البخاري", translit: "Al-Bukhari", meaning: "Imam al-Bukhari" },
+  "scholar-muslim": { ar: "مسلم بن الحجاج", translit: "Muslim ibn al-Hajjaj", meaning: "Imam Muslim" },
+  "scholar-abu-dawud": { ar: "أبو داود", translit: "Abu Dawud", meaning: "Abu Dawud as-Sijistani" },
+  "scholar-tirmidhi": { ar: "الترمذي", translit: "At-Tirmidhi", meaning: "At-Tirmidhi" },
+  "scholar-ibn-qayyim": { ar: "ابن القيم", translit: "Ibn Qayyim al-Jawziyyah", meaning: "Ibn al-Qayyim" },
+  "scholar-dhahabi": { ar: "الذهبي", translit: "Adh-Dhahabi", meaning: "Adh-Dhahabi" },
   // Foundation: greetings, daily words and first worship
   "foundation-greetings": { ar: "التحية", translit: "At-tahiyyah", meaning: "The greeting" },
   "foundation-daily-words": { ar: "الأذكار اليومية", translit: "Al-adhkar al-yawmiyyah", meaning: "Daily remembrances" },
@@ -104,12 +136,44 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "fasting-times-and-rules": { ar: "أحكام الصيام", translit: "Ahkam as-siyam", meaning: "Rules of fasting" },
   "fasting-protection": { ar: "حفظ الصيام", translit: "Hifz as-siyam", meaning: "Protecting the fast" },
   "fasting-ramadan-growth": { ar: "شهر رمضان", translit: "Shahr Ramadan", meaning: "Month of Ramadan" },
+  "fasting-reward": { ar: "فضل الصيام", translit: "Fadl as-siyam", meaning: "The virtue of fasting" },
+  "fasting-suhur-iftar": { ar: "السحور والإفطار", translit: "As-suhur wal-iftar", meaning: "Suhur and iftar" },
+  "fasting-extra": { ar: "صيام التطوع", translit: "Siyam at-tatawwu'", meaning: "Voluntary fasting" },
+  "fasting-ease": { ar: "رخص الصيام", translit: "Rukhas as-siyam", meaning: "Ease in fasting" },
+  "fasting-last-ten": { ar: "ليالي العشر", translit: "Layali al-'ashr", meaning: "The last ten nights" },
 
   // Zakat: duty, recipients and generosity
   "zakat-meaning-and-duty": { ar: "فريضة الزكاة", translit: "Faridat az-zakah", meaning: "The duty of zakat" },
   "zakat-recipients": { ar: "مصارف الزكاة", translit: "Masarif az-zakah", meaning: "Zakat recipients" },
   "zakat-character-and-intention": { ar: "النية والإخلاص", translit: "An-niyyah wal-ikhlas", meaning: "Intention and sincerity" },
   "zakat-broader-generosity": { ar: "الصدقة والكرم", translit: "As-sadaqah wal-karam", meaning: "Charity and generosity" },
+  "zakat-pillar": { ar: "ركن الزكاة", translit: "Rukn az-zakah", meaning: "The pillar of zakat" },
+  "zakat-al-fitr": { ar: "زكاة الفطر", translit: "Zakat al-fitr", meaning: "Zakat al-Fitr" },
+  "zakat-everyday-charity": { ar: "كل معروف صدقة", translit: "Kullu ma'rufin sadaqah", meaning: "Every good deed is charity" },
+  "zakat-spend-quran": { ar: "الإنفاق في سبيل الله", translit: "Al-infaq fi sabilillah", meaning: "Spending for Allah" },
+  "hadith-famous": { ar: "أحاديث مشهورة", translit: "Ahadith mashhurah", meaning: "Famous hadith" },
+  "hadith-good-heart": { ar: "صلاح القلب", translit: "Salah al-qalb", meaning: "A sound heart" },
+  "hadith-knowledge": { ar: "طلب العلم", translit: "Talab al-'ilm", meaning: "Seeking knowledge" },
+  "hadith-book-iman": { ar: "كتاب الإيمان", translit: "Kitab al-iman", meaning: "The Book of Faith" },
+  "hadith-book-taharah": { ar: "كتاب الطهارة", translit: "Kitab at-taharah", meaning: "The Book of Purification" },
+  "hadith-book-adab": { ar: "كتاب الأدب", translit: "Kitab al-adab", meaning: "The Book of Good Manners" },
+  "hadith-book-food": { ar: "كتاب الأطعمة والأشربة", translit: "Kitab al-at'imah wal-ashribah", meaning: "The Book of Food and Drink" },
+  "hadith-book-dua": { ar: "كتاب الدعوات", translit: "Kitab ad-da'awat", meaning: "The Book of Supplications" },
+  "hadith-book-riqaq": { ar: "كتاب الرقاق", translit: "Kitab ar-riqaq", meaning: "The Book of Soft Hearts" },
+  "hadith-book-libas": { ar: "كتاب اللباس", translit: "Kitab al-libas", meaning: "The Book of Dress" },
+  "hadith-book-buyu": { ar: "كتاب البيوع", translit: "Kitab al-buyu'", meaning: "The Book of Trade" },
+  "hadith-book-tibb": { ar: "كتاب الطب", translit: "Kitab at-tibb", meaning: "The Book of Medicine" },
+  "hadith-book-sahabah": { ar: "كتاب فضائل الصحابة", translit: "Kitab fada'il as-sahabah", meaning: "The Book of the Virtues of the Companions" },
+  "hadith-book-salah": { ar: "كتاب الصلاة", translit: "Kitab as-salah", meaning: "The Book of Prayer" },
+  "hadith-book-sawm": { ar: "كتاب الصوم", translit: "Kitab as-sawm", meaning: "The Book of Fasting" },
+  "hadith-book-zakah": { ar: "كتاب الزكاة", translit: "Kitab az-zakah", meaning: "The Book of Zakat" },
+  "prayer-reward": { ar: "فضل الصلاة", translit: "Fadl as-salah", meaning: "The virtue of prayer" },
+  "prayer-extra": { ar: "صلاة التطوع", translit: "Salat at-tatawwu'", meaning: "Voluntary prayer" },
+  "prayer-jumuah": { ar: "صلاة الجمعة", translit: "Salat al-jumu'ah", meaning: "The Friday prayer" },
+  "prayer-after-salah": { ar: "أذكار بعد الصلاة", translit: "Adhkar ba'd as-salah", meaning: "Remembrance after prayer" },
+  "hajj-umrah": { ar: "العمرة", translit: "Al-'umrah", meaning: "The Umrah" },
+  "hajj-sacred-house": { ar: "البيت الحرام", translit: "Al-bayt al-haram", meaning: "The Sacred House" },
+  "hajj-three-masjids": { ar: "المساجد الثلاثة", translit: "Al-masajid ath-thalathah", meaning: "The three masjids" },
 
   // Hajj: duty, rites and sacred sites
   "hajj-duty": { ar: "فريضة الحج", translit: "Faridat al-Hajj", meaning: "The duty of Hajj" },
@@ -124,13 +188,30 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "marriage-conflict-and-repair": { ar: "الإصلاح بين الزوجين", translit: "Al-islah bayna az-zawjayn", meaning: "Making peace at home" },
   "marriage-spiritual-home": { ar: "البيت المسلم", translit: "Al-bayt al-muslim", meaning: "The Muslim home" },
 
-  // Prophets: the course of the prophets, in order
-  "prophets-beginnings": { ar: "بداية البشرية", translit: "Bidayat al-bashariyyah", meaning: "Beginning of mankind" },
-  "prophets-tested": { ar: "ابتلاء الرسل", translit: "Ibtila' ar-rusul", meaning: "Messengers tested" },
+  // Prophets: a unit for each prophet, in order (src/data/unitPlans.ts)
+  "prophets-unit-adam": { ar: "آدم", translit: "Adam", meaning: "Prophet Adam" },
+  "prophets-unit-idris": { ar: "إدريس", translit: "Idris", meaning: "Prophet Idris" },
+  "prophets-unit-nuh": { ar: "نوح", translit: "Nuh", meaning: "Prophet Noah" },
+  "prophets-unit-hud": { ar: "هود", translit: "Hud", meaning: "Prophet Hud" },
+  "prophets-unit-salih": { ar: "صالح", translit: "Salih", meaning: "Prophet Salih" },
+  "prophets-unit-ibrahim": { ar: "إبراهيم", translit: "Ibrahim", meaning: "Prophet Abraham" },
+  "prophets-unit-lut": { ar: "لوط", translit: "Lut", meaning: "Prophet Lot" },
+  "prophets-unit-shuaib": { ar: "شعيب", translit: "Shu'ayb", meaning: "Prophet Shu'ayb" },
+  "prophets-unit-ismail": { ar: "إسماعيل", translit: "Isma'il", meaning: "Prophet Ishmael" },
+  "prophets-unit-ishaq-yaqub": { ar: "إسحاق ويعقوب", translit: "Ishaq wa Ya'qub", meaning: "Isaac and Jacob" },
+  "prophets-unit-yusuf": { ar: "يوسف", translit: "Yusuf", meaning: "Prophet Joseph" },
+  "prophets-unit-ayyub": { ar: "أيوب", translit: "Ayyub", meaning: "Prophet Job" },
+  "prophets-unit-dhul-kifl": { ar: "ذو الكفل", translit: "Dhul-Kifl", meaning: "Dhul-Kifl" },
+  "prophets-unit-yunus": { ar: "يونس", translit: "Yunus", meaning: "Prophet Jonah" },
+  "prophets-unit-musa": { ar: "موسى وهارون", translit: "Musa wa Harun", meaning: "Moses and Aaron" },
+  "prophets-unit-yusha": { ar: "يوشع بن نون", translit: "Yusha' ibn Nun", meaning: "Joshua son of Nun" },
+  "prophets-unit-ilyas-alyasa": { ar: "إلياس واليسع", translit: "Ilyas wal-Yasa'", meaning: "Elijah and Elisha" },
+  "prophets-unit-dawud": { ar: "داود", translit: "Dawud", meaning: "Prophet David" },
+  "prophets-unit-sulayman": { ar: "سليمان", translit: "Sulayman", meaning: "Prophet Solomon" },
+  "prophets-unit-zakariyya": { ar: "زكريا", translit: "Zakariyya", meaning: "Prophet Zechariah" },
+  "prophets-unit-yahya": { ar: "يحيى", translit: "Yahya", meaning: "Prophet John" },
+  "prophets-unit-isa": { ar: "عيسى", translit: "Isa", meaning: "Prophet Jesus" },
   "prophets-final-example": { ar: "خاتم النبيين", translit: "Khatam an-nabiyyin", meaning: "Seal of the prophets" },
-  "prophets-early-messengers": { ar: "الرسل الأوائل", translit: "Ar-rusul al-awa'il", meaning: "The first messengers" },
-  "prophets-family-and-sacrifice": { ar: "آل إبراهيم", translit: "Al Ibrahim", meaning: "Family of Ibrahim" },
-  "prophets-power-and-deliverance": { ar: "موسى وداود وسليمان", translit: "Musa wa Dawud wa Sulayman", meaning: "Musa, Dawud and Sulayman" },
 
   // Sahabah: one branch per companion
   "sahabi-abu-bakr": { ar: "أبو بكر الصديق", translit: "Abu Bakr as-Siddiq", meaning: "The truthful one" },
@@ -148,6 +229,21 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "sahabi-abdullah-ibn-masud": { ar: "عبد الله بن مسعود", translit: "Abdullah ibn Mas'ud", meaning: "Quran reciter" },
   "sahabi-anas-ibn-malik": { ar: "أنس بن مالك", translit: "Anas ibn Malik", meaning: "The Prophet's ﷺ servant" },
   "sahabi-muhajirun": { ar: "المهاجرون", translit: "Al-Muhajirun", meaning: "The emigrants" },
+  "sahabi-jafar-ibn-abi-talib": { ar: "جعفر بن أبي طالب", translit: "Ja'far ibn Abi Talib", meaning: "The one with two wings" },
+  "sahabi-abu-hurairah": { ar: "أبو هريرة", translit: "Abu Hurairah", meaning: "Keeper of the hadith" },
+  "sahabi-kab-ibn-malik": { ar: "كعب بن مالك", translit: "Ka'b ibn Malik", meaning: "One of the three forgiven" },
+  "sahabi-sad-ibn-muadh": { ar: "سعد بن معاذ", translit: "Sa'd ibn Mu'adh", meaning: "Chief of the Ansar" },
+  "sahabi-abdur-rahman-ibn-awf": { ar: "عبد الرحمن بن عوف", translit: "Abdur-Rahman ibn Awf", meaning: "The humble trader" },
+  "sahabi-muadh-ibn-jabal": { ar: "معاذ بن جبل", translit: "Mu'adh ibn Jabal", meaning: "Knower of halal and haram" },
+  "sahabi-ubayy-ibn-kab": { ar: "أبي بن كعب", translit: "Ubayy ibn Ka'b", meaning: "Master of the reciters" },
+  "sahabi-zayd-ibn-thabit": { ar: "زيد بن ثابت", translit: "Zayd ibn Thabit", meaning: "Scribe of the revelation" },
+  "sahabi-abu-musa-al-ashari": { ar: "أبو موسى الأشعري", translit: "Abu Musa al-Ash'ari", meaning: "The sweet voice" },
+  "sahabi-jabir-ibn-abdullah": { ar: "جابر بن عبد الله", translit: "Jabir ibn Abdullah", meaning: "The caring brother" },
+  "sahabi-abu-talhah": { ar: "أبو طلحة الأنصاري", translit: "Abu Talhah al-Ansari", meaning: "The archer of Uhud" },
+  "sahabi-hudhayfah-ibn-al-yaman": { ar: "حذيفة بن اليمان", translit: "Hudhayfah ibn al-Yaman", meaning: "Asked about the trials" },
+  "sahabi-hamzah-ibn-abdul-muttalib": { ar: "حمزة بن عبد المطلب", translit: "Hamzah ibn Abdul-Muttalib", meaning: "The brave uncle" },
+  "sahabi-zayd-ibn-harithah": { ar: "زيد بن حارثة", translit: "Zayd ibn Harithah", meaning: "The beloved" },
+  "sahabi-usamah-ibn-zayd": { ar: "أسامة بن زيد", translit: "Usamah ibn Zayd", meaning: "Son of the beloved" },
 
   // Women of the Book: women of the Quran and the Mothers of the Believers
   "women-quran": { ar: "النساء في القرآن", translit: "An-nisa fil-Quran", meaning: "Women in the Quran" },
@@ -155,7 +251,6 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   // The imported women, one unit per theme (src/data/importedNotes.ts); the Mothers of the Believers from the
   // notes are taught in "women-mothers" (src/data/unitPlans.ts).
   "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1": { ar: "الأمهات", translit: "Al-ummahat", meaning: "Mothers" },
-  "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3": { ar: "آل علي", translit: "Al Ali", meaning: "Ali's family" },
 
   // Hadith: sayings for children first, then the imported hadith for young children (src/data/importedNotes.ts)
   "hadith-for-kids": { ar: "أحاديث للأطفال", translit: "Ahadith lil-atfal", meaning: "Hadith for children" },
@@ -163,7 +258,39 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   // The hadith about marriage, the last unit of the Marriage topic (keeps the id of the imported unit)
   "notes-hadith-hadith-from-your-notes-2": { ar: "الزواج في السنة", translit: "Az-zawaj fis-sunnah", meaning: "Marriage in the Sunnah" },
   // Ramadan (src/data/ramadanDays.ts): the three units of the 30-day path
-  ...RAMADAN.branchArabic
+  ...RAMADAN.branchArabic,
+  // New to Islam (src/data/introToIslam.ts): its four units
+  ...INTRO.branchArabic,
+  // Hajj as the Prophet ﷺ did it, and the Eid topic (src/data/lifeUnits.ts)
+  "hajj-in-depth": { ar: "حجة الوداع", translit: "Hajjat al-wada'", meaning: "The Farewell Hajj" },
+  "eid-two-eids": { ar: "العيدان", translit: "Al-'idan", meaning: "The two Eids" },
+  "eid-special-days": { ar: "الأيام الفاضلة", translit: "Al-ayyam al-fadilah", meaning: "The blessed days" },
+  // The Seerah units in the prophets topic (src/data/seerahUnits.ts)
+  "seerah-early-life": { ar: "النشأة", translit: "An-nash'ah", meaning: "The early years" },
+  "seerah-revelation": { ar: "بدء الوحي", translit: "Bad' al-wahy", meaning: "The start of revelation" },
+  "seerah-makkah-call": { ar: "الدعوة في مكة", translit: "Ad-da'wah fi Makkah", meaning: "The call in Makkah" },
+  "seerah-taif": { ar: "الطائف", translit: "At-Ta'if", meaning: "Ta'if" },
+  "seerah-isra-miraj": { ar: "الإسراء والمعراج", translit: "Al-Isra wal-Mi'raj", meaning: "The Night Journey and Ascension" },
+  "seerah-hijrah": { ar: "الهجرة", translit: "Al-Hijrah", meaning: "The migration" },
+  "seerah-badr": { ar: "غزوة بدر", translit: "Ghazwat Badr", meaning: "The battle of Badr" },
+  "seerah-uhud": { ar: "غزوة أحد", translit: "Ghazwat Uhud", meaning: "The battle of Uhud" },
+  "seerah-trench": { ar: "غزوة الخندق", translit: "Ghazwat al-Khandaq", meaning: "The battle of the Trench" },
+  "seerah-hudaybiyah": { ar: "صلح الحديبية", translit: "Sulh al-Hudaybiyah", meaning: "The treaty of Hudaybiyah" },
+  "seerah-conquest": { ar: "فتح مكة", translit: "Fath Makkah", meaning: "The Conquest of Makkah" },
+  "seerah-farewell": { ar: "حجة الوداع والوفاة", translit: "Hajjat al-wada' wal-wafah", meaning: "The Farewell Hajj and his passing" },
+  "seerah-character": { ar: "الخلق العظيم", translit: "Al-khuluq al-'azim", meaning: "The great character" },
+  // The Day of Judgment topic (src/data/akhirahUnits.ts)
+  "akhirah-last-day": { ar: "الإيمان باليوم الآخر", translit: "Al-iman bil-yawm al-akhir", meaning: "Faith in the Last Day" },
+  "akhirah-minor-signs": { ar: "أشراط الساعة الصغرى", translit: "Ashrat as-sa'ah as-sughra", meaning: "The small signs of the Hour" },
+  "akhirah-major-signs": { ar: "أشراط الساعة الكبرى", translit: "Ashrat as-sa'ah al-kubra", meaning: "The big signs of the Hour" },
+  "akhirah-death-grave": { ar: "الموت والقبر", translit: "Al-mawt wal-qabr", meaning: "Death and the grave" },
+  "akhirah-horn-gathering": { ar: "النفخ في الصور والحشر", translit: "An-nafkh fis-sur wal-hashr", meaning: "The Horn and the gathering" },
+  "akhirah-reckoning": { ar: "الحساب والميزان", translit: "Al-hisab wal-mizan", meaning: "The reckoning and the scale" },
+  "akhirah-intercession-pool": { ar: "الشفاعة والحوض", translit: "Ash-shafa'ah wal-hawd", meaning: "The intercession and the Pool" },
+  "akhirah-bridge": { ar: "الصراط", translit: "As-Sirat", meaning: "The bridge" },
+  "akhirah-jannah": { ar: "الجنة", translit: "Al-Jannah", meaning: "Paradise" },
+  "akhirah-jahannam": { ar: "جهنم", translit: "Jahannam", meaning: "The Fire" },
+  "akhirah-get-ready": { ar: "الاستعداد للآخرة", translit: "Al-isti'dad lil-akhirah", meaning: "Getting ready for the Hereafter" }
 };
 
 export const NODE_ARABIC: Record<string, ArabicTerm> = {
@@ -415,7 +542,9 @@ export const NODE_ARABIC: Record<string, ArabicTerm> = {
   [hadithBasicsNodeId("muslim:2564c")]: { ar: "قُلُوبِكُمْ وَأَعْمَالِكُمْ", translit: "Qulubikum wa a'malikum", meaning: "Your hearts and your deeds" },
 
   // Ramadan (src/data/ramadanDays.ts): a phrase from each day's ayah or hadith
-  ...RAMADAN.nodeArabic
+  ...RAMADAN.nodeArabic,
+  // New to Islam (src/data/introToIslam.ts): a phrase from each lesson's ayah or hadith
+  ...INTRO.nodeArabic
 };
 
 // Lessons imported from notes (scripts/obsidian-import) get their term from what they are about:
@@ -627,6 +756,9 @@ const IMPORTED_UNIT_ARABIC: Partial<Record<TopicId, ArabicTerm>> = {
 // vowel marks, is exactly the banner's spelling (the tests check this).
 const LEARN_FORMS = [
   "الْمُهَاجِرُونَ", "أَبُو حَنِيفَةَ", "مَالِكُ بْنُ أَنَسٍ", "الشَّافِعِيُّ", "أَحْمَدُ بْنُ حَنْبَلٍ", "ابْنُ تَيْمِيَّةَ", "ابْنُ بَازٍ", "الْأَلْبَانِيُّ",
+  "عِلْمُ عُمَرَ", "عِلْمُ عَائِشَةَ", "ابْنُ مَسْعُودٍ", "ابْنُ عَبَّاسٍ", "ابْنُ عُمَرَ",
+  "عَلْقَمَةُ بْنُ وَقَّاصٍ", "عُرْوَةُ بْنُ الزُّبَيْرِ", "نَافِعٌ", "عَطَاءُ بْنُ أَبِي رَبَاحٍ", "عَلْقَمَةُ بْنُ قَيْسٍ", "مُحَمَّدُ بْنُ إِبْرَاهِيمَ التَّيْمِيُّ", "ابْنُ شِهَابٍ الزُّهْرِيُّ", "إِبْرَاهِيمُ النَّخَعِيُّ", "يَحْيَى بْنُ سَعِيدٍ الْأَنْصَارِيُّ", "حَمَّادُ بْنُ أَبِي سُلَيْمَانَ",
+  "سُفْيَانُ بْنُ عُيَيْنَةَ", "يَحْيَى بْنُ يَحْيَى", "أَبُو يُوسُفَ", "مُحَمَّدُ بْنُ الْحَسَنِ الشَّيْبَانِيُّ", "الْحُمَيْدِيُّ", "الْبُخَارِيُّ", "ابْنُ الْقَيِّمِ", "الذَّهَبِيُّ", "مُسْلِمُ بْنُ الْحَجَّاجِ", "أَبُو دَاوُدَ", "التِّرْمِذِيُّ",
   "التَّحِيَّةُ", "الْأَذْكَارُ الْيَوْمِيَّةُ", "الْعِبَارَاتُ الْيَوْمِيَّةُ",
   "آدَابُ الْبَيْتِ وَالطَّعَامِ", "بِدَايَةُ الْعِبَادَةِ", "الْوُضُوءُ", "أَسَاسِيَّاتُ الصَّلَاةِ",
   "أَوْقَاتُ الصَّلَاةِ", "الْأَذَانُ وَالْإِقَامَةُ", "الرُّكُوعُ وَالسُّجُودُ", "التَّشَهُّدُ",
@@ -638,16 +770,29 @@ const LEARN_FORMS = [
   "مَصَارِفُ الزَّكَاةِ", "النِّيَّةُ وَالْإِخْلَاصُ", "الصَّدَقَةُ وَالْكَرَمُ", "فَرِيضَةُ الْحَجِّ",
   "مَنَاسِكُ الْحَجِّ", "الْمَشَاعِرُ الْمُقَدَّسَةُ", "دُرُوسُ الْحَجِّ", "مَقَاصِدُ الزَّوَاجِ",
   "الْمَوَدَّةُ وَالرَّحْمَةُ", "الْحُقُوقُ وَالْأَمَانَةُ", "الْإِصْلَاحُ بَيْنَ الزَّوْجَيْنِ",
-  "الْبَيْتُ الْمُسْلِمُ", "بِدَايَةُ الْبَشَرِيَّةِ", "ابْتِلَاءُ الرُّسُلِ", "خَاتَمُ النَّبِيِّينَ",
-  "الرُّسُلُ الْأَوَائِلُ", "آلُ إِبْرَاهِيمَ", "مُوسَى وَدَاوُدُ وَسُلَيْمَانُ", "أَبُو بَكْرٍ الصِّدِّيقُ",
+  "الْبَيْتُ الْمُسْلِمُ", "خَاتَمُ النَّبِيِّينَ",
+  "آدَمُ", "إِدْرِيسُ", "نُوحٌ", "هُودٌ", "صَالِحٌ", "إِبْرَاهِيمُ", "لُوطٌ", "شُعَيْبٌ", "إِسْمَاعِيلُ", "إِسْحَاقُ وَيَعْقُوبُ", "يُوسُفُ", "أَيُّوبُ", "ذُو الْكِفْلِ", "يُونُسُ", "مُوسَى وَهَارُونُ", "يُوشَعُ بْنُ نُونٍ", "إِلْيَاسُ وَالْيَسَعُ", "دَاوُدُ", "سُلَيْمَانُ", "زَكَرِيَّا", "يَحْيَى", "عِيسَى",
+  "أَبُو بَكْرٍ الصِّدِّيقُ",
   "عُمَرُ بْنُ الْخَطَّابِ", "عُثْمَانُ بْنُ عَفَّانَ", "عَلِيُّ بْنُ أَبِي طَالِبٍ",
   "خَالِدُ بْنُ الْوَلِيدِ", "بِلَالُ بْنُ رَبَاحٍ", "أَبُو عُبَيْدَةَ بْنُ الْجَرَّاحِ",
   "طَلْحَةُ بْنُ عُبَيْدِ اللَّهِ", "الزُّبَيْرُ بْنُ الْعَوَّامِ", "سَعْدُ بْنُ أَبِي وَقَّاصٍ",
   "سَلْمَانُ الْفَارِسِيُّ", "أَبُو ذَرٍّ الْغِفَارِيُّ", "عَبْدُ اللَّهِ بْنُ مَسْعُودٍ",
-  "أَنَسُ بْنُ مَالِكٍ", "النِّسَاءُ فِي الْقُرْآنِ", "أُمَّهَاتُ الْمُؤْمِنِينَ",
+  "أَنَسُ بْنُ مَالِكٍ", "جَعْفَرُ بْنُ أَبِي طَالِبٍ", "أَبُو هُرَيْرَةَ", "كَعْبُ بْنُ مَالِكٍ", "سَعْدُ بْنُ مُعَاذٍ", "عَبْدُ الرَّحْمَنِ بْنُ عَوْفٍ", "مُعَاذُ بْنُ جَبَلٍ", "أُبَيُّ بْنُ كَعْبٍ", "زَيْدُ بْنُ ثَابِتٍ", "أَبُو مُوسَى الْأَشْعَرِيُّ", "جَابِرُ بْنُ عَبْدِ اللَّهِ", "أَبُو طَلْحَةَ الْأَنْصَارِيُّ", "حُذَيْفَةُ بْنُ الْيَمَانِ", "حَمْزَةُ بْنُ عَبْدِ الْمُطَّلِبِ", "زَيْدُ بْنُ حَارِثَةَ", "أُسَامَةُ بْنُ زَيْدٍ", "النِّسَاءُ فِي الْقُرْآنِ", "أُمَّهَاتُ الْمُؤْمِنِينَ",
   "سُوَرُ الْقُرْآنِ", "الْأَنْبِيَاءُ", "النِّسَاءُ", "الصَّحَابَةُ",
   "الْحَدِيثُ", "الْأُمَّهَاتُ", "آلُ عَلِيٍّ", "أَحَادِيثُ لِلْأَطْفَالِ", "فِي حِفْظِ اللَّهِ",
   "الزَّوَاجُ فِي السُّنَّةِ", "أَهْلًا رَمَضَانُ", "أَعْمَالُ رَمَضَانَ", "الْعَشْرُ الْأَوَاخِرُ",
+  "مَا الْإِسْلَامُ", "أَنْبِيَاءُ تَعْرِفُهُمْ", "أَهْلُ الْكِتَابِ", "الْخُطُوَاتُ الْأُولَى",
+  "حَجَّةُ الْوَدَاعِ", "الْعِيدَانِ", "الْأَيَّامُ الْفَاضِلَةُ",
+  "الْيَوْمُ الْآخِرُ", "الْإِيمَانُ بِالْيَوْمِ الْآخِرِ", "أَشْرَاطُ السَّاعَةِ الصُّغْرَى", "أَشْرَاطُ السَّاعَةِ الْكُبْرَى",
+  "الْمَوْتُ وَالْقَبْرُ", "النَّفْخُ فِي الصُّورِ وَالْحَشْرُ", "الْحِسَابُ وَالْمِيزَانُ", "الشَّفَاعَةُ وَالْحَوْضُ",
+  "الصِّرَاطُ", "الْجَنَّةُ", "جَهَنَّمُ", "الِاسْتِعْدَادُ لِلْآخِرَةِ",
+  "النَّشْأَةُ", "بَدْءُ الْوَحْيِ", "الدَّعْوَةُ فِي مَكَّةَ", "الطَّائِفُ", "الْإِسْرَاءُ وَالْمِعْرَاجُ", "الْهِجْرَةُ",
+  "غَزْوَةُ بَدْرٍ", "غَزْوَةُ أُحُدٍ", "غَزْوَةُ الْخَنْدَقِ", "صُلْحُ الْحُدَيْبِيَةِ", "فَتْحُ مَكَّةَ", "حَجَّةُ الْوَدَاعِ وَالْوَفَاةُ", "الْخُلُقُ الْعَظِيمُ",
+  "فَضْلُ الصِّيَامِ", "السُّحُورُ وَالْإِفْطَارُ", "صِيَامُ التَّطَوُّعِ", "رُخَصُ الصِّيَامِ", "لَيَالِي الْعَشْرِ",
+  "رُكْنُ الزَّكَاةِ", "زَكَاةُ الْفِطْرِ", "كُلُّ مَعْرُوفٍ صَدَقَةٌ", "الْإِنْفَاقُ فِي سَبِيلِ اللَّهِ",
+  "أَحَادِيثُ مَشْهُورَةٌ", "صَلَاحُ الْقَلْبِ", "طَلَبُ الْعِلْمِ", "كِتَابُ الْإِيمَانِ", "كِتَابُ الطَّهَارَةِ", "كِتَابُ الْأَدَبِ", "كِتَابُ الْأَطْعِمَةِ وَالْأَشْرِبَةِ", "كِتَابُ الدَّعَوَاتِ", "كِتَابُ الرِّقَاقِ", "كِتَابُ اللِّبَاسِ", "كِتَابُ الْبُيُوعِ", "كِتَابُ الطِّبِّ", "كِتَابُ فَضَائِلِ الصَّحَابَةِ", "كِتَابُ الصَّلَاةِ", "كِتَابُ الصَّوْمِ", "كِتَابُ الزَّكَاةِ",
+  "فَضْلُ الصَّلَاةِ", "صَلَاةُ التَّطَوُّعِ", "صَلَاةُ الْجُمُعَةِ", "أَذْكَارُ بَعْدَ الصَّلَاةِ",
+  "الْعُمْرَةُ", "الْبَيْتُ الْحَرَامُ", "الْمَسَاجِدُ الثَّلَاثَةُ",
   ...SURAH_NAMES.map((name) => `سُورَةُ ${name}`)
 ];
 const LEARN_FORM = new Map(LEARN_FORMS.map((form) => [withoutVowels(form), form]));

@@ -1,5 +1,6 @@
 import type { LessonSource } from "../types";
 import { preciseResourceUrl } from "../services/resourceSupport";
+import { shamelaUrl } from "./shamelaPages";
 
 /**
  * The one source that says each lesson's fact, for lessons whose seed or note did not name one: the learn card's
@@ -69,7 +70,7 @@ function book(key: keyof typeof BOOKS, volume: number, page: number, title: stri
     site: "Shamela",
     category: key === "ijma" ? "article" : "biography",
     title,
-    url: `https://shamela.ws/book/${shamela}`,
+    url: shamelaUrl(shamela, volume, page),
     reference: key === "ijma" ? `${name} ${page}` : `${name} ${volume}/${page}`,
     from,
     grade: key === "ijma" ? "Consensus of the scholars" : "Biography",
@@ -352,7 +353,7 @@ export const LESSON_SOURCES: Readonly<Record<string, LessonSource>> = {
   "lesson-notes-sahabah-companions-from-your-notes-2-abu-muusaa-al-ashariy": book("siyar", 2, 380, "Abu Musa al-Ash'ari", "Abu Musa was Abdullah ibn Qays, of the Ash'ari tribe of Yemen."),
   "lesson-notes-sahabah-companions-from-your-notes-2-abu-sufyan-ibn-harb": book("siyar", 2, 105, "Abu Sufyan ibn Harb", "Abu Sufyan, Sakhr ibn Harb, a leader of Quraysh who became Muslim at the conquest of Makkah."),
   "lesson-notes-sahabah-companions-from-your-notes-2-abu-ubaydah-ibn-al-jarrah": book("tabaqat", 3, 312, "Abu Ubaydah ibn al-Jarrah", "Abu Ubaydah was Amir, son of Abdullah ibn al-Jarrah; his mother was Umaymah bint Ghanm."),
-  "lesson-notes-sahabah-companions-from-your-notes-2-abu-umamah-al-bahili": book("tabaqat", 7, 288, "Abu Umamah al-Bahili", "Abu Umamah al-Bahili, Sudayy ibn Ajlan, died in Sham in 86 AH."),
+  "lesson-notes-sahabah-companions-from-your-notes-2-abu-umamah-al-bahili": book("tabaqat", 7, 289, "Abu Umamah al-Bahili", "Abu Umamah al-Bahili, Sudayy ibn Ajlan, died in Sham in 86 AH."),
   "lesson-notes-sahabah-companions-from-your-notes-3-al-husayn-ibn-ali": book("siyar", 3, 280, "Al-Husayn ibn Ali", "Al-Husayn, son of Ali and Fatimah, the Prophet's ﷺ grandson."),
   "lesson-notes-sahabah-companions-from-your-notes-3-ali-ibn-abi-talib": book("tabaqat", 3, 14, "Ali ibn Abi Talib", "Ali was the son of Abu Talib, and his mother was Fatimah bint Asad."),
   "lesson-notes-sahabah-companions-from-your-notes-3-ammar-ibn-yasir": book("siyar", 1, 406, "Ammar ibn Yasir", "Ammar, son of Yasir and Sumayyah, among the first Muslims."),
@@ -360,7 +361,7 @@ export const LESSON_SOURCES: Readonly<Record<string, LessonSource>> = {
   "lesson-notes-sahabah-companions-from-your-notes-3-amr-ibn-al-jamuh": book("siyar", 1, 252, "Amr ibn al-Jamuh", "Amr ibn al-Jamuh, a chief of Banu Salimah of the Ansar, martyred at Uhud."),
   "lesson-notes-sahabah-companions-from-your-notes-3-anas-ibn-malik": book("siyar", 3, 395, "Anas ibn Malik", "Anas ibn Malik of the Ansar, who served the Prophet ﷺ."),
   "lesson-notes-sahabah-companions-from-your-notes-3-asad-ibn-zoraarah": book("siyar", 1, 299, "As'ad ibn Zurarah", "As'ad ibn Zurarah of the Khazraj, an early leader of the Ansar."),
-  "lesson-notes-sahabah-companions-from-your-notes-3-fatimah-al-zahra": book("siyar", 2, 122, "Fatimah az-Zahra", "Fatimah, daughter of the Prophet ﷺ and Khadijah, wife of Ali."),
+  "lesson-notes-sahabah-companions-from-your-notes-3-fatimah-al-zahra": book("siyar", 2, 119, "Fatimah az-Zahra", "Fatimah, daughter of the Prophet ﷺ and Khadijah, wife of Ali."),
   "lesson-notes-sahabah-companions-from-your-notes-4-fatimah-bint-asad": book("tabaqat", 8, 40, "Fatimah bint Asad", "Fatimah was the daughter of Asad ibn Hashim, of Quraysh, and the mother of Ali."),
   "lesson-notes-sahabah-companions-from-your-notes-4-haarith-ibn-hishaan": book("tabaqat", 7, 283, "Al-Harith ibn Hisham", "Al-Harith ibn Hisham of Banu Makhzum, who became Muslim at the conquest of Makkah."),
   "lesson-notes-sahabah-companions-from-your-notes-4-hakim-ibn-hizam": book("siyar", 3, 44, "Hakim ibn Hizam", "Hakim was the son of Hizam ibn Khuwaylid, of Quraysh, and Khadijah's nephew."),
@@ -368,7 +369,7 @@ export const LESSON_SOURCES: Readonly<Record<string, LessonSource>> = {
   "lesson-notes-sahabah-companions-from-your-notes-4-hanzalah-ibn-abi-amir": book("isabah", 2, 119, "Hanzalah ibn Abi Amir", "Hanzalah of the Aws, martyred at Uhud and washed by the angels."),
   "lesson-notes-sahabah-companions-from-your-notes-4-ikrimah-ibn-abi-jahl": book("siyar", 1, 323, "Ikrimah ibn Abi Jahl", "Ikrimah, son of Abu Jahl, of Banu Makhzum, who became Muslim after the conquest."),
   "lesson-notes-sahabah-companions-from-your-notes-4-jabir-ibn-abdullah": book("siyar", 3, 189, "Jabir ibn Abdullah", "Jabir, son of Abdullah ibn Amr, of Banu Salimah of the Ansar."),
-  "lesson-notes-sahabah-companions-from-your-notes-4-jafar-ibn-abi-taalib": book("siyar", 1, 206, "Ja'far ibn Abi Talib", "Ja'far, son of Abu Talib, who led the Muslims to Abyssinia."),
+  "lesson-notes-sahabah-companions-from-your-notes-4-jafar-ibn-abi-taalib": book("siyar", 1, 206, "Ja'far ibn Abi Talib", "Ja'far, son of Abu Talib, who made both hijrahs, first to Abyssinia."),
   "lesson-notes-sahabah-companions-from-your-notes-5-kaab-ibn-zuhair": book("isabah", 5, 443, "Ka'b ibn Zuhayr", "Ka'b, son of the poet Zuhayr ibn Abi Sulma, came to the Prophet ﷺ with his poem and became Muslim."),
   "lesson-notes-sahabah-companions-from-your-notes-5-khawlah-bint-hakim": book("tabaqat", 8, 124, "Khawlah bint Hakim", "Khawlah was the daughter of Hakim ibn Umayyah, wife of Uthman ibn Maz'un."),
   "lesson-notes-sahabah-companions-from-your-notes-5-makhrama-ibn-nawfal": book("siyar", 2, 542, "Makhramah ibn Nawfal", "Makhramah ibn Nawfal of Banu Zuhrah of Quraysh."),
@@ -378,13 +379,13 @@ export const LESSON_SOURCES: Readonly<Record<string, LessonSource>> = {
   "lesson-notes-sahabah-companions-from-your-notes-6-ruqayyah-bint-muhammad": book("siyar", 2, 250, "Ruqayyah, daughter of the Prophet ﷺ", "Ruqayyah, daughter of the Prophet ﷺ and Khadijah, wife of Uthman."),
   "lesson-notes-sahabah-companions-from-your-notes-6-sad-ibn-muaadh": book("siyar", 1, 279, "Sa'd ibn Mu'adh", "Sa'd ibn Mu'adh, chief of the Aws, of Banu Abd al-Ashhal."),
   "lesson-notes-sahabah-companions-from-your-notes-6-suhaib-al-rumi": book("siyar", 2, 17, "Suhayb ar-Rumi", "Suhayb ibn Sinan, called ar-Rumi, among the first Muslims."),
-  "lesson-notes-sahabah-companions-from-your-notes-6-suhail-ibn-amr": book("isabah", 3, 177, "Suhayl ibn Amr", "Suhayl ibn Amr of Banu Amir of Quraysh, who wrote the treaty of Hudaybiyyah."),
+  "lesson-notes-sahabah-companions-from-your-notes-6-suhail-ibn-amr": book("isabah", 3, 177, "Suhayl ibn Amr", "Suhayl ibn Amr of Banu Amir of Quraysh, who made the peace of Hudaybiyyah for Quraysh."),
   "lesson-notes-sahabah-companions-from-your-notes-7-thaabit-ibn-aqram": book("isabah", 1, 500, "Thabit ibn Aqram", "Thabit of Bali, allies of the Ansar, took the banner at Mu'tah and gave it to Khalid."),
   "lesson-notes-sahabah-companions-from-your-notes-7-thalabah": book("tabaqat", 3, 351, "Tha'labah", "Ibn Sa'd lists Tha'labah among the Ansar who fought at Badr."),
   "lesson-notes-sahabah-companions-from-your-notes-7-ubaydah-ibn-al-harith": book("siyar", 1, 256, "Ubaydah ibn al-Harith", "Ubaydah ibn al-Harith of Banu Abd Manaf, martyred from his wound at Badr."),
   "lesson-notes-sahabah-companions-from-your-notes-7-umm-ayman": book("isabah", 8, 358, "Umm Ayman", "Umm Ayman was Barakah bint Tha'labah ibn Amr, who cared for the Prophet ﷺ when he was a child."),
   "lesson-notes-sahabah-companions-from-your-notes-7-umm-kulthum-bint-muhammad": book("siyar", 2, 252, "Umm Kulthum, daughter of the Prophet ﷺ", "Umm Kulthum, daughter of the Prophet ﷺ and Khadijah, married Uthman after Ruqayyah died."),
-  "lesson-notes-sahabah-companions-from-your-notes-7-usayd-ibn-hudayr": book("siyar", 1, 341, "Usayd ibn Hudayr", "Usayd ibn Hudayr of the Aws, buried in al-Baqi'."),
+  "lesson-notes-sahabah-companions-from-your-notes-7-usayd-ibn-hudayr": book("siyar", 1, 343, "Usayd ibn Hudayr", "Usayd ibn Hudayr of the Aws, buried in al-Baqi'."),
   "lesson-notes-sahabah-companions-from-your-notes-8-umayr-ibn-wahb-al-jumahi": book("tabaqat", 4, 150, "Umayr ibn Wahb", "Umayr ibn Wahb of Banu Jumah of Quraysh, who became Muslim after Badr."),
   "lesson-notes-sahabah-companions-from-your-notes-8-uthman-ibn-affan": book("isabah", 4, 377, "Uthman ibn Affan", "Uthman was the son of Affan, of Banu Umayyah of Quraysh."),
   "lesson-notes-sahabah-companions-from-your-notes-8-walid-ibn-al-walid-ibn-al-mughirah": book("isabah", 6, 484, "Al-Walid ibn al-Walid", "Al-Walid, son of al-Walid ibn al-Mughirah and brother of Khalid, of Banu Makhzum."),

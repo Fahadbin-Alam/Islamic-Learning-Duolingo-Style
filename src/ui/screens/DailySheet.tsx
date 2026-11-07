@@ -1,5 +1,5 @@
-import React from "react";
-import { Linking, ScrollView, StyleSheet, Text, View, useWindowDimensions, type StyleProp, type TextStyle } from "react-native";
+import React, { useEffect } from "react";
+import { ScrollView, StyleSheet, Text, View, useWindowDimensions, type StyleProp, type TextStyle } from "react-native";
 import { ArabicText, isArabicOnly, withHonorifics } from "../ArabicText";
 import { GameButton } from "../GameButton";
 import { Icon, type IconName } from "../Icon";
@@ -10,12 +10,18 @@ import { colors, darken, fonts, lighten, radii, space, text } from "../theme";
 import { useBackToClose } from "./sheetParts";
 import { getActiveLanguage, t } from "../../i18n";
 import { getDailyCard } from "../../data/dailyCard";
+import { playAyah, stopAyah } from "../../services/ayahPlayer";
+import { quranAudioUrl } from "../../services/quranAudio";
+import { openWebPage } from "../../services/network";
+import { AyahListen } from "../lesson/AyahListen";
 
 export type DailySheetProps = {
   visible: boolean;
   onClose: () => void;
   /** The day to show. Default: today. */
   date?: Date;
+  /** Opened by itself as the app opened: recite the ayah once, straight away. */
+  autoPlay?: boolean;
 };
 
 const AYAH_COLOR = colors.green;
@@ -46,13 +52,21 @@ function Line({ value, style, testID }: { value: string; style: StyleProp<TextSt
 }
 
 /** Today's ayah and hadith, from the top bar's book button. Same pair for everyone on that date. */
-export function DailySheet({ visible, onClose, date }: DailySheetProps) {
-  useBackToClose(visible, onClose);
+export function DailySheet({ visible, onClose, date, autoPlay = false }: DailySheetProps) {
   const { height } = useWindowDimensions();
   const { ayah, hadith } = getDailyCard(getActiveLanguage(), date);
+  const audio = quranAudioUrl(`Quran ${ayah.ref}`);
+  const close = () => {
+    if (audio) stopAyah(audio);
+    onClose();
+  };
+  useBackToClose(visible, close);
+  useEffect(() => {
+    if (visible && autoPlay && audio) playAyah(audio, { once: true });
+  }, [audio, autoPlay, visible]);
 
   return (
-    <Sheet visible={visible} onClose={onClose} testID="daily-sheet">
+    <Sheet visible={visible} onClose={close} testID="daily-sheet">
       <Text style={styles.title} accessibilityRole="header">
         {t("Today")}
       </Text>
@@ -67,6 +81,7 @@ export function DailySheet({ visible, onClose, date }: DailySheetProps) {
             <Text style={styles.reference} testID="daily-ayah-ref">
               {t("Quran {ref}", { ref: ayah.ref })}
             </Text>
+            {audio && visible ? <AyahListen url={audio} accent={AYAH_COLOR} /> : null}
           </View>
         </PopIn>
         <PopIn key={visible ? "hadith-open" : "hadith"} delay={160} from="up">
@@ -75,7 +90,7 @@ export function DailySheet({ visible, onClose, date }: DailySheetProps) {
             <Line value={t(hadith.line)} style={styles.line} testID="daily-hadith-line" />
             <Line value={t(hadith.quote)} style={styles.quote} testID="daily-hadith-quote" />
             <Tappable
-              onPress={() => void Linking.openURL(hadith.url).catch(() => undefined)}
+              onPress={() => openWebPage(hadith.url)}
               accessibilityLabel={t("Open source {name}", { name: t(hadith.reference) })}
               hitSlop={6}
               testID="daily-hadith-ref"
@@ -85,7 +100,7 @@ export function DailySheet({ visible, onClose, date }: DailySheetProps) {
           </View>
         </PopIn>
       </ScrollView>
-      <GameButton label={t("Got it")} fullWidth onPress={onClose} style={styles.button} testID="daily-close" />
+      <GameButton label={t("Got it")} fullWidth onPress={close} style={styles.button} testID="daily-close" />
     </Sheet>
   );
 }

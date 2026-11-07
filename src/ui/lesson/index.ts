@@ -37,5 +37,6 @@ export { OrderGame, seededShuffle, type OrderGameProps, type OrderOption } from 
 export { LessonComplete, type LessonCompleteProps } from "./LessonComplete";
 export { QuizComplete, type QuizCompleteProps } from "./QuizComplete";
 export { QuitSheet, type QuitSheetProps } from "./QuitSheet";
+export { HarderSheet, type HarderSheetProps } from "./HarderSheet";
 export { getLessonLine, getLessonProgress, isPlayablePractice, lessonLineWords, lessonStars, LESSON_LINE_MAX_WORDS, type LessonStepScreen } from "./lessonSteps";
 export { ScrollHint, ScrollHintGap, useScrollMore, SCROLL_HINT_ROOM, SCROLL_HINT_SLACK } from "./ScrollHint";

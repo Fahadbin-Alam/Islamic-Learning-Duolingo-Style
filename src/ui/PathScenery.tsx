@@ -6,7 +6,16 @@ import { useReduceMotion } from "./Camel";
 import { Icon, type IconName } from "./Icon";
 import { smoothKeys } from "./motion";
 import { Floater, Sparkle, shake, useCycle, useOneShot } from "./reactions";
+import { IDLE_PERIOD, IdleBits, SLEEPERS, idleKindFor, idleMoves, useIdleClock } from "./idleLife";
+import { ROAMERS, Roamer, type RoamKind } from "./roamer";
+import { useScene } from "./sceneMood";
+import { ShowScenery, WellBucket, hasShows } from "./sceneryShows";
 import { feedback, playUi } from "./sound";
+import { WorldDrawing, isWorldKind, type WorldKind } from "./worldArt";
+import { WORLD_ITEMS, type PathWorld } from "./pathWorlds";
+
+/** Pictures that stay still while the path sleeps. */
+const STILL_ASLEEP = new Set(["mosque", "kaaba"]);
 
 /**
  * Pictures that stand beside the path, picked by topic so the path looks like what is being learned.
@@ -29,12 +38,14 @@ export type SceneryKind =
   | "oasis"
   | "rocks"
   | "dates"
-  | "bush";
+  | "bush"
+  | WorldKind;
 
-const ICON_KINDS: Partial<Record<SceneryKind, IconName>> = { mosque: "mosque", kaaba: "kaaba", coins: "coins" };
+// The Kaaba is drawn as a mini Makkah (Drawing below) and has its own tap shows.
+const ICON_KINDS: Partial<Record<SceneryKind, IconName>> = { mosque: "mosque", coins: "coins" };
 
 /** Plants sway in the wind; everything else stands still. */
-const SWAYS: ReadonlySet<SceneryKind> = new Set<SceneryKind>(["palm", "flowers", "bush"]);
+const SWAYS: ReadonlySet<SceneryKind> = new Set<SceneryKind>(["palm", "flowers", "bush", "pine", "banner"]);
 
 const THEMES: Record<string, SceneryKind[]> = {
   quran_tafseer: ["bookStand", "palm", "oasis", "flowers", "dunes", "sheep", "rocks", "well"],
@@ -44,22 +55,41 @@ const THEMES: Record<string, SceneryKind[]> = {
   women_of_the_book: ["palm", "flowers", "well", "dates", "tent", "oasis", "bush", "sheep"],
   hadith: ["inkpot", "bookStand", "palm", "flowers", "well", "bush", "dates", "rocks"],
   scholars: ["inkpot", "bookStand", "palm", "well", "flowers", "bush", "rocks", "dates"],
-  prayer: ["mosque", "palm", "flowers", "oasis", "dunes", "bush", "well", "rocks"],
+  prayer: ["mosque", "palm", "flowers", "oasis", "kaaba", "bush", "well", "rocks"],
   manners: ["flowers", "well", "sheep", "palm", "tent", "bush", "dates", "oasis"],
   fasting: ["dates", "palm", "well", "dunes", "tent", "oasis", "rocks", "bush"],
   ramadan: ["dates", "mosque", "palm", "well", "oasis", "tent", "dunes", "bush"],
+  eid: ["sheep", "mosque", "palm", "flowers", "tent", "dates", "oasis", "bush"],
+  sahihayn: ["bookStand", "inkpot", "palm", "well", "flowers", "dates", "bush", "oasis"],
+  akhirah: ["mountain", "rocks", "dunes", "oasis", "palm", "flowers", "well", "bush"],
+  intro: ["palm", "flowers", "well", "mosque", "oasis", "kaaba", "bush", "sheep"],
   zakat: ["coins", "well", "dates", "palm", "flowers", "sheep", "bush", "rocks"],
   hajj: ["kaaba", "mountain", "tent", "palm", "well", "rocks", "dunes", "sheep"],
   marriage: ["flowers", "tent", "palm", "well", "dates", "bush", "oasis", "sheep"],
-  aqidah: ["mountain", "palm", "oasis", "flowers", "dunes", "rocks", "bush", "well"],
-  foundation: ["palm", "well", "dunes", "sheep", "mountain", "flowers", "oasis", "dates"]
+  aqidah: ["mountain", "palm", "oasis", "flowers", "kaaba", "rocks", "bush", "well"],
+  foundation: ["palm", "well", "kaaba", "sheep", "mountain", "flowers", "oasis", "dates"]
 };
 
-const DEFAULT_THEME: SceneryKind[] = ["palm", "well", "dunes", "sheep", "flowers", "mountain", "oasis", "bush"];
+const DEFAULT_THEME: SceneryKind[] = ["palm", "well", "kaaba", "sheep", "flowers", "mountain", "oasis", "bush"];
 
-/** The picture for a unit's `slot`-th spot beside the path, by topic. Next spots never repeat a picture. */
-export function sceneryFor(topicId: string, unitIndex: number, slot: number): SceneryKind {
+/** A topic's own picture (the book stand for Quran...), kept as the first picture in every place. */
+const SIGNATURES: ReadonlySet<SceneryKind> = new Set<SceneryKind>(["bookStand", "inkpot", "mosque", "kaaba", "coins"]);
+
+/**
+ * The picture for a unit's `slot`-th spot beside the path, by topic and place (see pathWorlds.tsx).
+ * Next spots never repeat a picture.
+ */
+export function sceneryFor(topicId: string, unitIndex: number, slot: number, world: PathWorld = "desert"): SceneryKind {
   const theme = THEMES[topicId] ?? DEFAULT_THEME;
+  if (world !== "desert") {
+    const signature = theme[0];
+    const items = WORLD_ITEMS[world] as SceneryKind[];
+    if (SIGNATURES.has(signature)) {
+      if (slot === 0) return signature;
+      return items[(unitIndex * 3 + slot - 1) % items.length];
+    }
+    return items[(unitIndex * 3 + slot) % items.length];
+  }
   // Each unit starts a few pictures on, so the units of a long topic don't all open with the same one.
   return theme[(unitIndex * 3 + slot) % theme.length];
 }
@@ -80,6 +110,7 @@ const PAGE = "#FFFFFF";
 const INK = "#1F2D27";
 
 function Drawing({ kind }: { kind: SceneryKind }) {
+  if (isWorldKind(kind)) return <WorldDrawing kind={kind} />;
   switch (kind) {
     case "palm":
       return (
@@ -261,6 +292,29 @@ function Drawing({ kind }: { kind: SceneryKind }) {
           <Circle cx={38} cy={34} r={2} fill="#FFC21A" />
           <Circle cx={44} cy={46} r={2} fill="#FF7FA6" />
           <Ellipse cx={32} cy={58} rx={22} ry={3} fill={LEAF_DEEP} opacity={0.3} />
+        </G>
+      );
+    case "kaaba":
+      // A mini Makkah: the Kaaba in the middle of the white courtyard of the Haram, two minarets, the hills behind.
+      return (
+        <G>
+          <Path d="M0 40L12 22L22 34L34 18L46 32L54 24L64 38V44H0Z" fill="#C9A77A" />
+          <Path d="M12 22L16 28L13 27L10 30ZM34 18L39 25L35 24L31 27Z" fill="#E2C9A2" />
+          <Rect x={6} y={18} width={4} height={34} rx={1} fill="#F4F1EA" />
+          <Path d="M5.4 18L8 11L10.6 18Z" fill="#D8C27A" />
+          <Rect x={5.5} y={28} width={5} height={2} fill="#D8D2C4" />
+          <Rect x={54} y={18} width={4} height={34} rx={1} fill="#F4F1EA" />
+          <Path d="M53.4 18L56 11L58.6 18Z" fill="#D8C27A" />
+          <Rect x={53.5} y={28} width={5} height={2} fill="#D8D2C4" />
+          <Ellipse cx={32} cy={50} rx={30} ry={10} fill="#F4F1EA" />
+          <Ellipse cx={32} cy={50} rx={24} ry={7.4} fill="#FFFFFF" />
+          <Path d="M4 47Q32 36 60 47" stroke="#D8D2C4" strokeWidth={1.4} fill="none" />
+          <Path d="M24 33L32 30L40 33V50L32 53L24 50Z" fill="#2B2D33" />
+          <Path d="M32 30L40 33L32 36L24 33Z" fill="#44474F" />
+          <Path d="M32 36V53L40 50V33Z" fill="#1C1D22" />
+          <Path d="M24 37.4L32 40.4L40 37.4V39.4L32 42.4L24 39.4Z" fill="#D8B24A" />
+          <Rect x={27} y={44} width={3} height={6} rx={0.6} fill="#D8B24A" />
+          <Ellipse cx={32} cy={59.5} rx={26} ry={2.2} fill={INK} opacity={0.08} />
         </G>
       );
     default:
@@ -518,17 +572,6 @@ function FlowerPatch({ size, seed, sway, reduceMotion }: { size: number; seed: n
   );
 }
 
-/** The well's rope and bucket, hanging from the beam. */
-function WellBucket() {
-  return (
-    <G>
-      <Path d="M32 0V30" stroke={INK} strokeWidth={1.2} />
-      <Path d="M27 30H37L36 37H28Z" fill="#9A5724" />
-      <Path d="M27 30H37" stroke="#7A421A" strokeWidth={1.4} />
-    </G>
-  );
-}
-
 /** What a tap on each picture does: the well drops its bucket and splashes, the rest hop with a boing. */
 const TAP_SOUND: Partial<Record<SceneryKind, GameSoundEvent>> = { well: "splash", oasis: "splash" };
 
@@ -557,9 +600,49 @@ export type PathSceneryProps = {
   /** Picks the flower kind and colors (and other per-spot looks). Pass something unique per spot. */
   seed?: number;
   style?: StyleProp<ViewStyle>;
+  /**
+   * The row it stands in: the animals (sheep, goat, horse, rabbit, turtle, crab) then wander the whole row
+   * by themselves like the camel (see roamer.tsx). `left` is where the picture's box stands, px.
+   */
+  roam?: { width: number; left: number };
 };
 
-export const PathScenery = memo(function PathScenery({ kind, size = 64, animated = false, tappable = false, seed = 0, style }: PathSceneryProps) {
+/**
+ * A picture beside the path. Near the learner every picture also moves a little by itself (see
+ * idleLife.tsx), and everything rests while the path is asleep.
+ */
+export const PathScenery = memo(function PathScenery(props: PathSceneryProps) {
+  const { kind, size = 64, animated = false, seed = 0, style } = props;
+  const reduceMotion = useReduceMotion();
+  const { asleep } = useScene();
+  // While the path sleeps, animals snore and the rest breathe slowly; the Kaaba and the mosque rest.
+  const resting = asleep && !STILL_ASLEEP.has(kind);
+  const idle = asleep ? (SLEEPERS.has(kind) ? "sleep" : "breathe") : idleKindFor(kind);
+  const live = animated && !reduceMotion && (!asleep || resting);
+  // Animals given a row wander it (roamer.tsx) instead of their little idle moves; asleep they snore where they stopped.
+  const roams = Boolean(props.roam) && ROAMERS.has(kind);
+  const idleLive = live && (!roams || asleep);
+  const t = useIdleClock(idleLive, (asleep ? IDLE_PERIOD.sleep : IDLE_PERIOD[idle]) + (seed % 5) * 260, seed);
+  const picture = (
+    <Animated.View
+      pointerEvents="box-none"
+      style={[{ width: size, height: size, transformOrigin: "bottom", transform: idleLive ? (idleMoves(idle, t, size) as never[]) : [] }, roams ? null : style]}
+    >
+      <SceneryBody {...props} style={undefined} />
+      {idleLive ? <IdleBits kind={idle} t={t} size={size} /> : null}
+    </Animated.View>
+  );
+  if (!roams || !props.roam) return picture;
+  return (
+    <View pointerEvents="box-none" style={style}>
+      <Roamer kind={kind as RoamKind} size={size} width={props.roam.width} left={props.roam.left} active={animated && !reduceMotion && !asleep} seed={seed}>
+        {picture}
+      </Roamer>
+    </View>
+  );
+});
+
+const SceneryBody = memo(function SceneryBody({ kind, size = 64, animated = false, tappable = false, seed = 0, style }: PathSceneryProps) {
   const reduceMotion = useReduceMotion();
   const sways = animated && !reduceMotion && SWAYS.has(kind);
   const sway = useRef(new Animated.Value(0)).current;
@@ -632,6 +715,24 @@ export const PathScenery = memo(function PathScenery({ kind, size = 64, animated
           <FlowerArt kind={flowerKind} colors={palette} stage="bloom" />
         </Animated.View>
       </View>
+    );
+  }
+
+  if (tappable && hasShows(kind)) {
+    // The well, palm, sheep, tent, basket and pond each have a run of tap shows (see sceneryShows.tsx).
+    return (
+      <ShowScenery
+        kind={kind}
+        size={size}
+        art={
+          <Svg width={size} height={size} viewBox="0 0 64 64">
+            <Drawing kind={kind} />
+          </Svg>
+        }
+        sway={sways ? rotate : null}
+        reduceMotion={reduceMotion}
+        style={style}
+      />
     );
   }
 

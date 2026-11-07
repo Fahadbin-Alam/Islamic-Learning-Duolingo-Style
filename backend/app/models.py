@@ -69,6 +69,10 @@ class User(Base, TimestampMixin):
     # see src/services/ummah.ts. Only joined learners show on the ranking, by nickname.
     ummah_json: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
     social_hub_json: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
+    # Everything else on the app's profile that has no column of its own (quiz scores, Ramadan days, the review
+    # deck, streak freezes, and fields later builds add), so it survives a new phone without a migration each time.
+    # See EXTRA_STATE_* in service_layer.py for the limits.
+    progress_extra_json: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
 
     sessions: Mapped[List["AuthSession"]] = relationship(back_populates="user", cascade="all, delete-orphan")
     progress_entries: Mapped[List["UserProgress"]] = relationship(back_populates="user", cascade="all, delete-orphan")
@@ -94,6 +98,85 @@ class Friendship(Base):
 
     friend: Mapped["User"] = relationship(foreign_keys=[friend_id])
     user: Mapped["User"] = relationship(foreign_keys=[user_id], overlaps="following")
+
+
+class FriendBattle(Base):
+    """One learner asking a friend (both added each other) to a quiz battle. Both answer the same questions, picked
+    in the app from `seed`, and the higher score wins once both have played."""
+
+    __tablename__ = "friend_battles"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    challenger_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+    opponent_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+    # pending (asked, not answered), accepted (both may play), declined, done (both played).
+    status: Mapped[str] = mapped_column(String(20), default="pending", server_default="pending", nullable=False)
+    seed: Mapped[int] = mapped_column(Integer, nullable=False)
+    challenger_score: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
+    opponent_score: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False)
+
+    challenger: Mapped["User"] = relationship(foreign_keys=[challenger_id])
+    opponent: Mapped["User"] = relationship(foreign_keys=[opponent_id])
+
+
+class FriendStreak(Base):
+    """Two friends' shared streak: the days in a row on which both of them finished a lesson. Worked out from both
+    learners' XP per day (kept only a few weeks), and saved here so a long streak outlives that short history.
+    `user_low_id` is always the smaller id, so a pair has one row whichever side looks first."""
+
+    __tablename__ = "friend_streaks"
+    __table_args__ = (UniqueConstraint("user_low_id", "user_high_id", name="uq_friend_streak_pair"),)
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    user_low_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+    user_high_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+    days: Mapped[int] = mapped_column(Integer, default=0, server_default="0", nullable=False)
+    # The latest local date (YYYY-MM-DD) both learned on, which `days` counts up to.
+    last_day: Mapped[Optional[str]] = mapped_column(String(10), nullable=True)
+    best_days: Mapped[int] = mapped_column(Integer, default=0, server_default="0", nullable=False)
+
+
+class FamilyLink(Base):
+    """A parent's account following a child's account live on the Family page. Made only from a short code the
+    child's phone shows (behind the grown-up gate), so nobody can follow a child by typing their email."""
+
+    __tablename__ = "family_links"
+    __table_args__ = (UniqueConstraint("parent_id", "child_id", name="uq_family_link_pair"),)
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    parent_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+    child_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+
+    parent: Mapped["User"] = relationship(foreign_keys=[parent_id])
+    child: Mapped["User"] = relationship(foreign_keys=[child_id])
+
+
+class FamilyLinkCode(Base):
+    """The child's one-time code for linking a parent. One per child; a new one replaces it, and it expires."""
+
+    __tablename__ = "family_link_codes"
+
+    code: Mapped[str] = mapped_column(String(12), primary_key=True)
+    child_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False, unique=True, index=True)
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+
+    child: Mapped["User"] = relationship(foreign_keys=[child_id])
+
+
+class Invite(Base):
+    """A new learner typing a friend's invite code. Each learner can use one code, once; the friend who invited
+    them collects their reward the next time their app asks (see backend/app/api/routes/invites.py)."""
+
+    __tablename__ = "invites"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    inviter_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+    invitee_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False, unique=True)
+    inviter_rewarded: Mapped[bool] = mapped_column(Boolean, default=False, server_default="false", nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
 
 
 class AuthSession(Base):

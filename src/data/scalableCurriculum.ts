@@ -154,16 +154,16 @@ function seed(
 }
 
 // One ayah, or a few, that say what a learn card says. The link goes to the ayah itself.
-function ayah(reference: string, title: string, summary: string): LessonSource {
+export function ayah(reference: string, title: string, summary: string): LessonSource {
   const [surah, ayahs] = reference.split(":");
   return quranSource(`quran_${surah}_${ayahs.replace("-", "_")}`, title, `Quran ${reference}`, `https://quran.com/${surah}/${ayahs}`, summary);
 }
 
-function bukhari(number: number, narrator: string, title: string, summary: string): LessonSource {
+export function bukhari(number: number, narrator: string, title: string, summary: string): LessonSource {
   return hadithSource(`hadith_bukhari_${number}`, title, `Sahih al-Bukhari ${number}`, `https://sunnah.com/bukhari:${number}`, `${narrator}; collected by Imam al-Bukhari`, "Sahih", summary);
 }
 
-function muslim(number: number, narrator: string, title: string, summary: string): LessonSource {
+export function muslim(number: number, narrator: string, title: string, summary: string): LessonSource {
   return hadithSource(`hadith_muslim_${number}`, title, `Sahih Muslim ${number}`, `https://sunnah.com/muslim:${number}`, `${narrator}; collected by Imam Muslim`, "Sahih", summary);
 }
 
@@ -1799,7 +1799,7 @@ SECTION_SEEDS.push(
       },
       {
         id: "aqidah-lived-iman",
-        title: "Lived iman",
+        title: "Faith in action",
         description: "Bring belief out of theory and into repentance, patience, and moral steadiness.",
         order: 4,
         difficultyRange: [2, 5],

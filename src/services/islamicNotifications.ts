@@ -78,7 +78,7 @@ export async function maybeSendIslamicReminder(user: UserProfile, language: Supp
     return false;
   }
 
-  const message = comebackMessage(language, step, messageVariant(lastLearningAt));
+  const message = comebackMessage(language, step, messageVariant(lastLearningAt), { streakDays: user.streakDays, streakFreezes: user.streakFreezes });
   new Notification(message.title, { body: message.body });
 
   if (step === "streak") {

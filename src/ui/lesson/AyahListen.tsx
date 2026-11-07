@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import { getAyahPlayback, playAyah, setAyahRepeat, stopAyah, subscribeAyahPlayback } from "../../services/ayahPlayer";
 import { QURAN_AUDIO_SOURCE } from "../../services/quranAudio";
+import { useOnline } from "../../services/network";
 import { t } from "../../i18n";
 import { Icon } from "../Icon";
 import { Tappable } from "../Tappable";
@@ -20,6 +21,7 @@ export function useAyahPlayback() {
  */
 export function AyahListen({ url, accent }: { url: string; accent: string }) {
   const playback = useAyahPlayback();
+  const online = useOnline();
   const mine = playback.url === url;
   const status = mine ? playback.status : "idle";
   const active = status === "playing" || status === "loading";
@@ -61,7 +63,7 @@ export function AyahListen({ url, accent }: { url: string; accent: string }) {
       </View>
       {status === "error" ? (
         <Text style={styles.note} testID="ayah-listen-error">
-          {t("Could not load. Check your internet.")}
+          {online ? t("Could not load. Check your internet.") : t("No internet. This is not saved on your phone yet.")}
         </Text>
       ) : (
         <Text style={styles.note}>{t("Recited by {name}", { name: QURAN_AUDIO_SOURCE.reciter })}</Text>

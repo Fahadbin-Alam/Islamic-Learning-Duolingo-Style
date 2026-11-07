@@ -58,6 +58,17 @@ export function loadAdsModule(): AdsModule | null {
   return adsModule;
 }
 
+// The banner waits on this, so it is never asked for before the age screen, the consent form and the
+// child-safe request settings (rating G, child-directed) are in place. It resolves once, true when ads can run.
+let markAdsStarted: (ready: boolean) => void = () => undefined;
+const adsStarted = new Promise<boolean>((resolve) => {
+  markAdsStarted = resolve;
+});
+
+export function whenAdsStarted() {
+  return adsStarted;
+}
+
 // Until the age screen is answered every ad is requested as if a child were watching.
 let adAudience: AdAudience = "child";
 
@@ -218,6 +229,7 @@ function createLiveClient(): MonetizationClient {
           return false;
         }
       })();
+      void adsReady.then(markAdsStarted);
     }
 
     return adsReady;

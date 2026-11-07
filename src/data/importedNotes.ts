@@ -183,20 +183,6 @@ const WOMEN_UNITS: { title: string; description: string; people: string[] }[] = 
       "zaynab-bint-jahsh",
       "zaynab-bint-khuzayma"
     ]
-  },
-  {
-    title: "Ali's family",
-    description: "Ali's wives, his daughters and his family after them.",
-    people: [
-      "al-sahba-al-taghlibiyyah",
-      "khawlah-bint-jafar-al-hanifiyyah",
-      "layla-bint-masud-al-tamimiyyah",
-      "umm-al-banin",
-      "umm-said-bint-urwah-al-thaqafiyyah",
-      "umm-kulthoom-bint-ali",
-      "zaynab-bint-ali",
-      "sayyida-nafisa"
-    ]
   }
 ];
 
@@ -244,13 +230,11 @@ const MAX_UNIT_SIZE = 10;
 const MAX_CHIP_WORDS = 5;
 
 /**
- * Where a surah comes in the Quran path: Al-Fatihah first, then Juz Amma from An-Nas back to An-Naba
- * (114, 113, ... 78), the short surahs children learn first, then the rest in the order of the mushaf.
+ * Where a surah comes in the Quran path: the order of the mushaf, Al-Fatihah, Al-Baqarah, Ali 'Imran... An-Nas,
+ * so the Quran topic reads like the Quran itself (Fahad, 2026-10-31).
  */
 export function surahLearningRank(surah: number) {
-  if (surah === 1) return 0;
-  if (surah >= 78) return 1 + (114 - surah);
-  return 100 + surah;
+  return surah;
 }
 
 // "https://quran.com/18" is a whole surah; "https://quran.com/18/10" is one ayah of it.
@@ -416,6 +400,32 @@ function regroupHadith(given: LearningBranch[], staying: LearningNode[], lessons
   return chainUnits(groups, lessons);
 }
 
+// Ali's wives, daughters and later family from the notes are left out of Great Women (Fahad, 2026-11-01): they
+// are not taught anywhere in the app.
+export const LEFT_OUT_WOMEN = new Set([
+  "al-sahba-al-taghlibiyyah",
+  "khawlah-bint-jafar-al-hanifiyyah",
+  "layla-bint-masud-al-tamimiyyah",
+  "umm-al-banin",
+  "umm-said-bint-urwah-al-thaqafiyyah",
+  "umm-kulthoom-bint-ali",
+  "zaynab-bint-ali",
+  "sayyida-nafisa"
+]);
+
+// The left-out women's circles and lessons, gone from the notes before anything is merged.
+function dropLeftOutWomen(notes: ImportedNotesContent): ImportedNotesContent {
+  const dropped = notes.sections.flatMap((section) => section.nodes.filter((node) => LEFT_OUT_WOMEN.has(personSlug(node))));
+  if (!dropped.length) return notes;
+  const nodeIds = new Set(dropped.map((node) => node.id));
+  const lessonIds = new Set(dropped.flatMap((node) => node.lessonIds));
+  return {
+    ...notes,
+    sections: notes.sections.map((section) => ({ ...section, nodes: section.nodes.filter((node) => !nodeIds.has(node.id)) })),
+    lessonsById: Object.fromEntries(Object.entries(notes.lessonsById).filter(([id]) => !lessonIds.has(id)))
+  };
+}
+
 // Women: one unit per theme in WOMEN_UNITS; anyone the themes do not name goes in a last unit.
 function regroupWomen(given: LearningBranch[], staying: LearningNode[], lessons: Record<string, Lesson>): Regrouped {
   const themeOf = new Map(WOMEN_UNITS.flatMap((unit, index) => unit.people.map((person) => [person, index] as const)));
@@ -488,7 +498,7 @@ export function mergeImportedNotes(course: LearningCourse, lessonsById: Record<s
   if (!notes.sections.length) {
     return { course, lessonsById };
   }
-  const imported = moveOlderHadith(notes);
+  const imported = dropLeftOutWomen(moveOlderHadith(notes));
 
   const importedLessons: Record<string, Lesson> = Object.fromEntries(
     Object.entries(imported.lessonsById).map(([lessonId, lesson]) => {

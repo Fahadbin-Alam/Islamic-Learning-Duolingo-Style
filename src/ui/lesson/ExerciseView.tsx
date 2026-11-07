@@ -27,6 +27,8 @@ import { BAR_GAP, LessonBottomBar } from "./LessonHeader";
 import { noBreakHyphens, shortWhy } from "./lessonText";
 import { EVERY_FRAME, SCROLL_HINT_SLACK, scrollHintGrowth, useScrollMore } from "./ScrollHint";
 import { getActiveLanguage, t } from "../../i18n";
+import type { LessonPicture } from "../../data/lessonPictures";
+import { QuestionPhoto } from "./LessonPhoto";
 import {
   centerSpace,
   edgesOnScreen,
@@ -189,10 +191,12 @@ export type QuestionBubbleProps = {
   small?: boolean;
   /** Less room under the prompt, for the same reason. */
   smallGaps?: boolean;
+  /** A photo of the place the prompt names: it sits where the mascot would, the same size. */
+  picture?: LessonPicture;
 };
 
 /** Mascot next to a speech bubble holding the question. Very long prompts drop the mascot and use the full width. */
-export function QuestionBubble({ prompt, mascotVariant, accent, mood = "think", hideMascot, still, small, smallGaps }: QuestionBubbleProps) {
+export function QuestionBubble({ prompt, mascotVariant, accent, mood = "think", hideMascot, still, small, smallGaps, picture }: QuestionBubbleProps) {
   const { compact, narrow } = useLessonCompact();
   const long = prompt.length > LONG_PROMPT;
   const promptSize = (long || compact ? 17 : narrow ? 18 : 19) - (small ? SMALL_PROMPT_STEP : 0);
@@ -210,7 +214,7 @@ export function QuestionBubble({ prompt, mascotVariant, accent, mood = "think", 
   const mascotSize = compact ? 64 : narrow ? 72 : 96;
   return (
     <View style={[styles.questionRow, compact ? styles.questionRowCompact : null]}>
-      <Mascot variant={mascotVariant} mood={mood} accent={accent} size={mascotSize} />
+      {picture ? <QuestionPhoto picture={picture} size={mascotSize} /> : <Mascot variant={mascotVariant} mood={mood} accent={accent} size={mascotSize} />}
       <PopIn from="up" delay={60} style={styles.bubbleWrap}>
         <SpeechBubble>
           <PromptText size={promptSize}>{prompt}</PromptText>
@@ -362,6 +366,8 @@ export type ExerciseViewProps = {
   continueSound?: GameSoundEvent | false;
   /** Start with the feedback sheet's Why line open (gallery / tests). */
   defaultWhyOpen?: boolean;
+  /** A photo of the place the prompt names, shown in the mascot's place (see QuestionBubble). */
+  picture?: LessonPicture;
   bottomInset?: number;
   testID?: string;
 };
@@ -427,6 +433,7 @@ export function ExerciseView({
   playSound = true,
   continueSound,
   defaultWhyOpen,
+  picture,
   bottomInset,
   testID = "exercise-view"
 }: ExerciseViewProps) {
@@ -1052,6 +1059,7 @@ export function ExerciseView({
                 still={fit.squeeze && !mascotAway}
                 small={look.smallPrompt}
                 smallGaps={look.smallGaps}
+                picture={picture}
               />
             </View>
             {checked && promptGap?.key === shownKey ? (

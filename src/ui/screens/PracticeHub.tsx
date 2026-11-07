@@ -14,7 +14,6 @@ import { PopIn, useShake } from "../PopIn";
 import { SpeechBubble } from "../SpeechBubble";
 import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, radii, text, topicPalette } from "../theme";
-import { isRtlLanguage } from "../../i18n";
 
 export type PracticeHubProps = {
   user: UserProfile;
@@ -23,12 +22,18 @@ export type PracticeHubProps = {
   strings: UiStrings;
   onStartPlacement: () => void;
   onStartReview: () => void;
+  /** Missed lesson questions due again in the Review deck. */
+  reviewDueCount?: number;
+  /** Starts a Review of the due missed questions; REVIEW opens it first while any are due. */
+  onStartReviewDeck?: () => void;
   onStartDailyChallenge: () => void;
   onGoFoundation: () => void;
   /** QUIZZES: a scored quiz of a topic or a unit. Left out when there is none to take. */
   onOpenQuizzes?: () => void;
   /** The best score on the path topic's quiz, in percent; unset until it is taken. */
   quizBest?: number;
+  /** STORIES: the Seerah and the Companions told as stories (story mode). */
+  onOpenStories?: () => void;
   /** MY LESSONS: practice questions from lessons already done. Left out until there are enough of them. */
   onStartLessonPractice?: () => void;
   /** Tabs replace back buttons; kept so the old call site still type-checks. */
@@ -108,7 +113,7 @@ function HeroCard({ tint, glyph, title, arabic, button, buttonVariant, done, onP
               {title}
             </Text>
             {arabic ? (
-              <ArabicText size={20} weight="bold" color={palette.ink} align={isRtlLanguage() ? "right" : "left"}>
+              <ArabicText size={20} weight="bold" color={palette.ink} align="center">
                 {arabic}
               </ArabicText>
             ) : null}
@@ -164,29 +169,43 @@ function SmallTile({ tint, glyph, label, badge, done, resting, onPress, delay, t
 
 /** Practice tab: one hero card for the next step, two small tiles, and the basics path. */
 export function PracticeHub({
+  user,
   learnerProfile,
   language,
   onStartPlacement,
   onStartReview,
+  reviewDueCount = 0,
+  onStartReviewDeck,
   onStartDailyChallenge,
   onGoFoundation,
   onStartLessonPractice,
   onOpenQuizzes,
+  onOpenStories,
   quizBest,
   mascotVariant = "hijabi",
   // The mascot's own default, so it matches the other screens when no accent is passed.
   accent = colors.green
 }: PracticeHubProps) {
   const t = (value: string) => translateStudyText(value, language);
-  const reviewCount = learnerProfile.needs_review_question_ids.length;
+  // Missed lesson questions due again come first; then the Basics questions missed in a level check or challenge.
+  const deckDue = onStartReviewDeck ? reviewDueCount : 0;
+  const reviewCount = deckDue + learnerProfile.needs_review_question_ids.length;
   const weakCount = learnerProfile.weak_areas.length;
   const hasReview = reviewCount > 0 || weakCount > 0;
+  // Missed questions still in the deck but not due yet: the learner is caught up, not mistake-free.
+  const waiting = (user.reviewCards?.length ?? 0) > 0;
   const placed = learnerProfile.assessmentCompleted;
   const dailyDone = isToday(learnerProfile.lastDailyChallengeAt);
   const basics = getTopicArabic("foundation");
   // Tapping the grey review tile makes the mascot say why it is resting.
   const [restNote, setRestNote] = useState(false);
-  const bubble = restNote ? t("No mistakes yet!") : placed ? t("Let's sharpen what you know!") : t("Let's find your level!");
+  const bubble = restNote
+    ? t(waiting ? "All caught up!" : "No mistakes yet!")
+    : deckDue > 0
+      ? t("Let's fix your mistakes!")
+      : placed
+        ? t("Let's sharpen what you know!")
+        : t("Let's find your level!");
 
   const reviewTile = hasReview ? (
     <SmallTile
@@ -195,7 +214,7 @@ export function PracticeHub({
       glyph={{ review: true }}
       label={t("Review")}
       badge={reviewCount > 0 ? String(reviewCount) : undefined}
-      onPress={onStartReview}
+      onPress={deckDue > 0 ? onStartReviewDeck : onStartReview}
       delay={120}
     />
   ) : (
@@ -281,12 +300,35 @@ export function PracticeHub({
                 {t("How much do you know?")}
               </Text>
             </View>
-            {quizBest !== undefined ? (
-              <View style={styles.quizPill} testID="practice-quiz-best">
-                <Text style={styles.quizPillText}>{`${quizBest}%`}</Text>
-              </View>
-            ) : null}
-            <Icon name="chevronRight" size={24} color={colors.lineLip} />
+            <View style={[styles.rowEnd, styles.quizEnd]}>
+              {quizBest !== undefined ? (
+                <View style={styles.quizPill} testID="practice-quiz-best">
+                  <Text style={styles.quizPillText}>{`${quizBest}%`}</Text>
+                </View>
+              ) : null}
+              <Icon name="chevronRight" size={24} color={colors.lineLip} />
+            </View>
+          </Tappable>
+        </PopIn>
+      ) : null}
+
+      {onOpenStories ? (
+        <PopIn delay={222} from="up">
+          <Tappable onPress={onOpenStories} style={[styles.basicsRow, styles.quizRow]} testID="practice-stories" accessibilityLabel={t("Stories")}>
+            <View style={[styles.basicsIcon, { backgroundColor: lighten(colors.date, 0.85) }]}>
+              <Icon name="scroll" size={30} />
+            </View>
+            <View style={styles.quizText}>
+              <Text style={styles.basicsTitle} numberOfLines={1}>
+                {t("Stories")}
+              </Text>
+              <Text style={styles.quizLine} numberOfLines={2}>
+                {t("The Seerah and the Sahabah, told as stories")}
+              </Text>
+            </View>
+            <View style={[styles.rowEnd, styles.quizEnd]}>
+              <Icon name="chevronRight" size={24} color={colors.lineLip} />
+            </View>
           </Tappable>
         </PopIn>
       ) : null}
@@ -302,7 +344,9 @@ export function PracticeHub({
                 {t("My lessons")}
               </Text>
             </View>
-            <Icon name="chevronRight" size={24} color={colors.lineLip} />
+            <View style={styles.rowEnd}>
+              <Icon name="chevronRight" size={24} color={colors.lineLip} />
+            </View>
           </Tappable>
         </PopIn>
       ) : null}
@@ -317,12 +361,14 @@ export function PracticeHub({
               {t("Basics")}
             </Text>
             {basics ? (
-              <ArabicText size={20} weight="bold" color={colors.correctInk} align={isRtlLanguage() ? "right" : "left"}>
+              <ArabicText size={20} weight="bold" color={colors.correctInk} align="center">
                 {basics.ar}
               </ArabicText>
             ) : null}
           </View>
-          <Icon name="chevronRight" size={24} color={colors.lineLip} />
+          <View style={styles.rowEnd}>
+            <Icon name="chevronRight" size={24} color={colors.lineLip} />
+          </View>
         </Tappable>
       </PopIn>
     </ScrollView>
@@ -339,16 +385,18 @@ const styles = StyleSheet.create({
     paddingTop: 12,
     paddingBottom: 32
   },
+  // Everything on the tab sits in the middle, as on the Me tab.
   titleRow: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     flexWrap: "wrap",
     gap: 8
   },
   title: {
     ...text.h1,
     flexShrink: 1,
-    marginEnd: "auto"
+    textAlign: "center"
   },
   levelPill: {
     flexDirection: "row",
@@ -373,11 +421,12 @@ const styles = StyleSheet.create({
   mascotRow: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     marginTop: 2,
     marginBottom: 10
   },
   bubbleWrap: {
-    flex: 1,
+    flexShrink: 1,
     minWidth: 0,
     marginStart: 6
   },
@@ -389,9 +438,8 @@ const styles = StyleSheet.create({
     gap: 14
   },
   heroRow: {
-    flexDirection: "row",
     alignItems: "center",
-    gap: 16
+    gap: 8
   },
   heroIcon: {
     width: 76,
@@ -402,13 +450,13 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   heroText: {
-    flex: 1,
-    minWidth: 0,
-    alignItems: "flex-start"
+    maxWidth: "100%",
+    alignItems: "center"
   },
   heroTitle: {
     ...text.h2,
-    flexShrink: 1
+    flexShrink: 1,
+    textAlign: "center"
   },
   tiles: {
     flexDirection: "row",
@@ -505,8 +553,21 @@ const styles = StyleSheet.create({
     minWidth: 0,
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     flexWrap: "wrap",
     columnGap: 10
+  },
+  // The chevron side is as wide as the icon side, so the words sit in the middle of the row.
+  rowEnd: {
+    width: 42,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    gap: 4
+  },
+  quizEnd: {
+    width: undefined,
+    minWidth: 50
   },
   quizRow: {
     paddingVertical: 12,
@@ -522,13 +583,15 @@ const styles = StyleSheet.create({
   },
   quizText: {
     flex: 1,
-    minWidth: 0
+    minWidth: 0,
+    alignItems: "center"
   },
   quizLine: {
     fontFamily: fonts.bodyBold,
     fontSize: 14,
     lineHeight: 18,
-    color: darken(colors.goldLip, 0.45)
+    color: darken(colors.goldLip, 0.45),
+    textAlign: "center"
   },
   quizPill: {
     paddingHorizontal: 10,
@@ -547,6 +610,7 @@ const styles = StyleSheet.create({
     ...text.h3,
     fontSize: 17,
     lineHeight: 22,
-    flexShrink: 1
+    flexShrink: 1,
+    textAlign: "center"
   }
 });

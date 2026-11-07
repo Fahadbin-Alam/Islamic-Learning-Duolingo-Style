@@ -1,10 +1,12 @@
 import { buildExpandedContent, chainCourse, withoutGiveaways } from "./scalableCurriculum";
+import { applySourceHighlights } from "./sourceHighlights";
 import { mergeImportedNotes } from "./importedNotes";
-import { arrangeUnits } from "./unitPlans";
+import { arrangeUnits, dropEmptyUnits } from "./unitPlans";
 import { LESSON_SOURCES, QUESTION_SOURCES } from "./questionSources";
 import { addDeepUnits, addSurahDeepUnits } from "./deepUnits";
 import { addSurahMeanings } from "./surahMeanings";
 import { RAMADAN } from "./ramadanDays";
+import { INTRO } from "./introToIslam";
 import { IMPORTED_NOTES } from "./importedNotes.generated";
 import type { Challenge, LearningCourse, Lesson, LessonSource, ShopItem, UserProfile } from "../types";
 import { preciseResourceUrl } from "../services/resourceSupport";
@@ -3946,11 +3948,12 @@ function withLearnLines(lessons: Record<string, Lesson>): Record<string, Lesson>
 const scaledContent = buildExpandedContent(BASE_COURSE, withLearnLines(BASE_LESSONS_BY_ID));
 // Each person is taught in one unit (unitPlans.ts); then each unit opens after the one before it.
 // Deep units (deepUnits.ts) follow their unit's own circles, and then each surah's passages (surahMeanings).
-const chainedNotes = chainCourse(addSurahDeepUnits(addSurahMeanings(addDeepUnits(arrangeUnits(mergeImportedNotes(scaledContent.course, scaledContent.lessonsById, IMPORTED_NOTES))))));
-// The 30-day Ramadan path (ramadanDays.ts) comes last in the topic list; its days are already chained in order.
+const chainedNotes = chainCourse(dropEmptyUnits(addSurahDeepUnits(addSurahMeanings(addDeepUnits(arrangeUnits(mergeImportedNotes(scaledContent.course, scaledContent.lessonsById, IMPORTED_NOTES)))))));
+// The 30-day Ramadan path (ramadanDays.ts) comes last in the topic list; its days are already chained in order. The
+// beginner path for people new to Islam (introToIslam.ts) follows it, and is put first for them in the topic picker.
 const chainedContent = {
-  course: { ...chainedNotes.course, sections: [...chainedNotes.course.sections, RAMADAN.section] },
-  lessonsById: { ...chainedNotes.lessonsById, ...RAMADAN.lessonsById }
+  course: { ...chainedNotes.course, sections: [...chainedNotes.course.sections, RAMADAN.section, INTRO.section] },
+  lessonsById: { ...chainedNotes.lessonsById, ...RAMADAN.lessonsById, ...INTRO.lessonsById }
 };
 // No question hands the learner the answer to a fill-in after it, in any lesson (reviews mix several lessons). A
 // lesson whose seed or note named no source for its fact gets the one checked for it, and a question whose fact is on
@@ -3967,6 +3970,9 @@ const expandedContent = {
     })
   )
 };
+
+// Sources open at the words on their page that say the lesson's fact.
+applySourceHighlights(Object.values(expandedContent.lessonsById));
 
 export const COURSE = expandedContent.course;
 export const LESSONS_BY_ID = expandedContent.lessonsById;
@@ -4052,8 +4058,8 @@ export const SHOP_ITEMS: ShopItem[] = [
   {
     id: "watch-ad-gems",
     type: "rewarded_ad",
-    name: "Watch for gems",
-    localizedDescription: "Earn 20 gems after a short sponsor break, up to five times a day.",
+    name: "Watch for dates",
+    localizedDescription: "Earn 20 dates after a short sponsor break, up to five times a day.",
     price: 0,
     currencyType: "rewarded_ad",
     gemsGranted: 20

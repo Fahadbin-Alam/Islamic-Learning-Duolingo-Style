@@ -23,6 +23,23 @@ export interface Passage {
   ayah?: number;
 }
 
+/**
+ * A passage taught in depth (Al-Baqarah first, deepNNN.ts): what its ayahs mean, the story it tells, what to take
+ * home, and harder questions. Our own plain summary of Tafsir Ibn Kathir and Tafsir as-Sa'di; nothing disputed.
+ */
+export interface PassageDeep {
+  /** What the ayahs mean, in two or three short sentences (at most 110 letters each). */
+  meaning: string[];
+  /** The story the passage tells, when it tells one, in a few sentences. */
+  story?: string;
+  /** What to take home from it, one sentence. */
+  takeaway: string;
+  /** A hadith the take-home line gives; it is the first question's source. */
+  hadith?: { collection: "bukhari" | "muslim"; number: number; narrator: string; text: string };
+  /** Harder questions about the meaning, story or take-home line: the question, its answer, then three wrong answers. */
+  q: [string, string, string, string, string][];
+}
+
 export interface SurahMeaning {
   surah: number;
   passages: Passage[];

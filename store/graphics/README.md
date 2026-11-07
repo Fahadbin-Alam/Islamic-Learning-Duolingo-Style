@@ -4,6 +4,10 @@ Screenshots and the feature graphic for both stores, captured from the real app 
 
 To redo them after the app changes, follow the steps at the top of [`scripts/store-graphics.mjs`](../../scripts/store-graphics.mjs). Export the web build with `EXPO_PUBLIC_MONETIZATION_MODE=sandbox`: sandbox mode turns on the simulated store, so the shop shows the Premium plans and packs the store build sells, at the built-in prices. A plain export shows only the shop's "Almost every lesson is free!" note, and the script stops at `07-shop` rather than shoot it. Captions live in that script, and they leave out words like "free" and "best", which Google Play asks screenshots not to use. That rule is for the words the script adds: the shop's own labels ("Free heart", "Free gems", "SAVE 20%") are the app's real screen and show as it draws them. The frame and banner layouts are in [`source/`](source).
 
+## App cover (icon, splash and feature graphic)
+
+The camel on a desert dune at sunset. [`source/cover.html`](source/cover.html) draws it from the app's own camel and palm (rendered once to [`source/cover/`](source/cover)), and `npm i --no-save playwright && node scripts/app-cover.mjs` writes every file made from it: `assets/icon.png`, `assets/favicon.png`, the Android adaptive icon (`assets/adaptive-icon.png` in front of `assets/adaptive-icon-background.png`, with the camel kept inside the middle that Android shows), `assets/splash-icon.png`, `google-play/icon-512.png` and `google-play/feature-graphic.png`. Phones show a new icon or splash only after a new native build.
+
 ## Google Play (Main store listing → Graphics)
 
 | Slot | Files | Size |

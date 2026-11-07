@@ -28,10 +28,18 @@ const screens = Object.fromEntries(LANGUAGES.map((language) => [language, JSON.p
 // {r} is an ayah or a range, kept as written; {x} is another text, translated on its own.
 const PATTERNS = [
   [/^Quran (\d+:\d+(?:-\d+)?)$/, { bn: "কুরআন {r}", ur: "قرآن {r}", ar: "القرآن {r}" }],
+  [/^Tafsir Ibn Kathir (\d+:\d+(?:-\d+)?)$/, { bn: "তাফসীর ইবনে কাসীর {r}", ur: "تفسیر ابن کثیر {r}", ar: "تفسير ابن كثير {r}" }],
+  [/^Tafsir as-Sa'di (\d+:\d+(?:-\d+)?)$/, { bn: "তাফসীর আস-সা'দী {r}", ur: "تفسیر السعدی {r}", ar: "تفسير السعدي {r}" }],
   [/^Ayahs (\d+-\d+): what are they about\?$/, { bn: "আয়াত {r}: এগুলো কী নিয়ে?", ur: "آیات {r}: یہ کس بارے میں ہیں؟", ar: "الآيات {r}: عمّ تتحدث؟" }],
   [/^Ayah (\d+): what is it about\?$/, { bn: "আয়াত {r}: এটি কী নিয়ে?", ur: "آیت {r}: یہ کس بارے میں ہے؟", ar: "الآية {r}: عمّ تتحدث؟" }],
   [/^Ayahs (\d+-\d+) say: (.+)$/, { bn: "আয়াত {r} বলে: {x}", ur: "آیات {r} کہتی ہیں: {x}", ar: "تقول الآيات {r}: {x}" }],
   [/^Ayah (\d+) says: (.+)$/, { bn: "আয়াত {r} বলে: {x}", ur: "آیت {r} کہتی ہے: {x}", ar: "تقول الآية {r}: {x}" }],
+  [/^Sahih al-Bukhari (\d+[a-z]?)$/, { bn: "সহিহ বুখারি {r}", ur: "صحیح بخاری {r}", ar: "صحيح البخاري {r}" }],
+  [/^Sahih Muslim (\d+[a-z]?)$/, { bn: "সহিহ মুসলিম {r}", ur: "صحیح مسلم {r}", ar: "صحيح مسلم {r}" }],
+  [/^Jami at-Tirmidhi (\d+[a-z]?)$/, { bn: "জামে তিরমিজি {r}", ur: "جامع ترمذی {r}", ar: "جامع الترمذي {r}" }],
+  [/^Sunan Abi Dawud (\d+[a-z]?)$/, { bn: "সুনানে আবু দাউদ {r}", ur: "سنن ابی داؤد {r}", ar: "سنن أبي داود {r}" }],
+  [/^Sunan an-Nasa'i (\d+[a-z]?)$/, { bn: "সুনানে নাসায়ি {r}", ur: "سنن نسائی {r}", ar: "سنن النسائي {r}" }],
+  [/^Sunan Ibn Majah (\d+[a-z]?)$/, { bn: "সুনানে ইবনে মাজাহ {r}", ur: "سنن ابن ماجہ {r}", ar: "سنن ابن ماجه {r}" }],
   [/^()Surah (.+)$/, { bn: "সূরা {x}", ur: "سورۃ {x}", ar: "سورة {x}" }],
   [/^()Every ayah of (.+), in simple words\.$/, { bn: "{x}-এর প্রতিটি আয়াত, সহজ কথায়।", ur: "{x} کی ہر آیت، آسان الفاظ میں۔", ar: "كل آيات سورة {x} بكلمات بسيطة." }],
   [/^()Can you still remember these about (.+)\?$/, { bn: "{x} সম্পর্কে এগুলো কি এখনো মনে আছে?", ur: "کیا {x} کے بارے میں یہ باتیں اب بھی یاد ہیں؟", ar: "هل ما زلت تذكر هذه عن سورة {x}؟" }],

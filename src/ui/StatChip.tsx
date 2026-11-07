@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Animated, StyleSheet, Text } from "react-native";
+import { DateCoin } from "./DateCoin";
 import { Icon, type IconName } from "./Icon";
 import { Tappable } from "./Tappable";
 import { fonts } from "./theme";
@@ -31,7 +32,12 @@ export function StatChip({ icon, value, color, onPress, accessibilityLabel, dim,
   return (
     <Tappable onPress={onPress} accessibilityLabel={accessibilityLabel} testID={testID} style={styles.chip} hitSlop={6} pressScale={0.92}>
       <Animated.View style={[styles.row, { transform: [{ scale: bounce }] }, dim ? styles.dim : null]}>
-        <Icon name={icon} size={26} color={dim ? "#C7D0CB" : undefined} />
+        {/* The date (the app's coin) hops when the count changes, and now and then on its own. */}
+        {icon === "date" ? (
+          <DateCoin size={26} playKey={value} idle={!dim} color={dim ? "#C7D0CB" : undefined} />
+        ) : (
+          <Icon name={icon} size={26} color={dim ? "#C7D0CB" : undefined} />
+        )}
         <Text style={[styles.value, { color: dim ? "#AFBAB4" : color }]} numberOfLines={1}>
           {value}
         </Text>

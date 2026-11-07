@@ -23,3 +23,8 @@ __pycache__/
 *.pyc
 secrets/
 _site/
+
+# Made again by @bacons/apple-targets at every prebuild (from expo-target.config.js).
+targets/*/Assets.xcassets/
+# The widget sources are not a generated native project.
+!widgets/android/

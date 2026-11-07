@@ -17,6 +17,8 @@ const megabytes = (bytes: number) => (bytes / (1024 * 1024)).toFixed(bytes < 10 
 
 /**
  * Settings row that saves every Quran recitation on the phone, so Listen works with no internet.
+ * The lessons a learner is on save their own recitations as they go (offlineLessons.ts); this saves all of them,
+ * which is a big download now that every surah is taught, so the row says to use Wi-Fi.
  * Phones only: the web app keeps streaming.
  */
 export function QuranOfflineRow() {
@@ -35,7 +37,9 @@ export function QuranOfflineRow() {
       ? t("Some did not save. Check your internet.")
       : allSaved
         ? t("Saved, {size} MB", { size: megabytes(pack.bytes) })
-        : t("Listen with no internet");
+        : pack.saved > 0
+          ? t("{done} of {total} saved. Saving all is big, use Wi-Fi.", { done: pack.saved, total: pack.total })
+          : t("Listen with no internet. Saving all is big, use Wi-Fi.");
   const action = saving ? t("Stop") : allSaved ? t("Remove") : pack.status === "error" ? t("Try again") : t("Save");
   const onPress = () => {
     if (saving) {
