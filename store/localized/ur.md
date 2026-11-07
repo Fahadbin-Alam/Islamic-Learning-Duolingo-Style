@@ -84,6 +84,6 @@ Apple counts this field in bytes, and each letter of this script takes 2 or 3, s
 Paste the Google Play full description above, then add these lines at the end (Apple needs the links):
 
 ```
-Terms of Use: https://fahadbin-alam.github.io/Islamic-Learning-Duolingo-Style/terms.html
-Privacy Policy: https://fahadbin-alam.github.io/Islamic-Learning-Duolingo-Style/privacy.html
+Terms of Use: https://fahadbin-alam.github.io/muslimo/terms.html
+Privacy Policy: https://fahadbin-alam.github.io/muslimo/privacy.html
 ```
