@@ -35,6 +35,7 @@ import {
 } from "./showKit";
 import { feedback } from "./sound";
 import { BookStandArt, WORLD_SHOWS, worldLook, type WorldShowKind } from "./worldShows";
+import { useSecretTap } from "./secretHadith";
 
 export { WellBucket };
 
@@ -825,6 +826,7 @@ export function ShowScenery({ kind, size, art, sway, reduceMotion, style }: Show
   const [show, setShow] = useState<number | null>(null);
   const { value: t, play } = useOneShot();
   const next = useCycle(shows.length);
+  const secret = useSecretTap("scenery");
   const { asleep, rumble } = useScene();
   // A meteor bumps the whole path when it lands.
   const bump = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -836,6 +838,7 @@ export function ShowScenery({ kind, size, art, sway, reduceMotion, style }: Show
   const [shelved, setShelved] = useState(false);
 
   const onTap = () => {
+    secret();
     // A tap mid-show skips to the next one at once, so every tap gets an answer.
     const index = next();
     const pick = shows[index];
