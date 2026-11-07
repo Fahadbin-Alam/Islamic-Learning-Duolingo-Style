@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Ar-Ra'd ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -237,6 +237,20 @@ const RAAD_ONE: DeepUnit = {
         { q: "What happens to people who turn from obeying to disobeying?", a: "They lose what they like", wrong: ["They get more", "Nothing changes", "They become kings"], why: "He will take away from them what they like and exchange it for what they dislike." },
         { q: "A people who keep obeying Allah lose their blessings anyway.", tf: false, why: "Allah will not change the (good) condition of a people as long as they do not change their state themselves." }
       ]
+    },
+    {
+      slug: "change-works-both-ways",
+      title: "Change works both ways",
+      line: "Turn from sin to obedience, and Allah turns hardship into good.",
+      facts: ["As-Sa'di explains", "Change starts within"],
+      quote: q13(11),
+      source: saadi(13, 11, "As-Sa'di says Allah does not take away a people's blessings until they move from faith to disbelief, from obedience to sin, or from thanks to arrogance; and likewise when people change from sin to obeying Allah, He changes their misery into good, joy and mercy.", "وكذلك إذا غير العباد ما بأنفسهم من المعصية، فانتقلوا إلى طاعة الله"),
+      difficulty: 2,
+      questions: [
+        { q: "What happens when people turn from sin to obedience, per as-Sa'di on 13:11?", a: "Allah changes their state to good", wrong: ["Nothing changes", "They lose blessings", "They become poor"], why: "Allah changes their misery into good, joy and mercy." },
+        { q: "When does Allah take a blessing away, per as-Sa'di on 13:11?", a: "When people change to sin or ingratitude", wrong: ["At random", "When they pray more", "When they give charity"], why: "He removes it when they change from faith, obedience or thanks." },
+        { tf: true, q: "Changing for the better brings Allah's mercy.", why: "As-Sa'di on 13:11." }
+      ]
     }
   ]
 };
@@ -352,6 +366,20 @@ const RAAD_TWO: DeepUnit = {
         { q: "What remains in the earth, in 13:17?", a: "What benefits mankind", wrong: ["The foam", "The smoke", "Nothing"], why: "While that which is for the good of mankind remains in the earth." },
         { q: "Per Ibn Abbas, what does Allah discard like scum?", a: "Doubt", wrong: ["Certainty", "Good deeds", "Knowledge"], why: "Similarly Allah accepts certainty and discards doubt." },
         { q: "Ibn Kathir says some of the early scholars wept when they could not understand a parable.", tf: true, why: "When I would read a parable in the Quran that I could not comprehend, I would cry for myself." }
+      ]
+    },
+    {
+      slug: "hearts-like-valleys",
+      title: "Hearts like valleys",
+      line: "A big valley holds much water; a big heart holds much knowledge.",
+      facts: ["As-Sa'di explains", "The parable of the flood"],
+      quote: q13(17),
+      source: saadi(13, 17, "As-Sa'di says Allah likens His guidance to rain that gives life, and hearts to valleys: a big valley holds much water, like a big heart that holds much knowledge, and a small one holds little; doubts and desires are the foam that floats, until the heart fights them off and stays pure.", "فواد كبير يسع ماء كثيرا، كقلب كبير يسع علما كثيرا"),
+      difficulty: 2,
+      questions: [
+        { q: "What are the valleys like, per as-Sa'di on 13:17?", a: "Hearts that hold guidance", wrong: ["Cities", "Kings", "Stars"], why: "Hearts take in guidance as valleys take in rain." },
+        { q: "What is the foam like, per as-Sa'di on 13:17?", a: "Doubts and desires in the heart", wrong: ["Good deeds", "Knowledge", "Prayer"], why: "Doubts and desires float like foam, then fade away." },
+        { tf: true, q: "The rain in the parable stands for the guidance Allah sent down.", why: "As-Sa'di on 13:17." }
       ]
     },
     {
@@ -567,6 +595,20 @@ const RAAD_THREE: DeepUnit = {
         { q: "Where do hearts find rest, in 13:28?", a: "In the remembrance of Allah", wrong: ["In wealth", "In games", "In fame"], why: "Verily, in the remembrance of Allah do hearts find rest." },
         { q: "How do believers' hearts feel when Allah is remembered, per Ibn Kathir?", a: "Tranquil", wrong: ["Bored", "Angry", "Afraid of people"], why: "Their hearts become tranquil when He is remembered." },
         { q: "Whom are the believers pleased to have as Protector, per Ibn Kathir?", a: "Allah", wrong: ["A king", "Their tribe", "Their wealth"], why: "Pleased to have Him as their Protector and Supporter." }
+      ]
+    },
+    {
+      slug: "nothing-sweeter",
+      title: "Nothing sweeter",
+      line: "Nothing is sweeter to a heart than loving its Creator.",
+      facts: ["As-Sa'di explains", "Love of Allah"],
+      quote: q13(28),
+      source: saadi(13, 28, "As-Sa'di says hearts truly rest only in Allah's remembrance, their worry gone and their joy come, for nothing is more delightful or sweeter to hearts than loving their Creator, being close to Him and knowing Him, and the more they know and love Him, the more they remember Him.", "فإنه لا شيء ألذ للقلوب ولا أشهى ولا أحلى من محبة خالقها"),
+      difficulty: 2,
+      questions: [
+        { q: "What is sweetest to the heart, per as-Sa'di on 13:28?", a: "Loving its Creator", wrong: ["Wealth", "Fame", "Games"], why: "Nothing is sweeter to hearts than loving their Creator." },
+        { q: "What makes a person remember Allah more, per as-Sa'di?", a: "Knowing and loving Him more", wrong: ["Sleeping more", "Eating more", "Talking more"], why: "The more one knows and loves Him, the more one remembers Him." },
+        { tf: true, q: "Hearts find their rest in the remembrance of Allah.", why: "As-Sa'di on 13:28." }
       ]
     },
     {

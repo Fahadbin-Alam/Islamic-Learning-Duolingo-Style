@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Qiyamah ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -103,6 +103,20 @@ const QIYAMAH_ONE: DeepUnit = {
         { q: "What does man want, per Mujahid?", a: "To follow his whims", wrong: ["To pray more", "To give charity", "To learn"], why: "He wants to proceed ahead following his own whims." },
         { q: "What does he ask in 75:6?", a: "When the Day will be", wrong: ["Where water is", "Who his tribe is", "What to eat"], why: "He asks: When will be this Day of Resurrection?" },
         { tf: false, q: "He asked about the Day so he could get ready for it.", why: "His question is only a question of denying its occurrence, and rejecting its existence." }
+      ]
+    },
+    {
+      slug: "not-lack-of-proof",
+      title: "Not lack of proof",
+      line: "He denies the Day to keep sinning, not for lack of proof.",
+      facts: ["As-Sa'di explains", "Fujur: sinning on purpose"],
+      quote: q75(5),
+      source: saadi(75, 5, "As-Sa'di says the denier does not reject Allah's power because the proofs are weak, but because he wants to deny what lies ahead of him and keep doing wrong.", "وإنما وقع ذلك منه أن قصده وإرادته أن يكذب"),
+      difficulty: 3,
+      questions: [
+        { q: "Why does the denier reject the Day, per as-Sa'di?", a: "He wants to keep sinning", wrong: ["The proofs are weak", "No one told him", "He is too young"], why: "Not for lack of proof, but because he wants to deny, says as-Sa'di." },
+        { q: "Are the proofs of the Day weak?", a: "No, they are clear", wrong: ["Yes", "There are none", "Only one"], why: "His denial is not from weak proofs." },
+        { tf: true, q: "Sometimes people deny the truth because it asks them to change.", why: "As-Sa'di on 75:5." }
       ]
     },
     {
@@ -270,6 +284,20 @@ const QIYAMAH_TWO: DeepUnit = {
         { q: "What is the third phase, per Ibn Kathir?", a: "Its explanation", wrong: ["Its sale", "Its hiding", "Its forgetting"], why: "The third phase was its explanation and clarification of its meaning." },
         { q: "Who promised to make the Quran clear?", a: "Allah", wrong: ["The poets", "The kings", "The traders"], why: "Then it is for Us to make it clear." },
         { tf: true, q: "Allah gave the Prophet ﷺ the meaning of what He revealed.", why: "We will explain it to you, clarify it and inspire you with its meaning." }
+      ]
+    },
+    {
+      slug: "wait-for-the-teacher",
+      title: "Wait for the teacher",
+      line: "A learner should not cut in before the teacher finishes.",
+      facts: ["As-Sa'di explains", "Adab of learning"],
+      quote: q75(19),
+      source: saadi(75, 19, "As-Sa'di says this teaches a manner of seeking knowledge: the student should not rush ahead of the teacher, but wait until he finishes and then ask about what is unclear.", "وفي هذه الآية أدب لأخذ العلم، أن لا يبادر المتعلم المعلم"),
+      difficulty: 2,
+      questions: [
+        { q: "What learning manner does Al-Qiyamah 75:19 teach?", a: "Wait until the teacher finishes", wrong: ["Interrupt quickly", "Never ask", "Leave early"], why: "Do not rush the teacher before he finishes, says as-Sa'di." },
+        { q: "When should a student ask what is unclear?", a: "After the teacher finishes", wrong: ["In the middle", "Never", "Before he starts"], why: "Once he finishes, ask about what was hard." },
+        { tf: true, q: "After this, the Prophet ﷺ listened to Jibril, then recited.", why: "As-Sa'di on 75:19." }
       ]
     },
     {

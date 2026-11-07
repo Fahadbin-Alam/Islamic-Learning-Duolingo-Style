@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Fil ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -213,6 +213,20 @@ const FIL_TWO: DeepUnit = {
         { q: "What did the army achieve, per Ibn Kathir?", a: "No good at all", wrong: ["Half their plan", "A small win", "Great riches"], why: "They did not achieve any good." },
         { q: "Where did Abrahah die?", a: "Back in his land of San'a'", wrong: ["Inside Makkah", "On a ship", "In Persia"], why: "He reached his land of San'a', informed the people, and then he died." },
         { tf: false, q: "Abrahah's son later conquered Makkah.", why: "Allah returned the kingdom of Yemen to its Arabs; Makkah stayed safe." }
+      ]
+    },
+    {
+      slug: "the-year-of-his-birth",
+      title: "The year of his birth",
+      line: "The Elephant came in the very year the Prophet ﷺ was born.",
+      facts: ["As-Sa'di explains", "A sign before his mission"],
+      quote: q105(5),
+      source: saadi(105, 5, "As-Sa'di says the Elephant came in the year the Prophet ﷺ was born, one of the signs that came before his message.", "وكانت تلك السنة التي ولد فيها رسول الله"),
+      difficulty: 2,
+      questions: [
+        { q: "What happened in the Year of the Elephant?", a: "The Prophet ﷺ was born", wrong: ["Makkah was conquered", "The Quran was finished", "The Hijrah"], why: "As-Sa'di: it was the year the Prophet ﷺ was born." },
+        { q: "As-Sa'di calls the event a sign of...?", a: "His coming message", wrong: ["A new king", "A long drought", "A war with Rome"], why: "One of the signs before his message, says as-Sa'di." },
+        { tf: true, q: "Al-Fil shows Allah's power and the truth of His Messenger ﷺ.", why: "As-Sa'di on 105:1 lists both." }
       ]
     },
     {

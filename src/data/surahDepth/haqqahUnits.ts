@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Haqqah ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -812,6 +812,20 @@ const HAQQAH_FIVE: DeepUnit = {
         { q: "What is the Quran, per 69:51?", a: "An absolute truth with certainty", wrong: ["A guess", "A legend", "A rumor"], why: "And verily, it is an absolute truth with certainty." },
         { q: "What is NOT in it, per Ibn Kathir?", a: "Doubt or confusion", wrong: ["Guidance", "Truth", "Mercy"], why: "The right and truthful news in which there is no doubt, suspicion or confusion." },
         { tf: true, q: "The Quran is true news without any doubt.", why: "The right and truthful news in which there is no doubt, suspicion or confusion." }
+      ]
+    },
+    {
+      slug: "three-levels-of-certainty",
+      title: "Three levels of certainty",
+      line: "Told, seen, then tasted: the Quran gives the top certainty.",
+      facts: ["As-Sa'di explains", "Ilm, ayn and haqq al-yaqin"],
+      quote: q69(51),
+      source: saadi(69, 51, "As-Sa'di says certainty has three levels: knowing from news, then seeing with the eyes, then tasting it yourself; the Quran gives the highest, haqq al-yaqin, to whoever tastes it.", "واليقين مراتبه ثلاثة، كل واحدة أعلى مما قبلها"),
+      difficulty: 3,
+      questions: [
+        { q: "What is the highest level of certainty?", a: "Haqq al-yaqin, tasting it", wrong: ["Hearing a rumour", "Guessing", "Doubting"], why: "Knowledge by tasting and living it, says as-Sa'di." },
+        { q: "Ayn al-yaqin is certainty by...?", a: "Seeing with the eyes", wrong: ["Hearing news", "Dreaming", "Guessing"], why: "The second level is what the eyes see." },
+        { tf: true, q: "Ilm al-yaqin is knowing from news.", why: "The first level. As-Sa'di on 69:51." }
       ]
     },
     {

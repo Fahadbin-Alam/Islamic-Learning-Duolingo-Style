@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Ad-Dukhan ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -73,6 +73,20 @@ const DUKHAN_ONE: DeepUnit = {
         { q: "On what was the Quran sent down, in 44:3?", a: "A blessed night", wrong: ["A rainy day", "A Friday noon", "A winter morning"], why: "We sent it down on a blessed night." },
         { q: "Which night is it, per Ibn Kathir?", a: "Laylatul-Qadr", wrong: ["The night of Eid", "The night of Isra", "The first night of Hajj"], why: "On a blessed night, Laylatul-Qadr (the Night of Decree)." },
         { q: "In which month was the Quran revealed, per 2:185?", a: "Ramadan", wrong: ["Rajab", "Shawwal", "Muharram"], why: "The month of Ramadan in which was revealed the Quran (2:185)." }
+      ]
+    },
+    {
+      slug: "best-with-best",
+      title: "The best with the best",
+      line: "The best speech, on the best night, to the best of people.",
+      facts: ["As-Sa'di explains", "Laylatul-Qadr"],
+      quote: q44(3),
+      source: saadi(44, 3, "As-Sa'di says Allah sent down the best speech, the Quran, on the best night, Laylatul-Qadr, to the best of people, the Prophet ﷺ, in the noble Arabic language, so people could follow its light.", "فأنزل أفضل الكلام بأفضل الليالي والأيام على أفضل الأنام، بلغة العرب الكرام"),
+      difficulty: 2,
+      questions: [
+        { q: "On which night did the best speech come down, per as-Sa'di?", a: "Laylatul-Qadr", wrong: ["The night of Eid", "The first night of the year", "Any night"], why: "The best speech came on the best night, Laylatul-Qadr." },
+        { q: "Who received the best speech, per as-Sa'di on 44:3?", a: "The Prophet ﷺ, the best of people", wrong: ["The angels only", "The kings", "The poets"], why: "It came down on the best of people, says as-Sa'di." },
+        { tf: true, q: "Laylatul-Qadr is better than a thousand months.", why: "As-Sa'di on 44:3." }
       ]
     },
     {
@@ -590,6 +604,20 @@ const DUKHAN_TWO: DeepUnit = {
         { q: "How did Allah choose them, in 44:32?", a: "With knowledge", wrong: ["By chance", "By lottery", "For their wealth"], why: "And We chose them above the nations with knowledge." },
         { q: "Above whom were they chosen, per Qatadah?", a: "People of their own time", wrong: ["All people forever", "The angels", "The Prophets"], why: "They were chosen above the other people of their own time." },
         { q: "Which ayah does Ibn Kathir link to 44:32?", a: "7:144, I have chosen you above men", wrong: ["1:5", "112:4", "114:1"], why: "O Musa I have chosen you above men (7:144), which means, above the people of his time." }
+      ]
+    },
+    {
+      slug: "then-came-the-best-ummah",
+      title: "Then came the best Ummah",
+      line: "Israel was chosen over its time, until the best Ummah came.",
+      facts: ["As-Sa'di explains", "The best Ummah"],
+      quote: q44(32),
+      source: saadi(44, 32, "As-Sa'di says Allah chose the Children of Israel over the people of their time, knowing they deserved it, until He brought the Ummah of Muhammad ﷺ, who were raised above all as the best nation.", "حتى أتى الله بأمة محمد صلى الله عليه وسلم ففضلوا العالمين كلهم"),
+      difficulty: 2,
+      questions: [
+        { q: "Until when were the Children of Israel favored, per as-Sa'di?", a: "Until the Ummah of Muhammad ﷺ came", wrong: ["Forever", "Until Nuh", "Until the Flood"], why: "Then the Ummah of Muhammad ﷺ was raised above all." },
+        { q: "How did Allah choose the Children of Israel, in Ad-Dukhan 44:32?", a: "With knowledge of them", wrong: ["By chance", "By their wealth", "By a vote"], why: "He chose them knowing they deserved that favor." },
+        { tf: true, q: "Allah made the Ummah of Muhammad ﷺ the best nation brought out for people.", why: "As-Sa'di on 44:32." }
       ]
     },
     {

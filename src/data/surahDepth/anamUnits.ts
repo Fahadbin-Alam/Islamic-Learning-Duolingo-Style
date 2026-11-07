@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-An'am ayah by ayah, the way Ali 'Imran, An-Nisa and Al-Ma'idah are taught: every ayah or small group of
 // ayahs gets a lesson, explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih
@@ -579,6 +579,20 @@ const ANAM_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "full-safety-and-some-safety",
+      title: "Full safety or some",
+      line: "Faith free of all wrong gives full safety; with sins, only part.",
+      facts: ["As-Sa'di explains", "Levels of safety"],
+      quote: q6(82),
+      source: saadi(6, 82, "As-Sa'di says those who never mixed their faith with any wrong, neither shirk nor sins, get complete safety and complete guidance; those free of shirk but who commit sins get the basis of safety and guidance, though not all of it; and those with neither get no guidance and no safety.", "حصل لهم أصل الهداية، وأصل الأمن، وإن لم يحصل لهم كمالها"),
+      difficulty: 3,
+      questions: [
+        { q: "Who gets complete safety, per as-Sa'di on 6:82?", a: "Those free of shirk and sins", wrong: ["Anyone who is rich", "Those who never pray", "Everyone"], why: "Faith not mixed with any wrong brings full safety and guidance." },
+        { q: "What does a believer free of shirk but with sins get, per as-Sa'di?", a: "The basis of safety, not all of it", wrong: ["Nothing at all", "Full safety", "Only punishment"], why: "He gets the basis of safety and guidance, though not their completeness." },
+        { tf: true, q: "Zulm in 6:82 covers shirk and also sins, per as-Sa'di.", why: "As-Sa'di on 6:82." }
+      ]
+    },
+    {
       slug: "eighteen-prophets",
       title: "Prophets named together",
       line: "6:83-86 names eighteen prophets, from Nuh to Lut.",
@@ -789,6 +803,20 @@ const ANAM_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "means-take-their-ends",
+      title: "Means take their ends",
+      line: "A permitted act becomes forbidden if it leads to evil.",
+      facts: ["As-Sa'di explains", "A rule of the Shari'ah"],
+      quote: q6(108),
+      source: saadi(6, 108, "As-Sa'di says insulting the idols was allowed in itself, but since it would lead the idolaters to insult Allah, it was forbidden; this proves the rule that means are judged by what they lead to, so a permitted means becomes forbidden when it leads to evil.", "أن الوسائل تعتبر بالأمور التي توصل إليها"),
+      difficulty: 3,
+      questions: [
+        { q: "Why was insulting the idols forbidden, per as-Sa'di on 6:108?", a: "It would lead them to insult Allah", wrong: ["Idols can hear", "It was too hard", "It wasted time"], why: "It was a path to their insulting the Lord of the worlds." },
+        { q: "What rule does as-Sa'di draw from 6:108?", a: "Means are judged by their ends", wrong: ["All means are allowed", "Only intentions matter", "Rules can be dropped"], why: "Means take the ruling of what they lead to." },
+        { tf: true, q: "Something allowed can become forbidden if it leads to evil.", why: "As-Sa'di on 6:108." }
+      ]
+    },
+    {
       slug: "curse-parents",
       title: "Cursing your own parents",
       line: "Insult someone's parents and they insult yours: a great sin.",
@@ -925,6 +953,20 @@ const ANAM_THREE: DeepUnit = {
         { q: "What does Allah open for one He guides, in 6:125?", a: "His chest to Islam", wrong: ["A treasure", "A door", "A road"], why: "Yashrah sadrahu lil-islam." },
         { q: "The closed chest feels like what, in 6:125?", a: "Climbing into the sky", wrong: ["Swimming", "Sleeping", "Running downhill"], why: "Ka-annama yassa''adu fis-sama." },
         { q: "Finding Islam easy and loved in your heart is a good sign.", tf: true, why: "Ibn Kathir: these are good signs." }
+      ]
+    },
+    {
+      slug: "a-sign-of-guidance",
+      title: "A sign of guidance",
+      line: "The guided enjoy good deeds and do not find them heavy.",
+      facts: ["As-Sa'di explains", "Sharh as-sadr"],
+      quote: q6(125),
+      source: saadi(6, 125, "As-Sa'di says a sign that Allah has guided someone is that his chest opens wide to Islam, lit with faith and certainty, so he loves good and does it with joy, not feeling it heavy; a sign of being left astray is a tight chest sunk in doubts and desires, which good cannot reach.", "متلذذا به غير مستثقل"),
+      difficulty: 2,
+      questions: [
+        { q: "What is a sign Allah has guided someone, per as-Sa'di on 6:125?", a: "He does good with joy", wrong: ["He finds good heavy", "He is rich", "He is famous"], why: "He loves good and does it gladly, not finding it heavy." },
+        { q: "What fills a tight chest, per as-Sa'di on 6:125?", a: "Doubts and desires", wrong: ["Faith and light", "Knowledge", "Remembrance"], why: "The tight heart is sunk in doubts and desires." },
+        { tf: true, q: "Whoever gives, fears Allah and believes, Allah eases his way.", why: "As-Sa'di on 6:125." }
       ]
     },
     {

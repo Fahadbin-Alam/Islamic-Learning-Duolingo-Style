@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Luqman ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -216,6 +216,20 @@ const LUQMAN_ONE: DeepUnit = {
       ]
     },
     {
+      slug: "knowing-is-not-enough",
+      title: "Knowing is not enough",
+      line: "Wisdom is useful knowledge with good deeds, not knowledge alone.",
+      facts: ["As-Sa'di explains", "Hikmah"],
+      quote: q31(12),
+      source: saadi(31, 12, "As-Sa'di says wisdom is knowing the truth and its reasons, and it needs knowledge and action, so it is explained as useful knowledge and good deeds; a person can be learned without being wise.", "فقد يكون الإنسان عالما، ولا يكون حكيما"),
+      difficulty: 2,
+      questions: [
+        { q: "What is Hikmah, per as-Sa'di on 31:12?", a: "Useful knowledge with good deeds", wrong: ["Only old age", "Only wealth", "Only reading"], why: "Wisdom is useful knowledge and good deeds, says as-Sa'di." },
+        { q: "Can a learned person lack wisdom, per as-Sa'di?", a: "Yes", wrong: ["Never", "Only kings", "Only children"], why: "A person may be learned and not wise." },
+        { tf: true, q: "Thanking Allah for a gift makes Him bless it and give more.", why: "As-Sa'di on 31:12." }
+      ]
+    },
+    {
       slug: "tongue-and-heart",
       title: "The tongue and the heart",
       line: "Luqman said nothing is better than tongue and heart, if good.",
@@ -314,6 +328,20 @@ const LUQMAN_ONE: DeepUnit = {
       ]
     },
     {
+      slug: "what-calling-to-good-needs",
+      title: "What calling to good needs",
+      line: "Calling to good needs knowledge, gentleness and patience.",
+      facts: ["As-Sa'di explains", "Enjoining good"],
+      quote: q31(17),
+      source: saadi(31, 17, "As-Sa'di says enjoining good and forbidding evil needs knowing what is good and evil, gentleness and patience, and doing what you call to; since it brings hardship, Luqman told his son to be patient.", "والأمر بما لا يتم الأمر بالمعروف، والنهي عن المنكر إلا به، من الرفق، والصبر"),
+      difficulty: 2,
+      questions: [
+        { q: "What does calling to good need, per as-Sa'di on 31:17?", a: "Knowledge, gentleness and patience", wrong: ["Wealth and fame", "A loud voice", "Many friends"], why: "It needs knowledge, gentleness and patience, says as-Sa'di." },
+        { q: "Why did Luqman tell his son to be patient after it?", a: "Calling to good brings hardship", wrong: ["He was slow", "He was tired", "It was raining"], why: "One who enjoins and forbids will surely be tested." },
+        { tf: true, q: "One who calls to good should do it himself.", why: "As-Sa'di on 31:17." }
+      ]
+    },
+    {
       slug: "no-pride",
       title: "No turned-away face",
       line: "Do not turn your face from people in pride.",
@@ -353,6 +381,20 @@ const LUQMAN_ONE: DeepUnit = {
         { q: "How should we walk, per Ibn Kathir?", a: "Moderately", wrong: ["Very fast", "Very slow", "Backwards"], why: "Walk in a moderate manner, neither slow and lazy nor excessively fast." },
         { q: "What should we lower, in 31:19?", a: "Our voice", wrong: ["Our eyes only", "Our hands", "Our heads"], why: "And be moderate in your walking, and lower your voice." },
         { q: "What is the harshest voice, in 31:19?", a: "The braying of donkeys", wrong: ["Thunder", "The lion", "The wind"], why: "Verily, the harshest of all voices is the braying of the asses." }
+      ]
+    },
+    {
+      slug: "not-proud-not-lifeless",
+      title: "Not proud, not lifeless",
+      line: "Walk humbly: not with pride, and not like a lifeless person.",
+      facts: ["As-Sa'di explains", "Moderate walking"],
+      quote: q31(19),
+      source: saadi(31, 19, "As-Sa'di says walking moderately means walking humbly, not with the strut of the proud and not pretending weakness, and lowering the voice is good manners with people and with Allah.", "لا مَشْيَ البطر والتكبر، ولا مشي التماوت"),
+      difficulty: 2,
+      questions: [
+        { q: "What are the two wrong ways of walking, per as-Sa'di?", a: "Proudly and lifelessly", wrong: ["Fast and slow", "Left and right", "Barefoot and in shoes"], why: "Not the walk of pride, nor the walk of pretended weakness." },
+        { q: "Lowering the voice is good manners with whom, per as-Sa'di on 31:19?", a: "People and Allah", wrong: ["Only kings", "Only parents", "No one"], why: "Lowering the voice is good manners with people and with Allah." },
+        { tf: true, q: "Luqman's advice gathers the main points of wisdom.", why: "As-Sa'di on 31:19." }
       ]
     },
     {

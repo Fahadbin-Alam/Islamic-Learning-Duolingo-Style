@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-'Ankabut ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -44,6 +44,20 @@ const ANKABUT_ONE: DeepUnit = {
         { q: "Which letters open Al-'Ankabut?", a: "Alif Lam Mim", wrong: ["Ta Sin Mim", "Ya Sin", "Ha Mim"], why: "Alif Lam Mim." },
         { q: "What will believers face, in 29:2?", a: "Tests", wrong: ["Nothing", "Only ease", "Only riches"], why: "Do people think that they will be left alone because they say: We believe, and will not be tested." },
         { q: "How does Allah test, per Ibn Kathir?", a: "By their level of faith", wrong: ["By their wealth", "By their age", "By their height"], why: "Allah will inevitably test His believing servants according to their level of faith." }
+      ]
+    },
+    {
+      slug: "two-kinds-of-trials",
+      title: "Two kinds of trials",
+      line: "All trials come back to two things: doubts and desires.",
+      facts: ["As-Sa'di explains", "Shubuhat and shahawat"],
+      quote: q29(2),
+      source: saadi(29, 2, "As-Sa'di says all trials come back to doubts that attack belief and desires that attack the will; one who stays firm against doubts and fights his desires shows his faith is true.", "التي ترجع كلها إلى فتنة الشبهات المعارضة للعقيدة، والشهوات المعارضة للإرادة"),
+      difficulty: 3,
+      questions: [
+        { q: "What do all trials come back to, per as-Sa'di on 29:2?", a: "Doubts and desires", wrong: ["Heat and cold", "Money and fame", "Day and night"], why: "Doubts against belief and desires against the will, says as-Sa'di." },
+        { q: "What shows that faith is true, per as-Sa'di?", a: "Staying firm against doubts and desires", wrong: ["Saying it loudly", "Being rich", "Never being tested"], why: "Firm against doubts and fighting desires shows true faith." },
+        { tf: true, q: "Trials are like a furnace that brings out the bad and the good.", why: "As-Sa'di on 29:2." }
       ]
     },
     {
@@ -729,6 +743,20 @@ const ANKABUT_THREE: DeepUnit = {
       ]
     },
     {
+      slug: "how-prayer-stops-evil",
+      title: "How prayer stops evil",
+      line: "Prayer done well lights the heart, so the wish for evil fades.",
+      facts: ["As-Sa'di explains", "Prayer and the heart"],
+      quote: q29(45),
+      source: saadi(29, 45, "As-Sa'di says when a servant prays fully, with its pillars and humility, his heart is lit, purified and grows in faith, his love of good grows and his wish for evil fades, so prayer keeps him from evil.", "يستنير قلبه، ويتطهر فؤاده، ويزداد إيمانه"),
+      difficulty: 2,
+      questions: [
+        { q: "How does prayer stop evil, per as-Sa'di on 29:45?", a: "It lights and purifies the heart", wrong: ["It tires the body", "It takes all our time", "It scares people"], why: "His heart is lit and purified, and his faith grows, says as-Sa'di." },
+        { q: "What is even greater in prayer, per as-Sa'di?", a: "The remembrance of Allah", wrong: ["Standing long", "Wearing nice clothes", "Praying loudly"], why: "Remembering Allah with heart, tongue and body is the greater aim." },
+        { tf: true, q: "Reciting the Book includes following it, not just reading its words.", why: "As-Sa'di on 29:45." }
+      ]
+    },
+    {
       slug: "argue-in-the-best-way",
       title: "Argue in the best way",
       line: "Discuss kindly with the People of the Book; our God is One.",
@@ -1187,6 +1215,20 @@ const ANKABUT_FOUR: DeepUnit = {
         { q: "What does Allah promise strivers, in 29:69?", a: "To guide them to His paths", wrong: ["Gold", "Fame", "A long life"], why: "We will surely guide them to Our paths." },
         { q: "Who does Allah side with, in 29:69?", a: "The doers of good", wrong: ["The proud", "The rich", "The loud"], why: "And verily, Allah is with the doers of good." },
         { q: "What did Isa say righteousness means, per Ibn Kathir?", a: "Good even to those who hurt you", wrong: ["Good only to friends", "Revenge", "Silence"], why: "Righteousness means doing good to those who ill-treat you." }
+      ]
+    },
+    {
+      slug: "seeking-knowledge-is-striving",
+      title: "Seeking knowledge is striving",
+      line: "Seeking Islamic knowledge is striving in Allah's path.",
+      facts: ["As-Sa'di explains", "Help for the seeker"],
+      quote: q29(69),
+      source: saadi(29, 69, "As-Sa'di says whoever works hard to seek Islamic knowledge gets help and guidance from Allah beyond his own effort, because seeking that knowledge is a kind of striving in Allah's path.", "فإن طلب العلم الشرعي من الجهاد في سبيل اللّه"),
+      difficulty: 2,
+      questions: [
+        { q: "What is seeking Islamic knowledge, per as-Sa'di on 29:69?", a: "Striving in Allah's path", wrong: ["A waste of time", "Only for the old", "A hobby"], why: "Seeking Islamic knowledge is part of striving in Allah's path." },
+        { q: "What does Allah give one who works hard to seek knowledge?", a: "Help beyond his own effort", wrong: ["Nothing extra", "Only wealth", "Only sleep"], why: "Allah gives guidance and help beyond what his effort reaches." },
+        { tf: true, q: "Allah is with those who do good, with help and guidance.", why: "As-Sa'di on 29:69." }
       ]
     }
   ]

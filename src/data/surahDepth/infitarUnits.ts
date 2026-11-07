@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Infitar ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -188,6 +188,20 @@ const INFITAR_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "honour-the-recorders",
+      title: "Honour the recorders",
+      line: "The angels who write our deeds deserve our respect.",
+      facts: ["As-Sa'di explains", "They write heart deeds too"],
+      quote: q82(10),
+      source: saadi(82, 10, "As-Sa'di says the noble angels write our words and deeds, even the deeds of the heart, so it is right for us to honour and respect them.", "فاللائق بكم أن تكرموهم وتجلوهم وتحترموهم"),
+      difficulty: 2,
+      questions: [
+        { q: "How should we treat the recording angels?", a: "Honour and respect them", wrong: ["Ignore them", "Fear nothing", "Hide from them"], why: "It is right to honour and respect them, says as-Sa'di." },
+        { q: "Do the angels record deeds of the heart?", a: "Yes", wrong: ["No", "Only on Fridays", "Only big ones"], why: "Deeds of hearts and limbs are included." },
+        { tf: true, q: "Every word we say is written down.", why: "As-Sa'di on 82:10-12." }
+      ]
+    },
+    {
       slug: "angels-in-shifts",
       title: "Angels in shifts",
       line: "Angels take turns with us and meet at Fajr and Asr.",
@@ -213,6 +227,20 @@ const INFITAR_TWO: DeepUnit = {
         { q: "Where will the Abrar be, per 82:13?", a: "In delight", wrong: ["In a desert", "In a storm", "In a prison"], why: "Verily, the Abrar will be in Delight." },
         { q: "Who are the Abrar, per Ibn Kathir?", a: "Those who obeyed Allah", wrong: ["Those who were rich", "Those who were famous", "Those who were strong"], why: "They are those who obeyed Allah and did not meet Him with disobedience." },
         { tf: true, q: "Obeying Allah leads to delight.", why: "Allah informs of what the righteous will receive of delight." }
+      ]
+    },
+    {
+      slug: "delight-in-three-homes",
+      title: "Delight in three homes",
+      line: "The righteous have joy now, in the grave, and in the Hereafter.",
+      facts: ["As-Sa'di explains", "Heart, soul and body"],
+      quote: q82(13),
+      source: saadi(82, 13, "As-Sa'di says the righteous, who give Allah's rights and people's rights, have delight in heart, soul and body: in this world, in the grave and in the lasting home.", "فهؤلاء جزاؤهم النعيم في القلب والروح والبدن"),
+      difficulty: 2,
+      questions: [
+        { q: "Where do the righteous find delight, per as-Sa'di?", a: "Here, in the grave, and after", wrong: ["Only in Paradise", "Only in this world", "Nowhere"], why: "In this world, the barzakh and the lasting home." },
+        { q: "Whose rights do the righteous give?", a: "Allah's and people's", wrong: ["Only their own", "Only Allah's", "No one's"], why: "They keep the rights of Allah and of His servants." },
+        { tf: true, q: "The delight of the righteous is in heart, soul and body.", why: "As-Sa'di on 82:13." }
       ]
     },
     {

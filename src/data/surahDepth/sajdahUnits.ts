@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah As-Sajdah ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -271,6 +271,20 @@ const SAJDAH_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "sweeter-than-sleep",
+      title: "Sweeter than sleep",
+      line: "For them, night prayer is sweeter than a comfortable bed.",
+      facts: ["As-Sa'di explains", "Night prayer"],
+      quote: q32(16),
+      source: saadi(32, 16, "As-Sa'di says the believers leave their pleasant beds for what is sweeter and dearer to them, night prayer and talking to Allah, calling on Him in fear their deeds are rejected and hope they are accepted.", "إلى ما هو ألذ عندهم منه وأحب إليهم، وهو الصلاة في الليل"),
+      difficulty: 2,
+      questions: [
+        { q: "Why do believers leave their beds at night, per as-Sa'di?", a: "Night prayer is sweeter to them", wrong: ["They cannot sleep", "To eat", "To travel"], why: "Night prayer is sweeter and dearer to them, says as-Sa'di." },
+        { q: "What do they fear and hope for, per as-Sa'di on 32:16?", a: "Rejection and acceptance of deeds", wrong: ["Rain and drought", "Profit and loss", "Heat and cold"], why: "They fear their deeds are rejected and hope they are accepted." },
+        { tf: true, q: "Spending in As-Sajdah 32:16 includes Zakah and spending on family.", why: "As-Sa'di on 32:16." }
+      ]
+    },
+    {
       slug: "doors-of-good",
       title: "The doors of good",
       line: "Fasting is a shield and charity puts out sins.",
@@ -352,6 +366,20 @@ const SAJDAH_TWO: DeepUnit = {
         { q: "Why does Allah send the nearer trial, in 32:21?", a: "So they may return", wrong: ["To destroy all", "For no reason", "To amuse"], why: "In order that they may return." },
         { q: "What is the near trial, per Ibn Abbas?", a: "Illness and worldly problems", wrong: ["Only war", "Only floods", "Only debt"], why: "The near torment means diseases and problems in this world." },
         { q: "What should a trial lead to, per Ibn Abbas?", a: "Repentance", wrong: ["Anger", "Despair", "Boasting"], why: "As a test from Allah to His servants so that they will repent to Him." }
+      ]
+    },
+    {
+      slug: "a-taste-before-the-fire",
+      title: "A taste before the Fire",
+      line: "The lesser punishment includes the punishment of the grave.",
+      facts: ["As-Sa'di explains", "Punishment of the grave"],
+      quote: q32(21),
+      source: saadi(32, 21, "As-Sa'di says the lesser punishment in 32:21 includes hardships in this life and the punishment of the Barzakh, and the ayah is a clear proof of the punishment of the grave before the greater one, the Fire.", "وهذه الآية من الأدلة على إثبات عذاب القبر"),
+      difficulty: 2,
+      questions: [
+        { q: "What does As-Sajdah 32:21 prove, per as-Sa'di?", a: "The punishment of the grave", wrong: ["Life on other planets", "Reincarnation", "Nothing"], why: "The ayah is a proof of the punishment of the grave, says as-Sa'di." },
+        { q: "What is the greater punishment, per as-Sa'di on 32:21?", a: "The Fire", wrong: ["Poverty", "Illness", "Old age"], why: "The greater punishment is the punishment of the Fire." },
+        { tf: true, q: "Hardships in this life can be a chance to return to Allah.", why: "As-Sa'di on 32:21." }
       ]
     },
     {

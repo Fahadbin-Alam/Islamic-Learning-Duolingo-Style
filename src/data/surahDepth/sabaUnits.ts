@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Saba ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -214,6 +214,20 @@ const SABA_ONE: DeepUnit = {
         { q: "How often did Dawud fast, in the hadith?", a: "Every other day", wrong: ["Every day", "Once a year", "Never"], why: "And used to fast on alternate days." },
         { q: "How many servants are grateful, in 34:13?", a: "Few", wrong: ["All", "Most", "None"], why: "But few of My servants are grateful." },
         { tf: true, q: "Ibn Kathir says thanks can be shown by actions.", why: "This indicates that thanks may be expressed by actions as much as by words and intentions." }
+      ]
+    },
+    {
+      slug: "what-shukr-is",
+      title: "What Shukr is",
+      line: "Shukr is admitting Allah's gift and using it to obey Him.",
+      facts: ["As-Sa'di explains", "Shukr"],
+      quote: q34(13),
+      source: saadi(34, 13, "As-Sa'di says shukr, thanks, is the heart admitting the favour is from Allah, receiving it as one in need of it, using it to obey Allah, and keeping it from being used in sin.", "والشكر: اعتراف القلب بمنة اللّه تعالى, وتلقيها افتقارا إليها, وصرفها في طاعة اللّه تعالى"),
+      difficulty: 2,
+      questions: [
+        { q: "What is Shukr, per as-Sa'di on 34:13?", a: "Admitting Allah's gift and using it well", wrong: ["Only saying thanks", "Keeping it secret", "Spending it on fun"], why: "The heart admits His favour and uses it to obey Him." },
+        { q: "What must a blessing be kept from, per as-Sa'di?", a: "Being used in sin", wrong: ["Being shared", "Being used at all", "Being seen"], why: "Shukr includes keeping it from being used in disobedience." },
+        { tf: true, q: "Few of Allah's servants are truly grateful.", why: "As-Sa'di on 34:13." }
       ]
     },
     {
@@ -594,6 +608,20 @@ const SABA_TWO: DeepUnit = {
         { q: "What does Allah do for spenders, in 34:39?", a: "Replaces what they spend", wrong: ["Takes more", "Ignores it", "Fines them"], why: "And whatsoever you spend of anything, He will replace it." },
         { q: "What does one angel pray, in the hadith?", a: "Compensate every spender", wrong: ["Make them poor", "Hide their gold", "Stop them"], why: "O Allah! Compensate every person who spends in Your Cause." },
         { q: "What is Allah, in 34:39?", a: "The Best of providers", wrong: ["A stingy one", "A trader", "A stranger"], why: "And He is the Best of providers." }
+      ]
+    },
+    {
+      slug: "spending-does-not-shrink",
+      title: "Spending does not shrink",
+      line: "Do not think spending for Allah reduces your provision.",
+      facts: ["As-Sa'di explains", "Allah replaces it"],
+      quote: q34(39),
+      source: saadi(34, 39, "As-Sa'di says whatever we spend, on a relative, neighbour, poor person or orphan, Allah replaces; so do not imagine spending reduces provision, and seek provision from Him through the means He commanded.", "فلا تتوهموا أن الإنفاق مما ينقص الرزق"),
+      difficulty: 2,
+      questions: [
+        { q: "Does spending for Allah reduce provision, per as-Sa'di?", a: "No, He replaces it", wrong: ["Yes, always", "Only for the poor", "Only in Ramadan"], why: "Do not imagine spending reduces provision, says as-Sa'di." },
+        { q: "Whom can we spend on, per as-Sa'di on 34:39?", a: "Relatives, neighbours, the poor and orphans", wrong: ["Only ourselves", "Only the rich", "No one"], why: "On a relative, a neighbour, a poor person, an orphan or others." },
+        { tf: true, q: "We should seek provision from Allah and use the means He commanded.", why: "As-Sa'di on 34:39." }
       ]
     },
     {

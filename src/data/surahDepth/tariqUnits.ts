@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah At-Tariq ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -230,6 +230,20 @@ const TARIQ_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "settles-every-dispute",
+      title: "It settles disputes",
+      line: "The Quran is the Word that settles arguments between groups.",
+      facts: ["As-Sa'di explains", "Fasl: deciding"],
+      quote: q86(14),
+      source: saadi(86, 14, "As-Sa'di says the Quran is serious, never a joke, and it is the Word that decides between groups and views and settles arguments.", "وهو القول الذي يفصل بين الطوائف والمقالات، وتنفصل به الخصومات"),
+      difficulty: 2,
+      questions: [
+        { q: "What does the Quran settle, per as-Sa'di on 86:14?", a: "Arguments between groups", wrong: ["Only prices", "Only weather", "Nothing"], why: "It decides between groups and views, and ends disputes." },
+        { q: "The Quran is never...?", a: "A joke", wrong: ["True", "Clear", "Serious"], why: "It is serious, not jest." },
+        { tf: true, q: "When Muslims disagree, the Quran is the judge.", why: "As-Sa'di on 86:14." }
+      ]
+    },
+    {
       slug: "their-plot-and-allahs-plan",
       title: "Their plot and Allah's plan",
       line: "The deniers plotted against the Quran, but Allah's plan wins.",
@@ -241,6 +255,20 @@ const TARIQ_TWO: DeepUnit = {
         { q: "What are the deniers doing, per 86:15?", a: "Plotting a plot", wrong: ["Praying", "Giving charity", "Sleeping"], why: "Verily, they are but plotting a plot." },
         { q: "What does Allah say in 86:16?", a: "And I am planning a plan", wrong: ["I will leave them", "I am tired", "I do not know"], why: "And I am planning a plan." },
         { tf: true, q: "No plot can defeat the plan of Allah.", why: "Verily, they are but plotting a plot. And I am planning a plan." }
+      ]
+    },
+    {
+      slug: "too-weak-to-win",
+      title: "Too weak to win",
+      line: "No human can outplot the Strong, the All-Knowing.",
+      facts: ["As-Sa'di explains", "Truth wins"],
+      quote: q86(16),
+      source: saadi(86, 16, "As-Sa'di says Allah plans to make the truth clear even if the deniers hate it, and a human is far too weak to beat the Strong, the All-Knowing.", "فإن الآدمي أضعف وأحقر من أن يغالب القوي العليم في كيده"),
+      difficulty: 2,
+      questions: [
+        { q: "Why can no one beat Allah's plan?", a: "Humans are far too weak", wrong: ["Plans are equal", "He is not aware", "Luck decides"], why: "A human is too weak to beat the Strong, the Knowing, says as-Sa'di." },
+        { q: "What does Allah plan in At-Tariq?", a: "To show the truth", wrong: ["To hide the truth", "To help falsehood", "Nothing"], why: "To make the truth clear and push falsehood away." },
+        { tf: true, q: "The truth wins even if the deniers hate it.", why: "As-Sa'di on 86:16." }
       ]
     },
     {

@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Mursalat ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -339,6 +339,20 @@ const MURSALAT_THREE: DeepUnit = {
         { q: "What are they told in 77:43?", a: "Eat and drink comfortably", wrong: ["Wait outside", "Go back", "Stay hungry"], why: "Eat and drink comfortably for that which you used to do." },
         { q: "Whom does Allah reward this way, per 77:44?", a: "The Muhsinin", wrong: ["The proud", "The lazy", "The liars"], why: "Verily, thus We reward the Muhsinin." },
         { tf: true, q: "These words are said to them out of kindness.", why: "This will be said to them out of kindness for them." }
+      ]
+    },
+    {
+      slug: "missing-it-is-enough",
+      title: "Missing it is enough",
+      line: "Missing the joy of Paradise alone would be grief enough.",
+      facts: ["As-Sa'di explains", "Woe to the deniers"],
+      quote: q77(45),
+      source: saadi(77, 45, "As-Sa'di says even if the deniers had no woe but missing this joy of the righteous, that loss alone would be enough sorrow and deprivation.", "ولو لم يكن لهم من هذا الويل إلا فوات هذا النعيم، لكفى به حزنا وحرمانا"),
+      difficulty: 2,
+      questions: [
+        { q: "What alone would be enough grief for the deniers?", a: "Missing Paradise's joy", wrong: ["Losing a game", "A bad meal", "A rainy day"], why: "Missing that bliss would be enough sorrow, says as-Sa'di." },
+        { q: "How does Allah reward the doers of good?", a: "With shade, springs and fruit", wrong: ["With nothing", "With hardship", "With silence"], why: "So We reward the doers of good." },
+        { tf: true, q: "Paradise is the greatest thing to miss.", why: "As-Sa'di on 77:45." }
       ]
     },
     {

@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Muddaththir ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -130,6 +130,20 @@ const MUDDATHTHIR_ONE: DeepUnit = {
         { q: "What does 74:6 forbid, per Ibn Abbas?", a: "Giving to get more back", wrong: ["Giving at all", "Eating gifts", "Saying thanks"], why: "Do not give any gift seeking to get back more than it." },
         { q: "What did Mujahid say Tamnun means?", a: "To become weak", wrong: ["To become rich", "To travel", "To boast"], why: "Tamnun in the language of the Arabs means to become weak." },
         { tf: true, q: "Mujahid said do not slacken in seeking more good.", why: "Do not slacken in seeking more good." }
+      ]
+    },
+    {
+      slug: "forget-your-favours",
+      title: "Forget your favours",
+      line: "Do good to people, then forget it; seek reward from Allah alone.",
+      facts: ["As-Sa'di explains", "No reminding of favours"],
+      quote: q74(6),
+      source: saadi(74, 6, "As-Sa'di says do not remind people of the good you did them or see yourself above them; do good as much as you can, forget it, and seek its reward from Allah alone.", "لا تمنن على الناس بما أسديت إليهم"),
+      difficulty: 2,
+      questions: [
+        { q: "After doing good to someone, we should...?", a: "Forget it and seek Allah's reward", wrong: ["Remind them often", "Ask for more back", "Tell everyone"], why: "Forget your kindness and seek reward only from Allah, says as-Sa'di." },
+        { q: "What should we not do with favours we gave?", a: "Remind people of them", wrong: ["Forget them", "Hide them", "Be humble"], why: "Do not hold your favours over people." },
+        { tf: true, q: "Treat those you helped and others the same.", why: "As-Sa'di on 74:6." }
       ]
     },
     {

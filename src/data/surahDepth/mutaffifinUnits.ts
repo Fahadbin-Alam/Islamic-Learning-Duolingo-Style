@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Mutaffifin ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -88,6 +88,20 @@ const MUTAFFIFIN_ONE: DeepUnit = {
         { q: "What did the Prophet ﷺ find in the heap?", a: "Wet grain hidden under dry", wrong: ["Gold coins", "Stones", "Insects"], why: "He thrust his hand in that heap and his fingers were moistened." },
         { q: "Where should the wet part have been?", a: "On top, for people to see", wrong: ["At the bottom", "Thrown away", "Sold at night"], why: "Why did you not place this over other eatables so that the people could see it?" },
         { tf: false, q: "Hiding a flaw in goods is fine if no one notices.", why: "He who deceives is not of me." }
+      ]
+    },
+    {
+      slug: "fair-in-arguments-too",
+      title: "Fair in arguments too",
+      line: "Give others their full due, even their good points in a debate.",
+      facts: ["As-Sa'di explains", "Fairness shows humility"],
+      quote: q83(3),
+      source: saadi(83, 3, "As-Sa'di says just as we must give people their full measure, in a debate we must also show the good proofs of the other side and look at them fairly.", "فيجب عليه أيضًا أن يبين ما لخصمه من الحجج"),
+      difficulty: 3,
+      questions: [
+        { q: "Al-Mutaffifin teaches fairness in weighing and...?", a: "In arguments too", wrong: ["Only in food", "Only in gold", "Nowhere else"], why: "Even proofs and views are included, says as-Sa'di." },
+        { q: "In a debate, what must we also show?", a: "The other side's good proofs", wrong: ["Only our proofs", "Nothing at all", "Their mistakes only"], why: "Show the proofs of the other side too." },
+        { tf: true, q: "Short-measuring people is a kind of stealing.", why: "As-Sa'di on 83:3." }
       ]
     },
     {
@@ -393,6 +407,20 @@ const MUTAFFIFIN_FOUR: DeepUnit = {
         { q: "What did the criminals do, per 83:29?", a: "Laughed at the believers", wrong: ["Helped the believers", "Prayed with them", "Fed them"], why: "Verily, those who committed crimes used to laugh at those who believed." },
         { q: "What did they do when passing by, per 83:30?", a: "Winked at one another", wrong: ["Gave salam", "Gave gifts", "Stayed silent"], why: "And, whenever they passed by them, used to wink one to another." },
         { tf: true, q: "We should never mock people for their faith.", why: "They would mock them and despise them, and Allah blamed them for it." }
+      ]
+    },
+    {
+      slug: "wrong-yet-feeling-safe",
+      title: "Wrong, yet feeling safe",
+      line: "The worst self-deception: doing great wrong and feeling safe.",
+      facts: ["As-Sa'di explains", "Ightirar: being fooled"],
+      quote: q83(32),
+      source: saadi(83, 32, "As-Sa'di says it is the worst self-deception to do great wrong and still feel safe, as if Allah had promised you success while calling the believers lost.", "وهذا من أعظم ما يكون من الاغترار"),
+      difficulty: 3,
+      questions: [
+        { q: "What is the worst self-deception, per as-Sa'di?", a: "Doing wrong and feeling safe", wrong: ["Being humble", "Fearing Allah", "Doing good quietly"], why: "They joined the worst wrong with feeling safe, says as-Sa'di." },
+        { q: "What did the mockers call the believers?", a: "Lost", wrong: ["Wise", "Rich", "Brave"], why: "They said the believers were astray." },
+        { tf: false, q: "Allah gave the mockers a promise of success.", why: "It is as if they think so, but no. As-Sa'di on 83:32." }
       ]
     },
     {

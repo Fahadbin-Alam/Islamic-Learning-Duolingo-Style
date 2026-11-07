@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Layl ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -89,6 +89,20 @@ const LAYL_ONE: DeepUnit = {
         { q: "What does 92:4 say about our efforts?", a: "They are diverse", wrong: ["They are all equal", "They do not matter", "They are hidden"], why: "Certainly, your efforts and deeds are diverse." },
         { q: "How do the oaths fit the answer, per Ibn Kathir?", a: "Both are opposites", wrong: ["Both are colours", "Both are sounds", "Both are numbers"], why: "Just as these things that are being sworn by are opposites, likewise that which this swearing is about." },
         { tf: true, q: "Some people do good and some do evil.", why: "There are those who do good and there are those who do evil." }
+      ]
+    },
+    {
+      slug: "what-is-it-for",
+      title: "What is it for?",
+      line: "Deeds done for Allah last; deeds for passing goals fade.",
+      facts: ["As-Sa'di explains", "The goal decides"],
+      quote: q92(4),
+      source: saadi(92, 4, "As-Sa'di says efforts differ by their goal: work for the lasting Face of Allah lasts and helps its doer, while work for a passing goal fades with it.", "هل هو وجه الله الأعلى الباقي"),
+      difficulty: 2,
+      questions: [
+        { q: "Which deeds last, per as-Sa'di?", a: "Deeds done for Allah", wrong: ["Deeds for fame", "Deeds for money", "Deeds for praise"], why: "Work for the lasting Face of Allah lasts with it." },
+        { q: "What happens to work for a passing goal?", a: "It fades with it", wrong: ["It grows", "It lasts forever", "It becomes gold"], why: "The effort is lost when its goal is lost." },
+        { tf: true, q: "Why we do a deed matters as much as the deed.", why: "As-Sa'di on 92:4." }
       ]
     }
   ]
@@ -366,6 +380,20 @@ const LAYL_FOUR: DeepUnit = {
         { q: "Why does he give, per 92:18?", a: "For self-purification", wrong: ["To show off", "To get a reward from people", "To get rid of it"], why: "He who gives of his wealth for self-purification." },
         { q: "In what does he spend, per Ibn Kathir?", a: "In obedience of his Lord", wrong: ["In games", "In boasting", "In waste"], why: "He spends his wealth in obedience of his Lord in order to purify himself." },
         { tf: false, q: "Giving charity has no effect on the giver.", why: "In order to purify himself, his wealth and whatever Allah has bestowed upon him." }
+      ]
+    },
+    {
+      slug: "duties-come-first",
+      title: "Duties come first",
+      line: "Extra charity should never make you miss a duty, like a debt.",
+      facts: ["As-Sa'di explains", "Debts and family first"],
+      quote: q92(17),
+      source: saadi(92, 17, "As-Sa'di says giving purifies only when it does not make you miss a duty, like paying a debt or spending on your family.", "إذا تضمن الإنفاق المستحب ترك واجب"),
+      difficulty: 3,
+      questions: [
+        { q: "Extra charity should not make you miss...?", a: "A duty", wrong: ["A meal", "A trip", "A nap"], why: "Voluntary giving that leaves a duty is not right, says as-Sa'di." },
+        { q: "Which is an example of such a duty?", a: "Paying a debt", wrong: ["Buying a toy", "A holiday", "A new phone"], why: "Like a debt or spending on family." },
+        { tf: true, q: "Spending on your own family is a duty.", why: "As-Sa'di on 92:17." }
       ]
     },
     {

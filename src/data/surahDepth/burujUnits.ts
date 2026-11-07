@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Buruj ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -244,6 +244,20 @@ const BURUJ_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "forgiven-and-loved",
+      title: "Forgiven and loved",
+      line: "When sinners repent, Allah forgives them and loves them too.",
+      facts: ["As-Sa'di explains", "Al-Ghafur with Al-Wadud"],
+      quote: q85(14),
+      source: saadi(85, 14, "As-Sa'di says Allah put the Loving next to the Forgiving to show that when sinners turn back to Him, He forgives their sins and loves them as well.", "إذا تابوا إلى الله وأنابوا، غفر لهم ذنوبهم وأحبهم"),
+      difficulty: 2,
+      questions: [
+        { q: "Why is Al-Wadud paired with Al-Ghafur in Al-Buruj?", a: "Repenters are forgiven and loved", wrong: ["Sins are never forgiven", "Love ends after a sin", "Only angels are loved"], why: "He forgives their sins and loves them, says as-Sa'di." },
+        { q: "Al-Wadud means...?", a: "The Loving", wrong: ["The Mighty", "The First", "The Judge"], why: "He loves His friends and they love Him." },
+        { tf: false, q: "After a sin, Allah forgives but never loves the person again.", why: "As-Sa'di calls that a mistake. As-Sa'di on 85:14." }
+      ]
+    },
+    {
       slug: "owner-of-the-glorious-throne",
       title: "Owner of the Throne",
       line: "Allah owns the mighty Throne above all creation; He is Al-Majid.",
@@ -269,6 +283,20 @@ const BURUJ_TWO: DeepUnit = {
         { q: "How does 85:16 describe Allah?", a: "Doer of what He intends", wrong: ["Doer of nothing", "Waiting for help", "Unsure"], why: "Doer of what He intends." },
         { q: "Who can counter His ruling, per Ibn Kathir?", a: "No one", wrong: ["The angels", "The kings", "The scholars"], why: "There is no one who can counter His ruling." },
         { q: "Whom did Abu Bakr mean by his doctor?", a: "Allah", wrong: ["A healer from Yemen", "His son", "A neighbour"], why: "He said, I am the Doer of whatever I intend." }
+      ]
+    },
+    {
+      slug: "no-helper-needed",
+      title: "No helper needed",
+      line: "Our wishes need help and can be blocked; Allah's never are.",
+      facts: ["As-Sa'di explains", "Only Allah does all He wills"],
+      quote: q85(16),
+      source: saadi(85, 16, "As-Sa'di says creatures' wishes always need helpers and meet things that block them, but Allah's will needs no helper and nothing can stop it.", "والله لا معاون لإرادته، ولا ممانع له مما أراد"),
+      difficulty: 2,
+      questions: [
+        { q: "What do our wishes always need?", a: "Helpers, and no blocks", wrong: ["Nothing at all", "Only time", "Only money"], why: "A creature's will needs a helper and meets obstacles, says as-Sa'di." },
+        { q: "What can stop Allah's will?", a: "Nothing", wrong: ["Kings", "Angels", "Time"], why: "No helper is needed and no one can block it." },
+        { tf: true, q: "Only Allah does whatever He wills.", why: "As-Sa'di on 85:16." }
       ]
     },
     {

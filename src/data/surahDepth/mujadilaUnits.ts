@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Mujadila ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -789,6 +789,20 @@ const MUJADILA_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "respect-stayed",
+      title: "The respect stayed",
+      line: "The charity rule was lifted, but respect for him ﷺ remains.",
+      facts: ["As-Sa'di explains", "A means, not the goal"],
+      quote: q58(13),
+      source: saadi(58, 13, "As-Sa'di says Allah made it easy and lifted the charity before private talk, but honouring and respecting the Messenger ﷺ was not lifted, because the charity was only a means to that respect.", "وبقي التعظيم للرسول والاحترام بحاله لم ينسخ"),
+      difficulty: 3,
+      questions: [
+        { q: "What stayed after the charity rule was lifted?", a: "Respect for the Messenger ﷺ", wrong: ["The charity", "Nothing", "Private talks banned"], why: "The honour and respect stayed and was not lifted, says as-Sa'di." },
+        { q: "Why was the charity rule given, per as-Sa'di?", a: "To teach respect", wrong: ["To collect money", "To stop all talk", "To punish"], why: "It was a means; the goal was good manners with him." },
+        { tf: true, q: "Allah saw the charity was hard and made it easy.", why: "As-Sa'di on 58:13." }
+      ]
+    },
+    {
       slug: "ali-acted-on-it",
       title: "Ali acted on it",
       line: "Ali said only he acted on 58:12 before it was lifted.",
@@ -995,6 +1009,20 @@ const MUJADILA_THREE: DeepUnit = {
         { q: "What will they swear to Allah?", a: "That they were guided", wrong: ["That they were kings", "That they never lived", "That they forgot"], why: "That they were following the guidance and the correct path." },
         { q: "What do they think about their oaths?", a: "That the oaths will help them", wrong: ["That oaths are silly", "That oaths are lost", "Nothing at all"], why: "The hypocrites will think that their vows will help them with Allah." },
         { tf: true, q: "Allah calls them liars.", why: "Verily, they are liars!" }
+      ]
+    },
+    {
+      slug: "lies-that-grew",
+      title: "Lies that grew",
+      line: "False beliefs grew in them bit by bit until they fooled them.",
+      facts: ["As-Sa'di explains", "Little by little"],
+      quote: q58(18),
+      source: saadi(58, 18, "As-Sa'di says the hypocrites will even swear to Allah, because their disbelief and false beliefs settled in their minds little by little until they fooled them into thinking they had something.", "لم تزل ترسخ في أذهانهم شيئا فشيئا، حتى غرتهم"),
+      difficulty: 3,
+      questions: [
+        { q: "Why will hypocrites swear even to Allah, per as-Sa'di?", a: "Their lies grew until they believed them", wrong: ["They are truthful", "They forgot to pray", "They are angels"], why: "Their false beliefs settled little by little until they fooled them, says as-Sa'di." },
+        { q: "How did the false beliefs settle in them?", a: "Little by little", wrong: ["All at once", "Never", "By a dream"], why: "Bit by bit, until they were fooled." },
+        { tf: true, q: "Lies will not work with Allah on Judgment Day.", why: "As-Sa'di on 58:18." }
       ]
     },
     {

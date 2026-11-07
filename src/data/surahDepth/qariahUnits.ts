@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Qari'ah ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -88,6 +88,20 @@ const QARIAH_ONE: DeepUnit = {
         { q: "What will the mountains be like, per 101:5?", a: "Carded wool", wrong: ["Hard iron", "Ice", "Gold"], why: "And the mountains will be like wool, carded." },
         { q: "What does Ihn mean, per the Salaf?", a: "Wool", wrong: ["Sand", "Smoke", "Cotton"], why: "Like wool, Woolen." },
         { tf: false, q: "The mountains will stay strong and firm.", why: "They will become like carded wool that has began to wear out and be torn apart." }
+      ]
+    },
+    {
+      slug: "two-groups",
+      title: "Then the scales are set",
+      line: "Then the scales are set, and people split into two groups.",
+      facts: ["As-Sa'di explains", "Happy or wretched"],
+      quote: q101(5),
+      source: saadi(101, 5, "As-Sa'di says the mountains then become scattered dust, the scales are set up, and people split into two groups, the happy and the wretched.", "وينقسم الناس قسمين"),
+      difficulty: 2,
+      questions: [
+        { q: "What is set up after the mountains vanish?", a: "The scales", wrong: ["New mountains", "Markets", "Houses"], why: "Then the scales are set up, says as-Sa'di." },
+        { q: "Into how many groups do people split?", a: "Two", wrong: ["Five", "Ten", "One"], why: "People split into two groups." },
+        { tf: true, q: "In the end the mountains become scattered dust.", why: "As-Sa'di on 101:5." }
       ]
     }
   ]

@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Maryam ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -59,6 +59,20 @@ const MARYAM_ONE: DeepUnit = {
         { q: "What had grown weak, in 19:4?", a: "His bones", wrong: ["His eyes", "His voice", "His faith"], why: "My Lord! Indeed my bones have grown feeble." },
         { q: "What had spread on his head, in 19:4?", a: "Grey hair", wrong: ["A crown", "A turban", "Dust"], why: "And gray hair has spread on my head." },
         { q: "Zakariyya said Allah always answered his prayers, per Ibn Kathir.", tf: true, why: "I have not experienced from You except that You would respond to my supplication." }
+      ]
+    },
+    {
+      slug: "asking-through-weakness",
+      title: "Asking through weakness",
+      line: "Showing Allah your weakness is a way of asking He loves.",
+      facts: ["As-Sa'di explains", "Tawassul in dua"],
+      quote: q19(4),
+      source: saadi(19, 4, "As-Sa'di says Zakariyya came to Allah through his weakness and old age, one of the means most loved by Allah, since it shows a person has no power of his own; then through Allah's past favours, asking the One who was good before to complete His goodness.", "وهذا من أحب الوسائل إلى الله"),
+      difficulty: 2,
+      questions: [
+        { q: "How did Zakariyya come close to Allah in his dua, per as-Sa'di?", a: "Through his weakness", wrong: ["Through his wealth", "Through his fame", "Through his family name"], why: "He showed his weakness and age, a means Allah loves." },
+        { q: "Why does Allah love a dua made through weakness, per as-Sa'di on 19:4?", a: "It shows reliance on Allah's power", wrong: ["It is shorter", "It is louder", "It needs no words"], why: "It shows freedom from one's own power and trust in Allah's." },
+        { tf: true, q: "Zakariyya also asked by Allah's past answers to his duas.", why: "As-Sa'di on 19:4." }
       ]
     },
     {
@@ -314,6 +328,20 @@ const MARYAM_ONE: DeepUnit = {
       ]
     },
     {
+      slug: "blessed-wherever-he-was",
+      title: "Blessed wherever he was",
+      line: "Isa's blessing was teaching good wherever he went.",
+      facts: ["As-Sa'di explains", "Barakah"],
+      quote: q19(31),
+      source: saadi(19, 31, "As-Sa'di says Isa's blessing, in every place and time, was teaching good, calling to it and to Allah, and forbidding evil, so everyone who sat with him gained from his blessing; and he was told to keep up prayer, Allah's right, and zakah, the right of His servants, all his life.", "فكل من جالسه، أو اجتمع به، نالته بركته"),
+      difficulty: 2,
+      questions: [
+        { q: "What was Isa's blessing, per as-Sa'di on 19:31?", a: "Teaching good and calling to Allah", wrong: ["Great wealth", "A big house", "Many servants"], why: "It was teaching good, calling to Allah and forbidding evil." },
+        { q: "Who gained from Isa's blessing, per as-Sa'di?", a: "Everyone who sat with him", wrong: ["Only kings", "Only his family", "No one"], why: "Everyone who sat or met with him got some of his blessing." },
+        { tf: true, q: "Prayer is Allah's right, and zakah is the right of His servants.", why: "As-Sa'di on 19:31." }
+      ]
+    },
+    {
       slug: "be-and-it-is",
       title: "Be, and it is",
       line: "Allah has no son; He only says Be, and it is.",
@@ -506,6 +534,20 @@ const MARYAM_TWO: DeepUnit = {
         { q: "What did later people lose, in 19:59?", a: "The Salah", wrong: ["Their homes", "Their money", "Their land"], why: "Then, there has succeeded them a posterity who have lost the Salah and have followed lusts." },
         { q: "What is prayer, per Ibn Kathir?", a: "The pillar of the religion", wrong: ["Something extra", "Only for elders", "Only on Friday"], why: "The prayer is the pillar and foundation of the religion. It is the best of the servants' deeds." },
         { q: "Who will enter Paradise, in 19:60?", a: "Those who repent and do good", wrong: ["Only the rich", "No one", "Only the old"], why: "Except those who repent and believe, and work righteousness. Such will enter Paradise." }
+      ]
+    },
+    {
+      slug: "lose-prayer-lose-the-rest",
+      title: "Lose prayer, lose the rest",
+      line: "Whoever neglects the prayer will neglect the rest even more.",
+      facts: ["As-Sa'di explains", "The pillar of the religion"],
+      quote: q19(59),
+      source: saadi(19, 59, "As-Sa'di says the prayer is the pillar of the religion and the scale of faith, so those who waste it waste the rest of their religion even more; the cause was following their desires and putting them before Allah's rights.", "كانوا لما سواها من دينهم أضيع"),
+      difficulty: 2,
+      questions: [
+        { q: "What happens to those who waste the prayer, per as-Sa'di on 19:59?", a: "They waste the rest even more", wrong: ["Nothing else changes", "They gain more time", "They become stronger"], why: "Wasting the pillar leads to wasting all else even more." },
+        { q: "Why did later people lose the prayer, per as-Sa'di?", a: "They followed their desires", wrong: ["They were too busy praying", "They lost the Quran", "They had no masjids"], why: "They put their desires before Allah's rights." },
+        { tf: true, q: "The prayer is the pillar of the religion and the scale of faith.", why: "As-Sa'di on 19:59." }
       ]
     },
     {

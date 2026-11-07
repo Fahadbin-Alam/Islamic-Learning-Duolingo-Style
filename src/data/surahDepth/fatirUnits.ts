@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Fatir ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -116,6 +116,20 @@ const FATIR_ONE: DeepUnit = {
         { q: "How should we treat Shaytan, in 35:6?", a: "As an enemy", wrong: ["As a friend", "As a guide", "As a judge"], why: "Surely, Shaytan is an enemy to you, so take him as an enemy." },
         { q: "What did Shaytan declare, per Ibn Kathir?", a: "His enmity towards us", wrong: ["His love for us", "His repentance", "His fear of us"], why: "He has declared his enmity towards you, so be even more hostile towards him." },
         { q: "What does Ibn Kathir ask Allah for?", a: "To follow His Book", wrong: ["Gold and silver", "Long journeys", "Fame"], why: "To make us followers of the Book of Allah and of the way of His Messengers." }
+      ]
+    },
+    {
+      slug: "he-sees-you",
+      title: "He sees you",
+      line: "Shaytan sees us while we cannot see him, so stay on guard.",
+      facts: ["As-Sa'di explains", "Our real enemy"],
+      quote: q35(6),
+      source: saadi(35, 6, "As-Sa'di says treating Shaytan as an enemy means keeping his enmity in mind and fighting him at all times, because he sees us while we do not see him, and he is always lying in wait.", "فإنه يراكم وأنتم لا ترونه، وهو دائما لكم بالمرصاد"),
+      difficulty: 2,
+      questions: [
+        { q: "Why must we always be on guard against Shaytan, per as-Sa'di?", a: "He sees us; we cannot see him", wrong: ["He is weak", "He sleeps at night", "He is far away"], why: "He sees you while you do not see him, says as-Sa'di." },
+        { q: "What does Shaytan want for his followers, in Fatir 35:6?", a: "That they enter the Blaze", wrong: ["That they get rich", "That they rest", "That they win"], why: "He only calls his party to be people of the Blaze." },
+        { tf: true, q: "Treating Shaytan as an enemy means fighting him at all times.", why: "As-Sa'di on 35:6." }
       ]
     },
     {
@@ -243,6 +257,20 @@ const FATIR_ONE: DeepUnit = {
         { q: "Who stands in need, in 35:15?", a: "Mankind", wrong: ["Allah", "No one", "Only angels"], why: "O mankind! It is you who stand in need of Allah." },
         { q: "How is Allah described, in 35:15?", a: "Rich, Worthy of all praise", wrong: ["Tired, alone", "Needy, far", "Weak, silent"], why: "But Allah is the Rich, Worthy of all praise." },
         { tf: false, q: "Allah needs His creation to help Him.", why: "They need Him in all that they do, but He has no need of them at all." }
+      ]
+    },
+    {
+      slug: "not-for-a-blink",
+      title: "Not for a blink",
+      line: "Ask Allah never to leave you to yourself, even for a blink.",
+      facts: ["As-Sa'di explains", "Our need for Allah"],
+      quote: q35(15),
+      source: saadi(35, 15, "As-Sa'di says people need Allah in every way: to exist, for strength, food, safety, guidance and worship; the successful one sees this need always and asks Allah never to leave him to himself for a blink.", "ويسأله أن لا يكله إلى نفسه طرفة عين"),
+      difficulty: 2,
+      questions: [
+        { q: "What does the successful person ask Allah, per as-Sa'di?", a: "Not to leave him to himself", wrong: ["For more fame", "For a long sleep", "For nothing"], why: "He asks Allah not to leave him to himself for a blink, says as-Sa'di." },
+        { q: "In how many ways do people need Allah, per as-Sa'di on 35:15?", a: "In every way", wrong: ["Only for food", "Only when sick", "In no way"], why: "They need Him in every meaning and every way." },
+        { tf: true, q: "We need Allah even to love and worship Him.", why: "As-Sa'di on 35:15." }
       ]
     },
     {
@@ -497,6 +525,20 @@ const FATIR_TWO: DeepUnit = {
         { q: "Who follows a middle course, per Ibn Kathir?", a: "Do duties, may miss extras", wrong: ["Skip all duties", "Do only extras", "Do nothing"], why: "They fulfill their obligations and avoid forbidden things, but may neglect some good deeds." },
         { q: "Who are foremost, per Ibn Kathir?", a: "Do duties and extra good", wrong: ["The richest", "The loudest", "The oldest"], why: "They do obligatory actions and things which are encouraged." },
         { tf: true, q: "Those who fall short are still part of this Ummah.", why: "The correct view is that they are also part of this Ummah." }
+      ]
+    },
+    {
+      slug: "by-allahs-leave",
+      title: "By Allah's leave",
+      line: "Even the foremost in good only got there by Allah's help.",
+      facts: ["As-Sa'di explains", "Not fooled by deeds"],
+      quote: q35(32),
+      source: saadi(35, 32, "As-Sa'di says by Allah's leave in 35:32 refers to the one foremost in good deeds, so he is not fooled by his deeds; he got ahead only by Allah's help, so he should keep thanking Him.", "راجع إلى السابق إلى الخيرات، لئلا يغتر بعمله"),
+      difficulty: 3,
+      questions: [
+        { q: "Why does Fatir 35:32 say by Allah's leave, per as-Sa'di?", a: "So the foremost is not fooled by his deeds", wrong: ["To scare the sinner", "To praise the rich", "No reason"], why: "So he is not deceived by his own deeds, says as-Sa'di." },
+        { q: "What should the one foremost in good do, per as-Sa'di?", a: "Keep thanking Allah", wrong: ["Boast", "Stop doing good", "Look down on others"], why: "He got ahead only by Allah's help, so he should thank Him." },
+        { tf: true, q: "All three groups in Fatir 35:32 were chosen to inherit the Book.", why: "As-Sa'di on 35:32." }
       ]
     },
     {

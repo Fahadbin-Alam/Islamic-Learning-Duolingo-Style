@@ -1,3 +1,4 @@
+import { fireEvent, screen } from "@testing-library/react-native";
 import { SHOP_ITEMS, STARTER_USER } from "../data/course";
 import type { ShopItem, UserProfile } from "../types";
 
@@ -35,4 +36,21 @@ export function makeUser(overrides: Partial<UserProfile> = {}): UserProfile {
     completedNodeIds: [],
     ...overrides
   };
+}
+
+/**
+ * Scrolls the learn path so a unit is on screen. Far units draw no circles (see LearnPath's MOUNT_MARGIN), and the
+ * test renderer never lays anything out, so this gives every unit a made-up place 1000 px apart and scrolls there.
+ */
+export async function scrollPathTo(topicId: string, unitId: string) {
+
+  const scroll = screen.getByTestId(`learn-path-${topicId}`);
+  await fireEvent(scroll, "layout", { nativeEvent: { layout: { x: 0, y: 0, width: 390, height: 800 } } });
+  const units = screen.queryAllByTestId(/^path-unit-/);
+  let targetY = 0;
+  for (const [index, view] of units.entries()) {
+    await fireEvent(view, "layout", { nativeEvent: { layout: { x: 0, y: index * 1000, width: 390, height: 1000 } } });
+    if (view.props.testID === `path-unit-${unitId}`) targetY = index * 1000;
+  }
+  await fireEvent(scroll, "scroll", { nativeEvent: { contentOffset: { x: 0, y: targetY }, contentSize: { width: 390, height: units.length * 1000 }, layoutMeasurement: { width: 390, height: 800 } } });
 }

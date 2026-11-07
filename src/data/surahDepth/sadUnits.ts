@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Sad ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -467,6 +467,20 @@ const SAD_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "faith-stops-wrongdoing",
+      title: "Faith stops wrongdoing",
+      line: "Faith and good deeds stop partners from wronging each other.",
+      facts: ["As-Sa'di explains", "Partners and fairness"],
+      quote: q38(24),
+      source: saadi(38, 24, "As-Sa'di says many partners wrong each other because wrongdoing is in human nature, except believers who do good, because their faith and good deeds stop them from wrongdoing, and they are few.", "فإن ما معهم من الإيمان والعمل الصالح، يمنعهم من الظلم"),
+      difficulty: 2,
+      questions: [
+        { q: "Why do believing partners not wrong each other, per as-Sa'di?", a: "Faith and good deeds stop them", wrong: ["Fear of police", "They are rich", "They never meet"], why: "Their faith and good deeds stop them from wrongdoing." },
+        { q: "How many partners are fair, per Sad 38:24?", a: "Few", wrong: ["All", "Most", "None"], why: "And few are they, says the ayah." },
+        { tf: true, q: "Dawud prostrated and turned to Allah after judging the two men.", why: "As-Sa'di on 38:24." }
+      ]
+    },
+    {
       slug: "the-prostration-of-sad",
       title: "The prostration of Sad",
       line: "The Prophet ﷺ prostrated when reciting this ayah.",
@@ -590,6 +604,20 @@ const SAD_TWO: DeepUnit = {
         { q: "Why was the Book sent, in 38:29?", a: "To ponder its ayahs", wrong: ["To hang on walls", "To sell", "To keep closed"], why: "That they may ponder over its Verses, and that men of understanding may remember." },
         { q: "How is the Book described, in 38:29?", a: "Full of blessings", wrong: ["Hard to read", "Only stories", "For one tribe"], why: "A Book which We have sent down to you, full of blessings." },
         { q: "Who are men of understanding, per Ibn Kathir?", a: "Those with wisdom and reason", wrong: ["Rich men", "Strong men", "Old men"], why: "Meaning, those who are possessed of wisdom and reason." }
+      ]
+    },
+    {
+      slug: "slow-with-reflection",
+      title: "Slow, with reflection",
+      line: "Reading with reflection is better than reading fast without it.",
+      facts: ["As-Sa'di explains", "Tadabbur"],
+      quote: q38(29),
+      source: saadi(38, 29, "As-Sa'di says the Quran was sent down to be reflected on, again and again, which is among the best deeds, and reading with reflection is better than fast reading that misses its purpose.", "وأن القراءة المشتملة على التدبر أفضل من سرعة التلاوة التي لا يحصل بها هذا المقصود"),
+      difficulty: 2,
+      questions: [
+        { q: "Which reading is better, per as-Sa'di on 38:29?", a: "Reading with reflection", wrong: ["The fastest reading", "Reading without meaning", "Never reading"], why: "Reading with reflection is better than fast reading, says as-Sa'di." },
+        { q: "How do we reach the Quran's blessing, per as-Sa'di?", a: "Reflecting again and again", wrong: ["Reading once", "Only hanging it up", "Only carrying it"], why: "By reflecting and thinking over its meanings again and again." },
+        { tf: true, q: "People with sound minds benefit most from the Quran.", why: "As-Sa'di on 38:29." }
       ]
     },
     {
@@ -869,6 +897,20 @@ const SAD_THREE: DeepUnit = {
         { q: "What does a believer do in joy, in the hadith?", a: "Thanks Allah", wrong: ["Boasts", "Forgets Allah", "Sleeps"], why: "If he has an occasion to feel delight, he thanks God, thus there is a good for him in it." },
         { q: "What does he do in trouble, in the hadith?", a: "Endures it patiently", wrong: ["Gives up", "Complains about Allah", "Runs away"], why: "If he gets into trouble and endures it patiently, there is a good for him in it." },
         { tf: true, q: "Ayyub showed the patience praised by the Prophet ﷺ.", why: "Truly, We found him patient. How excellent a servant!" }
+      ]
+    },
+    {
+      slug: "servant-in-ease-and-hardship",
+      title: "Servant in ease and hardship",
+      line: "Ayyub was an excellent servant, in ease and in hardship.",
+      facts: ["As-Sa'di explains", "Sabr"],
+      quote: q38(44),
+      source: saadi(38, 44, "As-Sa'di says Allah called Ayyub an excellent servant because he completed servitude in ease and hardship; he was patient for Allah's sake and often turned back to Him in dua and remembrance.", "الذي كمل مراتب العبودية، في حال السراء والضراء، والشدة والرخاء"),
+      difficulty: 2,
+      questions: [
+        { q: "Why did Allah call Ayyub an excellent servant, per as-Sa'di?", a: "He served Allah in ease and hardship", wrong: ["He was rich", "He was a king", "He never got sick"], why: "He completed servitude in ease and hardship, says as-Sa'di." },
+        { q: "What does awwab mean, in Sad 38:44?", a: "Often turning back to Allah", wrong: ["Always travelling", "Often sleeping", "Very strong"], why: "Awwab: one who often turns back to Allah." },
+        { tf: true, q: "Ayyub was patient for the sake of Allah.", why: "As-Sa'di on 38:44." }
       ]
     },
     {

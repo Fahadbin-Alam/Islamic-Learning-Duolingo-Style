@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Fath ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -146,6 +146,20 @@ const FATH_ONE: DeepUnit = {
       ]
     },
     {
+      slug: "patience-grew-their-faith",
+      title: "Patience grew their faith",
+      line: "Patience with the hard treaty made their faith grow.",
+      facts: ["As-Sa'di explains", "Sakinah"],
+      quote: q48(4),
+      source: saadi(48, 4, "As-Sa'di says Sakinah is calm and firmness when hard trials shake hearts; the Companions found the treaty terms hard, but when they were patient with them, their faith grew.", "فلما صبروا عليها ووطنوا أنفسهم لها، ازدادوا بذلك إيمانا مع إيمانهم"),
+      difficulty: 2,
+      questions: [
+        { q: "What is Sakinah, per as-Sa'di?", a: "Calm and firmness in hard times", wrong: ["A kind of food", "A type of prayer", "A city"], why: "Calm and firmness when trials shake the heart, says as-Sa'di." },
+        { q: "What did patience with the hard treaty terms do for the Companions?", a: "Their faith grew", wrong: ["They grew weak", "They left", "Nothing"], why: "They were patient, so their faith grew, says as-Sa'di." },
+        { tf: true, q: "Allah may delay victory for the believers out of His wisdom.", why: "As-Sa'di on 48:4." }
+      ]
+    },
+    {
       slug: "gardens-for-believers",
       title: "Good news for believers",
       line: "Believing men and women get Gardens forever and sins wiped away.",
@@ -213,6 +227,20 @@ const FATH_ONE: DeepUnit = {
         { q: "What does Tawqir mean, per Ibn Kathir?", a: "Respect, honor and high regard", wrong: ["Speed", "Silence", "Travel"], why: "Where Tawqir means, respect, honor and high regard." },
         { q: "When do we glorify Allah, in 48:9?", a: "Early and late in the day", wrong: ["Only at midnight", "Only on Fridays", "Once a year"], why: "Bukrah and Asila, the early and late part of the day." },
         { tf: true, q: "48:9 asks us to believe in Allah and His Messenger.", why: "In order that you may believe in Allah and His Messenger." }
+      ]
+    },
+    {
+      slug: "whose-right-is-what",
+      title: "Whose right is what",
+      line: "Honor is for the Messenger ﷺ; glorifying is for Allah alone.",
+      facts: ["As-Sa'di explains", "Rights of Allah and His Messenger ﷺ"],
+      quote: q48(9),
+      source: saadi(48, 9, "As-Sa'di says 48:9 shows three rights: faith is owed to Allah and His Messenger ﷺ together, honor and respect belong to the Messenger ﷺ, and glorifying in prayer and worship belongs to Allah alone.", "والمختص بالرسول، وهو التعزير والتوقير، والمختص بالله، وهو التسبيح له والتقديس بصلاة أو غيرها"),
+      difficulty: 3,
+      questions: [
+        { q: "In Al-Fath 48:9, what right belongs to Allah alone, per as-Sa'di?", a: "Glorifying Him in worship", wrong: ["Being honored", "Being greeted", "Being thanked by kings"], why: "Glorifying and praising in prayer is for Allah alone." },
+        { q: "What is owed to the Messenger ﷺ, in Al-Fath 48:9?", a: "Honor and respect", wrong: ["Worship", "Prayer to him", "Nothing"], why: "Honor and respect are his ﷺ, says as-Sa'di." },
+        { tf: true, q: "Believing in Allah and His Messenger ﷺ is a right shared by both.", why: "As-Sa'di on 48:9." }
       ]
     },
     {

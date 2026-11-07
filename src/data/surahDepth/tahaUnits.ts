@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Ta-Ha ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -202,6 +202,20 @@ const TAHA_ONE: DeepUnit = {
       ]
     },
     {
+      slug: "a-wide-chest-for-dawah",
+      title: "A wide chest for da'wah",
+      line: "A caller to Allah needs a wide chest to bear people's harm.",
+      facts: ["As-Sa'di explains", "Da'wah"],
+      quote: q20(25),
+      source: saadi(20, 25, "As-Sa'di says Musa knew the load he carried, so he asked Allah to widen his chest to bear harm in word and deed without his heart being troubled; a narrow chest cannot guide people, and people accept the truth with gentleness and a wide chest.", "فإن الصدر إذا ضاق، لم يصلح صاحبه لهداية الخلق"),
+      difficulty: 2,
+      questions: [
+        { q: "Why did Musa ask Allah to open his chest, per as-Sa'di on 20:25?", a: "To bear people's harm", wrong: ["To breathe more air", "To grow taller", "To get rich"], why: "A wide chest bears harm in word and deed without trouble." },
+        { q: "Who cannot guide people well, per as-Sa'di on 20:25?", a: "One with a narrow chest", wrong: ["One who is gentle", "One who is patient", "One who is kind"], why: "When the chest is narrow, a person is not fit to guide others." },
+        { tf: true, q: "People accept the truth more with gentleness and patience.", why: "As-Sa'di on 20:25." }
+      ]
+    },
+    {
       slug: "harun-my-brother",
       title: "Harun, my brother",
       line: "Musa asked for Harun as helper, to remember Allah much.",
@@ -255,6 +269,20 @@ const TAHA_ONE: DeepUnit = {
         { q: "How were they told to speak, in 20:44?", a: "Mildly", wrong: ["Loudly", "Harshly", "Not at all"], why: "And speak to him mildly, perhaps he may accept admonition or fear Allah." },
         { q: "Why speak softly, per Ibn Kathir?", a: "It reaches the heart more", wrong: ["Fir'awn was deaf", "To save time", "To sound weak"], why: "So that the message may have more effect on the souls, and so it would have deeper and more beneficial results." },
         { q: "What should they not slacken in, in 20:42?", a: "Remembering Allah", wrong: ["Walking", "Eating", "Sleeping"], why: "And do not, you both, slacken and become weak in My remembrance." }
+      ]
+    },
+    {
+      slug: "how-gentle-words-sound",
+      title: "How gentle words sound",
+      line: "Gentle words invite; harsh words push people away.",
+      facts: ["As-Sa'di explains", "Gentle speech"],
+      quote: q20(44),
+      source: saadi(20, 44, "As-Sa'di says gentle words lead a person to remember and fear, while harsh words drive people away; the gentle words are explained in An-Nazi'at 79:18-19, asking him would he purify himself, an offer that no one minds, inviting him to purify himself.", "فإن القول اللين داع لذلك، والقول الغليظ منفر عن صاحبه"),
+      difficulty: 2,
+      questions: [
+        { q: "What do harsh words do, per as-Sa'di on 20:44?", a: "Drive people away", wrong: ["Win hearts", "Teach faster", "Bring peace"], why: "Harsh words push people away from the speaker." },
+        { q: "Where are the gentle words to Fir'awn shown, per as-Sa'di?", a: "An-Nazi'at 79:18-19", wrong: ["Al-Fatihah 1:1", "Al-Ikhlas 112:1", "An-Nas 114:1"], why: "There Musa says: would you purify yourself?" },
+        { tf: true, q: "Musa invited Fir'awn as an offer, not an order.", why: "As-Sa'di on 20:44." }
       ]
     },
     {

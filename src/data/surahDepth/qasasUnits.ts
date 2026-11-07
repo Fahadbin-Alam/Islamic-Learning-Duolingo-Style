@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Qasas ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -352,6 +352,20 @@ const QASAS_TWO: DeepUnit = {
         { q: "Where did Musa rest, per Ibn Abbas?", a: "Beneath a tree", wrong: ["In a cave", "In a palace", "By the sea"], why: "Ibn Abbas, Ibn Masud and As-Suddi said: He sat beneath a tree." },
         { q: "What did Musa say, in 28:24?", a: "I am in need of Your good", wrong: ["I am the strongest", "Pay me now", "I want to go home"], why: "My Lord! Truly, I am in need of whatever good that You bestow on me!" },
         { tf: true, q: "Musa asked Allah, not people, for what he needed.", why: "My Lord! Truly, I am in need of whatever good that You bestow on me!" }
+      ]
+    },
+    {
+      slug: "asking-by-your-state",
+      title: "Asking by your state",
+      line: "Showing Allah your need is even more moving than words.",
+      facts: ["As-Sa'di explains", "Dua by one's state"],
+      quote: q28(24),
+      source: saadi(28, 24, "As-Sa'di says Musa watered the flocks seeking only Allah's pleasure, then in the shade asked his Lord for provision by showing his need, and asking by one's state is more eloquent than asking in words.", "والسؤال بالحال أبلغ من السؤال بلسان المقال"),
+      difficulty: 2,
+      questions: [
+        { q: "How did Musa ask Allah, per as-Sa'di on 28:24?", a: "By showing his need", wrong: ["By complaining", "By demanding wages", "By staying silent forever"], why: "He asked by showing his state of need, says as-Sa'di." },
+        { q: "Why did Musa water the women's flocks, per as-Sa'di?", a: "Only for Allah's pleasure", wrong: ["For a wage", "To get a job", "To show off"], why: "He sought no wage, only the Face of Allah." },
+        { tf: true, q: "Asking by one's state can say more than asking in words.", why: "As-Sa'di on 28:24." }
       ]
     }
   ]
@@ -811,6 +825,20 @@ const QASAS_FIVE: DeepUnit = {
         { q: "Who guides hearts, in 28:56?", a: "Allah", wrong: ["The Prophet ﷺ alone", "Parents", "Teachers"], why: "Verily, you guide not whom you like, but Allah guides whom He wills." },
         { q: "What is our duty, per Ibn Kathir?", a: "To convey the Message", wrong: ["To force belief", "To stay silent", "To judge hearts"], why: "All that you have to do is convey the Message, and Allah will guide whom He wills." },
         { q: "About whom was 28:56 revealed?", a: "Abu Talib, the Prophet's ﷺ uncle", wrong: ["Abu Bakr", "Umar", "Hamzah"], why: "This Ayah was revealed concerning Abu Talib, the paternal uncle of the Messenger of Allah ﷺ." }
+      ]
+    },
+    {
+      slug: "two-kinds-of-guidance",
+      title: "Two kinds of guidance",
+      line: "The Prophet ﷺ shows the way; only Allah puts faith in hearts.",
+      facts: ["As-Sa'di explains", "Hidayah"],
+      quote: q28(56),
+      source: saadi(28, 56, "As-Sa'di says there are two kinds of guidance: showing and explaining the way, which the Prophet ﷺ did, and putting faith into hearts, which only Allah can do; had he ﷺ been able, he would have guided his uncle Abu Talib.", "فتلك هداية البيان والإرشاد"),
+      difficulty: 2,
+      questions: [
+        { q: "Which guidance did the Prophet ﷺ give, per as-Sa'di?", a: "Showing and explaining the way", wrong: ["Putting faith in hearts", "None at all", "Only to his family"], why: "His was the guidance of explaining and directing, says as-Sa'di." },
+        { q: "Who alone puts faith into hearts, per as-Sa'di on 28:56?", a: "Allah", wrong: ["Parents", "Teachers", "Kings"], why: "Creating faith in the heart is in Allah's hand alone." },
+        { tf: true, q: "The Prophet ﷺ gave his uncle Abu Talib the best advice of all.", why: "As-Sa'di on 28:56." }
       ]
     },
     {

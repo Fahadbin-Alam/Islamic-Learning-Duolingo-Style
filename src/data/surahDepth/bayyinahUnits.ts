@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Bayyinah ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -119,6 +119,20 @@ const BAYYINAH_ONE: DeepUnit = {
       ]
     },
     {
+      slug: "one-root-one-religion",
+      title: "One root, one religion",
+      line: "All of Allah's Books came with one root and one religion.",
+      facts: ["As-Sa'di explains", "Clear proof should unite"],
+      quote: q98(4),
+      source: saadi(98, 4, "As-Sa'di says the clear proof should have brought them together, since all the Books came with one root and one religion.", "جاءت بأصل واحد"),
+      difficulty: 2,
+      questions: [
+        { q: "What did all of Allah's Books come with?", a: "One root and one religion", wrong: ["Many gods", "Different religions", "Only stories"], why: "All the Books came with one root and one religion, says as-Sa'di." },
+        { q: "What should clear proof bring to people?", a: "Unity", wrong: ["Splitting", "Wars", "Pride"], why: "Proof that should bring its people together." },
+        { tf: false, q: "Allah's Books taught different religions.", why: "One root, one religion. As-Sa'di on 98:4." }
+      ]
+    },
+    {
       slug: "worship-allah-sincerely",
       title: "Worship Allah sincerely",
       line: "They were only told to worship Allah alone, sincerely.",
@@ -227,6 +241,20 @@ const BAYYINAH_TWO: DeepUnit = {
         { q: "What flows beneath the gardens, per 98:8?", a: "Rivers", wrong: ["Sand", "Smoke", "Snow"], why: "Eternal Gardens, underneath which rivers flow." },
         { q: "How long will they stay, per Ibn Kathir?", a: "Forever with no end", wrong: ["A hundred years", "One night", "Until they get bored"], why: "Having no end, no break and no conclusion." },
         { tf: true, q: "The reward is given by their Lord.", why: "Their reward with their Lord is Eternal Gardens." }
+      ]
+    },
+    {
+      slug: "gardens-of-adn",
+      title: "Gardens of Adn",
+      line: "Adn means staying: no one there wants to move or leave.",
+      facts: ["As-Sa'di explains", "Adn: a home to stay in"],
+      quote: q98(8),
+      source: saadi(98, 8, "As-Sa'di says Gardens of Adn are gardens of staying: no leaving, no moving, and no wish for anything above them.", "لا ظعن فيها ولا رحيل"),
+      difficulty: 2,
+      questions: [
+        { q: "What does Adn mean, per as-Sa'di?", a: "Staying", wrong: ["Traveling", "Waiting", "Testing"], why: "Gardens of residence, says as-Sa'di." },
+        { q: "Will its people want to leave?", a: "Never", wrong: ["After a while", "Every year", "When bored"], why: "No leaving and no moving away." },
+        { tf: true, q: "No one in Paradise wishes for a better place.", why: "No seeking anything above it. As-Sa'di on 98:8." }
       ]
     },
     {

@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Abasa ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -230,6 +230,20 @@ const ABASA_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "burial-an-honour",
+      title: "Burial, an honour",
+      line: "Allah honoured people with graves, unlike animals.",
+      facts: ["As-Sa'di explains", "Qabr: a grave"],
+      quote: q80(21),
+      source: saadi(80, 21, "As-Sa'di says Allah honoured the human being with burial, and did not leave his body on the ground like other animals.", "أي: أكرمه بالدفن"),
+      difficulty: 1,
+      questions: [
+        { q: "What does as-Sa'di say burial is?", a: "An honour from Allah", wrong: ["A punishment", "Only a custom", "Not needed"], why: "He honoured him with burial. As-Sa'di on 80:21." },
+        { q: "How is the human body treated, unlike animals?", a: "It is buried", wrong: ["It is left out", "It is burned", "It is thrown away"], why: "Animals are left on the ground; people are buried." },
+        { tf: true, q: "Only Allah gives life, death and the rising again.", why: "No one shares that with Him. As-Sa'di on 80:22." }
+      ]
+    },
+    {
       slug: "one-bone-remains",
       title: "One bone remains",
       line: "From one tiny bone that never decays, people will be rebuilt.",
@@ -325,6 +339,20 @@ const ABASA_TWO: DeepUnit = {
         { q: "What two trees are named in 80:29?", a: "Olives and date palms", wrong: ["Apples and pears", "Oak and pine", "Figs and lemons"], why: "And olives and date palms." },
         { q: "How are olives used, per Ibn Kathir?", a: "Eaten and used as oil", wrong: ["Only as wood", "Only as perfume", "Not used"], why: "It is eaten for breakfast and used as an oil." },
         { tf: true, q: "Dates are eaten unripe, ripe and dried.", why: "All of which are varieties of dates that range from unripe, ripe and dried in their textures." }
+      ]
+    },
+    {
+      slug: "why-these-four",
+      title: "Why these four?",
+      line: "Grain, grapes, olives and dates are named for their benefits.",
+      facts: ["As-Sa'di explains", "Look at your food"],
+      quote: q80(29),
+      source: saadi(80, 29, "As-Sa'di says Allah named grain, grapes, olives and dates out of all foods because they have so many uses and benefits.", "وخص هذه الأربعة لكثرة فوائدها ومنافعها"),
+      difficulty: 1,
+      questions: [
+        { q: "Why are grain, grapes, olives and dates named?", a: "For their many benefits", wrong: ["They are rare", "They are cheap", "No reason"], why: "Named for how many benefits they have, says as-Sa'di." },
+        { q: "Which food is one of the four in Abasa?", a: "Olives", wrong: ["Rice", "Bananas", "Apples"], why: "Grain, grapes, olives and dates." },
+        { tf: true, q: "Looking at our food should make us thank Allah.", why: "As-Sa'di on 80:32." }
       ]
     },
     {

@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Muslimo numbers</title>
+  <link rel="icon" href="favicon.png">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    main { max-width: 980px; }
+    .bar { max-width: 980px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 12px 0 24px; }
+    .tile { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; }
+    .tile .label { color: var(--muted); font-size: 14px; }
+    .tile .value { font-size: 32px; font-weight: 700; line-height: 1.2; font-variant-numeric: tabular-nums; }
+    .tile .note { color: var(--muted); font-size: 13px; }
+    .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    input[type=password], input[type=number] { font: inherit; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); color: var(--text); }
+    input[type=password] { flex: 1; min-width: 220px; }
+    input[type=number] { width: 110px; }
+    button { font: inherit; font-weight: 600; padding: 8px 16px; border-radius: 10px; border: 0; background: var(--accent); color: #fff; cursor: pointer; }
+    button.ghost { background: transparent; color: var(--accent); border: 1px solid var(--border); }
+    .status { color: var(--muted); margin: 8px 0; min-height: 1.4em; }
+    .status.bad { color: #c0392b; }
+    .chart { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 12px 12px 4px; margin-bottom: 8px; }
+    .chart svg { display: block; width: 100%; height: 180px; }
+    .chart .tip { position: absolute; pointer-events: none; background: var(--text); color: var(--bg); font-size: 13px; padding: 4px 8px; border-radius: 8px; white-space: nowrap; display: none; }
+    .chart .axis { font-size: 11px; fill: var(--muted); }
+    table { border-collapse: collapse; font-size: 14px; }
+    td, th { padding: 2px 10px; text-align: right; border-bottom: 1px solid var(--border); }
+    th:first-child, td:first-child { text-align: left; }
+    .links a { display: inline-block; margin: 4px 12px 4px 0; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="bar">
+      <a class="brand" href="./"><img src="icon.png" alt="">Muslimo numbers</a>
+      <span id="updated" class="note" style="color:var(--muted);font-size:14px"></span>
+    </div>
+  </header>
+  <main>
+    <section id="lock" class="card">
+      <h2 style="margin-top:0">Owner only</h2>
+      <p>Type the stats password (the <code>SIRA_ADMIN_KEY</code> you set on Render). It is kept on this device only.</p>
+      <form id="keyForm" class="row">
+        <input id="key" type="password" autocomplete="current-password" placeholder="Stats password" required>
+        <button type="submit">Show numbers</button>
+      </form>
+    </section>
+    <p id="status" class="status"></p>
+
+    <section id="dash" class="hidden">
+      <div class="row" style="justify-content:space-between">
+        <h2 style="margin:0">Users</h2>
+        <div class="row"><button class="ghost" id="refresh">Refresh</button><button class="ghost" id="forget">Forget password</button></div>
+      </div>
+      <div class="grid" id="userTiles"></div>
+
+      <h3>New accounts per day</h3>
+      <div class="chart" id="chartNew"></div>
+      <h3>People who did a lesson, per day</h3>
+      <div class="chart" id="chartLearners"></div>
+      <details><summary>Show as a table</summary><div id="table"></div></details>
+
+      <h2>Money</h2>
+      <div class="grid" id="moneyTiles"></div>
+      <p class="note" style="color:var(--muted);font-size:14px">Ad money here is a guess: daily learners × $0.01 to $0.03 a day. The exact amount is only in AdMob. Plans show what stores pay out after their 15% cut.</p>
+
+      <h2>What we will have</h2>
+      <p style="margin-top:0">If new accounts keep coming at the last 14 days' speed, <b id="perDay">0</b> a day:</p>
+      <div class="grid" id="futureTiles"></div>
+      <div class="card">
+        <b>Try a number:</b>
+        <div class="row" style="margin-top:6px">With <input id="whatIf" type="number" min="0" step="100" value="1000"> people learning every day, ads would make about <b id="whatIfOut"></b> a month.</div>
+      </div>
+
+      <h2>Exact numbers from the stores</h2>
+      <p style="margin-top:0">These need your own login, so open them yourself:</p>
+      <div class="links">
+        <a href="https://apps.admob.com/" target="_blank" rel="noopener">AdMob: real ad money</a>
+        <a href="https://play.google.com/console/" target="_blank" rel="noopener">Play Console: Android installs</a>
+        <a href="https://appstoreconnect.apple.com/analytics" target="_blank" rel="noopener">App Store Connect: iPhone installs</a>
+        <a href="https://appstoreconnect.apple.com/itc/payments_and_financial_reports" target="_blank" rel="noopener">Apple payments</a>
+      </div>
+      <p class="note" style="color:var(--muted);font-size:14px">Users here are people with a Muslimo account. Someone who uses the app without signing in shows in the store installs but not here.</p>
+    </section>
+  </main>
+  <script>
+    const API = "https://muslimo-api.onrender.com/api/admin/stats";
+    const KEY_STORE = "muslimo-stats-key";
+    const RAMADAN = new Date("2027-02-08T00:00:00Z");
+    const $ = (id) => document.getElementById(id);
+    const fmt = (n) => Math.round(n).toLocaleString("en-US");
+    const usd = (n) => n >= 100 ? "$" + fmt(n) : "$" + n.toFixed(2);
+    const range = (pair) => usd(pair[0]) + " to " + usd(pair[1]);
+    let rate = [0.01, 0.03];
+
+    function setStatus(text, bad) { $("status").textContent = text; $("status").className = "status" + (bad ? " bad" : ""); }
+
+    function tile(label, value, note) {
+      return '<div class="tile"><div class="label">' + label + '</div><div class="value">' + value + '</div>' + (note ? '<div class="note">' + note + '</div>' : "") + "</div>";
+    }
+
+    function barChart(el, days, values, unit) {
+      const w = 600, h = 180, padL = 28, padB = 20, padT = 8;
+      const max = Math.max(1, ...values);
+      const step = (w - padL) / values.length;
+      const bw = Math.max(2, step - 2);
+      const y = (v) => h - padB - (v / max) * (h - padB - padT);
+      let svg = '<svg viewBox="0 0 ' + w + " " + h + '" preserveAspectRatio="none" role="img" aria-label="' + unit + ' per day">';
+      [0, max].forEach((t) => { svg += '<line x1="' + padL + '" x2="' + w + '" y1="' + y(t) + '" y2="' + y(t) + '" stroke="var(--border)" stroke-width="1"/><text class="axis" x="' + (padL - 4) + '" y="' + (y(t) + 4) + '" text-anchor="end">' + t + "</text>"; });
+      values.forEach((v, i) => {
+        const x = padL + i * step + 1, top = y(v), hgt = Math.max(0, h - padB - top);
+        if (hgt > 0) {
+          const r = Math.min(4, bw / 2, hgt);
+          svg += '<path d="M' + x + "," + (h - padB) + "V" + (top + r) + "Q" + x + "," + top + " " + (x + r) + "," + top + "H" + (x + bw - r) + "Q" + (x + bw) + "," + top + " " + (x + bw) + "," + (top + r) + "V" + (h - padB) + 'Z" fill="var(--accent)"/>';
+        }
+        svg += '<rect class="hit" data-i="' + i + '" x="' + (padL + i * step) + '" y="0" width="' + step + '" height="' + h + '" fill="transparent"/>';
+      });
+      [0, values.length - 1].forEach((i) => { svg += '<text class="axis" x="' + (padL + i * step + step / 2) + '" y="' + (h - 4) + '" text-anchor="' + (i ? "end" : "start") + '">' + days[i].slice(5) + "</text>"; });
+      svg += "</svg>";
+      el.innerHTML = svg + '<div class="tip"></div>';
+      const tip = el.querySelector(".tip");
+      el.querySelectorAll(".hit").forEach((hit) => {
+        hit.addEventListener("pointerenter", (e) => {
+          const i = +hit.dataset.i;
+          tip.textContent = days[i] + ": " + values[i] + " " + unit;
+          tip.style.display = "block";
+          const box = el.getBoundingClientRect(), r = hit.getBoundingClientRect();
+          tip.style.left = Math.min(box.width - tip.offsetWidth - 4, Math.max(4, r.left - box.left + r.width / 2 - tip.offsetWidth / 2)) + "px";
+          tip.style.top = "4px";
+        });
+        hit.addEventListener("pointerleave", () => { tip.style.display = "none"; });
+      });
+    }
+
+    function render(d) {
+      const u = d.users, m = d.money, s = d.series;
+      rate = m.adRatePerDailyUserUsd || rate;
+      $("updated").textContent = "Updated " + new Date(d.generatedAt).toLocaleString();
+      $("userTiles").innerHTML =
+        tile("Total accounts", fmt(u.total), fmt(u.new.last7) + " new this week, " + fmt(u.new.today) + " today") +
+        tile("Opened the app today", fmt(u.active.today), fmt(u.active.last7) + " this week, " + fmt(u.active.last30) + " this month") +
+        tile("Did a lesson yesterday", fmt(u.dailyLearnersYesterday), "Average " + u.avgDailyLearners7 + " a day this week") +
+        tile("On a 7+ day streak", fmt(u.streak7Plus), fmt(u.lessonsDone) + " lessons finished in all") +
+        tile("Joined by invite", fmt(u.invitesUsed), "Signed in with " + Object.entries(u.signInBy).map(([k, v]) => (k === "password" ? "email" : k) + " " + v).join(", "));
+      barChart($("chartNew"), s.days, s.newAccounts, "new accounts");
+      barChart($("chartLearners"), s.days, s.learners, "learners");
+      $("table").innerHTML = "<table><tr><th>Day</th><th>New accounts</th><th>Did a lesson</th></tr>" +
+        s.days.map((day, i) => "<tr><td>" + day + "</td><td>" + s.newAccounts[i] + "</td><td>" + s.learners[i] + "</td></tr>").reverse().join("") + "</table>";
+
+      const paid = Object.values(m.paidPlans).reduce((a, b) => a + b, 0);
+      $("moneyTiles").innerHTML =
+        tile("Ads, per month (guess)", range(m.adsPerMonthUsd), range(m.adsPerDayUsd) + " a day") +
+        tile("Paid plans, per month", usd(m.subscriptionsMonthlyUsd), paid ? fmt(paid) + " paying, " + m.freeTrials + " on a free trial" : "Paid plans are not switched on yet") +
+        tile("Total, per month (guess)", range([m.adsPerMonthUsd[0] + m.subscriptionsMonthlyUsd, m.adsPerMonthUsd[1] + m.subscriptionsMonthlyUsd]));
+
+      const last14 = s.newAccounts.slice(-15, -1);
+      const perDay = last14.reduce((a, b) => a + b, 0) / Math.max(1, last14.length);
+      const learnShare = u.total ? u.avgDailyLearners7 / u.total : 0;
+      $("perDay").textContent = perDay.toFixed(1);
+      const daysTo = (date) => Math.max(0, Math.round((date - Date.now()) / 86400000));
+      const future = (label, days) => {
+        const total = u.total + perDay * days, learners = total * learnShare;
+        return tile(label, fmt(total) + " users", "About " + fmt(learners) + " learning a day, ads " + range([learners * rate[0] * 30, learners * rate[1] * 30]) + " a month");
+      };
+      $("futureTiles").innerHTML = future("In 30 days", 30) + future("In 90 days", 90) + future("By Ramadan (Feb 8, 2027)", daysTo(RAMADAN)) + future("In 1 year", 365);
+      updateWhatIf();
+      $("lock").classList.add("hidden");
+      $("dash").classList.remove("hidden");
+    }
+
+    function updateWhatIf() {
+      const n = Math.max(0, +$("whatIf").value || 0);
+      $("whatIfOut").textContent = range([n * rate[0] * 30, n * rate[1] * 30]);
+    }
+
+    async function load() {
+      const key = localStorage.getItem(KEY_STORE);
+      if (!key) { $("lock").classList.remove("hidden"); return; }
+      // The free server sleeps when nobody uses it and can take up to a minute to wake, so keep trying.
+      for (let attempt = 1; attempt <= 6; attempt++) {
+        setStatus(attempt === 1 ? "Loading numbers…" : "Waking the server, this can take a minute… (try " + attempt + " of 6)");
+        try {
+          const res = await fetch(API, { headers: { "X-Admin-Key": key }, cache: "no-store" });
+          if (res.status === 401) { localStorage.removeItem(KEY_STORE); $("lock").classList.remove("hidden"); setStatus("That password is not right. Try again.", true); return; }
+          if (res.status === 404) { setStatus("The stats are switched off on the server: SIRA_ADMIN_KEY is not set on Render yet, or the new server code is not live.", true); $("lock").classList.remove("hidden"); return; }
+          if (!res.ok) throw new Error("Server said " + res.status);
+          render(await res.json());
+          setStatus("");
+          return;
+        } catch (err) {
+          await new Promise((r) => setTimeout(r, 10000));
+        }
+      }
+      setStatus("Could not reach the server. Check your internet and press Refresh.", true);
+    }
+
+    $("keyForm").addEventListener("submit", (e) => { e.preventDefault(); localStorage.setItem(KEY_STORE, $("key").value.trim()); $("key").value = ""; load(); });
+    $("refresh").addEventListener("click", load);
+    $("forget").addEventListener("click", () => { localStorage.removeItem(KEY_STORE); location.reload(); });
+    $("whatIf").addEventListener("input", updateWhatIf);
+    load();
+  </script>
+</body>
+</html>
