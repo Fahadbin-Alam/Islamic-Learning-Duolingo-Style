@@ -45,7 +45,7 @@ const hadithLesson = (allLessons.find((lesson) => lesson.id.startsWith("lesson-n
   allLessons.find((lesson) => lesson.id.startsWith("lesson-notes-hadith")) ??
   salam) as Lesson;
 // The longest quote in the course and a lesson with fact chips (a prophet or companion).
-const longQuoteLesson = allLessons.filter((lesson) => lesson.quote).sort((a, b) => (b.quote?.text.length ?? 0) - (a.quote?.text.length ?? 0))[0] ?? hadithLesson;
+const longQuoteLesson = allLessons.filter((lesson) => lesson.quote).sort((a, b) => (b.quote?.text?.length ?? 0) - (a.quote?.text?.length ?? 0))[0] ?? hadithLesson;
 // An Arabic ayah with Listen and Repeat under it (a surah lesson).
 const ayahLesson =
   allLessons.find((lesson) => /^Quran \d+:\d+$/.test(lesson.quote?.reference ?? "") && /^[\u0600-\u06FF\s]+$/.test(lesson.quote?.text ?? "")) ?? hadithLesson;
