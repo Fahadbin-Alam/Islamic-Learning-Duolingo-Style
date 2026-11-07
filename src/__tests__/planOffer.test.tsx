@@ -36,6 +36,7 @@ import { monetizationClient } from "../services/monetization";
 import {
   addHeartVideo,
   canSellInStore,
+  plansOnSale,
   LESSONS_BETWEEN_PLAN_OFFERS,
   mayOfferPlans,
   MIN_MS_BETWEEN_PLAN_OFFERS,
@@ -116,6 +117,12 @@ describe("plan offer rules", () => {
   it("is never offered in a live build whose store is not set up yet (the tester builds)", () => {
     expect(canSellInStore("live", "android")).toBe(false);
     expect(canSellInStore("disabled", "android")).toBe(false);
+  });
+
+  it("waits in a live build until the store has priced at least one plan", () => {
+    expect(plansOnSale("live", "android", 0)).toBe(false);
+    expect(plansOnSale("disabled", "android", 4)).toBe(false);
+    expect(plansOnSale("sandbox", "android", 0)).toBe(true);
   });
 });
 

@@ -96,3 +96,5 @@ On Apple, put all four subscriptions in **one** subscription group, with the Pre
 
 ### 6. Turn it on
 Put the values from `.env.example` into the EAS environment (`eas env:create`), set `EXPO_PUBLIC_MONETIZATION_MODE=live`, build, and test with an Apple sandbox tester and a Google Play license tester before release.
+
+The plans un-hide by themselves: a live build shows them (in the shop, on Premium units and in the pop-up offer) as soon as it has a RevenueCat key **and** the store returns at least one subscription with its price. Until a plan is approved in Play Console or App Store Connect, or when the phone cannot reach the store, the plans stay hidden instead of showing a Buy button that would fail (`plansOnSale` in `src/services/monetizationConfig.ts`).

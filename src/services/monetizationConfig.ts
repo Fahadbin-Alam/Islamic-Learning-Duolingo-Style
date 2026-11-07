@@ -86,6 +86,15 @@ export function canSellInStore(mode: MonetizationMode, platform: StorePlatform) 
   return mode === "sandbox" || (mode === "live" && Boolean(revenueCatApiKey(platform)));
 }
 
+/**
+ * The plans are shown only when they can really be bought. In a live build that also means the store
+ * returned at least one subscription with its price, so a plan that is not yet approved in Play Console or
+ * App Store Connect (or a phone that cannot reach the store) never shows a Buy button that would only fail.
+ */
+export function plansOnSale(mode: MonetizationMode, platform: StorePlatform, pricedSubscriptions: number) {
+  return canSellInStore(mode, platform) && (mode !== "live" || pricedSubscriptions > 0);
+}
+
 export function storePlatform(os: string): StorePlatform {
   return os === "ios" || os === "android" ? os : "web";
 }
