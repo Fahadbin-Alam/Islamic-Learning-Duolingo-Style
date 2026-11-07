@@ -1,4 +1,11 @@
-import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
   Animated,
   Easing,
@@ -13,11 +20,15 @@ import {
   type NativeScrollEvent,
   type NativeSyntheticEvent,
   type StyleProp,
-  type ViewStyle
+  type ViewStyle,
 } from "react-native";
 import Svg, { Circle } from "react-native-svg";
 import type { ArabicTerm } from "../../data/arabicTerms";
-import { canSellInStore, monetizationMode, storePlatform } from "../../services/monetizationConfig";
+import {
+  canSellInStore,
+  monetizationMode,
+  storePlatform,
+} from "../../services/monetizationConfig";
 import type { LearningNodeView } from "../../types";
 import { ArabicText, withHonorifics } from "../ArabicText";
 import { noBreakHyphens } from "../lesson/lessonText";
@@ -25,12 +36,18 @@ import { GameButton } from "../GameButton";
 import { Icon, type IconName } from "../Icon";
 import { Camel, useReduceMotion } from "../Camel";
 import { Mascot } from "../Mascot";
-import { GroundTuft, PathScenery, sceneryFor, type SceneryKind } from "../PathScenery";
+import {
+  GroundTuft,
+  PathScenery,
+  sceneryFor,
+  type SceneryKind,
+} from "../PathScenery";
 import { ROAMERS } from "../roamer";
 import { PathWeather, weatherFor } from "../PathWeather";
 import { WorldTuft, worldFor } from "../pathWorlds";
 import { usePathWorldChoice } from "../../services/pathWorldChoice";
 import { QuakeView, SceneProvider, Snooze, useScene } from "../sceneMood";
+import { SecretHadithProvider } from "../secretHadith";
 import { PopIn, useShake } from "../PopIn";
 import { ProgressBar } from "../ProgressBar";
 import { Sheet } from "../Sheet";
@@ -40,7 +57,12 @@ import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, text, withAlpha } from "../theme";
 import { isRtlLanguage, t } from "../../i18n";
 
-export type PathChest = { id: string; gemsReward: number; unlocked: boolean; claimed: boolean };
+export type PathChest = {
+  id: string;
+  gemsReward: number;
+  unlocked: boolean;
+  claimed: boolean;
+};
 
 export type PathItem =
   | {
@@ -97,7 +119,10 @@ export type LearnPathProps = {
    * The "Jump ahead?" sheet's goal for a unit (and the JUMP HERE circle): its question count and pass mark, so the
    * sheet says "Get 8 of 10 right. 3 misses end it." before the test starts. Undefined: the sheet says just its line.
    */
-  testOutGoal?: (unitId: string, nodeId?: string) => { total: number; passingScore: number } | undefined;
+  testOutGoal?: (
+    unitId: string,
+    nodeId?: string,
+  ) => { total: number; passingScore: number } | undefined;
   /**
    * The circle to play next: START, the ring and the mascot sit on it, and the path scrolls to it. Used while it is
    * open (current or available) outside a premium unit; otherwise, and by default, the first "current" circle.
@@ -187,7 +212,13 @@ function offsetFor(index: number) {
 
 function hueOf(hex: string) {
   const raw = hex.replace("#", "");
-  const full = raw.length === 3 ? raw.split("").map((c) => c + c).join("") : raw.slice(0, 6);
+  const full =
+    raw.length === 3
+      ? raw
+          .split("")
+          .map((c) => c + c)
+          .join("")
+      : raw.slice(0, 6);
   const value = /^[0-9a-fA-F]{6}$/.test(full) ? full : colors.green.slice(1);
   const parsed = Number.parseInt(value, 16);
   const r = ((parsed >> 16) & 255) / 255;
@@ -196,7 +227,12 @@ function hueOf(hex: string) {
   const max = Math.max(r, g, b);
   const delta = max - Math.min(r, g, b);
   if (delta === 0) return 0;
-  const h = max === r ? ((g - b) / delta) % 6 : max === g ? (b - r) / delta + 2 : (r - g) / delta + 4;
+  const h =
+    max === r
+      ? ((g - b) / delta) % 6
+      : max === g
+        ? (b - r) / delta + 2
+        : (r - g) / delta + 4;
   return (h * 60 + 360) % 360;
 }
 
@@ -210,13 +246,18 @@ const UNIT_TINTS = ["#14A6A6", "#8B5CF6", "#E07B12", "#E8557A", "#2F8FE0"];
 
 export function unitColors(accent: string): string[] {
   const accentHue = hueOf(accent);
-  const picks = UNIT_TINTS.filter((tint) => hueDistance(hueOf(tint), accentHue) >= 45).slice(0, 3);
+  const picks = UNIT_TINTS.filter(
+    (tint) => hueDistance(hueOf(tint), accentHue) >= 45,
+  ).slice(0, 3);
   return [accent, ...picks];
 }
 
 // ---------- small animated pieces ----------
 
-function useLoop(make: (value: Animated.Value) => Animated.CompositeAnimation, active = true) {
+function useLoop(
+  make: (value: Animated.Value) => Animated.CompositeAnimation,
+  active = true,
+) {
   const value = useRef(new Animated.Value(0)).current;
   useEffect(() => {
     if (!active) {
@@ -233,21 +274,46 @@ function useLoop(make: (value: Animated.Value) => Animated.CompositeAnimation, a
 
 function pingPong(value: Animated.Value, duration: number, delay = 0) {
   return Animated.sequence([
-    Animated.timing(value, { toValue: 1, duration, delay, easing: Easing.inOut(Easing.quad), useNativeDriver: true }),
-    Animated.timing(value, { toValue: 0, duration, easing: Easing.inOut(Easing.quad), useNativeDriver: true })
+    Animated.timing(value, {
+      toValue: 1,
+      duration,
+      delay,
+      easing: Easing.inOut(Easing.quad),
+      useNativeDriver: true,
+    }),
+    Animated.timing(value, {
+      toValue: 0,
+      duration,
+      easing: Easing.inOut(Easing.quad),
+      useNativeDriver: true,
+    }),
   ]);
 }
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
-function ProgressRing({ color, track, progress }: { color: string; track: string; progress: number }) {
+function ProgressRing({
+  color,
+  track,
+  progress,
+}: {
+  color: string;
+  track: string;
+  progress: number;
+}) {
   const target = Math.min(1, Math.max(0, progress));
   const anim = useRef(new Animated.Value(0)).current;
 
   // The ring fills by moving its own stroke, frame by frame, without drawing the path again each frame (that used to
   // keep the phone busy for the second after the path opened, just when a learner taps).
   useEffect(() => {
-    const timing = Animated.timing(anim, { toValue: target, duration: 900, delay: 250, easing: Easing.out(Easing.cubic), useNativeDriver: false });
+    const timing = Animated.timing(anim, {
+      toValue: target,
+      duration: 900,
+      delay: 250,
+      easing: Easing.out(Easing.cubic),
+      useNativeDriver: false,
+    });
     timing.start();
     return () => timing.stop();
   }, [anim, target]);
@@ -255,12 +321,25 @@ function ProgressRing({ color, track, progress }: { color: string; track: string
   const stroke = 7;
   const radius = (RING - stroke) / 2;
   const circumference = 2 * Math.PI * radius;
-  const dashOffset = anim.interpolate({ inputRange: [0, 1], outputRange: [circumference, 0] });
+  const dashOffset = anim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [circumference, 0],
+  });
   // Hidden while empty: a round cap on a stroke of no length still draws a dot.
-  const fillOpacity = anim.interpolate({ inputRange: [0, 0.001, 1], outputRange: [0, 1, 1] });
+  const fillOpacity = anim.interpolate({
+    inputRange: [0, 0.001, 1],
+    outputRange: [0, 1, 1],
+  });
   return (
     <Svg width={RING} height={RING} style={styles.ring} pointerEvents="none">
-      <Circle cx={RING / 2} cy={RING / 2} r={radius} stroke={track} strokeWidth={stroke} fill="none" />
+      <Circle
+        cx={RING / 2}
+        cy={RING / 2}
+        r={radius}
+        stroke={track}
+        strokeWidth={stroke}
+        fill="none"
+      />
       <AnimatedCircle
         cx={RING / 2}
         cy={RING / 2}
@@ -280,9 +359,15 @@ function ProgressRing({ color, track, progress }: { color: string; track: string
 
 function StartTag({ color }: { color: string }) {
   const bounce = useLoop((value) => pingPong(value, 520));
-  const translateY = bounce.interpolate({ inputRange: [0, 1], outputRange: [0, -6] });
+  const translateY = bounce.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, -6],
+  });
   return (
-    <Animated.View style={[styles.tagWrap, { transform: [{ translateY }] }]} pointerEvents="none">
+    <Animated.View
+      style={[styles.tagWrap, { transform: [{ translateY }] }]}
+      pointerEvents="none"
+    >
       <View style={styles.tag}>
         <Text style={[styles.tagText, { color }]}>{t("START")}</Text>
       </View>
@@ -291,12 +376,27 @@ function StartTag({ color }: { color: string }) {
   );
 }
 
-function Sparkle({ delay, style }: { delay: number; style: StyleProp<ViewStyle> }) {
+function Sparkle({
+  delay,
+  style,
+}: {
+  delay: number;
+  style: StyleProp<ViewStyle>;
+}) {
   const twinkle = useLoop((value) => pingPong(value, 600, delay));
-  const scale = twinkle.interpolate({ inputRange: [0, 1], outputRange: [0.5, 1.1] });
-  const opacity = twinkle.interpolate({ inputRange: [0, 1], outputRange: [0.2, 1] });
+  const scale = twinkle.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0.5, 1.1],
+  });
+  const opacity = twinkle.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0.2, 1],
+  });
   return (
-    <Animated.View style={[styles.sparkle, style, { opacity, transform: [{ scale }] }]} pointerEvents="none">
+    <Animated.View
+      style={[styles.sparkle, style, { opacity, transform: [{ scale }] }]}
+      pointerEvents="none"
+    >
       <Icon name="sparkle" size={18} />
     </Animated.View>
   );
@@ -304,26 +404,59 @@ function Sparkle({ delay, style }: { delay: number; style: StyleProp<ViewStyle> 
 
 // ---------- node ----------
 
-type NodeLook = { face: string; lip: string; icon: IconName; iconColor: string; iconDetail?: string };
+type NodeLook = {
+  face: string;
+  lip: string;
+  icon: IconName;
+  iconColor: string;
+  iconDetail?: string;
+};
 
 const LOCKED_ICON = darken(colors.lockedLip, 0.12);
 /** Dark brown label on gold, as in the kit's gold GameButton. */
 const GOLD_INK = darken(colors.goldLip, 0.52);
 
-function nodeLook(node: LearningNodeView, color: string, unitDone: boolean, premium: boolean): NodeLook {
-  const kindIcon: IconName = node.kind === "review" ? "trophy" : node.kind === "story" ? "book" : "star";
+function nodeLook(
+  node: LearningNodeView,
+  color: string,
+  unitDone: boolean,
+  premium: boolean,
+): NodeLook {
+  const kindIcon: IconName =
+    node.kind === "review" ? "trophy" : node.kind === "story" ? "book" : "star";
   if (premium && node.status !== "completed") {
-    return { face: colors.locked, lip: colors.lockedLip, icon: "lock", iconColor: LOCKED_ICON };
+    return {
+      face: colors.locked,
+      lip: colors.lockedLip,
+      icon: "lock",
+      iconColor: LOCKED_ICON,
+    };
   }
   switch (node.status) {
     case "completed":
-      return { face: colors.gold, lip: colors.goldLip, icon: unitDone ? "crown" : "check", iconColor: colors.white };
+      return {
+        face: colors.gold,
+        lip: colors.goldLip,
+        icon: unitDone ? "crown" : "check",
+        iconColor: colors.white,
+      };
     case "locked":
-      return { face: colors.locked, lip: colors.lockedLip, icon: node.kind === "skill" ? "lock" : kindIcon, iconColor: LOCKED_ICON };
+      return {
+        face: colors.locked,
+        lip: colors.lockedLip,
+        icon: node.kind === "skill" ? "lock" : kindIcon,
+        iconColor: LOCKED_ICON,
+      };
     default: {
       const lip = darken(color, 0.22);
       // A white book or trophy keeps its spine and pages in the lip color; the star stays plain white.
-      return { face: color, lip, icon: kindIcon, iconColor: colors.white, iconDetail: kindIcon === "star" ? undefined : lip };
+      return {
+        face: color,
+        lip,
+        icon: kindIcon,
+        iconColor: colors.white,
+        iconDetail: kindIcon === "star" ? undefined : lip,
+      };
     }
   }
 }
@@ -339,16 +472,39 @@ function CurrentHalo({ color }: { color: string }) {
   const pulse = useLoop(
     (value) =>
       Animated.sequence([
-        Animated.timing(value, { toValue: 1, duration: 1500, easing: Easing.out(Easing.quad), useNativeDriver: true }),
-        Animated.timing(value, { toValue: 0, duration: 0, useNativeDriver: true }),
-        Animated.delay(500)
+        Animated.timing(value, {
+          toValue: 1,
+          duration: 1500,
+          easing: Easing.out(Easing.quad),
+          useNativeDriver: true,
+        }),
+        Animated.timing(value, {
+          toValue: 0,
+          duration: 0,
+          useNativeDriver: true,
+        }),
+        Animated.delay(500),
       ]),
-    !reduceMotion
+    !reduceMotion,
   );
   if (reduceMotion) return null;
-  const scale = pulse.interpolate({ inputRange: [0, 1], outputRange: [0.95, 1.5] });
-  const opacity = pulse.interpolate({ inputRange: [0, 0.15, 1], outputRange: [0, 0.45, 0] });
-  return <Animated.View style={[styles.halo, { backgroundColor: color, opacity, transform: [{ scale }] }]} pointerEvents="none" />;
+  const scale = pulse.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0.95, 1.5],
+  });
+  const opacity = pulse.interpolate({
+    inputRange: [0, 0.15, 1],
+    outputRange: [0, 0.45, 0],
+  });
+  return (
+    <Animated.View
+      style={[
+        styles.halo,
+        { backgroundColor: color, opacity, transform: [{ scale }] },
+      ]}
+      pointerEvents="none"
+    />
+  );
 }
 
 const PathNode = memo(function PathNode({
@@ -360,7 +516,7 @@ const PathNode = memo(function PathNode({
   current,
   progress,
   showIcon = true,
-  onPress
+  onPress,
 }: {
   rowKey: string;
   node: LearningNodeView;
@@ -375,34 +531,82 @@ const PathNode = memo(function PathNode({
 }) {
   const look = nodeLook(node, color, unitDone, premium);
   const press = useRef(new Animated.Value(0)).current;
-  const translateY = press.interpolate({ inputRange: [0, 1], outputRange: [0, NODE_LIP] });
+  const translateY = press.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, NODE_LIP],
+  });
   const locked = look.face === colors.locked;
 
   return (
     <View style={styles.nodeBox}>
       <View style={styles.nodeGround} pointerEvents="none" />
       {current ? <CurrentHalo color={color} /> : null}
-      {current ? <ProgressRing color={color} track={lighten(color, 0.78)} progress={progress ?? 0} /> : null}
+      {current ? (
+        <ProgressRing
+          color={color}
+          track={lighten(color, 0.78)}
+          progress={progress ?? 0}
+        />
+      ) : null}
       <Pressable
         onPress={() => {
           feedback("node_tap", "medium");
           onPress(rowKey);
         }}
-        onPressIn={() => Animated.timing(press, { toValue: 1, duration: 60, useNativeDriver: true }).start()}
-        onPressOut={() => Animated.spring(press, { toValue: 0, friction: 5, tension: 260, useNativeDriver: true }).start()}
+        onPressIn={() =>
+          Animated.timing(press, {
+            toValue: 1,
+            duration: 60,
+            useNativeDriver: true,
+          }).start()
+        }
+        onPressOut={() =>
+          Animated.spring(press, {
+            toValue: 0,
+            friction: 5,
+            tension: 260,
+            useNativeDriver: true,
+          }).start()
+        }
         accessibilityRole="button"
         accessibilityLabel={`${node.title}, ${premium ? t("premium") : current ? t("start") : t(node.status)}`}
         testID={`path-node-${node.id}`}
         style={styles.nodeHit}
       >
-        <View style={[styles.nodeLip, { backgroundColor: look.lip }]} pointerEvents="none" />
-        <Animated.View style={[styles.nodeFace, { backgroundColor: look.face, transform: [{ translateY }] }]} pointerEvents="none">
+        <View
+          style={[styles.nodeLip, { backgroundColor: look.lip }]}
+          pointerEvents="none"
+        />
+        <Animated.View
+          style={[
+            styles.nodeFace,
+            { backgroundColor: look.face, transform: [{ translateY }] },
+          ]}
+          pointerEvents="none"
+        >
           {/* A darker lower half and a light rim make the flat circle read as a round, pressable button. */}
-          <View style={[styles.nodeShade, { backgroundColor: withAlpha(look.lip, locked ? 0.18 : 0.22) }]} />
-          <View style={[styles.nodeRim, { borderColor: withAlpha(colors.white, locked ? 0.45 : 0.28) }]} />
+          <View
+            style={[
+              styles.nodeShade,
+              { backgroundColor: withAlpha(look.lip, locked ? 0.18 : 0.22) },
+            ]}
+          />
+          <View
+            style={[
+              styles.nodeRim,
+              { borderColor: withAlpha(colors.white, locked ? 0.45 : 0.28) },
+            ]}
+          />
           <View style={styles.nodeShine} />
           <View style={styles.nodeShineDot} />
-          {showIcon ? <Icon name={look.icon} size={29} color={look.iconColor} detailColor={look.iconDetail} /> : null}
+          {showIcon ? (
+            <Icon
+              name={look.icon}
+              size={29}
+              color={look.iconColor}
+              detailColor={look.iconDetail}
+            />
+          ) : null}
         </Animated.View>
       </Pressable>
     </View>
@@ -415,7 +619,9 @@ type Hint = { icon: IconName; label: string };
 
 /** A two-word bubble that pops up over a path item for a moment. Each tap re-pops it. */
 function useHint() {
-  const [hint, setHint] = useState<(Hint & { seq: number }) | undefined>(undefined);
+  const [hint, setHint] = useState<(Hint & { seq: number }) | undefined>(
+    undefined,
+  );
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   useEffect(() => () => clearTimeout(timer.current), []);
   const show = useCallback((next: Hint) => {
@@ -426,13 +632,23 @@ function useHint() {
   return { hint, show };
 }
 
-function HintBubble({ hint, bottom }: { hint?: Hint & { seq: number }; bottom: number }) {
+function HintBubble({
+  hint,
+  bottom,
+}: {
+  hint?: Hint & { seq: number };
+  bottom: number;
+}) {
   if (!hint) return null;
   return (
     <View style={[styles.hintSlot, { bottom }]} pointerEvents="none">
       <PopIn key={hint.seq} style={styles.hintPop}>
         <View style={styles.hint} testID="path-hint">
-          <Icon name={hint.icon} size={18} color={hint.icon === "lock" ? colors.inkSoft : undefined} />
+          <Icon
+            name={hint.icon}
+            size={18}
+            color={hint.icon === "lock" ? colors.inkSoft : undefined}
+          />
           <Text style={styles.hintText} numberOfLines={1}>
             {hint.label}
           </Text>
@@ -445,20 +661,45 @@ function HintBubble({ hint, bottom }: { hint?: Hint & { seq: number }; bottom: n
 
 // ---------- chest ----------
 
-function PathChestView({ chest, onClaim }: { chest: PathChest; onClaim: () => void }) {
+function PathChestView({
+  chest,
+  onClaim,
+}: {
+  chest: PathChest;
+  onClaim: () => void;
+}) {
   const ready = chest.unlocked && !chest.claimed;
   const wiggle = useLoop(
     (value) =>
       Animated.sequence([
-        Animated.timing(value, { toValue: 1, duration: 90, useNativeDriver: true }),
-        Animated.timing(value, { toValue: -1, duration: 140, useNativeDriver: true }),
-        Animated.timing(value, { toValue: 0.6, duration: 120, useNativeDriver: true }),
-        Animated.timing(value, { toValue: 0, duration: 100, useNativeDriver: true }),
-        Animated.delay(1300)
+        Animated.timing(value, {
+          toValue: 1,
+          duration: 90,
+          useNativeDriver: true,
+        }),
+        Animated.timing(value, {
+          toValue: -1,
+          duration: 140,
+          useNativeDriver: true,
+        }),
+        Animated.timing(value, {
+          toValue: 0.6,
+          duration: 120,
+          useNativeDriver: true,
+        }),
+        Animated.timing(value, {
+          toValue: 0,
+          duration: 100,
+          useNativeDriver: true,
+        }),
+        Animated.delay(1300),
       ]),
-    ready
+    ready,
   );
-  const rotate = wiggle.interpolate({ inputRange: [-1, 1], outputRange: ["-9deg", "9deg"] });
+  const rotate = wiggle.interpolate({
+    inputRange: [-1, 1],
+    outputRange: ["-9deg", "9deg"],
+  });
   const { style: shakeStyle, shake } = useShake(6);
   const bounce = useRef(new Animated.Value(1)).current;
   const { hint, show } = useHint();
@@ -468,8 +709,17 @@ function PathChestView({ chest, onClaim }: { chest: PathChest; onClaim: () => vo
     if (chest.claimed) {
       bounce.setValue(1);
       Animated.sequence([
-        Animated.timing(bounce, { toValue: 1.12, duration: 110, useNativeDriver: true }),
-        Animated.spring(bounce, { toValue: 1, friction: 4, tension: 220, useNativeDriver: true })
+        Animated.timing(bounce, {
+          toValue: 1.12,
+          duration: 110,
+          useNativeDriver: true,
+        }),
+        Animated.spring(bounce, {
+          toValue: 1,
+          friction: 4,
+          tension: 220,
+          useNativeDriver: true,
+        }),
       ]).start();
       show({ icon: "check", label: t("Opened!") });
     } else {
@@ -492,19 +742,35 @@ function PathChestView({ chest, onClaim }: { chest: PathChest; onClaim: () => vo
         sound={ready ? "reward_chest" : "soft_ui"}
         hapticKind={ready ? "success" : "light"}
         pressScale={0.9}
-        accessibilityLabel={ready ? t("Open chest, {count} dates", { count: chest.gemsReward }) : chest.claimed ? t("Opened chest") : t("Locked chest")}
+        accessibilityLabel={
+          ready
+            ? t("Open chest, {count} dates", { count: chest.gemsReward })
+            : chest.claimed
+              ? t("Opened chest")
+              : t("Locked chest")
+        }
         testID={`path-chest-${chest.id}`}
       >
         <Animated.View style={shakeStyle}>
-          <Animated.View style={[styles.chestArt, { transform: [{ scale: bounce }] }]}>
+          <Animated.View
+            style={[styles.chestArt, { transform: [{ scale: bounce }] }]}
+          >
             {/* A solid plate behind the chest, like the circles have, so busy scenery never swallows it. */}
-            <View style={[styles.chestPlate, ready ? styles.chestPlateReady : null]} />
+            <View
+              style={[styles.chestPlate, ready ? styles.chestPlateReady : null]}
+            />
             <View style={styles.groundShadow} />
             <Animated.View style={{ transform: [{ rotate }] }}>
               <Icon name={chest.claimed ? "chestOpen" : "chest"} size={CHEST} />
             </Animated.View>
             {!ready ? (
-              <View style={[styles.chestBadge, chest.claimed ? styles.chestBadgeDone : null]} pointerEvents="none">
+              <View
+                style={[
+                  styles.chestBadge,
+                  chest.claimed ? styles.chestBadgeDone : null,
+                ]}
+                pointerEvents="none"
+              >
                 <Icon name={chest.claimed ? "check" : "lock"} size={13} />
               </View>
             ) : null}
@@ -531,12 +797,24 @@ const PART_END = /(^|-)(review(-\d+)?|final-quiz)$/;
  * The first circle of the next part, when `node` is a circle to play that is not itself a review: a test of the
  * circles from here to the part's review lets a learner who knows the story skip to it.
  */
-export function nextPartStart(unit: PathUnit, node: LearningNodeView): LearningNodeView | undefined {
-  if (node.status === "locked" || node.status === "completed" || PART_END.test(node.id)) return undefined;
-  const nodes = unit.items.flatMap((item) => (item.kind === "node" ? [item.node] : []));
+export function nextPartStart(
+  unit: PathUnit,
+  node: LearningNodeView,
+): LearningNodeView | undefined {
+  if (
+    node.status === "locked" ||
+    node.status === "completed" ||
+    PART_END.test(node.id)
+  )
+    return undefined;
+  const nodes = unit.items.flatMap((item) =>
+    item.kind === "node" ? [item.node] : [],
+  );
   const at = nodes.findIndex((item) => item.id === node.id);
   if (at < 0) return undefined;
-  const end = nodes.findIndex((item, index) => index > at && PART_END.test(item.id));
+  const end = nodes.findIndex(
+    (item, index) => index > at && PART_END.test(item.id),
+  );
   return end > at ? nodes[end + 1] : undefined;
 }
 
@@ -554,7 +832,7 @@ function NodeCard({
   onPremium,
   onJump,
   onSkipPart,
-  onCardLayout
+  onCardLayout,
 }: {
   item: Extract<PathItem, { kind: "node" }>;
   color: string;
@@ -586,17 +864,42 @@ function NodeCard({
 
   let action: React.ReactNode;
   if (premium && onPremium && canBuyPremium) {
-    action = <GameButton label={t("Unlock")} icon="crown" variant="gold" fullWidth onPress={onPremium} style={styles.cardButton} testID="node-card-unlock" />;
+    action = (
+      <GameButton
+        label={t("Unlock")}
+        icon="crown"
+        variant="gold"
+        fullWidth
+        onPress={onPremium}
+        style={styles.cardButton}
+        testID="node-card-unlock"
+      />
+    );
   } else if (grey) {
     // Why it is locked, in a few words, and a way forward when the unit can be tested out.
     action = (
       <>
         <View style={styles.lockedRow} testID="node-card-locked">
-          <Icon name={premium ? "crown" : "lock"} size={22} color={premium ? undefined : colors.inkSoft} />
-          <Text style={styles.lockedText}>{premium ? t("Premium lesson") : t("Finish the one before it!")}</Text>
+          <Icon
+            name={premium ? "crown" : "lock"}
+            size={22}
+            color={premium ? undefined : colors.inkSoft}
+          />
+          <Text style={styles.lockedText}>
+            {premium ? t("Premium lesson") : t("Finish the one before it!")}
+          </Text>
         </View>
         {onJump ? (
-          <GameButton label={t("Jump here")} icon="key" variant="white" color={colors.gemLip} fullWidth onPress={onJump} style={styles.cardButton} testID="node-card-jump" />
+          <GameButton
+            label={t("Jump here")}
+            icon="key"
+            variant="white"
+            color={colors.gemLip}
+            fullWidth
+            onPress={onJump}
+            style={styles.cardButton}
+            testID="node-card-jump"
+          />
         ) : null}
       </>
     );
@@ -604,7 +907,18 @@ function NodeCard({
     action = (
       <GameButton
         // A finished circle pays nothing again, so its button says just PRACTICE.
-        label={xp > 0 ? t(node.status === "completed" ? "Practice +{count} XP" : "Start +{count} XP", { count: xp }) : node.status === "completed" ? t("Practice") : t("Start")}
+        label={
+          xp > 0
+            ? t(
+                node.status === "completed"
+                  ? "Practice +{count} XP"
+                  : "Start +{count} XP",
+                { count: xp },
+              )
+            : node.status === "completed"
+              ? t("Practice")
+              : t("Start")
+        }
         variant="white"
         color={color}
         fullWidth
@@ -636,26 +950,50 @@ function NodeCard({
   return (
     <PopIn from="down" style={styles.cardWrap}>
       <View onLayout={(event) => onCardLayout(event.nativeEvent.layout.height)}>
-        <View onStartShouldSetResponder={swallow} onResponderRelease={ignore} style={[styles.cardArrow, { left: arrowX - 11, backgroundColor: face }]} />
         <View
           onStartShouldSetResponder={swallow}
           onResponderRelease={ignore}
-          style={[styles.card, { backgroundColor: face, borderBottomColor: lipColor }]}
+          style={[
+            styles.cardArrow,
+            { left: arrowX - 11, backgroundColor: face },
+          ]}
+        />
+        <View
+          onStartShouldSetResponder={swallow}
+          onResponderRelease={ignore}
+          style={[
+            styles.card,
+            { backgroundColor: face, borderBottomColor: lipColor },
+          ]}
           testID="node-card"
         >
-          <Text style={[styles.cardTitle, { color: ink }]}>{withHonorifics(noBreakHyphens(node.title))}</Text>
+          <Text style={[styles.cardTitle, { color: ink }]}>
+            {withHonorifics(noBreakHyphens(node.title))}
+          </Text>
           {arabic ? (
             <ArabicText
               size={arabicSize}
               weight="bold"
               color={ink}
               align={isRtlLanguage() ? "right" : "left"}
-              style={[styles.cardArabic, { lineHeight: arabicSize === 28 ? 40 : 34 }, grey ? styles.soft : null]}
+              style={[
+                styles.cardArabic,
+                { lineHeight: arabicSize === 28 ? 40 : 34 },
+                grey ? styles.soft : null,
+              ]}
             >
               {arabic.ar}
             </ArabicText>
           ) : null}
-          <Text style={[styles.cardSmall, { color: ink }, grey ? styles.soft : styles.light]}>{t("{place} of {count}", { place, count })}</Text>
+          <Text
+            style={[
+              styles.cardSmall,
+              { color: ink },
+              grey ? styles.soft : styles.light,
+            ]}
+          >
+            {t("{place} of {count}", { place, count })}
+          </Text>
           {action}
         </View>
       </View>
@@ -669,7 +1007,13 @@ function bannerFace(color: string) {
   return darken(color, 0.1);
 }
 
-function PremiumPill({ unitId, onPress }: { unitId: string; onPress?: () => void }) {
+function PremiumPill({
+  unitId,
+  onPress,
+}: {
+  unitId: string;
+  onPress?: () => void;
+}) {
   const inner = (
     <>
       <Icon name="crown" size={20} />
@@ -684,7 +1028,13 @@ function PremiumPill({ unitId, onPress }: { unitId: string; onPress?: () => void
     );
   }
   return (
-    <Tappable onPress={onPress} pressScale={0.92} accessibilityLabel={t("Premium")} testID={`unit-premium-${unitId}`} style={styles.premiumPill}>
+    <Tappable
+      onPress={onPress}
+      pressScale={0.92}
+      accessibilityLabel={t("Premium")}
+      testID={`unit-premium-${unitId}`}
+      style={styles.premiumPill}
+    >
       {inner}
     </Tappable>
   );
@@ -695,7 +1045,7 @@ function UnitBanner({
   color,
   onTestOut,
   onPremium,
-  onBannerLayout
+  onBannerLayout,
 }: {
   unit: PathUnit;
   color: string;
@@ -707,14 +1057,25 @@ function UnitBanner({
   const face = bannerFace(color);
   return (
     <View
-      style={[styles.banner, { backgroundColor: face, borderBottomColor: darken(color, 0.3) }]}
+      style={[
+        styles.banner,
+        { backgroundColor: face, borderBottomColor: darken(color, 0.3) },
+      ]}
       onLayout={(event) => onBannerLayout(event.nativeEvent.layout.height)}
       testID={`unit-banner-${unit.id}`}
     >
       <View style={styles.unitRow}>
-        <Text style={styles.unitLabel} numberOfLines={1}>{t("UNIT {count}", { count: unit.number })}</Text>
+        <Text style={styles.unitLabel} numberOfLines={1}>
+          {t("UNIT {count}", { count: unit.number })}
+        </Text>
         {unit.arabic ? (
-          <ArabicText size={unit.arabic.ar.length > 12 ? 18 : 20} weight="bold" color={colors.white} align={isRtlLanguage() ? "left" : "right"} style={styles.bannerArabic}>
+          <ArabicText
+            size={unit.arabic.ar.length > 12 ? 18 : 20}
+            weight="bold"
+            color={colors.white}
+            align={isRtlLanguage() ? "left" : "right"}
+            style={styles.bannerArabic}
+          >
             {unit.arabic.ar}
           </ArabicText>
         ) : null}
@@ -724,19 +1085,33 @@ function UnitBanner({
         {withHonorifics(noBreakHyphens(unit.title))}
       </Text>
       <View style={styles.bannerBottom}>
-        <ProgressBar progress={progress} color={colors.white} trackColor={withAlpha(colors.ink, 0.2)} height={10} style={styles.bannerBar} />
+        <ProgressBar
+          progress={progress}
+          color={colors.white}
+          trackColor={withAlpha(colors.ink, 0.2)}
+          height={10}
+          style={styles.bannerBar}
+        />
         <Text style={styles.bannerCount}>{`${unit.done}/${unit.total}`}</Text>
-        {unit.premiumLocked ? <PremiumPill unitId={unit.id} onPress={onPremium} /> : null}
+        {unit.premiumLocked ? (
+          <PremiumPill unitId={unit.id} onPress={onPremium} />
+        ) : null}
         {onTestOut ? (
           <Tappable
             onPress={onTestOut}
             pressScale={0.9}
             accessibilityLabel={t("Jump ahead")}
             testID={`unit-test-out-${unit.id}`}
-            style={[styles.keyButton, { borderBottomColor: darken(color, 0.3) }]}
+            style={[
+              styles.keyButton,
+              { borderBottomColor: darken(color, 0.3) },
+            ]}
           >
             <Icon name="key" size={20} />
-            <Text style={[styles.keyLabel, { color: darken(color, 0.35) }]} numberOfLines={1}>
+            <Text
+              style={[styles.keyLabel, { color: darken(color, 0.35) }]}
+              numberOfLines={1}
+            >
               {t("Test out")}
             </Text>
           </Tappable>
@@ -746,18 +1121,44 @@ function UnitBanner({
   );
 }
 
-function StickyBanner({ unit, color, onMeasure }: { unit: PathUnit; color: string; onMeasure: (height: number) => void }) {
+function StickyBanner({
+  unit,
+  color,
+  onMeasure,
+}: {
+  unit: PathUnit;
+  color: string;
+  onMeasure: (height: number) => void;
+}) {
   return (
-    <View style={styles.stickyWrap} testID="path-sticky" onLayout={(event) => onMeasure(event.nativeEvent.layout.height)}>
+    <View
+      style={styles.stickyWrap}
+      testID="path-sticky"
+      onLayout={(event) => onMeasure(event.nativeEvent.layout.height)}
+    >
       <PopIn from="down">
-        <View style={[styles.sticky, { backgroundColor: bannerFace(color), borderBottomColor: darken(color, 0.3) }]} testID={`path-sticky-${unit.id}`}>
+        <View
+          style={[
+            styles.sticky,
+            {
+              backgroundColor: bannerFace(color),
+              borderBottomColor: darken(color, 0.3),
+            },
+          ]}
+          testID={`path-sticky-${unit.id}`}
+        >
           <View style={styles.stickyText}>
-            <Text style={styles.stickyUnit} numberOfLines={1}>{t("UNIT {count}", { count: unit.number })}</Text>
+            <Text style={styles.stickyUnit} numberOfLines={1}>
+              {t("UNIT {count}", { count: unit.number })}
+            </Text>
             <Text style={styles.stickyTitle} numberOfLines={2}>
               {withHonorifics(noBreakHyphens(unit.title))}
             </Text>
           </View>
-          <Text style={styles.stickyCount} numberOfLines={1}>{`${unit.done}/${unit.total}`}</Text>
+          <Text
+            style={styles.stickyCount}
+            numberOfLines={1}
+          >{`${unit.done}/${unit.total}`}</Text>
         </View>
       </PopIn>
     </View>
@@ -770,8 +1171,15 @@ function StickyBanner({ unit, color, onMeasure }: { unit: PathUnit; color: strin
 export function testOutGoalLine(goal: { total: number; passingScore: number }) {
   const endingMiss = Math.max(1, goal.total - goal.passingScore + 1);
   return endingMiss === 1
-    ? t("Get {count} of {total} right. 1 miss ends it.", { count: goal.passingScore, total: goal.total })
-    : t("Get {count} of {total} right. {misses} misses end it.", { count: goal.passingScore, total: goal.total, misses: endingMiss });
+    ? t("Get {count} of {total} right. 1 miss ends it.", {
+        count: goal.passingScore,
+        total: goal.total,
+      })
+    : t("Get {count} of {total} right. {misses} misses end it.", {
+        count: goal.passingScore,
+        total: goal.total,
+        misses: endingMiss,
+      });
 }
 
 function TestOutSheet({
@@ -781,7 +1189,7 @@ function TestOutSheet({
   mascotVariant,
   goal,
   onStart,
-  onClose
+  onClose,
 }: {
   visible: boolean;
   /** The test's question count and pass mark, said before it starts. */
@@ -795,27 +1203,71 @@ function TestOutSheet({
   onClose: () => void;
 }) {
   return (
-    <Sheet visible={visible} onClose={onClose} bottomInset={0} testID="test-out-sheet">
+    <Sheet
+      visible={visible}
+      onClose={onClose}
+      bottomInset={0}
+      testID="test-out-sheet"
+    >
       <View style={styles.jumpHead}>
-        <View style={[styles.jumpKey, { backgroundColor: lighten(color, 0.86), borderBottomColor: lighten(color, 0.6) }]}>
+        <View
+          style={[
+            styles.jumpKey,
+            {
+              backgroundColor: lighten(color, 0.86),
+              borderBottomColor: lighten(color, 0.6),
+            },
+          ]}
+        >
           <Icon name="key" size={30} />
         </View>
-        <Text style={styles.jumpTitle} accessibilityRole="header" numberOfLines={2}>
+        <Text
+          style={styles.jumpTitle}
+          accessibilityRole="header"
+          numberOfLines={2}
+        >
           {t("Jump ahead?")}
         </Text>
       </View>
       <View style={styles.jumpMascotRow}>
-        <Mascot variant={mascotVariant} mood="think" accent={accent} size={84} />
-        <SpeechBubble style={styles.jumpBubble}>{t("Pass a quick test to skip ahead!")}</SpeechBubble>
+        <Mascot
+          variant={mascotVariant}
+          mood="think"
+          accent={accent}
+          size={84}
+        />
+        <SpeechBubble style={styles.jumpBubble}>
+          {t("Pass a quick test to skip ahead!")}
+        </SpeechBubble>
       </View>
       {goal ? (
-        <View style={[styles.jumpGoal, { backgroundColor: lighten(color, 0.9) }]} testID="test-out-sheet-goal">
+        <View
+          style={[styles.jumpGoal, { backgroundColor: lighten(color, 0.9) }]}
+          testID="test-out-sheet-goal"
+        >
           <Icon name="check" size={20} color={darken(color, 0.25)} />
-          <Text style={[styles.jumpGoalText, { color: darken(color, 0.45) }]}>{testOutGoalLine(goal)}</Text>
+          <Text style={[styles.jumpGoalText, { color: darken(color, 0.45) }]}>
+            {testOutGoalLine(goal)}
+          </Text>
         </View>
       ) : null}
-      <GameButton label={t("Start test")} color={color} sound="unlock" fullWidth onPress={onStart} testID="test-out-start" />
-      <GameButton label={t("Not now")} variant="ghost" color={colors.inkSoft} fullWidth onPress={onClose} style={styles.jumpGhost} testID="test-out-cancel" />
+      <GameButton
+        label={t("Start test")}
+        color={color}
+        sound="unlock"
+        fullWidth
+        onPress={onStart}
+        testID="test-out-start"
+      />
+      <GameButton
+        label={t("Not now")}
+        variant="ghost"
+        color={colors.inkSoft}
+        fullWidth
+        onPress={onClose}
+        style={styles.jumpGhost}
+        testID="test-out-cancel"
+      />
     </Sheet>
   );
 }
@@ -825,16 +1277,41 @@ function TestOutSheet({
 /** The night sky behind the whole path; it shows when the day skies fade out (see sceneMood.tsx). */
 function NightSky({ top, bottom }: { top: number; bottom: number }) {
   const { dark } = useScene();
-  return <Animated.View pointerEvents="none" style={[styles.nightSky, { top, bottom, opacity: dark }]} testID="path-night-sky" />;
+  return (
+    <Animated.View
+      pointerEvents="none"
+      style={[styles.nightSky, { top, bottom, opacity: dark }]}
+      testID="path-night-sky"
+    />
+  );
 }
 
 /** The path's kid: tap for a reaction; falls asleep with the rest when the screen is left alone. */
-function PathMascot({ variant, mood, accent, testID }: { variant: string; mood: "happy" | "cheer"; accent: string; testID: string }) {
+function PathMascot({
+  variant,
+  mood,
+  accent,
+  testID,
+}: {
+  variant: string;
+  mood: "happy" | "cheer";
+  accent: string;
+  testID: string;
+}) {
   const { asleep } = useScene();
   return (
     <View>
-      <Mascot variant={variant} mood={asleep ? "sleepy" : mood} size={MASCOT_SIZE} accent={accent} tappable testID={testID} />
-      {asleep ? <Snooze x={MASCOT_SIZE * 0.7} y={MASCOT_H * 0.12} size={20} /> : null}
+      <Mascot
+        variant={variant}
+        mood={asleep ? "sleepy" : mood}
+        size={MASCOT_SIZE}
+        accent={accent}
+        tappable
+        testID={testID}
+      />
+      {asleep ? (
+        <Snooze x={MASCOT_SIZE * 0.7} y={MASCOT_H * 0.12} size={20} />
+      ) : null}
     </View>
   );
 }
@@ -846,7 +1323,7 @@ function PathEnd({
   color,
   mascotVariant,
   width,
-  onNextTopic
+  onNextTopic,
 }: {
   done: boolean;
   color: string;
@@ -855,28 +1332,61 @@ function PathEnd({
   onNextTopic?: () => void;
 }) {
   const bob = useLoop((value) => pingPong(value, 700), done);
-  const translateY = bob.interpolate({ inputRange: [0, 1], outputRange: [0, -6] });
+  const translateY = bob.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, -6],
+  });
   const { style: shakeStyle, shake } = useShake(6);
   const { hint, show } = useHint();
   const center = width / 2;
   const mascotLeft = Math.max(8, center - END_NODE / 2 - 18 - MASCOT_W);
   const camelStart = center + END_NODE / 2 + 14;
-  const camelRange = Math.max(0, Math.min(CAMEL_WALK / 2, width - 8 - camelStart - CAMEL_SIZE));
+  const camelRange = Math.max(
+    0,
+    Math.min(CAMEL_WALK / 2, width - 8 - camelStart - CAMEL_SIZE),
+  );
 
   return (
     <View style={styles.end} testID="path-end">
       <View style={styles.endStage}>
-        <View style={[styles.mascot, { left: mascotLeft, top: (END_NODE + END_LIP - MASCOT_H) / 2 + 4 }]} pointerEvents="box-none">
-          <PathMascot variant={mascotVariant} mood={done ? "cheer" : "happy"} accent={color} testID="path-end-mascot" />
+        <View
+          style={[
+            styles.mascot,
+            { left: mascotLeft, top: (END_NODE + END_LIP - MASCOT_H) / 2 + 4 },
+          ]}
+          pointerEvents="box-none"
+        >
+          <PathMascot
+            variant={mascotVariant}
+            mood={done ? "cheer" : "happy"}
+            accent={color}
+            testID="path-end-mascot"
+          />
         </View>
         {width - 8 - camelStart >= CAMEL_SIZE ? (
-          <View style={[styles.mascot, { left: camelStart, top: END_NODE + END_LIP - CAMEL_H }]} pointerEvents="box-none">
+          <View
+            style={[
+              styles.mascot,
+              { left: camelStart, top: END_NODE + END_LIP - CAMEL_H },
+            ]}
+            pointerEvents="box-none"
+          >
             {/* Faces the trophy; it walks a little victory lap once the topic is done. */}
-            <Camel size={CAMEL_SIZE} range={camelRange} accent={color} walking={done} faceLeft tappable testID="path-end-camel" />
+            <Camel
+              size={CAMEL_SIZE}
+              range={camelRange}
+              accent={color}
+              walking={done}
+              faceLeft
+              tappable
+              testID="path-end-camel"
+            />
           </View>
         ) : null}
         <View style={[styles.endSlot, { left: center - END_NODE / 2 }]}>
-          <Animated.View style={{ transform: [...shakeStyle.transform, { translateY }] }}>
+          <Animated.View
+            style={{ transform: [...shakeStyle.transform, { translateY }] }}
+          >
             <Tappable
               onPress={() => {
                 if (done) {
@@ -888,15 +1398,32 @@ function PathEnd({
               }}
               sound={done ? "xp" : "soft_ui"}
               pressScale={0.92}
-              accessibilityLabel={done ? t("Topic trophy, done") : t("Topic trophy, locked")}
+              accessibilityLabel={
+                done ? t("Topic trophy, done") : t("Topic trophy, locked")
+              }
               testID="path-end-trophy"
               style={styles.endHit}
             >
-              <View style={[styles.endLip, { backgroundColor: done ? colors.goldLip : colors.lockedLip }]} />
-              <View style={[styles.endFace, { backgroundColor: done ? colors.gold : colors.locked }]}>
+              <View
+                style={[
+                  styles.endLip,
+                  { backgroundColor: done ? colors.goldLip : colors.lockedLip },
+                ]}
+              />
+              <View
+                style={[
+                  styles.endFace,
+                  { backgroundColor: done ? colors.gold : colors.locked },
+                ]}
+              >
                 <View style={styles.nodeShine} />
                 {done ? (
-                  <Icon name="trophy" size={40} color={colors.white} detailColor={colors.goldLip} />
+                  <Icon
+                    name="trophy"
+                    size={40}
+                    color={colors.white}
+                    detailColor={colors.goldLip}
+                  />
                 ) : (
                   // The real gold cup, faded: the prize ahead, not one more locked review node.
                   <View style={styles.endFaded}>
@@ -938,7 +1465,13 @@ type RowSpec = {
 
 function animateLayout() {
   try {
-    LayoutAnimation.configureNext(LayoutAnimation.create(220, LayoutAnimation.Types.easeInEaseOut, LayoutAnimation.Properties.opacity));
+    LayoutAnimation.configureNext(
+      LayoutAnimation.create(
+        220,
+        LayoutAnimation.Types.easeInEaseOut,
+        LayoutAnimation.Properties.opacity,
+      ),
+    );
   } catch {
     // Layout animation is optional.
   }
@@ -964,7 +1497,7 @@ export function LearnPath({
   initialFocusId,
   reveal,
   onRevealed,
-  bottomPadding = 32
+  bottomPadding = 32,
 }: LearnPathProps) {
   const scrollRef = useRef<ScrollView>(null);
   const [width, setWidth] = useState(390);
@@ -975,13 +1508,17 @@ export function LearnPath({
   const [cardH, setCardH] = useState<number | undefined>(undefined);
   const [stickyId, setStickyId] = useState<string | undefined>(undefined);
   /** Unit (and the JUMP HERE circle) whose "Jump ahead?" sheet is up; the ids stay while the sheet slides away. */
-  const [testOut, setTestOut] = useState<{ unitId: string; nodeId?: string; open: boolean } | undefined>(undefined);
+  const [testOut, setTestOut] = useState<
+    { unitId: string; nodeId?: string; open: boolean } | undefined
+  >(undefined);
   const [seenTopic, setSeenTopic] = useState(topicId);
   const [seenReveal, setSeenReveal] = useState<string | undefined>(undefined);
   /** The circle `reveal` asked for, until the path has scrolled to it. */
   const [revealId, setRevealId] = useState<string | undefined>(undefined);
   /** Units drawn in full (see LIVE_MARGIN), by index. Unset until the units have measured themselves. */
-  const [live, setLive] = useState<{ lo: number; hi: number } | undefined>(undefined);
+  const [live, setLive] = useState<{ lo: number; hi: number } | undefined>(
+    undefined,
+  );
   /** The screen-high stretch of the path on screen (scroll y / screen height), for long units (LONG_UNIT_ROWS). */
   const [screenBand, setScreenBand] = useState<number | undefined>(undefined);
   const viewport = useRef(0);
@@ -1000,7 +1537,9 @@ export function LearnPath({
   const lastCurrentKey = useRef<string | undefined>(undefined);
   /** The chest the focus scroll kept in sight; when it opens, the path moves on to START. */
   const followChest = useRef<string | undefined>(undefined);
-  const followTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const followTimer = useRef<ReturnType<typeof setTimeout> | undefined>(
+    undefined,
+  );
 
   // A new topic on the same mounted path: drop the open card and re-run the focus scroll.
   if (seenTopic !== topicId) {
@@ -1041,19 +1580,39 @@ export function LearnPath({
     // One START on the path: the first "current" circle outside a premium unit, else the first open one.
     // Library topics open the first circle of every unit, so several circles can be open at once.
     const startable = (status: LearningNodeView["status"]) =>
-      units.some((unit) => !unit.premiumLocked && unit.items.some((item) => item.kind === "node" && item.node.status === status));
-    const startStatus: LearningNodeView["status"] = startable("current") || !startable("available") ? "current" : "available";
+      units.some(
+        (unit) =>
+          !unit.premiumLocked &&
+          unit.items.some(
+            (item) => item.kind === "node" && item.node.status === status,
+          ),
+      );
+    const startStatus: LearningNodeView["status"] =
+      startable("current") || !startable("available") ? "current" : "available";
     // The caller's circle to play next (the one a jump opened) takes START while it is open outside a premium unit.
     const isPreferred = (item: PathItem) =>
-      item.kind === "node" && item.node.id === currentNodeId && (item.node.status === "current" || item.node.status === "available");
-    const preferred = currentNodeId && units.some((unit) => !unit.premiumLocked && unit.items.some(isPreferred)) ? currentNodeId : undefined;
+      item.kind === "node" &&
+      item.node.id === currentNodeId &&
+      (item.node.status === "current" || item.node.status === "available");
+    const preferred =
+      currentNodeId &&
+      units.some((unit) => !unit.premiumLocked && unit.items.some(isPreferred))
+        ? currentNodeId
+        : undefined;
     const byUnit = units.map((unit, unitIndex) => {
       const premium = Boolean(unit.premiumLocked);
       let place = 0;
       const rows: RowSpec[] = unit.items.map((item, index) => {
-        const key = item.kind === "node" ? item.node.id : `chest-${item.chest.id}`;
+        const key =
+          item.kind === "node" ? item.node.id : `chest-${item.chest.id}`;
         // The data may mark the first open node of every branch as "current"; only the first one on the path is.
-        const current = item.kind === "node" && !premium && !currentKey && (preferred ? item.node.id === preferred : item.node.status === startStatus);
+        const current =
+          item.kind === "node" &&
+          !premium &&
+          !currentKey &&
+          (preferred
+            ? item.node.id === preferred
+            : item.node.status === startStatus);
         if (current) {
           currentKey = key;
           currentUnitId = unit.id;
@@ -1065,7 +1624,7 @@ export function LearnPath({
           offset: offsetFor(index),
           current,
           place: item.kind === "node" ? place : 0,
-          height: ROW_H + (current ? CURRENT_EXTRA : 0)
+          height: ROW_H + (current ? CURRENT_EXTRA : 0),
         };
       });
       /** Each row's top inside the unit's rows, before any card opens. */
@@ -1076,20 +1635,36 @@ export function LearnPath({
       }, 0);
       const mascotIndex = rows.findIndex((row) => row.current);
       // The camel walks beside the circle after the one to play next, heading on down the path.
-      const camelIndex = mascotIndex < 0 ? -1 : mascotIndex + 1 < rows.length ? mascotIndex + 1 : mascotIndex - 1;
+      const camelIndex =
+        mascotIndex < 0
+          ? -1
+          : mascotIndex + 1 < rows.length
+            ? mascotIndex + 1
+            : mascotIndex - 1;
       // Topic pictures beside the path, about one every SCENERY_EVERY rows (at least one a unit), never on the
       // mascot's or the camel's row.
       const world = worldFor(worldChoice, topicId, unitIndex);
       const scenery: { index: number; kind: SceneryKind }[] = [];
       const free = (candidate: number) =>
-        candidate < rows.length && candidate !== mascotIndex && candidate !== camelIndex && !scenery.some((spot) => spot.index === candidate);
+        candidate < rows.length &&
+        candidate !== mascotIndex &&
+        candidate !== camelIndex &&
+        !scenery.some((spot) => spot.index === candidate);
       for (let wanted = 2; wanted < rows.length; wanted += SCENERY_EVERY) {
         const candidate = [wanted, wanted + 1, wanted - 1].find(free);
-        if (candidate !== undefined) scenery.push({ index: candidate, kind: sceneryFor(topicId, unitIndex, scenery.length, world) });
+        if (candidate !== undefined)
+          scenery.push({
+            index: candidate,
+            kind: sceneryFor(topicId, unitIndex, scenery.length, world),
+          });
       }
       if (scenery.length === 0) {
         const candidate = [1, 0].find(free);
-        if (candidate !== undefined) scenery.push({ index: candidate, kind: sceneryFor(topicId, unitIndex, 0, world) });
+        if (candidate !== undefined)
+          scenery.push({
+            index: candidate,
+            kind: sceneryFor(topicId, unitIndex, 0, world),
+          });
       }
       return {
         unit,
@@ -1105,40 +1680,66 @@ export function LearnPath({
         rowsHeight: rows.reduce((sum, row) => sum + row.height, 0),
         mascotIndex,
         camelIndex,
-        scenery
+        scenery,
       };
     });
-    const wanted = revealId ?? (focusConsumed.current ? undefined : initialFocusId ?? initialOpenNodeId);
+    const wanted =
+      revealId ??
+      (focusConsumed.current
+        ? undefined
+        : (initialFocusId ?? initialOpenNodeId));
     let focusKey = currentKey;
     let focusUnitId = currentUnitId;
     let focusRatio = 0.45;
     if (wanted) {
       for (const group of byUnit) {
-        const row = group.rows.find((candidate) => candidate.key === wanted || candidate.key === `chest-${wanted}`);
+        const row = group.rows.find(
+          (candidate) =>
+            candidate.key === wanted || candidate.key === `chest-${wanted}`,
+        );
         if (row) {
           focusKey = row.key;
           focusUnitId = group.unit.id;
-          focusRatio = revealId || (initialOpenNodeId && !initialFocusId) ? 0.24 : 0.45;
+          focusRatio =
+            revealId || (initialOpenNodeId && !initialFocusId) ? 0.24 : 0.45;
           break;
         }
       }
     }
     // A chest sits right after the circle that opens it, so a ready chest just before the circle to play
     // next (maybe at the end of the unit before) was just earned: the focus scroll keeps it in sight.
-    const flat = byUnit.flatMap((group) => group.rows.map((row) => ({ row, unitId: group.unit.id })));
-    const before = flat[flat.findIndex((entry) => entry.row.key === currentKey) - 1];
+    const flat = byUnit.flatMap((group) =>
+      group.rows.map((row) => ({ row, unitId: group.unit.id })),
+    );
+    const before =
+      flat[flat.findIndex((entry) => entry.row.key === currentKey) - 1];
     const earnedChest =
-      before && before.row.item.kind === "chest" && before.row.item.chest.unlocked && !before.row.item.chest.claimed
+      before &&
+      before.row.item.kind === "chest" &&
+      before.row.item.chest.unlocked &&
+      !before.row.item.chest.claimed
         ? { key: before.row.key, unitId: before.unitId }
         : undefined;
-    return { byUnit, currentUnitId, currentKey, focusKey, focusUnitId, focusRatio, earnedChest };
+    return {
+      byUnit,
+      currentUnitId,
+      currentKey,
+      focusKey,
+      focusUnitId,
+      focusRatio,
+      earnedChest,
+    };
     // Focus targets are read on mount only (and while a reveal is under way).
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accent, units, topicId, currentNodeId, revealId, worldChoice]);
 
   // When the current node moves (a lesson was finished), follow it.
   if (lastCurrentKey.current !== layout.currentKey) {
-    if (lastCurrentKey.current !== undefined && layout.currentKey !== undefined && seenTopic === topicId) {
+    if (
+      lastCurrentKey.current !== undefined &&
+      layout.currentKey !== undefined &&
+      seenTopic === topicId
+    ) {
       scrolledToCurrent.current = false;
       focusConsumed.current = true;
       animateFocus.current = true;
@@ -1155,7 +1756,7 @@ export function LearnPath({
       }
       return undefined;
     },
-    [layout]
+    [layout],
   );
 
   const absoluteRowY = useCallback((unitId: string, key: string) => {
@@ -1167,7 +1768,10 @@ export function LearnPath({
   }, []);
 
   /** Height of a unit's sticky banner block once it has been shown. */
-  const stickyHeight = useCallback((unit: PathUnit) => stickyH.current[unit.id] ?? STICKY_MIN, []);
+  const stickyHeight = useCallback(
+    (unit: PathUnit) => stickyH.current[unit.id] ?? STICKY_MIN,
+    [],
+  );
 
   const updateSticky = useCallback(
     (y: number) => {
@@ -1177,16 +1781,21 @@ export function LearnPath({
         const { unit } = groups[i];
         const top = unitY.current[unit.id];
         if (top === undefined || top > y) continue;
-        const nextTop = i + 1 < groups.length ? unitY.current[groups[i + 1].unit.id] : undefined;
+        const nextTop =
+          i + 1 < groups.length
+            ? unitY.current[groups[i + 1].unit.id]
+            : undefined;
         const stickyBottom = y + stickyHeight(unit);
         // Take over only once the whole real banner is behind the sticky one, so its bar and count never peek out below.
-        const realBannerShowing = top + UNIT_PAD + (bannerH.current[unit.id] ?? 0) > stickyBottom;
-        const nextBannerArriving = nextTop !== undefined && nextTop + UNIT_PAD < stickyBottom;
+        const realBannerShowing =
+          top + UNIT_PAD + (bannerH.current[unit.id] ?? 0) > stickyBottom;
+        const nextBannerArriving =
+          nextTop !== undefined && nextTop + UNIT_PAD < stickyBottom;
         next = realBannerShowing || nextBannerArriving ? undefined : unit.id;
       }
       setStickyId((previous) => (previous === next ? previous : next));
     },
-    [layout, stickyHeight]
+    [layout, stickyHeight],
   );
 
   const updateLive = useCallback(
@@ -1201,16 +1810,26 @@ export function LearnPath({
       for (let i = 0; i < groups.length; i += 1) {
         const top = unitY.current[groups[i].unit.id];
         if (top === undefined) continue;
-        const bottom = i + 1 < groups.length ? unitY.current[groups[i + 1].unit.id] ?? Infinity : Infinity;
-        if (bottom >= y - screen * LIVE_MARGIN && top <= y + screen * (1 + LIVE_MARGIN)) {
+        const bottom =
+          i + 1 < groups.length
+            ? (unitY.current[groups[i + 1].unit.id] ?? Infinity)
+            : Infinity;
+        if (
+          bottom >= y - screen * LIVE_MARGIN &&
+          top <= y + screen * (1 + LIVE_MARGIN)
+        ) {
           if (lo < 0) lo = i;
           hi = i;
         }
       }
       if (lo < 0) return;
-      setLive((previous) => (previous && previous.lo === lo && previous.hi === hi ? previous : { lo, hi }));
+      setLive((previous) =>
+        previous && previous.lo === lo && previous.hi === hi
+          ? previous
+          : { lo, hi },
+      );
     },
-    [layout]
+    [layout],
   );
 
   /** Never stop with a unit banner half under the top edge: show it whole, or scroll past so the sticky banner takes over. */
@@ -1222,11 +1841,12 @@ export function LearnPath({
         if (top === undefined || height === undefined) continue;
         const whole = top + UNIT_PAD - 8;
         const past = top + UNIT_PAD + height - stickyHeight(group.unit) + 2;
-        if (target > whole && target < past) return allowUp && target - whole < past - target ? whole : past;
+        if (target > whole && target < past)
+          return allowUp && target - whole < past - target ? whole : past;
       }
       return target;
     },
-    [layout, stickyHeight]
+    [layout, stickyHeight],
   );
 
   const scrollTo = useCallback(
@@ -1239,17 +1859,26 @@ export function LearnPath({
       updateSticky(y);
       updateLive(y);
     },
-    [snapPastBanners, updateSticky, updateLive]
+    [snapPastBanners, updateSticky, updateLive],
   );
 
   const tryScrollToCurrent = useCallback(() => {
     const { focusKey, focusUnitId, focusRatio, earnedChest } = layout;
-    if (scrolledToCurrent.current || !focusKey || !focusUnitId || viewport.current <= 0) return;
+    if (
+      scrolledToCurrent.current ||
+      !focusKey ||
+      !focusUnitId ||
+      viewport.current <= 0
+    )
+      return;
     const y = absoluteRowY(focusUnitId, focusKey);
     if (y === undefined) return;
     let target = y + ROW_H / 2 - viewport.current * focusRatio;
     // Never scroll the chest just earned out of sight (or under the sticky banner) on the way to START.
-    const chestUnit = earnedChest && focusKey === layout.currentKey ? units.find((unit) => unit.id === earnedChest.unitId) : undefined;
+    const chestUnit =
+      earnedChest && focusKey === layout.currentKey
+        ? units.find((unit) => unit.id === earnedChest.unitId)
+        : undefined;
     if (earnedChest && chestUnit) {
       const chestY = absoluteRowY(earnedChest.unitId, earnedChest.key);
       if (chestY === undefined) return;
@@ -1259,13 +1888,25 @@ export function LearnPath({
     scrolledToCurrent.current = true;
     focusConsumed.current = true;
     // A long glide outlasts the guard that keeps the open card up while the path moves, so far away is a jump.
-    scrollTo(target, animateFocus.current && Math.abs(target - scrollY.current) < viewport.current * 2);
+    scrollTo(
+      target,
+      animateFocus.current &&
+        Math.abs(target - scrollY.current) < viewport.current * 2,
+    );
     animateFocus.current = false;
     if (revealId) {
       setRevealId(undefined);
       onRevealed?.();
     }
-  }, [absoluteRowY, layout, onRevealed, revealId, scrollTo, stickyHeight, units]);
+  }, [
+    absoluteRowY,
+    layout,
+    onRevealed,
+    revealId,
+    scrollTo,
+    stickyHeight,
+    units,
+  ]);
 
   // Once that chest is opened, bring the circle to play next into view.
   useEffect(() => {
@@ -1273,12 +1914,18 @@ export function LearnPath({
     if (!key || layout.earnedChest?.key === key) return;
     followChest.current = undefined;
     const { currentKey, currentUnitId } = layout;
-    const y = currentKey && currentUnitId ? absoluteRowY(currentUnitId, currentKey) : undefined;
+    const y =
+      currentKey && currentUnitId
+        ? absoluteRowY(currentUnitId, currentKey)
+        : undefined;
     if (y === undefined || viewport.current <= 0) return;
     const nodeBottom = y + CURRENT_EXTRA + NODE + NODE_LIP + 12;
     if (nodeBottom <= scrollY.current + viewport.current) return;
     clearTimeout(followTimer.current);
-    followTimer.current = setTimeout(() => scrollTo(y + ROW_H / 2 - viewport.current * 0.45, true), 250);
+    followTimer.current = setTimeout(
+      () => scrollTo(y + ROW_H / 2 - viewport.current * 0.45, true),
+      250,
+    );
   }, [absoluteRowY, layout, scrollTo]);
   useEffect(() => () => clearTimeout(followTimer.current), []);
 
@@ -1294,8 +1941,17 @@ export function LearnPath({
   }, [topicId, layout.currentKey, tryScrollToCurrent]);
 
   // Keep the opened card on screen once it has measured itself.
-  const onCardLayout = (key: string, unit: PathUnit, top: number, height: number) => {
-    setCardH((previous) => (previous !== undefined && Math.abs(previous - height) < 1 ? previous : height));
+  const onCardLayout = (
+    key: string,
+    unit: PathUnit,
+    top: number,
+    height: number,
+  ) => {
+    setCardH((previous) =>
+      previous !== undefined && Math.abs(previous - height) < 1
+        ? previous
+        : height,
+    );
     if (cardScrolledFor.current === key || viewport.current <= 0) return;
     const y = absoluteRowY(unit.id, key);
     if (y === undefined) return;
@@ -1309,7 +1965,10 @@ export function LearnPath({
       const showCard = cardBottom - viewport.current + 4;
       const sticky = stickyHeight(unit);
       const nodeClear = nodeTop - sticky - 4;
-      const target = showCard <= nodeClear ? showCard : Math.min(showCard, nodeTop + NODE / 2 - sticky);
+      const target =
+        showCard <= nodeClear
+          ? showCard
+          : Math.min(showCard, nodeTop + NODE / 2 - sticky);
       if (target > scrollY.current) scrollTo(target, true, false);
     }
   };
@@ -1335,288 +1994,555 @@ export function LearnPath({
     feedback("soft_ui", "light");
     open(undefined);
   };
-  const unitCanTestOut = (unit: PathUnit) => !unit.premiumLocked && (unit.canTestOut ?? unit.id === layout.currentUnitId);
-  const askTestOut = (unitId: string, nodeId?: string) => setTestOut({ unitId, nodeId, open: true });
+  const unitCanTestOut = (unit: PathUnit) =>
+    !unit.premiumLocked &&
+    (unit.canTestOut ?? unit.id === layout.currentUnitId);
+  const askTestOut = (unitId: string, nodeId?: string) =>
+    setTestOut({ unitId, nodeId, open: true });
   const canJumpTo = (unit: PathUnit, node: LearningNodeView) =>
-    node.status === "locked" && (jumpNodeIds ? !unit.premiumLocked && jumpNodeIds.has(node.id) : unitCanTestOut(unit));
+    node.status === "locked" &&
+    (jumpNodeIds
+      ? !unit.premiumLocked && jumpNodeIds.has(node.id)
+      : unitCanTestOut(unit));
 
   const center = width / 2;
-  const currentUnitIndex = layout.byUnit.findIndex((group) => group.unit.id === layout.currentUnitId);
+  const currentUnitIndex = layout.byUnit.findIndex(
+    (group) => group.unit.id === layout.currentUnitId,
+  );
   // Until the units have measured themselves, draw the ones around where the path opens.
-  const focusUnitIndex = Math.max(0, layout.byUnit.findIndex((group) => group.unit.id === layout.focusUnitId));
-  const isLive = (unitIndex: number) => (live ? unitIndex >= live.lo && unitIndex <= live.hi : Math.abs(unitIndex - focusUnitIndex) <= 1 || unitIndex === 0);
+  const focusUnitIndex = Math.max(
+    0,
+    layout.byUnit.findIndex((group) => group.unit.id === layout.focusUnitId),
+  );
+  const isLive = (unitIndex: number) =>
+    live
+      ? unitIndex >= live.lo && unitIndex <= live.hi
+      : Math.abs(unitIndex - focusUnitIndex) <= 1 || unitIndex === 0;
   // Units farther away than this keep only their banner and an empty stretch of the same height, so a path of
   // thousands of circles (the Quran, ayah by ayah) stays light: only units near the screen hold their circles.
   const isMounted = (unitIndex: number) =>
     unitIndex === 0 ||
     unitIndex === currentUnitIndex ||
-    (live ? unitIndex >= live.lo - MOUNT_MARGIN && unitIndex <= live.hi + MOUNT_MARGIN : Math.abs(unitIndex - focusUnitIndex) <= MOUNT_MARGIN + 1);
+    (live
+      ? unitIndex >= live.lo - MOUNT_MARGIN &&
+        unitIndex <= live.hi + MOUNT_MARGIN
+      : Math.abs(unitIndex - focusUnitIndex) <= MOUNT_MARGIN + 1);
   type Group = (typeof layout.byUnit)[number];
   /** The stretch of a long unit (in its own px, from its top) that draws in full; undefined: all of it. */
-  const unitWindow = (group: Group): { from: number; to: number } | undefined => {
+  const unitWindow = (
+    group: Group,
+  ): { from: number; to: number } | undefined => {
     if (group.rows.length < LONG_UNIT_ROWS) return undefined;
     const top = unitY.current[group.unit.id];
     const screen = viewport.current;
-    if (screenBand === undefined || top === undefined || screen <= 0) return undefined;
-    return { from: (screenBand - 1) * screen - top, to: (screenBand + 3) * screen - top };
+    if (screenBand === undefined || top === undefined || screen <= 0)
+      return undefined;
+    return {
+      from: (screenBand - 1) * screen - top,
+      to: (screenBand + 3) * screen - top,
+    };
   };
   /** Whether a row of a unit draws its pictures and tufts (always, unless the unit is long and the row far off). */
-  const rowNear = (group: Group, index: number, span: { from: number; to: number } | undefined) => {
+  const rowNear = (
+    group: Group,
+    index: number,
+    span: { from: number; to: number } | undefined,
+  ) => {
     if (group.rows.length < LONG_UNIT_ROWS) return true;
     if (!span) {
       // Not measured yet: the rows around where the path opens.
-      const focus = group.rows.findIndex((row) => row.key === layout.focusKey || row.key === openId);
+      const focus = group.rows.findIndex(
+        (row) => row.key === layout.focusKey || row.key === openId,
+      );
       return Math.abs(index - Math.max(0, focus)) <= LONG_UNIT_START_ROWS;
     }
-    const y = (itemsY.current[group.unit.id] ?? SKY_BANNER) + group.rowTops[index];
+    const y =
+      (itemsY.current[group.unit.id] ?? SKY_BANNER) + group.rowTops[index];
     return y + ROW_H >= span.from && y <= span.to;
   };
-  const sticky = stickyId ? layout.byUnit.find((group) => group.unit.id === stickyId) : undefined;
+  const sticky = stickyId
+    ? layout.byUnit.find((group) => group.unit.id === stickyId)
+    : undefined;
   const openRow = findRow(openId);
-  const testOutGroup = testOut ? layout.byUnit.find((group) => group.unit.id === testOut.unitId) : undefined;
-  const closeTestOut = () => setTestOut((previous) => (previous ? { ...previous, open: false } : previous));
-  const topicDone = units.length > 0 && units.every((unit) => unit.total > 0 && unit.done >= unit.total);
+  const testOutGroup = testOut
+    ? layout.byUnit.find((group) => group.unit.id === testOut.unitId)
+    : undefined;
+  const closeTestOut = () =>
+    setTestOut((previous) =>
+      previous ? { ...previous, open: false } : previous,
+    );
+  const topicDone =
+    units.length > 0 &&
+    units.every((unit) => unit.total > 0 && unit.done >= unit.total);
 
   return (
     <SceneProvider style={styles.root} wakeRef={wakeScene}>
-      <ScrollView
-        ref={scrollRef}
-        style={styles.scroll}
-        contentContainerStyle={{ paddingBottom: bottomPadding }}
-        showsVerticalScrollIndicator={false}
-        scrollEventThrottle={32}
-        onScroll={(event: NativeSyntheticEvent<NativeScrollEvent>) => {
-          const y = event.nativeEvent.contentOffset.y;
-          scrollY.current = y;
-          wakeScene.current?.();
-          updateSticky(y);
-          updateLive(y);
-          // react-native-web never fires onScrollBeginDrag, so a user scroll closes the card here.
-          if (openId && Date.now() > programmaticUntil.current && Math.abs(y - openedAtY.current) > 30) close();
-        }}
-        onScrollBeginDrag={close}
-        onLayout={(event: LayoutChangeEvent) => {
-          viewport.current = event.nativeEvent.layout.height;
-          const nextWidth = event.nativeEvent.layout.width;
-          if (nextWidth > 0 && Math.abs(nextWidth - width) > 0.5) {
-            // Titles wrap differently at a new width: let the sticky banners measure again.
-            stickyH.current = {};
-            setWidth(nextWidth);
-          }
-          tryScrollToCurrent();
-          updateLive(scrollY.current);
-        }}
-        testID={`learn-path-${topicId}`}
-      >
-        <QuakeView onStartShouldSetResponder={() => Boolean(openId)} onResponderRelease={tapClose} testID="learn-path-content">
-          <View onLayout={(event: LayoutChangeEvent) => setHeaderH(event.nativeEvent.layout.height)}>{header}</View>
-          <NightSky top={headerH} bottom={-bottomPadding} />
-          {layout.byUnit.map((group) => {
-            const { unit, color, rows, premium } = group;
-            const unitDone = unit.total > 0 && unit.done >= unit.total;
-            const holdsOpen = openRow?.group.unit.id === unit.id;
-            const unitLive = holdsOpen || isLive(group.unitIndex);
-            const unitMounted = holdsOpen || isMounted(group.unitIndex);
-            const nearWindow = unitLive ? unitWindow(group) : undefined;
-            return (
-              <View
-                key={unit.id}
-                style={[styles.unit, holdsOpen ? styles.raised : null]}
-                testID={`path-unit-${unit.id}`}
-                onLayout={(event) => {
-                  unitY.current[unit.id] = event.nativeEvent.layout.y;
-                  tryScrollToCurrent();
-                }}
-              >
-                {unitLive ? (
-                  <PathWeather weather={group.weather} world={group.world} width={width} height={UNIT_PAD + SKY_BANNER + 22 + group.rowsHeight + 40} animated={unitLive} meteor={group.unitIndex === Math.max(0, currentUnitIndex)} window={nearWindow} />
-                ) : null}
-                <UnitBanner
-                  unit={unit}
-                  color={color}
-                  onTestOut={onTestOut && unitCanTestOut(unit) ? () => askTestOut(unit.id) : undefined}
-                  onPremium={onPremium ? () => onPremium(unit.id) : undefined}
-                  onBannerLayout={(height) => {
-                    bannerH.current[unit.id] = height;
-                  }}
-                />
+      <SecretHadithProvider>
+        <ScrollView
+          ref={scrollRef}
+          style={styles.scroll}
+          contentContainerStyle={{ paddingBottom: bottomPadding }}
+          showsVerticalScrollIndicator={false}
+          scrollEventThrottle={32}
+          onScroll={(event: NativeSyntheticEvent<NativeScrollEvent>) => {
+            const y = event.nativeEvent.contentOffset.y;
+            scrollY.current = y;
+            wakeScene.current?.();
+            updateSticky(y);
+            updateLive(y);
+            // react-native-web never fires onScrollBeginDrag, so a user scroll closes the card here.
+            if (
+              openId &&
+              Date.now() > programmaticUntil.current &&
+              Math.abs(y - openedAtY.current) > 30
+            )
+              close();
+          }}
+          onScrollBeginDrag={close}
+          onLayout={(event: LayoutChangeEvent) => {
+            viewport.current = event.nativeEvent.layout.height;
+            const nextWidth = event.nativeEvent.layout.width;
+            if (nextWidth > 0 && Math.abs(nextWidth - width) > 0.5) {
+              // Titles wrap differently at a new width: let the sticky banners measure again.
+              stickyH.current = {};
+              setWidth(nextWidth);
+            }
+            tryScrollToCurrent();
+            updateLive(scrollY.current);
+          }}
+          testID={`learn-path-${topicId}`}
+        >
+          <QuakeView
+            onStartShouldSetResponder={() => Boolean(openId)}
+            onResponderRelease={tapClose}
+            testID="learn-path-content"
+          >
+            <View
+              onLayout={(event: LayoutChangeEvent) =>
+                setHeaderH(event.nativeEvent.layout.height)
+              }
+            >
+              {header}
+            </View>
+            <NightSky top={headerH} bottom={-bottomPadding} />
+            {layout.byUnit.map((group) => {
+              const { unit, color, rows, premium } = group;
+              const unitDone = unit.total > 0 && unit.done >= unit.total;
+              const holdsOpen = openRow?.group.unit.id === unit.id;
+              const unitLive = holdsOpen || isLive(group.unitIndex);
+              const unitMounted = holdsOpen || isMounted(group.unitIndex);
+              const nearWindow = unitLive ? unitWindow(group) : undefined;
+              return (
                 <View
-                  style={styles.items}
-                  // Lets taps through to the sky's clouds and sun behind the path.
-                  pointerEvents="box-none"
+                  key={unit.id}
+                  style={[styles.unit, holdsOpen ? styles.raised : null]}
+                  testID={`path-unit-${unit.id}`}
                   onLayout={(event) => {
-                    itemsY.current[unit.id] = event.nativeEvent.layout.y;
+                    unitY.current[unit.id] = event.nativeEvent.layout.y;
                     tryScrollToCurrent();
                   }}
                 >
-                  {!unitMounted ? (
-                    // Far from the screen: one empty stretch the height of the unit's rows. The Quran path has
-                    // over 8,000 circles, and a view for each far one made opening it slow and heavy on a phone.
-                    <View style={{ height: group.rowsHeight }} pointerEvents="none" testID={`path-far-${unit.id}`} />
-                  ) : rows.map((row, index) => {
-                    const nodeCenter = center + row.offset;
-                    const top = row.current ? CURRENT_EXTRA : 0;
-                    const isOpen = openId === row.key && row.item.kind === "node";
-                    const side = row.offset > 0 ? -1 : row.offset < 0 ? 1 : -1;
-                    const mascotCenter = nodeCenter + side * (NODE / 2 + 22 + MASCOT_W / 2);
-                    const mascotLeft = Math.min(width - 8 - MASCOT_W, Math.max(8, mascotCenter - MASCOT_W / 2));
-                    const decorCenter = center + side * Math.min(124, width * 0.3);
-                    // The empty side of the row, between the screen edge and the circle, for the camel to walk in.
-                    const laneStart = side < 0 ? 8 : nodeCenter + NODE / 2 + 10;
-                    const laneEnd = side < 0 ? nodeCenter - NODE / 2 - 10 : width - 8;
-                    const camelRange = Math.max(0, Math.min(CAMEL_WALK, laneEnd - laneStart - CAMEL_SIZE));
-                    const camelLeft = laneStart + Math.max(0, (laneEnd - laneStart - CAMEL_SIZE - camelRange) / 2);
-                    const near = unitLive && rowNear(group, index, nearWindow);
-                    const pictures = near ? group.scenery.find((spot) => spot.index === index) : undefined;
-                    const height = isOpen ? Math.max(row.height, top + CARD_GAP + (cardH ?? CARD_ESTIMATE) + 18) : row.height;
-                    return (
+                  {unitLive ? (
+                    <PathWeather
+                      weather={group.weather}
+                      world={group.world}
+                      width={width}
+                      height={
+                        UNIT_PAD + SKY_BANNER + 22 + group.rowsHeight + 40
+                      }
+                      animated={unitLive}
+                      meteor={group.unitIndex === Math.max(0, currentUnitIndex)}
+                      window={nearWindow}
+                    />
+                  ) : null}
+                  <UnitBanner
+                    unit={unit}
+                    color={color}
+                    onTestOut={
+                      onTestOut && unitCanTestOut(unit)
+                        ? () => askTestOut(unit.id)
+                        : undefined
+                    }
+                    onPremium={onPremium ? () => onPremium(unit.id) : undefined}
+                    onBannerLayout={(height) => {
+                      bannerH.current[unit.id] = height;
+                    }}
+                  />
+                  <View
+                    style={styles.items}
+                    // Lets taps through to the sky's clouds and sun behind the path.
+                    pointerEvents="box-none"
+                    onLayout={(event) => {
+                      itemsY.current[unit.id] = event.nativeEvent.layout.y;
+                      tryScrollToCurrent();
+                    }}
+                  >
+                    {!unitMounted ? (
+                      // Far from the screen: one empty stretch the height of the unit's rows. The Quran path has
+                      // over 8,000 circles, and a view for each far one made opening it slow and heavy on a phone.
                       <View
-                        key={row.key}
-                        style={[styles.row, { height }, isOpen ? styles.raised : null]}
-                        pointerEvents="box-none"
-                        onLayout={(event) => {
-                          rowY.current[row.key] = event.nativeEvent.layout.y;
-                          if (row.key === layout.focusKey || row.key === layout.earnedChest?.key) tryScrollToCurrent();
-                        }}
-                      >
-                        {pictures && unitLive ? (
-                          <View style={[styles.decor, { left: decorCenter - DECOR_SIZE / 2, top: top + 6 }]} pointerEvents="box-none" testID="path-decor">
-                            {/* Animals wander the whole row (their drawings carry their own shadow); the rest stand on a soft shadow. */}
-                            {ROAMERS.has(pictures.kind) ? null : <View style={styles.decorShadow} pointerEvents="none" />}
-                            <PathScenery
-                              kind={pictures.kind}
-                              size={DECOR_SIZE}
-                              animated={unitLive}
-                              tappable
-                              seed={group.unitIndex * 7 + index}
-                              roam={{ width, left: decorCenter - DECOR_SIZE / 2 }}
-                            />
-                          </View>
-                        ) : null}
-                        {near && !group.scenery.some((spot) => spot.index === index) && index !== group.camelIndex && index !== group.mascotIndex && index % 2 === 1 ? (
+                        style={{ height: group.rowsHeight }}
+                        pointerEvents="none"
+                        testID={`path-far-${unit.id}`}
+                      />
+                    ) : (
+                      rows.map((row, index) => {
+                        const nodeCenter = center + row.offset;
+                        const top = row.current ? CURRENT_EXTRA : 0;
+                        const isOpen =
+                          openId === row.key && row.item.kind === "node";
+                        const side =
+                          row.offset > 0 ? -1 : row.offset < 0 ? 1 : -1;
+                        const mascotCenter =
+                          nodeCenter + side * (NODE / 2 + 22 + MASCOT_W / 2);
+                        const mascotLeft = Math.min(
+                          width - 8 - MASCOT_W,
+                          Math.max(8, mascotCenter - MASCOT_W / 2),
+                        );
+                        const decorCenter =
+                          center + side * Math.min(124, width * 0.3);
+                        // The empty side of the row, between the screen edge and the circle, for the camel to walk in.
+                        const laneStart =
+                          side < 0 ? 8 : nodeCenter + NODE / 2 + 10;
+                        const laneEnd =
+                          side < 0 ? nodeCenter - NODE / 2 - 10 : width - 8;
+                        const camelRange = Math.max(
+                          0,
+                          Math.min(
+                            CAMEL_WALK,
+                            laneEnd - laneStart - CAMEL_SIZE,
+                          ),
+                        );
+                        const camelLeft =
+                          laneStart +
+                          Math.max(
+                            0,
+                            (laneEnd - laneStart - CAMEL_SIZE - camelRange) / 2,
+                          );
+                        const near =
+                          unitLive && rowNear(group, index, nearWindow);
+                        const pictures = near
+                          ? group.scenery.find((spot) => spot.index === index)
+                          : undefined;
+                        const height = isOpen
+                          ? Math.max(
+                              row.height,
+                              top + CARD_GAP + (cardH ?? CARD_ESTIMATE) + 18,
+                            )
+                          : row.height;
+                        return (
                           <View
-                            style={[styles.tuft, { left: side < 0 ? 10 + (index % 3) * 8 : width - 10 - TUFT_SIZE - (index % 3) * 8, top: top + NODE - 8 }]}
-                            pointerEvents="none"
+                            key={row.key}
+                            style={[
+                              styles.row,
+                              { height },
+                              isOpen ? styles.raised : null,
+                            ]}
+                            pointerEvents="box-none"
+                            onLayout={(event) => {
+                              rowY.current[row.key] =
+                                event.nativeEvent.layout.y;
+                              if (
+                                row.key === layout.focusKey ||
+                                row.key === layout.earnedChest?.key
+                              )
+                                tryScrollToCurrent();
+                            }}
                           >
-                            {group.world === "desert" ? (
-                              <GroundTuft variant={(group.unitIndex + index) % 3} size={TUFT_SIZE} />
+                            {pictures && unitLive ? (
+                              <View
+                                style={[
+                                  styles.decor,
+                                  {
+                                    left: decorCenter - DECOR_SIZE / 2,
+                                    top: top + 6,
+                                  },
+                                ]}
+                                pointerEvents="box-none"
+                                testID="path-decor"
+                              >
+                                {/* Animals wander the whole row (their drawings carry their own shadow); the rest stand on a soft shadow. */}
+                                {ROAMERS.has(pictures.kind) ? null : (
+                                  <View
+                                    style={styles.decorShadow}
+                                    pointerEvents="none"
+                                  />
+                                )}
+                                <PathScenery
+                                  kind={pictures.kind}
+                                  size={DECOR_SIZE}
+                                  animated={unitLive}
+                                  tappable
+                                  seed={group.unitIndex * 7 + index}
+                                  roam={{
+                                    width,
+                                    left: decorCenter - DECOR_SIZE / 2,
+                                  }}
+                                />
+                              </View>
+                            ) : null}
+                            {near &&
+                            !group.scenery.some(
+                              (spot) => spot.index === index,
+                            ) &&
+                            index !== group.camelIndex &&
+                            index !== group.mascotIndex &&
+                            index % 2 === 1 ? (
+                              <View
+                                style={[
+                                  styles.tuft,
+                                  {
+                                    left:
+                                      side < 0
+                                        ? 10 + (index % 3) * 8
+                                        : width -
+                                          10 -
+                                          TUFT_SIZE -
+                                          (index % 3) * 8,
+                                    top: top + NODE - 8,
+                                  },
+                                ]}
+                                pointerEvents="none"
+                              >
+                                {group.world === "desert" ? (
+                                  <GroundTuft
+                                    variant={(group.unitIndex + index) % 3}
+                                    size={TUFT_SIZE}
+                                  />
+                                ) : (
+                                  <WorldTuft
+                                    world={group.world}
+                                    variant={(group.unitIndex + index) % 3}
+                                    size={TUFT_SIZE}
+                                  />
+                                )}
+                              </View>
+                            ) : null}
+                            {index === group.camelIndex && unitLive ? (
+                              // Walks right across the row: off one edge of the screen and back in from the other, passing behind the circle.
+                              <View
+                                style={[
+                                  styles.mascot,
+                                  {
+                                    left: 0,
+                                    top: top + (NODE + NODE_LIP - CAMEL_H) / 2,
+                                  },
+                                ]}
+                                pointerEvents="box-none"
+                              >
+                                <Camel
+                                  size={CAMEL_SIZE}
+                                  wrapWidth={width}
+                                  home={camelLeft + camelRange / 2}
+                                  accent={color}
+                                  walking
+                                  tappable
+                                  testID="path-camel"
+                                />
+                              </View>
+                            ) : null}
+                            {index === group.mascotIndex ? (
+                              <View
+                                style={[
+                                  styles.mascot,
+                                  {
+                                    left: mascotLeft,
+                                    top:
+                                      top +
+                                      (NODE + NODE_LIP - MASCOT_H) / 2 -
+                                      8,
+                                  },
+                                ]}
+                                pointerEvents="box-none"
+                              >
+                                {/* The topic accent, not the unit tint: the mascot keeps one look across the app. */}
+                                <PathMascot
+                                  variant={mascotVariant}
+                                  mood="happy"
+                                  accent={accent}
+                                  testID="path-mascot"
+                                />
+                              </View>
+                            ) : null}
+                            {row.current && !isOpen ? (
+                              <View
+                                style={[
+                                  styles.tagSlot,
+                                  { left: nodeCenter - 50 },
+                                ]}
+                                pointerEvents="none"
+                              >
+                                <StartTag color={color} />
+                              </View>
+                            ) : null}
+                            {row.item.kind === "node" ? (
+                              <View
+                                style={[
+                                  styles.slot,
+                                  {
+                                    left: nodeCenter - RING / 2,
+                                    top: top - (RING - NODE - NODE_LIP) / 2,
+                                  },
+                                ]}
+                              >
+                                <PathNode
+                                  rowKey={row.key}
+                                  node={row.item.node}
+                                  color={color}
+                                  unitDone={unitDone}
+                                  premium={premium}
+                                  current={row.current}
+                                  progress={row.item.progress}
+                                  showIcon={unitLive}
+                                  onPress={onNodePress}
+                                />
+                              </View>
                             ) : (
-                              <WorldTuft world={group.world} variant={(group.unitIndex + index) % 3} size={TUFT_SIZE} />
+                              <View
+                                style={[
+                                  styles.slot,
+                                  {
+                                    left: nodeCenter - RING / 2,
+                                    top: top - (RING - NODE - NODE_LIP) / 2,
+                                  },
+                                ]}
+                              >
+                                <PathChestView
+                                  chest={row.item.chest}
+                                  onClaim={() =>
+                                    onClaimChest(
+                                      (row.item as { chest: PathChest }).chest,
+                                    )
+                                  }
+                                />
+                              </View>
                             )}
+                            {isOpen && row.item.kind === "node" ? (
+                              <View
+                                style={[
+                                  styles.cardSlot,
+                                  { top: top + CARD_GAP },
+                                ]}
+                              >
+                                <NodeCard
+                                  item={row.item}
+                                  color={color}
+                                  arrowX={nodeCenter - 16}
+                                  xp={xpForNode(row.item.node)}
+                                  place={row.place}
+                                  count={group.nodeCount}
+                                  premium={
+                                    premium &&
+                                    row.item.node.status !== "completed"
+                                  }
+                                  narrow={width < 360}
+                                  canBuyPremium={canBuyPremium}
+                                  onStart={() =>
+                                    onStartNode(
+                                      (row.item as { node: LearningNodeView })
+                                        .node,
+                                    )
+                                  }
+                                  onPremium={
+                                    onPremium
+                                      ? () => onPremium(unit.id)
+                                      : undefined
+                                  }
+                                  onJump={
+                                    onTestOut && canJumpTo(unit, row.item.node)
+                                      ? () => {
+                                          open(undefined);
+                                          askTestOut(
+                                            unit.id,
+                                            (
+                                              row.item as {
+                                                node: LearningNodeView;
+                                              }
+                                            ).node.id,
+                                          );
+                                        }
+                                      : undefined
+                                  }
+                                  onSkipPart={(() => {
+                                    const target = onTestOut
+                                      ? nextPartStart(
+                                          unit,
+                                          (
+                                            row.item as {
+                                              node: LearningNodeView;
+                                            }
+                                          ).node,
+                                        )
+                                      : undefined;
+                                    return target &&
+                                      jumpNodeIds?.has(target.id) &&
+                                      !unit.premiumLocked
+                                      ? () => {
+                                          open(undefined);
+                                          askTestOut(unit.id, target.id);
+                                        }
+                                      : undefined;
+                                  })()}
+                                  onCardLayout={(cardHeight) =>
+                                    onCardLayout(row.key, unit, top, cardHeight)
+                                  }
+                                />
+                              </View>
+                            ) : null}
                           </View>
-                        ) : null}
-                        {index === group.camelIndex && unitLive ? (
-                          // Walks right across the row: off one edge of the screen and back in from the other, passing behind the circle.
-                          <View style={[styles.mascot, { left: 0, top: top + (NODE + NODE_LIP - CAMEL_H) / 2 }]} pointerEvents="box-none">
-                            <Camel size={CAMEL_SIZE} wrapWidth={width} home={camelLeft + camelRange / 2} accent={color} walking tappable testID="path-camel" />
-                          </View>
-                        ) : null}
-                        {index === group.mascotIndex ? (
-                          <View style={[styles.mascot, { left: mascotLeft, top: top + (NODE + NODE_LIP - MASCOT_H) / 2 - 8 }]} pointerEvents="box-none">
-                            {/* The topic accent, not the unit tint: the mascot keeps one look across the app. */}
-                            <PathMascot variant={mascotVariant} mood="happy" accent={accent} testID="path-mascot" />
-                          </View>
-                        ) : null}
-                        {row.current && !isOpen ? (
-                          <View style={[styles.tagSlot, { left: nodeCenter - 50 }]} pointerEvents="none">
-                            <StartTag color={color} />
-                          </View>
-                        ) : null}
-                        {row.item.kind === "node" ? (
-                          <View style={[styles.slot, { left: nodeCenter - RING / 2, top: top - (RING - NODE - NODE_LIP) / 2 }]}>
-                            <PathNode
-                              rowKey={row.key}
-                              node={row.item.node}
-                              color={color}
-                              unitDone={unitDone}
-                              premium={premium}
-                              current={row.current}
-                              progress={row.item.progress}
-                              showIcon={unitLive}
-                              onPress={onNodePress}
-                            />
-                          </View>
-                        ) : (
-                          <View style={[styles.slot, { left: nodeCenter - RING / 2, top: top - (RING - NODE - NODE_LIP) / 2 }]}>
-                            <PathChestView chest={row.item.chest} onClaim={() => onClaimChest((row.item as { chest: PathChest }).chest)} />
-                          </View>
-                        )}
-                        {isOpen && row.item.kind === "node" ? (
-                          <View style={[styles.cardSlot, { top: top + CARD_GAP }]}>
-                            <NodeCard
-                              item={row.item}
-                              color={color}
-                              arrowX={nodeCenter - 16}
-                              xp={xpForNode(row.item.node)}
-                              place={row.place}
-                              count={group.nodeCount}
-                              premium={premium && row.item.node.status !== "completed"}
-                              narrow={width < 360}
-                              canBuyPremium={canBuyPremium}
-                              onStart={() => onStartNode((row.item as { node: LearningNodeView }).node)}
-                              onPremium={onPremium ? () => onPremium(unit.id) : undefined}
-                              onJump={
-                                onTestOut && canJumpTo(unit, row.item.node)
-                                  ? () => {
-                                      open(undefined);
-                                      askTestOut(unit.id, (row.item as { node: LearningNodeView }).node.id);
-                                    }
-                                  : undefined
-                              }
-                              onSkipPart={(() => {
-                                const target = onTestOut ? nextPartStart(unit, (row.item as { node: LearningNodeView }).node) : undefined;
-                                return target && jumpNodeIds?.has(target.id) && !unit.premiumLocked
-                                  ? () => {
-                                      open(undefined);
-                                      askTestOut(unit.id, target.id);
-                                    }
-                                  : undefined;
-                              })()}
-                              onCardLayout={(cardHeight) => onCardLayout(row.key, unit, top, cardHeight)}
-                            />
-                          </View>
-                        ) : null}
-                      </View>
-                    );
-                  })}
+                        );
+                      })
+                    )}
+                  </View>
                 </View>
-              </View>
-            );
-          })}
-          {units.length > 0 ? (
-            <PathEnd done={topicDone} color={accent} mascotVariant={mascotVariant} width={width} onNextTopic={onNextTopic} />
-          ) : null}
-        </QuakeView>
-      </ScrollView>
-      {sticky ? (
-        <StickyBanner
-          key={sticky.unit.id}
-          unit={sticky.unit}
-          color={sticky.color}
-          onMeasure={(height) => {
-            const unitId = sticky.unit.id;
-            if (Math.abs((stickyH.current[unitId] ?? 0) - height) < 0.5) return;
-            stickyH.current[unitId] = height;
-            updateSticky(scrollY.current);
-          }}
-        />
-      ) : null}
-      {onTestOut ? (
-        <TestOutSheet
-          visible={Boolean(testOut?.open)}
-          color={testOutGroup?.color ?? accent}
-          accent={accent}
-          mascotVariant={mascotVariant}
-          goal={testOut ? testOutGoal?.(testOut.unitId, testOut.nodeId) : undefined}
-          onClose={closeTestOut}
-          onStart={() => {
-            closeTestOut();
-            // The banner key tests the unit; JUMP HERE also names the circle.
-            if (testOut?.nodeId) onTestOut(testOut.unitId, testOut.nodeId);
-            else if (testOut) onTestOut(testOut.unitId);
-          }}
-        />
-      ) : null}
+              );
+            })}
+            {units.length > 0 ? (
+              <PathEnd
+                done={topicDone}
+                color={accent}
+                mascotVariant={mascotVariant}
+                width={width}
+                onNextTopic={onNextTopic}
+              />
+            ) : null}
+          </QuakeView>
+        </ScrollView>
+        {sticky ? (
+          <StickyBanner
+            key={sticky.unit.id}
+            unit={sticky.unit}
+            color={sticky.color}
+            onMeasure={(height) => {
+              const unitId = sticky.unit.id;
+              if (Math.abs((stickyH.current[unitId] ?? 0) - height) < 0.5)
+                return;
+              stickyH.current[unitId] = height;
+              updateSticky(scrollY.current);
+            }}
+          />
+        ) : null}
+        {onTestOut ? (
+          <TestOutSheet
+            visible={Boolean(testOut?.open)}
+            color={testOutGroup?.color ?? accent}
+            accent={accent}
+            mascotVariant={mascotVariant}
+            goal={
+              testOut
+                ? testOutGoal?.(testOut.unitId, testOut.nodeId)
+                : undefined
+            }
+            onClose={closeTestOut}
+            onStart={() => {
+              closeTestOut();
+              // The banner key tests the unit; JUMP HERE also names the circle.
+              if (testOut?.nodeId) onTestOut(testOut.unitId, testOut.nodeId);
+              else if (testOut) onTestOut(testOut.unitId);
+            }}
+          />
+        ) : null}
+      </SecretHadithProvider>
     </SceneProvider>
   );
 }
@@ -1624,56 +2550,56 @@ export function LearnPath({
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: colors.snow
+    backgroundColor: colors.snow,
   },
   cardSkip: {
-    marginTop: 6
+    marginTop: 6,
   },
   nightSky: {
     position: "absolute",
     left: 0,
     right: 0,
-    backgroundColor: "#22305C"
+    backgroundColor: "#22305C",
   },
   scroll: {
     flex: 1,
-    backgroundColor: colors.snow
+    backgroundColor: colors.snow,
   },
   unit: {
-    paddingTop: UNIT_PAD
+    paddingTop: UNIT_PAD,
   },
   raised: {
     zIndex: 20,
-    elevation: 20
+    elevation: 20,
   },
   items: {
-    paddingTop: 22
+    paddingTop: 22,
   },
   row: {
-    width: "100%"
+    width: "100%",
   },
   slot: {
     position: "absolute",
     width: RING,
     height: RING,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   nodeBox: {
     width: RING,
     height: RING,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   ring: {
     position: "absolute",
     left: 0,
-    top: 0
+    top: 0,
   },
   nodeHit: {
     width: NODE,
     height: NODE + NODE_LIP,
-    marginTop: NODE_LIP / 2
+    marginTop: NODE_LIP / 2,
   },
   nodeLip: {
     position: "absolute",
@@ -1681,7 +2607,7 @@ const styles = StyleSheet.create({
     top: NODE_LIP,
     width: NODE,
     height: NODE,
-    borderRadius: NODE / 2
+    borderRadius: NODE / 2,
   },
   nodeFace: {
     width: NODE,
@@ -1689,7 +2615,7 @@ const styles = StyleSheet.create({
     borderRadius: NODE / 2,
     alignItems: "center",
     justifyContent: "center",
-    overflow: "hidden"
+    overflow: "hidden",
   },
   nodeShine: {
     position: "absolute",
@@ -1699,7 +2625,7 @@ const styles = StyleSheet.create({
     height: 10,
     borderRadius: 6,
     backgroundColor: withAlpha(colors.white, 0.4),
-    transform: [{ rotate: "-28deg" }]
+    transform: [{ rotate: "-28deg" }],
   },
   nodeShineDot: {
     position: "absolute",
@@ -1708,14 +2634,14 @@ const styles = StyleSheet.create({
     width: 6,
     height: 6,
     borderRadius: 3,
-    backgroundColor: withAlpha(colors.white, 0.35)
+    backgroundColor: withAlpha(colors.white, 0.35),
   },
   nodeShade: {
     position: "absolute",
     left: 0,
     right: 0,
     bottom: 0,
-    height: NODE * 0.42
+    height: NODE * 0.42,
   },
   nodeRim: {
     position: "absolute",
@@ -1724,7 +2650,7 @@ const styles = StyleSheet.create({
     right: 4,
     bottom: 4,
     borderRadius: NODE / 2,
-    borderWidth: 2.5
+    borderWidth: 2.5,
   },
   nodeGround: {
     position: "absolute",
@@ -1732,28 +2658,28 @@ const styles = StyleSheet.create({
     width: NODE * 0.8,
     height: 12,
     borderRadius: 6,
-    backgroundColor: withAlpha(colors.ink, 0.06)
+    backgroundColor: withAlpha(colors.ink, 0.06),
   },
   halo: {
     position: "absolute",
     top: FACE_TOP,
     width: NODE,
     height: NODE,
-    borderRadius: NODE / 2
+    borderRadius: NODE / 2,
   },
   tuft: {
     position: "absolute",
     width: TUFT_SIZE,
-    height: TUFT_SIZE
+    height: TUFT_SIZE,
   },
   tagSlot: {
     position: "absolute",
     top: 0,
     width: 100,
-    alignItems: "center"
+    alignItems: "center",
   },
   tagWrap: {
-    alignItems: "center"
+    alignItems: "center",
   },
   tag: {
     backgroundColor: colors.white,
@@ -1762,13 +2688,13 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     paddingHorizontal: 14,
     paddingTop: 3,
-    paddingBottom: 2
+    paddingBottom: 2,
   },
   tagText: {
     fontFamily: fonts.displayHeavy,
     fontSize: 16,
     lineHeight: 22,
-    letterSpacing: 0.8
+    letterSpacing: 0.8,
   },
   tagTail: {
     width: 12,
@@ -1778,19 +2704,19 @@ const styles = StyleSheet.create({
     borderRightWidth: 2,
     borderBottomWidth: 2,
     borderColor: colors.line,
-    transform: [{ rotate: "45deg" }]
+    transform: [{ rotate: "45deg" }],
   },
   chestBox: {
     width: RING,
     height: RING,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   chestArt: {
     width: CHEST + 8,
     height: CHEST,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   groundShadow: {
     position: "absolute",
@@ -1798,7 +2724,7 @@ const styles = StyleSheet.create({
     width: 56,
     height: 10,
     borderRadius: 5,
-    backgroundColor: withAlpha(colors.ink, 0.08)
+    backgroundColor: withAlpha(colors.ink, 0.08),
   },
   chestPlate: {
     position: "absolute",
@@ -1808,11 +2734,11 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderWidth: 3,
     borderColor: colors.line,
-    borderBottomWidth: 6
+    borderBottomWidth: 6,
   },
   chestPlateReady: {
     backgroundColor: "#FFF6D6",
-    borderColor: "#F5B700"
+    borderColor: "#F5B700",
   },
   chestBadge: {
     position: "absolute",
@@ -1825,25 +2751,25 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: colors.white,
     borderWidth: 2,
-    borderColor: colors.line
+    borderColor: colors.line,
   },
   chestBadgeDone: {
-    borderColor: colors.green
+    borderColor: colors.green,
   },
   sparkle: {
-    position: "absolute"
+    position: "absolute",
   },
   sparkleA: {
     left: 2,
-    top: 10
+    top: 10,
   },
   sparkleB: {
     right: 0,
-    top: 40
+    top: 40,
   },
   sparkleC: {
     left: 10,
-    bottom: 6
+    bottom: 6,
   },
   rewardPill: {
     position: "absolute",
@@ -1857,20 +2783,20 @@ const styles = StyleSheet.create({
     borderRadius: 999,
     backgroundColor: colors.white,
     borderWidth: 2,
-    borderColor: lighten(colors.date, 0.6)
+    borderColor: lighten(colors.date, 0.6),
   },
   rewardText: {
     marginStart: 3,
     fontFamily: fonts.displayHeavy,
     fontSize: 14,
     lineHeight: 19,
-    color: colors.dateLip
+    color: colors.dateLip,
   },
   decor: {
     position: "absolute",
     width: DECOR_SIZE,
     height: DECOR_SIZE,
-    alignItems: "center"
+    alignItems: "center",
   },
   decorShadow: {
     position: "absolute",
@@ -1878,18 +2804,18 @@ const styles = StyleSheet.create({
     width: 44,
     height: 9,
     borderRadius: 5,
-    backgroundColor: withAlpha(colors.ink, 0.07)
+    backgroundColor: withAlpha(colors.ink, 0.07),
   },
   mascot: {
-    position: "absolute"
+    position: "absolute",
   },
   cardSlot: {
     position: "absolute",
     left: 16,
-    right: 16
+    right: 16,
   },
   cardWrap: {
-    width: "100%"
+    width: "100%",
   },
   cardArrow: {
     position: "absolute",
@@ -1897,7 +2823,7 @@ const styles = StyleSheet.create({
     width: 22,
     height: 22,
     borderRadius: 4,
-    transform: [{ rotate: "45deg" }]
+    transform: [{ rotate: "45deg" }],
   },
   card: {
     marginTop: 10,
@@ -1910,39 +2836,39 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.16,
     shadowRadius: 14,
     shadowOffset: { width: 0, height: 6 },
-    elevation: 8
+    elevation: 8,
   },
   cardTitle: {
     fontFamily: fonts.displayHeavy,
     fontSize: 22,
     lineHeight: 28,
-    flexShrink: 1
+    flexShrink: 1,
   },
   cardArabic: {
     marginTop: 2,
     lineHeight: 40,
-    alignSelf: "flex-start"
+    alignSelf: "flex-start",
   },
   cardSmall: {
     fontFamily: fonts.bodyHeavy,
     fontSize: 14,
     lineHeight: 19,
-    marginTop: 2
+    marginTop: 2,
   },
   light: {
-    opacity: 0.9
+    opacity: 0.9,
   },
   soft: {
-    opacity: 0.7
+    opacity: 0.7,
   },
   cardButton: {
-    marginTop: 14
+    marginTop: 14,
   },
   lockedRow: {
     marginTop: 12,
     minHeight: 30,
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
   },
   lockedText: {
     marginStart: 8,
@@ -1950,7 +2876,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 21,
     color: colors.inkSoft,
-    flexShrink: 1
+    flexShrink: 1,
   },
   banner: {
     marginHorizontal: 16,
@@ -1958,48 +2884,48 @@ const styles = StyleSheet.create({
     borderBottomWidth: 5,
     paddingHorizontal: 16,
     paddingTop: 10,
-    paddingBottom: 14
+    paddingBottom: 14,
   },
   unitRow: {
     flexDirection: "row",
     alignItems: "center",
-    minHeight: 32
+    minHeight: 32,
   },
   unitLabel: {
     fontFamily: fonts.displayHeavy,
     fontSize: 14,
     lineHeight: 19,
     letterSpacing: 1,
-    color: colors.white
+    color: colors.white,
   },
   bannerArabic: {
     flex: 1,
     minWidth: 0,
-    marginStart: 12
+    marginStart: 12,
   },
   bannerTitle: {
     fontFamily: fonts.displayHeavy,
     fontSize: 22,
     lineHeight: 27,
     color: colors.white,
-    flexShrink: 1
+    flexShrink: 1,
   },
   bannerBottom: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 10
+    marginTop: 10,
   },
   bannerBar: {
     flex: 1,
     width: undefined,
-    minWidth: 0
+    minWidth: 0,
   },
   bannerCount: {
     marginStart: 10,
     fontFamily: fonts.displayHeavy,
     fontSize: 15,
     lineHeight: 20,
-    color: colors.white
+    color: colors.white,
   },
   premiumPill: {
     marginStart: 10,
@@ -2011,7 +2937,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: colors.white,
     borderBottomWidth: 3,
-    borderBottomColor: colors.goldLip
+    borderBottomColor: colors.goldLip,
   },
   premiumText: {
     marginStart: 4,
@@ -2019,7 +2945,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     lineHeight: 17,
     letterSpacing: 0.5,
-    color: GOLD_INK
+    color: GOLD_INK,
   },
   keyButton: {
     marginStart: 10,
@@ -2030,14 +2956,14 @@ const styles = StyleSheet.create({
     borderBottomWidth: 4,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   keyLabel: {
     marginStart: 4,
     maxWidth: 92,
     fontFamily: fonts.displayHeavy,
     fontSize: 13,
-    lineHeight: 18
+    lineHeight: 18,
   },
   stickyWrap: {
     position: "absolute",
@@ -2047,7 +2973,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 8,
     paddingBottom: 6,
-    backgroundColor: colors.snow
+    backgroundColor: colors.snow,
   },
   sticky: {
     flexDirection: "row",
@@ -2056,32 +2982,32 @@ const styles = StyleSheet.create({
     borderBottomWidth: 4,
     paddingHorizontal: 14,
     paddingTop: 6,
-    paddingBottom: 6
+    paddingBottom: 6,
   },
   stickyText: {
     flex: 1,
-    minWidth: 0
+    minWidth: 0,
   },
   stickyUnit: {
     fontFamily: fonts.displayHeavy,
     fontSize: 12,
     lineHeight: 16,
     letterSpacing: 1,
-    color: withAlpha(colors.white, 0.85)
+    color: withAlpha(colors.white, 0.85),
   },
   stickyTitle: {
     fontFamily: fonts.displayHeavy,
     fontSize: 15,
     lineHeight: 19,
     color: colors.white,
-    flexShrink: 1
+    flexShrink: 1,
   },
   stickyCount: {
     marginStart: 10,
     fontFamily: fonts.displayHeavy,
     fontSize: 15,
     lineHeight: 20,
-    color: colors.white
+    color: colors.white,
   },
   hintSlot: {
     position: "absolute",
@@ -2089,10 +3015,10 @@ const styles = StyleSheet.create({
     right: -80,
     alignItems: "center",
     zIndex: 30,
-    elevation: 30
+    elevation: 30,
   },
   hintPop: {
-    alignItems: "center"
+    alignItems: "center",
   },
   hint: {
     flexDirection: "row",
@@ -2103,14 +3029,14 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     backgroundColor: colors.white,
     borderWidth: 2,
-    borderColor: colors.line
+    borderColor: colors.line,
   },
   hintText: {
     marginStart: 5,
     fontFamily: fonts.displayHeavy,
     fontSize: 15,
     lineHeight: 20,
-    color: colors.ink
+    color: colors.ink,
   },
   hintTail: {
     width: 12,
@@ -2120,11 +3046,11 @@ const styles = StyleSheet.create({
     borderRightWidth: 2,
     borderBottomWidth: 2,
     borderColor: colors.line,
-    transform: [{ rotate: "45deg" }]
+    transform: [{ rotate: "45deg" }],
   },
   jumpHead: {
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
   },
   jumpKey: {
     width: 52,
@@ -2133,23 +3059,23 @@ const styles = StyleSheet.create({
     borderBottomWidth: 4,
     alignItems: "center",
     justifyContent: "center",
-    marginEnd: 12
+    marginEnd: 12,
   },
   jumpTitle: {
     ...text.h2,
     flex: 1,
-    minWidth: 0
+    minWidth: 0,
   },
   jumpMascotRow: {
     flexDirection: "row",
     alignItems: "center",
     marginTop: 10,
-    marginBottom: 18
+    marginBottom: 18,
   },
   jumpBubble: {
     flex: 1,
     minWidth: 0,
-    marginStart: 12
+    marginStart: 12,
   },
   jumpGoal: {
     flexDirection: "row",
@@ -2158,37 +3084,37 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 8,
     marginTop: -4,
-    marginBottom: 16
+    marginBottom: 16,
   },
   jumpGoalText: {
     flexShrink: 1,
     marginStart: 8,
     fontFamily: fonts.displayHeavy,
     fontSize: 16,
-    lineHeight: 22
+    lineHeight: 22,
   },
   jumpGhost: {
-    marginTop: 4
+    marginTop: 4,
   },
   end: {
     paddingTop: 36,
     paddingHorizontal: 24,
-    alignItems: "center"
+    alignItems: "center",
   },
   endStage: {
     alignSelf: "stretch",
     marginHorizontal: -24,
-    height: END_NODE + END_LIP + 8
+    height: END_NODE + END_LIP + 8,
   },
   endSlot: {
     position: "absolute",
     top: 0,
     width: END_NODE,
-    alignItems: "center"
+    alignItems: "center",
   },
   endHit: {
     width: END_NODE,
-    height: END_NODE + END_LIP
+    height: END_NODE + END_LIP,
   },
   endLip: {
     position: "absolute",
@@ -2196,7 +3122,7 @@ const styles = StyleSheet.create({
     top: END_LIP,
     width: END_NODE,
     height: END_NODE,
-    borderRadius: END_NODE / 2
+    borderRadius: END_NODE / 2,
   },
   endFace: {
     width: END_NODE,
@@ -2204,14 +3130,14 @@ const styles = StyleSheet.create({
     borderRadius: END_NODE / 2,
     alignItems: "center",
     justifyContent: "center",
-    overflow: "hidden"
+    overflow: "hidden",
   },
   endFaded: {
-    opacity: 0.5
+    opacity: 0.5,
   },
   endButton: {
     marginTop: 18,
     maxWidth: 320,
-    alignSelf: "center"
-  }
+    alignSelf: "center",
+  },
 });

@@ -8,6 +8,7 @@ import { Snooze, useScene } from "./sceneMood";
 import { feedback } from "./sound";
 import { colors, darken, lighten } from "./theme";
 import { useTalk } from "./Mascot";
+import { useSecretTap } from "./secretHadith";
 
 export { useReduceMotion };
 
@@ -308,6 +309,7 @@ export const Camel = memo(function Camel({
   const [dustAt, setDustAt] = useState(0);
   const { value: t, play } = useOneShot();
   const next = useCycle(CAMEL_REACTIONS.length);
+  const secret = useSecretTap("camel");
   const moving = walking && !reduceMotion && reaction === null && !asleep;
 
   const stopWalk = useCallback(() => {
@@ -459,6 +461,7 @@ export const Camel = memo(function Camel({
   }, [reaction]);
 
   const onTap = () => {
+    secret();
     // One show at a time; a tap during it just gets the grunt.
     if (reaction) {
       feedback("camel", "light");

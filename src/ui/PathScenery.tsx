@@ -13,6 +13,7 @@ import { ShowScenery, WellBucket, hasShows } from "./sceneryShows";
 import { feedback, playUi } from "./sound";
 import { WorldDrawing, isWorldKind, type WorldKind } from "./worldArt";
 import { WORLD_ITEMS, type PathWorld } from "./pathWorlds";
+import { useSecretTap } from "./secretHadith";
 
 /** Pictures that stay still while the path sleeps. */
 const STILL_ASLEEP = new Set(["mosque", "kaaba"]);
@@ -467,12 +468,14 @@ function FlowerPatch({ size, seed, sway, reduceMotion }: { size: number; seed: n
   const [stage, setStage] = useState<FlowerStage>("bloom");
   const [going, setGoing] = useState<FlowerStage | null>(null);
   const { value: t, play } = useOneShot();
+  const secret = useSecretTap("flowers");
   const wiltTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => () => {
     if (wiltTimer.current) clearTimeout(wiltTimer.current);
   }, []);
 
   const onTap = () => {
+    secret();
     if (going) return;
     const to = FLOWER_NEXT[stage];
     if (stage === "bloom") {
@@ -665,8 +668,10 @@ const SceneryBody = memo(function SceneryBody({ kind, size = 64, animated = fals
   const [peak, setPeak] = useState<MountainShow | null>(null);
   const { value: peakT, play: playPeak } = useOneShot();
   const nextPeak = useCycle(MOUNTAIN_SHOWS.length);
+  const secret = useSecretTap("scenery");
 
   const onTap = () => {
+    secret();
     if (isMountain) {
       if (peak) return;
       const show = MOUNTAIN_SHOWS[nextPeak()];
