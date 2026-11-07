@@ -428,6 +428,8 @@ export interface Challenge {
   source?: LessonSource;
   /** Asked again from an earlier lesson; the question shows a small review cue. */
   isReview?: boolean;
+  /** A question the learner missed before, back from the Review deck; the cue says "You missed this before". */
+  missedBefore?: boolean;
 }
 
 export interface LessonTeachingMoment {

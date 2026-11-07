@@ -21,8 +21,8 @@ import { getActiveLanguage, t } from "../../i18n";
 type ShowProps = {
   mascotVariant: string;
   accent: string;
-  /** Asked again from an earlier lesson: a small REVIEW chip. */
-  review?: boolean;
+  /** Asked again from an earlier lesson: a small REVIEW chip; "missed": a question missed before, back again. */
+  review?: boolean | "missed";
   /** 0 the first time; more when a missed question comes back. */
   attempt?: number;
   praiseSeed?: string;
@@ -129,7 +129,7 @@ function WordTile({
 }
 
 /** The small label over a game ("Fill in the gap", "True or false?"), with the review / try-again cues. */
-function GameCue({ label, review, attempt, accent }: { label: string; review?: boolean; attempt?: number; accent: string }) {
+function GameCue({ label, review, attempt, accent }: { label: string; review?: boolean | "missed"; attempt?: number; accent: string }) {
   return (
     <View style={styles.cueRow} testID="game-cue">
       <View style={[styles.cue, { backgroundColor: lighten(accent, 0.85) }]}>
@@ -137,7 +137,7 @@ function GameCue({ label, review, attempt, accent }: { label: string; review?: b
       </View>
       {review ? (
         <View style={[styles.cue, styles.reviewCue]}>
-          <Text style={[styles.cueText, styles.reviewText]}>{t("Review")}</Text>
+          <Text style={[styles.cueText, styles.reviewText]}>{t(review === "missed" ? "Missed before" : "Review")}</Text>
         </View>
       ) : null}
       {attempt && attempt > 0 ? (

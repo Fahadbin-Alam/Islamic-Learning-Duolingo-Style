@@ -37,6 +37,19 @@ export function dueCount(cards: ReviewCard[] | undefined, now = new Date()) {
   return dueCards(cards, now).length;
 }
 
+// When the next missed question comes back, if the deck holds any that is not due yet.
+export function nextDueAt(cards: ReviewCard[] | undefined, now = new Date()): Date | undefined {
+  const times = (cards ?? []).map((card) => Date.parse(card.dueAt)).filter((time) => Number.isFinite(time) && time > now.getTime());
+  return times.length ? new Date(Math.min(...times)) : undefined;
+}
+
+// Whole calendar days from `now` to `at` on the learner's clock: 0 later today, 1 tomorrow.
+export function calendarDaysUntil(at: Date, now = new Date()) {
+  const start = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+  const end = new Date(at.getFullYear(), at.getMonth(), at.getDate()).getTime();
+  return Math.max(0, Math.round((end - start) / DAY_MS));
+}
+
 // What a Review session asks first: the weakest (missed most, lowest box), then the longest waiting.
 export function reviewOrder(cards: ReviewCard[]) {
   return [...cards].sort(

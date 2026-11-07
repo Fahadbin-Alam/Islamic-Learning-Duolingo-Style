@@ -829,5 +829,13 @@
   "Bukhari and Muslim": "বুখারি ও মুসলিম",
   "Sahih al-Bukhari and Sahih Muslim, one book at a time: faith, purity, good manners and more.": "সহিহ বুখারি ও সহিহ মুসলিম, একটি করে অধ্যায়: ঈমান, পবিত্রতা, উত্তম আচরণ ও আরও অনেক কিছু।",
   "The hadith every Muslim needs, from the two most trusted hadith books.": "প্রত্যেক মুসলিমের যে হাদিসগুলো জানা দরকার, সবচেয়ে নির্ভরযোগ্য দুটি হাদিস গ্রন্থ থেকে।",
-  "Topic 12": "বিষয় ১২"
+  "Topic 12": "বিষয় ১২",
+  "YOU MISSED THIS BEFORE": "আগে এটি ভুল হয়েছিল",
+  "Missed before": "আগে ভুল হয়েছিল",
+  "Review your mistakes": "ভুলগুলো রিভিউ করো",
+  "1 question you missed is back. Get it right to make it stick.": "ভুল হওয়া ১টি প্রশ্ন ফিরে এসেছে। ঠিক উত্তর দিলে মনে থেকে যাবে।",
+  "{count} questions you missed are back. Get them right to make them stick.": "ভুল হওয়া {count}টি প্রশ্ন ফিরে এসেছে। ঠিক উত্তর দিলে মনে থেকে যাবে।",
+  "All caught up! A missed question comes back later today.": "সব রিভিউ শেষ! ভুল হওয়া একটি প্রশ্ন আজ পরে ফিরে আসবে।",
+  "All caught up! A missed question comes back tomorrow.": "সব রিভিউ শেষ! ভুল হওয়া একটি প্রশ্ন কাল ফিরে আসবে।",
+  "All caught up! A missed question comes back in {count} days.": "সব রিভিউ শেষ! ভুল হওয়া একটি প্রশ্ন {count} দিন পরে ফিরে আসবে।"
 }
