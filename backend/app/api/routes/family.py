@@ -8,6 +8,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status
 from pydantic import BaseModel
 from sqlalchemy import delete, or_, select
 
+from backend.app.core.rate_limit import check_rate
 from backend.app.api.deps import DbSession, current_user
 from backend.app.api.routes.friends import learner_today, live_streak
 from backend.app.models import FamilyLink, FamilyLinkCode, User
@@ -90,6 +91,8 @@ def family(db: DbSession, today: Optional[str] = Query(default=None), user: User
 
 @router.post("/family/kids", status_code=status.HTTP_201_CREATED)
 def link_kid(payload: LinkKidInput, db: DbSession, today: Optional[str] = Query(default=None), user: User = Depends(current_user)):
+    # A code is 6 letters; this keeps anyone from trying codes until one belongs to a child.
+    check_rate("family-code", str(user.id), 10, 15 * 60)
     entry = db.get(FamilyLinkCode, clean_code(payload.code))
     if not entry or as_aware(entry.expires_at) < datetime.now(timezone.utc):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="That code didn't work. Ask for a new one.")

@@ -22,6 +22,15 @@ def make_username(email: str) -> str:
     return normalize_email(email).split("@")[0] or "learner"
 
 
+def unique_username(db: Session, email: str) -> str:
+    """The part before the @, with a number added when someone already has it (ali, ali2, ali3...)."""
+    base = make_username(email)[:70]
+    candidate, suffix = base, 2
+    while db.scalar(select(User.id).where(User.username == candidate)):
+        candidate, suffix = f"{base}{suffix}", suffix + 1
+    return candidate
+
+
 def initials(name: str) -> str:
     parts = [part[:1].upper() for part in name.strip().split()[:2] if part]
     return "".join(parts) or "SP"
@@ -84,6 +93,11 @@ def account_payload(user: User) -> Dict[str, Any]:
 
 
 XP_HISTORY_DAYS = 28
+# Far above what a day of lessons can earn (a lesson pays tens of XP). Stops a hand-made request from posting
+# millions of XP to the league and friend rankings.
+DAILY_XP_CAP = 5000
+# How many days of offline XP one save may add to the total, at most.
+MAX_OFFLINE_DAYS = 60
 
 
 def parse_local_date(value: Any) -> Optional[datetime]:
@@ -105,7 +119,7 @@ def merge_xp_by_day(user: User, xp_by_day: Any) -> None:
     for day, xp in xp_by_day.items():
         if isinstance(xp, int) and not isinstance(xp, bool) and xp >= 0 and parse_local_date(day):
             key = str(day)[:10]
-            history[key] = max(xp, int(history.get(key) or 0))
+            history[key] = max(min(xp, DAILY_XP_CAP), int(history.get(key) or 0))
     user.xp_history_json = {key: history[key] for key in sorted(history)[-XP_HISTORY_DAYS:]}
 
 
@@ -113,7 +127,10 @@ def apply_daily_xp(user: User, daily_xp: Any) -> None:
     if not isinstance(daily_xp, dict) or not parse_local_date(daily_xp.get("date")):
         return
     day = str(daily_xp["date"])[:10]
-    xp = max(0, int(daily_xp.get("xp") or 0))
+    try:
+        xp = min(max(0, int(daily_xp.get("xp") or 0)), DAILY_XP_CAP)
+    except (TypeError, ValueError):
+        return
     user.daily_xp_date = day
     user.daily_xp = xp
     history = dict(user.xp_history_json or {})
@@ -364,6 +381,33 @@ def union_ids(server: Any, phone: Any) -> List[Any]:
     return list(dict.fromkeys([*(server or []), *(phone if isinstance(phone, list) else [])]))
 
 
+def parse_timestamp(value: Any) -> Optional[datetime]:
+    """An ISO time from the app; None when it is missing or malformed, so a bad value never fails the save."""
+    if not isinstance(value, str) or not value:
+        return None
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    return as_utc(parsed)
+
+
+def clean_display_name(value: Any) -> Optional[str]:
+    if not isinstance(value, str):
+        return None
+    return value.strip()[:120] or None
+
+
+def max_total_xp(user: User) -> int:
+    """The most total XP one save may bring: the server's total plus a full day's cap for each day since the last save."""
+    last_seen = as_utc(user.updated_at) or as_utc(user.created_at)
+    # A new account (often a phone-only learner moving to the server) may bring many days of XP at once.
+    days = MAX_OFFLINE_DAYS
+    if last_seen:
+        days = max(1, min(MAX_OFFLINE_DAYS, (datetime.now(timezone.utc) - last_seen).days + 1))
+    return (user.total_xp or 0) + DAILY_XP_CAP * days
+
+
 def apply_frontend_state(user: User, snapshot: Dict[str, Any], *, social_hub: Optional[Dict[str, Any]] = None) -> User:
     """
     Saves the app's copy of the learner. Two phones (or one that was offline for a while) can send copies that are
@@ -372,8 +416,8 @@ def apply_frontend_state(user: User, snapshot: Dict[str, Any], *, social_hub: Op
     Spendable things (gems, hearts) and settings take the latest copy.
     """
     hearts = snapshot.get("hearts") or {}
-    user.display_name = snapshot.get("displayName") or user.display_name
-    user.username = snapshot.get("username") or user.username
+    user.display_name = clean_display_name(snapshot.get("displayName")) or user.display_name
+    # The username is the server's (it is unique, e.g. ali2); the app's own guess from the email is never taken.
     user.account_role = snapshot.get("accountRole") or user.account_role
     user.preferred_language = snapshot.get("preferredLanguage") or user.preferred_language
     user.sound_enabled = snapshot.get("soundEffectsEnabled", user.sound_enabled)
@@ -387,7 +431,7 @@ def apply_frontend_state(user: User, snapshot: Dict[str, Any], *, social_hub: Op
         user.last_streak_date = snapshot.get("lastStreakDate", user.last_streak_date)
     phone_total = snapshot.get("totalXp")
     if isinstance(phone_total, int) and not isinstance(phone_total, bool):
-        user.total_xp = max(phone_total, user.total_xp or 0)
+        user.total_xp = max(min(phone_total, max_total_xp(user)), user.total_xp or 0)
     merge_xp_by_day(user, snapshot.get("xpByDay"))
     apply_daily_xp(user, snapshot.get("dailyXp"))
     refill_date = parse_local_date(hearts.get("lastRefillDate"))
@@ -397,7 +441,7 @@ def apply_frontend_state(user: User, snapshot: Dict[str, Any], *, social_hub: Op
     user.gems = snapshot.get("gems", user.gems)
     user.hearts_current = hearts.get("current", user.hearts_current)
     user.hearts_max = hearts.get("max", user.hearts_max)
-    user.hearts_unlimited = hearts.get("unlimited", user.hearts_unlimited)
+    # Unlimited hearts come only from a paid plan the store confirmed (the webhook), never from the app's copy.
     user.reminder_preferences_json = snapshot.get("reminderPreferences") or user.reminder_preferences_json or {}
     user.learner_profile_json = snapshot.get("learnerProfile") or user.learner_profile_json or {}
     user.completed_lesson_ids_json = union_ids(user.completed_lesson_ids_json, snapshot.get("completedLessonIds"))
@@ -417,10 +461,10 @@ def apply_frontend_state(user: User, snapshot: Dict[str, Any], *, social_hub: Op
     last_topic = snapshot.get("lastTopicId")
     if isinstance(last_topic, str) and 0 < len(last_topic) <= 40:
         user.last_topic_id = last_topic
-    if snapshot.get("lastLearningAt"):
-        phone_learning_at = datetime.fromisoformat(snapshot["lastLearningAt"].replace("Z", "+00:00"))
+    phone_learning_at = parse_timestamp(snapshot.get("lastLearningAt"))
+    if phone_learning_at:
         server_learning_at = as_utc(user.last_learning_at)
-        if not server_learning_at or as_utc(phone_learning_at) >= server_learning_at:
+        if not server_learning_at or phone_learning_at >= server_learning_at:
             user.last_learning_at = phone_learning_at
     if social_hub is not None:
         user.social_hub_json = social_hub
