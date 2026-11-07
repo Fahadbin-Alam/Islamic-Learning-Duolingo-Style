@@ -6,6 +6,7 @@ import { Drop, Floater, Heart, Puff, Sparkle, Word, shake, useCycle, useOneShot 
 import { feedback } from "./sound";
 import type { GameSoundEvent } from "../services/gameSoundLibrary";
 import { colors, darken, lighten } from "./theme";
+import { useSecretTap } from "./secretHadith";
 
 export type MascotMood =
   | "happy"
@@ -1050,6 +1051,7 @@ export function Mascot(props: MascotProps) {
   const breath = useRef(new Animated.Value(0)).current;
   const { value: t, play } = useOneShot();
   const next = useCycle(TAP_REACTIONS.length);
+  const secret = useSecretTap("kid");
   const height = (size * VIEW_H) / VIEW_W;
   const [fidget, setFidget] = useState<Fidget | null>(null);
   const { value: f, play: playFidget } = useOneShot();
@@ -1088,6 +1090,7 @@ export function Mascot(props: MascotProps) {
   }
 
   const onTap = () => {
+    secret();
     const pick = TAP_REACTIONS[next()];
     feedback(pick.sound, "light");
     setFidget(null);

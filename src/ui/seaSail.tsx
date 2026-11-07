@@ -8,6 +8,7 @@ import { PathScenery } from "./PathScenery";
 import { useScene } from "./sceneMood";
 import { Abs, Splash, deg, k, windowOf } from "./showKit";
 import { feedback } from "./sound";
+import { useSecretTap } from "./secretHadith";
 
 /**
  * What sails on the beach's sea, down in the water of the strip at the bottom of the unit (not up in the
@@ -134,6 +135,7 @@ export function NoahsArk({ width, top, moving }: { width: number; top: number; m
   const [show, setShow] = useState<number | null>(null);
   const { value: t, play } = useOneShot();
   const next = useCycle(ARK_SHOWS.length);
+  const secret = useSecretTap("ark");
 
   useEffect(() => {
     if (!moving || asleep) return undefined;
@@ -163,6 +165,7 @@ export function NoahsArk({ width, top, moving }: { width: number; top: number; m
   if (!out) return null;
   const name = show !== null ? ARK_SHOWS[show].name : null;
   const onTap = () => {
+    secret();
     const index = next();
     feedback(ARK_SHOWS[index].sound, "light");
     setShow(index);
