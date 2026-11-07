@@ -153,6 +153,13 @@ const TUFT_SIZE = 26;
 const LIVE_MARGIN = 1;
 /** Units beyond the live ones (on each side) that still draw their circles; the rest draw plain circles. */
 const MOUNT_MARGIN = 3;
+/**
+ * Units with at least this many rows (Al-Baqarah has over 250) draw their pictures, tufts and clouds only for
+ * the rows near the screen, a few screens at a time, so a long unit stays light on a phone.
+ */
+const LONG_UNIT_ROWS = 30;
+/** Rows either side of the circle the path opens on that a long unit draws in full before the first scroll. */
+const LONG_UNIT_START_ROWS = 12;
 /** Room the unit banner takes above the rows, for sizing the sky (it only needs to be about right). */
 const SKY_BANNER = 130;
 const CAMEL_SIZE = 72;
@@ -975,6 +982,8 @@ export function LearnPath({
   const [revealId, setRevealId] = useState<string | undefined>(undefined);
   /** Units drawn in full (see LIVE_MARGIN), by index. Unset until the units have measured themselves. */
   const [live, setLive] = useState<{ lo: number; hi: number } | undefined>(undefined);
+  /** The screen-high stretch of the path on screen (scroll y / screen height), for long units (LONG_UNIT_ROWS). */
+  const [screenBand, setScreenBand] = useState<number | undefined>(undefined);
   const viewport = useRef(0);
   const scrollY = useRef(0);
   const unitY = useRef<Record<string, number>>({});
@@ -1001,6 +1010,7 @@ export function LearnPath({
     setStickyId(undefined);
     setTestOut(undefined);
     setLive(undefined);
+    setScreenBand(undefined);
     scrolledToCurrent.current = false;
     focusConsumed.current = true;
     animateFocus.current = false;
@@ -1058,6 +1068,12 @@ export function LearnPath({
           height: ROW_H + (current ? CURRENT_EXTRA : 0)
         };
       });
+      /** Each row's top inside the unit's rows, before any card opens. */
+      const rowTops: number[] = [];
+      rows.reduce((y, row) => {
+        rowTops.push(y);
+        return y + row.height;
+      }, 0);
       const mascotIndex = rows.findIndex((row) => row.current);
       // The camel walks beside the circle after the one to play next, heading on down the path.
       const camelIndex = mascotIndex < 0 ? -1 : mascotIndex + 1 < rows.length ? mascotIndex + 1 : mascotIndex - 1;
@@ -1080,6 +1096,7 @@ export function LearnPath({
         premium,
         color: tints[unitIndex % tints.length],
         rows,
+        rowTops,
         nodeCount: unit.total > 0 ? unit.total : place,
         unitIndex,
         weather: weatherFor(topicId, unitIndex),
@@ -1176,6 +1193,8 @@ export function LearnPath({
     (y: number) => {
       const screen = viewport.current;
       if (screen <= 0) return;
+      const band = Math.max(0, Math.floor(y / screen));
+      setScreenBand((previous) => (previous === band ? previous : band));
       const groups = layout.byUnit;
       let lo = -1;
       let hi = -1;
@@ -1332,6 +1351,26 @@ export function LearnPath({
     unitIndex === 0 ||
     unitIndex === currentUnitIndex ||
     (live ? unitIndex >= live.lo - MOUNT_MARGIN && unitIndex <= live.hi + MOUNT_MARGIN : Math.abs(unitIndex - focusUnitIndex) <= MOUNT_MARGIN + 1);
+  type Group = (typeof layout.byUnit)[number];
+  /** The stretch of a long unit (in its own px, from its top) that draws in full; undefined: all of it. */
+  const unitWindow = (group: Group): { from: number; to: number } | undefined => {
+    if (group.rows.length < LONG_UNIT_ROWS) return undefined;
+    const top = unitY.current[group.unit.id];
+    const screen = viewport.current;
+    if (screenBand === undefined || top === undefined || screen <= 0) return undefined;
+    return { from: (screenBand - 1) * screen - top, to: (screenBand + 3) * screen - top };
+  };
+  /** Whether a row of a unit draws its pictures and tufts (always, unless the unit is long and the row far off). */
+  const rowNear = (group: Group, index: number, span: { from: number; to: number } | undefined) => {
+    if (group.rows.length < LONG_UNIT_ROWS) return true;
+    if (!span) {
+      // Not measured yet: the rows around where the path opens.
+      const focus = group.rows.findIndex((row) => row.key === layout.focusKey || row.key === openId);
+      return Math.abs(index - Math.max(0, focus)) <= LONG_UNIT_START_ROWS;
+    }
+    const y = (itemsY.current[group.unit.id] ?? SKY_BANNER) + group.rowTops[index];
+    return y + ROW_H >= span.from && y <= span.to;
+  };
   const sticky = stickyId ? layout.byUnit.find((group) => group.unit.id === stickyId) : undefined;
   const openRow = findRow(openId);
   const testOutGroup = testOut ? layout.byUnit.find((group) => group.unit.id === testOut.unitId) : undefined;
@@ -1365,6 +1404,7 @@ export function LearnPath({
             setWidth(nextWidth);
           }
           tryScrollToCurrent();
+          updateLive(scrollY.current);
         }}
         testID={`learn-path-${topicId}`}
       >
@@ -1377,6 +1417,7 @@ export function LearnPath({
             const holdsOpen = openRow?.group.unit.id === unit.id;
             const unitLive = holdsOpen || isLive(group.unitIndex);
             const unitMounted = holdsOpen || isMounted(group.unitIndex);
+            const nearWindow = unitLive ? unitWindow(group) : undefined;
             return (
               <View
                 key={unit.id}
@@ -1388,7 +1429,7 @@ export function LearnPath({
                 }}
               >
                 {unitLive ? (
-                  <PathWeather weather={group.weather} world={group.world} width={width} height={UNIT_PAD + SKY_BANNER + 22 + group.rowsHeight + 40} animated={unitLive} meteor={group.unitIndex === Math.max(0, currentUnitIndex)} />
+                  <PathWeather weather={group.weather} world={group.world} width={width} height={UNIT_PAD + SKY_BANNER + 22 + group.rowsHeight + 40} animated={unitLive} meteor={group.unitIndex === Math.max(0, currentUnitIndex)} window={nearWindow} />
                 ) : null}
                 <UnitBanner
                   unit={unit}
@@ -1438,7 +1479,8 @@ export function LearnPath({
                     const laneEnd = side < 0 ? nodeCenter - NODE / 2 - 10 : width - 8;
                     const camelRange = Math.max(0, Math.min(CAMEL_WALK, laneEnd - laneStart - CAMEL_SIZE));
                     const camelLeft = laneStart + Math.max(0, (laneEnd - laneStart - CAMEL_SIZE - camelRange) / 2);
-                    const pictures = group.scenery.find((spot) => spot.index === index);
+                    const near = unitLive && rowNear(group, index, nearWindow);
+                    const pictures = near ? group.scenery.find((spot) => spot.index === index) : undefined;
                     const height = isOpen ? Math.max(row.height, top + CARD_GAP + (cardH ?? CARD_ESTIMATE) + 18) : row.height;
                     return (
                       <View
@@ -1451,7 +1493,7 @@ export function LearnPath({
                         }}
                       >
                         {pictures && unitLive ? (
-                          <View style={[styles.decor, { left: decorCenter - DECOR_SIZE / 2, top: top + 6 }]} pointerEvents="box-none">
+                          <View style={[styles.decor, { left: decorCenter - DECOR_SIZE / 2, top: top + 6 }]} pointerEvents="box-none" testID="path-decor">
                             {/* Animals wander the whole row (their drawings carry their own shadow); the rest stand on a soft shadow. */}
                             {ROAMERS.has(pictures.kind) ? null : <View style={styles.decorShadow} pointerEvents="none" />}
                             <PathScenery
@@ -1464,7 +1506,7 @@ export function LearnPath({
                             />
                           </View>
                         ) : null}
-                        {unitLive && !pictures && index !== group.camelIndex && index !== group.mascotIndex && index % 2 === 1 ? (
+                        {near && !group.scenery.some((spot) => spot.index === index) && index !== group.camelIndex && index !== group.mascotIndex && index % 2 === 1 ? (
                           <View
                             style={[styles.tuft, { left: side < 0 ? 10 + (index % 3) * 8 : width - 10 - TUFT_SIZE - (index % 3) * 8, top: top + NODE - 8 }]}
                             pointerEvents="none"
