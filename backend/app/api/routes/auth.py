@@ -3,20 +3,23 @@ from __future__ import annotations
 from datetime import datetime, timezone
 
 from fastapi import APIRouter, Depends, Header, HTTPException, status
-from sqlalchemy import select
+from sqlalchemy import delete, select
 
 from backend.app.api.deps import DbSession, current_user
+from backend.app.core.rate_limit import check_rate
 from backend.app.core.social_tokens import SocialTokenError, verify_id_token
 from backend.app.core.security import create_session_token, hash_password, hash_token, session_expiry, verify_password
 from backend.app.models import AuthSession, User
 from backend.app.schemas import AuthLoginInput, AuthRegisterInput, SessionPayload, SocialLoginInput
-from backend.app.service_layer import account_payload, apply_frontend_state, frontend_user_payload, make_username, normalize_email
+from backend.app.service_layer import account_payload, apply_frontend_state, frontend_user_payload, normalize_email, unique_username
 
 
 router = APIRouter(tags=["auth"])
 
 
 def issue_session(db: DbSession, user: User) -> SessionPayload:
+    # Expired log-ins of this account are cleared here, so the sessions table doesn't grow forever.
+    db.execute(delete(AuthSession).where(AuthSession.user_id == user.id, AuthSession.expires_at <= datetime.now(timezone.utc)))
     raw_token = create_session_token()
     db.add(AuthSession(user_id=user.id, token_hash=hash_token(raw_token), expires_at=session_expiry()))
     db.commit()
@@ -32,7 +35,7 @@ def register(payload: AuthRegisterInput, db: DbSession):
 
     user = User(
         email=normalize_email(payload.email),
-        username=make_username(payload.email),
+        username=unique_username(db, payload.email),
         display_name=payload.name.strip(),
         password_hash=hash_password(payload.password),
         auth_provider="password",
@@ -58,6 +61,8 @@ def register(payload: AuthRegisterInput, db: DbSession):
 
 @router.post("/auth/login", response_model=SessionPayload)
 def login(payload: AuthLoginInput, db: DbSession):
+    # Ten tries per email every 15 minutes: enough for typos, far too slow to guess a password.
+    check_rate("login", normalize_email(payload.email), 10, 15 * 60)
     user = db.scalar(select(User).where(User.email == normalize_email(payload.email)))
     if not user or not user.password_hash or not verify_password(payload.password, user.password_hash):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid email or password.")
@@ -85,6 +90,15 @@ def social_login(payload: SocialLoginInput, db: DbSession):
         user.last_login_at = datetime.now(timezone.utc)
         if user.auth_provider == identity.provider and not user.provider_subject:
             user.provider_subject = identity.subject
+        elif user.password_hash:
+            # Email sign-up never proves the email is theirs, but Google and Apple do. So a stranger could have
+            # signed up first with this email and a password, then waited. When the real owner arrives through
+            # Google or Apple, the account becomes theirs: the old password stops working and every phone logged
+            # in with it is signed out.
+            user.password_hash = None
+            user.auth_provider = identity.provider
+            user.provider_subject = identity.subject
+            db.execute(delete(AuthSession).where(AuthSession.user_id == user.id))
         db.commit()
         return issue_session(db, user)
 
@@ -117,14 +131,6 @@ def social_login(payload: SocialLoginInput, db: DbSession):
     db.commit()
     db.refresh(user)
     return issue_session(db, user)
-
-
-def unique_username(db: DbSession, email: str) -> str:
-    base = make_username(email)
-    candidate, suffix = base, 2
-    while db.scalar(select(User.id).where(User.username == candidate)):
-        candidate, suffix = f"{base}{suffix}", suffix + 1
-    return candidate
 
 
 @router.post("/auth/logout")
