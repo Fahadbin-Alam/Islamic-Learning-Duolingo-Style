@@ -139,10 +139,11 @@ import {
 } from "./services/localProgress";
 import { AdBanner } from "./components/AdBanner";
 import { monetizationClient } from "./services/monetization";
+import { isSubscriptionItem } from "./services/monetizationShared";
 import {
   adAudienceFor,
   addHeartVideo,
-  canSellInStore,
+  plansOnSale,
   isAgeGroup,
   mayOfferPlans,
   monetizationMode,
@@ -830,6 +831,12 @@ export default function TopicApp() {
   const adAudience = adAudienceFor(ageGroup, state.user?.accountRole === "child" || kidsMode);
   const adsAllowedToStart = !needsAgeCheck || Boolean(ageGroup);
   const [storePrices, setStorePrices] = useState<Record<string, string>>({});
+  // Plans (and their pop-up offer) show only once the store has really priced a subscription.
+  const storeSellsPlans = plansOnSale(
+    monetizationMode,
+    storePlatform(Platform.OS),
+    SHOP_ITEMS.filter((item) => isSubscriptionItem(item) && Boolean(storePrices[item.id])).length
+  );
   const [shopBusy, setShopBusy] = useState(false);
   const monetizationUserId = state.user?.hasAccount ? String(state.user.id) : undefined;
   const hasUser = Boolean(state.user);
@@ -2306,7 +2313,7 @@ export default function TopicApp() {
   // Under 13 or a Kid account: the plans never open by themselves (store Families rules), only in the shop.
   function planOfferCheck(user: UserProfile): PlanOfferCheck {
     return {
-      canSell: canSellInStore(monetizationMode, storePlatform(Platform.OS)),
+      canSell: storeSellsPlans,
       hasPremium: hasPremiumLessons(user),
       child: childLearner || user.accountRole === "child",
       msSinceLastOffer: Date.now() - readPlanOfferAt()
@@ -3632,6 +3639,7 @@ export default function TopicApp() {
         )}
         {activeTab === "learn" && !inLesson && (
           <LearnPath
+            canBuyPremium={storeSellsPlans}
             accent={selectedSection.accentColor}
             topicId={selectedSection.topicId}
             mascotVariant={selectedSection.mascot}
@@ -3911,6 +3919,7 @@ export default function TopicApp() {
         )}
         {state.screen === "shop" && (
           <ShopView
+            canBuyWithMoney={storeSellsPlans}
             user={state.user}
             strings={strings}
             items={SHOP_ITEMS}
