@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Ta-Ha ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -59,6 +59,20 @@ const TAHA_ONE: DeepUnit = {
         { q: "What does Allah give one He wants good for?", a: "Understanding of the religion", wrong: ["Gold", "Fame", "Long life"], why: "If Allah wants to do good to a person, He makes him comprehend the religion." },
         { q: "Who is the true giver, in the hadith?", a: "Allah", wrong: ["The teacher", "The king", "The student"], why: "I am just a distributor, but the grant is from Allah." },
         { q: "Ibn Kathir links the hadith to 20:2.", tf: true, why: "Whomever Allah gives knowledge to, it is because Allah wants him to have an abundance of good." }
+      ]
+    },
+    {
+      slug: "lord-of-the-throne",
+      title: "The Most Gracious and the Throne",
+      line: "The Most Gracious rose over the Throne; nothing is like Him.",
+      facts: ["Allah is above His creation", "Nothing resembles Allah"],
+      quote: q20(5),
+      source: ik(5, "Ibn Kathir says the safest way is the way of the early Muslims: accept what the Quran and Sunnah say, without likening Allah to His creation.", "The safest path to take in understanding this, is the way of the Salaf"),
+      difficulty: 4,
+      questions: [
+        { q: "Who rose over the Throne, in 20:5?", a: "The Most Gracious", wrong: ["An angel", "A king", "The sun"], why: "The Most Gracious Istawa the Throne." },
+        { q: "What is the safest way to understand 20:5, per Ibn Kathir?", a: "The way of the Salaf", wrong: ["Guessing", "Poetry", "Stories of kings"], why: "The safest path to take in understanding this, is the way of the Salaf." },
+        { tf: false, q: "Ibn Kathir says we should liken Allah to creation.", why: "Without resembling it to creation, or comparing it to attributes of the creatures." }
       ]
     },
     {
@@ -188,6 +202,20 @@ const TAHA_ONE: DeepUnit = {
       ]
     },
     {
+      slug: "a-wide-chest-for-dawah",
+      title: "A wide chest for da'wah",
+      line: "A caller to Allah needs a wide chest to bear people's harm.",
+      facts: ["As-Sa'di explains", "Da'wah"],
+      quote: q20(25),
+      source: saadi(20, 25, "As-Sa'di says Musa knew the load he carried, so he asked Allah to widen his chest to bear harm in word and deed without his heart being troubled; a narrow chest cannot guide people, and people accept the truth with gentleness and a wide chest.", "فإن الصدر إذا ضاق، لم يصلح صاحبه لهداية الخلق"),
+      difficulty: 2,
+      questions: [
+        { q: "Why did Musa ask Allah to open his chest, per as-Sa'di on 20:25?", a: "To bear people's harm", wrong: ["To breathe more air", "To grow taller", "To get rich"], why: "A wide chest bears harm in word and deed without trouble." },
+        { q: "Who cannot guide people well, per as-Sa'di on 20:25?", a: "One with a narrow chest", wrong: ["One who is gentle", "One who is patient", "One who is kind"], why: "When the chest is narrow, a person is not fit to guide others." },
+        { tf: true, q: "People accept the truth more with gentleness and patience.", why: "As-Sa'di on 20:25." }
+      ]
+    },
+    {
       slug: "harun-my-brother",
       title: "Harun, my brother",
       line: "Musa asked for Harun as helper, to remember Allah much.",
@@ -241,6 +269,20 @@ const TAHA_ONE: DeepUnit = {
         { q: "How were they told to speak, in 20:44?", a: "Mildly", wrong: ["Loudly", "Harshly", "Not at all"], why: "And speak to him mildly, perhaps he may accept admonition or fear Allah." },
         { q: "Why speak softly, per Ibn Kathir?", a: "It reaches the heart more", wrong: ["Fir'awn was deaf", "To save time", "To sound weak"], why: "So that the message may have more effect on the souls, and so it would have deeper and more beneficial results." },
         { q: "What should they not slacken in, in 20:42?", a: "Remembering Allah", wrong: ["Walking", "Eating", "Sleeping"], why: "And do not, you both, slacken and become weak in My remembrance." }
+      ]
+    },
+    {
+      slug: "how-gentle-words-sound",
+      title: "How gentle words sound",
+      line: "Gentle words invite; harsh words push people away.",
+      facts: ["As-Sa'di explains", "Gentle speech"],
+      quote: q20(44),
+      source: saadi(20, 44, "As-Sa'di says gentle words lead a person to remember and fear, while harsh words drive people away; the gentle words are explained in An-Nazi'at 79:18-19, asking him would he purify himself, an offer that no one minds, inviting him to purify himself.", "فإن القول اللين داع لذلك، والقول الغليظ منفر عن صاحبه"),
+      difficulty: 2,
+      questions: [
+        { q: "What do harsh words do, per as-Sa'di on 20:44?", a: "Drive people away", wrong: ["Win hearts", "Teach faster", "Bring peace"], why: "Harsh words push people away from the speaker." },
+        { q: "Where are the gentle words to Fir'awn shown, per as-Sa'di?", a: "An-Nazi'at 79:18-19", wrong: ["Al-Fatihah 1:1", "Al-Ikhlas 112:1", "An-Nas 114:1"], why: "There Musa says: would you purify yourself?" },
+        { tf: true, q: "Musa invited Fir'awn as an offer, not an order.", why: "As-Sa'di on 20:44." }
       ]
     },
     {
@@ -411,6 +453,20 @@ const TAHA_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "firawns-threat",
+      title: "Fir'awn's threat",
+      line: "Beaten, Fir'awn lied and threatened the magicians harshly.",
+      facts: ["Tyrants lie when they lose", "Faith gives courage"],
+      quote: q20(71),
+      source: ik(71, "When the magicians believed in front of everyone, Fir'awn was defeated. He falsely called Musa their chief and threatened them with a cruel public punishment.", "Then he said a statement that he, the magicians and all creatures knew was a forgery and an utter lie"),
+      difficulty: 4,
+      questions: [
+        { q: "What did Fir'awn ask the magicians, in 20:71?", a: "Believe before I permit you?", wrong: ["Where is your gold?", "Who is your father?", "Are you hungry?"], why: "Believe you in him before I give you permission?" },
+        { q: "Whom did Fir'awn call their chief, in 20:71?", a: "Musa", wrong: ["Harun", "Haman", "Qarun"], why: "Verily, he is your chief who has taught you magic." },
+        { tf: false, q: "Ibn Kathir says Fir'awn's claim about Musa was true.", why: "A statement that he, the magicians and all creatures knew was a forgery and an utter lie." }
+      ]
+    },
+    {
       slug: "we-will-not-choose-you",
       title: "We will not choose you",
       line: "Threatened, the magicians said: your power ends with this world.",
@@ -436,6 +492,34 @@ const TAHA_TWO: DeepUnit = {
         { q: "What did they hope Allah would forgive, in 20:73?", a: "Their faults and forced magic", wrong: ["Nothing", "Musa's faults", "Fir'awn's faults"], why: "Verily, we have believed in our Lord, that He may forgive us our faults, and the magic to which you did compel us." },
         { q: "Who forced them to do magic, in 20:73?", a: "Fir'awn", wrong: ["Musa", "Harun", "Their parents"], why: "And the magic to which you did compel us." },
         { q: "Allah's reward is better and more lasting, per 20:73.", tf: true, why: "And Allah is better as regards reward in comparison to your reward, and more lasting." }
+      ]
+    },
+    {
+      slug: "meeting-allah-as-a-criminal",
+      title: "Meeting Allah as a criminal",
+      line: "A criminal before Allah neither dies nor lives in Hell.",
+      facts: ["Repent before the meeting", "Allah's warning is mercy"],
+      quote: q20(74),
+      source: ik(74, "The magicians warned Fir'awn that whoever meets Allah on the Day of Judgment as a criminal will be in Hell, where he neither dies nor lives.", "whoever meets Allah on the Day of Judgment while being a criminal"),
+      difficulty: 4,
+      questions: [
+        { q: "Who warned Fir'awn with 20:74, per Ibn Kathir?", a: "The magicians", wrong: ["Haman", "His soldiers", "His wife"], why: "The clear intent of this is to be a completion of what the magicians admonished Fir'awn with." },
+        { q: "What is the state in Hell, in 20:74?", a: "Neither dying nor living", wrong: ["Sleeping", "Resting", "Feasting"], why: "Then surely, for him is Hell, wherein he will neither die nor live." },
+        { tf: true, q: "Ibn Kathir explains it as meeting Allah while a criminal.", why: "This means, whoever meets Allah on the Day of Judgment while being a criminal." }
+      ]
+    },
+    {
+      slug: "sprouting-like-seeds",
+      title: "Sprouting like seeds",
+      line: "Believers punished for sins are brought out by intercession.",
+      facts: ["Never lose hope in Allah", "Intercession is real"],
+      quote: q20(74),
+      source: hadith("muslim", "185", "Abu Sa'id al-Khudri", "Sahih", "The Prophet ﷺ said the true people of the Fire neither die nor live in it. Believers touched by it for sins are brought out by intercession and grow anew by the rivers of Paradise.", "then they would sprout forth like the sprouting of seed"),
+      difficulty: 5,
+      questions: [
+        { q: "How are sinful believers brought out, in the hadith?", a: "By intercession", wrong: ["By paying gold", "By running", "By hiding"], why: "Then they would be granted intercession and would be brought in groups." },
+        { q: "Where are they spread, in the hadith?", a: "On the rivers of Paradise", wrong: ["In a desert", "On a mountain", "In a cave"], why: "And would be spread on the rivers of Paradise." },
+        { q: "What do they grow like, in the hadith?", a: "Seeds in flood silt", wrong: ["Rocks", "Snow", "Clouds"], why: "Then they would sprout forth like the sprouting of seed in the silt carried by flood." }
       ]
     },
     {
@@ -617,6 +701,48 @@ const TAHA_THREE: DeepUnit = {
         { q: "What did Allah give, in 20:99?", a: "A Reminder from Him", wrong: ["A kingdom", "A treasure", "A palace"], why: "Thus We relate to you some information of what happened before. And indeed We have given you from Us a Reminder." },
         { q: "How are the past stories told, per Ibn Kathir?", a: "Just as they happened", wrong: ["Made more exciting", "With parts missing", "As fables"], why: "We relate to you the information of the past just as it happened, without any increase or decrease." },
         { q: "Was any Prophet given a more complete Book, per Ibn Kathir?", a: "No", wrong: ["Yes, many", "Yes, one", "Only Musa"], why: "No Prophet was given any Book like it or more complete than it." }
+      ]
+    },
+    {
+      slug: "a-heavy-burden",
+      title: "A heavy burden",
+      line: "Whoever turns from the Quran carries a heavy burden that Day.",
+      facts: ["Hold on to the Quran", "The Quran is for everyone"],
+      quote: q20(100),
+      source: ik(100, "Whoever denies the Quran and turns from its guidance will carry a burden of sin on the Day of Resurrection. The Quran is a warning to all it reaches.", "Burden here means sin"),
+      difficulty: 4,
+      questions: [
+        { q: "What does burden mean, per Ibn Kathir?", a: "Sin", wrong: ["A bag", "A rock", "Money"], why: "Burden here means sin." },
+        { q: "Whom does the Quran warn, per Ibn Kathir?", a: "Everyone it reaches", wrong: ["Only Arabs", "Only kings", "No one"], why: "The Qur'an is a final warning for everyone it reaches." },
+        { tf: true, q: "In 20:100 turning away brings a heavy burden.", why: "Whoever turns away from it, verily, they will bear a heavy burden on the Day of Resurrection." }
+      ]
+    },
+    {
+      slug: "an-evil-load",
+      title: "An evil load",
+      line: "They stay under that load; evil is that load on that Day.",
+      facts: ["Sins become heavy", "Lighten your load with repentance"],
+      quote: q20(101),
+      source: ik(101, "Those who turn from the Quran stay under that burden and cannot avoid or escape it. Evil indeed is that load.", "They will not be able to avoid this or escape it"),
+      difficulty: 4,
+      questions: [
+        { q: "How is the load described, in 20:101?", a: "Evil indeed", wrong: ["Light", "Sweet", "Golden"], why: "And evil indeed will it be that load for them on the Day of Resurrection." },
+        { q: "Can they escape the load, per Ibn Kathir?", a: "No", wrong: ["Yes", "With money", "By running"], why: "They will not be able to avoid this or escape it." },
+        { tf: true, q: "In 20:101 they will abide under it.", why: "They will abide in that." }
+      ]
+    },
+    {
+      slug: "the-horn-is-blown",
+      title: "The horn is blown",
+      line: "On the Day the Sur is blown, the criminals are gathered.",
+      facts: ["Trust Allah and prepare", "Say: Allah is enough for us"],
+      quote: q20(102),
+      source: ik(102, "The Prophet ﷺ said the Sur is a horn that will be blown. He taught us to say: Allah is sufficient for us, and upon Him we rely.", "It is a horn that will be blown into"),
+      difficulty: 4,
+      questions: [
+        { q: "What is the Sur, per Ibn Kathir?", a: "A horn that will be blown", wrong: ["A drum", "A bell", "A flag"], why: "It is a horn that will be blown into." },
+        { q: "Which angel blows the Sur, per Ibn Kathir?", a: "Israfil", wrong: ["Jibril", "Mikail", "Malik"], why: "The angel Israfil will blow into it." },
+        { q: "What did the Prophet ﷺ teach us to say?", a: "Allah is sufficient for us", wrong: ["I am afraid", "Run away", "It is far"], why: "Say: Allah is sufficient for us and what a good protector He is." }
       ]
     },
     {
@@ -827,6 +953,62 @@ const TAHA_THREE: DeepUnit = {
         { q: "What life does one who turns away have, in 20:124?", a: "A life of hardship", wrong: ["A life of ease", "A long holiday", "A royal life"], why: "But whosoever turns away from My Reminder, verily, for him is a life of hardship." },
         { q: "Can he be unhappy even with comforts, per Ibn Kathir?", a: "Yes, his heart is restless", wrong: ["No, never", "Only if poor", "Only when ill"], why: "Even if he appears to be in comfort outwardly and he wears whatever he likes, eats whatever he likes and lives wherever he wants, he will not be happy." },
         { q: "What is missing from his heart, per Ibn Kathir?", a: "Certainty and guidance", wrong: ["Blood", "Strength", "Music"], why: "For verily, his heart will not have pure certainty and guidance." }
+      ]
+    },
+    {
+      slug: "raised-blind",
+      title: "Why raised blind?",
+      line: "He asks why he is raised blind, though he once could see.",
+      facts: ["Keep the Quran in your life", "Deeds are repaid in kind"],
+      quote: q20(125),
+      source: ik(125, "The one who turned from Allah's Reminder asks why he is raised blind when he could see in this world.", "This means in the life of this world"),
+      difficulty: 4,
+      questions: [
+        { q: "What does he ask Allah, in 20:125?", a: "Why have You raised me blind?", wrong: ["Where is my gold?", "Who are you?", "Can I sleep?"], why: "O my Lord! Why have you raised me up blind, while I had sight (before)." },
+        { q: "When did he have sight, per Ibn Kathir?", a: "In the life of this world", wrong: ["In Paradise", "In the grave", "Never"], why: "This means in the life of this world." },
+        { q: "What does raised blind mean, per Mujahid?", a: "He will have no proof", wrong: ["He will sleep", "He will be rich", "He will fly"], why: "Mujahid, Abu Salih and As-Suddi said: This means he will have no proof." }
+      ]
+    },
+    {
+      slug: "neglected-that-day",
+      title: "Neglected that Day",
+      line: "He neglected Allah's signs, so that Day he is neglected.",
+      facts: ["Do not ignore the Quran", "The reward fits the deed"],
+      quote: q20(126),
+      source: ik(126, "Since he turned from Allah's signs as if he never knew them, he is treated that Day as one forgotten. Forgetting words while living by the Quran is not this threat.", "the punishment will be a retribution that is based upon the type of deed that was done"),
+      difficulty: 4,
+      questions: [
+        { q: "Why is he neglected, in 20:126?", a: "He disregarded Allah's Ayat", wrong: ["He was poor", "He was ill", "He traveled"], why: "Like this Our Ayat came unto you, but you disregarded them." },
+        { q: "How is the punishment matched, per Ibn Kathir?", a: "To the type of deed", wrong: ["By chance", "By wealth", "By age"], why: "The punishment will be a retribution that is based upon the type of deed that was done." },
+        { tf: false, q: "Ibn Kathir says forgetting words while living the Quran is this threat.", why: "Forgetting the words of the Qur'an, while understanding its meaning and acting upon its legislation, is not included." }
+      ]
+    },
+    {
+      slug: "more-severe-and-lasting",
+      title: "More severe and lasting",
+      line: "The Hereafter's punishment is harder and longer than this one.",
+      facts: ["This world is small", "Fear Allah in secret"],
+      quote: q20(127),
+      source: ik(127, "Allah repays those who go beyond bounds and deny His signs. The punishment of the Hereafter is far harder and more lasting than this world's.", "a more grievous and more painful penalty than of this world"),
+      difficulty: 4,
+      questions: [
+        { q: "How is the Hereafter's torment, in 20:127?", a: "More severe and more lasting", wrong: ["Shorter", "Lighter", "The same"], why: "And the torment of the Hereafter is far more severe and more lasting." },
+        { q: "Whom does Allah requite, in 20:127?", a: "Him who transgresses bounds", wrong: ["Him who prays", "Him who gives", "Him who fasts"], why: "And thus do We requite him who transgresses beyond bounds." },
+        { tf: true, q: "Ibn Kathir says this world's punishment is smaller.", why: "Verily, the torment of this worldly life is more insignificant, compared to the punishment of the Hereafter." }
+      ]
+    },
+    {
+      slug: "empty-homes-are-a-lesson",
+      title: "Empty homes are a lesson",
+      line: "People walk in the homes of ruined nations; that is a sign.",
+      facts: ["History teaches", "Use your mind and heart"],
+      quote: q20(128),
+      source: ik(128, "Allah destroyed nations that denied the Messengers. Their empty homes, now lived in by others, are signs for those with understanding.", "This is witnessed by the empty homes that these people left behind"),
+      difficulty: 4,
+      questions: [
+        { q: "Where do they walk, in 20:128?", a: "In the homes of ruined nations", wrong: ["In Paradise", "On the sea", "In the sky"], why: "How many generations We have destroyed before them in whose dwellings they walk about?" },
+        { q: "What witnesses this, per Ibn Kathir?", a: "The empty homes left behind", wrong: ["The stars", "The rivers", "The birds"], why: "This is witnessed by the empty homes that these people left behind." },
+        { q: "Who benefit from these signs, per Ibn Kathir?", a: "People of sound understanding", wrong: ["The careless", "The proud", "No one"], why: "This means those who have sound intellect and correct understanding." }
       ]
     },
     {

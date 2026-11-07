@@ -24,6 +24,7 @@ import type {
   LessonSession,
   PremiumStatus,
   QuizScope,
+  ReviewCard,
   ShopItem,
   TopicId,
   UserProfile,
@@ -56,7 +57,7 @@ export interface IslamicLearningApi {
 // Topics whose units each stand alone (a surah, a companion, a prophet, a woman of the Book, a narration, a scholar),
 // so a learner can start with Al-Ikhlas or Abu Bakr. Every other topic is a skill taught in order. New to Islam is one
 // too: a Christian starts on the prophets and a new Muslim on the first steps.
-export const LIBRARY_TOPICS: ReadonlySet<TopicId> = new Set<TopicId>(["quran_tafseer", "sahabah", "prophets", "women_of_the_book", "hadith", "scholars", "eid", "akhirah", "intro"]);
+export const LIBRARY_TOPICS: ReadonlySet<TopicId> = new Set<TopicId>(["quran_tafseer", "sahabah", "prophets", "women_of_the_book", "hadith", "scholars", "eid", "akhirah", "sahihayn", "intro"]);
 
 export const learningApi: IslamicLearningApi = {
   async getUser() {
@@ -117,7 +118,8 @@ export const learningApi: IslamicLearningApi = {
     // The question mix for the learner's age (or the one "Easy" asks), then harder as their streak and lessons
     // done grow, or at the difficulty they picked (challengeLevel.ts).
     const asked = lessonAtLevel(lessonForAge(lesson, mixAgeFor(user, ageGroup)), user, challengeLevel(user, ageGroup));
-    const progressiveLesson = prepareLessonForSession(asked);
+    // Then, at the end, a couple of questions missed before that are due to come back (spaced review).
+    const progressiveLesson = withMissedQuestions(prepareLessonForSession(asked), user);
 
     // A unit's last quiz circle is its test: each question once, a pass mark, and the circle opens the next unit
     // only when it is passed.
@@ -771,6 +773,65 @@ function reviewSessionCards(user: Pick<UserProfile, "reviewCards">, now: Date) {
   );
 }
 
+// A deck card as a question to ask: its own lesson's question, with that lesson's sources, under a new id.
+function deckChallenge(card: ReviewCard, idPrefix: string, prepared = new Map<string, Lesson>()): Challenge {
+  const lesson = LESSONS_BY_ID[card.lessonId];
+  const full = prepared.get(lesson.id) ?? prepareLessonForSession(lesson);
+  prepared.set(lesson.id, full);
+  const base = full.challenges.find((item) => item.id === card.challengeId) ?? lesson.challenges.find((item) => item.id === card.challengeId)!;
+  // The tiles in a new order each time the card comes back, so the answer is not remembered by its place.
+  const seen = card.misses + card.box;
+
+  return {
+    ...base,
+    id: `${idPrefix}_${base.id}`,
+    choices: shuffleChoicesForAttempt(base, seen),
+    isReview: true,
+    missedBefore: true,
+    sourceNodeId: base.sourceNodeId ?? lesson.nodeId,
+    sourceLessonId: lesson.id,
+    miniLesson: base.miniLesson ?? lesson.explanationContent ?? lesson.intro,
+    reviewSuggestion: base.reviewSuggestion ?? `Review ${lesson.title}`
+  };
+}
+
+/**
+ * Spaced review inside the path, like Anki: a normal lesson ends with up to MISSED_PER_LESSON questions the
+ * learner missed before that are due again (1, 3, then 7 days after, see services/reviewDeck). So a missed
+ * question comes back on its own, even for someone who never opens Practice. Each shows a "You missed this
+ * before" cue, and a first-try right answer moves its card on. Left out: the lesson's own questions (it asks
+ * them anyway), ones that clash with its questions, unit tests, quiz circles, and the intro and Ramadan paths.
+ */
+export const MISSED_PER_LESSON = 2;
+
+export function withMissedQuestions(lesson: Lesson, user: Pick<UserProfile, "reviewCards">, now = new Date()): Lesson {
+  const node = findNodeByLessonId(lesson.id);
+
+  if (!node || UNRAMPED_TOPICS.has(node.topicId) || isRecallLesson(lesson) || !lesson.challenges.length) {
+    return lesson;
+  }
+
+  const picked: Challenge[] = [];
+
+  for (const card of reviewSessionCards(user, now)) {
+    if (picked.length >= MISSED_PER_LESSON) break;
+    if (card.lessonId === lesson.id) continue;
+    const challenge = deckChallenge(card, `${lesson.id}_missed_${picked.length}`);
+    const others = [...lesson.challenges, ...picked];
+    const clashes = others.some(
+      (other) =>
+        normalizedPrompt(other) === normalizedPrompt(challenge) ||
+        givesAway(challenge, other) ||
+        asksSameLine(challenge, other) ||
+        namesAnswerOf(other, challenge) ||
+        namesAnswerOf(challenge, other)
+    );
+    if (!clashes) picked.push(challenge);
+  }
+
+  return picked.length ? { ...lesson, challenges: [...lesson.challenges, ...picked] } : lesson;
+}
+
 // REVIEW in Practice: up to 10 missed questions that are due, weakest first. Like "My lessons" it costs no
 // hearts and pays practice XP; a miss comes back at the end, and each first try moves its card in the deck.
 export function createReviewSession(user: UserProfile, now = new Date()): LessonSession | undefined {
@@ -781,25 +842,7 @@ export function createReviewSession(user: UserProfile, now = new Date()): Lesson
   }
 
   const prepared = new Map<string, Lesson>();
-  const challenges = cards.map((card, index) => {
-    const lesson = LESSONS_BY_ID[card.lessonId];
-    const full = prepared.get(lesson.id) ?? prepareLessonForSession(lesson);
-    prepared.set(lesson.id, full);
-    const base = full.challenges.find((item) => item.id === card.challengeId) ?? lesson.challenges.find((item) => item.id === card.challengeId)!;
-    // The tiles in a new order each time the card comes back, so the answer is not remembered by its place.
-    const seen = card.misses + card.box;
-
-    return {
-      ...base,
-      id: `review_deck_${index}_${base.id}`,
-      choices: shuffleChoicesForAttempt(base, seen),
-      isReview: true,
-      sourceNodeId: base.sourceNodeId ?? lesson.nodeId,
-      sourceLessonId: lesson.id,
-      miniLesson: base.miniLesson ?? lesson.explanationContent ?? lesson.intro,
-      reviewSuggestion: base.reviewSuggestion ?? `Review ${lesson.title}`
-    };
-  });
+  const challenges = cards.map((card, index) => deckChallenge(card, `review_deck_${index}`, prepared));
   const lessons = Array.from(prepared.values());
   const sources = uniqueById(lessons.flatMap((lesson) => lesson.sources));
 

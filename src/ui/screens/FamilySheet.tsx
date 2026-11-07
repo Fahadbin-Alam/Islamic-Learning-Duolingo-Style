@@ -7,10 +7,12 @@ import {
   MAX_NICKNAME_LENGTH,
   streakOnDay,
   weekTotal,
+  LIVE_KID_PREFIX,
   type AddKidResult,
   type FamilyKid,
   type FamilySnapshot
 } from "../../services/familyCode";
+import type { LinkedParent } from "../../services/backendSync";
 import type { TopicId } from "../../types";
 import { GameButton } from "../GameButton";
 import { Icon, type IconName } from "../Icon";
@@ -20,7 +22,7 @@ import { Sheet } from "../Sheet";
 import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, radii, space, text } from "../theme";
 import { formatNumber } from "./FormattedCount";
-import { MascotSays, SegmentButton, SheetTitle, TextField, useBackToClose } from "./sheetParts";
+import { MascotSays, SegmentButton, SheetTitle, TextField, Toggle, useBackToClose } from "./sheetParts";
 import { t } from "../../i18n";
 
 export type FamilyTab = "report" | "kids";
@@ -41,10 +43,32 @@ export type FamilySheetProps = {
   onRemoveKid: (id: string) => void;
   /** Local day, YYYY-MM-DD. */
   today: string;
+  /** Kids mode on this phone (simpler lessons, kid-safe ads). The switch is on My progress, behind the grown-up gate. */
+  kidsMode: boolean;
+  onKidsModeChange: (on: boolean) => void;
+  /** Live links between accounts; left out when the app has no server. */
+  live?: FamilyLive;
   /** A parent account opens on My kids. */
   initialTab?: FamilyTab;
   mascotVariant?: string;
   accent?: string;
+};
+
+export type FamilyLive = {
+  signedIn: boolean;
+  /** Kids this account follows live, as reports (ids start with LIVE_KID_PREFIX). */
+  kids: FamilyKid[];
+  /** Grown-ups who follow this account. */
+  parents: LinkedParent[];
+  /** The last answer from the server failed (offline or asleep). */
+  offline?: boolean;
+  /** Asks the server for a one-time code; resolves to the code or an error line. */
+  onMakeCode: () => Promise<{ code: string } | { error: string }>;
+  /** Links a child from their code; resolves to an error line, or nothing when it worked. */
+  onLinkKid: (code: string) => Promise<string | undefined>;
+  onRemoveKid: (id: number) => void;
+  onRemoveParent: (id: number) => void;
+  onSignIn: () => void;
 };
 
 const ADD_ERRORS: Record<string, string> = {
@@ -161,6 +185,7 @@ export function ProgressReport({ snapshot, today, topics, testID }: { snapshot: 
 }
 
 function KidRow({ kid, index, today, topics, onRemove }: { kid: FamilyKid; index: number; today: string; topics: FamilyTopic[]; onRemove: () => void }) {
+  const live = kid.snapshot.id.startsWith(LIVE_KID_PREFIX);
   const [open, setOpen] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const name = kid.nickname || t("Child {count}", { count: index + 1 });
@@ -176,9 +201,18 @@ function KidRow({ kid, index, today, topics, onRemove }: { kid: FamilyKid; index
           <Text style={styles.kidName} numberOfLines={1}>
             {name}
           </Text>
-          <Text style={styles.kidSub} numberOfLines={1}>
-            {updatedLine(kid.snapshot.date, today)}
-          </Text>
+          {live ? (
+            <View style={styles.liveRow}>
+              <View style={styles.liveDot} />
+              <Text style={styles.liveText} numberOfLines={1}>
+                {t("Live")} · {lastLearnedLine(kid.snapshot, today)}
+              </Text>
+            </View>
+          ) : (
+            <Text style={styles.kidSub} numberOfLines={1}>
+              {updatedLine(kid.snapshot.date, today)}
+            </Text>
+          )}
         </View>
         <View style={styles.kidScore}>
           <Icon name="flame" size={18} color={streakOnDay(kid.snapshot, today) > 0 ? undefined : colors.lockedLip} />
@@ -221,6 +255,9 @@ export function FamilySheet({
   onAddKid,
   onRemoveKid,
   today,
+  kidsMode,
+  onKidsModeChange,
+  live,
   initialTab = "report",
   mascotVariant = "hijabi",
   accent
@@ -234,6 +271,14 @@ export function FamilySheet({
   const [error, setError] = useState<string | undefined>(undefined);
   const [shakeKey, setShakeKey] = useState(0);
   const [added, setAdded] = useState<string | undefined>(undefined);
+  const [linkCode, setLinkCode] = useState<string | undefined>(undefined);
+  const [codeError, setCodeError] = useState<string | undefined>(undefined);
+  const [codeBusy, setCodeBusy] = useState(false);
+  const [kidCode, setKidCode] = useState("");
+  const [kidCodeError, setKidCodeError] = useState<string | undefined>(undefined);
+  const [kidCodeShake, setKidCodeShake] = useState(0);
+  const [linking, setLinking] = useState(false);
+  const [parentToRemove, setParentToRemove] = useState<number | undefined>(undefined);
 
   // Each opening starts on the tab that fits the account, with the add form closed.
   useEffect(() => {
@@ -244,11 +289,42 @@ export function FamilySheet({
     setNickname("");
     setError(undefined);
     setAdded(undefined);
+    setLinkCode(undefined);
+    setCodeError(undefined);
+    setKidCode("");
+    setKidCodeError(undefined);
+    setParentToRemove(undefined);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible]);
 
+  const liveKids = live?.kids ?? [];
   // With no kids yet the form is the whole tab.
-  const formOpen = adding || kids.length === 0;
+  const formOpen = adding || kids.length + liveKids.length === 0;
+
+  const makeCode = async () => {
+    if (!live || codeBusy) return;
+    setCodeBusy(true);
+    setCodeError(undefined);
+    const result = await live.onMakeCode();
+    setCodeBusy(false);
+    if ("code" in result) setLinkCode(result.code);
+    else setCodeError(result.error);
+  };
+
+  const linkKid = async () => {
+    if (!live || linking || !kidCode.trim()) return;
+    setLinking(true);
+    const failed = await live.onLinkKid(kidCode);
+    setLinking(false);
+    if (failed) {
+      setKidCodeError(failed);
+      setKidCodeShake((value) => value + 1);
+      return;
+    }
+    setKidCode("");
+    setKidCodeError(undefined);
+    setAdded(t("Linked!"));
+  };
   const share = () => setSharedCode(onShareReport());
 
   const add = () => {
@@ -275,7 +351,79 @@ export function FamilySheet({
       <ScrollView style={styles.scrollArea} contentContainerStyle={styles.stack} keyboardShouldPersistTaps="handled" testID="family-scroll">
         {tab === "report" ? (
           <>
+            <View style={styles.card} testID="family-kids-mode">
+              <Toggle label={t("Kids mode")} icon="family" value={kidsMode} onToggle={() => onKidsModeChange(!kidsMode)} testID="family-kids-mode-toggle" />
+              <Text style={styles.cardLine}>
+                {kidsMode
+                  ? t("On: the easiest questions, no marriage lessons and only kid-safe ads.")
+                  : t("Off: lessons for teens and grown-ups. Turn it on for a child under 13.")}
+              </Text>
+            </View>
             <ProgressReport snapshot={report} today={today} topics={topics} testID="family-report" />
+            {live ? (
+              <View style={styles.card} testID="family-link-parent">
+                <Text style={styles.cardTitle}>{t("Link a parent")}</Text>
+                {live.signedIn ? (
+                  <>
+                    <Text style={styles.cardLine}>{t("A parent signed in on their own phone sees your progress live. Get a code and read it to them.")}</Text>
+                    {linkCode ? (
+                      <View style={styles.codeBox} testID="family-link-code">
+                        <Text style={styles.codeLabel}>{t("Your code (works once, for 24 hours)")}</Text>
+                        <Text style={styles.bigCode} selectable testID="family-link-code-text">
+                          {linkCode}
+                        </Text>
+                        <Text style={styles.codeLabel}>{t("On their phone: Me, Family, My kids, Link with a code.")}</Text>
+                      </View>
+                    ) : null}
+                    {codeError ? (
+                      <Text style={styles.errorLine} accessibilityLiveRegion="polite" testID="family-link-code-error">
+                        {codeError}
+                      </Text>
+                    ) : null}
+                    <GameButton
+                      label={linkCode ? t("New code") : t("Get a code")}
+                      icon="family"
+                      variant="secondary"
+                      fullWidth
+                      disabled={codeBusy}
+                      onPress={() => void makeCode()}
+                      testID="family-link-code-make"
+                    />
+                    {live.parents.map((parent) => (
+                      <View key={parent.id} style={styles.parentRow} testID={`family-parent-${parent.id}`}>
+                        <View style={styles.kidAvatar}>
+                          <Text style={styles.kidInitial}>{parent.avatarInitials || "?"}</Text>
+                        </View>
+                        <Text style={[styles.kidName, styles.parentName]} numberOfLines={1}>
+                          {parent.name}
+                        </Text>
+                        {parentToRemove === parent.id ? (
+                          <GameButton
+                            label={t("Remove")}
+                            size="sm"
+                            color={colors.wrongInk}
+                            onPress={() => {
+                              setParentToRemove(undefined);
+                              live.onRemoveParent(parent.id);
+                            }}
+                            testID={`family-parent-${parent.id}-remove-yes`}
+                          />
+                        ) : (
+                          <Tappable onPress={() => setParentToRemove(parent.id)} style={styles.linkButton} accessibilityRole="button" testID={`family-parent-${parent.id}-remove`}>
+                            <Text style={styles.dangerLink}>{t("Remove")}</Text>
+                          </Tappable>
+                        )}
+                      </View>
+                    ))}
+                  </>
+                ) : (
+                  <>
+                    <Text style={styles.cardLine}>{t("Sign in to link a parent's account, so they see your progress live.")}</Text>
+                    <GameButton label={t("Sign in")} variant="secondary" fullWidth onPress={live.onSignIn} testID="family-link-sign-in" />
+                  </>
+                )}
+              </View>
+            ) : null}
             <GameButton label={t("Send to a parent")} icon="family" fullWidth onPress={share} testID="family-share" />
             <Text style={styles.hint}>{t("They paste it in Muslimo on their phone: Me, Family, My kids.")}</Text>
             {sharedCode ? (
@@ -289,15 +437,59 @@ export function FamilySheet({
           </>
         ) : (
           <>
-            {kids.length === 0 ? <MascotSays variant={mascotVariant} mood="wave" accent={accent} line={t("Follow your child's learning!")} /> : null}
+            {kids.length + liveKids.length === 0 ? <MascotSays variant={mascotVariant} mood="wave" accent={accent} line={t("Follow your child's learning!")} /> : null}
             {added ? (
               <Text style={styles.added} accessibilityLiveRegion="polite" testID="family-added">
                 {added}
               </Text>
             ) : null}
-            {kids.map((kid, index) => (
-              <KidRow key={kid.snapshot.id} kid={kid} index={index} today={today} topics={topics} onRemove={() => onRemoveKid(kid.snapshot.id)} />
+            {liveKids.map((kid, index) => (
+              <KidRow
+                key={kid.snapshot.id}
+                kid={kid}
+                index={index}
+                today={today}
+                topics={topics}
+                onRemove={() => live?.onRemoveKid(Number(kid.snapshot.id.slice(LIVE_KID_PREFIX.length)))}
+              />
             ))}
+            {kids.map((kid, index) => (
+              <KidRow key={kid.snapshot.id} kid={kid} index={liveKids.length + index} today={today} topics={topics} onRemove={() => onRemoveKid(kid.snapshot.id)} />
+            ))}
+            {live?.offline ? <Text style={styles.cardLine}>{t("Couldn't reach Muslimo just now. Live kids show when you're back online.")}</Text> : null}
+            {live ? (
+              <View style={styles.addCard} testID="family-link-kid">
+                <Text style={styles.cardTitle}>{t("Link with a code")}</Text>
+                {live.signedIn ? (
+                  <>
+                    <Text style={styles.cardLine}>{t("On your child's phone: Me, Family, Get a code. Type it here to see their progress live.")}</Text>
+                    <TextField
+                      value={kidCode}
+                      onChangeText={(value) => {
+                        setKidCode(value.toUpperCase());
+                        setKidCodeError(undefined);
+                      }}
+                      placeholder={t("6-letter code")}
+                      autoCapitalize="characters"
+                      autoCorrect={false}
+                      maxLength={12}
+                      returnKeyType="done"
+                      onSubmitEditing={() => void linkKid()}
+                      error={kidCodeError}
+                      shakeKey={kidCodeShake}
+                      testID="family-link-kid-code"
+                      accessibilityLabel={t("6-letter code")}
+                    />
+                    <GameButton label={t("Link")} icon="plus" fullWidth disabled={!kidCode.trim() || linking} onPress={() => void linkKid()} testID="family-link-kid-go" />
+                  </>
+                ) : (
+                  <>
+                    <Text style={styles.cardLine}>{t("Sign in to follow a child's account live.")}</Text>
+                    <GameButton label={t("Sign in")} variant="secondary" fullWidth onPress={live.onSignIn} testID="family-link-kid-sign-in" />
+                  </>
+                )}
+              </View>
+            ) : null}
             {formOpen ? (
               <View style={styles.addCard} testID="family-add-form">
                 <Text style={styles.cardTitle}>{t("Add a child")}</Text>
@@ -351,6 +543,42 @@ export function FamilySheet({
 }
 
 const styles = StyleSheet.create({
+  liveRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6
+  },
+  liveDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: colors.green
+  },
+  liveText: {
+    ...text.tiny,
+    flexShrink: 1
+  },
+  bigCode: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 34,
+    lineHeight: 42,
+    letterSpacing: 6,
+    color: colors.ink,
+    textAlign: "center"
+  },
+  errorLine: {
+    ...text.small,
+    color: colors.wrongInk
+  },
+  parentName: {
+    flex: 1,
+    minWidth: 0
+  },
+  parentRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: space.sm
+  },
   tallPanel: {
     maxHeight: "92%"
   },

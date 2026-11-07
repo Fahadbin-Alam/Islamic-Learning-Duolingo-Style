@@ -1,4 +1,5 @@
 import type { AudioPlayer, AudioStatus } from "expo-audio";
+import { isOnline } from "./network";
 import { localAyahUri, saveAyahForOffline } from "./offlineAudio";
 
 /**
@@ -79,11 +80,23 @@ export function subscribeAyahPlayback(listener: (playback: AyahPlayback) => void
  * `once` plays it a single time even when Repeat is on (the word card's speaker, which has no Stop).
  */
 export function playAyah(url: string, { once = false }: { once?: boolean } = {}) {
+  const saved = localAyahUri(url);
+  // With no internet, an ayah not saved on the phone cannot play: say so now instead of after the load timeout.
+  if (!saved && !isOnline()) {
+    clearLoadTimer();
+    try {
+      player?.pause();
+    } catch {
+      // Nothing was playing.
+    }
+    setState({ url, status: "error" });
+    return;
+  }
   try {
     const { createAudioPlayer, setAudioModeAsync } = expoAudio();
     // A recitation the learner asked for plays even with the iPhone's silent switch on.
     void setAudioModeAsync({ playsInSilentMode: true, interruptionMode: "mixWithOthers" }).catch(() => undefined);
-    const source = localAyahUri(url) ?? url;
+    const source = saved ?? url;
     if (!player) {
       player = createAudioPlayer(source);
       statusSubscription = player.addListener("playbackStatusUpdate", onStatus);

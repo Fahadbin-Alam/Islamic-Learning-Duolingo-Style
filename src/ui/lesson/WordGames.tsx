@@ -11,18 +11,18 @@ import { ExerciseView, QuestionBubble, useLessonCompact, type ExerciseChoice, ty
 import { CORRECT_TEXT, FeedbackSheet, WRONG_TEXT } from "./FeedbackSheet";
 import { LessonBottomBar } from "./LessonHeader";
 import { noBreakHyphens, shortWhy } from "./lessonText";
-import { CHECK_FALSE, CHECK_TRUE, WRONG_BUILD, formatSeed, puzzleWords, sameWords, type MatchPair } from "./questionFormats";
+import { CHECK_FALSE, CHECK_TRUE, WRONG_BUILD, formatSeed, type FillPiece, type MatchPair } from "./questionFormats";
 import { getActiveLanguage, t } from "../../i18n";
 
-// The Duolingo-style games a question can be asked as (see questionFormats): fill the gap, build the answer from
-// word tiles, true or false on one choice, and a matching round. Each one reports the answer as a choice id, so the
+// The Duolingo-style games a question can be asked as (see questionFormats): fill the gap, the answer with its
+// key word missing, true or false on one choice, and a matching round. Each one reports the answer as a choice id, so the
 // lesson scores it, takes a heart and shows the answer sheet exactly as it does for tiles.
 
 type ShowProps = {
   mascotVariant: string;
   accent: string;
-  /** Asked again from an earlier lesson: a small REVIEW chip. */
-  review?: boolean;
+  /** Asked again from an earlier lesson: a small REVIEW chip; "missed": a question missed before, back again. */
+  review?: boolean | "missed";
   /** 0 the first time; more when a missed question comes back. */
   attempt?: number;
   praiseSeed?: string;
@@ -128,8 +128,8 @@ function WordTile({
   );
 }
 
-/** The small label over a game ("Fill in the gap", "Build the answer"), with the review / try-again cues. */
-function GameCue({ label, review, attempt, accent }: { label: string; review?: boolean; attempt?: number; accent: string }) {
+/** The small label over a game ("Fill in the gap", "True or false?"), with the review / try-again cues. */
+function GameCue({ label, review, attempt, accent }: { label: string; review?: boolean | "missed"; attempt?: number; accent: string }) {
   return (
     <View style={styles.cueRow} testID="game-cue">
       <View style={[styles.cue, { backgroundColor: lighten(accent, 0.85) }]}>
@@ -137,7 +137,7 @@ function GameCue({ label, review, attempt, accent }: { label: string; review?: b
       </View>
       {review ? (
         <View style={[styles.cue, styles.reviewCue]}>
-          <Text style={[styles.cueText, styles.reviewText]}>{t("Review")}</Text>
+          <Text style={[styles.cueText, styles.reviewText]}>{t(review === "missed" ? "Missed before" : "Review")}</Text>
         </View>
       ) : null}
       {attempt && attempt > 0 ? (
@@ -212,10 +212,13 @@ export type GapGameProps = ShowProps &
     prompt: string;
     choices: ExerciseChoice[];
     correctChoiceId: string;
+    /** A question the sentence answers: shown in the bubble in place of "Drag the right word into the gap!". */
+    question?: string;
+    testID?: string;
   };
 
 /** Fill the gap: drag a word tile up into the sentence, or tap it. Tap the word in the gap to take it out. */
-export function GapGame({ prompt, choices, correctChoiceId, selectedChoiceId, result, onSelect, onCheck, onContinue, mascotVariant, accent, review, attempt, praiseSeed, playSound, continueSound, bottomInset }: GapGameProps) {
+export function GapGame({ prompt, choices, correctChoiceId, question, testID, selectedChoiceId, result, onSelect, onCheck, onContinue, mascotVariant, accent, review, attempt, praiseSeed, playSound, continueSound, bottomInset }: GapGameProps) {
   const { compact } = useLessonCompact();
   const [before, ...rest] = prompt.split(/_{2,}/);
   const after = rest.join("____");
@@ -230,9 +233,9 @@ export function GapGame({ prompt, choices, correctChoiceId, selectedChoiceId, re
   const gapTone: TileTone = !result ? "picked" : placed?.id === correctChoiceId ? "correct" : "wrong";
   const palette = topicPalette(accent);
   return (
-    <GameFrame ready={Boolean(placed)} result={result} prompt={prompt} praiseSeed={praiseSeed} playSound={playSound} continueSound={continueSound} bottomInset={bottomInset} onCheck={onCheck} onContinue={onContinue} testID="gap-game">
+    <GameFrame ready={Boolean(placed)} result={result} prompt={question ?? prompt} praiseSeed={praiseSeed} playSound={playSound} continueSound={continueSound} bottomInset={bottomInset} onCheck={onCheck} onContinue={onContinue} testID={testID ?? "gap-game"}>
       <GameCue label={t("Fill in the gap")} review={review} attempt={attempt} accent={accent} />
-      <QuestionBubble prompt={t("Drag the right word into the gap!")} mascotVariant={mascotVariant} accent={accent} mood={mood} hideMascot={compact} />
+      <QuestionBubble prompt={question ?? t("Drag the right word into the gap!")} mascotVariant={mascotVariant} accent={accent} mood={mood} hideMascot={compact} />
       <PopIn from="up" delay={80}>
         <Animated.View style={[styles.sentence, shakeStyle]} testID="gap-sentence">
           <Text style={styles.sentenceText}>
@@ -274,61 +277,38 @@ export function GapGame({ prompt, choices, correctChoiceId, selectedChoiceId, re
   );
 }
 
-export type BuildGameProps = ShowProps &
+export type FillGameProps = ShowProps &
   AnswerProps & {
+    /** The question, shown in the bubble. */
     prompt: string;
-    /** The right answer, split into tiles. */
-    answer: string;
+    /** The answer with its key word missing, and the words to pick from (questionFormats.fillPiece). */
+    fill: FillPiece;
     correctChoiceId: string;
-    /** Words from the other choices, mixed in. */
-    extras: string[];
   };
 
-/** A puzzle: tap the word tiles in order to build the answer. Tap a placed word to put it back. */
-export function BuildGame({ prompt, answer, correctChoiceId, extras, result, onSelect, onCheck, onContinue, mascotVariant, accent, review, attempt, praiseSeed, playSound, continueSound, bottomInset }: BuildGameProps) {
-  const { compact } = useLessonCompact();
-  const words = useMemo(() => puzzleWords(answer), [answer]);
-  const bank = useMemo(
-    () => steadyShuffle([...words, ...extras].map((label, index) => ({ id: `w${index}`, label })), `${prompt}|${attempt ?? 0}`),
-    [words, extras, prompt, attempt]
-  );
-  const [placed, setPlaced] = useState<string[]>([]);
-  const checked = Boolean(result);
-  const mood: MascotMood = !result ? "think" : result.correct ? "cheer" : "sad";
-  const { style: shakeStyle, shake } = useShake(8);
-  useEffect(() => {
-    if (result && !result.correct) shake();
-  }, [result, shake]);
-  const labelOf = (id: string) => bank.find((tile) => tile.id === id)?.label ?? "";
-  const update = (next: string[]) => {
-    setPlaced(next);
-    onSelect(next.length && sameWords(next.map(labelOf), words) ? correctChoiceId : WRONG_BUILD);
-  };
-  const tone: TileTone = !result ? "picked" : result.correct ? "correct" : "wrong";
+/**
+ * The answer with its key word missing: the question in the bubble, the answer under it with a gap, and a few
+ * words to tap (or drag) into the gap. One tap answers, so the learner recalls the fact, not word order.
+ */
+export function FillGame({ prompt, fill, correctChoiceId, result, onSelect, ...rest }: FillGameProps) {
+  const choices = useMemo(() => fill.options.map((label) => ({ id: `fill:${label}`, label })), [fill]);
+  const rightId = `fill:${fill.piece}`;
+  const [picked, setPicked] = useState<string | undefined>(undefined);
   return (
-    <GameFrame ready={placed.length > 0} result={result} prompt={prompt} praiseSeed={praiseSeed} playSound={playSound} continueSound={continueSound} bottomInset={bottomInset} onCheck={onCheck} onContinue={onContinue} testID="build-game">
-      <GameCue label={t("Build the answer")} review={review} attempt={attempt} accent={accent} />
-      <QuestionBubble prompt={prompt} mascotVariant={mascotVariant} accent={accent} mood={mood} hideMascot={compact} />
-      <Animated.View style={[styles.answerBox, shakeStyle]} testID="build-answer">
-        {placed.map((id) => (
-          <WordTile key={id} label={labelOf(id)} tone={tone} accent={accent} disabled={checked} onPress={() => update(placed.filter((each) => each !== id))} testID={`build-placed-${id}`} />
-        ))}
-      </Animated.View>
-      <View style={styles.bank} testID="build-bank">
-        {bank.map((tile) => (
-          <WordTile
-            key={tile.id}
-            label={tile.label}
-            tone={placed.includes(tile.id) ? "used" : "idle"}
-            accent={accent}
-            disabled={checked}
-            onPress={() => update([...placed, tile.id])}
-            onDrop={() => update([...placed, tile.id])}
-            testID={`build-tile-${tile.label}`}
-          />
-        ))}
-      </View>
-    </GameFrame>
+    <GapGame
+      {...rest}
+      testID="fill-game"
+      question={prompt}
+      prompt={`${fill.before}____${fill.after}`}
+      choices={choices}
+      correctChoiceId={rightId}
+      selectedChoiceId={picked}
+      result={result}
+      onSelect={(id) => {
+        setPicked(id || undefined);
+        onSelect(!id ? "" : id === rightId ? correctChoiceId : WRONG_BUILD);
+      }}
+    />
   );
 }
 
@@ -496,19 +476,6 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
     textDecorationStyle: "dashed",
     backgroundColor: colors.white
-  },
-  answerBox: {
-    marginTop: space.md,
-    minHeight: 76,
-    borderWidth: 2,
-    borderStyle: "dashed",
-    borderColor: colors.lineLip,
-    borderRadius: radii.tile,
-    backgroundColor: colors.mist,
-    padding: space.xs,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignContent: "flex-start"
   },
   bank: { marginTop: space.lg, flexDirection: "row", flexWrap: "wrap", justifyContent: "center" },
   tileOuter: { margin: 4, maxWidth: "100%" },

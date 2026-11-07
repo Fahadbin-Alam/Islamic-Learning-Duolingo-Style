@@ -1,5 +1,7 @@
 import { findPrayerCity } from "../data/prayerCities";
 import type { SupportedLanguage, UserProfile } from "../types";
+import { planLeagueReminders } from "./leagueReminders";
+import { planRamadanReminders } from "./ramadanReminders";
 import { getStoredItem, setStoredItem } from "./appStorage";
 import { PRAYERS, PRAYER_LABELS, defaultPrayerNudgePrefs, getPrayerTimes, type PrayerName, type PrayerNudgePrefs } from "./prayerTimes";
 import { RESUME_REMINDER_AFTER_MS, getLastLearningTime, isSameCalendarDay } from "./reminderContent";
@@ -31,7 +33,8 @@ export function loadPrayerNudgePrefs(): PrayerNudgePrefs {
       enabled: parsed.enabled === true,
       cityId: findPrayerCity(parsed.cityId)?.id,
       asr: parsed.asr === "hanafi" || parsed.asr === "standard" ? parsed.asr : undefined,
-      prayers: Object.fromEntries(PRAYERS.map((prayer) => [prayer, parsed.prayers?.[prayer] !== false])) as Record<PrayerName, boolean>
+      prayers: Object.fromEntries(PRAYERS.map((prayer) => [prayer, parsed.prayers?.[prayer] !== false])) as Record<PrayerName, boolean>,
+      ...(parsed.ramadan === true ? { ramadan: true } : {})
     };
   } catch {
     return fallback;
@@ -60,7 +63,12 @@ export function planPrayerNudges(prefs: PrayerNudgePrefs, user: UserProfile | un
 
   const lastLearningAt = user ? getLastLearningTime(user) : undefined;
   const reminders = user?.reminderPreferences;
-  const otherReminders = comebackSlots(lastLearningAt, reminders?.streakReminders !== false, reminders?.islamicReminders !== false, now);
+  // In Ramadan the suhoor and iftar reminders take the place of a nudge close to them (Maghrib's, at iftar).
+  const otherReminders = [
+    ...comebackSlots(lastLearningAt, reminders?.streakReminders !== false, reminders?.islamicReminders !== false, now),
+    ...planRamadanReminders(prefs, now).map((reminder) => reminder.at.getTime()),
+    ...planLeagueReminders(user, "en", now).map((reminder) => reminder.at.getTime())
+  ];
   const nudges: PrayerNudge[] = [];
 
   for (let offset = 0; offset < NUDGE_DAYS_AHEAD; offset += 1) {

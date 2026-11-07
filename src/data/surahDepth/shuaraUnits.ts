@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Ash-Shu'ara ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -873,6 +873,20 @@ const SHUARA_THREE: DeepUnit = {
       ]
     },
     {
+      slug: "what-tawakkul-is",
+      title: "What tawakkul is",
+      line: "Tawakkul is the heart leaning on Allah, trusting Him fully.",
+      facts: ["As-Sa'di explains", "Tawakkul"],
+      quote: q26(217),
+      source: saadi(26, 217, "As-Sa'di says the greatest help in doing what Allah commands is relying on Him; tawakkul is the heart leaning on Allah to bring good and keep harm away, trusting Him and expecting good from Him, the Mighty who is able and the Merciful who cares.", "والتوكل هو اعتماد القلب على الله تعالى"),
+      difficulty: 2,
+      questions: [
+        { q: "What is tawakkul, per as-Sa'di on 26:217?", a: "The heart relying on Allah", wrong: ["Doing nothing", "Relying on people", "Hoping for luck"], why: "It is the heart leaning on Allah to bring good and keep harm away." },
+        { q: "Why trust the Mighty, the Merciful, per as-Sa'di?", a: "He is able and He cares", wrong: ["He is far", "He forgets", "He needs us"], why: "By His might He can bring good, and by His mercy He does it." },
+        { tf: true, q: "Relying on Allah is the greatest help in obeying Him.", why: "As-Sa'di on 26:217." }
+      ]
+    },
+    {
       slug: "he-sees-you-pray",
       title: "He sees you when you stand",
       line: "Allah sees you stand in prayer, alone or in a group.",
@@ -884,6 +898,20 @@ const SHUARA_THREE: DeepUnit = {
         { q: "What does standing up mean, per Ibn Abbas?", a: "Standing to pray", wrong: ["Standing to trade", "Waking up only", "Standing to fight"], why: "Ibn Abbas said that the Ayah, Who sees you when you stand up, means: To pray." },
         { q: "When does Allah see you pray, per Qatadah?", a: "Alone and in congregation", wrong: ["Only in the mosque", "Only on Friday", "Only at night"], why: "He sees you when you pray alone and when you pray in congregation." },
         { q: "Which names end this passage, in 26:220?", a: "All-Hearer, All-Knower", wrong: ["King, Holy", "First, Last", "Creator, Shaper"], why: "Verily, He, only He, is the All-Hearer, the All-Knower." }
+      ]
+    },
+    {
+      slug: "prayer-perfects-the-rest",
+      title: "Prayer perfects the rest",
+      line: "Pray knowing your Lord is near, and all your deeds improve.",
+      facts: ["As-Sa'di explains", "Khushu'"],
+      quote: q26(219),
+      source: saadi(26, 219, "As-Sa'di says Allah names the prayer for its honour: whoever keeps in mind how near his Lord is becomes humble in it and completes it, and by completing it all his other deeds become complete, and he gets help from it in every matter.", "وبتكميلها, يكمل سائر عمله"),
+      difficulty: 2,
+      questions: [
+        { q: "What happens when prayer is done well, per as-Sa'di on 26:219?", a: "All other deeds improve", wrong: ["Nothing else changes", "Fasting is dropped", "Charity stops"], why: "By completing it, all his other deeds become complete." },
+        { q: "What makes a person humble in prayer, per as-Sa'di?", a: "Feeling near to his Lord", wrong: ["A long sleeve", "A loud voice", "A big masjid"], why: "Whoever keeps his Lord's nearness in mind becomes humble." },
+        { tf: true, q: "Prayer helps a believer in all his matters.", why: "As-Sa'di on 26:219." }
       ]
     },
     {

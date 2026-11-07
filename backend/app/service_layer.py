@@ -286,6 +286,30 @@ EXTRA_STATE_MAX_BYTES = 256 * 1024
 EXTRA_KEY_PATTERN = re.compile(r"^[A-Za-z][A-Za-z0-9_]{0,59}$")
 
 
+def _read_count(value: Any) -> int:
+    return value if isinstance(value, int) and not isinstance(value, bool) and value > 0 else 0
+
+
+def merge_story_reads(old: Any, new: Any) -> Optional[Dict[str, Any]]:
+    """Stories read in story mode, from two phones: every story either has read, the later read time, the most reads."""
+    if not isinstance(new, dict):
+        return None
+    if not isinstance(old, dict):
+        return new
+    merged: Dict[str, Any] = {key: value for key, value in old.items() if isinstance(value, dict)}
+    for key, value in new.items():
+        if not isinstance(value, dict):
+            continue
+        before = merged.get(key)
+        if not before:
+            merged[key] = value
+            continue
+        reads = max(_read_count(before.get("reads")), _read_count(value.get("reads")))
+        read_at = max(str(before.get("readAt") or ""), str(value.get("readAt") or ""))
+        merged[key] = {**before, **value, "reads": reads, "readAt": read_at}
+    return merged
+
+
 def clean_extra_state(snapshot: Dict[str, Any], fallback: Dict[str, Any]) -> Dict[str, Any]:
     """The profile fields with no column. Too many keys or too big a save keeps the last good copy instead."""
     extra = {
@@ -303,6 +327,9 @@ def clean_extra_state(snapshot: Dict[str, Any], fallback: Dict[str, Any]) -> Dic
     old_days, new_days = (fallback or {}).get("ramadanDays"), extra.get("ramadanDays")
     if isinstance(old_days, list) and isinstance(new_days, list):
         merged["ramadanDays"] = sorted({day for day in [*old_days, *new_days] if isinstance(day, str)})
+    merged_stories = merge_story_reads((fallback or {}).get("stories"), extra.get("stories"))
+    if merged_stories is not None:
+        merged["stories"] = merged_stories
     # A field this phone has not heard of (sent by a newer build on another phone) is kept.
     for key, value in (fallback or {}).items():
         merged.setdefault(key, value)

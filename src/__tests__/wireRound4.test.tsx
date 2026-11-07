@@ -42,7 +42,7 @@ import { clearActiveAssessment, clearPracticeResult } from "../services/localPro
 import { testOutGoalLine } from "../ui/screens";
 import type { Challenge, LearningNode, UserProfile } from "../types";
 import { finishLessonRight, toQuestion } from "./lessonDriver";
-import { makeUser } from "./testUtils";
+import { makeUser, scrollPathTo } from "./testUtils";
 
 const PROFILE_KEY = "sira-path-user-profile";
 const TODAY_HEARTS = (unlimited: boolean) => ({ current: 5, max: 5, unlimited, lastRefillDate: localToday() });
@@ -80,8 +80,9 @@ const QURAN = COURSE.sections.find((section) => section.topicId === "quran_tafse
 const FOUNDATION = COURSE.sections.find((section) => section.topicId === "foundation")!;
 const quranUnits = QURAN.branches.map((branch) => QURAN.nodes.filter((node) => node.branchId === branch.id)).filter((nodes) => nodes.length > 0);
 // A short surah unit after the first (the Quran goes in mushaf order, so unit 2 is the long Al-Baqarah): its key
-// tests all of the rest of it in one go.
-const SHORT = quranUnits.findIndex((nodes, index) => index > 0 && nodes.length <= 12);
+// tests all of the rest of it in one go. It needs at least 6 circles, so the key after JUMP HERE on the fourth
+// still has enough questions for a fair test; surahs not yet taught ayah by ayah can have only 4.
+const SHORT = quranUnits.findIndex((nodes, index) => index > 0 && nodes.length >= 6 && nodes.length <= 12);
 
 function testOut(user: UserProfile, branchId: string, jumpNodeId?: string) {
   const plan = getTestOutPlan(user, branchId, jumpNodeId)!;
@@ -92,8 +93,9 @@ function testOut(user: UserProfile, branchId: string, jumpNodeId?: string) {
 const nodeLabel = (node: LearningNode) => screen.getByTestId(`path-node-${node.id}`).props.accessibilityLabel as string;
 
 // Two whole test-outs played through the app: slower than one screen.
-// The whole path renders here with its moving pictures; on a busy CI machine that can pass 30 s.
-jest.setTimeout(90000);
+// The whole path renders here with its moving pictures, and the Quran path grows with every surah taught ayah by
+// ayah; on a busy CI machine one test can pass 90 s.
+jest.setTimeout(180000);
 
 afterEach(() => {
   removeStoredItem(PROFILE_KEY);
@@ -114,6 +116,7 @@ describe("after a test-out in a later unit", () => {
 
     await render(<TopicApp />);
     await screen.findByTestId("learn-path-quran_tafseer");
+    await scrollPathTo("quran_tafseer", target.branchId);
     await press(`path-node-${target.id}`);
     await press("node-card-jump");
     // The sheet says the pass mark and the miss that ends it before the test starts.
@@ -164,6 +167,7 @@ describe("after a test-out in a later unit", () => {
 
     await render(<TopicApp />);
     await screen.findByTestId("learn-path-quran_tafseer");
+    await scrollPathTo("quran_tafseer", target.branchId);
     await press(`path-node-${target.id}`);
     await press("node-card-jump");
     await press("test-out-start");

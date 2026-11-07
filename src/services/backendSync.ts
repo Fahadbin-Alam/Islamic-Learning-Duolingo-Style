@@ -281,6 +281,18 @@ export async function syncSubscriptionEntitlement(input: {
   });
 }
 
+/**
+ * Two friends' shared streak (backend/app/api/routes/friends.py): days in a row on which both finished a lesson,
+ * counted from the day they became friends. It lives while the last such day is today or yesterday.
+ */
+export type FriendStreak = {
+  days: number;
+  /** Their longest one together. */
+  best: number;
+  meToday: boolean;
+  friendToday: boolean;
+};
+
 export type CrewMember = {
   id: number;
   name: string;
@@ -292,6 +304,8 @@ export type CrewMember = {
   lastLearningAt: string | null;
   /** Their league (index into LEAGUES in src/services/leagues.ts), for friends who added each other back. */
   league?: number;
+  /** Only on friends who added each other back; older servers leave it out. */
+  friendStreak?: FriendStreak;
   /** Not agreed yet: the server sends no learning stats, and for someone you added, only the email you typed. */
   pending?: boolean;
 };
@@ -354,6 +368,53 @@ export async function removeCrewMember(friendId: number) {
 }
 
 /**
+ * Live family links (backend/app/api/routes/family.py): the child's phone shows a one-time code behind the grown-up
+ * gate, a parent's account types it in, and from then on the parent sees the child's progress without new codes.
+ */
+export type LinkedKid = {
+  id: number;
+  name: string;
+  avatarInitials: string;
+  streakDays: number;
+  lastStreakDate: string | null;
+  totalXp: number;
+  xpByDay: Record<string, number>;
+  lessonsDone: number;
+  completedNodeIds: string[];
+  nodeStars: Record<string, number>;
+  lastLearningAt: string | null;
+};
+
+export type LinkedParent = { id: number; name: string; avatarInitials: string };
+
+export type FamilyLinks = { kids: LinkedKid[]; parents: LinkedParent[] };
+
+export async function fetchFamilyLinks(today: string) {
+  const body = await backendRequest<FamilyLinks>(`/api/family?today=${encodeURIComponent(today)}`, { headers: authHeaders() });
+  return { kids: body.kids ?? [], parents: body.parents ?? [] };
+}
+
+export async function makeFamilyLinkCode() {
+  return backendRequest<{ code: string; expiresAt: string }>("/api/family/code", { method: "POST", headers: authHeaders() });
+}
+
+export async function linkFamilyKid(code: string, today: string) {
+  return backendRequest<LinkedKid>(`/api/family/kids?today=${encodeURIComponent(today)}`, {
+    method: "POST",
+    headers: authHeaders(),
+    body: JSON.stringify({ code })
+  });
+}
+
+export async function unlinkFamilyKid(childId: number) {
+  await backendRequest(`/api/family/kids/${childId}`, { method: "DELETE", headers: authHeaders() });
+}
+
+export async function unlinkFamilyParent(parentId: number) {
+  await backendRequest(`/api/family/parents/${parentId}`, { method: "DELETE", headers: authHeaders() });
+}
+
+/**
  * A quiz battle between two friends (see backend/app/api/routes/battles.py): one asks, the other says yes, then
  * both answer the same questions (picked from `seed`). Their score shows only once both have played.
  */
@@ -390,6 +451,32 @@ export async function declineFriendBattle(battleId: number) {
 
 export async function sendFriendBattleScore(battleId: number, correct: number) {
   return backendRequest<FriendBattle>(`/api/battles/${battleId}/score`, { method: "POST", headers: authHeaders(), body: JSON.stringify({ correct }) });
+}
+
+/**
+ * Invite codes (see backend/app/api/routes/invites.py): a new learner types a friend's code once and both get
+ * dates. The code is the learner's id in mix-up-proof letters; it says nothing about who they are.
+ */
+export type InviteInfo = {
+  code: string;
+  joined: number;
+  rewardDates: number;
+  /** Dates waiting for friends who joined since this phone last collected them. */
+  unclaimedDates: number;
+  usedCode: boolean;
+  canUseCode: boolean;
+};
+
+export async function fetchInvite() {
+  return backendRequest<InviteInfo>("/api/invites", { headers: authHeaders() });
+}
+
+export async function redeemInviteCode(code: string) {
+  return backendRequest<{ rewardDates: number }>("/api/invites/redeem", { method: "POST", headers: authHeaders(), body: JSON.stringify({ code: code.trim() }) });
+}
+
+export async function claimInviteRewards() {
+  return backendRequest<{ rewardDates: number; friends: number }>("/api/invites/claim", { method: "POST", headers: authHeaders() });
 }
 
 /** Saves the learner's Ummah state (trophies, nickname, joined) and returns the ranking of everyone who joined. */

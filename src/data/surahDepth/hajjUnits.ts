@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Hajj ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -454,6 +454,20 @@ const HAJJ_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "the-best-for-allah",
+      title: "The best for Allah",
+      line: "Honoring Allah's symbols means giving the best you can.",
+      facts: ["As-Sa'di explains", "Sha'a'ir"],
+      quote: q22(32),
+      source: saadi(22, 32, "As-Sa'di says Allah's symbols are the clear signs of the religion, such as all the rites of Hajj and the sacrificed animals; honoring a sacrifice means choosing a good, healthy, complete one, and honoring them shows taqwa, because it follows honoring Allah Himself.", "فتعظيمها باستحسانها واستسمانها"),
+      difficulty: 2,
+      questions: [
+        { q: "How is a sacrifice animal honored, per as-Sa'di on 22:32?", a: "By choosing a good, healthy one", wrong: ["By choosing the cheapest", "By painting it", "By keeping it"], why: "Honor it by picking a fine, healthy, complete animal." },
+        { q: "What are Allah's symbols, per as-Sa'di on 22:32?", a: "The clear signs of the religion", wrong: ["Old flags", "Any custom", "Shapes in the sky"], why: "They are the visible marks of the religion, like the rites of Hajj." },
+        { tf: true, q: "Honoring Allah's symbols follows from honoring Allah Himself.", why: "As-Sa'di on 22:32." }
+      ]
+    },
+    {
       slug: "rites-for-every-nation",
       title: "Rites for every nation",
       line: "Every nation was given rites to remember Allah's Name.",
@@ -604,6 +618,20 @@ const HAJJ_THREE: DeepUnit = {
         { q: "What grows blind, in 22:46?", a: "The hearts in the breasts", wrong: ["Only the eyes", "The ears", "The hands"], why: "It is not the eyes that grow blind, but it is the hearts which are in the breasts that grow blind." },
         { q: "Who is truly blind, per Ibn Kathir?", a: "One with no insight", wrong: ["One who wears glasses", "One who is old", "One who sleeps"], why: "The blind person is not the one whose eyes cannot see, but rather the one who has no insight." },
         { q: "What does 22:46 urge people to do?", a: "Travel and reflect", wrong: ["Stay home", "Build towers", "Sleep more"], why: "Have they not traveled through the land, and have they hearts wherewith to understand?" }
+      ]
+    },
+    {
+      slug: "travel-that-teaches",
+      title: "Travel that teaches",
+      line: "Seeing the world helps only if the heart reflects on it.",
+      facts: ["As-Sa'di explains", "Reflection"],
+      quote: q22(46),
+      source: saadi(22, 46, "As-Sa'di says Allah calls people to travel with body and heart, to learn from the signs and the ruined nations; mere looking, hearing and walking without thought and reflection does no good, and the blindness that harms is blindness of the heart to the truth.", "وسير البدن الخالي من التفكر والاعتبار"),
+      difficulty: 2,
+      questions: [
+        { q: "What makes travel useful, per as-Sa'di on 22:46?", a: "Reflecting with the heart", wrong: ["Taking photos", "Going far", "Spending a lot"], why: "Walking and looking without reflection does no good." },
+        { q: "Which blindness harms the religion, per as-Sa'di?", a: "Blindness of the heart", wrong: ["Blindness of the eyes", "Night blindness", "Color blindness"], why: "It is the heart's blindness to the truth that harms." },
+        { tf: true, q: "Allah calls people to travel and learn from past nations.", why: "As-Sa'di on 22:46." }
       ]
     },
     {

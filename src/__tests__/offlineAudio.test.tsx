@@ -191,7 +191,7 @@ describe("Settings row", () => {
 
   test("saves the recitations, then offers to remove them", async () => {
     await render(sheet());
-    expect(screen.getByTestId("settings-quran-offline-status")).toHaveTextContent("Listen with no internet");
+    expect(screen.getByTestId("settings-quran-offline-status")).toHaveTextContent("Listen with no internet. Saving all is big, use Wi-Fi.");
     expect(screen.getByTestId("settings-quran-offline-action")).toHaveTextContent("Save");
 
     await fireEvent.press(screen.getByTestId("settings-quran-offline-action"));

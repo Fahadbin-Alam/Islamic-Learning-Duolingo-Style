@@ -46,7 +46,7 @@ export function PrayerSheet({ visible, prefs, language, onSave, onClose }: Praye
   useEffect(() => {
     if (visible) {
       setDraft(prefs);
-      setPicking(!prefs.cityId && prefs.enabled);
+      setPicking(!prefs.cityId && (prefs.enabled || Boolean(prefs.ramadan)));
       setSearch("");
     }
   }, [prefs, visible]);
@@ -65,7 +65,13 @@ export function PrayerSheet({ visible, prefs, language, onSave, onClose }: Praye
   function toggleEnabled() {
     const enabled = !draft.enabled;
     setDraft({ ...draft, enabled });
-    setPicking(enabled && !draft.cityId);
+    setPicking((enabled || Boolean(draft.ramadan)) && !draft.cityId);
+  }
+
+  function toggleRamadan() {
+    const ramadan = !draft.ramadan;
+    setDraft({ ...draft, ramadan });
+    setPicking((ramadan || draft.enabled) && !draft.cityId);
   }
 
   function pickCity(next: PrayerCity) {
@@ -81,7 +87,9 @@ export function PrayerSheet({ visible, prefs, language, onSave, onClose }: Praye
     return `${value} ${t(half === "AM" ? "AM" : "PM")}`;
   }
 
-  const canSave = !draft.enabled || Boolean(city);
+  // Both the lesson nudges and the suhoor and iftar reminders need the city.
+  const needsCity = draft.enabled || Boolean(draft.ramadan);
+  const canSave = !needsCity || Boolean(city);
 
   return (
     <Sheet visible={visible} onClose={onClose} style={styles.tallPanel} testID="prayer-sheet">
@@ -92,9 +100,12 @@ export function PrayerSheet({ visible, prefs, language, onSave, onClose }: Praye
 
           <View style={styles.card}>
             <Toggle label={t("Prayer time lessons")} icon="mosque" value={draft.enabled} onToggle={toggleEnabled} testID="prayer-enabled" />
+            <View style={styles.divider} />
+            <Toggle label={t("Suhoor and iftar reminders")} icon="moon" value={Boolean(draft.ramadan)} onToggle={toggleRamadan} testID="prayer-ramadan" />
           </View>
+          {draft.ramadan ? <Text style={styles.hint}>{t("In Ramadan: before Fajr for suhoor, and just before Maghrib for iftar.")}</Text> : null}
 
-          {draft.enabled ? (
+          {needsCity ? (
             <>
               {picking ? (
                 <View style={styles.picker}>
@@ -139,20 +150,22 @@ export function PrayerSheet({ visible, prefs, language, onSave, onClose }: Praye
 
               {city && !picking ? (
                 <>
-                  <View style={styles.card}>
-                    {PRAYERS.map((prayer, index) => (
-                      <View key={prayer}>
-                        {index > 0 ? <View style={styles.divider} /> : null}
-                        <Toggle
-                          label={`${t(PRAYER_LABELS[prayer])}  ${clock(prayer)}`}
-                          icon={PRAYER_ICONS[prayer]}
-                          value={draft.prayers[prayer]}
-                          onToggle={() => setDraft({ ...draft, prayers: { ...draft.prayers, [prayer]: !draft.prayers[prayer] } })}
-                          testID={`prayer-${prayer}`}
-                        />
-                      </View>
-                    ))}
-                  </View>
+                  {draft.enabled ? (
+                    <View style={styles.card}>
+                      {PRAYERS.map((prayer, index) => (
+                        <View key={prayer}>
+                          {index > 0 ? <View style={styles.divider} /> : null}
+                          <Toggle
+                            label={`${t(PRAYER_LABELS[prayer])}  ${clock(prayer)}`}
+                            icon={PRAYER_ICONS[prayer]}
+                            value={draft.prayers[prayer]}
+                            onToggle={() => setDraft({ ...draft, prayers: { ...draft.prayers, [prayer]: !draft.prayers[prayer] } })}
+                            testID={`prayer-${prayer}`}
+                          />
+                        </View>
+                      ))}
+                    </View>
+                  ) : null}
 
                   <View style={styles.asr}>
                     <Text style={styles.label}>{t("Asr time")}</Text>

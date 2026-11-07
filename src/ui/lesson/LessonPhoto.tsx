@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Image, Linking, StyleSheet, Text, useWindowDimensions, View } from "react-native";
+import { Image, StyleSheet, Text, useWindowDimensions, View } from "react-native";
+import { openWebPage } from "../../services/network";
 import { creditLine, type LessonPicture } from "../../data/lessonPictures";
 import { t } from "../../i18n";
 import { PopIn } from "../PopIn";
@@ -7,7 +8,7 @@ import { Sheet } from "../Sheet";
 import { Tappable } from "../Tappable";
 import { colors, fonts, radii, space } from "../theme";
 
-const openPage = (url: string) => void Linking.openURL(url).catch(() => undefined);
+const openPage = (url: string) => openWebPage(url);
 
 /** Who took the photo and its license; opens the photo's Wikimedia Commons page. A drawing says it is one. */
 function PhotoCredit({ picture, testID }: { picture: LessonPicture; testID?: string }) {

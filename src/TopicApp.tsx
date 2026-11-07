@@ -55,6 +55,7 @@ import {
 } from "./api/islamicLearningApi";
 import { challengeLevel, HARDER_OFFER_AFTER, nextLevel, TOP_LEVEL } from "./data/challengeLevel";
 import { cleanReviewCards } from "./services/reviewDeck";
+import { ReviewBanner } from "./ui/screens/ReviewBanner";
 import { COURSE, LESSONS_BY_ID, SHOP_ITEMS } from "./data/course";
 import { buildTopicSearchIndex, searchTopics } from "./utils/topicSearch";
 import { dailyAutoDue, localDayNumber, markDailyShown, parseDailyShown } from "./data/dailyCard";
@@ -72,6 +73,7 @@ import {
   setActiveLanguage,
   t
 } from "./i18n";
+import { CHARITY, charityEnabled } from "./config/charity";
 import { localizeLessonContent } from "./services/contentLocalization";
 import { localizedLessonLine, localizedWhy } from "./ui/lesson/localizedLines";
 import {
@@ -104,13 +106,24 @@ import {
   declineFriendBattle,
   sendFriendBattleScore,
   type FriendBattle,
+  fetchInvite,
+  redeemInviteCode,
+  claimInviteRewards,
+  type InviteInfo,
   syncRemoteUser,
   hasPendingSync,
   pickStartingUser,
   wakeBackend,
   type CrewMember,
-  type CrewPayload
+  type CrewPayload,
+  fetchFamilyLinks,
+  makeFamilyLinkCode,
+  linkFamilyKid,
+  unlinkFamilyKid,
+  unlinkFamilyParent,
+  type FamilyLinks
 } from "./services/backendSync";
+import { isKidsMode, isKidsTopic, kidsLearner, readKidsModeChoice, saveKidsModeChoice, type KidsModeChoice } from "./services/kidsMode";
 import {
   clearAccountProfile,
   clearActiveAssessment,
@@ -128,10 +141,11 @@ import {
 } from "./services/localProgress";
 import { AdBanner } from "./components/AdBanner";
 import { monetizationClient } from "./services/monetization";
+import { isSubscriptionItem } from "./services/monetizationShared";
 import {
   adAudienceFor,
   addHeartVideo,
-  canSellInStore,
+  plansOnSale,
   isAgeGroup,
   mayOfferPlans,
   monetizationMode,
@@ -172,8 +186,8 @@ import { playGameSound, primeGameAudio } from "./services/gameAudio";
 import { markLeagueResultSeen, settleLeague, unseenLeagueResult } from "./services/leagues";
 import { answerLessonStep, isLastLessonStep, startLessonQueue, type FlowStep } from "./services/lessonQueue";
 import { buildLessonFlow, flowProgress, isLearnStep, isMatchStep, isQuestionStep, isRecallLesson, teachLesson, highlightWords, lessonSummary } from "./ui/lesson/lessonPages";
-import { checkAnswerId, checkCandidate, puzzleExtras, questionFormat } from "./ui/lesson/questionFormats";
-import { BuildGame, CheckGame, GapGame, MatchGame } from "./ui/lesson/WordGames";
+import { checkAnswerId, checkCandidate, fillPiece, questionFormat } from "./ui/lesson/questionFormats";
+import { CheckGame, FillGame, GapGame, MatchGame } from "./ui/lesson/WordGames";
 import * as Speech from "expo-speech";
 import { findArabicVoice, recitationForArabic } from "./services/arabicVoice";
 import { colors, configureUiSound, darken, preloadUiSounds, fonts, Icon, lighten, Mascot, PopIn, radii, space, Tappable } from "./ui";
@@ -210,6 +224,7 @@ import {
   ProfileView,
   FamilySheet,
   RamadanBanner,
+  RamadanDayPop,
   PlanOfferSheet,
   RefillSheet,
   RewardPop,
@@ -217,7 +232,10 @@ import {
   ShopView,
   TopicPicker,
   QuizSheet,
+  StoryBanner,
+  StorySheet,
   UpdateBanner,
+  OfflineBanner,
   tabForScreen,
   useNotices,
   type PathItem,
@@ -227,16 +245,23 @@ import {
   type QuizSheetTopic
 } from "./ui/screens";
 import { getQuizScore, recordQuizScore, unitsToGoOver } from "./services/quizzes";
-import { addFamilyKid, buildFamilySnapshot, encodeFamilyCode, removeFamilyKid, type FamilyKid } from "./services/familyCode";
+import { STORIES, storyGroupFor, type StoryGroup } from "./data/stories";
+import { recordStoryRead } from "./services/stories";
+import { addFamilyKid, buildFamilySnapshot, encodeFamilyCode, removeFamilyKid, snapshotFromLinkedKid, type FamilyKid } from "./services/familyCode";
 import { getFamilyId, loadFamilyKids, peekFamilyId, saveFamilyKids } from "./services/familyStorage";
 import { shareApp } from "./services/shareApp";
+import { shareCertificateCard, shareRamadanCard } from "./services/shareCard";
+import { biggestFirst, buildCertificates, certificateProgress, earnedCertificateIds, recordCertificates, type CertificateProgress } from "./services/certificates";
+import { CertificatePop, CertificatesSheet } from "./ui/screens/Certificates";
 import { isUpdateAvailable, openStore } from "./services/appUpdate";
 import { attemptOrder, ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, HarderSheet, QuitSheet, QuizComplete, isPlayablePractice, lessonStars } from "./ui/lesson";
 import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic, isFirstUseOfWord } from "./data/arabicTerms";
 import { questionSource, shortReference } from "./services/questionSource";
 import { openSource } from "./services/sourceLink";
+import { openWebPage, setOfflineLinkNotice, subscribeOnline, useOnline } from "./services/network";
+import { saveLessonsAhead } from "./services/offlineLessons";
 import { SCHOLAR_TREE, type ScholarYears } from "./data/scholarUnits";
-import { didRamadanToday, ramadanSeason, ramadanStreak } from "./data/ramadanCalendar";
+import { didRamadanToday, ramadanDoneDayNumbers, ramadanSeason, ramadanStreak } from "./data/ramadanCalendar";
 import { RAMADAN_TOPIC } from "./data/ramadanDays";
 import { teacherFor } from "./ui/lesson/Teacher";
 import { pictureForLesson, pictureForPage, pictureForQuestion, pictureForText } from "./data/lessonPictures";
@@ -743,6 +768,14 @@ export default function TopicApp() {
   const [battle, setBattle] = useState<BattleQuestion[] | undefined>(undefined);
   // Battles with friends (from the server), and the one being played now, if it is a friend battle.
   const [friendBattles, setFriendBattles] = useState<FriendBattle[]>([]);
+  const [invite, setInvite] = useState<InviteInfo | undefined>(undefined);
+  // On opening (and after logging in), collect dates for friends who joined with this learner's code.
+  const inviteAccountKey = state.user?.hasAccount ? String(state.user.id) : "";
+  useEffect(() => {
+    setInvite(undefined);
+    if (inviteAccountKey) void loadInvite();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inviteAccountKey]);
   const [versus, setVersus] = useState<{ name: string; battle: FriendBattle; sending?: boolean } | undefined>(undefined);
   const [openSecret, setOpenSecret] = useState<{ secret: SecretLesson; isNew: boolean } | undefined>(undefined);
   const [secretListOpen, setSecretListOpen] = useState(false);
@@ -755,6 +788,8 @@ export default function TopicApp() {
   const [lessonCompleteSummary, setLessonCompleteSummary] = useState<LessonCelebration | undefined>(undefined);
   const [quizSummary, setQuizSummary] = useState<QuizSummary | undefined>(undefined);
   const [quizSheetVisible, setQuizSheetVisible] = useState(false);
+  // Story mode: the shelf it opens on, while it is open.
+  const [storyShelf, setStoryShelf] = useState<StoryGroup | undefined>(undefined);
   // An opened chest: its gems land when the learner taps COLLECT.
   const [rewardCelebration, setRewardCelebration] = useState<{ stop: JourneyRewardStop } | undefined>(undefined);
   const [topicPickerVisible, setTopicPickerVisible] = useState(false);
@@ -783,9 +818,27 @@ export default function TopicApp() {
     return isLearnerBackground(saved) ? saved : undefined;
   });
   const beginner = Boolean(learnerBackground && learnerBackground !== "muslim");
-  const adAudience = adAudienceFor(ageGroup, state.user?.accountRole === "child");
+  // Kids mode (src/services/kidsMode.ts): on by itself under 13 or for a Kid account; a grown-up can change it.
+  const [kidsModeChoice, setKidsModeChoice] = useState<KidsModeChoice | undefined>(() => readKidsModeChoice());
+  const kidsMode = isKidsMode(kidsModeChoice, ageGroup, state.user?.accountRole);
+  const changeKidsMode = (on: boolean) => {
+    const choice: KidsModeChoice = on ? "on" : "off";
+    saveKidsModeChoice(choice);
+    setKidsModeChoice(choice);
+  };
+  // A young learner by age, account or Kids mode: child-directed ads, and no plan offers that open by themselves.
+  const childLearner = ageGroup === "6-9" || ageGroup === "10-12" || state.user?.accountRole === "child" || kidsMode;
+  // The age lessons and quizzes are asked for: the youngest mix in Kids mode.
+  const lessonAge: AgeGroup | undefined = kidsMode ? "6-9" : ageGroup;
+  const adAudience = adAudienceFor(ageGroup, state.user?.accountRole === "child" || kidsMode);
   const adsAllowedToStart = !needsAgeCheck || Boolean(ageGroup);
   const [storePrices, setStorePrices] = useState<Record<string, string>>({});
+  // Plans (and their pop-up offer) show only once the store has really priced a subscription.
+  const storeSellsPlans = plansOnSale(
+    monetizationMode,
+    storePlatform(Platform.OS),
+    SHOP_ITEMS.filter((item) => isSubscriptionItem(item) && Boolean(storePrices[item.id])).length
+  );
   const [shopBusy, setShopBusy] = useState(false);
   const monetizationUserId = state.user?.hasAccount ? String(state.user.id) : undefined;
   const hasUser = Boolean(state.user);
@@ -919,9 +972,12 @@ export default function TopicApp() {
     };
     const timer = setInterval(retry, 60000);
     const listener = PhoneAppState.addEventListener("change", (status) => status === "active" && retry());
+    // And the moment the phone gets its internet back.
+    const stopWatching = subscribeOnline((online) => online && retry());
     return () => {
       clearInterval(timer);
       listener.remove();
+      stopWatching();
     };
   }, []);
 
@@ -1003,7 +1059,10 @@ export default function TopicApp() {
     state.user?.lastLearningAt,
     state.user?.lastLoginAt,
     state.user?.reminderPreferences?.streakReminders,
-    state.user?.reminderPreferences?.islamicReminders
+    state.user?.reminderPreferences?.islamicReminders,
+    state.user?.league?.weekStart,
+    state.user?.league?.tier,
+    state.user?.league?.xp
   ]);
 
   // Prayer nudges skip the hour around a come-back reminder, so they are planned again whenever those are.
@@ -1016,7 +1075,10 @@ export default function TopicApp() {
     state.user?.lastLearningAt,
     state.user?.lastLoginAt,
     state.user?.reminderPreferences?.streakReminders,
-    state.user?.reminderPreferences?.islamicReminders
+    state.user?.reminderPreferences?.islamicReminders,
+    state.user?.league?.weekStart,
+    state.user?.league?.tier,
+    state.user?.league?.xp
   ]);
 
   // Tapping a prayer nudge opens the tiny lesson it promised.
@@ -1160,6 +1222,45 @@ export default function TopicApp() {
   // Ramadan mode: from two weeks before Ramadan until Eid, the Learn path opens with the Ramadan banner and the
   // topic picker puts Ramadan first. Worked out again whenever the learner changes, so a new day shows on the next lesson.
   const season = useMemo(() => ramadanSeason(), [state.user]);
+  // The "I finished day N" card pops up once, when today's Ramadan lesson turns done (not on every app open).
+  const [ramadanPop, setRamadanPop] = useState(false);
+  const ramadanDoneBefore = useRef<{ userId?: number; done: boolean }>({ done: false });
+  useEffect(() => {
+    const user = state.user;
+    const done = Boolean(user && didRamadanToday(user));
+    const before = ramadanDoneBefore.current;
+    if (done && !before.done && before.userId === user?.id) {
+      setRamadanPop(true);
+    }
+    ramadanDoneBefore.current = { userId: user?.id, done };
+  }, [state.user]);
+  // Certificates (services/certificates.ts): one pops up when a lesson finishes the last circle of a big unit, a
+  // whole topic or a group like Juz Amma. Ones already earned when the app opens are kept quietly, with no date.
+  const certificates = useMemo(() => buildCertificates(localizedSections), [localizedSections]);
+  const earnedCertificates = useMemo(() => earnedCertificateIds(certificates, state.user?.completedNodeIds), [certificates, state.user?.completedNodeIds]);
+  const [certificateQueue, setCertificateQueue] = useState<string[]>([]);
+  const [shownCertificate, setShownCertificate] = useState<CertificateProgress | undefined>(undefined);
+  const [certificatesSheetVisible, setCertificatesSheetVisible] = useState(false);
+  const certificatesBefore = useRef<{ userId?: number; ids?: Set<string> }>({});
+  useEffect(() => {
+    const userId = state.user?.id;
+    const before = certificatesBefore.current;
+    const now = new Set(earnedCertificates);
+    if (before.ids && before.userId === userId) {
+      const fresh = earnedCertificates.filter((id) => !before.ids!.has(id));
+      if (fresh.length) {
+        const order = biggestFirst(certificates.filter((certificate) => fresh.includes(certificate.id))).map((certificate) => certificate.id);
+        setCertificateQueue((queue) => [...queue, ...order.filter((id) => !queue.includes(id))]);
+        dispatch({ type: "apply_user_latest", update: (latest) => recordCertificates(latest, fresh) });
+      }
+    }
+    certificatesBefore.current = { userId, ids: now };
+  }, [certificates, earnedCertificates, state.user?.id]);
+  const certificateItems = useMemo(
+    () => (certificatesSheetVisible || certificateQueue.length ? certificateProgress(certificates, state.user) : []),
+    [certificateQueue.length, certificates, certificatesSheetVisible, state.user]
+  );
+  const certificateName = state.user?.hasAccount ? state.user.displayName.trim().split(/\s+/)[0] || undefined : undefined;
   const ramadanBanner = useMemo(() => {
     const user = state.user;
     const ramadan = localizedSections.find((section) => section.topicId === RAMADAN_TOPIC);
@@ -1187,9 +1288,30 @@ export default function TopicApp() {
               }
             : undefined
         }
+        onReminders={prayerPrefs.ramadan && prayerPrefs.cityId ? undefined : () => setPrayerModalVisible(true)}
+        onShare={season.phase === "ramadan" ? () => setRamadanPop(true) : undefined}
       />
     );
-  }, [localizedSections, pathNodes, season, state.user]);
+  }, [localizedSections, pathNodes, prayerPrefs, season, state.user]);
+  const storyReadIds = useMemo(() => new Set(Object.keys(state.user?.stories ?? {}).filter((id) => state.user?.stories?.[id]?.readAt)), [state.user?.stories]);
+  const storyGroup = storyGroupFor(selectedSection.topicId);
+  const pathReviewDue = state.user ? reviewDueCount(state.user) : 0;
+  const storyBanner = storyGroup ? (
+    <StoryBanner
+      group={storyGroup}
+      accent={selectedSection.accentColor}
+      read={STORIES.filter((story) => story.group === storyGroup && storyReadIds.has(story.id)).length}
+      total={STORIES.filter((story) => story.group === storyGroup).length}
+      onOpen={() => setStoryShelf(storyGroup)}
+    />
+  ) : undefined;
+  const finishStory = (storyId: string, firstTryRight: number) => {
+    const user = state.user;
+    if (!user) return 0;
+    const record = recordStoryRead(user, storyId, firstTryRight);
+    dispatch({ type: "apply_user_latest", update: (latest) => withExperienceDefaults(recordStoryRead(latest, storyId, firstTryRight).user) });
+    return record.xp;
+  };
   const pickerTopics = useMemo<TopicPickerTopic[]>(() => {
     const completed = new Set(state.user?.completedNodeIds ?? []);
     const topics = localizedSections.map((section) => ({
@@ -1235,7 +1357,7 @@ export default function TopicApp() {
     }
 
     return localizedSections
-      .filter((section) => (season || section.topicId !== RAMADAN_TOPIC) && canQuiz(user, { kind: "topic", topicId: section.topicId }, ageGroup))
+      .filter((section) => (season || section.topicId !== RAMADAN_TOPIC) && (!kidsMode || isKidsTopic(section.topicId)) && canQuiz(user, { kind: "topic", topicId: section.topicId }, lessonAge))
       .map((section) => ({
         topicId: section.topicId,
         title: section.title,
@@ -1243,7 +1365,7 @@ export default function TopicApp() {
         arabic: getTopicArabic(section.topicId),
         best: getQuizScore(user, { kind: "topic", topicId: section.topicId })?.best,
         units: section.branches
-          .filter((branch) => canQuiz(user, { kind: "unit", topicId: section.topicId, unitId: branch.id }, ageGroup))
+          .filter((branch) => canQuiz(user, { kind: "unit", topicId: section.topicId, unitId: branch.id }, lessonAge))
           .map((branch) => ({
             id: branch.id,
             title: branch.title,
@@ -1251,11 +1373,22 @@ export default function TopicApp() {
             best: getQuizScore(user, { kind: "unit", topicId: section.topicId, unitId: branch.id })?.best
           }))
       }));
-  }, [ageGroup, localizedSections, quizSheetVisible, season, state.user]);
+  }, [kidsMode, lessonAge, localizedSections, quizSheetVisible, season, state.user]);
 
   // Names in every language are in the index, so it is built once.
   const searchIndex = useMemo(() => buildTopicSearchIndex(COURSE.sections), []);
-  const searchCourse = useCallback((query: string) => searchTopics(searchIndex, query), [searchIndex]);
+  const searchCourse = useCallback(
+    (query: string) => searchTopics(searchIndex, query).filter((hit) => !kidsMode || isKidsTopic(hit.topicId)),
+    [kidsMode, searchIndex]
+  );
+  // Kids mode leaves out grown-up topics: from the picker, and the path moves off one that was open.
+  const shownPickerTopics = useMemo(
+    () => (kidsMode ? pickerTopics.filter((topic) => isKidsTopic(topic.topicId as TopicId)) : pickerTopics),
+    [kidsMode, pickerTopics]
+  );
+  useEffect(() => {
+    if (kidsMode && !isKidsTopic(state.selectedTopic)) dispatch({ type: "select_topic", topicId: "foundation" });
+  }, [kidsMode, state.selectedTopic]);
 
   const currentLessonSection = useMemo(() => {
     if (!state.activeSession) {
@@ -1311,10 +1444,76 @@ export default function TopicApp() {
       topicsDone: Object.fromEntries(pickerTopics.map((topic) => [topic.topicId, topic.done]))
     });
   }, [familyToday, pickerTopics, state.user, userStars]);
+  // Live family links between accounts (needs the server and a signed-in account).
+  const [familyLinks, setFamilyLinks] = useState<FamilyLinks>({ kids: [], parents: [] });
+  const [familyOffline, setFamilyOffline] = useState(false);
+  const familySignedIn = Boolean(state.user?.hasAccount && getSessionToken());
+  const loadFamilyLinks = async () => {
+    if (!isBackendConfigured() || !getSessionToken()) return;
+    try {
+      setFamilyLinks(await fetchFamilyLinks(localDateKey()));
+      setFamilyOffline(false);
+    } catch {
+      setFamilyOffline(true);
+    }
+  };
   const openFamily = () => {
     setFamilyKids(loadFamilyKids());
     setFamilyVisible(true);
+    void loadFamilyLinks();
   };
+  // A linked child's live numbers as the same report a pasted code shows, with stars and topics counted here.
+  const liveFamilyKids = useMemo<FamilyKid[]>(
+    () =>
+      familyLinks.kids.map((kid) => {
+        const completed = new Set(kid.completedNodeIds);
+        const topicsDone = Object.fromEntries(
+          localizedSections.map((section) => [section.topicId, section.nodes.filter((node) => completed.has(node.id)).length])
+        );
+        const stars = getTotalStars({ completedNodeIds: kid.completedNodeIds, nodeStars: kid.nodeStars });
+        return { nickname: kid.name, addedAt: "", snapshot: snapshotFromLinkedKid(kid, familyToday, stars, topicsDone) };
+      }),
+    [familyLinks.kids, familyToday, localizedSections]
+  );
+  const familyErrorLine = (error: unknown) =>
+    error instanceof BackendRequestError && error.status !== 401 && error.message ? error.message : t("Couldn't reach Muslimo. Try again in a minute.");
+  const familyLive = isBackendConfigured()
+    ? {
+        signedIn: familySignedIn,
+        kids: liveFamilyKids,
+        parents: familyLinks.parents,
+        offline: familyOffline,
+        onMakeCode: async () => {
+          try {
+            const { code } = await makeFamilyLinkCode();
+            return { code };
+          } catch (error) {
+            return { error: familyErrorLine(error) };
+          }
+        },
+        onLinkKid: async (code: string) => {
+          try {
+            const kid = await linkFamilyKid(code, localDateKey());
+            setFamilyLinks((links) => ({ ...links, kids: [...links.kids.filter((entry) => entry.id !== kid.id), kid] }));
+            return undefined;
+          } catch (error) {
+            return familyErrorLine(error);
+          }
+        },
+        onRemoveKid: (id: number) => {
+          setFamilyLinks((links) => ({ ...links, kids: links.kids.filter((kid) => kid.id !== id) }));
+          void unlinkFamilyKid(id).catch(() => void loadFamilyLinks());
+        },
+        onRemoveParent: (id: number) => {
+          setFamilyLinks((links) => ({ ...links, parents: links.parents.filter((parent) => parent.id !== id) }));
+          void unlinkFamilyParent(id).catch(() => void loadFamilyLinks());
+        },
+        onSignIn: () => {
+          setFamilyVisible(false);
+          openCrewAccount();
+        }
+      }
+    : undefined;
   // The parent asked for it behind the grown-up gate: the code goes to the share sheet they pick from.
   const shareFamilyReport = () => {
     if (!familyReport) return undefined;
@@ -1340,6 +1539,24 @@ export default function TopicApp() {
     mascotVariant: selectedSection.mascot,
     accent: selectedSection.accentColor
   });
+
+  // No internet: lessons go on as usual. A source asked for meanwhile says so in the app instead of opening a
+  // browser on an error page, and the next circles' recitations are saved once the internet is back.
+  const online = useOnline();
+  const notifyRef = useRef(notify);
+  notifyRef.current = notify;
+  useEffect(() => {
+    setOfflineLinkNotice(() => {
+      void notifyRef.current(t("No internet right now"), t("Tap it again when you are back online. The lesson keeps working."), { mood: "think" });
+    });
+    return () => setOfflineLinkNotice(null);
+  }, []);
+  const nextNodeId = sectionNextNode?.id;
+  useEffect(() => {
+    if (online && nextNodeId) {
+      void saveLessonsAhead(nextNodeId);
+    }
+  }, [online, nextNodeId]);
 
   // After a few minutes a guest is asked to make an account, but never in the middle of a lesson
   // or practice: the ask waits until they are back on the Foundation path with nothing else open.
@@ -1595,7 +1812,10 @@ export default function TopicApp() {
     };
 
     dispatch({ type: "apply_user", user: activeUser });
-    const session = await learningApi.getLessonSession(node.firstLessonId, activeUser, ageGroup);
+    // While online, this circle's Quran recitations and the next few circles' are saved for no internet.
+    void saveLessonsAhead(node.id);
+    // Kids mode builds the lesson at the easiest level; the saved profile keeps its own difficulty.
+    const session = await learningApi.getLessonSession(node.firstLessonId, kidsMode ? kidsLearner(activeUser) : activeUser, lessonAge);
     challengeStartedAtRef.current = Date.now();
     dispatch({ type: "start_lesson", session });
   }
@@ -1662,7 +1882,7 @@ export default function TopicApp() {
 
     const scope: QuizScope = unit ? { kind: "unit", topicId: section.topicId, unitId: unit.id } : { kind: "topic", topicId: section.topicId };
     const title = unit ? unit.title : t("{topic} quiz", { topic: section.title });
-    const session = createQuizSession({ user: state.user, scope, title, attempt: getQuizScore(state.user, scope)?.taken ?? 0, ageGroup });
+    const session = createQuizSession({ user: state.user, scope, title, attempt: getQuizScore(state.user, scope)?.taken ?? 0, ageGroup: lessonAge });
 
     setQuizSheetVisible(false);
 
@@ -1806,7 +2026,8 @@ export default function TopicApp() {
   // not on the last step, and only when there is something harder to ask.
   function harderOffer() {
     const session = state.activeSession;
-    if (!state.user || !session || (session.mode && session.mode !== "standard") || session.isTest) return undefined;
+    // Kids mode keeps lessons simple: it never asks "Want it harder?".
+    if (kidsMode || !state.user || !session || (session.mode && session.mode !== "standard") || session.isTest) return undefined;
     if (state.answerState !== "correct" || state.rightInARow < HARDER_OFFER_AFTER || state.harderDeclined) return undefined;
     if (isLastLessonStep(state.lessonQueue, state.stepIndex)) return undefined;
     const level = challengeLevel(state.user, ageGroup);
@@ -2095,9 +2316,9 @@ export default function TopicApp() {
   // Under 13 or a Kid account: the plans never open by themselves (store Families rules), only in the shop.
   function planOfferCheck(user: UserProfile): PlanOfferCheck {
     return {
-      canSell: canSellInStore(monetizationMode, storePlatform(Platform.OS)),
+      canSell: storeSellsPlans,
       hasPremium: hasPremiumLessons(user),
-      child: ageGroup === "6-9" || ageGroup === "10-12" || user.accountRole === "child",
+      child: childLearner || user.accountRole === "child",
       msSinceLastOffer: Date.now() - readPlanOfferAt()
     };
   }
@@ -2335,7 +2556,7 @@ export default function TopicApp() {
   // Permission comes first so the nudges are scheduled with it once the new settings land.
   async function savePrayerSettings(prefs: PrayerNudgePrefs) {
     setPrayerModalVisible(false);
-    const allowed = !prefs.enabled || (await requestPrayerNudgePermission());
+    const allowed = !(prefs.enabled || prefs.ramadan) || (await requestPrayerNudgePermission());
     savePrayerNudgePrefs(prefs);
     setPrayerPrefs(prefs);
 
@@ -2879,7 +3100,7 @@ export default function TopicApp() {
   }, [ummahKey, battle]);
 
   function startBattle() {
-    const questions = pickBattleQuestions({ language: currentLanguage, young: ageGroup === "6-9" });
+    const questions = pickBattleQuestions({ language: currentLanguage, young: lessonAge === "6-9" });
     setVersus(undefined);
     setBattle(questions);
   }
@@ -2969,6 +3190,48 @@ export default function TopicApp() {
     setOpenSecret({ secret, isNew });
   }
 
+  /** Loads the learner's invite code and collects dates for friends who joined with it. Never throws. */
+  async function loadInvite() {
+    if (!isBackendConfigured() || !getSessionToken() || !state.user?.hasAccount) {
+      return;
+    }
+
+    try {
+      const info = await fetchInvite();
+      setInvite(info);
+      if (info.unclaimedDates > 0) {
+        const claimed = await claimInviteRewards();
+        setInvite({ ...info, unclaimedDates: 0 });
+        if (claimed.rewardDates > 0) {
+          dispatch({ type: "apply_user_latest", update: (user) => ({ ...user, gems: user.gems + claimed.rewardDates }) });
+          void notify(t("Your friends joined!"), t("+{count} dates", { count: claimed.rewardDates }), { mood: "cheer" });
+        }
+      }
+    } catch {
+      // Offline or an older server: the card just stays hidden until the next try.
+    }
+  }
+
+  async function redeemInvite(code: string) {
+    try {
+      const result = await redeemInviteCode(code);
+      dispatch({ type: "apply_user_latest", update: (user) => ({ ...user, gems: user.gems + result.rewardDates }) });
+      setInvite((current) => (current ? { ...current, usedCode: true, canUseCode: false } : current));
+      void notify(t("Welcome gift!"), t("+{count} dates", { count: result.rewardDates }), { mood: "cheer" });
+    } catch (error) {
+      const status = error instanceof BackendRequestError ? error.status : 0;
+      const message =
+        status === 404
+          ? t("That code doesn't work. Check it and try again.")
+          : status === 409
+            ? t("You already used an invite code.")
+            : status === 400
+              ? t("You can't use this code.")
+              : t("No internet");
+      void notify(message, undefined, { mood: "think" });
+    }
+  }
+
   async function loadCrew() {
     if (!state.user?.hasAccount) {
       setCrew({ status: "signed_out" });
@@ -2990,6 +3253,7 @@ export default function TopicApp() {
     try {
       const [payload] = await Promise.all([fetchCrew(localDateKey()), loadFriendBattles()]);
       setCrew({ status: "ready", payload });
+      void loadInvite();
     } catch (error) {
       setCrew({
         status: "error",
@@ -3179,7 +3443,7 @@ export default function TopicApp() {
 
   const inLesson = state.screen.startsWith("lesson_") || state.screen === "assessment";
   const prayerCity = findPrayerCity(prayerPrefs.cityId);
-  const prayerSettingLabel = prayerPrefs.enabled && prayerCity ? cityName(prayerCity, currentLanguage) : t("Off");
+  const prayerSettingLabel = (prayerPrefs.enabled || prayerPrefs.ramadan) && prayerCity ? cityName(prayerCity, currentLanguage) : t("Off");
   const enabledSocialProviders = socialProviders.map((id) => ({ id, label: id === "google" ? t("Continue with Google") : t("Continue with Apple") }));
   const activeTab = tabForScreen(state.screen);
   // GET HEARTS only when the shop can give some now: a store that sells heart packs or videos, or a
@@ -3252,6 +3516,7 @@ export default function TopicApp() {
   );
   const questionFormatNow = challenge ? questionFormat(challenge, { recall: questionRecall, language: currentLanguage }) : "choose";
   const checkShown = challenge && questionFormatNow === "check" ? checkCandidate(challenge) : undefined;
+  const fillNow = challenge && questionFormatNow === "fill" ? fillPiece(challenge) : undefined;
   // The match round's pairs: each question and its answer.
   const matchStep = isMatchStep(queuedStep) ? queuedStep : undefined;
   const matchPairs = matchStep && lesson
@@ -3291,7 +3556,8 @@ export default function TopicApp() {
           }
         : undefined,
     attempt: lessonStep?.attempt ?? 0,
-    review: challenge?.isReview,
+    // A question missed before and back from the Review deck says so; other review questions just say REVIEW.
+    review: challenge?.missedBefore ? ("missed" as const) : challenge?.isReview,
     mascotVariant: lessonMascot,
     accent: lessonAccent,
     praiseSeed: challenge?.id,
@@ -3371,11 +3637,13 @@ export default function TopicApp() {
             }}
           />
         )}
+        {!inLesson && !online && activeTab === "learn" && <OfflineBanner />}
         {!inLesson && updateReady && !updateClosed && (
           <UpdateBanner onUpdate={() => void openStore()} onClose={() => setUpdateClosed(true)} />
         )}
         {activeTab === "learn" && !inLesson && (
           <LearnPath
+            canBuyPremium={storeSellsPlans}
             accent={selectedSection.accentColor}
             topicId={selectedSection.topicId}
             mascotVariant={selectedSection.mascot}
@@ -3413,9 +3681,14 @@ export default function TopicApp() {
                     {t("All of {topic}", { topic: selectedSection.title })}
                   </Text>
                 </Tappable>
-              ) : (
-                ramadanBanner
-              )
+              ) : ramadanBanner || storyBanner || pathReviewDue > 0 ? (
+                <>
+                  {ramadanBanner}
+                  {/* Missed questions due again (spaced review): one tap starts a Review of them. */}
+                  {pathReviewDue > 0 ? <ReviewBanner count={pathReviewDue} onOpen={startReviewDeck} /> : null}
+                  {storyBanner}
+                </>
+              ) : undefined
             }
           />
         )}
@@ -3445,7 +3718,7 @@ export default function TopicApp() {
             accent={lessonAccent}
             // The chip is the one source that says what the card says, by its short reference; none, no chip.
             learnSource={lesson.learnSource}
-            onOpenSource={(url) => void Linking.openURL(url).catch(() => undefined)}
+            onOpenSource={openWebPage}
             arabicRecitation={lessonRecitation ?? undefined}
             picture={lessonPicture}
             pagePicture={pagePicture}
@@ -3486,13 +3759,12 @@ export default function TopicApp() {
                 {...questionShared}
                 onSelect={(choiceId) => dispatch({ type: "select_choice", choiceId })}
               />
-            ) : questionFormatNow === "build" ? (
-              <BuildGame
-                key={`${challenge.id}-build-${lessonStep.attempt}`}
+            ) : questionFormatNow === "fill" && fillNow ? (
+              <FillGame
+                key={`${challenge.id}-fill-${lessonStep.attempt}`}
                 prompt={challenge.prompt}
-                answer={correctLabel}
+                fill={fillNow}
                 correctChoiceId={challenge.correctChoiceId}
-                extras={puzzleExtras(challenge)}
                 {...questionShared}
                 onSelect={(choiceId) => dispatch({ type: "select_choice", choiceId })}
               />
@@ -3532,7 +3804,7 @@ export default function TopicApp() {
                     }
                   : undefined}
                 attempt={lessonStep.attempt}
-                review={challenge.isReview}
+                review={challenge.missedBefore ? "missed" : challenge.isReview}
                 mascotVariant={lessonMascot}
                 accent={lessonAccent}
                 praiseSeed={challenge.id}
@@ -3625,6 +3897,7 @@ export default function TopicApp() {
             onStartDailyChallenge={() => openFoundationAssessment("daily_challenge")}
             onStartLessonPractice={canPracticeLessons(state.user) ? startLessonPractice : undefined}
             onOpenQuizzes={() => setQuizSheetVisible(true)}
+            onOpenStories={() => setStoryShelf(storyGroupFor(selectedSection.topicId) ?? "seerah")}
             quizBest={getQuizScore(state.user, { kind: "topic", topicId: selectedSection.topicId })?.best}
             onGoFoundation={() => openTopicScreen("foundation")}
           />
@@ -3641,13 +3914,17 @@ export default function TopicApp() {
             onToggleSound={toggleSoundEffects}
             onOpenSettings={openSettingsModal}
             onOpenFamily={openFamily}
-            onShareApp={() => void shareApp()}
+            onShareApp={() => void shareApp(invite?.code, invite?.rewardDates)}
+            certificateCount={earnedCertificates.length}
+            onOpenCertificates={() => setCertificatesSheetVisible(true)}
+            charity={charityEnabled() ? CHARITY : undefined}
             hasSavedAccount={hasSavedAccount}
             onCreateAccount={() => openAccountPanel()}
           />
         )}
         {state.screen === "shop" && (
           <ShopView
+            canBuyWithMoney={storeSellsPlans}
             user={state.user}
             strings={strings}
             items={SHOP_ITEMS}
@@ -3695,15 +3972,17 @@ export default function TopicApp() {
             onAnswerBattle={(next, accept) => void answerFriendBattle(next, accept)}
             onPlayBattle={playFriendBattle}
             onCancelBattle={(next) => void answerFriendBattle(next, false)}
-            onShareApp={() => void shareApp()}
+            onShareApp={() => void shareApp(invite?.code, invite?.rewardDates)}
             onRefresh={loadCrew}
+            invite={invite}
+            onRedeemInvite={(code) => void redeemInvite(code)}
             onCreateAccount={openCrewAccount}
             league={crewLeagueUser?.league}
             ranks={{
               rankings,
               unavailable: !isBackendConfigured(),
               signedOut: !ummahSignedIn,
-              forChild: ageGroup === "6-9" || ageGroup === "10-12" || state.user.accountRole === "child",
+              forChild: childLearner,
               onBattle: startBattle,
               onJoin: (joined) => dispatch({ type: "apply_user_latest", update: (user) => setUmmahJoined(user, joined) }),
               onNewNickname: () => dispatch({ type: "apply_user_latest", update: (user) => rerollNickname(user) }),
@@ -3741,7 +4020,7 @@ export default function TopicApp() {
           <TopicPicker
             visible={topicPickerVisible}
             onClose={() => setTopicPickerVisible(false)}
-            topics={pickerTopics}
+            topics={shownPickerTopics}
             activeTopicId={selectedSection.topicId}
             search={searchCourse}
             activeUnitId={pathUnitId}
@@ -3750,6 +4029,27 @@ export default function TopicApp() {
               dispatch({ type: "select_topic", topicId: topicId as TopicId, unitId: nodeId ? undefined : unitId });
               setPathReveal(nodeId);
             }}
+          />
+        )}
+        {!inLesson && (
+          <StorySheet
+            visible={Boolean(storyShelf)}
+            onClose={() => setStoryShelf(undefined)}
+            stories={STORIES}
+            readIds={storyReadIds}
+            group={storyShelf}
+            language={currentLanguage}
+            mascotVariant={selectedSection.mascot}
+            accent={selectedSection.accentColor}
+            onFinish={finishStory}
+          />
+        )}
+        {!inLesson && (
+          <CertificatesSheet
+            visible={certificatesSheetVisible}
+            items={certificateItems}
+            onOpen={setShownCertificate}
+            onClose={() => setCertificatesSheetVisible(false)}
           />
         )}
         {!inLesson && (
@@ -3792,6 +4092,9 @@ export default function TopicApp() {
             onAddKid={addKid}
             onRemoveKid={removeKid}
             today={familyToday}
+            kidsMode={kidsMode}
+            onKidsModeChange={changeKidsMode}
+            live={familyLive}
             initialTab={state.user?.accountRole === "parent" ? "kids" : "report"}
             mascotVariant={selectedSection.mascot}
             accent={selectedSection.accentColor}
@@ -3896,6 +4199,42 @@ export default function TopicApp() {
           onCancel={() => closeTestOutResult(false)}
           testID="test-out-result"
         />
+        {season?.phase === "ramadan" ? (
+          <RamadanDayPop
+            visible={ramadanPop && !inLesson && !rewardCelebration}
+            day={season.day}
+            length={season.length}
+            doneDays={ramadanDoneDayNumbers(state.user)}
+            streak={ramadanStreak(state.user)}
+            accent={localizedSections.find((section) => section.topicId === RAMADAN_TOPIC)?.accentColor ?? colors.green}
+            onShare={(card) => {
+              // The picture is taken while the card is still on screen; it closes once the share menu is done.
+              void shareRamadanCard(card, season.day, ramadanStreak(state.user!)).finally(() => setRamadanPop(false));
+            }}
+            onClose={() => setRamadanPop(false)}
+          />
+        ) : null}
+        {certificateQueue.length && !inLesson && !rewardCelebration && !ramadanPop ? (
+          <CertificatePop
+            item={certificateItems.find((item) => item.certificate.id === certificateQueue[0])}
+            name={certificateName}
+            fresh
+            onShare={(card) => {
+              const title = certificateItems.find((item) => item.certificate.id === certificateQueue[0])?.certificate.title ?? "";
+              // The picture is taken while the card is still on screen; it closes once the share menu is done.
+              void shareCertificateCard(card, title).finally(() => setCertificateQueue((queue) => queue.slice(1)));
+            }}
+            onClose={() => setCertificateQueue((queue) => queue.slice(1))}
+          />
+        ) : null}
+        {shownCertificate ? (
+          <CertificatePop
+            item={shownCertificate}
+            name={certificateName}
+            onShare={(card) => void shareCertificateCard(card, shownCertificate.certificate.title)}
+            onClose={() => setShownCertificate(undefined)}
+          />
+        ) : null}
         <RewardPop
           visible={Boolean(rewardCelebration)}
           gems={rewardCelebration?.stop.gemsReward ?? 0}

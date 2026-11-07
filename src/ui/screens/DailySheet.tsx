@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Linking, ScrollView, StyleSheet, Text, View, useWindowDimensions, type StyleProp, type TextStyle } from "react-native";
+import { ScrollView, StyleSheet, Text, View, useWindowDimensions, type StyleProp, type TextStyle } from "react-native";
 import { ArabicText, isArabicOnly, withHonorifics } from "../ArabicText";
 import { GameButton } from "../GameButton";
 import { Icon, type IconName } from "../Icon";
@@ -12,6 +12,7 @@ import { getActiveLanguage, t } from "../../i18n";
 import { getDailyCard } from "../../data/dailyCard";
 import { playAyah, stopAyah } from "../../services/ayahPlayer";
 import { quranAudioUrl } from "../../services/quranAudio";
+import { openWebPage } from "../../services/network";
 import { AyahListen } from "../lesson/AyahListen";
 
 export type DailySheetProps = {
@@ -89,7 +90,7 @@ export function DailySheet({ visible, onClose, date, autoPlay = false }: DailySh
             <Line value={t(hadith.line)} style={styles.line} testID="daily-hadith-line" />
             <Line value={t(hadith.quote)} style={styles.quote} testID="daily-hadith-quote" />
             <Tappable
-              onPress={() => void Linking.openURL(hadith.url).catch(() => undefined)}
+              onPress={() => openWebPage(hadith.url)}
               accessibilityLabel={t("Open source {name}", { name: t(hadith.reference) })}
               hitSlop={6}
               testID="daily-hadith-ref"

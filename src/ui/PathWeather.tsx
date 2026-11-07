@@ -10,6 +10,7 @@ import { BACKDROP_H, WorldBackdrop, type PathWorld } from "./pathWorlds";
 import { feedback, playUi } from "./sound";
 import { METEOR_HIT, bigLook } from "./bigShows";
 import { NoahsArk, SailingBoat } from "./seaSail";
+import { useSecretTap } from "./secretHadith";
 
 /**
  * The sky behind a unit of the path. Each unit has its own weather, so walking down the path feels
@@ -45,6 +46,12 @@ const BAND = 420;
 const SKY_IN = 150;
 /** How far the sky runs on past the bottom of its unit (LearnPath adds it to the unit's height). */
 const SKY_TAIL = 40;
+/**
+ * Longest side, in px, the sky's gradient is drawn at; a taller unit draws it smaller and stretches it to fit.
+ * The SVG view is a bitmap of its full size on Android (and a backing layer on iOS), and a 250-circle unit like
+ * Al-Baqarah made it hundreds of MB, which crashed the app. A soft gradient looks the same stretched.
+ */
+export const SKY_DRAW_MAX = 1000;
 const CLOUD_W = 84;
 const CLOUD_H = 40;
 
@@ -89,8 +96,10 @@ function TapCloud({ sky, size, reduceMotion }: { sky: Sky; size: number; reduceM
   const [show, setShow] = useState<CloudShow | null>(null);
   const { value: t, play } = useOneShot();
   const next = useCycle(CLOUD_SHOWS.length);
+  const secret = useSecretTap("cloud");
   const height = (size * CLOUD_H) / CLOUD_W;
   const onTap = () => {
+    secret();
     if (show) return;
     const pick = CLOUD_SHOWS[next()];
     feedback(pick.sound, pick.kind === "storm" ? "medium" : "light");
@@ -288,6 +297,7 @@ function Sun({ top, left, low, moving, reduceMotion }: { top: number; left: numb
   const [show, setShow] = useState<SunShow | null>(null);
   const { value: t, play } = useOneShot();
   const next = useCycle(SUN_SHOWS.length);
+  const secret = useSecretTap("sky");
   const [phase, setPhase] = useState(0);
   const { value: moonT, play: playMoon } = useOneShot();
   // However night ended (a tap, or a touch waking everyone), the next one starts with a full moon.
@@ -295,6 +305,7 @@ function Sun({ top, left, low, moving, reduceMotion }: { top: number; left: numb
     if (!night) setPhase(0);
   }, [night]);
   const onTap = () => {
+    secret();
     if (night) {
       // The moon: each tap shows its next look (full, gibbous, half), then the day comes back.
       if (phase + 1 < MOON_PHASES.length) {
@@ -437,9 +448,11 @@ function Birds({ top, width, moving, reduceMotion }: { top: number; width: numbe
   const [show, setShow] = useState<BirdShow | null>(null);
   const { value: s, play } = useOneShot();
   const next = useCycle(BIRD_SHOWS.length);
+  const secret = useSecretTap("birds");
   const translateX = t.interpolate({ inputRange: [0, 1], outputRange: [-70, width + 10] });
   const wings = flap.interpolate(smoothKeys([0, 0.5, 1], [1, 0.35, 1]));
   const onTap = () => {
+    secret();
     const pick = BIRD_SHOWS[next()];
     feedback(pick.sound, "light");
     setShow(pick.kind);
@@ -540,9 +553,16 @@ export type PathWeatherProps = {
   animated?: boolean;
   /** Only one unit drops the odd meteor, so they don't fall all at once. */
   meteor?: boolean;
+  /** Long units: the stretch (px from the unit's top) near the screen; clouds and birds outside it are left out. */
+  window?: { from: number; to: number };
 };
 
-export const PathWeather = memo(function PathWeather({ weather, world = "desert", width, height, animated = false, meteor = animated }: PathWeatherProps) {
+/** How much smaller the sky's gradient is drawn than the unit (1: full size), so its SVG stays small. */
+export function skyShrink(height: number) {
+  return Math.max(1, Math.ceil(height / SKY_DRAW_MAX));
+}
+
+export const PathWeather = memo(function PathWeather({ weather, world = "desert", width, height, animated = false, meteor = animated, window: span }: PathWeatherProps) {
   const reduceMotion = useReduceMotion();
   const moving = animated && !reduceMotion;
   // Clouds and the place's strip always move (cheap loops on the native driver); the rest only near the learner.
@@ -553,11 +573,19 @@ export const PathWeather = memo(function PathWeather({ weather, world = "desert"
   // At night the day sky fades away and the dark sky behind the path shows through.
   const { dark } = useScene();
   const daySky = dark.interpolate({ inputRange: [0, 1], outputRange: [1, 0] });
+  // The gradient is drawn `shrink` times smaller, centered, then scaled back up to cover the whole unit.
+  const shrink = skyShrink(height);
+  const drawW = width / shrink;
+  const drawH = height / shrink;
+  const skyBox =
+    shrink > 1
+      ? { position: "absolute" as const, left: (width - drawW) / 2, top: (height - drawH) / 2, width: drawW, height: drawH, transform: [{ scale: shrink }] }
+      : StyleSheet.absoluteFill;
 
   return (
     <View style={[StyleSheet.absoluteFill, styles.clip]} pointerEvents="box-none" testID={`weather-${weather}`}>
       <Animated.View style={[StyleSheet.absoluteFill, { opacity: daySky }]} pointerEvents="none">
-      <Svg width={width} height={height} style={StyleSheet.absoluteFill} pointerEvents="none">
+      <Svg width={drawW} height={drawH} viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="none" style={skyBox} pointerEvents="none" testID="sky-gradient">
         <Defs>
           {/* Fades in under the banner and out at the end, so one unit's sky melts into the next. */}
           <LinearGradient id={gradientId} x1="0" y1="0" x2="0" y2={height} gradientUnits="userSpaceOnUse">
@@ -579,6 +607,8 @@ export const PathWeather = memo(function PathWeather({ weather, world = "desert"
       {Array.from({ length: bands }, (_, band) => {
         const y = band * BAND;
         const first = band === 0;
+        // A band's clouds and birds sit from about 100 to 450 px below its top.
+        if (span && !first && (y + BAND + 60 < span.from || y > span.to)) return null;
         return (
           <React.Fragment key={band}>
             {weather === "sunny" && first ? <Sun top={y + 152} left={width - 80} moving={moving} reduceMotion={reduceMotion} /> : null}

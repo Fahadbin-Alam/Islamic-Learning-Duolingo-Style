@@ -1,6 +1,8 @@
 import * as Notifications from "expo-notifications";
 import { Platform } from "react-native";
 import type { SupportedLanguage, UserProfile } from "../types";
+import { dueCount } from "./reviewDeck";
+import { LEAGUE_REMINDER_IDS, planLeagueReminders } from "./leagueReminders";
 import { COMEBACK_DAYS, comebackMessage, messageVariant, stepForDay, type ComebackStep } from "./comebackReminders";
 import {
   RESUME_REMINDER_AFTER_MS,
@@ -88,7 +90,7 @@ export async function sendAccountabilityNotification(title: string, body: string
 }
 
 async function rescheduleReminders(user: UserProfile, language: SupportedLanguage) {
-  await Promise.all([...OLD_IDS, ...COMEBACK_IDS, RESUME_ID].map((id) => Notifications.cancelScheduledNotificationAsync(id).catch(() => undefined)));
+  await Promise.all([...OLD_IDS, ...COMEBACK_IDS, RESUME_ID, ...Object.values(LEAGUE_REMINDER_IDS)].map((id) => Notifications.cancelScheduledNotificationAsync(id).catch(() => undefined)));
 
   const lastLearningAt = getLastLearningTime(user);
 
@@ -98,8 +100,9 @@ async function rescheduleReminders(user: UserProfile, language: SupportedLanguag
 
   const now = Date.now();
   const slots = getComebackSlots(lastLearningAt, now, user.reminderPreferences);
+  const leagueSlots = planLeagueReminders(user, language, now);
 
-  if (slots.length === 0) {
+  if (slots.length === 0 && leagueSlots.length === 0) {
     return;
   }
 
@@ -115,13 +118,23 @@ async function rescheduleReminders(user: UserProfile, language: SupportedLanguag
 
   await ensureChannel();
   await Promise.all(slots.map((slot) => {
-    const message = comebackMessage(language, slot.step, messageVariant(lastLearningAt), { streakDays: user.streakDays, streakFreezes: user.streakFreezes });
+    const message = comebackMessage(language, slot.step, messageVariant(lastLearningAt), {
+      streakDays: user.streakDays,
+      streakFreezes: user.streakFreezes,
+      // How many missed questions will be due again when this one goes out.
+      reviewDue: dueCount(user.reviewCards, slot.at)
+    });
     return Notifications.scheduleNotificationAsync({
       identifier: slot.id,
       content: { title: message.title, body: message.body, data: { kind: slot.step === "streak" ? "streak" : "resume", step: slot.step } },
       trigger: dateTrigger(slot.at)
     });
   }));
+  await Promise.all(leagueSlots.map((slot) => Notifications.scheduleNotificationAsync({
+    identifier: slot.id,
+    content: { title: slot.title, body: slot.body, data: { kind: "league", step: slot.step } },
+    trigger: dateTrigger(slot.at)
+  })));
 }
 
 export interface ComebackSlot {

@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Ali 'Imran ayah by ayah, the way Al-Baqarah is taught (baqarahUnits.ts): after the unit's own circles and its
 // passages, every ayah or small group of ayahs gets a lesson, explained as Tafsir Ibn Kathir explains it (the abridged
@@ -354,6 +354,20 @@ const IMRAN_ONE: DeepUnit = {
         { q: "How do you show love for Allah, in 3:31?", a: "By following the Prophet ﷺ", wrong: ["By saying it loudly", "By getting rich", "By staying home"], why: "Fattabi'uni yuhbibkumullah." },
         { q: "What do followers get, in 3:31?", a: "Allah's love and forgiveness", wrong: ["Fame", "Gold", "Long life"], why: "Yuhbibkumullah wa yaghfir lakum dhunubakum." },
         { q: "Al-Hasan al-Basri called 3:31 a test for people who claim to love Allah.", tf: true, why: "Allah tested them with this ayah." }
+      ]
+    },
+    {
+      slug: "the-scale-of-love",
+      title: "The scale of love",
+      line: "Love for Allah is weighed by following the Prophet ﷺ.",
+      facts: ["As-Sa'di explains", "Proof of love"],
+      quote: q3(31),
+      source: saadi(3, 31, "As-Sa'di says loving Allah is the highest rank and a claim alone is not enough: its sign is following the Messenger ﷺ in all his words and deeds, inside and out; with this ayah all people are weighed, so their faith and love for Allah are as great as their following of the Messenger ﷺ.", "وبهذه الآية يوزن جميع الخلق"),
+      difficulty: 2,
+      questions: [
+        { q: "What proves a claim of loving Allah, per as-Sa'di on 3:31?", a: "Following the Messenger ﷺ", wrong: ["Saying it often", "Wearing special clothes", "Living far away"], why: "The sign of true love is following the Messenger ﷺ in all things." },
+        { q: "How are all people weighed, per as-Sa'di on 3:31?", a: "By how they follow the Prophet ﷺ", wrong: ["By their wealth", "By their family", "By their looks"], why: "Their faith and love are as great as their following of him ﷺ." },
+        { tf: true, q: "Whoever follows the Messenger ﷺ, Allah loves him and forgives him.", why: "As-Sa'di on 3:31." }
       ]
     },
     {
@@ -902,6 +916,20 @@ const IMRAN_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "unity-fixes-both-worlds",
+      title: "Unity fixes both worlds",
+      line: "United on their religion, Muslims' faith and world improve.",
+      facts: ["As-Sa'di explains", "Unity"],
+      quote: q3(103),
+      source: saadi(3, 103, "As-Sa'di says holding together to Allah's religion helps with taqwa: when Muslims unite on their religion and their hearts come together, their religion and their worldly life are set right, and they can do what needs cooperation; but by splitting and enmity their order breaks and each one chases his own desire.", "فإن في اجتماع المسلمين على دينهم، وائتلاف قلوبهم يصلح دينهم وتصلح دنياهم"),
+      difficulty: 2,
+      questions: [
+        { q: "What does unity on the religion bring, per as-Sa'di on 3:103?", a: "Good in religion and in the world", wrong: ["Only wealth", "Only fame", "Nothing"], why: "Their religion and their worldly life are set right." },
+        { q: "What happens when Muslims split, per as-Sa'di on 3:103?", a: "Each chases his own desire", wrong: ["They grow stronger", "They agree more", "Nothing changes"], why: "Their order breaks and each one follows his own desire." },
+        { tf: true, q: "Before Islam the Arabs fought each other; Islam made them brothers.", why: "As-Sa'di on 3:103." }
+      ]
+    },
+    {
       slug: "a-group-calling",
       title: "A group that calls to good",
       line: "Let there be a group calling to good and stopping wrong.",
@@ -1265,6 +1293,34 @@ const IMRAN_THREE: DeepUnit = {
       ]
     },
     {
+      slug: "manners-draw-people-in",
+      title: "Manners draw people in",
+      line: "A leader's good manners draw people to Allah's religion.",
+      facts: ["As-Sa'di explains", "Gentleness"],
+      quote: q3(159),
+      source: saadi(3, 159, "As-Sa'di says good manners from a leader in religion draw people to Allah's religion, while bad manners drive them away from it; if Allah said this to His protected Messenger ﷺ, then how about others? So following his ﷺ gentle manners is among the most important duties.", "فالأخلاق الحسنة من الرئيس في الدين، تجذب الناس إلى دين الله"),
+      difficulty: 2,
+      questions: [
+        { q: "What do bad manners in a religious leader do, per as-Sa'di on 3:159?", a: "Drive people from the religion", wrong: ["Bring people closer", "Do nothing", "Make people wiser"], why: "Bad manners from a leader make people dislike the religion." },
+        { q: "Whose manners should we follow, per as-Sa'di on 3:159?", a: "The Prophet's ﷺ", wrong: ["Kings'", "Poets'", "Anyone's"], why: "Following his ﷺ gentle manners is among the most important duties." },
+        { tf: true, q: "People gathered around the Prophet ﷺ because of his gentleness.", why: "As-Sa'di on 3:159." }
+      ]
+    },
+    {
+      slug: "why-consult-others",
+      title: "Why consult others",
+      line: "Consulting others is worship and brings countless benefits.",
+      facts: ["As-Sa'di explains", "Shura"],
+      quote: q3(159),
+      source: saadi(3, 159, "As-Sa'di says consulting others on matters that need thought brings countless religious and worldly benefits: consultation is itself an act of worship that brings one closer to Allah, and it puts people's hearts at ease and removes bad feelings when events happen.", "أن المشاورة من العبادات المتقرب بها إلى الله"),
+      difficulty: 2,
+      questions: [
+        { q: "What is consultation, per as-Sa'di on 3:159?", a: "An act of worship", wrong: ["A waste of time", "A sign of weakness", "Only for kings"], why: "Consultation is worship that brings one closer to Allah." },
+        { q: "How does consulting help people's hearts, per as-Sa'di?", a: "It puts them at ease", wrong: ["It angers them", "It confuses them", "It does nothing"], why: "It eases their hearts and removes bad feelings." },
+        { tf: true, q: "The Prophet ﷺ was told to pardon them, pray for forgiveness for them and consult them.", why: "As-Sa'di on 3:159." }
+      ]
+    },
+    {
       slug: "a-messenger-from-them",
       title: "A Messenger from among them",
       line: "Allah's favor: a Messenger ﷺ sent from among the believers.",
@@ -1500,6 +1556,20 @@ const IMRAN_THREE: DeepUnit = {
         { q: "What does the last ayah of Ali 'Imran command first?", a: "Be patient", wrong: ["Be rich", "Be loud", "Be fast"], why: "Isbiru." },
         { q: "'Rabitu' means...", a: "Stand guard and stay firm", wrong: ["Sleep well", "Travel far", "Trade more"], why: "Stay at your post." },
         { q: "Why do all this, in 3:200?", a: "So that you succeed", wrong: ["So that you are famous", "So that you rest", "So that you win money"], why: "La'allakum tuflihun." }
+      ]
+    },
+    {
+      slug: "no-success-without-patience",
+      title: "No success without patience",
+      line: "No one succeeds without patience, steadfastness and guarding.",
+      facts: ["As-Sa'di explains", "Sabr"],
+      quote: q3(200),
+      source: saadi(3, 200, "As-Sa'di says patience is holding the self to what it dislikes: leaving sins, bearing hardship, and doing heavy commands; musabarah is keeping that up always, and murabatah is guarding the place the enemy could come from; no one succeeds except by them, and no one misses success except by neglecting them.", "الذي هو حبس النفس على ما تكرهه"),
+      difficulty: 2,
+      questions: [
+        { q: "What is patience, per as-Sa'di on 3:200?", a: "Holding the self to what it dislikes", wrong: ["Doing whatever you like", "Giving up", "Sleeping long"], why: "Patience is holding the self to what it dislikes." },
+        { q: "Without what can no one succeed, per as-Sa'di on 3:200?", a: "Patience, steadfastness and guarding", wrong: ["Wealth", "Fame", "Luck"], why: "No one succeeds except by patience, musabarah and murabatah." },
+        { tf: true, q: "Leaving sins also needs patience.", why: "As-Sa'di on 3:200." }
       ]
     }
   ]

@@ -36,8 +36,12 @@ import {
   recordLessonAnswer,
   reviewCardKeyFor,
   reviewDueCount,
+  withMissedQuestions,
+  MISSED_PER_LESSON,
   PRACTICE_XP_PER_CORRECT_ANSWER
 } from "../api/islamicLearningApi";
+import { comebackMessage } from "../services/comebackReminders";
+import { isRecallLesson } from "../ui/lesson/lessonPages";
 import { COURSE, LESSONS_BY_ID } from "../data/course";
 import { getStoredItem, removeStoredItem, setStoredItem } from "../services/appStorage";
 import { clearActiveAssessment } from "../services/localProgress";
@@ -45,8 +49,10 @@ import {
   REVIEW_DECK_LIMIT,
   REVIEW_LEARNED_BOX,
   REVIEW_SESSION_SIZE,
+  calendarDaysUntil,
   cleanReviewCards,
   dueCount,
+  nextDueAt,
   recordReviewMiss,
   recordReviewRight
 } from "../services/reviewDeck";
@@ -291,7 +297,93 @@ describe("Review deck (Practice tab)", () => {
     await openPractice(waiting);
     expect(screen.getByTestId("practice-review").props.accessibilityLabel).toBe("Review");
     await press("practice-review");
-    expect(screen.getByText("All caught up!")).toBeTruthy();
+    // It says when the next one comes back: a right answer waits a day.
+    expect(screen.getByText("All caught up! A missed question comes back tomorrow.")).toBeTruthy();
     expect(screen.queryByTestId("exercise-view")).toBeNull();
+  });
+});
+
+describe("Spaced review in the path", () => {
+  // A normal lesson the learner has not done, in a topic that takes missed questions.
+  const nextLesson = COURSE.sections
+    .find((section) => section.topicId === "quran_tafseer")!
+    .nodes.flatMap((node) => node.lessonIds)
+    .map((id) => LESSONS_BY_ID[id])
+    .find((lesson) => !finished.includes(lesson.id) && !isRecallLesson(lesson) && lesson.challenges.length > 0)!;
+
+  it("ends a normal lesson with up to 2 missed questions that are due, tagged as missed before", () => {
+    const user = missedUser(4);
+    const asked = withMissedQuestions(nextLesson, user, NOW);
+    const added = asked.challenges.slice(nextLesson.challenges.length);
+    expect(added).toHaveLength(MISSED_PER_LESSON);
+    expect(asked.challenges.slice(0, nextLesson.challenges.length)).toEqual(nextLesson.challenges);
+    for (const challenge of added) {
+      expect(challenge.missedBefore).toBe(true);
+      expect(challenge.isReview).toBe(true);
+      // It is still the same question, found again by its own lesson.
+      const cardKey = reviewCardKeyFor({ lesson: asked }, challenge)!;
+      expect(user.reviewCards!.some((card) => card.lessonId === cardKey.lessonId && card.challengeId === cardKey.challengeId)).toBe(true);
+    }
+    // The lesson still reads as a lesson, not a quiz circle.
+    expect(isRecallLesson(asked)).toBe(false);
+  });
+
+  it("adds nothing when no missed question is due, and never the lesson's own", () => {
+    const user = missedUser(2);
+    expect(withMissedQuestions(nextLesson, user, new Date(NOW.getTime() - DAY))).toBe(nextLesson);
+    expect(withMissedQuestions(nextLesson, makeUser(), NOW)).toBe(nextLesson);
+    const ownLesson = user.reviewCards![0].lessonId;
+    const onlyOwn = { ...user, reviewCards: user.reviewCards!.filter((card) => card.lessonId === ownLesson) };
+    expect(withMissedQuestions(LESSONS_BY_ID[ownLesson], onlyOwn, NOW)).toBe(LESSONS_BY_ID[ownLesson]);
+  });
+
+  it("leaves quiz circles and tests alone", () => {
+    const recall = Object.values(LESSONS_BY_ID).find((lesson) => isRecallLesson(lesson) && lesson.challenges.length > 0)!;
+    expect(withMissedQuestions(recall, missedUser(3), NOW)).toBe(recall);
+  });
+
+  it("moves the card on when the learner gets it right in the lesson", () => {
+    const user = missedUser(1);
+    const asked = withMissedQuestions(nextLesson, user, NOW);
+    const back = asked.challenges[asked.challenges.length - 1];
+    expect(back.missedBefore).toBe(true);
+    const session: LessonSession = { id: "s", lesson: asked, startedAt: NOW.toISOString(), heartsAtStart: 5 };
+    const after = recordLessonAnswer(user, session, back, true, NOW);
+    expect(after.reviewCards![0]).toMatchObject({ box: 1, dueAt: later(1).toISOString() });
+    // Missed again: back to the start, due now.
+    expect(recordLessonAnswer(user, session, back, false, NOW).reviewCards![0]).toMatchObject({ box: 0, misses: 2 });
+  });
+
+  it("knows when the next one comes back", () => {
+    const cards = recordReviewRight(recordReviewMiss(undefined, key, NOW), key, NOW);
+    expect(nextDueAt(cards, NOW)?.toISOString()).toBe(later(1).toISOString());
+    expect(nextDueAt(recordReviewMiss(undefined, key, NOW), NOW)).toBeUndefined();
+    const noon = new Date(2026, 9, 30, 12);
+    expect(calendarDaysUntil(new Date(2026, 9, 30, 20), noon)).toBe(0);
+    expect(calendarDaysUntil(new Date(2026, 9, 31, 1), noon)).toBe(1);
+    expect(calendarDaysUntil(new Date(2026, 10, 2, 9), noon)).toBe(3);
+  });
+
+  it("says so in a few-days-away reminder when missed questions are back", () => {
+    const message = comebackMessage("en", "day3", 0, { reviewDue: 3 });
+    expect(message.title).toBe("🐪 The questions you missed are back");
+    expect(message.body).toContain("3 to review");
+    expect(comebackMessage("bn", "day2", 2, { reviewDue: 4 }).body).toContain("৪");
+    // Nothing due, the streak reminder, or the Islamic-touch day: the usual message.
+    expect(comebackMessage("en", "day3", 0, {}).title).not.toBe(message.title);
+    expect(comebackMessage("en", "streak", 0, { reviewDue: 3 }).title).not.toBe(message.title);
+    expect(comebackMessage("en", "day3", 1, { reviewDue: 3 }).title).not.toBe(message.title);
+  });
+
+  it("shows a Review your mistakes card on the path that starts a Review", async () => {
+    const user = missedUser(2);
+    setStoredItem(PROFILE_KEY, JSON.stringify(user));
+    setStoredItem("sira-path-age-group", "18+");
+    await render(<TopicApp />);
+    await screen.findByTestId("learn-path-foundation");
+    expect(screen.getByTestId("path-review-count").props.children).toBe("2");
+    await press("path-review-banner");
+    expect(screen.getByTestId("exercise-view")).toBeTruthy();
+    removeStoredItem(PROFILE_KEY);
   });
 });

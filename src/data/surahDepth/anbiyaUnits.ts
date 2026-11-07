@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Anbiya ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -144,6 +144,20 @@ const ANBIYA_ONE: DeepUnit = {
         { q: "What does Allah fling against falsehood, in 21:18?", a: "The truth", wrong: ["A rock", "Fire", "Wind"], why: "Nay, We fling the truth against the falsehood, so it destroys it, and behold, it disappears." },
         { q: "What happens to falsehood, in 21:18?", a: "It disappears", wrong: ["It grows", "It wins", "It hides"], why: "So it destroys it, and behold, it disappears." },
         { q: "How is falsehood beaten, per Ibn Kathir?", a: "By explaining the truth", wrong: ["By shouting", "By force", "By ignoring it"], why: "We explain the truth and thus defeat falsehood." }
+      ]
+    },
+    {
+      slug: "every-doubt-has-an-answer",
+      title: "Every doubt has an answer",
+      line: "For every false doubt, Allah's proofs hold a clear answer.",
+      facts: ["As-Sa'di explains", "Proofs of the truth"],
+      quote: q21(18),
+      source: saadi(21, 18, "As-Sa'di says Allah has taken it on Himself to make the truth win: no one brings a doubt, from reason or from texts, to support falsehood or reject the truth, except that Allah's proofs hold what crushes it, and he says this is true for every religious question, one by one.", "وهذا عام في جميع المسائل الدينية"),
+      difficulty: 2,
+      questions: [
+        { q: "What answers a false doubt about the religion, per as-Sa'di on 21:18?", a: "Allah's clear proofs", wrong: ["Nothing can", "Shouting louder", "Only silence"], why: "Allah's proofs of reason and revelation crush every doubt." },
+        { q: "Which questions does the rule cover, per as-Sa'di on 21:18?", a: "Every religious question", wrong: ["Only a few", "Only about prayer", "Only about money"], why: "He says it holds for all religious questions, one by one." },
+        { tf: true, q: "Falsehood fades away once the truth is shown.", why: "As-Sa'di on 21:18." }
       ]
     },
     {
@@ -325,6 +339,48 @@ const ANBIYA_TWO: DeepUnit = {
         { q: "What is man created of, in 21:37?", a: "Haste", wrong: ["Patience", "Light", "Silence"], why: "Man is created of haste. I will show you My Ayat. So ask Me not to hasten them." },
         { q: "What did the deniers do on seeing him ﷺ, in 21:36?", a: "Mocked him", wrong: ["Welcomed him", "Prayed with him", "Gave gifts"], why: "And when those who disbelieved see you, they take you not except for mockery." },
         { q: "What does Allah say not to ask, in 21:37?", a: "To hasten His signs", wrong: ["For forgiveness", "For guidance", "For rain"], why: "I will show you My Ayat. So ask Me not to hasten them." }
+      ]
+    },
+    {
+      slug: "when-is-the-promise",
+      title: "When is the promise?",
+      line: "Deniers mockingly ask when the promise will come.",
+      facts: ["Do not rush the Hour", "Prepare instead of mocking"],
+      quote: q21(38),
+      source: ik(38, "The idol worshippers asked to hasten the punishment out of denial, stubbornness and a belief that it would never happen.", "out of denial, rejection, disbelief, stubbornness and a belief that it will never happen"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the deniers ask, in 21:38?", a: "When will this promise come?", wrong: ["Where is the market?", "Who is the king?", "What is for dinner?"], why: "And they say: When will this promise (come to pass), if you are truthful." },
+        { q: "Why did they ask, per Ibn Kathir?", a: "They thought it would never happen", wrong: ["They were curious", "They were ready", "They were afraid"], why: "Out of denial, rejection, disbelief, stubbornness and a belief that it will never happen." },
+        { tf: true, q: "The deniers in 21:38 wanted to hasten the punishment.", why: "Allah also tells us how the idolators seek to hasten punishment upon themselves." }
+      ]
+    },
+    {
+      slug: "if-only-they-knew",
+      title: "If only they knew",
+      line: "If they truly knew, they would never ask to hasten it.",
+      facts: ["Certainty changes behavior", "Only Allah can help"],
+      quote: q21(39),
+      source: ik(39, "If the deniers knew for certain that it will come, they would not rush it. On that Day they will have no helper.", "if only they knew for certain that it will inevitably come to pass, they would not seek to hasten it"),
+      difficulty: 4,
+      questions: [
+        { q: "What would certainty stop them doing, per Ibn Kathir?", a: "Seeking to hasten it", wrong: ["Eating", "Sleeping", "Travelling"], why: "If only they knew for certain that it will inevitably come to pass, they would not seek to hasten it." },
+        { q: "Will they be helped, in 21:39?", a: "No", wrong: ["Yes", "By idols", "By kings"], why: "And they will not be helped." },
+        { q: "Which ayah does Ibn Kathir link about no guardian?", a: "13:34", wrong: ["1:1", "2:255", "112:1"], why: "And they have no guardian against Allah. (13:34)" }
+      ]
+    },
+    {
+      slug: "all-of-a-sudden",
+      title: "All of a sudden",
+      line: "The Hour comes suddenly; none can stop or delay it.",
+      facts: ["The Hour comes suddenly", "Be ready every day"],
+      quote: q21(40),
+      source: ik(40, "It will take them by surprise and confuse them. They will have no way to stop it, and it will not be delayed even for an instant.", "it will not be delayed for them even for an instant"),
+      difficulty: 4,
+      questions: [
+        { q: "How will it come, in 21:40?", a: "All of a sudden", wrong: ["Slowly", "With notice", "Never"], why: "Nay, it will come upon them all of a sudden." },
+        { q: "What does perplex them mean, per Ibn Kathir?", a: "It will scare and confuse them", wrong: ["It will please them", "It will feed them", "It will rest them"], why: "It will scare them, and they will succumb to it in confusion." },
+        { tf: false, q: "In 21:40 they get a short delay.", why: "It will not be delayed for them even for an instant." }
       ]
     },
     {
@@ -690,6 +746,20 @@ const ANBIYA_THREE: DeepUnit = {
       ]
     },
     {
+      slug: "a-blessed-companion",
+      title: "A blessed companion",
+      line: "A good companion brings blessing to the one beside them.",
+      facts: ["As-Sa'di explains", "Good company"],
+      quote: q21(90),
+      source: saadi(21, 90, "As-Sa'di says Allah healed the wife of Zakariyya so she could bear Yahya, for the sake of His Prophet, and this shows that a righteous companion is a blessing to the one with him; the Prophets called on Allah in hope and fear, never heedless.", "وهذا من فوائد الجليس، والقرين الصالح، أنه مبارك على قرينه"),
+      difficulty: 2,
+      questions: [
+        { q: "Why was Zakariyya's wife healed to have a child, per as-Sa'di?", a: "For the sake of Zakariyya", wrong: ["By chance", "For her wealth", "For her family name"], why: "Allah healed her for His Prophet Zakariyya." },
+        { q: "What lesson does as-Sa'di draw from 21:90 about company?", a: "A good companion brings blessing", wrong: ["Friends do not matter", "Live alone", "Pick rich friends"], why: "A righteous companion is blessed for the one beside him." },
+        { tf: true, q: "The Prophets called on Allah with both hope and fear.", why: "As-Sa'di on 21:90." }
+      ]
+    },
+    {
       slug: "maryam-a-sign",
       title: "Maryam and her son a sign",
       line: "Maryam and Isa are a sign that Allah can do anything.",
@@ -729,6 +799,104 @@ const ANBIYA_THREE: DeepUnit = {
         { q: "What happens to a believer's good effort, in 21:94?", a: "It is not rejected", wrong: ["It is forgotten", "It is halved", "It is delayed"], why: "Whoever does righteous good deeds while he is a believer, his efforts will not be rejected." },
         { tf: true, q: "Allah records every good deed of the believer.", why: "All his deeds are recorded and nothing of them at all is lost." },
         { q: "What two things does 21:94 join together?", a: "Faith and good deeds", wrong: ["Wealth and fame", "Strength and speed", "Travel and trade"], why: "Whoever does righteous good deeds while he is a believer." }
+      ]
+    },
+    {
+      slug: "no-return-for-ruined-towns",
+      title: "No return",
+      line: "The people of ruined towns will not return to this world.",
+      facts: ["Life comes once", "Use your time well"],
+      quote: q21(95),
+      source: ik(95, "Ibn Abbas said it is decreed that people of each destroyed town will never return to this world before the Day of Resurrection.", "will never return to this world before the Day of Resurrection"),
+      difficulty: 3,
+      questions: [
+        { q: "What is laid on every destroyed town, in 21:95?", a: "A ban on returning", wrong: ["A new king", "A tax", "A wall of gold"], why: "And a ban is laid on every town which We have destroyed that they shall not return." },
+        { q: "When might they return, per Ibn Kathir?", a: "Not before the Resurrection", wrong: ["Next year", "In a century", "After a flood"], why: "They will never return to this world before the Day of Resurrection." },
+        { tf: true, q: "Ibn Abbas said the ban in 21:95 is enforced.", why: "Ibn Abbas said: it is enforced." }
+      ]
+    },
+    {
+      slug: "yajuj-and-majuj",
+      title: "Ya'juj and Ma'juj",
+      line: "Near the end, Ya'juj and Ma'juj rush down from every height.",
+      facts: ["A major sign of the Hour", "Allah ends their harm"],
+      quote: q21(96),
+      source: ik(96, "Ya'juj and Ma'juj are from the children of Adam. Near the end they will be let loose and rush down from every raised land to spread corruption.", "they are from the progeny of Adam"),
+      difficulty: 4,
+      questions: [
+        { q: "Who are let loose, in 21:96?", a: "Ya'juj and Ma'juj", wrong: ["The angels", "The Prophets", "The birds"], why: "Until, when Ya'juj and Ma'juj are let loose." },
+        { q: "Whose children are they, per Ibn Kathir?", a: "Adam's", wrong: ["The jinn's", "The angels'", "No one's"], why: "We have already mentioned that they are from the progeny of Adam." },
+        { q: "What is a Hadab, per Ibn Kathir?", a: "A raised portion of land", wrong: ["A river", "A cave", "A ship"], why: "A Hadab is a raised portion of land." }
+      ]
+    },
+    {
+      slug: "an-opening-in-the-wall",
+      title: "An opening in the wall",
+      line: "The Prophet ﷺ warned that a small gap opened in their barrier.",
+      facts: ["Good must outweigh evil", "Say La ilaha illallah"],
+      quote: q21(96),
+      source: hadith("bukhari", "3346", "Zaynab bint Jahsh", "Sahih", "The Prophet ﷺ came in fear saying La ilaha illallah, and showed with his fingers a small opening made in the wall of Ya'juj and Ma'juj. Ruin comes when evil grows.", "An opening has been made in the wall of Gog and Magog like this"),
+      difficulty: 5,
+      questions: [
+        { q: "What did the Prophet ﷺ say first, in the hadith?", a: "La ilaha illallah", wrong: ["Subhanallah", "Allahu Akbar", "Bismillah"], why: "None has the right to be worshipped but Allah." },
+        { q: "How did he show the opening, in the hadith?", a: "A circle with thumb and finger", wrong: ["A drawing on sand", "Raising both hands", "Pointing up"], why: "Making a circle with his thumb and index finger." },
+        { q: "When does ruin come, in the hadith?", a: "When evil increases", wrong: ["When it rains", "When kings travel", "Never"], why: "Yes, when the evil persons will increase." }
+      ]
+    },
+    {
+      slug: "we-were-heedless",
+      title: "We were heedless",
+      line: "As the promise nears, deniers stare: we were heedless!",
+      facts: ["Wake up before that Day", "Admit wrong now"],
+      quote: q21(97),
+      source: ik(97, "When the true promise comes near, the eyes of the disbelievers will stare in fear, and they will admit they were heedless and wrongdoers.", "This is information given by the One Who knows what has happened and what is yet to come"),
+      difficulty: 4,
+      questions: [
+        { q: "What draws near, in 21:97?", a: "The true promise", wrong: ["A storm", "A caravan", "Harvest"], why: "And the true promise shall draw near." },
+        { q: "What do the deniers admit, in 21:97?", a: "We were heedless", wrong: ["We were right", "We were rich", "We were brave"], why: "Woe to us! We were indeed heedless of this." },
+        { tf: true, q: "Ibn Kathir says this news comes from the All-Knower.", why: "This is information given by the One Who knows what has happened and what is yet to come." }
+      ]
+    },
+    {
+      slug: "fuel-for-the-fire",
+      title: "Idols are fuel",
+      line: "Idols and their worshippers alike become fuel for the Fire.",
+      facts: ["Idols cannot save", "Worship Allah alone"],
+      quote: q21(98),
+      source: ik(98, "Allah told the idol worshippers of Makkah that they and their idols will be fuel for Hell. Ibn Abbas said the word means kindling.", "The fuel of Hell means that which is thrown into it"),
+      difficulty: 4,
+      questions: [
+        { q: "What becomes fuel, in 21:98?", a: "Idols and their worshippers", wrong: ["The angels", "The Prophets", "The believers"], why: "Certainly you and that which you are worshipping now besides Allah, are (but) fuel for Hell!" },
+        { q: "What does Hasab mean, per Ibn Abbas?", a: "Kindling", wrong: ["Water", "Gold", "Bread"], why: "Ibn Abbas said: Kindling." },
+        { q: "Whom was 21:98 first said to, per Ibn Kathir?", a: "The idolators of Makkah", wrong: ["The angels", "The people of Madinah", "The Prophets"], why: "Allah says to the people of Makkah, the idolators of the Quraysh." }
+      ]
+    },
+    {
+      slug: "had-they-been-gods",
+      title: "Had they been gods",
+      line: "Had the idols been gods, they would never have entered the Fire.",
+      facts: ["True God cannot be harmed", "Idols are helpless"],
+      quote: q21(99),
+      source: ik(99, "If the idols were really gods, they would not enter the Fire. The worshippers and the idols will all stay there.", "if these idols and false gods which you worshipped instead of Allah, had really been gods, they would not have entered the Hellfire"),
+      difficulty: 4,
+      questions: [
+        { q: "What proves idols are not gods, in 21:99?", a: "They enter the Fire", wrong: ["They are old", "They are small", "They are many"], why: "Had these been gods, they would not have entered there." },
+        { q: "Who stays there, per Ibn Kathir?", a: "Worshippers and idols", wrong: ["Only idols", "Only kings", "No one"], why: "The worshippers and the objects of their worship will all abide therein forever." },
+        { tf: false, q: "Ibn Kathir says the idols truly are gods.", why: "If these idols had really been gods, they would not have entered the Hellfire." }
+      ]
+    },
+    {
+      slug: "they-hear-not",
+      title: "They hear not",
+      line: "There they sigh deeply and hear nothing.",
+      facts: ["Allah protects believers", "Good deeds bring good ends"],
+      quote: q21(100),
+      source: ik(100, "In the Fire they sigh deeply and hear nothing. Then Allah describes the blessed: those whose good deeds Allah rewards with good, kept far from it.", "Just as they did good in this world, Allah will make their final destiny and their reward good"),
+      difficulty: 4,
+      questions: [
+        { q: "What can they not do there, in 21:100?", a: "Hear", wrong: ["Sigh", "Breathe", "Speak"], why: "And therein they will hear not." },
+        { q: "Which ayah does Ibn Kathir link to 21:100?", a: "11:106", wrong: ["2:255", "1:1", "36:1"], why: "They will have (in the Fire), Zafir and Shahiq. (11:106)" },
+        { tf: true, q: "Ibn Kathir says good doers get a good final reward.", why: "Just as they did good in this world, Allah will make their final destiny and their reward good." }
       ]
     },
     {

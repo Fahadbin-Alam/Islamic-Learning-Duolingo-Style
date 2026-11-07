@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, RefreshControl, ScrollView, StyleSheet, Text, View } from "react-native";
 import { COURSE } from "../../data/course";
 // Type-only: backendSync pulls in device storage, which a presentational screen must not load.
-import type { CrewMember, CrewPayload, FriendBattle } from "../../services/backendSync";
+import type { CrewMember, CrewPayload, FriendBattle, FriendStreak, InviteInfo } from "../../services/backendSync";
 import type { LeagueState, SocialRelation, UserProfile } from "../../types";
 import { GameButton } from "../GameButton";
 import { Icon } from "../Icon";
@@ -69,6 +69,10 @@ export type CrewViewProps = {
   onCancelBattle?: (battle: FriendBattle) => void;
   /** The phone's share menu with an invite to Muslimo (no grown-up check: the person picks who gets it). */
   onShareApp?: () => void;
+  /** The signed-in learner's invite code; absent when signed out or the server could not be reached. */
+  invite?: InviteInfo;
+  /** A new learner types a friend's code: both get dates. */
+  onRedeemInvite?: (code: string) => void;
 };
 
 // Friend avatars take a topic world color, picked from their id.
@@ -252,6 +256,113 @@ function BattleRow({ battle, onAnswer, onPlay, onCancel }: { battle: FriendBattl
   );
 }
 
+/** The learner's invite code, how many friends used it, and (for new accounts) a box to type a friend's code. */
+/** What the pair still has to do today to keep (or start) their friend streak. */
+export function friendStreakLine(streak: FriendStreak, name: string) {
+  if (streak.meToday && streak.friendToday) return t("You both learned today!");
+  if (streak.meToday) return t("Waiting for {name} to learn today", { name });
+  if (streak.friendToday) return t("{name} learned today. Your turn!", { name });
+  return streak.days > 0 ? t("Both do a lesson today to keep it!") : t("Both do a lesson today to start one!");
+}
+
+/** Friends whose streak needs the learner today come first, then the longest streaks. */
+export function sortFriendStreaks(friends: CrewMember[]) {
+  const needsMe = (member: CrewMember) => Number(Boolean(member.friendStreak && !member.friendStreak.meToday && member.friendStreak.days > 0));
+  return friends
+    .filter((member) => member.friendStreak)
+    .sort((left, right) => needsMe(right) - needsMe(left) || (right.friendStreak?.days ?? 0) - (left.friendStreak?.days ?? 0) || left.name.localeCompare(right.name));
+}
+
+function TwinFlame({ lit, size = 18 }: { lit: boolean; size?: number }) {
+  const color = lit ? undefined : colors.lockedLip;
+  return (
+    <View style={[styles.twinFlame, { width: size * 1.55, height: size }]}>
+      <View style={styles.twinFlameBack}>
+        <Icon name="flame" size={size * 0.8} color={color} />
+      </View>
+      <Icon name="flame" size={size} color={color} />
+    </View>
+  );
+}
+
+function FriendStreakRow({ member, me, onOpen }: { member: CrewMember; me: CrewMember; onOpen: (member: CrewMember) => void }) {
+  const streak = member.friendStreak as FriendStreak;
+  const name = firstName(member.name);
+  const bothToday = streak.meToday && streak.friendToday;
+  const yourTurn = !streak.meToday && streak.days > 0;
+  return (
+    <Tappable
+      onPress={() => onOpen(member)}
+      style={[styles.raceRow, bothToday ? styles.streakLit : yourTurn ? styles.battleHot : null]}
+      testID={`friend-streak-${member.id}`}
+      accessibilityLabel={`${t("{count} day friend streak with {name}", { count: streak.days, name })}. ${friendStreakLine(streak, name)}`}
+      pressScale={0.98}
+    >
+      <View style={styles.streakAvatars}>
+        <Avatar member={me} size={30} />
+        <View style={styles.streakAvatarFriend}>
+          <Avatar member={member} size={30} />
+        </View>
+      </View>
+      <View style={styles.raceMain}>
+        <Text style={styles.raceName} numberOfLines={1}>{t("You and {name}", { name })}</Text>
+        <Text style={styles.raceMetaText} numberOfLines={2} testID={`friend-streak-line-${member.id}`}>{friendStreakLine(streak, name)}</Text>
+      </View>
+      <View style={styles.score}>
+        <TwinFlame lit={streak.days > 0} />
+        <Text style={[styles.scoreText, streak.days > 0 ? styles.streakDays : null]} numberOfLines={1} testID={`friend-streak-days-${member.id}`}>
+          {formatNumber(streak.days)}
+        </Text>
+      </View>
+    </Tappable>
+  );
+}
+
+export function InviteCodeCard({ invite, onRedeem }: { invite: InviteInfo; onRedeem?: (code: string) => void }) {
+  const [typing, setTyping] = useState(false);
+  const [code, setCode] = useState("");
+  const canRedeem = Boolean(onRedeem) && invite.canUseCode && !invite.usedCode;
+  const redeem = () => {
+    if (!code.trim()) return;
+    onRedeem?.(code.trim());
+    setTyping(false);
+    setCode("");
+  };
+  return (
+    <View style={styles.inviteCard} testID="invite-card">
+      <Text style={styles.inviteTitle}>{t("Invite a friend and you both get {count} dates!", { count: invite.rewardDates })}</Text>
+      <Text style={styles.inviteLabel}>{t("Your invite code")}</Text>
+      <Text style={styles.inviteCode} selectable testID="invite-code">
+        {invite.code}
+      </Text>
+      <Text style={styles.hint}>
+        {invite.joined ? t("Friends who joined with your code: {count}", { count: invite.joined }) : t("Your friend types it after signing up.")}
+      </Text>
+      {canRedeem && typing ? (
+        <View style={styles.redeemWrap}>
+          <TextField
+            value={code}
+            onChangeText={setCode}
+            placeholder={t("Friend's code")}
+            autoCapitalize="characters"
+            autoCorrect={false}
+            maxLength={12}
+            returnKeyType="done"
+            onSubmitEditing={redeem}
+            testID="invite-code-input"
+            accessibilityLabel={t("Friend's code")}
+          />
+          <GameButton label={t("Use code")} fullWidth disabled={!code.trim()} onPress={redeem} testID="invite-code-use" />
+        </View>
+      ) : canRedeem ? (
+        <Tappable onPress={() => setTyping(true)} style={styles.redeemLink} testID="invite-code-open" pressScale={0.96}>
+          <Text style={styles.redeemLinkText}>{t("Got a code from a friend?")}</Text>
+        </Tappable>
+      ) : null}
+    </View>
+  );
+}
+
 /** Open battles first (the ones waiting on this learner on top), then the last few finished. */
 export function sortBattles(battles: FriendBattle[]) {
   const weight = (battle: FriendBattle) => {
@@ -294,6 +405,8 @@ export function CrewView({
   onPlayBattle,
   onCancelBattle,
   onShareApp,
+  invite,
+  onRedeemInvite,
   mascotVariant = "muslim_man",
   // The brand green like the Mascot's own default; the app passes the topic accent.
   accent = colors.green
@@ -371,6 +484,16 @@ export function CrewView({
       ))}
     </View>
   ) : null;
+  const streakFriends = payload ? sortFriendStreaks(payload.friends) : [];
+  const friendStreaks = payload && streakFriends.length ? (
+    <View style={[styles.race, styles.waiting]} testID="crew-friend-streaks">
+      <Text style={styles.listTitle}>{t("Friend streaks")}</Text>
+      <Text style={styles.streakHelp}>{t("Learn on the same day as a friend to grow your streak together.")}</Text>
+      {streakFriends.map((member) => (
+        <FriendStreakRow key={`streak_${member.id}`} member={member} me={payload.me} onOpen={openFriend} />
+      ))}
+    </View>
+  ) : null;
   const openBattleWith = (member: CrewMember) => battles.find((battle) => battle.friend.id === member.id && battle.status !== "done");
   const shareButton = onShareApp ? (
     <GameButton label={t("Invite friends")} icon="share" variant="secondary" fullWidth onPress={onShareApp} testID="crew-share" />
@@ -437,6 +560,7 @@ export function CrewView({
       <>
         {waiting}
         {battleList}
+        {friendStreaks}
         <View style={styles.mascotRow}>
           <Mascot variant={mascotVariant} mood={myRank === 1 ? "cheer" : "happy"} size={78} accent={accent} />
           <View style={styles.bubbleWrap}>
@@ -511,6 +635,7 @@ export function CrewView({
           <>
             {league ? <LeagueCard league={league} /> : null}
             {body}
+            {invite && !signedOut && !unavailable ? <InviteCodeCard invite={invite} onRedeem={onRedeemInvite} /> : null}
           </>
         )}
       </ScrollView>
@@ -596,6 +721,18 @@ export function CrewView({
                 <Text style={styles.friendStatText}>{formatNumber(shownFriend.weeklyXp)}</Text>
               </View>
             </View>
+            {shownFriend.friendStreak ? (
+              <View style={styles.sheetStreak} testID="crew-friend-sheet-streak">
+                <TwinFlame lit={shownFriend.friendStreak.days > 0} size={24} />
+                <View style={styles.raceMain}>
+                  <Text style={styles.raceName}>{t("{count} day friend streak", { count: shownFriend.friendStreak.days })}</Text>
+                  <Text style={styles.raceMetaText}>
+                    {friendStreakLine(shownFriend.friendStreak, firstName(shownFriend.name))}
+                    {shownFriend.friendStreak.best > shownFriend.friendStreak.days ? ` ${t("Best: {count}", { count: shownFriend.friendStreak.best })}` : ""}
+                  </Text>
+                </View>
+              </View>
+            ) : null}
             {onChallenge ? (
               openBattleWith(shownFriend) ? (
                 <Text style={styles.hint} testID="crew-friend-battle-open">{t("You already have a battle with {name}.", { name: firstName(shownFriend.name) })}</Text>
@@ -795,6 +932,48 @@ const styles = StyleSheet.create({
     marginTop: 18,
     gap: 10
   },
+  inviteCard: {
+    marginTop: 18,
+    padding: 14,
+    gap: 4,
+    borderRadius: radii.tile,
+    borderWidth: 2,
+    borderBottomWidth: 4,
+    borderColor: lighten(colors.gold, 0.45),
+    borderBottomColor: colors.gold,
+    backgroundColor: lighten(colors.gold, 0.9),
+    alignItems: "center"
+  },
+  inviteTitle: {
+    ...text.h3,
+    textAlign: "center"
+  },
+  inviteLabel: {
+    ...text.small,
+    marginTop: 6
+  },
+  inviteCode: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 30,
+    lineHeight: 38,
+    letterSpacing: 3,
+    color: darken(colors.gold, 0.55)
+  },
+  redeemWrap: {
+    alignSelf: "stretch",
+    gap: 8,
+    marginTop: 10
+  },
+  redeemLink: {
+    marginTop: 8,
+    paddingVertical: 6,
+    paddingHorizontal: 10
+  },
+  redeemLinkText: {
+    ...text.small,
+    fontFamily: fonts.displayHeavy,
+    color: darken(colors.gem, 0.2)
+  },
   hint: {
     ...text.small,
     textAlign: "center",
@@ -889,6 +1068,45 @@ const styles = StyleSheet.create({
   },
   waiting: {
     marginBottom: 16
+  },
+  streakHelp: {
+    ...text.small,
+    marginBottom: 2
+  },
+  streakLit: {
+    backgroundColor: lighten(colors.flame, 0.88),
+    borderColor: lighten(colors.flame, 0.5),
+    borderBottomColor: colors.flame
+  },
+  streakDays: {
+    color: darken(colors.flame, 0.15)
+  },
+  streakAvatars: {
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  streakAvatarFriend: {
+    marginStart: -10
+  },
+  twinFlame: {
+    alignItems: "flex-end",
+    justifyContent: "center"
+  },
+  twinFlameBack: {
+    position: "absolute",
+    start: 0,
+    top: 0
+  },
+  sheetStreak: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    alignSelf: "stretch",
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    borderRadius: radii.tile,
+    backgroundColor: lighten(colors.flame, 0.9),
+    marginBottom: 6
   },
   pendingRow: {
     backgroundColor: colors.snow

@@ -354,8 +354,8 @@ export type ExerciseViewProps = {
   attempt?: number;
   /** Older form of `attempt={1}`; `attempt` wins when both are set. */
   retrying?: boolean;
-  /** Asked again from an earlier lesson: a small REVIEW chip above the question. */
-  review?: boolean;
+  /** Asked again from an earlier lesson: a small REVIEW chip above the question; "missed": YOU MISSED THIS BEFORE. */
+  review?: boolean | "missed";
   mascotVariant: string;
   accent: string;
   onSelect: (choiceId: string) => void;
@@ -1109,7 +1109,7 @@ export function ExerciseView({
           <PopIn style={[styles.cueChip, styles.reviewChip]}>
             <Icon name="practice" size={18} />
             <Text style={[styles.cueText, styles.reviewText]} testID="exercise-review">
-              {t("REVIEW")}
+              {t(review === "missed" ? "YOU MISSED THIS BEFORE" : "REVIEW")}
             </Text>
           </PopIn>
         ) : null}

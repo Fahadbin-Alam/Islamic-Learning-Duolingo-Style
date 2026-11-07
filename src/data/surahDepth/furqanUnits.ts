@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Furqan ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -426,6 +426,20 @@ const FURQAN_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "two-kinds-of-servants",
+      title: "Two kinds of servants",
+      line: "All are Allah's servants; Ar-Rahman's servants also worship Him.",
+      facts: ["As-Sa'di explains", "'Ubudiyyah"],
+      quote: q25(63),
+      source: saadi(25, 63, "As-Sa'di says being Allah's servant is of two kinds: every creature, believer or not, is His servant under His lordship, while His Prophets and close friends are His servants by worship and love; the ayah praises the second kind and links them to Ar-Rahman, since they reached it by His mercy.", "العبودية لله نوعان"),
+      difficulty: 2,
+      questions: [
+        { q: "Which servants does Al-Furqan 25:63 praise, per as-Sa'di?", a: "Those who worship Him", wrong: ["Every creature", "Only angels", "Only kings"], why: "It means the servants by worship, His Prophets and close friends." },
+        { q: "Why are they called servants of Ar-Rahman, per as-Sa'di?", a: "They reached it by His mercy", wrong: ["They are rich", "They live long", "They are many"], why: "The name Ar-Rahman points to the mercy that brought them there." },
+        { tf: true, q: "Every creature, even a disbeliever, is under Allah's lordship.", why: "As-Sa'di on 25:63." }
+      ]
+    },
+    {
       slug: "walk-calmly-to-prayer",
       title: "Walk calmly to prayer",
       line: "Do not rush to prayer; walk calmly and pray what you catch.",
@@ -507,6 +521,20 @@ const FURQAN_TWO: DeepUnit = {
         { q: "What do they ask for, in 25:74?", a: "Comfort of their eyes in family", wrong: ["Big houses", "Fast horses", "Gold rings"], why: "Our Lord! Bestow on us from our wives and our offspring the comfort of our eyes." },
         { q: "What children bring comfort, per Ibn Abbas?", a: "Those who obey Allah", wrong: ["The richest ones", "The tallest ones", "The loudest ones"], why: "Who will strive to obey Allah and bring them joy in this world and the Hereafter." },
         { q: "Whom do they ask to lead, in 25:74?", a: "Those who have Taqwa", wrong: ["Big armies", "Rich traders", "Kings"], why: "And make us leaders of those who have Taqwa." }
+      ]
+    },
+    {
+      slug: "leaders-of-the-pious",
+      title: "Leaders of the pious",
+      line: "Asking to lead the pious is asking for patience and certainty.",
+      facts: ["As-Sa'di explains", "Imamah in religion"],
+      quote: q25(74),
+      source: saadi(25, 74, "As-Sa'di says asking to be leaders of the pious is asking for the highest rank after the Messengers, and asking for something is asking for what it needs; leading in religion only comes with patience and certainty, as Allah says in As-Sajdah 32:24.", "لا تتم إلا بالصبر واليقين"),
+      difficulty: 3,
+      questions: [
+        { q: "What does leading in religion need, per as-Sa'di on 25:74?", a: "Patience and certainty", wrong: ["Wealth and fame", "A loud voice", "Many followers"], why: "This rank only comes with patience and certainty, says as-Sa'di." },
+        { q: "Who gains from a dua for good spouses and children, per as-Sa'di?", a: "The one asking and all Muslims", wrong: ["No one", "Only the children", "Only the spouse"], why: "Their goodness brings good to many people around them." },
+        { tf: true, q: "They are not content until their families obey Allah.", why: "As-Sa'di on 25:74." }
       ]
     },
     {

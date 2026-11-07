@@ -252,3 +252,32 @@ export function readFamilyKids(raw: string | null): FamilyKid[] {
 export function makeFamilyId(random: () => number = Math.random) {
   return Array.from({ length: 8 }, () => Math.floor(random() * 36).toString(36)).join("");
 }
+
+/** Live kids (linked accounts) are told apart from pasted codes by this start to their id. */
+export const LIVE_KID_PREFIX = "live-";
+
+/**
+ * A linked child's live progress, as the same report a pasted code shows. Stars and topics are counted in the app,
+ * from the child's finished circles, since only the app knows which circle belongs to which topic.
+ */
+export function snapshotFromLinkedKid(
+  kid: { id: number; streakDays: number; lastStreakDate: string | null; totalXp: number; xpByDay: Record<string, number>; lessonsDone: number },
+  today: string,
+  stars: number,
+  topicsDone: Partial<Record<TopicId, number>>
+): FamilySnapshot {
+  const snapshot = buildFamilySnapshot({
+    id: `${LIVE_KID_PREFIX}${kid.id}`,
+    today,
+    user: {
+      xpByDay: kid.xpByDay,
+      streakDays: kid.streakDays,
+      totalXp: kid.totalXp,
+      completedLessonIds: [],
+      lastStreakDate: kid.lastStreakDate ?? undefined
+    },
+    stars,
+    topicsDone
+  });
+  return { ...snapshot, lessonsDone: Math.max(0, kid.lessonsDone) };
+}
