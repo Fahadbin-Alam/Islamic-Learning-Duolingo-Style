@@ -139,10 +139,11 @@ import {
 } from "./services/localProgress";
 import { AdBanner } from "./components/AdBanner";
 import { monetizationClient } from "./services/monetization";
+import { isSubscriptionItem } from "./services/monetizationShared";
 import {
   adAudienceFor,
   addHeartVideo,
-  canSellInStore,
+  plansOnSale,
   isAgeGroup,
   mayOfferPlans,
   monetizationMode,
@@ -237,6 +238,7 @@ import {
   StoryBanner,
   StorySheet,
   UpdateBanner,
+  OfflineBanner,
   tabForScreen,
   useNotices,
   type PathItem,
@@ -251,12 +253,16 @@ import { recordStoryRead } from "./services/stories";
 import { addFamilyKid, buildFamilySnapshot, encodeFamilyCode, removeFamilyKid, snapshotFromLinkedKid, type FamilyKid } from "./services/familyCode";
 import { getFamilyId, loadFamilyKids, peekFamilyId, saveFamilyKids } from "./services/familyStorage";
 import { shareApp } from "./services/shareApp";
-import { shareRamadanCard } from "./services/shareCard";
+import { shareCertificateCard, shareRamadanCard } from "./services/shareCard";
+import { biggestFirst, buildCertificates, certificateProgress, earnedCertificateIds, recordCertificates, type CertificateProgress } from "./services/certificates";
+import { CertificatePop, CertificatesSheet } from "./ui/screens/Certificates";
 import { isUpdateAvailable, openStore } from "./services/appUpdate";
 import { attemptOrder, ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, HarderSheet, QuitSheet, QuizComplete, isPlayablePractice, lessonStars } from "./ui/lesson";
 import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic, isFirstUseOfWord } from "./data/arabicTerms";
 import { questionSource, shortReference } from "./services/questionSource";
 import { openSource } from "./services/sourceLink";
+import { openWebPage, setOfflineLinkNotice, subscribeOnline, useOnline } from "./services/network";
+import { saveLessonsAhead } from "./services/offlineLessons";
 import { SCHOLAR_TREE, type ScholarYears } from "./data/scholarUnits";
 import { didRamadanToday, ramadanDoneDayNumbers, ramadanSeason, ramadanStreak } from "./data/ramadanCalendar";
 import { RAMADAN_TOPIC } from "./data/ramadanDays";
@@ -834,6 +840,12 @@ export default function TopicApp() {
   const adAudience = adAudienceFor(ageGroup, state.user?.accountRole === "child" || kidsMode);
   const adsAllowedToStart = !needsAgeCheck || Boolean(ageGroup);
   const [storePrices, setStorePrices] = useState<Record<string, string>>({});
+  // Plans (and their pop-up offer) show only once the store has really priced a subscription.
+  const storeSellsPlans = plansOnSale(
+    monetizationMode,
+    storePlatform(Platform.OS),
+    SHOP_ITEMS.filter((item) => isSubscriptionItem(item) && Boolean(storePrices[item.id])).length
+  );
   const [shopBusy, setShopBusy] = useState(false);
   const monetizationUserId = state.user?.hasAccount ? String(state.user.id) : undefined;
   const hasUser = Boolean(state.user);
@@ -967,9 +979,12 @@ export default function TopicApp() {
     };
     const timer = setInterval(retry, 60000);
     const listener = PhoneAppState.addEventListener("change", (status) => status === "active" && retry());
+    // And the moment the phone gets its internet back.
+    const stopWatching = subscribeOnline((online) => online && retry());
     return () => {
       clearInterval(timer);
       listener.remove();
+      stopWatching();
     };
   }, []);
 
@@ -1247,6 +1262,33 @@ export default function TopicApp() {
     }
     ramadanDoneBefore.current = { userId: user?.id, done };
   }, [state.user]);
+  // Certificates (services/certificates.ts): one pops up when a lesson finishes the last circle of a big unit, a
+  // whole topic or a group like Juz Amma. Ones already earned when the app opens are kept quietly, with no date.
+  const certificates = useMemo(() => buildCertificates(localizedSections), [localizedSections]);
+  const earnedCertificates = useMemo(() => earnedCertificateIds(certificates, state.user?.completedNodeIds), [certificates, state.user?.completedNodeIds]);
+  const [certificateQueue, setCertificateQueue] = useState<string[]>([]);
+  const [shownCertificate, setShownCertificate] = useState<CertificateProgress | undefined>(undefined);
+  const [certificatesSheetVisible, setCertificatesSheetVisible] = useState(false);
+  const certificatesBefore = useRef<{ userId?: number; ids?: Set<string> }>({});
+  useEffect(() => {
+    const userId = state.user?.id;
+    const before = certificatesBefore.current;
+    const now = new Set(earnedCertificates);
+    if (before.ids && before.userId === userId) {
+      const fresh = earnedCertificates.filter((id) => !before.ids!.has(id));
+      if (fresh.length) {
+        const order = biggestFirst(certificates.filter((certificate) => fresh.includes(certificate.id))).map((certificate) => certificate.id);
+        setCertificateQueue((queue) => [...queue, ...order.filter((id) => !queue.includes(id))]);
+        dispatch({ type: "apply_user_latest", update: (latest) => recordCertificates(latest, fresh) });
+      }
+    }
+    certificatesBefore.current = { userId, ids: now };
+  }, [certificates, earnedCertificates, state.user?.id]);
+  const certificateItems = useMemo(
+    () => (certificatesSheetVisible || certificateQueue.length ? certificateProgress(certificates, state.user) : []),
+    [certificateQueue.length, certificates, certificatesSheetVisible, state.user]
+  );
+  const certificateName = state.user?.hasAccount ? state.user.displayName.trim().split(/\s+/)[0] || undefined : undefined;
   const ramadanBanner = useMemo(() => {
     const user = state.user;
     const ramadan = localizedSections.find((section) => section.topicId === RAMADAN_TOPIC);
@@ -1525,6 +1567,24 @@ export default function TopicApp() {
     accent: selectedSection.accentColor
   });
 
+  // No internet: lessons go on as usual. A source asked for meanwhile says so in the app instead of opening a
+  // browser on an error page, and the next circles' recitations are saved once the internet is back.
+  const online = useOnline();
+  const notifyRef = useRef(notify);
+  notifyRef.current = notify;
+  useEffect(() => {
+    setOfflineLinkNotice(() => {
+      void notifyRef.current(t("No internet right now"), t("Tap it again when you are back online. The lesson keeps working."), { mood: "think" });
+    });
+    return () => setOfflineLinkNotice(null);
+  }, []);
+  const nextNodeId = sectionNextNode?.id;
+  useEffect(() => {
+    if (online && nextNodeId) {
+      void saveLessonsAhead(nextNodeId);
+    }
+  }, [online, nextNodeId]);
+
   // After a few minutes a guest is asked to make an account, but never in the middle of a lesson
   // or practice: the ask waits until they are back on the Foundation path with nothing else open.
   const guestUser = Boolean(state.user && !state.user.hasAccount);
@@ -1779,6 +1839,8 @@ export default function TopicApp() {
     };
 
     dispatch({ type: "apply_user", user: activeUser });
+    // While online, this circle's Quran recitations and the next few circles' are saved for no internet.
+    void saveLessonsAhead(node.id);
     // Kids mode builds the lesson at the easiest level; the saved profile keeps its own difficulty.
     const session = await learningApi.getLessonSession(node.firstLessonId, kidsMode ? kidsLearner(activeUser) : activeUser, lessonAge);
     challengeStartedAtRef.current = Date.now();
@@ -2281,7 +2343,7 @@ export default function TopicApp() {
   // Under 13 or a Kid account: the plans never open by themselves (store Families rules), only in the shop.
   function planOfferCheck(user: UserProfile): PlanOfferCheck {
     return {
-      canSell: canSellInStore(monetizationMode, storePlatform(Platform.OS)),
+      canSell: storeSellsPlans,
       hasPremium: hasPremiumLessons(user),
       child: childLearner || user.accountRole === "child",
       msSinceLastOffer: Date.now() - readPlanOfferAt()
@@ -3602,11 +3664,13 @@ export default function TopicApp() {
             }}
           />
         )}
+        {!inLesson && !online && activeTab === "learn" && <OfflineBanner />}
         {!inLesson && updateReady && !updateClosed && (
           <UpdateBanner onUpdate={() => void openStore()} onClose={() => setUpdateClosed(true)} />
         )}
         {activeTab === "learn" && !inLesson && (
           <LearnPath
+            canBuyPremium={storeSellsPlans}
             accent={selectedSection.accentColor}
             topicId={selectedSection.topicId}
             mascotVariant={selectedSection.mascot}
@@ -3683,7 +3747,7 @@ export default function TopicApp() {
             accent={lessonAccent}
             // The chip is the one source that says what the card says, by its short reference; none, no chip.
             learnSource={lesson.learnSource}
-            onOpenSource={(url) => void Linking.openURL(url).catch(() => undefined)}
+            onOpenSource={openWebPage}
             arabicRecitation={lessonRecitation ?? undefined}
             picture={lessonPicture}
             pagePicture={pagePicture}
@@ -3880,12 +3944,15 @@ export default function TopicApp() {
             onOpenSettings={openSettingsModal}
             onOpenFamily={openFamily}
             onShareApp={() => void shareApp(invite?.code, invite?.rewardDates)}
+            certificateCount={earnedCertificates.length}
+            onOpenCertificates={() => setCertificatesSheetVisible(true)}
             hasSavedAccount={hasSavedAccount}
             onCreateAccount={() => openAccountPanel()}
           />
         )}
         {state.screen === "shop" && (
           <ShopView
+            canBuyWithMoney={storeSellsPlans}
             user={state.user}
             strings={strings}
             items={SHOP_ITEMS}
@@ -4003,6 +4070,14 @@ export default function TopicApp() {
             mascotVariant={selectedSection.mascot}
             accent={selectedSection.accentColor}
             onFinish={finishStory}
+          />
+        )}
+        {!inLesson && (
+          <CertificatesSheet
+            visible={certificatesSheetVisible}
+            items={certificateItems}
+            onOpen={setShownCertificate}
+            onClose={() => setCertificatesSheetVisible(false)}
           />
         )}
         {!inLesson && (
@@ -4174,6 +4249,27 @@ export default function TopicApp() {
               void shareRamadanCard(card, season.day, ramadanStreak(state.user!)).finally(() => setRamadanPop(false));
             }}
             onClose={() => setRamadanPop(false)}
+          />
+        ) : null}
+        {certificateQueue.length && !inLesson && !rewardCelebration && !ramadanPop ? (
+          <CertificatePop
+            item={certificateItems.find((item) => item.certificate.id === certificateQueue[0])}
+            name={certificateName}
+            fresh
+            onShare={(card) => {
+              const title = certificateItems.find((item) => item.certificate.id === certificateQueue[0])?.certificate.title ?? "";
+              // The picture is taken while the card is still on screen; it closes once the share menu is done.
+              void shareCertificateCard(card, title).finally(() => setCertificateQueue((queue) => queue.slice(1)));
+            }}
+            onClose={() => setCertificateQueue((queue) => queue.slice(1))}
+          />
+        ) : null}
+        {shownCertificate ? (
+          <CertificatePop
+            item={shownCertificate}
+            name={certificateName}
+            onShare={(card) => void shareCertificateCard(card, shownCertificate.certificate.title)}
+            onClose={() => setShownCertificate(undefined)}
           />
         ) : null}
         <RewardPop

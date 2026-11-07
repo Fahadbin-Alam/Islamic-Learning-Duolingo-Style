@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Mursalat ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -267,7 +267,7 @@ const MURSALAT_THREE: DeepUnit = {
       questions: [
         { q: "To what will deniers be told to go, per 77:29?", a: "What they used to deny", wrong: ["A garden", "Their homes", "A river"], why: "Depart you to that which you used to deny!" },
         { q: "Does that shade protect them, per 77:31?", a: "No, it is of no use", wrong: ["Yes, fully", "Only at night", "Only for the rich"], why: "Neither shady nor of any use against the fierce flame of the Fire." },
-        { tf: false, q: "The smoke of the Fire gives cool shade.", why: "It will not protect them from the heat of the flame." }
+        { q: "What did Ibn Masud liken the sparks of 77:32 to?", a: "Forts", wrong: ["Stars", "Raindrops", "Leaves"], why: "Its sparks will shoot out from its flame like huge castles. Ibn Masud said, Like forts." }
       ]
     },
     {
@@ -281,7 +281,7 @@ const MURSALAT_THREE: DeepUnit = {
       questions: [
         { q: "What will they not do, per 77:35?", a: "Speak", wrong: ["Walk", "See", "Hear"], why: "That will be a Day when they shall not speak." },
         { q: "What are they not permitted, per 77:36?", a: "To put forth any excuse", wrong: ["To sit", "To look up", "To drink"], why: "And they will not be permitted to put forth any excuse." },
-        { tf: true, q: "Ibn Kathir says the Day of Judgement happens in stages.", why: "The courts of the Day of Judgement will occur in stages." }
+        { q: "What does 77:33 compare the sparks to?", a: "Sufr camels", wrong: ["White doves", "Small fish", "Green trees"], why: "As if they were Sufr camels, meaning black camels." }
       ]
     },
     {
@@ -339,6 +339,20 @@ const MURSALAT_THREE: DeepUnit = {
         { q: "What are they told in 77:43?", a: "Eat and drink comfortably", wrong: ["Wait outside", "Go back", "Stay hungry"], why: "Eat and drink comfortably for that which you used to do." },
         { q: "Whom does Allah reward this way, per 77:44?", a: "The Muhsinin", wrong: ["The proud", "The lazy", "The liars"], why: "Verily, thus We reward the Muhsinin." },
         { tf: true, q: "These words are said to them out of kindness.", why: "This will be said to them out of kindness for them." }
+      ]
+    },
+    {
+      slug: "missing-it-is-enough",
+      title: "Missing it is enough",
+      line: "Missing the joy of Paradise alone would be grief enough.",
+      facts: ["As-Sa'di explains", "Woe to the deniers"],
+      quote: q77(45),
+      source: saadi(77, 45, "As-Sa'di says even if the deniers had no woe but missing this joy of the righteous, that loss alone would be enough sorrow and deprivation.", "ولو لم يكن لهم من هذا الويل إلا فوات هذا النعيم، لكفى به حزنا وحرمانا"),
+      difficulty: 2,
+      questions: [
+        { q: "What alone would be enough grief for the deniers?", a: "Missing Paradise's joy", wrong: ["Losing a game", "A bad meal", "A rainy day"], why: "Missing that bliss would be enough sorrow, says as-Sa'di." },
+        { q: "How does Allah reward the doers of good?", a: "With shade, springs and fruit", wrong: ["With nothing", "With hardship", "With silence"], why: "So We reward the doers of good." },
+        { tf: true, q: "Paradise is the greatest thing to miss.", why: "As-Sa'di on 77:45." }
       ]
     },
     {

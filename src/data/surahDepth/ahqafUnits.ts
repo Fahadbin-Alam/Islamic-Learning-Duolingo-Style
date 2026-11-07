@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Ahqaf ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -369,6 +369,20 @@ const AHQAF_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "blessings-on-parents",
+      title: "Blessings on parents",
+      line: "Blessings given to parents are blessings on their children too.",
+      facts: ["As-Sa'di explains", "Shukr"],
+      quote: q46(15),
+      source: saadi(46, 15, "As-Sa'di says the child at forty thanks Allah for blessings on his parents too, because blessings on parents reach their children; and thanks means using blessings to obey the Giver.", "والنعم على الوالدين نعم على أولادهم وذريتهم"),
+      difficulty: 2,
+      questions: [
+        { q: "Why thank Allah for blessings on your parents, per as-Sa'di?", a: "They reach the children too", wrong: ["Parents ask for it", "It is a custom", "No reason"], why: "Blessings on parents are blessings on their children, says as-Sa'di." },
+        { q: "How do we truly thank Allah for a blessing?", a: "Use it to obey Him", wrong: ["Hide it", "Boast about it", "Waste it"], why: "Thanks is using blessings in obeying the One who gave them." },
+        { tf: true, q: "Parents carry and nurse a child for a long time, not an hour or two.", why: "As-Sa'di on 46:15." }
+      ]
+    },
+    {
       slug: "best-deeds-accepted",
       title: "Best deeds accepted",
       line: "Allah accepts their best deeds and overlooks their faults.",
@@ -631,6 +645,20 @@ const AHQAF_THREE: DeepUnit = {
         { q: "Who came to listen to the Quran, in 46:29?", a: "A group of jinn", wrong: ["A group of angels", "Roman soldiers", "Birds"], why: "When We sent toward you a group of the Jinn, to listen to the Quran." },
         { q: "What did they say to each other, in 46:29?", a: "Listen quietly", wrong: ["Let us leave", "Speak louder", "Fight"], why: "When they attended it, they said: Listen quietly!" },
         { q: "What did they do after it ended, in 46:29?", a: "Went to warn their people", wrong: ["Stayed forever", "Forgot it", "Slept"], why: "They returned to their people, as warners." }
+      ]
+    },
+    {
+      slug: "helpers-among-the-jinn",
+      title: "Helpers among the jinn",
+      line: "Jinn heard him ﷺ, then spread his call among the jinn.",
+      facts: ["As-Sa'di explains", "Message to jinn and humans"],
+      quote: q46(29),
+      source: saadi(46, 29, "As-Sa'di says the Prophet ﷺ was sent to humans and jinn alike; Allah turned a group of jinn toward him to hear the Quran, and they went back as warners, helping spread his call among the jinn.", "وقيضهم الله معونة لرسوله صلى الله عليه وسلم في نشر دعوته في الجن"),
+      difficulty: 2,
+      questions: [
+        { q: "Who was the Prophet ﷺ sent to, per as-Sa'di?", a: "Humans and jinn", wrong: ["Only Arabs", "Only humans", "Only angels"], why: "He ﷺ was sent to all creation, humans and jinn." },
+        { q: "What did the jinn do after hearing the Quran?", a: "Warned their people", wrong: ["Forgot it", "Hid it", "Mocked it"], why: "They went back to their people as warners." },
+        { tf: true, q: "Allah made the jinn who heard the Quran helpers in spreading the call.", why: "As-Sa'di on 46:29." }
       ]
     },
     {

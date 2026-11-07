@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah At-Talaq ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -132,6 +132,20 @@ const TALAQ_ONE: DeepUnit = {
       ]
     },
     {
+      slug: "witness-only-for-allah",
+      title: "Witness only for Allah",
+      line: "Give witness truly, without favouring a relative or a friend.",
+      facts: ["As-Sa'di explains", "No more, no less"],
+      quote: q65(2),
+      source: saadi(65, 2, "As-Sa'di says witnesses must give their witness as it is, adding nothing and leaving nothing, for Allah alone, not favouring a relative or a friend.", "ولا تراعوا بها قريبًا لقرابته، ولا صاحبًا لمحبته"),
+      difficulty: 2,
+      questions: [
+        { q: "How should a witness speak, per as-Sa'di on 65:2?", a: "As it is, for Allah", wrong: ["To help a friend", "To help family", "Add a little"], why: "No adding, no leaving out, for Allah alone, says as-Sa'di." },
+        { q: "Who should a witness never favour?", a: "A relative or a friend", wrong: ["The truth", "Allah", "The judge"], why: "Not a relative for being family, nor a friend for love." },
+        { tf: true, q: "Witnesses help stop quarrels later.", why: "As-Sa'di on 65:2." }
+      ]
+    },
+    {
       slug: "a-way-out",
       title: "A way out",
       line: "Whoever has Taqwa, Allah makes a way out of every difficulty.",
@@ -185,6 +199,20 @@ const TALAQ_ONE: DeepUnit = {
         { q: "What does Allah do for the one who trusts Him?", a: "He suffices him", wrong: ["He ignores him", "He tests him only", "He leaves him"], why: "And whosoever puts his trust in Allah, then He will suffice him." },
         { q: "What is Tawakkul?", a: "Trusting Allah", wrong: ["Fearing people", "Saving money", "Being lazy"], why: "Whosoever puts his trust in Allah, then He will suffice him." },
         { tf: true, q: "Allah is enough for whoever relies on Him.", why: "And whosoever puts his trust in Allah, then He will suffice him." }
+      ]
+    },
+    {
+      slug: "in-its-right-time",
+      title: "In its right time",
+      line: "Allah suffices the one who trusts, yet may bring it later.",
+      facts: ["As-Sa'di explains", "A measure for all"],
+      quote: q65(3),
+      source: saadi(65, 3, "As-Sa'di says Allah suffices whoever trusts Him, but His wisdom may delay the matter until its right time, since He set a time and amount for everything.", "ولكن ربما أن الحكمة الإلهية اقتضت تأخيره إلى الوقت المناسب له"),
+      difficulty: 2,
+      questions: [
+        { q: "If help seems late after trusting Allah, why?", a: "Wisdom picks the right time", wrong: ["Allah forgot", "Trust failed", "Help is not coming"], why: "His wisdom may delay it to its right time, says as-Sa'di." },
+        { q: "What did Allah set for everything in At-Talaq?", a: "A time and amount", wrong: ["No limit", "Only money", "Only rain"], why: "A time and measure it never passes or falls short of." },
+        { tf: true, q: "Trust means relying on Allah for both religion and this world.", why: "As-Sa'di on 65:3." }
       ]
     },
     {
@@ -589,6 +617,20 @@ const TALAQ_THREE: DeepUnit = {
         { q: "Why did Allah tell us of the heavens and earths?", a: "To know His power", wrong: ["To scare us", "To count them", "For a game"], why: "That you may know that Allah has power over all things." },
         { q: "What surrounds all things?", a: "Allah's knowledge", wrong: ["The ocean", "The air", "The clouds"], why: "And that Allah surrounds all things with His knowledge." },
         { tf: true, q: "At-Talaq has twelve ayahs.", why: "The surah ends at ayah 12: Allah surrounds all things with His knowledge." }
+      ]
+    },
+    {
+      slug: "why-we-were-made",
+      title: "Why we were made",
+      line: "Allah made all things so we would know Him and worship Him.",
+      facts: ["As-Sa'di explains", "Know Him, worship Him"],
+      quote: q65(12),
+      source: saadi(65, 12, "As-Sa'di says Allah made creation and sent down His command so His servants would know His power and knowledge, and the goal of it all is to know Allah and worship Him.", "فهذه الغاية المقصودة من الخلق والأمر معرفة الله وعبادته"),
+      difficulty: 2,
+      questions: [
+        { q: "What is the goal of creation, per as-Sa'di on 65:12?", a: "To know and worship Allah", wrong: ["To get rich", "To play", "To be famous"], why: "The goal is knowing Allah and worshipping Him, says as-Sa'di." },
+        { q: "How do we come to know Allah?", a: "By His names and qualities", wrong: ["By guessing", "By stars", "We cannot"], why: "Knowing Him by His holy qualities and beautiful names." },
+        { tf: true, q: "Allah's command includes the rules He sent to His Messengers.", why: "As-Sa'di on 65:12." }
       ]
     }
   ]

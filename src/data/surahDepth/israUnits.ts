@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Isra ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -649,6 +649,20 @@ const ISRA_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "ready-with-an-answer",
+      title: "Ready with an answer",
+      line: "Each limb will be asked about, so prepare your answer now.",
+      facts: ["As-Sa'di explains", "Accountability"],
+      quote: q17(36),
+      source: saadi(17, 36, "As-Sa'di says do not follow what you have no knowledge of, but be sure of all you say and do; whoever knows he will be asked about his hearing, sight and heart should prepare an answer, and that comes only by using them to worship Allah and keeping them from what He dislikes.", "أن يعد للسؤال جوابا"),
+      difficulty: 2,
+      questions: [
+        { q: "How does one prepare an answer for the limbs, per as-Sa'di on 17:36?", a: "Use them to worship Allah", wrong: ["Keep them busy with play", "Hide them away", "Rest them always"], why: "Use them in Allah's worship and keep them from what He dislikes." },
+        { q: "What should a person do before speaking or acting, per as-Sa'di?", a: "Make sure it is right", wrong: ["Act fast", "Follow rumors", "Guess"], why: "Be certain of all you say and do; do not follow what you do not know." },
+        { tf: true, q: "Our words and deeds never just disappear; we answer for them.", why: "As-Sa'di on 17:36." }
+      ]
+    },
+    {
       slug: "walk-humbly",
       title: "Walk humbly",
       line: "Walk humbly: pride cannot split the earth or match mountains.",
@@ -828,6 +842,20 @@ const ISRA_TWO: DeepUnit = {
         { q: "What words should believers say, in 17:53?", a: "The best words", wrong: ["Any words", "Few words", "Loud words"], why: "And say to My servants that they should say those words that are best." },
         { q: "What does Shaytan do with bad words, per Ibn Kathir?", a: "Sows discord", wrong: ["Stays away", "Brings peace", "Forgets them"], why: "Shaytan will sow discord among them, and words will lead to actions." },
         { q: "How is Shaytan described in 17:53?", a: "A plain enemy", wrong: ["A friend", "A teacher", "A helper"], why: "Surely, Shaytan is to man a plain enemy." }
+      ]
+    },
+    {
+      slug: "rule-your-tongue",
+      title: "Rule your tongue",
+      line: "Whoever controls his tongue controls all of his affairs.",
+      facts: ["As-Sa'di explains", "Good speech"],
+      quote: q17(53),
+      source: saadi(17, 53, "As-Sa'di says Allah commands every word that brings one closer to Him, like reciting, dhikr, knowledge and kind speech with all people; between two good words choose the better one; good words lead to every fine trait, for whoever owns his tongue owns his whole affair, while Shaytan stirs quarrels between people.", "فإن من ملك لسانه ملك جميع أمره"),
+      difficulty: 2,
+      questions: [
+        { q: "Who controls all his affairs, per as-Sa'di on 17:53?", a: "One who controls his tongue", wrong: ["One who talks the most", "One who is richest", "One who shouts loudest"], why: "Whoever owns his tongue owns his whole affair." },
+        { q: "Between two good words, which should you say, per as-Sa'di?", a: "The better of the two", wrong: ["Either one", "Neither", "The louder one"], why: "If both cannot be said, choose the better one." },
+        { tf: true, q: "Shaytan is the real enemy who stirs quarrels between brothers.", why: "As-Sa'di on 17:53." }
       ]
     },
     {

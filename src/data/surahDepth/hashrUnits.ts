@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Hashr ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -802,6 +802,20 @@ const HASHR_THREE: DeepUnit = {
       ]
     },
     {
+      slug: "real-understanding",
+      title: "Real understanding",
+      line: "Real understanding puts fear, hope and love of Allah first.",
+      facts: ["As-Sa'di explains", "Fiqh of the heart"],
+      quote: q59(13),
+      source: saadi(59, 13, "As-Sa'di says real understanding is that fear of the Creator, hope in Him and love for Him come before everything else, and all else follows them.", "وإنما الفقه كل الفقه، أن يكون خوف الخالق ورجاؤه ومحبته مقدمة على غيرها"),
+      difficulty: 3,
+      questions: [
+        { q: "What is real understanding, per as-Sa'di on 59:13?", a: "Putting love and fear of Allah first", wrong: ["Knowing many facts", "Being rich", "Fearing people"], why: "Fear, hope and love of the Creator come before all else, says as-Sa'di." },
+        { q: "Whom did the hypocrites fear more than Allah?", a: "The believers", wrong: ["The angels", "Their fathers", "No one"], why: "They feared people who own no harm or benefit." },
+        { tf: true, q: "Only Allah truly holds harm and benefit.", why: "As-Sa'di on 59:13." }
+      ]
+    },
+    {
       slug: "behind-walls",
       title: "Only behind walls",
       line: "They would fight only from behind walls and inside forts.",
@@ -924,6 +938,20 @@ const HASHR_FOUR: DeepUnit = {
         { q: "What should every soul look at, in 59:18?", a: "What it sent forth for tomorrow", wrong: ["Its money only", "Its clothes", "Its neighbors"], why: "And let every person look to what he has sent forth for tomorrow." },
         { q: "What does Ibn Kathir advise?", a: "Hold yourselves accountable now", wrong: ["Wait and see", "Forget the past", "Blame others"], why: "Hold yourselves accountable before you are recompensed." },
         { tf: true, q: "59:18 opens by calling the believers.", why: "O you who believe! Have Taqwa of Allah." }
+      ]
+    },
+    {
+      slug: "check-yourself",
+      title: "Check yourself",
+      line: "Al-Hashr 59:18 is the base for checking your own deeds.",
+      facts: ["As-Sa'di explains", "Muhasabah"],
+      quote: q59(18),
+      source: saadi(59, 18, "As-Sa'di says 59:18 is a foundation for a person checking himself: if he sees a slip, he fixes it by stopping and repenting, and if he sees a shortfall, he works to complete it.", "وهذه الآية الكريمة أصل في محاسبة العبد نفسه"),
+      difficulty: 2,
+      questions: [
+        { q: "What is Al-Hashr 59:18 a base for, per as-Sa'di?", a: "Checking your own deeds", wrong: ["Checking others", "Counting money", "Building houses"], why: "It is a foundation for a person holding himself to account, says as-Sa'di." },
+        { q: "If you find a slip when checking yourself, you...?", a: "Stop and repent", wrong: ["Hide it", "Blame others", "Keep going"], why: "Fix it by leaving it and turning to Allah." },
+        { tf: true, q: "Keeping the Hereafter in mind makes a person work harder.", why: "As-Sa'di on 59:18." }
       ]
     },
     {
@@ -1265,7 +1293,7 @@ const HASHR_FOUR: DeepUnit = {
     {
       slug: "the-best-names",
       title: "The Best Names",
-      line: "To Allah belong the Best Names, ninety-nine of them.",
+      line: "Allah has the Best Names; ninety-nine of them lead to Paradise.",
       facts: ["Al-Asma Al-Husna", "Learning them leads to Paradise"],
       quote: q59(24),
       source: hadith("bukhari", "7392", "Abu Hurairah", "Sahih", "The Prophet ﷺ said Allah has ninety-nine Names, one hundred less one, and whoever memorizes them all will enter Paradise.", "Allah has ninety-nine Names"),
@@ -1274,6 +1302,20 @@ const HASHR_FOUR: DeepUnit = {
         { q: "How many Names does the hadith mention?", a: "Ninety-nine", wrong: ["Ten", "Fifty", "One thousand"], why: "Allah has ninety-nine Names, one-hundred less one." },
         { q: "What is promised to one who memorizes them?", a: "Paradise", wrong: ["Gold", "Fame", "A long life"], why: "And he who memorized them all by heart will enter Paradise." },
         { tf: true, q: "59:22 to 24 name many of these Names.", why: "To Him belong the Best Names." }
+      ]
+    },
+    {
+      slug: "he-loves-his-names",
+      title: "He loves His Names",
+      line: "Allah loves His Names and loves to be asked by them.",
+      facts: ["As-Sa'di explains", "More than we can count"],
+      quote: q59(24),
+      source: saadi(59, 24, "As-Sa'di says Allah has very many Names that only He fully knows, all of them beautiful, and He loves them, loves those who love them, and loves His servants to call on Him by them.", "ومن حسنها أن الله يحبها، ويحب من يحبها، ويحب من عباده أن يدعوه ويسألوه بها"),
+      difficulty: 2,
+      questions: [
+        { q: "How should we use Allah's Names, per as-Sa'di?", a: "Call on Him by them", wrong: ["Never say them", "Only write them", "Change them"], why: "He loves His servants to call on Him by them, says as-Sa'di." },
+        { q: "Who does Allah love, per as-Sa'di on 59:24?", a: "Those who love His Names", wrong: ["Those who forget them", "No one", "Only angels"], why: "He loves His Names and loves whoever loves them." },
+        { tf: true, q: "Every Name of Allah shows a quality of perfection.", why: "As-Sa'di on 59:24." }
       ]
     },
     {

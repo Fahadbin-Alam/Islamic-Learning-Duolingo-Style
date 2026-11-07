@@ -20,6 +20,7 @@ export { AdhkarBanner, type AdhkarBannerProps } from "./AdhkarBanner";
 export { AdhkarSheet, type AdhkarSheetProps } from "./AdhkarSheet";
 export { RamadanDayPop, type RamadanDayPopProps } from "./RamadanDayPop";
 export { UpdateBanner, type UpdateBannerProps } from "./UpdateBanner";
+export { OfflineBanner } from "./OfflineBanner";
 export { RewardPop, type RewardPopProps } from "./RewardPop";
 export { AgeSheet, type AgeSheetProps } from "./AgeSheet";
 export { BackgroundSheet, type BackgroundSheetProps } from "./BackgroundSheet";

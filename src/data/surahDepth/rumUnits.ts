@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Ar-Rum ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -129,6 +129,20 @@ const RUM_ONE: DeepUnit = {
         { q: "What do they know, in 30:7?", a: "The outer side of worldly life", wrong: ["The Hereafter", "The unseen", "Nothing at all"], why: "They know only the outer appearance of the life of the world." },
         { q: "What are they heedless of, in 30:7?", a: "The Hereafter", wrong: ["Their trade", "Their food", "Their homes"], why: "And they are heedless of the Hereafter." },
         { q: "What could the man not do, per Al-Hasan Al-Basri?", a: "Pray properly", wrong: ["Weigh coins", "Trade well", "Count money"], why: "He could put a Dirham on his finger and tell how much it weighs, but he does not know how to pray properly." }
+      ]
+    },
+    {
+      slug: "causes-without-the-causer",
+      title: "Causes without the Causer",
+      line: "They see the causes but forget the One who runs them.",
+      facts: ["As-Sa'di explains", "Heedless of the Hereafter"],
+      quote: q30(7),
+      source: saadi(30, 7, "As-Sa'di says those who know only the outer side of this life look at causes and stop there, not seeing the One who controls them; some are brilliant in worldly inventions yet heedless of their religion.", "فهم واقفون مع الأسباب غير ناظرين إلى مسببها المتصرف فيها"),
+      difficulty: 2,
+      questions: [
+        { q: "What do those who know only this world miss, per as-Sa'di?", a: "The One who controls the causes", wrong: ["The weather", "The news", "The markets"], why: "They stop at causes and do not look to the One behind them." },
+        { q: "Can a person be clever in worldly things yet heedless of the Hereafter?", a: "Yes", wrong: ["No, never", "Only children", "Only the poor"], why: "Some are brilliant in worldly inventions yet heedless of their religion." },
+        { tf: true, q: "Neither longing for Paradise nor fearing the Fire is a sign of heedlessness.", why: "As-Sa'di on 30:7." }
       ]
     },
     {
@@ -701,6 +715,20 @@ const RUM_THREE: DeepUnit = {
         { q: "Where has corruption appeared, in 30:41?", a: "On land and sea", wrong: ["Only in space", "Only in cities", "Nowhere"], why: "Evil has appeared in Al-Barr and Al-Bahr." },
         { q: "Why has it appeared, in 30:41?", a: "What people's hands earned", wrong: ["Bad luck", "The animals", "The weather alone"], why: "Because of what the hands of men have earned." },
         { q: "Why does Allah let them taste it, in 30:41?", a: "So they may return", wrong: ["To destroy all", "For no reason", "To amuse"], why: "That He may make them taste a part of that which they have done, in order that they may return." }
+      ]
+    },
+    {
+      slug: "a-grace-in-the-trial",
+      title: "A grace in the trial",
+      line: "Allah sends a taste of hardship so people turn back.",
+      facts: ["As-Sa'di explains", "Hardship as a call back"],
+      quote: q30(41),
+      source: saadi(30, 41, "As-Sa'di says corruption, shortages and illness spread because of people's sins, and Allah gives a small taste of their deeds' result here so they return; glory to Him who blesses even through trials.", "فسبحان من أنعم ببلائه وتفضل بعقوبته"),
+      difficulty: 2,
+      questions: [
+        { q: "Why does Allah give a taste of hardship in the world, per as-Sa'di?", a: "So people turn back to Him", wrong: ["To destroy everyone", "For no reason", "To make them rich"], why: "So they return from the deeds that caused it, says as-Sa'di." },
+        { q: "What would happen if Allah punished people for all they earned?", a: "No creature would be left", wrong: ["Nothing", "Only rain would stop", "Prices would rise"], why: "No creature would be left on the earth." },
+        { tf: true, q: "Illness and shortages can come from people's own sins.", why: "As-Sa'di on 30:41." }
       ]
     },
     {

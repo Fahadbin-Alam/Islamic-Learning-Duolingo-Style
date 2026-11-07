@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Muzzammil ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -268,6 +268,20 @@ const MUZZAMMIL_THREE: DeepUnit = {
         { q: "What was the Prophet ﷺ told in 73:10?", a: "Be patient and leave kindly", wrong: ["Shout back", "Fight them", "Stop preaching"], why: "And be patient with what they say, and keep away from them in a good way." },
         { q: "What does a good way of leaving mean?", a: "A way that is not blameworthy", wrong: ["Slamming doors", "Insulting them", "Never speaking again"], why: "This means in a way that is not blameworthy." },
         { tf: false, q: "Muslims should answer insults with insults.", why: "Allah also commands him to keep away from them in a nice way." }
+      ]
+    },
+    {
+      slug: "strength-from-prayer",
+      title: "Strength from prayer",
+      line: "Night prayer and dhikr give strength to carry heavy tasks.",
+      facts: ["As-Sa'di explains", "Then be patient"],
+      quote: q73(10),
+      source: saadi(73, 10, "As-Sa'di says Allah first ordered prayer and dhikr because they build a strong ability to bear heavy loads, and then ordered patience with the deniers' words.", "وذلك يحصل للعبد ملكة قوية في تحمل الأثقال"),
+      difficulty: 2,
+      questions: [
+        { q: "What do prayer and dhikr give, per as-Sa'di on 73:10?", a: "Strength to bear burdens", wrong: ["More money", "Less sleep only", "Nothing"], why: "They build a strong ability to carry heavy things." },
+        { q: "What came after the order to pray in Al-Muzzammil?", a: "Be patient with their words", wrong: ["Fight them", "Insult them", "Leave Makkah"], why: "Patience, and leaving them in a kind way." },
+        { tf: true, q: "Leaving people kindly means leaving without harming them.", why: "As-Sa'di on 73:10." }
       ]
     },
     {

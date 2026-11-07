@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Insan ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -115,7 +115,7 @@ const INSAN_ONE: DeepUnit = {
       questions: [
         { q: "Who drinks the cup mixed with Kafur?", a: "The Abrar, the righteous", wrong: ["The proud", "The lazy", "The liars"], why: "Verily, the Abrar, righteous believers, shall drink of a cup mixed with Kafur." },
         { q: "What is Kafur known for?", a: "Cooling and fragrance", wrong: ["Being bitter", "Being salty", "Being heavy"], why: "Cooling, having a nice fragrance and in addition to this its taste will be delicious in Paradise." },
-        { tf: false, q: "The drinks of Jannah will taste plain.", why: "Its taste will be delicious in Paradise." }
+        { q: "Whom does 76:4 warn, just before the righteous?", a: "The disbelievers", wrong: ["The orphans", "The travelers", "The farmers"], why: "Allah informs of what he has waiting for those who disbelieve in Him." }
       ]
     },
     {
@@ -227,6 +227,20 @@ const INSAN_TWO: DeepUnit = {
         { q: "Why do they feed others, per 76:9?", a: "Seeking Allah's Face only", wrong: ["To be famous", "To be thanked", "To be repaid"], why: "We feed you seeking Allah's Face only." },
         { q: "What do they not want from people?", a: "Reward or thanks", wrong: ["Food or water", "Peace", "Good health"], why: "We wish for no reward, nor thanks from you." },
         { tf: false, q: "Mujahid said they say these words aloud to everyone.", why: "They do not say this with their tongues, but rather, Allah knows it in their hearts." }
+      ]
+    },
+    {
+      slug: "said-by-their-actions",
+      title: "Said by their actions",
+      line: "They want no payment and no praise, and their deeds say it.",
+      facts: ["As-Sa'di explains", "Lisan al-hal"],
+      quote: q76(9),
+      source: saadi(76, 9, "As-Sa'di says the righteous feed others seeking only Allah's Face, wanting no money back and no words of praise, and they say it by their state, not only their tongues.", "أي: لا جزاء ماليا ولا ثناء قوليا"),
+      difficulty: 2,
+      questions: [
+        { q: "What do the righteous not want for feeding others?", a: "Payment or praise", wrong: ["Allah's reward", "Allah's pleasure", "Paradise"], why: "No money back and no words of praise, says as-Sa'di." },
+        { q: "How do they say only for Allah, per as-Sa'di?", a: "By their state and deeds", wrong: ["By shouting it", "By writing it", "By boasting"], why: "They say it with the tongue of their state." },
+        { tf: true, q: "Hoping only for Allah's Face makes charity pure.", why: "As-Sa'di on 76:9." }
       ]
     },
     {

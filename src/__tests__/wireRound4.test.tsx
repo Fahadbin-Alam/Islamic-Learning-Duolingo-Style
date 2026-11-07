@@ -42,7 +42,7 @@ import { clearActiveAssessment, clearPracticeResult } from "../services/localPro
 import { testOutGoalLine } from "../ui/screens";
 import type { Challenge, LearningNode, UserProfile } from "../types";
 import { finishLessonRight, toQuestion } from "./lessonDriver";
-import { makeUser } from "./testUtils";
+import { makeUser, scrollPathTo } from "./testUtils";
 
 const PROFILE_KEY = "sira-path-user-profile";
 const TODAY_HEARTS = (unlimited: boolean) => ({ current: 5, max: 5, unlimited, lastRefillDate: localToday() });
@@ -116,6 +116,7 @@ describe("after a test-out in a later unit", () => {
 
     await render(<TopicApp />);
     await screen.findByTestId("learn-path-quran_tafseer");
+    await scrollPathTo("quran_tafseer", target.branchId);
     await press(`path-node-${target.id}`);
     await press("node-card-jump");
     // The sheet says the pass mark and the miss that ends it before the test starts.
@@ -166,6 +167,7 @@ describe("after a test-out in a later unit", () => {
 
     await render(<TopicApp />);
     await screen.findByTestId("learn-path-quran_tafseer");
+    await scrollPathTo("quran_tafseer", target.branchId);
     await press(`path-node-${target.id}`);
     await press("node-card-jump");
     await press("test-out-start");

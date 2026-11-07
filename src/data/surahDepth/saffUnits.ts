@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah As-Saff ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -143,6 +143,20 @@ const SAFF_ONE: DeepUnit = {
         { q: "What is most hateful to Allah, in 61:3?", a: "Saying what you do not do", wrong: ["Asking questions", "Resting at night", "Eating dates"], why: "Most hateful it is with Allah that you say that which you do not do." },
         { q: "Which bad trait did Ibn Kathir link to 61:3?", a: "Breaking promises", wrong: ["Sleeping late", "Speaking softly", "Walking fast"], why: "He mentioned breaking the promise among these four characteristics." },
         { tf: true, q: "61:3 makes the warning of 61:2 stronger.", why: "Therefore Allah implied this meaning, when He continued His admonishment." }
+      ]
+    },
+    {
+      slug: "first-to-do-it",
+      title: "First to do it",
+      line: "Whoever calls to good should be the first to do it.",
+      facts: ["As-Sa'di explains", "Practise what you preach"],
+      quote: q61(3),
+      source: saadi(61, 3, "As-Sa'di says the one who calls to good should be the first to rush to it, and the one who warns against evil should be the furthest from it.", "ولهذا ينبغي للآمر بالخير أن يكون أول الناس إليه مبادرة"),
+      difficulty: 2,
+      questions: [
+        { q: "What should a person who calls to good do first?", a: "Do it himself", wrong: ["Only talk", "Wait for others", "Give up"], why: "He should be the first to rush to it, says as-Sa'di." },
+        { q: "Someone who warns against evil should be...?", a: "Furthest from it", wrong: ["Close to it", "Doing it secretly", "Proud of it"], why: "The one who forbids evil should be furthest from it." },
+        { tf: true, q: "Shu'ayb said he would not do what he told his people not to do.", why: "As-Sa'di on 61:3." }
       ]
     },
     {
@@ -366,6 +380,20 @@ const SAFF_TWO: DeepUnit = {
         { q: "What name did Isa give the coming Messenger?", a: "Ahmad", wrong: ["Yahya", "Ilyas", "Harun"], why: "Giving glad tidings of a Messenger to come after me, whose name shall be Ahmad." },
         { q: "Where would Ahmad be from, per Ibn Kathir?", a: "Makkah", wrong: ["Rome", "Egypt", "Persia"], why: "He is the unlettered, Makkan, Arab Prophet and Messenger, Ahmad." },
         { tf: true, q: "Ahmad is another name of Muhammad.", why: "Conveying the good news of the coming of Muhammad, whose name is also Ahmad." }
+      ]
+    },
+    {
+      slug: "confirm-before-tell-after",
+      title: "Confirm and give news",
+      line: "True prophets confirm the one before and announce the one after.",
+      facts: ["As-Sa'di explains", "Liars contradict them"],
+      quote: q61(6),
+      source: saadi(61, 6, "As-Sa'di says Isa, like all prophets, confirmed the prophet before him and gave good news of the one after him, while liars contradict the prophets in their qualities and teachings.", "فعيسى عليه الصلاة والسلام، كالأنبياء يصدق بالنبي السابق، ويبشر بالنبي اللاحق"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Isa do like all prophets, per as-Sa'di?", a: "Confirm the past, give news of the next", wrong: ["Deny Musa", "Start a new god", "Say nothing"], why: "He confirmed the earlier prophet and gave news of the later one, says as-Sa'di." },
+        { q: "How are false claimers different from prophets?", a: "They contradict the prophets", wrong: ["They agree fully", "They are kinder", "No difference"], why: "Liars go against the prophets in qualities and orders." },
+        { tf: true, q: "Isa brought what Musa brought in the Tawrah.", why: "As-Sa'di on 61:6." }
       ]
     },
     {
@@ -715,6 +743,20 @@ const SAFF_THREE: DeepUnit = {
         { q: "What does 61:14 ask the believers to be?", a: "Helpers of Allah", wrong: ["Rulers of lands", "Rich traders", "Quiet watchers"], why: "O you who believe! Be you helpers in the cause of Allah." },
         { q: "When should they support Allah's religion?", a: "At all times", wrong: ["Only in Ramadan", "Only when rich", "Never"], why: "Allah orders His faithful servants to be Allah's supporters at all times." },
         { tf: true, q: "Support includes both words and actions.", why: "At all times, in all their statements and actions." }
+      ]
+    },
+    {
+      slug: "helping-by-learning",
+      title: "Helping by learning",
+      line: "Learning the Quran and Sunnah helps Allah's religion.",
+      facts: ["As-Sa'di explains", "Ansar of Allah"],
+      quote: q61(14),
+      source: saadi(61, 14, "As-Sa'di says helping Allah's religion is by words and deeds, and part of it is learning the Book of Allah and the Sunnah of His Messenger ﷺ, urging others to it, and calling to good.", "ومن نصر دين الله، تعلم كتاب الله وسنة رسوله"),
+      difficulty: 1,
+      questions: [
+        { q: "Which is a way to help Allah's religion, per as-Sa'di?", a: "Learning the Quran and Sunnah", wrong: ["Staying silent", "Sleeping more", "Ignoring it"], why: "Learning Allah's Book and the Sunnah helps His religion, says as-Sa'di." },
+        { q: "How do we help Allah's religion?", a: "By words and deeds", wrong: ["Only by wishing", "Only by money", "We cannot"], why: "By sayings and actions, standing up for the religion." },
+        { tf: true, q: "Enjoining good and forbidding evil helps the religion.", why: "As-Sa'di on 61:14." }
       ]
     },
     {

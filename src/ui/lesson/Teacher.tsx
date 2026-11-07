@@ -23,6 +23,7 @@ const LOOKS: Record<string, TeacherLook> = {
   aqidah: { character: "kid", outfit: "scholar" },
   hajj: { character: "kid", outfit: "ihram" },
   akhirah: { character: "kid", outfit: "lantern" },
+  sahihayn: { character: "kid", outfit: "scholar" },
   eid: { character: "kid", outfit: "festive" },
   duas: { character: "kid", outfit: "lantern" },
   ramadan: { character: "kid", outfit: "lantern" },

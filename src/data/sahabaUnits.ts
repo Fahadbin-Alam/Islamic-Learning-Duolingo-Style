@@ -1,3 +1,4 @@
+import { COMPANION_UNITS } from "./companionUnits";
 import { hadith, type DeepUnit } from "./deepKit";
 
 // Deeper lessons for ten more companions, each joining the companion's own unit in the Sahabah topic after its
@@ -631,4 +632,5 @@ const ANAS: DeepUnit = {
   ]
 };
 
-export const SAHABA_UNITS: DeepUnit[] = [KHALID, BILAL, ABU_UBAYDAH, TALHAH, ZUBAYR, SAD, SALMAN, ABU_DHARR, IBN_MASUD, ANAS];
+// The companions with a unit of their own (companionUnits.ts) come after those joining a starter unit.
+export const SAHABA_UNITS: DeepUnit[] = [KHALID, BILAL, ABU_UBAYDAH, TALHAH, ZUBAYR, SAD, SALMAN, ABU_DHARR, IBN_MASUD, ANAS, ...COMPANION_UNITS];

@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Mu'minun ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -60,6 +60,20 @@ const MUMINUN_ONE: DeepUnit = {
         { q: "How do believers pray, in 23:2?", a: "With khushu", wrong: ["In a rush", "Only on Fridays", "Without focus"], why: "Those who with their Salah are Khashi'un." },
         { q: "What is khushu, per Ibn Abbas?", a: "Fear and tranquillity", wrong: ["Loud voice", "Long sleep", "Fast movements"], why: "Khashi'un means those with fear and with tranquillity." },
         { q: "Where is khushu, per Ali?", a: "In the heart", wrong: ["In the clothes", "In the voice", "In the hands"], why: "It was reported from Ali that Khushu means the Khushu of the heart." }
+      ]
+    },
+    {
+      slug: "the-soul-of-salah",
+      title: "The soul of salah",
+      line: "The reward of a prayer depends on how present your heart is.",
+      facts: ["As-Sa'di explains", "Khushu'"],
+      quote: q23(2),
+      source: saadi(23, 2, "As-Sa'di says khushu' is the heart being present before Allah, aware of His nearness, so the heart is calm and the body still; it is the soul of the prayer, and a prayer without it still counts, but its reward is by how much the heart takes in.", "فإن الثواب على حسب ما يعقل القلب منها"),
+      difficulty: 2,
+      questions: [
+        { q: "What is khushu' in prayer, per as-Sa'di on 23:2?", a: "The heart present before Allah", wrong: ["Praying very fast", "Praying very loudly", "Wearing new clothes"], why: "It is the heart being present, aware of how near Allah is." },
+        { q: "What does the reward of a prayer depend on, per as-Sa'di?", a: "How present the heart is", wrong: ["How long the surah is", "How tall the masjid is", "How loud the imam is"], why: "The reward is by how much the heart takes in." },
+        { tf: true, q: "Khushu' is the soul and purpose of the prayer.", why: "As-Sa'di on 23:2." }
       ]
     },
     {
@@ -551,6 +565,20 @@ const MUMINUN_THREE: DeepUnit = {
       ]
     },
     {
+      slug: "why-good-for-bad-works",
+      title: "Why good for bad works",
+      line: "Answering harm with kindness may turn a foe toward the truth.",
+      facts: ["As-Sa'di explains", "Good manners"],
+      quote: q23(96),
+      source: saadi(23, 96, "As-Sa'di says paying back harm with the same is allowed, but answering it with kindness is a virtue: it lightens the harm now and later, draws the wrongdoer to the truth and to regret, and defeats Shaytan; with devils, though, kindness does not help, so one seeks refuge in Allah.", "وأنه أدعى لجلب المسيء إلى الحق"),
+      difficulty: 2,
+      questions: [
+        { q: "What can kindness do to someone who harmed you, per as-Sa'di?", a: "Draw them to the truth", wrong: ["Make them worse", "Nothing at all", "Make them richer"], why: "It is more likely to bring the wrongdoer to the truth and to regret." },
+        { q: "How should a believer face the devils, per as-Sa'di on 23:96?", a: "Seek refuge in Allah", wrong: ["Be kind to them", "Argue with them", "Ignore Allah"], why: "Kindness does not help with devils, so seek Allah's protection." },
+        { tf: true, q: "Paying back harm with the same harm is allowed, but kindness is better.", why: "As-Sa'di on 23:96." }
+      ]
+    },
+    {
       slug: "refuge-from-shayatin",
       title: "Refuge from the whispers",
       line: "Ask Allah to protect you from the whispers of the devils.",
@@ -562,6 +590,20 @@ const MUMINUN_THREE: DeepUnit = {
         { q: "What do we seek refuge from, in 23:97?", a: "The whisperings of the Shayatin", wrong: ["The rain", "Hard work", "Our parents"], why: "My Lord! I seek refuge with You from the whisperings of the Shayatin." },
         { q: "Why seek refuge with Allah from them, per Ibn Kathir?", a: "Kindness does not stop them", wrong: ["They are always asleep", "They are weak", "They are our friends"], why: "You cannot protect yourself by being kind to them." },
         { q: "What should we do at the start of any task?", a: "Mention Allah", wrong: ["Stay quiet", "Clap our hands", "Count to ten"], why: "So we are commanded to mention Allah at the beginning of any undertaking." }
+      ]
+    },
+    {
+      slug: "just-words-at-death",
+      title: "Just words at death",
+      line: "At death the wrongdoer begs to return, but it is only words.",
+      facts: ["As-Sa'di explains", "Barzakh"],
+      quote: q23(100),
+      source: saadi(23, 100, "As-Sa'di says at death the wasteful wrongdoer sees his end and begs to go back, not for pleasures but to do good; it is only words that bring regret, and even then he is not truthful, for if sent back he would return to what was forbidden; ahead of him is the barzakh until the Resurrection.", "فإنه لو رد لعاد لما نهي عنه"),
+      difficulty: 3,
+      questions: [
+        { q: "Why does the wrongdoer ask to go back at death, per as-Sa'di?", a: "To do the good he missed", wrong: ["To enjoy life more", "To see his house", "To earn more money"], why: "He asks to do the good deeds he neglected." },
+        { q: "What is the barzakh, per as-Sa'di on 23:100?", a: "The barrier between this world and the next", wrong: ["A river in Paradise", "A mountain on earth", "A gate of a city"], why: "It is the barrier between the world and the Hereafter until the Resurrection." },
+        { tf: true, q: "If sent back, such a person would return to his sins, says as-Sa'di.", why: "As-Sa'di on 23:100." }
       ]
     },
     {

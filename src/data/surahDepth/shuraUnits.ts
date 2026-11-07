@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Ash-Shura ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -227,6 +227,20 @@ const SHURA_ONE: DeepUnit = {
         { q: "What were we told, in 42:13?", a: "Establish religion and make no divisions", wrong: ["Build towers", "Leave prayer", "Follow customs"], why: "You should establish religion and make no divisions in it." },
         { q: "What was hard for the idolaters, per Ibn Kathir?", a: "The call to Tawhid", wrong: ["Trade", "Travel", "Poetry"], why: "Ibn Kathir says they hate the call to Tawhid." },
         { q: "What did all Messengers bring, per 21:25?", a: "Worship Allah Alone", wrong: ["New idols", "Only rules of trade", "Only stories"], why: "None has the right to be worshipped but I, so worship Me (21:25)." }
+      ]
+    },
+    {
+      slug: "gatherings-that-unite",
+      title: "Gatherings that unite",
+      line: "Hajj, Eid, Jumu'ah and group prayers keep Muslims united.",
+      facts: ["As-Sa'di explains", "Unity in the religion"],
+      quote: q42(13),
+      source: saadi(42, 13, "As-Sa'di says not splitting in the religion includes the gatherings Allah ordered, such as Hajj, the Eids, Jumu'ah, the five prayers in congregation, and worship that is only complete together.", "ومن أنواع الاجتماع على الدين وعدم التفرق فيه، ما أمر به الشارع من الاجتماعات العامة، كاجتماع الحج والأعياد"),
+      difficulty: 2,
+      questions: [
+        { q: "Which gatherings help Muslims stay united, per as-Sa'di?", a: "Hajj, Eid and Jumu'ah", wrong: ["Markets", "Sports games", "Parties"], why: "Gatherings like Hajj, the Eids and Jumu'ah, says as-Sa'di." },
+        { q: "What must Muslims not let divide them, per as-Sa'di on 42:13?", a: "Side issues", wrong: ["Prayer times", "The Quran", "Their names"], why: "Do not let issues split you into groups that fight." },
+        { tf: true, q: "Allah gave Islam to the greatest Messengers: Nuh, Ibrahim, Musa, Isa and Muhammad ﷺ.", why: "As-Sa'di on 42:13." }
       ]
     },
     {
@@ -634,6 +648,20 @@ const SHURA_THREE: DeepUnit = {
       ]
     },
     {
+      slug: "searching-for-the-right",
+      title: "Searching for the right",
+      line: "Allah loves us to discuss religious questions to find the right.",
+      facts: ["As-Sa'di explains", "Shura"],
+      quote: q42(38),
+      source: saadi(42, 38, "As-Sa'di says consultation means no one forces his own view on shared matters; believers meet, discuss and act on what is best, and discussing religious questions to find what is right is loved by Allah.", "والبحث فيها لبيان الصواب مما يحبه الله"),
+      difficulty: 2,
+      questions: [
+        { q: "What does consultation stop, per as-Sa'di?", a: "One person forcing his view", wrong: ["All talking", "Prayer", "Charity"], why: "No one forces his own view on shared matters." },
+        { q: "What does Allah love believers to discuss, per as-Sa'di on 42:38?", a: "Religious questions, to find the right", wrong: ["Gossip", "Others' faults", "Nothing"], why: "Discussing them to find what is right is loved by Allah." },
+        { tf: true, q: "Shura comes from believers loving each other and having full sense.", why: "As-Sa'di on 42:38." }
+      ]
+    },
+    {
       slug: "answer-pray-and-spend",
       title: "Answer, pray and spend",
       line: "They answer their Lord, pray, and spend from what He gave.",
@@ -673,6 +701,20 @@ const SHURA_THREE: DeepUnit = {
         { q: "What is the recompense for an evil, in 42:40?", a: "An evil like it", wrong: ["Ten times more", "Nothing ever", "A gift"], why: "The recompense for an evil is an evil like thereof." },
         { q: "Where is the reward of one who forgives, in 42:40?", a: "With Allah", wrong: ["With the judge", "With the crowd", "Nowhere"], why: "But whoever forgives and makes reconciliation, his reward is with Allah." },
         { q: "What does Allah increase for one who forgives, per Muslim 2588?", a: "His honor", wrong: ["His debts", "His worries", "Nothing"], why: "No one forgives another except that Allah increases his honor." }
+      ]
+    },
+    {
+      slug: "treat-them-as-you-hope",
+      title: "Treat them as you hope",
+      line: "Pardon people as you hope Allah will pardon you.",
+      facts: ["As-Sa'di explains", "Justice, grace, injustice"],
+      quote: q42(40),
+      source: saadi(42, 40, "As-Sa'di says 42:40 gives three levels: justice is paying back a wrong equally, grace is pardoning, and injustice is doing more; and we should treat people the way we want Allah to treat us.", "وأن يعامل العبد الخلق بما يحب أن يعامله الله به"),
+      difficulty: 2,
+      questions: [
+        { q: "What are the three levels in Ash-Shura 42:40, per as-Sa'di?", a: "Justice, grace and injustice", wrong: ["Fear, hope and love", "Prayer, fasting and Hajj", "Day, night and dawn"], why: "Justice, grace and injustice, says as-Sa'di." },
+        { q: "How should we treat people who wrong us, per as-Sa'di?", a: "As we want Allah to treat us", wrong: ["Twice as hard", "With silence forever", "With mockery"], why: "As you love that Allah pardons you, pardon them." },
+        { tf: false, q: "Paying back more than the wrong done counts as justice.", why: "Doing more is injustice, says as-Sa'di." }
       ]
     },
     {

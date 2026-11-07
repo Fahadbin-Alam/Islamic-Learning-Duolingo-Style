@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah As-Saffat ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -1278,6 +1278,20 @@ const SAFFAT_THREE: DeepUnit = {
       ]
     },
     {
+      slug: "what-a-sound-heart-is",
+      title: "What a sound heart is",
+      line: "A sound heart is free of shirk, doubts, cheating and envy.",
+      facts: ["As-Sa'di explains", "Qalb Salim"],
+      quote: q37(84),
+      source: saadi(37, 84, "As-Sa'di says Ibrahim's sound heart was free of shirk, doubts and desires that block the truth, and also free of cheating and envying people, so he sincerely advised others, starting with his father.", "ومن سلامته أنه سليم من غش الخلق وحسدهم"),
+      difficulty: 2,
+      questions: [
+        { q: "What is a sound heart free of, per as-Sa'di?", a: "Shirk, doubts and envy", wrong: ["Joy", "Love", "Hope"], why: "It is free of shirk, doubts, cheating and envy, says as-Sa'di." },
+        { q: "Whom did Ibrahim advise first, per as-Sa'di on 37:84?", a: "His father and his people", wrong: ["The king", "Strangers", "No one"], why: "He advised people for Allah, starting with his father and people." },
+        { tf: true, q: "When a heart is sound, it is safe from every evil.", why: "As-Sa'di on 37:84." }
+      ]
+    },
+    {
       slug: "what-do-you-worship",
       title: "What do you worship?",
       line: "He asked his father and people: what do you worship?",
@@ -1554,6 +1568,20 @@ const SAFFAT_FOUR: DeepUnit = {
         { q: "What did the son say, in 37:102?", a: "Do what you are commanded", wrong: ["Please wait", "I will run", "Ask again"], why: "He said: O my father! Do that which you are commanded." },
         { q: "What did he promise, in 37:102?", a: "To be patient", wrong: ["To be rich", "To be strong", "To be quiet"], why: "If Allah wills, you shall find me of the patient." },
         { q: "What did he seek, per Ibn Kathir?", a: "Reward from Allah", wrong: ["Praise", "Money", "Fame"], why: "I will be patient and will seek the reward for that with Allah." }
+      ]
+    },
+    {
+      slug: "patience-with-in-sha-allah",
+      title: "Patience with in sha Allah",
+      line: "Ismail promised patience, but tied it to Allah's will.",
+      facts: ["As-Sa'di explains", "In sha Allah"],
+      quote: q37(102),
+      source: saadi(37, 102, "As-Sa'di says the son was Ismail, who told his father to do as Allah commanded and promised to be patient, joining it to Allah's will, because nothing happens without Allah's will.", "وقرن ذلك بمشيئة اللّه تعالى، لأنه لا يكون شيء بدون مشيئة اللّه تعالى"),
+      difficulty: 2,
+      questions: [
+        { q: "Why did Ismail say in sha Allah, per as-Sa'di?", a: "Nothing happens without Allah's will", wrong: ["He was unsure of Allah", "It was a habit", "To delay"], why: "Nothing happens without Allah's will, says as-Sa'di." },
+        { q: "What are a Prophet's dreams, per as-Sa'di on 37:102?", a: "Revelation", wrong: ["Just thoughts", "Stories", "Guesses"], why: "The dreams of the Prophets are revelation." },
+        { tf: true, q: "Ismail was patient, pleasing his Lord and kind to his father.", why: "As-Sa'di on 37:102." }
       ]
     },
     {
@@ -2169,6 +2197,20 @@ const SAFFAT_FIVE: DeepUnit = {
         { q: "What saved Yunus, in 37:143?", a: "Glorifying Allah", wrong: ["His strength", "The sailors", "A ship"], why: "Had he not been of them who glorify Allah." },
         { q: "What did it mean, per one view?", a: "Good deeds in times of ease", wrong: ["Swimming well", "Being rich", "Being young"], why: "If he had not already done righteous deeds during his time of ease." },
         { q: "What was his dua, in 21:87?", a: "La ilaha illa Anta, Subhanaka", wrong: ["Save me now", "Give me a ship", "Make me king"], why: "La ilaha illa Anta, You are glorified! Truly, I have been of the wrongdoers (21:87)." }
+      ]
+    },
+    {
+      slug: "remember-him-in-ease",
+      title: "Remember Him in ease",
+      line: "Yunus's glorifying of Allah before and in the fish saved him.",
+      facts: ["As-Sa'di explains", "Tasbih"],
+      quote: q37(143),
+      source: saadi(37, 143, "As-Sa'di says Yunus was saved because he glorified Allah a lot in his earlier days through much worship, and again in the fish's belly, saying: none has the right to be worshipped but You.", "أي: في وقته السابق بكثرة عبادته لربه، وتسبيحه، وتحميده"),
+      difficulty: 2,
+      questions: [
+        { q: "When did Yunus glorify Allah, per as-Sa'di?", a: "Before and inside the fish", wrong: ["Only after he was saved", "Never", "Only on the ship"], why: "In his earlier days and in the fish's belly, says as-Sa'di." },
+        { q: "What did Yunus say inside the fish?", a: "La ilaha illa anta, subhanaka", wrong: ["Save the ship", "Bring me food", "I am innocent"], why: "None has the right to be worshipped but You, glory be to You." },
+        { tf: true, q: "Worship in good times can help a person in hard times.", why: "As-Sa'di on 37:143." }
       ]
     },
     {

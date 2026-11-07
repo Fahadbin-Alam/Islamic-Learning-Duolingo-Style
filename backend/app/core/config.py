@@ -25,6 +25,8 @@ class Settings(BaseSettings):
     apple_client_ids_raw: str = "com.islamiclearning.muslimo"
     # Shared secret RevenueCat sends in the Authorization header of every webhook call.
     revenuecat_webhook_auth: str = ""
+    # Owner's password for the stats page (GET /api/admin/stats, header X-Admin-Key). Empty turns the route off.
+    admin_key: str = ""
 
     model_config = SettingsConfigDict(
         env_file=".env",

@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Mulk ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -395,6 +395,20 @@ const MULK_TWO: DeepUnit = {
         { q: "What does Al-Khabir mean?", a: "All-Aware", wrong: ["All-Rich", "All-Strong", "All-Holy"], why: "And He is the Most Kind and Courteous, All-Aware of everything." },
         { tf: false, q: "Allah is unaware of small matters.", why: "And He is the Most Kind and Courteous, All-Aware of everything." }
       ]
+    },
+    {
+      slug: "kindness-in-hardship",
+      title: "Kindness in hardship",
+      line: "Al-Latif may let us taste hardship to bring us to great good.",
+      facts: ["As-Sa'di explains", "Good from unexpected ways"],
+      quote: q67(14),
+      source: saadi(67, 14, "As-Sa'di says Al-Latif sends good to His servant from where he does not expect, guards him from evil, and may let him taste hardship to lead him to great good.", "حتى إنه يذيقه المكاره، ليتوصل بها إلى المحاب الجليلة"),
+      difficulty: 3,
+      questions: [
+        { q: "Why might Al-Latif let a servant taste hardship?", a: "To lead him to great good", wrong: ["Because He forgot him", "For no reason", "To break him"], why: "To reach beloved things and high ranks, says as-Sa'di." },
+        { q: "From where does Al-Latif send good?", a: "From where we do not expect", wrong: ["Only from people", "Only from work", "Never"], why: "He brings good from where the servant does not sense it." },
+        { tf: true, q: "Allah knows even what is hidden in hearts.", why: "As-Sa'di on 67:14." }
+      ]
     }
   ]
 };
@@ -606,6 +620,20 @@ const MULK_THREE: DeepUnit = {
       ]
     },
     {
+      slug: "actions-speak-louder",
+      title: "Actions speak louder",
+      line: "How people live shows who is guided, more than what they say.",
+      facts: ["As-Sa'di explains", "Watch the life"],
+      quote: q67(22),
+      source: saadi(67, 22, "As-Sa'di says just looking at how two people live shows who is guided and who is lost, because a person's state is a greater witness than his words.", "والأحوال أكبر شاهد من الأقوال"),
+      difficulty: 2,
+      questions: [
+        { q: "What is a greater witness than words, per as-Sa'di?", a: "How a person lives", wrong: ["How loud he talks", "How rich he is", "How tall he is"], why: "States are a greater witness than words." },
+        { q: "How is the guided person in Al-Mulk 67:22?", a: "Upright on a straight path", wrong: ["Face down", "Lost in a maze", "Standing still"], why: "He knows the truth and walks on it." },
+        { tf: true, q: "The lost person may see truth as false.", why: "His heart is turned upside down. As-Sa'di on 67:22." }
+      ]
+    },
+    {
       slug: "the-one-who-made-us-walk",
       title: "He made us walk",
       line: "The One who made people walk on feet can do anything.",
@@ -703,6 +731,20 @@ const MULK_FOUR: DeepUnit = {
       ]
     },
     {
+      slug: "truth-has-proofs",
+      title: "Truth has proofs",
+      line: "Truth is known by its proofs, not by knowing a date.",
+      facts: ["As-Sa'di explains", "No need for the date"],
+      quote: q67(25),
+      source: saadi(67, 25, "As-Sa'di says the deniers made knowing the date a test of truth, but truth is known by its proofs, and Allah gave proofs that leave no doubt.", "فإن الصدق يعرف بأدلته"),
+      difficulty: 2,
+      questions: [
+        { q: "How is truth known, per as-Sa'di on 67:25?", a: "By its proofs", wrong: ["By a date", "By votes", "By guessing"], why: "Truth is known by its evidence." },
+        { q: "What did the deniers wrongly demand in Al-Mulk?", a: "The date of the Day", wrong: ["More food", "A new king", "Rain"], why: "They made the date a sign of truth." },
+        { tf: true, q: "Not knowing the date does not make the Day less true.", why: "As-Sa'di on 67:25." }
+      ]
+    },
+    {
       slug: "only-allah-knows-the-hour",
       title: "Only Allah knows the Hour",
       line: "Only Allah knows exactly when the Day of Judgement will come.",
@@ -784,6 +826,20 @@ const MULK_FOUR: DeepUnit = {
         { q: "In whom do the believers trust?", a: "The Most Gracious", wrong: ["Their money", "Their army", "Luck"], why: "He is the Most Gracious, in Him we believe, and upon Him we rely." },
         { q: "In which affairs do we rely on Allah?", a: "All of our affairs", wrong: ["Only big ones", "Only in danger", "None"], why: "Upon Him we rely in all of our affairs." },
         { tf: true, q: "Believers rely on Allah in everything.", why: "And upon Him we rely in all of our affairs." }
+      ]
+    },
+    {
+      slug: "why-trust-is-named",
+      title: "Why trust is named",
+      line: "Trust in Allah is named because every deed depends on it.",
+      facts: ["As-Sa'di explains", "Tawakkul: relying on Allah"],
+      quote: q67(29),
+      source: saadi(67, 29, "As-Sa'di says trust is part of faith, yet Allah named it on its own here because every good deed needs trust in Allah to happen and be complete.", "ولما كانت الأعمال، وجودها وكمالها، متوقفة على التوكل"),
+      difficulty: 3,
+      questions: [
+        { q: "Why is trust in Allah named on its own in Al-Mulk 67:29?", a: "Every deed depends on it", wrong: ["It is not part of faith", "It is optional", "No reason"], why: "Deeds need trust to happen and be complete, says as-Sa'di." },
+        { q: "Is trust in Allah part of faith?", a: "Yes", wrong: ["No", "Only for scholars", "Only in war"], why: "It is part of faith and one of its needs." },
+        { tf: true, q: "We believe in the Most Gracious and rely on Him.", why: "As-Sa'di on 67:29." }
       ]
     },
     {

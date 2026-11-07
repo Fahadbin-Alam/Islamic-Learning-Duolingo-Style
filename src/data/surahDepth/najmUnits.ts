@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah An-Najm ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -45,6 +45,20 @@ const NAJM_ONE: DeepUnit = {
         { q: "What does Allah swear by, in 53:1?", a: "The star when it goes down", wrong: ["The moon", "The sun at noon", "The clouds"], why: "By the star when it goes down." },
         { q: "By whom may the created swear, per Ibn Kathir?", a: "Only by the Creator", wrong: ["By the stars", "By their parents", "By anything"], why: "The Creator swears by whatever He wills among His creation, but the created only vow by the Creator." },
         { q: "Which star did Mujahid name?", a: "Pleiades setting at Fajr", wrong: ["The sun", "Mars", "The North Star"], why: "Mujahid said, The star refers to Pleiades when it sets at Fajr." }
+      ]
+    },
+    {
+      slug: "stars-and-revelation",
+      title: "Stars and revelation",
+      line: "Stars adorn the sky, and revelation adorns the earth.",
+      facts: ["As-Sa'di explains", "A fitting oath"],
+      quote: q53(1),
+      source: saadi(53, 1, "As-Sa'di says Allah swore by the stars on the truth of the revelation because there is a fitting link: stars adorn the sky, revelation adorns the earth, and without the prophets' knowledge people would be in deeper darkness than night.", "فإن الله تعالى جعل النجوم زينة للسماء، فكذلك الوحي وآثاره زينة للأرض"),
+      difficulty: 2,
+      questions: [
+        { q: "Why swear by the stars on revelation, per as-Sa'di?", a: "Both bring light and beauty", wrong: ["Stars tell the future", "By chance", "Stars are gods"], why: "Stars adorn the sky and revelation adorns the earth, says as-Sa'di." },
+        { q: "Without the prophets' knowledge, people would be...?", a: "In deep darkness", wrong: ["Better off", "Just the same", "Richer"], why: "Darker than the blackest night." },
+        { tf: true, q: "In An-Najm 53:1, the star can mean all the stars.", why: "As-Sa'di on 53:1." }
       ]
     },
     {
@@ -101,6 +115,20 @@ const NAJM_ONE: DeepUnit = {
         { q: "What is his speech, in 53:4?", a: "Revelation revealed", wrong: ["Poetry", "Old stories", "Guesswork"], why: "It is only a revelation revealed." },
         { q: "How does he ﷺ convey it, per Ibn Kathir?", a: "In full, nothing added or cut", wrong: ["In parts", "With changes", "Only to some"], why: "He only conveys to the people what he was commanded to convey, in its entirety without additions or deletions." },
         { q: "What did he ﷺ tell Abdullah ibn Amr to do?", a: "Write", wrong: ["Stop writing", "Forget it", "Hide it"], why: "Write! By He in Whose Hand is my soul, every word that comes out of me is the Truth." }
+      ]
+    },
+    {
+      slug: "the-sunnah-is-revelation",
+      title: "The Sunnah is revelation",
+      line: "An-Najm 53:4 shows the Sunnah is also revelation from Allah.",
+      facts: ["As-Sa'di explains", "Protected in what he conveys"],
+      quote: q53(4),
+      source: saadi(53, 4, "As-Sa'di says the ayah shows the Sunnah is revelation from Allah to His Messenger ﷺ, and that he is protected from error in what he tells about Allah and His law, since his words do not come from desire.", "ودل هذا على أن السنة وحي من الله لرسوله"),
+      difficulty: 2,
+      questions: [
+        { q: "What does An-Najm 53:4 show about the Sunnah, per as-Sa'di?", a: "It is revelation too", wrong: ["It is only opinion", "It is poetry", "It is optional history"], why: "The Sunnah is revelation from Allah to His Messenger ﷺ, says as-Sa'di." },
+        { q: "Where do the Prophet's ﷺ words about the religion come from?", a: "Revelation, not desire", wrong: ["Guesses", "Dreams only", "Other people"], why: "His speech comes from revelation, not from desire." },
+        { tf: true, q: "Allah sent down to him the Book and the Wisdom.", why: "As-Sa'di on 53:4." }
       ]
     },
     {
@@ -311,6 +339,20 @@ const NAJM_ONE: DeepUnit = {
         { q: "What did his sight not do, in 53:17?", a: "Turn aside or go too far", wrong: ["See clearly", "Stay focused", "Look ahead"], why: "The sight turned not aside, nor it transgressed beyond the limit." },
         { q: "Which way did his sight not turn, per Ibn Abbas?", a: "Right or left", wrong: ["Up or down", "Back", "Forward"], why: "The Prophet's ﷺ sight did not turn right or left, according to Ibn Abbas." },
         { q: "What does 53:17 show about him ﷺ?", a: "Firm obedience to Allah", wrong: ["Fear of heights", "Tiredness", "Curiosity"], why: "This is a tremendous quality that demonstrates the Prophet's ﷺ firm obedience to Allah." }
+      ]
+    },
+    {
+      slug: "perfect-manners",
+      title: "Perfect manners",
+      line: "He stayed where Allah placed him, neither short nor beyond.",
+      facts: ["As-Sa'di explains", "No falling short, no going too far"],
+      quote: q53(17),
+      source: saadi(53, 17, "As-Sa'di says this shows the Prophet's ﷺ perfect manners: he stayed in the place Allah put him, did not fall short of it, did not go beyond it, and did not turn aside.", "وهذا كمال الأدب منه صلوات الله وسلامه عليه، أن قام مقاما أقامه الله فيه، ولم يقصر عنه ولا تجاوزه"),
+      difficulty: 3,
+      questions: [
+        { q: "What does An-Najm 53:17 show about the Prophet ﷺ?", a: "His perfect manners", wrong: ["His wealth", "His tribe", "His strength"], why: "It is the perfection of his manners, says as-Sa'di." },
+        { q: "Which faults did he ﷺ avoid in that station?", a: "Falling short and going too far", wrong: ["Only being late", "Only speaking", "Nothing"], why: "He did not fall short of it or go beyond it." },
+        { tf: true, q: "His sight did not turn right or left.", why: "As-Sa'di on 53:17." }
       ]
     },
     {
@@ -1065,6 +1107,20 @@ const NAJM_THREE: DeepUnit = {
         { q: "What does 53:62 command?", a: "Prostrate and worship Allah", wrong: ["Travel and trade", "Rest and eat", "Build and plant"], why: "So fall you down in prostration to Allah and worship Him." },
         { q: "How should we worship, per Ibn Kathir?", a: "With sincerity and Tawhid", wrong: ["With pride", "Rarely", "For show"], why: "Meaning, with submission, sincerity, and Tawhid." },
         { tf: true, q: "53:62 is the last ayah of An-Najm.", why: "This is the end of the Tafsir of Surat An-Najm. All praise and thanks are due to Allah." }
+      ]
+    },
+    {
+      slug: "the-heart-of-worship",
+      title: "The heart of worship",
+      line: "Sujud is singled out because it is the core of worship.",
+      facts: ["As-Sa'di explains", "Humility of heart and body"],
+      quote: q53(62),
+      source: saadi(53, 62, "As-Sa'di says sujud is named on its own to show its virtue, since it is the secret and core of worship: the servant humbles his heart and body and puts his noblest part on the ground.", "ليدل ذلك على فضله وأنه سر العبادة ولبها"),
+      difficulty: 2,
+      questions: [
+        { q: "Why is sujud named alone in An-Najm 53:62?", a: "It is the core of worship", wrong: ["It is easiest", "It is shortest", "By chance"], why: "Sujud is the secret and core of worship, says as-Sa'di." },
+        { q: "What is the core of worship, per as-Sa'di?", a: "Humility before Allah", wrong: ["Speed", "Loud voice", "Many people"], why: "Its core is humility and submission to Allah." },
+        { tf: true, q: "In sujud a person puts his face on the ground for Allah.", why: "As-Sa'di on 53:62." }
       ]
     },
     {

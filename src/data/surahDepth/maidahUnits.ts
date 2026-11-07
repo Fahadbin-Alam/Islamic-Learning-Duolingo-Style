@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Ma'idah ayah by ayah, the way Ali 'Imran and An-Nisa are taught: every ayah or small group of ayahs gets a
 // lesson, explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one
@@ -158,6 +158,20 @@ const MAIDAH_ONE: DeepUnit = {
         { q: "What must not stop you from justice, in 5:8?", a: "Hatred of a people", wrong: ["Hunger", "Rain", "Distance"], why: "Wa la yajrimannakum shana'anu qawm." },
         { q: "What is justice nearest to, in 5:8?", a: "Taqwa", wrong: ["Wealth", "Fame", "Power"], why: "I'dilu huwa aqrabu lit-taqwa." },
         { q: "Ibn Kathir: be just only with friends.", tf: false, why: "Whether a friend or an enemy." }
+      ]
+    },
+    {
+      slug: "truth-from-anyone",
+      title: "Truth from anyone",
+      line: "Accept the truth because it is true, whoever says it.",
+      facts: ["As-Sa'di explains", "Justice"],
+      quote: q5(8),
+      source: saadi(5, 8, "As-Sa'di says stand for justice for Allah alone, toward near and far, friend and foe; as you testify for your friend, testify against him, and as you testify against your enemy, testify for him; accept the truth he brings because it is true, not because he said it, for rejecting truth because of who said it wrongs the truth.", "لأنه حق لا لأنه قاله"),
+      difficulty: 2,
+      questions: [
+        { q: "Why accept a true word from an enemy, per as-Sa'di on 5:8?", a: "Because it is the truth", wrong: ["To please him", "Out of fear", "For money"], why: "Accept it because it is true, not because he said it." },
+        { q: "What does rejecting truth because of its speaker do, per as-Sa'di?", a: "It wrongs the truth", wrong: ["It protects faith", "It is wise", "It is required"], why: "Rejecting the truth for who said it is a wrong against the truth." },
+        { tf: true, q: "The more just a person is, the closer he is to taqwa.", why: "As-Sa'di on 5:8." }
       ]
     },
     {
@@ -437,6 +451,20 @@ const MAIDAH_TWO: DeepUnit = {
         { q: "How are this people with the believers, in 5:54?", a: "Humble", wrong: ["Proud", "Harsh", "Distant"], why: "Adhillatin 'alal-mu'minin." },
         { q: "What do they not fear, in 5:54?", a: "The blame of blamers", wrong: ["Allah", "The Last Day", "Sin"], why: "Wa la yakhafuna lawmata la'im." },
         { q: "Allah loves them and they love Him, in 5:54.", tf: true, why: "Yuhibbuhum wa yuhibbunah." }
+      ]
+    },
+    {
+      slug: "when-allah-loves-you",
+      title: "When Allah loves you",
+      line: "When Allah loves a servant, He accepts little and forgives much.",
+      facts: ["As-Sa'di explains", "Allah's love"],
+      quote: q5(54),
+      source: saadi(5, 54, "As-Sa'di says Allah's love for a servant is the greatest blessing: He makes his ways easy and draws people's hearts to him; loving Allah requires following the Messenger ﷺ, drawing near by obligatory and extra deeds, and knowing and remembering Him; and when Allah loves a servant, He accepts a little from him and forgives many slips.", "وإذا أحب الله عبدا قبل منه اليسير من العمل، وغفر له الكثير من الزلل"),
+      difficulty: 2,
+      questions: [
+        { q: "What does Allah do for a servant He loves, per as-Sa'di on 5:54?", a: "Accepts little and forgives much", wrong: ["Gives no tests", "Makes him famous", "Makes him rich"], why: "He accepts a little deed and forgives many slips." },
+        { q: "What must come with loving Allah, per as-Sa'di on 5:54?", a: "Following the Messenger ﷺ", wrong: ["Leaving people", "Wearing wool", "Silence"], why: "Loving Allah requires following the Messenger ﷺ inside and out." },
+        { tf: true, q: "Love of Allah without knowing Him is very lacking.", why: "As-Sa'di on 5:54." }
       ]
     },
     {

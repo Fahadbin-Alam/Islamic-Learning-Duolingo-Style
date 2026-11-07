@@ -760,7 +760,7 @@ export const DUAS_SECTION: LearningSection = {
   topicId: "duas",
   title: "Duas and adhkar",
   description: "Morning and evening adhkar, bedtime duas and the duas of the day, from the Quran and sahih hadith.",
-  badge: "Topic 12",
+  badge: "Topic 13",
   focus: "Morning and evening, sleep and waking, eating, travel, the mosque, and duas from the Quran.",
   mascot: "hijabi",
   accentColor: "#2E9C8F",

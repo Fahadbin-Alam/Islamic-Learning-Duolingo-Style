@@ -281,6 +281,18 @@ export async function syncSubscriptionEntitlement(input: {
   });
 }
 
+/**
+ * Two friends' shared streak (backend/app/api/routes/friends.py): days in a row on which both finished a lesson,
+ * counted from the day they became friends. It lives while the last such day is today or yesterday.
+ */
+export type FriendStreak = {
+  days: number;
+  /** Their longest one together. */
+  best: number;
+  meToday: boolean;
+  friendToday: boolean;
+};
+
 export type CrewMember = {
   id: number;
   name: string;
@@ -292,6 +304,8 @@ export type CrewMember = {
   lastLearningAt: string | null;
   /** Their league (index into LEAGUES in src/services/leagues.ts), for friends who added each other back. */
   league?: number;
+  /** Only on friends who added each other back; older servers leave it out. */
+  friendStreak?: FriendStreak;
   /** Not agreed yet: the server sends no learning stats, and for someone you added, only the email you typed. */
   pending?: boolean;
 };

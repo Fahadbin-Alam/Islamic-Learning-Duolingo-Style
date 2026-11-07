@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-A'raf ayah by ayah, the way Ali 'Imran, An-Nisa, Al-Ma'idah and Al-An'am are taught: every ayah or small
 // group of ayahs gets a lesson, explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a
@@ -283,6 +283,20 @@ const ARAF_ONE: DeepUnit = {
         { q: "What is rish, per Ibn Kathir?", a: "Adornment for beauty", wrong: ["A kind of food", "A weapon", "A tent"], why: "Rish refers to the outer adornments used for beautification." },
         { q: "What clothing is best, in 7:26?", a: "The clothing of taqwa", wrong: ["Silk", "Gold", "Wool"], why: "Wa libasut-taqwa dhalika khayr." },
         { q: "Who said fearing Allah makes Him cover your errors?", a: "Abdur-Rahman ibn Zayd", wrong: ["Iblis", "The chiefs", "Ibn Jarir only"], why: "Abdur-Rahman bin Zayd bin Aslam commented on the ayah." }
+      ]
+    },
+    {
+      slug: "the-inner-covering",
+      title: "The inner covering",
+      line: "Without taqwa, a person's inner faults are laid bare.",
+      facts: ["As-Sa'di explains", "Libas at-taqwa"],
+      quote: q7(26),
+      source: saadi(7, 26, "As-Sa'di says clothes were sent down to help us worship Allah; the clothing of taqwa is better, since it stays with a person and never wears out, the beauty of heart and soul; without clothes only the outer body shows, but without taqwa the inner self is exposed, bringing disgrace.", "فإنها تنكشف عورته الباطنة"),
+      difficulty: 2,
+      questions: [
+        { q: "Why is the clothing of taqwa better, per as-Sa'di on 7:26?", a: "It never wears out", wrong: ["It is cheaper", "It is warmer", "It is more colorful"], why: "It stays with a person and never wears out." },
+        { q: "What is exposed without taqwa, per as-Sa'di on 7:26?", a: "A person's inner faults", wrong: ["Only the hands", "Nothing at all", "Only the face"], why: "Without taqwa the inner self is exposed, bringing disgrace." },
+        { tf: true, q: "Clothes were sent down to help people worship Allah.", why: "As-Sa'di on 7:26." }
       ]
     },
     {
@@ -1724,6 +1738,20 @@ const ARAF_SIX: DeepUnit = {
       ]
     },
     {
+      slug: "if-they-harm-you",
+      title: "If they harm you",
+      line: "Do not harm back; reach out to those who cut you off.",
+      facts: ["As-Sa'di explains", "Good character"],
+      quote: q7(199),
+      source: saadi(7, 199, "As-Sa'di says 7:199 gathers all good character with people: accept what comes easily from them, thank them for any good, overlook their faults, order every good word and deed, and turn from the ignorant: whoever harms you, do not harm him; whoever denies you, do not deny him; whoever cuts you off, join him; and whoever wrongs you, be just with him.", "فمن آذاك بقوله أو فعله لا تؤذه، ومن حرمك لا تحرمه"),
+      difficulty: 2,
+      questions: [
+        { q: "What should you do to one who cuts you off, per as-Sa'di on 7:199?", a: "Keep ties with him", wrong: ["Cut him off too", "Shout at him", "Tell everyone"], why: "Whoever cuts you off, join him." },
+        { q: "What does 7:199 gather, per as-Sa'di?", a: "Good character with people", wrong: ["Rules of trade", "Laws of war", "Stories of kings"], why: "He calls it an ayah that gathers good character with people." },
+        { tf: true, q: "We should not look down on the poor for being poor.", why: "As-Sa'di on 7:199." }
+      ]
+    },
+    {
       slug: "seek-refuge",
       title: "Seek refuge with Allah",
       line: "When Shaytan stirs you, say: a'udhu billahi minash-shaytan.",
@@ -1749,6 +1777,20 @@ const ARAF_SIX: DeepUnit = {
         { q: "What do the pious do when Shaytan touches them, in 7:201?", a: "They remember Allah", wrong: ["They give up", "They follow him", "They blame others"], why: "Tadhakkaru fa idha hum mubsirun." },
         { q: "What happens after they remember, in 7:201?", a: "They see clearly", wrong: ["They forget", "They sleep", "They get lost"], why: "Fa idha hum mubsirun." },
         { q: "What do the devils do to their brothers, in 7:202?", a: "Pull them deeper into error", wrong: ["Leave them alone", "Guide them", "Teach them"], why: "Yamuddunahum fil-ghayy." }
+      ]
+    },
+    {
+      slug: "which-door-shaytan-used",
+      title: "Which door Shaytan used",
+      line: "After a slip, the pious ask how Shaytan got in, and repent.",
+      facts: ["As-Sa'di explains", "Muhasabah"],
+      quote: q7(201),
+      source: saadi(7, 201, "As-Sa'di says Shaytan waits for a person's moment of carelessness; when the pious one slips, he remembers from which door Shaytan came at him and what Allah requires of him, then sees clearly, seeks forgiveness and makes up for it with sincere repentance and many good deeds, so Shaytan goes back a loser.", "تذكر من أي باب أُتِيَ"),
+      difficulty: 2,
+      questions: [
+        { q: "What does the pious one think about after a slip, per as-Sa'di on 7:201?", a: "How Shaytan got to him", wrong: ["Who saw him", "How to hide it", "Nothing at all"], why: "He remembers from which door Shaytan came at him." },
+        { q: "How does the pious one make up for a sin, per as-Sa'di on 7:201?", a: "Repentance and many good deeds", wrong: ["Waiting for it to pass", "Blaming others", "Doing nothing"], why: "He repents sincerely and does many good deeds." },
+        { tf: true, q: "Shaytan waits for a person's moments of carelessness.", why: "As-Sa'di on 7:201." }
       ]
     },
     {

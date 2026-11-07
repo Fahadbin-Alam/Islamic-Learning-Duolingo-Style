@@ -823,6 +823,7 @@ const TOPIC_ICONS: Record<string, IconName> = {
   eid: "gift",
   akhirah: "sun",
   duas: "dua",
+  sahihayn: "bookOpen",
   intro: "lantern"
 };
 

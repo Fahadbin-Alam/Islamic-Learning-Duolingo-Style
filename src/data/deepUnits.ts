@@ -1,5 +1,5 @@
 import type { Challenge, DifficultyTier, LearningCourse, LearningNode, Lesson, LessonSource } from "../types";
-import { hadith, quran, type DeepUnit, type Question } from "./deepKit";
+import { hadith, quran, saadi, type DeepUnit, type Question } from "./deepKit";
 import { EID_SECTION, LIFE_UNITS } from "./lifeUnits";
 import { WOMEN_UNITS } from "./womenUnits";
 import { AKHIRAH_SECTION, AKHIRAH_UNITS } from "./akhirahUnits";
@@ -12,6 +12,7 @@ import { AQIDAH_UNITS } from "./aqidahUnits";
 import { FASTING_UNITS } from "./fastingUnits";
 import { ZAKAT_UNITS } from "./zakatUnits";
 import { HADITH_UNITS } from "./hadithUnits";
+import { HADITH_BOOK_UNITS, SAHIHAYN_SECTION } from "./hadithBooks";
 import { PRAYER_UNITS } from "./prayerUnits";
 import { HAJJ_UNITS } from "./hajjUnits";
 import { SAHABA_UNITS } from "./sahabaUnits";
@@ -646,6 +647,20 @@ const FATIHAH: DeepUnit = {
       ]
     },
     {
+      slug: "why-prophets-say-rabbana",
+      title: "Why prophets say Rabb",
+      line: "Prophets call on Rabb, the Lord who cares for His friends.",
+      facts: ["As-Sa'di explains", "General and special care"],
+      quote: ayah(2, 1),
+      source: saadi(1, 2, "As-Sa'di says Allah cares for all creation with food and life, and gives His friends a special care of faith and protection; this may be why most prophets' duas begin with Rabb.", "هو السر في كون أكثر أدعية الأنبياء بلفظ الرب"),
+      difficulty: 3,
+      questions: [
+        { q: "Which word begins most duas of the prophets?", a: "Rabb, Lord", wrong: ["Malik, King", "Nur, Light", "Ahad, One"], why: "Their requests fall under His special care, says as-Sa'di." },
+        { q: "What is Allah's special care for His friends?", a: "Guiding them to faith", wrong: ["Only more money", "Only long life", "Nothing extra"], why: "He helps them to every good and keeps them from evil." },
+        { tf: true, q: "Every blessing anyone has is from Allah.", why: "As-Sa'di on 1:2." }
+      ]
+    },
+    {
       slug: "rahman-rahim",
       title: "The Merciful",
       line: "Ar-Rahman's mercy covers all; Ar-Rahim's is for believers.",
@@ -675,6 +690,20 @@ const FATIHAH: DeepUnit = {
       ]
     },
     {
+      slug: "kings-and-servants-equal",
+      title: "Kings and servants equal",
+      line: "On that Day kings and servants stand the same before Allah.",
+      facts: ["As-Sa'di explains", "All hope and fear"],
+      quote: ayah(4, 1),
+      source: saadi(1, 4, "As-Sa'di says on the Day of Recompense Allah's full rule and justice show, and kings and people, slaves and free, are all equal, humble before Him.", "يستوي في ذلك اليوم, الملوك والرعايا والعبيد والأحرار"),
+      difficulty: 2,
+      questions: [
+        { q: "Who is equal on the Day of Recompense?", a: "Kings and servants", wrong: ["No one", "Only kings", "Only the rich"], why: "Kings, people, slaves and free are all equal, says as-Sa'di." },
+        { q: "What shows fully on that Day?", a: "Allah's rule and justice", wrong: ["Our wealth", "Our fame", "Our homes"], why: "His full rule, justice and wisdom appear to all." },
+        { tf: true, q: "Allah owns every day, not only the Day of Recompense.", why: "That Day is named because His rule shows fully. As-Sa'di on 1:4." }
+      ]
+    },
+    {
       slug: "you-alone",
       title: "You alone",
       line: "Iyyaka comes first: You alone we worship, and no one else.",
@@ -687,6 +716,20 @@ const FATIHAH: DeepUnit = {
         { q: "The first half, You we worship, frees us from what?", a: "Shirk", wrong: ["Hunger", "Debt", "Sleep"], why: "Worshipping Allah alone is the opposite of shirk." },
         { q: "Ibadah joins love, humility and what?", a: "Fear", wrong: ["Wealth", "Pride", "Anger"], why: "That is its meaning in the religion." },
         { q: "And You we ask for help means we rely on our own strength.", tf: false, why: "It means all help and strength come from Allah." }
+      ]
+    },
+    {
+      slug: "two-conditions-of-worship",
+      title: "Two conditions of worship",
+      line: "Worship counts when it follows the Prophet ﷺ and is for Allah.",
+      facts: ["As-Sa'di explains", "Sincere and correct"],
+      quote: ayah(5, 1),
+      source: saadi(1, 5, "As-Sa'di says a deed is true worship only when it is taken from the Messenger of Allah ﷺ and done seeking Allah's Face.", "وإنما تكون العبادة عبادة, إذا كانت مأخوذة عن رسول الله صلى الله عليه وسلم مقصودا بها وجه الله"),
+      difficulty: 3,
+      questions: [
+        { q: "What two things make a deed true worship?", a: "Following the Prophet ﷺ, for Allah", wrong: ["Being long and loud", "Being seen by many", "Being new and fun"], why: "Taken from the Messenger ﷺ and seeking Allah's Face, says as-Sa'di." },
+        { q: "Why do we ask Allah for help in worship too?", a: "We cannot do it without Him", wrong: ["He needs us", "It is a habit", "No reason"], why: "Without His help we cannot obey." },
+        { tf: true, q: "Worship covers words and deeds, open and hidden.", why: "Everything Allah loves. As-Sa'di on 1:5." }
       ]
     },
     {
@@ -714,6 +757,20 @@ const FATIHAH: DeepUnit = {
         { q: "Ibn Kathir says the straight path is what?", a: "Islam", wrong: ["The road to Makkah", "A bridge only", "Good manners only"], why: "At-Tabari and Ibn Kathir explain it as Islam." },
         { q: "Why does a Muslim ask for guidance in every salah?", a: "To stay firm on it", wrong: ["He is not a Muslim yet", "To get rich", "It is said only once"], why: "We need Allah's help every hour to stay on the path." },
         { q: "In Arabic, what kind of road is a sirat?", a: "Clear, with no turns", wrong: ["Narrow and dark", "Long and winding", "A small side path"], why: "That is how the Arabs used the word." }
+      ]
+    },
+    {
+      slug: "to-the-path-and-on-it",
+      title: "To the path, and on it",
+      line: "Guide us to Islam, and in every detail of it.",
+      facts: ["As-Sa'di explains", "Asked in every rak'ah"],
+      quote: ayah(6, 1),
+      source: saadi(1, 6, "As-Sa'di says ihdina means guide us to the path, by holding to Islam, and on the path, in every detail of knowing and doing; so we ask it in every rak'ah.", "فاهدنا إلى الصراط واهدنا في الصراط"),
+      difficulty: 2,
+      questions: [
+        { q: "Ihdina asks for guidance to the path and...?", a: "On the path", wrong: ["Off the path", "Away from it", "Nothing more"], why: "Guide us to it and in it, says as-Sa'di." },
+        { q: "How often must we make the dua of Al-Fatihah?", a: "In every rak'ah", wrong: ["Once a year", "Only on Eid", "Only when sad"], why: "We need it so much that it is in every rak'ah." },
+        { tf: true, q: "Ihdina is one of the most complete duas.", why: "As-Sa'di on 1:6." }
       ]
     },
     {
@@ -2669,6 +2726,34 @@ const NAS: DeepUnit = {
       ]
     },
     {
+      slug: "evil-made-to-look-good",
+      title: "Evil made to look good",
+      line: "Shaytan makes evil look beautiful and good deeds look ugly.",
+      facts: ["As-Sa'di explains", "Spot the trick"],
+      quote: ayah(1, 114),
+      source: saadi(114, 1, "As-Sa'di says Shaytan whispers in people's chests, making evil look beautiful and good look ugly, and he pulls back when a servant remembers his Lord.", "فيحسن لهم الشر، ويريهم إياه في صورة حسنة"),
+      difficulty: 2,
+      questions: [
+        { q: "How does Shaytan trick people, per as-Sa'di?", a: "Makes evil look good", wrong: ["Makes evil look ugly", "Shows the truth", "Does nothing"], why: "He makes evil look beautiful and good look ugly." },
+        { q: "What makes him pull back?", a: "Remembering Allah", wrong: ["Ignoring prayer", "Staying up late", "Getting angry"], why: "He withdraws when the servant remembers his Lord." },
+        { tf: true, q: "Shaytan is the root of all evils.", why: "As-Sa'di on An-Nas." }
+      ]
+    },
+    {
+      slug: "whispers-from-people-too",
+      title: "Whispers from people too",
+      line: "Bad whispers can come from people as well as from jinn.",
+      facts: ["As-Sa'di explains", "Of jinn and mankind"],
+      quote: ayah(6, 114),
+      source: saadi(114, 6, "As-Sa'di says whispering that calls to evil can come from humans just as it comes from jinn, which is why the surah ends: of jinn and of mankind.", "والوسواس كما يكون من الجن يكون من الإنس"),
+      difficulty: 2,
+      questions: [
+        { q: "Where can bad whispers come from?", a: "Jinn and people", wrong: ["Only jinn", "Only animals", "Only dreams"], why: "Whispering is from jinn and from humans, says as-Sa'di." },
+        { q: "How does An-Nas end?", a: "Of jinn and of mankind", wrong: ["Of the sky", "Of the sea", "Of the angels"], why: "Quran 114:6." },
+        { tf: true, q: "A friend who urges sin can be a whisperer.", why: "As-Sa'di on 114:6." }
+      ]
+    },
+    {
       slug: "before-sleep",
       title: "Before sleeping",
       line: "Each night the Prophet ﷺ read the last three and wiped himself.",
@@ -2735,6 +2820,48 @@ const FALAQ: DeepUnit = {
       ]
     },
     {
+      slug: "from-all-creation",
+      title: "Refuge from all evil",
+      line: "We ask the Creator to guard us from harm in creation.",
+      facts: ["As-Sa'di explains", "Humans, jinn, animals"],
+      quote: ayah(2, 113),
+      source: saadi(113, 2, "As-Sa'di says from the evil of what He created covers all creation, humans, jinn and animals, so we seek refuge with their Creator from the harm in them.", "فيستعاذ بخالقها، من الشر الذي فيها"),
+      difficulty: 1,
+      questions: [
+        { q: "Whom do we ask for safety from creation's harm?", a: "Its Creator", wrong: ["Other people", "A charm", "The stars"], why: "We seek refuge with the Creator, says as-Sa'di." },
+        { q: "What does the evil of what He created include?", a: "Humans, jinn and animals", wrong: ["Only snakes", "Only storms", "Only jinn"], why: "It covers all that Allah created." },
+        { tf: true, q: "Al-Falaq covers all kinds of harm, in general and in detail.", why: "As-Sa'di on 113:5." }
+      ]
+    },
+    {
+      slug: "harm-of-the-night",
+      title: "Harm of the night",
+      line: "Night is named because many harmful things spread in the dark.",
+      facts: ["As-Sa'di explains", "Ghasiq: the dark night"],
+      quote: ayah(3, 113),
+      source: saadi(113, 3, "As-Sa'di says after asking for refuge from all evil, the surah names the night, when darkness covers people and many evil spirits and harmful animals spread.", "من شر ما يكون في الليل"),
+      difficulty: 1,
+      questions: [
+        { q: "Why is the night named in Al-Falaq?", a: "Harmful things spread then", wrong: ["It is always safe", "Stars fall", "Nothing happens"], why: "Evil spirits and harmful animals spread at night, says as-Sa'di." },
+        { q: "Ghasiq means...?", a: "The dark night", wrong: ["The bright sun", "The sea", "The rain"], why: "The night when it covers all." },
+        { tf: true, q: "Al-Falaq names general evil first, then special ones.", why: "As-Sa'di on 113:3." }
+      ]
+    },
+    {
+      slug: "the-envier",
+      title: "The envier",
+      line: "An envier wants your blessing gone; the evil eye is envy.",
+      facts: ["As-Sa'di explains", "Hasad and the evil eye"],
+      quote: ayah(5, 113),
+      source: saadi(113, 5, "As-Sa'di says the envier loves to see a blessing leave someone and works for that, and the evil eye is part of envy, so we seek refuge in Allah from it.", "والحاسد، هو الذي يحب زوال النعمة عن المحسود"),
+      difficulty: 2,
+      questions: [
+        { q: "What does an envier want?", a: "Your blessing to be gone", wrong: ["You to have more", "Nothing", "To help you"], why: "He loves that the blessing leave, says as-Sa'di." },
+        { q: "The evil eye is part of...?", a: "Envy", wrong: ["Kindness", "Sleep", "Weather"], why: "The eye only comes from an envier." },
+        { tf: true, q: "We seek refuge in Allah from the envier.", why: "As-Sa'di on 113:5." }
+      ]
+    },
+    {
       slug: "when-ill",
       title: "When he was ill",
       line: "When ill, the Prophet ﷺ read Al-Falaq and An-Nas on himself.",
@@ -2772,6 +2899,34 @@ const IKHLAS: DeepUnit = {
         { q: "What is Al-Ikhlas equal to, says the Prophet ﷺ?", a: "A third of the Quran", wrong: ["Half of the Quran", "One ayah", "Nothing special"], why: "He swore by the One who holds his soul." },
         { q: "What did the man in the hadith do with Al-Ikhlas?", a: "He recited it again and again", wrong: ["He never recited it", "He wrote it on a wall", "He sold it"], why: "Another man thought that was too little." },
         { q: "Al-Ikhlas is a short surah with a great reward.", tf: true, why: "Short, yet equal to a third of the Quran." }
+      ]
+    },
+    {
+      slug: "say-it-and-mean-it",
+      title: "Say it and mean it",
+      line: "Say Al-Ikhlas firmly, believing it and knowing what it means.",
+      facts: ["As-Sa'di explains", "Qul: say"],
+      quote: ayah(1, 112),
+      source: saadi(112, 1, "As-Sa'di says Qul means say it firmly, believing it and knowing its meaning: He is Allah, the One, alone in perfection, with no like or equal.", "قولًا جازمًا به، معتقدًا له، عارفًا بمعناه"),
+      difficulty: 2,
+      questions: [
+        { q: "How should we say Al-Ikhlas, per as-Sa'di?", a: "Firmly, knowing its meaning", wrong: ["Quickly, without thinking", "Only in a whisper", "Only on Fridays"], why: "Say it firmly, believing it and knowing its meaning." },
+        { q: "Al-Ahad means Allah is...?", a: "One, with no like", wrong: ["One of many", "First of three", "Far away"], why: "Alone in perfection, with no equal." },
+        { tf: true, q: "Al-Ikhlas teaches Allah's names and attributes.", why: "As-Sa'di on 112:4." }
+      ]
+    },
+    {
+      slug: "the-one-all-turn-to",
+      title: "The One all turn to",
+      line: "As-Samad: all creation turns to Allah for every need.",
+      facts: ["As-Sa'di explains", "As-Samad"],
+      quote: ayah(2, 112),
+      source: saadi(112, 2, "As-Sa'di says As-Samad is the One turned to for every need: all in the heavens and earth need Him completely, because He is perfect in every attribute.", "أي: المقصود في جميع الحوائج"),
+      difficulty: 2,
+      questions: [
+        { q: "What does As-Samad mean, per as-Sa'di?", a: "The One turned to for every need", wrong: ["The One who sleeps", "The One who needs help", "The far One"], why: "He is turned to for all needs." },
+        { q: "Who needs Allah completely?", a: "Everyone in heaven and earth", wrong: ["Only the poor", "Only animals", "No one"], why: "All of creation needs Him fully." },
+        { tf: true, q: "Allah has no child because He needs nothing.", why: "From His perfect richness. As-Sa'di on 112:3." }
       ]
     },
     {
@@ -2853,6 +3008,48 @@ const ASR: DeepUnit = {
       ]
     },
     {
+      slug: "levels-of-loss",
+      title: "Levels of loss",
+      line: "Loss has levels: some lose everything, others lose a part.",
+      facts: ["As-Sa'di explains", "Khusr: loss"],
+      quote: ayah(2, 103),
+      source: saadi(103, 2, "As-Sa'di says loss has many levels: some lose both this world and the next, while others lose only in some ways, which is why all are in loss except the four.", "والخسار مراتب متعددة متفاوتة"),
+      difficulty: 2,
+      questions: [
+        { q: "Is all loss the same, per as-Sa'di?", a: "No, it has levels", wrong: ["Yes, always", "There is no loss", "Only money is lost"], why: "Loss has many different levels." },
+        { q: "What is the worst loss?", a: "Losing both worlds", wrong: ["Losing a game", "Losing a pen", "Losing sleep"], why: "Losing this world and the next." },
+        { tf: true, q: "Someone can lose in some ways and not others.", why: "As-Sa'di on 103:3." }
+      ]
+    },
+    {
+      slug: "faith-needs-knowledge",
+      title: "Faith needs knowledge",
+      line: "There is no faith without knowledge; it grows from knowing.",
+      facts: ["As-Sa'di explains", "Learn to believe"],
+      quote: ayah(3, 103),
+      source: saadi(103, 3, "As-Sa'di says the first of the four is faith in what Allah ordered us to believe, and faith cannot exist without knowledge, which it grows from.", "ولا يكون الإيمان بدون العلم"),
+      difficulty: 2,
+      questions: [
+        { q: "What does faith need, per as-Sa'di on 103:3?", a: "Knowledge", wrong: ["Wealth", "Fame", "Strength"], why: "There is no faith without knowledge." },
+        { q: "Which is the first of the four in Al-Asr?", a: "Faith", wrong: ["Patience", "Wealth", "Travel"], why: "Faith comes first." },
+        { tf: true, q: "Learning about Islam helps our faith grow.", why: "As-Sa'di on 103:3." }
+      ]
+    },
+    {
+      slug: "yourself-and-others",
+      title: "Yourself and others",
+      line: "Faith and deeds perfect you; urging truth helps others.",
+      facts: ["As-Sa'di explains", "Two for you, two for them"],
+      quote: ayah(3, 103),
+      source: saadi(103, 3, "As-Sa'di says with faith and good deeds a person perfects himself, and by urging truth and patience he helps perfect others; with all four he is saved from loss.", "فبالأمرين الأولين، يكمل الإنسان نفسه، وبالأمرين الأخيرين يكمل غيره"),
+      difficulty: 2,
+      questions: [
+        { q: "Which two of the four perfect yourself?", a: "Faith and good deeds", wrong: ["Truth and patience", "Sleep and food", "Wealth and fame"], why: "The first two perfect yourself, says as-Sa'di." },
+        { q: "Which two help perfect others?", a: "Urging truth and patience", wrong: ["Faith and prayer", "Eating and drinking", "Buying and selling"], why: "The last two perfect others." },
+        { tf: true, q: "With all four, a person is saved from loss.", why: "As-Sa'di on 103:3." }
+      ]
+    },
+    {
       slug: "enough",
       title: "Enough for people",
       line: "Ash-Shafi'i: if people pondered Al-'Asr, it would suffice.",
@@ -2870,7 +3067,7 @@ const ASR: DeepUnit = {
 
 const SURAH_DEEP_UNITS: readonly DeepUnit[] = [NAS, FALAQ, IKHLAS, ASR, ...BAQARAH_UNITS, ...SURAH_DEPTH_UNITS];
 
-export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, ...SAHABA_UNITS, MUHAJIRUN, FATIHAH, MULK, NAS, FALAQ, IKHLAS, ASR, SPEECH, PARENTS, NEIGHBORS, ANGER, SPOUSES, CHILDREN, ...WOMEN_UNITS, ...LIFE_UNITS, ...SCHOLAR_UNITS, ...AKHIRAH_UNITS, ...DUA_UNITS, ...PROPHET_UNITS, ...SEERAH_UNITS, ...AQIDAH_UNITS, ...FASTING_UNITS, ...ZAKAT_UNITS, ...HADITH_UNITS, ...PRAYER_UNITS, ...HAJJ_UNITS, ...BAQARAH_UNITS, ...SURAH_DEPTH_UNITS];
+export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, ...SAHABA_UNITS, MUHAJIRUN, FATIHAH, MULK, NAS, FALAQ, IKHLAS, ASR, SPEECH, PARENTS, NEIGHBORS, ANGER, SPOUSES, CHILDREN, ...WOMEN_UNITS, ...LIFE_UNITS, ...SCHOLAR_UNITS, ...AKHIRAH_UNITS, ...DUA_UNITS, ...PROPHET_UNITS, ...SEERAH_UNITS, ...AQIDAH_UNITS, ...FASTING_UNITS, ...ZAKAT_UNITS, ...HADITH_UNITS, ...HADITH_BOOK_UNITS, ...PRAYER_UNITS, ...HAJJ_UNITS, ...BAQARAH_UNITS, ...SURAH_DEPTH_UNITS];
 
 // The hand-written answer comes first, so the four choices turn by a stable hash of the question id.
 function turn<T>(id: string, items: T[]): T[] {
@@ -3001,8 +3198,8 @@ export function addSurahDeepUnits(content: { course: LearningCourse; lessonsById
 
 function addUnits(content: { course: LearningCourse; lessonsById: Record<string, Lesson> }, deepUnits: readonly DeepUnit[]) {
   const lessonsById = { ...content.lessonsById };
-  // A topic made only of deep units (Scholars, Eid, Day of Judgment, Duas) starts as an empty section.
-  const all = [SCHOLARS_SECTION, EID_SECTION, AKHIRAH_SECTION, DUAS_SECTION].reduce(
+  // A topic made only of deep units (Scholars, Eid, Day of Judgment, Bukhari and Muslim, Duas) starts as an empty section.
+  const all = [SCHOLARS_SECTION, EID_SECTION, AKHIRAH_SECTION, SAHIHAYN_SECTION, DUAS_SECTION].reduce(
     (sections, empty) => (sections.some((section) => section.topicId === empty.topicId) ? sections : [...sections, empty]),
     content.course.sections
   );
