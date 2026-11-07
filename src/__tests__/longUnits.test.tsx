@@ -67,3 +67,26 @@ describe("long units", () => {
     expect(screen.getAllByTestId(/^path-node-/).length).toBe(unit.items.length);
   });
 });
+
+describe("far units", () => {
+  it("draw no circles at all, so the 8,000-circle Quran path opens light", async () => {
+    const base = baqarahUnit();
+    const small = (index: number): PathUnit => ({ ...base, id: `unit-${index}`, number: index + 1, items: base.items.slice(index * 10, index * 10 + 10).map((item) => item) });
+    const units = Array.from({ length: 12 }, (_, index) => small(index));
+    await render(
+      <LearnPath
+        accent={quran.accentColor}
+        topicId={quran.topicId}
+        mascotVariant="hijabi"
+        units={units}
+        xpForNode={(node) => node.xpReward}
+        onStartNode={jest.fn()}
+        onClaimChest={jest.fn()}
+      />
+    );
+    // The unit the path opens on and the next few draw their circles; the far ones are one empty stretch each.
+    expect(screen.queryByTestId("path-far-unit-0")).toBeNull();
+    expect(screen.getByTestId("path-far-unit-11")).toBeTruthy();
+    expect(screen.getAllByTestId(/^path-node-/).length).toBeLessThan(80);
+  });
+});

@@ -151,7 +151,7 @@ const TUFT_SIZE = 26;
  * only their plain circles (same size, so nothing moves). Long topics like the Quran stay smooth this way.
  */
 const LIVE_MARGIN = 1;
-/** Units beyond the live ones (on each side) that still draw their circles; the rest draw plain circles. */
+/** Units beyond the live ones (on each side) that still draw their circles; the rest are an empty stretch. */
 const MOUNT_MARGIN = 3;
 /**
  * Units with at least this many rows (Al-Baqarah has over 250) draw their pictures, tufts and clouds only for
@@ -1449,25 +1449,12 @@ export function LearnPath({
                     tryScrollToCurrent();
                   }}
                 >
-                  {rows.map((row, index) => {
+                  {!unitMounted ? (
+                    // Far from the screen: one empty stretch the height of the unit's rows. The Quran path has
+                    // over 8,000 circles, and a view for each far one made opening it slow and heavy on a phone.
+                    <View style={{ height: group.rowsHeight }} pointerEvents="none" testID={`path-far-${unit.id}`} />
+                  ) : rows.map((row, index) => {
                     const nodeCenter = center + row.offset;
-                    if (!unitMounted) {
-                      // Far from the screen: a plain circle in the same place (tapping it still opens the card).
-                      const node = row.item.kind === "node" ? row.item.node : undefined;
-                      return (
-                        <View key={row.key} style={[styles.row, { height: row.height }]} pointerEvents="box-none">
-                          {node ? (
-                            <Pressable
-                              onPress={() => onNodePress(row.key)}
-                              accessibilityRole="button"
-                              accessibilityLabel={`${node.title}, ${premium ? t("premium") : row.current ? t("start") : t(node.status)}`}
-                              testID={`path-node-${node.id}`}
-                              style={[styles.farNode, { left: nodeCenter - NODE / 2, top: row.current ? CURRENT_EXTRA : 0, backgroundColor: lighten(color, 0.55) }]}
-                            />
-                          ) : null}
-                        </View>
-                      );
-                    }
                     const top = row.current ? CURRENT_EXTRA : 0;
                     const isOpen = openId === row.key && row.item.kind === "node";
                     const side = row.offset > 0 ? -1 : row.offset < 0 ? 1 : -1;
@@ -1664,12 +1651,6 @@ const styles = StyleSheet.create({
   },
   row: {
     width: "100%"
-  },
-  farNode: {
-    position: "absolute",
-    width: NODE,
-    height: NODE,
-    borderRadius: NODE / 2
   },
   slot: {
     position: "absolute",
