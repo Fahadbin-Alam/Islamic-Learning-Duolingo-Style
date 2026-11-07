@@ -29357,6 +29357,42 @@
   },
   {
     "kind": "course",
+    "text": "Khabbab ibn al-Aratt"
+  },
+  {
+    "kind": "course",
+    "text": "The blacksmith who stayed firm under torture in Makkah, and feared the riches that came later."
+  },
+  {
+    "kind": "arabic",
+    "text": "The patient blacksmith"
+  },
+  {
+    "kind": "course",
+    "text": "Uthman ibn Maz'un"
+  },
+  {
+    "kind": "course",
+    "text": "An early emigrant devoted to worship, whose good deeds flowed like a spring."
+  },
+  {
+    "kind": "arabic",
+    "text": "The devoted worshipper"
+  },
+  {
+    "kind": "course",
+    "text": "Abu Sa'id al-Khudri"
+  },
+  {
+    "kind": "course",
+    "text": "The young Ansari who learned and passed on a great amount of the Sunnah."
+  },
+  {
+    "kind": "arabic",
+    "text": "Keeper of the Sunnah"
+  },
+  {
+    "kind": "course",
     "text": "The Muhajirun"
   },
   {
@@ -30565,6 +30601,58 @@
   },
   {
     "kind": "course",
+    "text": "The blacksmith's debt"
+  },
+  {
+    "kind": "course",
+    "text": "Patience by the Kaaba"
+  },
+  {
+    "kind": "course",
+    "text": "Watching the Prophet ﷺ pray"
+  },
+  {
+    "kind": "course",
+    "text": "Mus'ab's short cloak"
+  },
+  {
+    "kind": "course",
+    "text": "Afraid of riches"
+  },
+  {
+    "kind": "course",
+    "text": "No giving up marriage"
+  },
+  {
+    "kind": "course",
+    "text": "A home with the Ansar"
+  },
+  {
+    "kind": "course",
+    "text": "How do you know?"
+  },
+  {
+    "kind": "course",
+    "text": "A flowing spring"
+  },
+  {
+    "kind": "course",
+    "text": "A day for the women"
+  },
+  {
+    "kind": "course",
+    "text": "Al-Fatihah as a cure"
+  },
+  {
+    "kind": "course",
+    "text": "Mud on his forehead"
+  },
+  {
+    "kind": "course",
+    "text": "Do not curse my companions"
+  },
+  {
+    "kind": "course",
     "text": "Who were the Muhajirun?"
   },
   {
@@ -30762,10 +30850,6 @@
   {
     "kind": "course",
     "text": "Ka'b ibn Zuhayr"
-  },
-  {
-    "kind": "course",
-    "text": "Khabbab ibn al-Aratt"
   },
   {
     "kind": "course",
@@ -34990,10 +35074,6 @@
   {
     "kind": "course",
     "text": "Lift your forearms"
-  },
-  {
-    "kind": "course",
-    "text": "Mud on his forehead"
   },
   {
     "kind": "course",
@@ -58870,10 +58950,6 @@
   {
     "kind": "question",
     "text": "Abu Sa'id ibn al-Mu'alla"
-  },
-  {
-    "kind": "question",
-    "text": "Abu Sa'id al-Khudri"
   },
   {
     "kind": "question",
@@ -86697,6 +86773,938 @@
   },
   {
     "kind": "lesson",
+    "text": "Khabbab the blacksmith refused to leave Islam for his money."
+  },
+  {
+    "kind": "lesson",
+    "text": "Khabbab was a blacksmith in Makkah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-As ibn Wail owed him money and said: leave Islam first."
+  },
+  {
+    "kind": "lesson",
+    "text": "Khabbab refused, and Allah revealed 19:77 about Al-As."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 19:77"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 2091"
+  },
+  {
+    "kind": "question",
+    "text": "What was Khabbab's job?"
+  },
+  {
+    "kind": "question",
+    "text": "Blacksmith"
+  },
+  {
+    "kind": "question",
+    "text": "Farmer"
+  },
+  {
+    "kind": "question",
+    "text": "Sailor"
+  },
+  {
+    "kind": "question",
+    "text": "Shepherd"
+  },
+  {
+    "kind": "question",
+    "text": "What did Al-As want before paying?"
+  },
+  {
+    "kind": "question",
+    "text": "That Khabbab leave Islam"
+  },
+  {
+    "kind": "question",
+    "text": "More time"
+  },
+  {
+    "kind": "question",
+    "text": "A new sword"
+  },
+  {
+    "kind": "question",
+    "text": "I will not pay you unless you disbelieve in Muhammad ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "Khabbab gave up Islam to get his money."
+  },
+  {
+    "kind": "question",
+    "text": "He refused."
+  },
+  {
+    "kind": "lesson",
+    "text": "Khabbab asked for help, and was taught patience and hope."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Muslims suffered greatly in Makkah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Khabbab asked the Prophet ﷺ to make dua for help."
+  },
+  {
+    "kind": "lesson",
+    "text": "He was told: earlier believers bore worse, and Islam will be complete."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3852"
+  },
+  {
+    "kind": "question",
+    "text": "Where was the Prophet ﷺ when Khabbab came?"
+  },
+  {
+    "kind": "question",
+    "text": "In the shade of the Kaaba"
+  },
+  {
+    "kind": "question",
+    "text": "He was leaning in the shade of the Kaaba."
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ promise?"
+  },
+  {
+    "kind": "question",
+    "text": "Allah will complete this religion"
+  },
+  {
+    "kind": "question",
+    "text": "They will get rich"
+  },
+  {
+    "kind": "question",
+    "text": "The pain will stop that day"
+  },
+  {
+    "kind": "question",
+    "text": "They must leave Islam"
+  },
+  {
+    "kind": "question",
+    "text": "Allah will surely complete this religion."
+  },
+  {
+    "kind": "question",
+    "text": "Earlier believers also suffered for their faith."
+  },
+  {
+    "kind": "question",
+    "text": "They were combed with iron combs and stayed firm."
+  },
+  {
+    "kind": "lesson",
+    "text": "Khabbab knew the Prophet ﷺ recited in Dhuhr by his beard moving."
+  },
+  {
+    "kind": "lesson",
+    "text": "Dhuhr and Asr are recited silently."
+  },
+  {
+    "kind": "lesson",
+    "text": "Khabbab was asked how he knew the Prophet ﷺ recited in them."
+  },
+  {
+    "kind": "lesson",
+    "text": "He said: by the movement of his beard."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 746"
+  },
+  {
+    "kind": "question",
+    "text": "How did Khabbab know the Prophet ﷺ recited in Dhuhr?"
+  },
+  {
+    "kind": "question",
+    "text": "He heard it loudly"
+  },
+  {
+    "kind": "question",
+    "text": "Someone told him"
+  },
+  {
+    "kind": "question",
+    "text": "He guessed"
+  },
+  {
+    "kind": "question",
+    "text": "His beard moved"
+  },
+  {
+    "kind": "question",
+    "text": "By the movement of his beard."
+  },
+  {
+    "kind": "question",
+    "text": "Which prayers are recited silently?"
+  },
+  {
+    "kind": "question",
+    "text": "Isha only"
+  },
+  {
+    "kind": "question",
+    "text": "Dhuhr and Asr"
+  },
+  {
+    "kind": "question",
+    "text": "Fajr and Maghrib"
+  },
+  {
+    "kind": "question",
+    "text": "He was asked about Dhuhr and Asr."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ recited in Dhuhr and Asr."
+  },
+  {
+    "kind": "question",
+    "text": "Khabbab replied in the affirmative."
+  },
+  {
+    "kind": "lesson",
+    "text": "Khabbab remembered Mus'ab, buried in one short cloak."
+  },
+  {
+    "kind": "lesson",
+    "text": "Mus'ab ibn Umayr was martyred at Uhud."
+  },
+  {
+    "kind": "lesson",
+    "text": "His cloak covered either his head or his feet."
+  },
+  {
+    "kind": "lesson",
+    "text": "They covered his head and put grass on his feet."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3897"
+  },
+  {
+    "kind": "question",
+    "text": "Who did Khabbab remember?"
+  },
+  {
+    "kind": "question",
+    "text": "What did they put on Mus'ab's feet?"
+  },
+  {
+    "kind": "question",
+    "text": "Grass"
+  },
+  {
+    "kind": "question",
+    "text": "Idhkhir grass on his feet."
+  },
+  {
+    "kind": "question",
+    "text": "Mus'ab left behind great riches."
+  },
+  {
+    "kind": "question",
+    "text": "He left only a woolen cloak."
+  },
+  {
+    "kind": "lesson",
+    "text": "When rich and sick, Khabbab feared the world's wealth."
+  },
+  {
+    "kind": "lesson",
+    "text": "Khabbab was very sick, with seven burn treatments."
+  },
+  {
+    "kind": "lesson",
+    "text": "He said: our friends left without enjoying this world."
+  },
+  {
+    "kind": "lesson",
+    "text": "He would have wished for death, but the Prophet ﷺ forbade it."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 5672"
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ forbid?"
+  },
+  {
+    "kind": "question",
+    "text": "Building houses"
+  },
+  {
+    "kind": "question",
+    "text": "Eating dates"
+  },
+  {
+    "kind": "question",
+    "text": "Wishing for death"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ forbade us to wish for death."
+  },
+  {
+    "kind": "question",
+    "text": "Why was Khabbab worried?"
+  },
+  {
+    "kind": "question",
+    "text": "He had much wealth"
+  },
+  {
+    "kind": "question",
+    "text": "He had no friends"
+  },
+  {
+    "kind": "question",
+    "text": "We have got so much wealth."
+  },
+  {
+    "kind": "question",
+    "text": "A Muslim should not wish for death."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ forbade wishing for death."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Khabbab ibn al-Aratt!"
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ told Uthman ibn Maz'un not to give up marriage."
+  },
+  {
+    "kind": "lesson",
+    "text": "Uthman ibn Maz'un wanted to give up marriage for worship."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ did not allow it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Islam asks for balance, not leaving the world."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 5073"
+  },
+  {
+    "kind": "question",
+    "text": "What did Uthman ibn Maz'un want to give up?"
+  },
+  {
+    "kind": "question",
+    "text": "He wished to abstain from marrying."
+  },
+  {
+    "kind": "question",
+    "text": "Did the Prophet ﷺ allow it?"
+  },
+  {
+    "kind": "question",
+    "text": "Only in Makkah"
+  },
+  {
+    "kind": "question",
+    "text": "Only for a year"
+  },
+  {
+    "kind": "question",
+    "text": "He forbade Uthman ibn Maz'un."
+  },
+  {
+    "kind": "question",
+    "text": "Islam teaches balance in worship and life."
+  },
+  {
+    "kind": "question",
+    "text": "He was not allowed to leave marriage."
+  },
+  {
+    "kind": "lesson",
+    "text": "Uthman ibn Maz'un was given a home by lot with the Ansar."
+  },
+  {
+    "kind": "lesson",
+    "text": "In Madinah, the Ansar drew lots to host the emigrants."
+  },
+  {
+    "kind": "lesson",
+    "text": "Uthman came to the house of Umm al-Ala."
+  },
+  {
+    "kind": "lesson",
+    "text": "She nursed him when he fell ill."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3929"
+  },
+  {
+    "kind": "question",
+    "text": "How did the Ansar share out the emigrants?"
+  },
+  {
+    "kind": "question",
+    "text": "By money"
+  },
+  {
+    "kind": "question",
+    "text": "By age"
+  },
+  {
+    "kind": "question",
+    "text": "By drawing lots"
+  },
+  {
+    "kind": "question",
+    "text": "By a race"
+  },
+  {
+    "kind": "question",
+    "text": "The Ansar drew lots for the emigrants."
+  },
+  {
+    "kind": "question",
+    "text": "Whose house did Uthman live in?"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Lahab's"
+  },
+  {
+    "kind": "question",
+    "text": "Umm al-Ala's"
+  },
+  {
+    "kind": "question",
+    "text": "Uthman was decided to dwell with them."
+  },
+  {
+    "kind": "question",
+    "text": "Umm al-Ala nursed him when he was ill."
+  },
+  {
+    "kind": "question",
+    "text": "I nursed him till he died."
+  },
+  {
+    "kind": "lesson",
+    "text": "At his death, the Prophet ﷺ taught: only Allah knows our end."
+  },
+  {
+    "kind": "lesson",
+    "text": "Umm al-Ala said: I testify that Allah has honored you."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ asked: how do you know?"
+  },
+  {
+    "kind": "lesson",
+    "text": "He said: I wish him good, but only Allah knows."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1243"
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ ask Umm al-Ala?"
+  },
+  {
+    "kind": "question",
+    "text": "Where is he?"
+  },
+  {
+    "kind": "question",
+    "text": "Who washed him?"
+  },
+  {
+    "kind": "question",
+    "text": "Why cry?"
+  },
+  {
+    "kind": "question",
+    "text": "What does this teach us?"
+  },
+  {
+    "kind": "question",
+    "text": "Never speak at funerals"
+  },
+  {
+    "kind": "question",
+    "text": "Only Allah knows a person's end"
+  },
+  {
+    "kind": "question",
+    "text": "We can be sure of Paradise"
+  },
+  {
+    "kind": "question",
+    "text": "Do not pray for the dead"
+  },
+  {
+    "kind": "question",
+    "text": "I do not know what Allah will do."
+  },
+  {
+    "kind": "question",
+    "text": "Umm al-Ala later stopped declaring people righteous."
+  },
+  {
+    "kind": "question",
+    "text": "She said she would never attest anyone's righteousness after that."
+  },
+  {
+    "kind": "lesson",
+    "text": "Umm al-Ala dreamt of a flowing spring for Uthman ibn Maz'un."
+  },
+  {
+    "kind": "lesson",
+    "text": "After his death, Umm al-Ala saw a dream."
+  },
+  {
+    "kind": "lesson",
+    "text": "She saw a spring flowing for Uthman."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ said: it is his good deeds, still flowing."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 7018"
+  },
+  {
+    "kind": "question",
+    "text": "What did Umm al-Ala see in her dream?"
+  },
+  {
+    "kind": "question",
+    "text": "A tall tree"
+  },
+  {
+    "kind": "question",
+    "text": "I saw in a dream a flowing spring for Uthman."
+  },
+  {
+    "kind": "question",
+    "text": "What did the spring stand for?"
+  },
+  {
+    "kind": "question",
+    "text": "His good deeds"
+  },
+  {
+    "kind": "question",
+    "text": "That is his good deeds."
+  },
+  {
+    "kind": "question",
+    "text": "Good deeds can keep giving reward after death."
+  },
+  {
+    "kind": "question",
+    "text": "Their reward is going on for him."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Uthman ibn Maz'un!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Sa'id told how women asked for their own lesson day."
+  },
+  {
+    "kind": "lesson",
+    "text": "The men took most of the Prophet's ﷺ time."
+  },
+  {
+    "kind": "lesson",
+    "text": "The women asked for a day of their own."
+  },
+  {
+    "kind": "lesson",
+    "text": "He gave them a day to teach them."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 101"
+  },
+  {
+    "kind": "question",
+    "text": "What did the women ask for?"
+  },
+  {
+    "kind": "question",
+    "text": "A journey"
+  },
+  {
+    "kind": "question",
+    "text": "A day of lessons for them"
+  },
+  {
+    "kind": "question",
+    "text": "A new masjid"
+  },
+  {
+    "kind": "question",
+    "text": "They asked him to fix a day for them."
+  },
+  {
+    "kind": "question",
+    "text": "Did the Prophet ﷺ agree?"
+  },
+  {
+    "kind": "question",
+    "text": "He sent them away"
+  },
+  {
+    "kind": "question",
+    "text": "Yes, he gave them a day"
+  },
+  {
+    "kind": "question",
+    "text": "He promised them one day for religious lessons."
+  },
+  {
+    "kind": "question",
+    "text": "Women in the Prophet's ﷺ time learned the religion."
+  },
+  {
+    "kind": "question",
+    "text": "He gave them a day for lessons."
+  },
+  {
+    "kind": "lesson",
+    "text": "Companions cured a stung chief by reciting Al-Fatihah."
+  },
+  {
+    "kind": "lesson",
+    "text": "A tribe refused the companions as guests."
+  },
+  {
+    "kind": "lesson",
+    "text": "Their chief was stung, and one companion recited Al-Fatihah over him."
+  },
+  {
+    "kind": "lesson",
+    "text": "He got up healed, and the Prophet ﷺ said: you did right."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 2276"
+  },
+  {
+    "kind": "question",
+    "text": "Which surah did the companion recite?"
+  },
+  {
+    "kind": "question",
+    "text": "One of them recited Surat-ul-Fatiha."
+  },
+  {
+    "kind": "question",
+    "text": "What happened to the chief?"
+  },
+  {
+    "kind": "question",
+    "text": "He got up healed"
+  },
+  {
+    "kind": "question",
+    "text": "He got worse"
+  },
+  {
+    "kind": "question",
+    "text": "He got up as if released from a chain."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ said they did right."
+  },
+  {
+    "kind": "question",
+    "text": "You have done the right thing."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Sa'id saw mud on the Prophet's ﷺ forehead on Laylat al-Qadr."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ saw himself prostrating in mud and water."
+  },
+  {
+    "kind": "lesson",
+    "text": "He said: seek Laylat al-Qadr in the odd last ten nights."
+  },
+  {
+    "kind": "lesson",
+    "text": "That night it rained and the masjid roof leaked."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 2027"
+  },
+  {
+    "kind": "question",
+    "text": "When should we seek Laylat al-Qadr?"
+  },
+  {
+    "kind": "question",
+    "text": "The first night"
+  },
+  {
+    "kind": "question",
+    "text": "Any day in Shawwal"
+  },
+  {
+    "kind": "question",
+    "text": "Only the 15th"
+  },
+  {
+    "kind": "question",
+    "text": "Odd nights of the last ten"
+  },
+  {
+    "kind": "question",
+    "text": "Look for it in the last ten nights and the odd ones."
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ see himself doing?"
+  },
+  {
+    "kind": "question",
+    "text": "Prostrating in mud and water"
+  },
+  {
+    "kind": "question",
+    "text": "Riding a camel"
+  },
+  {
+    "kind": "question",
+    "text": "Swimming"
+  },
+  {
+    "kind": "question",
+    "text": "Rain fell on that night of Laylat al-Qadr."
+  },
+  {
+    "kind": "question",
+    "text": "It rained that night and the roof dribbled."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Sa'id taught that Al-Ikhlas equals a third of the Quran."
+  },
+  {
+    "kind": "lesson",
+    "text": "A man kept reciting Qul huwa Allahu ahad."
+  },
+  {
+    "kind": "lesson",
+    "text": "Another thought that was too little."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ said: it equals a third of the Quran."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 5013"
+  },
+  {
+    "kind": "question",
+    "text": "Which surah equals a third of the Quran?"
+  },
+  {
+    "kind": "question",
+    "text": "How does Al-Ikhlas begin?"
+  },
+  {
+    "kind": "question",
+    "text": "Say: He is Allah, One"
+  },
+  {
+    "kind": "question",
+    "text": "Say He is Allah, (the) One, 112:1."
+  },
+  {
+    "kind": "question",
+    "text": "The man thought reciting it was not enough."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Sa'id narrated: do not curse my companions."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ said: do not abuse my companions."
+  },
+  {
+    "kind": "lesson",
+    "text": "Gold like Mount Uhud from you would not equal their handful."
+  },
+  {
+    "kind": "lesson",
+    "text": "This shows the high rank of the Sahabah."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3673"
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ forbid about his companions?"
+  },
+  {
+    "kind": "question",
+    "text": "Following them"
+  },
+  {
+    "kind": "question",
+    "text": "Abusing them"
+  },
+  {
+    "kind": "question",
+    "text": "Learning from them"
+  },
+  {
+    "kind": "question",
+    "text": "Loving them"
+  },
+  {
+    "kind": "question",
+    "text": "Do not abuse my companions."
+  },
+  {
+    "kind": "question",
+    "text": "What would gold like Uhud not equal?"
+  },
+  {
+    "kind": "question",
+    "text": "A handful of theirs"
+  },
+  {
+    "kind": "question",
+    "text": "It would not equal a mudd or half a mudd of theirs."
+  },
+  {
+    "kind": "question",
+    "text": "The Sahabah have a very high rank."
+  },
+  {
+    "kind": "question",
+    "text": "Their small charity outweighs a mountain of ours."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Sa'id taught: change wrong with hand, tongue or heart."
+  },
+  {
+    "kind": "lesson",
+    "text": "A man spoke up when a governor put the Eid khutbah first."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Sa'id said: he has done his duty."
+  },
+  {
+    "kind": "lesson",
+    "text": "Change wrong with your hand, then tongue, then heart."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 49a"
+  },
+  {
+    "kind": "question",
+    "text": "What is the first way to change a wrong?"
+  },
+  {
+    "kind": "question",
+    "text": "With your hand"
+  },
+  {
+    "kind": "question",
+    "text": "With your heart"
+  },
+  {
+    "kind": "question",
+    "text": "By ignoring it"
+  },
+  {
+    "kind": "question",
+    "text": "Modify it with the help of his hand."
+  },
+  {
+    "kind": "question",
+    "text": "What is the weakest level of faith?"
+  },
+  {
+    "kind": "question",
+    "text": "Hating it in your heart"
+  },
+  {
+    "kind": "question",
+    "text": "Changing it by hand"
+  },
+  {
+    "kind": "question",
+    "text": "Speaking up"
+  },
+  {
+    "kind": "question",
+    "text": "Doing nothing"
+  },
+  {
+    "kind": "question",
+    "text": "That is the least of faith."
+  },
+  {
+    "kind": "question",
+    "text": "Who said the man had done his duty?"
+  },
+  {
+    "kind": "question",
+    "text": "Marwan"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Sa'id remarked: he has performed his duty."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Abu Sa'id al-Khudri!"
+  },
+  {
+    "kind": "lesson",
     "text": "The Muhajirun left their homes and wealth in Makkah for Allah."
   },
   {
@@ -87522,10 +88530,6 @@
   {
     "kind": "question",
     "text": "What covered Mus'ab's feet?"
-  },
-  {
-    "kind": "question",
-    "text": "Grass"
   },
   {
     "kind": "question",
@@ -97253,10 +98257,6 @@
   },
   {
     "kind": "question",
-    "text": "He guessed"
-  },
-  {
-    "kind": "question",
     "text": "He described it while looking at it."
   },
   {
@@ -99274,10 +100274,6 @@
   {
     "kind": "question",
     "text": "Abu Sufyan's"
-  },
-  {
-    "kind": "question",
-    "text": "Abu Lahab's"
   },
   {
     "kind": "question",
@@ -104037,10 +105033,6 @@
   },
   {
     "kind": "question",
-    "text": "What does this teach us?"
-  },
-  {
-    "kind": "question",
     "text": "Do not rush to teach"
   },
   {
@@ -106893,10 +107885,6 @@
   },
   {
     "kind": "question",
-    "text": "Say: He is Allah, One"
-  },
-  {
-    "kind": "question",
     "text": "Surah Al-Inshiqaq 84:8."
   },
   {
@@ -107006,10 +107994,6 @@
   {
     "kind": "question",
     "text": "What did the senior Sahabah ask Aishah about?"
-  },
-  {
-    "kind": "question",
-    "text": "Building houses"
   },
   {
     "kind": "question",
@@ -107438,10 +108422,6 @@
   {
     "kind": "question",
     "text": "A small vessel full of knowledge"
-  },
-  {
-    "kind": "question",
-    "text": "A tall tree"
   },
   {
     "kind": "question",
@@ -113426,14 +114406,6 @@
   {
     "kind": "question",
     "text": "Goldsmith"
-  },
-  {
-    "kind": "question",
-    "text": "Farmer"
-  },
-  {
-    "kind": "question",
-    "text": "Sailor"
   },
   {
     "kind": "question",
@@ -124041,10 +125013,6 @@
   },
   {
     "kind": "question",
-    "text": "Wishing for death"
-  },
-  {
-    "kind": "question",
     "text": "Making dua"
   },
   {
@@ -125737,10 +126705,6 @@
   },
   {
     "kind": "question",
-    "text": "Swimming"
-  },
-  {
-    "kind": "question",
     "text": "A man is riding as it were when he wears sandals."
   },
   {
@@ -126382,10 +127346,6 @@
   {
     "kind": "question",
     "text": "Taking secretly"
-  },
-  {
-    "kind": "question",
-    "text": "Doing nothing"
   },
   {
     "kind": "question",
@@ -140726,10 +141686,6 @@
   {
     "kind": "question",
     "text": "Ayah 82: how does Allah make the truth win?"
-  },
-  {
-    "kind": "question",
-    "text": "By money"
   },
   {
     "kind": "question",
@@ -157653,10 +158609,6 @@
   },
   {
     "kind": "question",
-    "text": "Eating dates"
-  },
-  {
-    "kind": "question",
     "text": "Ayahs 1-14 say: By the Quran full of reminder: deniers found one God strange."
   },
   {
@@ -164974,10 +165926,6 @@
   {
     "kind": "question",
     "text": "Wherever you are"
-  },
-  {
-    "kind": "question",
-    "text": "Only in Makkah"
   },
   {
     "kind": "question",
@@ -174381,15 +175329,7 @@
   },
   {
     "kind": "question",
-    "text": "The first night"
-  },
-  {
-    "kind": "question",
     "text": "Any night of the year"
-  },
-  {
-    "kind": "question",
-    "text": "Odd nights of the last ten"
   },
   {
     "kind": "lesson",
@@ -178022,10 +178962,6 @@
   {
     "kind": "lesson",
     "text": "Told by Abu Sa'id"
-  },
-  {
-    "kind": "source",
-    "text": "Sahih al-Bukhari 5013"
   },
   {
     "kind": "question",
@@ -193100,20 +194036,12 @@
     "text": "The heart: the weakest faith"
   },
   {
-    "kind": "source",
-    "text": "Sahih Muslim 49a"
-  },
-  {
     "kind": "question",
     "text": "What is the first way to change a wrong, in Muslim 49?"
   },
   {
     "kind": "question",
     "text": "With a crowd"
-  },
-  {
-    "kind": "question",
-    "text": "With your hand"
   },
   {
     "kind": "question",
@@ -200469,10 +201397,6 @@
   },
   {
     "kind": "question",
-    "text": "Dhuhr and Asr"
-  },
-  {
-    "kind": "question",
     "text": "Narrated by Abu Hurayrah."
   },
   {
@@ -201258,10 +202182,6 @@
   {
     "kind": "question",
     "text": "What does 'birr' mean, per Ibn Kathir?"
-  },
-  {
-    "kind": "question",
-    "text": "A journey"
   },
   {
     "kind": "question",
@@ -221473,10 +222393,6 @@
   },
   {
     "kind": "question",
-    "text": "A new sword"
-  },
-  {
-    "kind": "question",
     "text": "Tranquillity and reassurance"
   },
   {
@@ -240737,10 +241653,6 @@
   },
   {
     "kind": "question",
-    "text": "Isha only"
-  },
-  {
-    "kind": "question",
     "text": "All of them get together at the time of the Fajr and Asr prayers."
   },
   {
@@ -253546,10 +254458,6 @@
   {
     "kind": "question",
     "text": "He was cured"
-  },
-  {
-    "kind": "question",
-    "text": "He got worse"
   },
   {
     "kind": "question",
@@ -269301,10 +270209,6 @@
   },
   {
     "kind": "source",
-    "text": "Quran 19:77"
-  },
-  {
-    "kind": "source",
     "text": "Sahih al-Bukhari 4733"
   },
   {
@@ -273689,10 +274593,6 @@
   },
   {
     "kind": "question",
-    "text": "By age"
-  },
-  {
-    "kind": "question",
     "text": "To the type of deed"
   },
   {
@@ -274570,10 +275470,6 @@
   {
     "kind": "question",
     "text": "By explaining the truth"
-  },
-  {
-    "kind": "question",
-    "text": "By ignoring it"
   },
   {
     "kind": "question",
@@ -280334,10 +281230,6 @@
   {
     "kind": "question",
     "text": "A new Prophet"
-  },
-  {
-    "kind": "question",
-    "text": "More time"
   },
   {
     "kind": "question",
@@ -304774,10 +305666,6 @@
   {
     "kind": "question",
     "text": "He gave refuge and honor"
-  },
-  {
-    "kind": "question",
-    "text": "He sent them away"
   },
   {
     "kind": "question",
@@ -361685,10 +362573,6 @@
   },
   {
     "kind": "question",
-    "text": "By drawing lots"
-  },
-  {
-    "kind": "question",
     "text": "By mutual consultation"
   },
   {
@@ -382240,10 +383124,6 @@
     "text": "Gold like Uhud cannot match them"
   },
   {
-    "kind": "source",
-    "text": "Sahih al-Bukhari 3673"
-  },
-  {
     "kind": "question",
     "text": "What did he ﷺ forbid, per Bukhari 3673?"
   },
@@ -382258,10 +383138,6 @@
   {
     "kind": "question",
     "text": "Climbing Uhud"
-  },
-  {
-    "kind": "question",
-    "text": "Do not abuse my companions."
   },
   {
     "kind": "question",
@@ -419577,10 +420453,6 @@
   },
   {
     "kind": "question",
-    "text": "Only for a year"
-  },
-  {
-    "kind": "question",
     "text": "She does not become his mother."
   },
   {
@@ -451581,10 +452453,6 @@
   },
   {
     "kind": "question",
-    "text": "His good deeds"
-  },
-  {
-    "kind": "question",
     "text": "My wealth has not availed me."
   },
   {
@@ -470498,10 +471366,6 @@
   {
     "kind": "question",
     "text": "How did he come, per 80:8?"
-  },
-  {
-    "kind": "question",
-    "text": "Riding a camel"
   },
   {
     "kind": "question",
@@ -498962,10 +499826,6 @@
   {
     "kind": "question",
     "text": "He had no sons to keep his name"
-  },
-  {
-    "kind": "question",
-    "text": "He had no friends"
   },
   {
     "kind": "question",
