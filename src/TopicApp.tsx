@@ -3707,6 +3707,7 @@ export default function TopicApp() {
             key={`${lesson.id}-${state.stepIndex}`}
             page={learnStep?.page}
             summary={learnStep?.page === "facts" ? lessonSummaryShown : undefined}
+            englishSummary={learnStep?.page === "facts" && lessonSummaryShown ? englishLesson?.learnSource?.summary : undefined}
             marks={lessonMarks}
             teach={teachShown}
             quizCount={learnStep?.page === "quiz" ? quizQuestionCount || lesson.challenges.length : undefined}
