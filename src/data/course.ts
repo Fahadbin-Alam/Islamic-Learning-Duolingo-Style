@@ -3,6 +3,7 @@ import { applySourceHighlights } from "./sourceHighlights";
 import { mergeImportedNotes } from "./importedNotes";
 import { arrangeUnits, dropEmptyUnits } from "./unitPlans";
 import { LESSON_SOURCES, QUESTION_SOURCES } from "./questionSources";
+import { withSurahIntro } from "./surahIntros";
 import { addDeepUnits, addSurahDeepUnits } from "./deepUnits";
 import { addSurahMeanings } from "./surahMeanings";
 import { RAMADAN } from "./ramadanDays";
@@ -3963,7 +3964,9 @@ const withQuestionSource = (challenge: Challenge): Challenge =>
 const expandedContent = {
   ...chainedContent,
   lessonsById: Object.fromEntries(
-    Object.entries(chainedContent.lessonsById).map(([id, lesson]) => {
+    Object.entries(chainedContent.lessonsById).map(([id, rawLesson]) => {
+      // A surah's own lesson tells why it has its name (surahIntros.ts).
+      const lesson = withSurahIntro(rawLesson);
       const learnSource = lesson.learnSource ?? LESSON_SOURCES[id];
       const sources = learnSource ? [learnSource, ...lesson.sources.filter((source) => source.id !== learnSource.id && source.url !== learnSource.url)] : lesson.sources;
       return [id, { ...lesson, sources, ...(learnSource ? { learnSource } : {}), challenges: withoutGiveaways(lesson.challenges).map(withQuestionSource) }];
