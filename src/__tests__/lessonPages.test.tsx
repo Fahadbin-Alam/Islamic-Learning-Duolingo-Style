@@ -11,6 +11,7 @@ import {
   isQuestionStep,
   isRecallLesson,
   lessonPages,
+  saidInSummary,
   teachLesson,
   teachText,
   type FlowStep
@@ -159,6 +160,18 @@ describe("LearnCard pages", () => {
     expect(screen.getByTestId("learn-mark")).toHaveTextContent("tafsir");
     expect(screen.queryByTestId("learn-quote")).toBeNull();
     expect(screen.getByTestId("learn-page-title")).toHaveTextContent(lesson.title);
+  });
+
+  it("says a point once: a point the source's summary already says is left out of What you learn", async () => {
+    const summary = 'Surah Al-Baqarah means "The Cow". It was revealed in Madinah. It has 286 ayahs.';
+    expect(saidInSummary("286 ayahs", summary)).toBe(true);
+    expect(saidInSummary("Revealed in Madinah", summary)).toBe(true);
+    expect(saidInSummary("The longest surah", summary)).toBe(false);
+
+    await render(<LearnCard {...props} facts={["286 ayahs", "The longest surah"]} page="facts" summary={summary} sourceHere />);
+    expect(screen.getAllByTestId("learn-fact")).toHaveLength(1);
+    expect(screen.getByTestId("learn-facts")).toHaveTextContent(/The longest surah/);
+    expect(screen.getByTestId("learn-summary")).toHaveTextContent(/286 ayahs/);
   });
 
   it("gives the story and Take home a page each, with the tafsir books on the last", async () => {

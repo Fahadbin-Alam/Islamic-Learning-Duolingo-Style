@@ -128,9 +128,8 @@ const styles = StyleSheet.create({
   },
   partsHead: {
     fontFamily: fonts.displayHeavy,
-    fontSize: 15,
-    lineHeight: 20,
-    letterSpacing: 0.5,
+    fontSize: 18,
+    lineHeight: 24,
     marginBottom: 2
   },
   partRow: {
@@ -154,10 +153,10 @@ const styles = StyleSheet.create({
   },
   partMore: {
     fontFamily: fonts.bodyBold,
-    fontSize: 14,
-    lineHeight: 19,
+    fontSize: 15,
+    lineHeight: 21,
     color: colors.inkSoft,
-    marginTop: 2,
+    marginTop: 4,
     marginStart: 18
   }
 });
