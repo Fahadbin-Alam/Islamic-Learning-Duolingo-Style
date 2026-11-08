@@ -2993,6 +2993,316 @@ const HAJJ: DeepUnit = {
   ]
 };
 
+const OATHS: DeepUnit = {
+  key: "book-oaths",
+  topicId: "sahihayn",
+  branchId: "hadith-book-ayman",
+  branch: { title: "The Book of Oaths and Vows", description: "From the Books of Oaths and Vows: swearing only by Allah, breaking an oath for something better, and keeping vows of good." },
+  name: "the Book of Oaths",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "do-what-is-better",
+      title: "Do what is better",
+      line: "If a better choice comes, take it and expiate your oath.",
+      facts: ["Abu Bakr kept every oath", "Told by Aisha"],
+      source: hadith("bukhari", "6621", "Aisha", "Sahih", "Abu Bakr never broke an oath until Allah revealed the expiation. Then he said: if I swear to do something and find something better, I do what is better and expiate my oath.", "then I do what is better and make expiation for my oath"),
+      difficulty: 1,
+      questions: [
+        { q: "What did Abu Bakr do when a better choice came?", a: "Did the better thing and expiated", wrong: ["Kept the oath no matter what", "Forgot the oath", "Made a new oath"], why: "Then I do what is better and make expiation for my oath." },
+        { q: "Before the expiation came, did Abu Bakr break oaths?", a: "Never", wrong: ["Often", "Only in trade", "Only when angry"], why: "Abu Bakr had never broken his oaths till Allah revealed the expiation." },
+        { q: "An oath can be broken for something better, with expiation.", tf: true, why: "Sahih al-Bukhari 6621." }
+      ]
+    },
+    {
+      slug: "an-oath-that-harms-family",
+      title: "An oath that harms family",
+      line: "Keeping an oath that harms your family is a bigger sin.",
+      facts: ["Better to expiate it", "Told by Abu Hurairah"],
+      source: hadith("bukhari", "6625", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: whoever insists on keeping an oath that harms his family commits a greater sin than breaking it and making expiation.", "than that of dissolving his oath and making expiation for it"),
+      difficulty: 2,
+      questions: [
+        { q: "What is the bigger sin here?", a: "Keeping an oath that harms family", wrong: ["Making expiation", "Talking to family", "Giving charity"], why: "He commits a greater sin than dissolving his oath and making expiation." },
+        { q: "What should he do instead?", a: "Break it and expiate", wrong: ["Swear again", "Leave home", "Stay silent"], why: "Dissolving his oath and making expiation for it." },
+        { q: "Our family should not be hurt by our oaths.", tf: true, why: "Sahih al-Bukhari 6625." }
+      ]
+    },
+    {
+      slug: "swear-by-allah-or-be-quiet",
+      title: "Swear by Allah or be quiet",
+      line: "Do not swear by your fathers. Swear by Allah or keep quiet.",
+      facts: ["Said to Umar on a journey", "Told by Ibn Umar"],
+      source: hadith("bukhari", "6646", "Abdullah ibn Umar", "Sahih", "The Prophet ﷺ met Umar swearing by his father and said: Allah forbids you to swear by your fathers. Whoever swears, let him swear by Allah or keep quiet.", "he should swear by Allah or keep quiet"),
+      difficulty: 1,
+      questions: [
+        { q: "Who may we swear by?", a: "Allah only", wrong: ["Our fathers", "Our teachers", "Our country"], why: "Whoever has to take an oath should swear by Allah or keep quiet." },
+        { q: "Who was swearing by his father?", a: "Umar", wrong: ["Abu Bakr", "Ali", "Bilal"], why: "He met Umar bin Al-Khattab, who was swearing by his father." },
+        { q: "Swearing by your father is fine in Islam.", tf: false, why: "Allah forbids you to swear by your fathers. Sahih al-Bukhari 6646." }
+      ]
+    },
+    {
+      slug: "fix-a-wrong-oath",
+      title: "Fix a wrong oath",
+      line: "Swore by an idol by mistake? Say la ilaha illallah.",
+      facts: ["Wiping out the wrong words", "Told by Abu Hurairah"],
+      source: hadith("bukhari", "6650", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: whoever swears by Al-Lat and Al-Uzza should say: none has the right to be worshipped but Allah. And whoever invites a friend to gamble should give something in charity.", "None has the right to be worshipped but Allah"),
+      difficulty: 2,
+      questions: [
+        { q: "What should one say after swearing by an idol?", a: "La ilaha illallah", wrong: ["Nothing", "Another oath", "A poem"], why: "He should say: None has the right to be worshipped but Allah." },
+        { q: "What should one do after inviting a friend to gamble?", a: "Give something in charity", wrong: ["Gamble once", "Run away", "Sleep"], why: "Whoever says to his friend, come, let me gamble with you, should give something in charity." },
+        { q: "A wrong word can be followed by a good one to fix it.", tf: true, why: "Sahih al-Bukhari 6650." }
+      ]
+    },
+    {
+      slug: "help-others-keep-oaths",
+      title: "Help others keep oaths",
+      line: "He ﷺ told us to help others keep their oaths.",
+      facts: ["Helping a brother keep his word", "Told by al-Bara"],
+      source: hadith("bukhari", "6654", "Al-Bara ibn Azib", "Sahih", "The Prophet ﷺ ordered us to help others fulfil their oaths.", "The Prophet (ﷺ) ordered us to help others to fulfill the oaths"),
+      difficulty: 1,
+      questions: [
+        { q: "What were we told to help others with?", a: "Keeping their oaths", wrong: ["Breaking oaths", "Making more oaths", "Hiding oaths"], why: "He ordered us to help others to fulfill the oaths." },
+        { q: "Who told this hadith?", a: "Al-Bara ibn Azib", wrong: ["Anas", "Aisha", "Jabir"], why: "Narrated Al-Bara." },
+        { q: "Helping a friend keep his word is a good deed.", tf: true, why: "Sahih al-Bukhari 6654." }
+      ]
+    },
+    {
+      slug: "thoughts-are-forgiven",
+      title: "Bad thoughts are forgiven",
+      line: "Bad thoughts are forgiven if you do not act or speak.",
+      facts: ["A mercy for this Ummah", "Told by Abu Hurairah"],
+      source: hadith("bukhari", "6664", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: Allah forgives my Ummah the bad things their souls whisper to them, as long as they do not act on it or speak it.", "as long as they do not act (on it) or speak"),
+      difficulty: 1,
+      questions: [
+        { q: "When are bad whispers forgiven?", a: "If we do not act or speak", wrong: ["Never", "Only on Friday", "Only if we tell people"], why: "As long as they do not act on it or speak." },
+        { q: "Who forgives these whispers?", a: "Allah", wrong: ["Our friends", "Our teachers", "No one"], why: "Allah forgives my followers what their souls whisper." },
+        { q: "A passing bad thought is written as a sin.", tf: false, why: "It is forgiven unless we act or speak. Sahih al-Bukhari 6664." }
+      ]
+    },
+    {
+      slug: "a-vow-changes-nothing",
+      title: "A vow changes nothing",
+      line: "A vow does not change what Allah has decreed.",
+      facts: ["It only takes wealth from a miser", "Told by Ibn Umar"],
+      source: hadith("bukhari", "6692", "Abdullah ibn Umar", "Sahih", "The Prophet ﷺ said: a vow neither brings a thing sooner nor later, but through vows some wealth is taken out of a miser.", "A vow neither hastens nor delays anything"),
+      difficulty: 2,
+      questions: [
+        { q: "Does a vow bring something sooner?", a: "No, it changes nothing", wrong: ["Yes, always", "Only big vows", "Only at night"], why: "A vow neither hastens nor delays anything." },
+        { q: "Who loses wealth through vows?", a: "The miser", wrong: ["The poor", "The traveller", "The orphan"], why: "By the making of vows, some of the wealth of a miser is taken out." },
+        { q: "Making a vow forces Allah to give us what we want.", tf: false, why: "A vow neither hastens nor delays anything. Sahih al-Bukhari 6692." }
+      ]
+    },
+    {
+      slug: "umars-old-vow",
+      title: "Umar's old vow",
+      line: "Umar vowed i'tikaf before Islam. He was told: fulfil it.",
+      facts: ["A night in al-Masjid al-Haram", "Told by Ibn Umar"],
+      source: hadith("bukhari", "6697", "Abdullah ibn Umar", "Sahih", "Umar said: I vowed before Islam to do i'tikaf for one night in al-Masjid al-Haram. The Prophet ﷺ said: fulfil your vow.", "Fulfill your vow"),
+      difficulty: 2,
+      questions: [
+        { q: "What had Umar vowed?", a: "One night of i'tikaf", wrong: ["A month of fasting", "A trip to Sham", "To build a well"], why: "I vowed to perform I'tikaf for one night in Al-Masjid-al-Haram." },
+        { q: "What was he told?", a: "Fulfil your vow", wrong: ["Forget it", "Pay money instead", "Do it twice"], why: "The Prophet ﷺ said: Fulfill your vow." },
+        { q: "A good vow should be kept.", tf: true, why: "Sahih al-Bukhari 6697." }
+      ]
+    },
+    {
+      slug: "allahs-right-comes-first",
+      title: "Allah's right comes first",
+      line: "A sister's vowed Hajj is like a debt. Allah's right comes first.",
+      facts: ["Fulfil it for the one who died", "Told by Ibn Abbas"],
+      source: hadith("bukhari", "6699", "Abdullah ibn Abbas", "Sahih", "A man said his sister vowed Hajj and died. The Prophet ﷺ said: would you not pay her debts? Then pay Allah's right, for He is more entitled to His right.", "as He is more entitled to receive His rights"),
+      difficulty: 2,
+      questions: [
+        { q: "What did his sister vow?", a: "To do Hajj", wrong: ["To fast a year", "To build a masjid", "To free a slave"], why: "My sister vowed to perform the Hajj, but she died." },
+        { q: "What was the vow compared to?", a: "A debt", wrong: ["A gift", "A dream", "A promise to a friend"], why: "Would you not have paid her debts if she had any?" },
+        { q: "Allah is more entitled to His right than people.", tf: true, why: "Sahih al-Bukhari 6699." }
+      ]
+    },
+    {
+      slug: "no-hurting-yourself",
+      title: "No hurting yourself",
+      line: "He ﷺ cut the rope of a man tied up during tawaf.",
+      facts: ["Worship is not self-harm", "Told by Ibn Abbas"],
+      source: hadith("bukhari", "6702", "Abdullah ibn Abbas", "Sahih", "The Prophet ﷺ saw a man doing tawaf tied with a rope while another held him, and he cut the rope.", "The Prophet (ﷺ) cut that rope off"),
+      difficulty: 2,
+      questions: [
+        { q: "What did he ﷺ do to the rope?", a: "Cut it off", wrong: ["Tied it tighter", "Left it", "Gave it away"], why: "The Prophet ﷺ cut that rope off." },
+        { q: "Where was the man?", a: "Doing tawaf at the Kaaba", wrong: ["In the market", "At home", "On a ship"], why: "A man was performing Tawaf around the Kaaba, tied with a rope." },
+        { q: "Hard ways that hurt us are not part of worship.", tf: true, why: "Sahih al-Bukhari 6702." }
+      ]
+    },
+    {
+      slug: "no-fasting-on-eid",
+      title: "No fasting on Eid",
+      line: "Even if you vowed to fast daily, do not fast on Eid.",
+      facts: ["He ﷺ never fasted on Eid", "Told by Ibn Umar"],
+      source: hadith("bukhari", "6705", "Abdullah ibn Umar", "Sahih", "Ibn Umar was asked about a man who vowed to fast every day, then Eid came. He said: the Prophet ﷺ did not fast on Eid al-Adha or Eid al-Fitr, and we do not fast on them.", "He did not fast on the day of `Id al Adha or the day of `Id-al-Fitr"),
+      difficulty: 2,
+      questions: [
+        { q: "What had the man vowed?", a: "To fast every day", wrong: ["To pray all night", "To give all his wealth", "To travel"], why: "A man vowed that he would fast all the days of his life." },
+        { q: "Which days are not for fasting?", a: "The two Eids", wrong: ["Mondays", "White days", "Ashura"], why: "He did not fast on the day of Id al-Adha or the day of Id al-Fitr." },
+        { q: "A vow can make fasting on Eid allowed.", tf: false, why: "Even then, do not fast on Eid. Sahih al-Bukhari 6705." }
+      ]
+    },
+    {
+      slug: "keep-some-of-your-wealth",
+      title: "Keep some of your wealth",
+      line: "Ka'b wanted to give all he had. He was told: keep some.",
+      facts: ["After his repentance from Tabuk", "Told by Ka'b ibn Malik"],
+      source: hadith("bukhari", "6690", "Ka'b ibn Malik", "Sahih", "When his repentance was accepted, Ka'b wanted to give all his property for Allah. The Prophet ﷺ said: keep some of your wealth, that is better for you.", "Keep some of your wealth, for that is better for you"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Ka'b want to give away?", a: "All his property", wrong: ["Half his food", "His sword", "His horse only"], why: "I shall give up all my property for the sake of Allah and His Apostle." },
+        { q: "What was he told?", a: "Keep some of your wealth", wrong: ["Give it all", "Give nothing", "Sell it"], why: "Keep some of your wealth, for that is better for you." },
+        { q: "Islam asks us to leave ourselves with nothing.", tf: false, why: "Keeping some is better for you. Sahih al-Bukhari 6690." }
+      ]
+    }
+  ]
+};
+
+const WILLS: DeepUnit = {
+  key: "book-wills",
+  topicId: "sahihayn",
+  branchId: "hadith-book-wasaya",
+  branch: { title: "The Book of Wills", description: "From the Books of Wills: writing a will, the one-third limit, charity for those who died, and endowments." },
+  name: "the Book of Wills",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "keep-your-will-ready",
+      title: "Keep your will ready",
+      line: "A Muslim with something to leave should have his will written.",
+      facts: ["Not two nights without it", "Told by Ibn Umar"],
+      source: hadith("bukhari", "2738", "Abdullah ibn Umar", "Sahih", "The Prophet ﷺ said: a Muslim who has something to leave in a will should not spend two nights without having it written and ready.", "without having his last will and testament written and kept ready with him"),
+      difficulty: 1,
+      questions: [
+        { q: "What should a Muslim keep ready?", a: "A written will", wrong: ["A packed bag", "A new house", "A big feast"], why: "His last will and testament written and kept ready with him." },
+        { q: "For how long should he not be without it?", a: "Two nights", wrong: ["Two years", "Ten days", "One month"], why: "To stay for two nights without having his last will written." },
+        { q: "Writing a will early is part of being ready for death.", tf: true, why: "Sahih al-Bukhari 2738." }
+      ]
+    },
+    {
+      slug: "what-he-left-behind",
+      title: "What he ﷺ left behind",
+      line: "He ﷺ left no money, just a mule, arms and land in charity.",
+      facts: ["He did not gather wealth", "Told by Amr ibn al-Harith"],
+      source: hadith("bukhari", "2739", "Amr ibn al-Harith", "Sahih", "When the Prophet ﷺ died he left no dirham or dinar, only his white mule, his weapons and a piece of land he had given in charity.", "except his white mule, his arms and a piece of land which he had given in charity"),
+      difficulty: 1,
+      questions: [
+        { q: "How much money did he ﷺ leave?", a: "None", wrong: ["A chest of gold", "A thousand dinars", "Many houses"], why: "He did not leave any Dirham or Dinar." },
+        { q: "What colour was his mule?", a: "White", wrong: ["Black", "Brown", "Grey"], why: "Except his white mule." },
+        { q: "His land was given in charity.", tf: true, why: "Sahih al-Bukhari 2739." }
+      ]
+    },
+    {
+      slug: "he-left-us-the-quran",
+      title: "He left us the Quran",
+      line: "Asked about his will: he ﷺ left us the Book of Allah.",
+      facts: ["The Quran is his legacy", "Told by Ibn Abi Awfa"],
+      source: hadith("bukhari", "2740", "Abdullah ibn Abi Awfa", "Sahih", "Talhah asked Ibn Abi Awfa whether the Prophet ﷺ made a will. He said the Prophet ﷺ left as his will the Book of Allah.", "The Prophet (ﷺ) bequeathed Allah"),
+      difficulty: 1,
+      questions: [
+        { q: "What did he ﷺ leave as his will?", a: "The Book of Allah", wrong: ["A palace", "A sword", "A letter of rulers"], why: "The Prophet ﷺ bequeathed Allah's Book." },
+        { q: "Who was asked the question?", a: "Ibn Abi Awfa", wrong: ["Abu Bakr", "Umar", "Zayd"], why: "I asked Abdullah bin Abu Aufa." },
+        { q: "Holding on to the Quran keeps his will.", tf: true, why: "Sahih al-Bukhari 2740." }
+      ]
+    },
+    {
+      slug: "one-third-is-a-lot",
+      title: "One third is a lot",
+      line: "Will away one third at most, and even that is a lot.",
+      facts: ["The rest goes to heirs", "Told by Ibn Abbas"],
+      source: hadith("bukhari", "2743", "Abdullah ibn Abbas", "Sahih", "Ibn Abbas advised people to will less than a third, because the Prophet ﷺ said: one third, and one third is a lot.", "One-third, yet even one third is too much"),
+      difficulty: 2,
+      questions: [
+        { q: "What is the most a will can give away?", a: "One third", wrong: ["One half", "All of it", "Two thirds"], why: "One-third, yet even one third is too much." },
+        { q: "What did Ibn Abbas advise?", a: "Giving less than a third", wrong: ["Giving all", "Giving nothing", "Giving half"], why: "I recommend that people reduce what they bequeath to the fourth." },
+        { q: "A person may will all his wealth away from his heirs.", tf: false, why: "Up to one third only. Sahih al-Bukhari 2743." }
+      ]
+    },
+    {
+      slug: "a-garden-for-his-mother",
+      title: "A garden for his mother",
+      line: "Sa'd gave his garden in charity for his mother after she died.",
+      facts: ["Charity reaches those who died", "Told by Ibn Abbas"],
+      source: hadith("bukhari", "2756", "Abdullah ibn Abbas", "Sahih", "Sa'd ibn Ubadah's mother died while he was away. He asked if charity for her would help. The Prophet ﷺ said yes, so Sa'd gave his garden al-Makhraf in charity for her.", "I gave my garden called Al Makhraf in charity on her behalf"),
+      difficulty: 1,
+      questions: [
+        { q: "What did Sa'd give for his mother?", a: "His garden", wrong: ["His horse", "His house", "His sword"], why: "I gave my garden called Al Makhraf in charity on her behalf." },
+        { q: "Does charity help a parent who died?", a: "Yes", wrong: ["No", "Only for kings", "Only in Ramadan"], why: "Will it benefit her? The Prophet ﷺ said: Yes." },
+        { q: "We can still do good for our parents after they die.", tf: true, why: "Sahih al-Bukhari 2756." }
+      ]
+    },
+    {
+      slug: "charity-for-a-father",
+      title: "Charity for a father",
+      line: "A father died without a will. Charity for him helps him.",
+      facts: ["It can lift his burden", "Told by Abu Hurairah"],
+      source: hadith("muslim", "1630", "Abu Hurairah", "Sahih", "A man said: my father died and left property without a will. Will it remove his sins if I give charity for him? The Prophet ﷺ said: yes.", "He (the Holy Prophet) said: Yes"),
+      difficulty: 1,
+      questions: [
+        { q: "What had the father not done?", a: "Made a will", wrong: ["Prayed", "Fasted", "Married"], why: "My father died and left behind property without making any will." },
+        { q: "What did the son ask about giving?", a: "Charity for his father", wrong: ["A gift to a king", "Money to himself", "A new house"], why: "Would he be relieved if I give sadaqa on his behalf?" },
+        { q: "Charity for a parent who died can help them.", tf: true, why: "Sahih Muslim 1630." }
+      ]
+    },
+    {
+      slug: "the-price-from-allah",
+      title: "The price is from Allah",
+      line: "For the masjid land they said: our price is from Allah.",
+      facts: ["The land of the Masjid of the Prophet ﷺ", "Told by Anas"],
+      source: hadith("bukhari", "2774", "Anas ibn Malik", "Sahih", "When the Prophet ﷺ came to Madinah he asked Banu an-Najjar the price of their garden for the masjid. They said: by Allah, we ask its price only from Allah.", "we will not ask its price except from Allah"),
+      difficulty: 1,
+      questions: [
+        { q: "What was the land for?", a: "Building the masjid", wrong: ["A market", "A palace", "A farm"], why: "When he came to Medina, he ordered that a mosque be built." },
+        { q: "Who would they ask the price from?", a: "Allah", wrong: ["The Prophet ﷺ", "The rich", "Nobody ever"], why: "We will not ask its price except from Allah." },
+        { q: "Giving land for a masjid is a lasting charity.", tf: true, why: "Sahih al-Bukhari 2774." }
+      ]
+    },
+    {
+      slug: "no-money-for-heirs",
+      title: "No money for his heirs",
+      line: "His heirs get no money. What he left is charity.",
+      facts: ["After his wives and workers are cared for", "Told by Abu Hurairah"],
+      source: hadith("bukhari", "2776", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: my heirs will not inherit a dinar or dirham. What I leave, after support for my wives and wages of my workers, is charity.", "for whatever I leave (excluding the adequate support of my wives and the wages of my employees) is given in charity"),
+      difficulty: 2,
+      questions: [
+        { q: "What happens to what he ﷺ left?", a: "It is charity", wrong: ["It goes to his heirs", "It is buried", "It goes to kings"], why: "Whatever I leave is given in charity." },
+        { q: "Who is cared for first?", a: "His wives and workers", wrong: ["Traders", "Soldiers", "Visitors"], why: "Excluding the adequate support of my wives and the wages of my employees." },
+        { q: "The heirs of the Prophet ﷺ inherit his money.", tf: false, why: "My heirs will not inherit a Dinar or a Dirham. Sahih al-Bukhari 2776." }
+      ]
+    },
+    {
+      slug: "the-keeper-of-a-waqf",
+      title: "The keeper of a waqf",
+      line: "Umar's waqf keeper could eat from it but not store for himself.",
+      facts: ["A waqf is a lasting endowment", "Told by Ibn Umar"],
+      source: hadith("bukhari", "2777", "Abdullah ibn Umar", "Sahih", "When Umar set up an endowment, he said its keeper may eat from it and feed a friend, as long as he stores nothing for himself.", "on the condition that he would not store anything for himself from it"),
+      difficulty: 2,
+      questions: [
+        { q: "What could the keeper do?", a: "Eat from it and feed a friend", wrong: ["Sell it", "Keep all of it", "Close it"], why: "Its administrator could eat from it and also feed his friend." },
+        { q: "What could he not do?", a: "Store things for himself", wrong: ["Eat from it", "Work in it", "Visit it"], why: "On the condition that he would not store anything for himself." },
+        { q: "A waqf keeps giving after the giver is gone.", tf: true, why: "Sahih al-Bukhari 2777." }
+      ]
+    },
+    {
+      slug: "jabirs-fathers-debts",
+      title: "Jabir's father's debts",
+      line: "Jabir's father died in debt. He ﷺ helped pay it with dates.",
+      facts: ["Debts are paid before shares", "Told by Jabir"],
+      source: hadith("bukhari", "2781", "Jabir ibn Abdullah", "Sahih", "Jabir's father died at Uhud leaving six daughters and debts. The Prophet ﷺ came at harvest, walked around the biggest heap of dates three times and sat on it, and the debts were paid.", "he went round the biggest heap for three times and sat over it"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Jabir's father leave?", a: "Six daughters and debts", wrong: ["A big palace", "Many camels", "No family"], why: "He left six daughters and some debts to be paid." },
+        { q: "What did he ﷺ do at the dates?", a: "Went round the biggest heap", wrong: ["Sold them", "Left them", "Ate them all"], why: "He went round the biggest heap for three times and sat over it." },
+        { q: "Paying a dead person's debts matters in Islam.", tf: true, why: "Sahih al-Bukhari 2781." }
+      ]
+    }
+  ]
+};
+
 /** The Bukhari and Muslim topic. Its units hold only deep lessons, added by addDeepUnits. */
 export const SAHIHAYN_SECTION: LearningSection = {
   id: "sahihayn",
@@ -3008,4 +3318,4 @@ export const SAHIHAYN_SECTION: LearningSection = {
   nodes: []
 };
 
-export const HADITH_BOOK_UNITS: readonly DeepUnit[] = [FAITH, PURITY, ADAB, FOOD, DUA, RIQAQ, DRESS, TRADE, MEDICINE, COMPANIONS, PRAYER, FASTING, ZAKAT, MARRIAGE, ADHAN, FUNERALS, HAJJ];
+export const HADITH_BOOK_UNITS: readonly DeepUnit[] = [FAITH, PURITY, ADAB, FOOD, DUA, RIQAQ, DRESS, TRADE, MEDICINE, COMPANIONS, PRAYER, FASTING, ZAKAT, MARRIAGE, ADHAN, FUNERALS, HAJJ, OATHS, WILLS];
