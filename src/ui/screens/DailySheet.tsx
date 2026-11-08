@@ -10,6 +10,7 @@ import { colors, darken, fonts, lighten, radii, space, text } from "../theme";
 import { useBackToClose } from "./sheetParts";
 import { getActiveLanguage, t } from "../../i18n";
 import { getDailyCard } from "../../data/dailyCard";
+import { ADHKAR_TITLES, adhkarTimeFor } from "../../data/adhkar";
 import { playAyah, stopAyah } from "../../services/ayahPlayer";
 import { quranAudioUrl } from "../../services/quranAudio";
 import { openWebPage } from "../../services/network";
@@ -22,6 +23,8 @@ export type DailySheetProps = {
   date?: Date;
   /** Opened by itself as the app opened: recite the ayah once, straight away. */
   autoPlay?: boolean;
+  /** Opens the adhkar for this time of day; without it the button is not shown. */
+  onOpenAdhkar?: () => void;
 };
 
 const AYAH_COLOR = colors.green;
@@ -52,7 +55,7 @@ function Line({ value, style, testID }: { value: string; style: StyleProp<TextSt
 }
 
 /** Today's ayah and hadith, from the top bar's book button. Same pair for everyone on that date. */
-export function DailySheet({ visible, onClose, date, autoPlay = false }: DailySheetProps) {
+export function DailySheet({ visible, onClose, date, autoPlay = false, onOpenAdhkar }: DailySheetProps) {
   const { height } = useWindowDimensions();
   const { ayah, hadith } = getDailyCard(getActiveLanguage(), date);
   const audio = quranAudioUrl(`Quran ${ayah.ref}`);
@@ -100,6 +103,20 @@ export function DailySheet({ visible, onClose, date, autoPlay = false }: DailySh
           </View>
         </PopIn>
       </ScrollView>
+      {onOpenAdhkar ? (
+        <GameButton
+          label={t(ADHKAR_TITLES[adhkarTimeFor(date ?? new Date())])}
+          icon="dua"
+          variant="secondary"
+          fullWidth
+          onPress={() => {
+            close();
+            onOpenAdhkar();
+          }}
+          style={styles.button}
+          testID="daily-adhkar"
+        />
+      ) : null}
       <GameButton label={t("Got it")} fullWidth onPress={close} style={styles.button} testID="daily-close" />
     </Sheet>
   );

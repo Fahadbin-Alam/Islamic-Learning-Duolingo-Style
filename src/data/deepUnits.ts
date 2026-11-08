@@ -3,6 +3,7 @@ import { hadith, quran, saadi, type DeepUnit, type Question } from "./deepKit";
 import { EID_SECTION, LIFE_UNITS } from "./lifeUnits";
 import { WOMEN_UNITS } from "./womenUnits";
 import { AKHIRAH_SECTION, AKHIRAH_UNITS } from "./akhirahUnits";
+import { DUAS_SECTION, DUA_UNITS } from "./duaUnits";
 import { BAQARAH_UNITS } from "./baqarahUnits";
 import { SURAH_DEPTH_UNITS } from "./surahDepth";
 import { SEERAH_UNITS } from "./seerahUnits";
@@ -3071,7 +3072,7 @@ const ASR: DeepUnit = {
 
 const SURAH_DEEP_UNITS: readonly DeepUnit[] = [NAS, FALAQ, IKHLAS, ASR, ...BAQARAH_UNITS, ...SURAH_DEPTH_UNITS, ...INTRO_UNITS];
 
-export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, ...SAHABA_UNITS, MUHAJIRUN, FATIHAH, MULK, NAS, FALAQ, IKHLAS, ASR, SPEECH, PARENTS, NEIGHBORS, ANGER, ...MANNERS_UNITS, SPOUSES, CHILDREN, ...MARRIAGE_UNITS, ...WOMEN_UNITS, ...LIFE_UNITS, ...EID_UNITS, ...SCHOLAR_UNITS, ...AKHIRAH_UNITS, ...PROPHET_UNITS, ...SEERAH_UNITS, ...AQIDAH_UNITS, ...FASTING_UNITS, ...ZAKAT_UNITS, ...HADITH_UNITS, ...KIDS_HADITH_UNITS, ...HADITH_BOOK_UNITS, ...PRAYER_UNITS, ...HAJJ_UNITS, ...BAQARAH_UNITS, ...SURAH_DEPTH_UNITS];
+export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, ...SAHABA_UNITS, MUHAJIRUN, FATIHAH, MULK, NAS, FALAQ, IKHLAS, ASR, SPEECH, PARENTS, NEIGHBORS, ANGER, ...MANNERS_UNITS, SPOUSES, CHILDREN, ...MARRIAGE_UNITS, ...WOMEN_UNITS, ...LIFE_UNITS, ...EID_UNITS, ...SCHOLAR_UNITS, ...AKHIRAH_UNITS, ...DUA_UNITS, ...PROPHET_UNITS, ...SEERAH_UNITS, ...AQIDAH_UNITS, ...FASTING_UNITS, ...ZAKAT_UNITS, ...HADITH_UNITS, ...KIDS_HADITH_UNITS, ...HADITH_BOOK_UNITS, ...PRAYER_UNITS, ...HAJJ_UNITS, ...BAQARAH_UNITS, ...SURAH_DEPTH_UNITS];
 
 // The hand-written answer comes first, so the four choices turn by a stable hash of the question id.
 function turn<T>(id: string, items: T[]): T[] {
@@ -3207,8 +3208,8 @@ export function addSurahDeepUnits(content: { course: LearningCourse; lessonsById
 
 function addUnits(content: { course: LearningCourse; lessonsById: Record<string, Lesson> }, deepUnits: readonly DeepUnit[]): { course: LearningCourse; lessonsById: Record<string, Lesson> } {
   const lessonsById = { ...content.lessonsById };
-  // A topic made only of deep units (Scholars, Eid, Day of Judgment) starts as an empty section.
-  const all = [SCHOLARS_SECTION, EID_SECTION, AKHIRAH_SECTION, SAHIHAYN_SECTION].reduce(
+  // A topic made only of deep units (Scholars, Eid, Day of Judgment, Bukhari and Muslim, Duas) starts as an empty section.
+  const all = [SCHOLARS_SECTION, EID_SECTION, AKHIRAH_SECTION, SAHIHAYN_SECTION, DUAS_SECTION].reduce(
     (sections, empty) => (sections.some((section) => section.topicId === empty.topicId) ? sections : [...sections, empty]),
     content.course.sections
   );

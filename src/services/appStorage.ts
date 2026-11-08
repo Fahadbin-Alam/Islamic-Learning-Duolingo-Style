@@ -28,6 +28,8 @@ const STORAGE_KEYS = [
   "sira-path-pending-sync",
   "sira-path-learner-background",
   "sira-path-path-world",
+  "sira-path-adhkar-done",
+  "sira-path-adhkar-reminders",
   "sira-path-kids-mode"
 ] as const;
 
