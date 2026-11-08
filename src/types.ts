@@ -476,6 +476,11 @@ export interface Lesson {
   learnLine?: string;
   /** Up to 3 short facts the learn card shows as chips, e.g. "Father: Umar". Questions only ask what the card shows. */
   learnFacts?: string[];
+  /**
+   * The story and context behind the lesson, in a few easy sentences: shown first in the "What you learn" box, above
+   * the points, with the source at the bottom (e.g. why Al-Baqarah is called "The Cow").
+   */
+  learnContext?: string;
   /** A short narration or ayah the learn card shows in full, with where it is from. */
   quote?: { text: string; reference?: string };
   /** The one source that says what the learn card says; the card's source chip shows only this, labelled with its short reference. */

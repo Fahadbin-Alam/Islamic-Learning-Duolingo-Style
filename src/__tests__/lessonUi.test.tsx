@@ -172,7 +172,9 @@ describe("lesson ui (round 2)", () => {
     // Each fact is a sentence: a capital letter and a full stop.
     expect(lines[0]).toHaveTextContent("1They replaced two old days of play.");
     expect(lines[1]).toHaveTextContent("2In Madinah.");
-    expect(screen.getByTestId("learn-facts")).not.toHaveTextContent(/Told by/);
+    // Who told it is not a point of the lesson: it goes with the source, at the bottom of the same box.
+    lines.forEach((line) => expect(line).not.toHaveTextContent(/Told by/));
+    expect(screen.getByTestId("learn-facts")).toContainElement(screen.getByTestId("learn-card-source"));
     expect(screen.getByText("Source")).toBeTruthy();
     expect(screen.getByTestId("learn-source")).toHaveTextContent("Test Collection 1134");
     expect(screen.getByTestId("learn-credits")).toHaveTextContent("Told by Anas");

@@ -41,14 +41,13 @@ export function SurahCover({ surah, meaning, arabicName, short }: { surah: numbe
 }
 
 /** "Inside this surah": the parts it is taught in, one per row, so the learner sees what is coming. */
-export function SurahParts({ parts, accent, short }: { parts: string[]; accent: string; short?: boolean }) {
+export function SurahParts({ parts, accent, short, inline }: { parts: string[]; accent: string; short?: boolean; inline?: boolean }) {
   if (!parts.length) return null;
   const palette = topicPalette(accent);
   const shown = parts.slice(0, SHOWN_PARTS);
   const more = parts.length - shown.length;
-  return (
-    <PopIn delay={180} from="up" style={[styles.parts, short ? styles.partsShort : null, { borderColor: palette.soft }]}>
-      <View testID="surah-parts">
+  const body = (
+      <View testID="surah-parts" style={inline ? [styles.partsInline, { borderTopColor: palette.soft }] : undefined}>
         <Text style={[styles.partsHead, { color: palette.ink }]} accessibilityRole="header">
           {t("Inside this surah")}
         </Text>
@@ -60,6 +59,12 @@ export function SurahParts({ parts, accent, short }: { parts: string[]; accent: 
         ))}
         {more > 0 ? <Text style={styles.partMore}>{t("And {count} more parts", { count: more })}</Text> : null}
       </View>
+  );
+  // Inside the lesson's "What you learn" box it is a section of the box, not a box of its own.
+  if (inline) return body;
+  return (
+    <PopIn delay={180} from="up" style={[styles.parts, short ? styles.partsShort : null, { borderColor: palette.soft }]}>
+      {body}
     </PopIn>
   );
 }
@@ -113,6 +118,11 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     paddingHorizontal: 12,
     paddingVertical: 3
+  },
+  partsInline: {
+    marginTop: space.md,
+    paddingTop: space.sm,
+    borderTopWidth: 2
   },
   parts: {
     alignSelf: "stretch",

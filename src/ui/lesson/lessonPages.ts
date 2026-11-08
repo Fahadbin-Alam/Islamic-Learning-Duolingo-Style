@@ -137,8 +137,9 @@ export function lessonPages(lesson: Lesson): LessonPage[] {
   }
   const facts = (lesson.learnFacts ?? []).filter((fact) => fact.trim());
   const summary = lessonSummary(lesson);
-  if (facts.length || summary) {
-    pages.push({ page: "facts", text: [...facts, summary].filter(Boolean).join(" ") });
+  const context = lesson.learnContext?.trim();
+  if (facts.length || summary || context) {
+    pages.push({ page: "facts", text: [context, ...facts, summary].filter(Boolean).join(" ") });
   }
   const deeper = lesson.learnDeeper;
   if (deeper?.meaning.some((line) => line.trim())) {

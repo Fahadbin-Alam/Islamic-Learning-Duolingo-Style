@@ -82,6 +82,11 @@ export type LearnCardProps = {
    * lesson's parts; "teach" is one Good to know fact; "quiz" says the circle's quiz starts. Unset: everything at once.
    */
   page?: LearnPageKind;
+  /**
+   * The story and context behind the lesson (lesson.learnContext), in a few easy sentences: the first thing in the
+   * "What you learn" box on the "facts" page.
+   */
+  context?: string;
   /** What the source says, in one sentence: shown on the "facts" page under the points. */
   summary?: string;
   /** The same summary in English, to tell which facts it already says (the rules compare English words). */
@@ -180,6 +185,7 @@ export function LearnCard({
   deeper,
   surah,
   page,
+  context,
   summary,
   englishSummary,
   marks = [],
@@ -236,6 +242,12 @@ export function LearnCard({
     language: getActiveLanguage()
   });
   const credits = notes.credits.join(" · ");
+  const contextText = page === "facts" || all ? context?.trim() : undefined;
+  const contextParagraphs = contextText ? contextText.split(/\n+/).map((each) => each.trim()).filter(Boolean) : [];
+  // One box for the whole lesson: the story, what the source says, the points, the surah's parts, and at the bottom
+  // the source itself (Fahad, 2026-11-08: not three boxes).
+  const factsCard = (notes.points.length > 0 && at("facts")) || Boolean(sourceSays) || contextParagraphs.length > 0;
+  const sourceInCard = factsCard && (all || Boolean(sourceHere));
   const quoteText = quote?.text.trim();
   const quoteReference = quote?.reference?.trim();
   // The quote's reference opens the source when both name the same narration, so it is not said twice.
@@ -366,10 +378,10 @@ export function LearnCard({
           {picture && at("start") ? <LessonPhoto picture={picture} short={short} delay={soon(380)} /> : null}
 
           {/* On its own page, each part of the lesson is said by the teacher, who stays on the page talking. */}
-          {page === "facts" && (notes.points.length > 0 || summary?.trim()) ? (
+          {page === "facts" && (notes.points.length > 0 || summary?.trim() || contextParagraphs.length > 0) ? (
             <TeacherIntro
               text={t("Here is what you learn.")}
-              saying={[...notes.points.map((point) => point.text), summary ?? ""].join(" ")}
+              saying={[summary ?? "", ...contextParagraphs, ...notes.points.map((point) => point.text)].join(" ")}
               teacher={teacher}
               mascotVariant={mascotVariant}
               accent={accent}
@@ -389,8 +401,8 @@ export function LearnCard({
 
           {pagePicture && !all && page !== "start" ? <LessonPhoto picture={pagePicture} short={short} delay={soon(240)} /> : null}
 
-          {(notes.points.length > 0 && at("facts")) || sourceSays ? (
-            // One card: the facts read as a short lesson, each its own numbered line, then what the source says.
+          {factsCard ? (
+            // One card: what the source says, the story behind it, the points as numbered lines, then the source.
             <PopIn delay={soon(420)} from="up" style={[styles.notesWrap, short ? styles.notesWrapShort : null]}>
               <View style={[styles.notes, { borderColor: palette.soft }]} testID="learn-facts">
                 <View style={styles.notesHead}>
@@ -399,6 +411,17 @@ export function LearnCard({
                     {t("What you learn")}
                   </Text>
                 </View>
+                {sourceSays ? (
+                  <Text style={[styles.summaryText, styles.summaryPlain, short ? styles.noteTextShort : null]} testID="learn-summary">
+                    <Marked text={noBreakHyphens(sourceSays)} marks={marks} />
+                  </Text>
+                ) : null}
+                {/* Then the story behind it, in easy words. */}
+                {contextParagraphs.map((paragraph, index) => (
+                  <Text key={`context-${index}`} style={[styles.contextText, short ? styles.noteTextShort : null]} testID="learn-context">
+                    <Marked text={noBreakHyphens(paragraph)} marks={marks} />
+                  </Text>
+                ))}
                 {notes.points.map((point, index) => (
                   <View key={`${index}-${point.key ?? ""}-${point.text}`} style={styles.noteRow} testID="learn-fact">
                     <View style={[styles.noteNumber, { backgroundColor: palette.main }]}>
@@ -410,16 +433,36 @@ export function LearnCard({
                     </Text>
                   </View>
                 ))}
-                {sourceSays ? (
-                  <View
-                    // With no points above it, the source's words are the lesson: no box inside the box.
-                    style={notes.points.length ? [styles.summary, { backgroundColor: palette.light }] : styles.summaryOnly}
-                    testID="learn-summary"
-                  >
-                    <Text style={[styles.summaryLabel, { color: palette.ink }]}>{t("What the source says")}</Text>
-                    <Text style={[styles.summaryText, short ? styles.noteTextShort : null]}>
-                      <Marked text={noBreakHyphens(sourceSays)} marks={marks} />
-                    </Text>
+                {sourceInCard && surah?.parts?.length ? <SurahParts parts={surah.parts} accent={accent} short={short} inline /> : null}
+                {sourceInCard && ((source && !linkedReference) || (credits && !linkedReference)) ? (
+                  // Where it is from, at the bottom of the same box: the source's link, then who told it and its grade.
+                  <View style={[styles.cardSource, { borderTopColor: palette.soft }]} testID="learn-card-source">
+                    <View style={styles.cardSourceRow}>
+                      <Text style={styles.cardSourceLabel}>{t("Source")}</Text>
+                      {source && !linkedReference ? (
+                        <Tappable
+                          onPress={() => openSource(source.url)}
+                          style={styles.sourceChip}
+                          accessibilityLabel={t("Open source {name}", { name: source.label })}
+                          accessibilityRole="link"
+                          testID="learn-source"
+                        >
+                          <Icon name="book" size={18} />
+                          <Text style={styles.sourceText} numberOfLines={1}>
+                            {withHonorifics(source.label)}
+                          </Text>
+                          <View style={styles.sourceChevron}>
+                            <Icon name="chevronRight" size={16} color={colors.inkSoft} />
+                          </View>
+                        </Tappable>
+                      ) : null}
+                    </View>
+                    {source && !linkedReference && lookFor ? <LookFor words={lookFor} summary={learnSource?.summary} /> : null}
+                    {credits ? (
+                      <Text style={styles.sourceCredits} testID="learn-credits">
+                        {withHonorifics(noBreakHyphens(credits))}
+                      </Text>
+                    ) : null}
                   </View>
                 ) : null}
               </View>
@@ -485,14 +528,14 @@ export function LearnCard({
             </PopIn>
           ) : null}
 
-          {surah?.parts?.length && (all || sourceHere) ? <SurahParts parts={surah.parts} accent={accent} short={short} /> : null}
+          {surah?.parts?.length && (all || sourceHere) && !sourceInCard ? <SurahParts parts={surah.parts} accent={accent} short={short} /> : null}
 
           {deeper && (all || page === "meaning" || page === "story" || page === "takeaway") ? (
             <DeeperLesson deeper={deeper} palette={palette} short={short} onOpen={openSource} part={all ? undefined : (page as "meaning" | "story" | "takeaway")} marks={marks} />
           ) : null}
 
           {/* Where it is from, at the end of the lesson: the source's link, then who told it and its grade. */}
-          {(all || sourceHere) && ((source && !linkedReference) || (credits && !linkedReference)) ? (
+          {(all || sourceHere) && !sourceInCard && ((source && !linkedReference) || (credits && !linkedReference)) ? (
             <PopIn delay={soon(480)} style={[styles.sourceWrap, short ? styles.sourceWrapShort : null]}>
               <Text style={styles.sourceLabel}>{t("Source")}</Text>
               {source && !linkedReference ? (
@@ -1289,6 +1332,35 @@ const styles = StyleSheet.create({
   },
   summaryOnly: {
     marginTop: space.xs
+  },
+  summaryPlain: {
+    marginTop: space.sm
+  },
+  contextText: {
+    marginTop: space.sm,
+    fontFamily: fonts.bodyBold,
+    fontSize: 18,
+    lineHeight: 27,
+    color: colors.ink
+  },
+  cardSource: {
+    marginTop: space.md,
+    paddingTop: space.sm,
+    borderTopWidth: 2
+  },
+  cardSourceRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    flexWrap: "wrap",
+    gap: space.sm
+  },
+  cardSourceLabel: {
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 13,
+    lineHeight: 18,
+    color: colors.inkSoft,
+    textTransform: "uppercase",
+    letterSpacing: 0.6
   },
   summaryLabel: {
     fontFamily: fonts.bodyHeavy,

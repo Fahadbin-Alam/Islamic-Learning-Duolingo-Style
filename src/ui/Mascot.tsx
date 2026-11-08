@@ -632,8 +632,14 @@ const MemoArt = memo(MascotArt);
 const MemoWaveArm = memo(WaveArmArt);
 
 /** The wave swings the raised arm this far either side, about the shoulder. */
-const WAVE_DEG = 11;
-const WAVE_MS = 300;
+const WAVE_DEG = 13;
+/** One swing of the hand. */
+const WAVE_MS = 360;
+/**
+ * Between waves the hand rests, raised, before waving again. A hand that swung non-stop, fast, read as the
+ * picture glitching (Fahad, 2026-11-08: "looks like they're lagging out"); a person waves in short bursts.
+ */
+const WAVE_REST_MS = 1500;
 
 /** The app's mascot: a friendly child (girl in hijab, or boy in a kufi). */
 function MascotFigure({ variant, mood = "happy", size = 120, accent = colors.green, animated = true, style, outfit = "plain", talkMs = 0 }: MascotProps) {
@@ -702,12 +708,20 @@ function MascotFigure({ variant, mood = "happy", size = 120, accent = colors.gre
     if (!moving || !waving) {
       return undefined;
     }
-    const swing = (toValue: number) =>
-      Animated.timing(wave, { toValue, duration: WAVE_MS, easing: Easing.inOut(Easing.sin), useNativeDriver: true });
-    const loop = Animated.loop(Animated.sequence([swing(1), swing(-1)]));
-    // Start from the middle so the first swing is the same length as the rest.
-    const start = Animated.timing(wave, { toValue: -1, duration: WAVE_MS / 2, easing: Easing.out(Easing.sin), useNativeDriver: true });
-    const all = Animated.sequence([start, loop]);
+    const swing = (toValue: number, duration = WAVE_MS) =>
+      Animated.timing(wave, { toValue, duration, easing: Easing.inOut(Easing.sin), useNativeDriver: true });
+    // A burst of waves from the middle and back to it (half swings at each end, so every swing is the same
+    // speed), then the hand rests a moment.
+    const all = Animated.loop(
+      Animated.sequence([
+        swing(-1, WAVE_MS / 2),
+        swing(1),
+        swing(-1),
+        swing(1),
+        swing(0, WAVE_MS / 2),
+        Animated.delay(WAVE_REST_MS)
+      ])
+    );
     all.start();
     return () => all.stop();
   }, [moving, waving, wave]);

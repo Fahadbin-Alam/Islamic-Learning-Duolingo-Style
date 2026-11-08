@@ -3160,6 +3160,7 @@ function buildUnit(unit: DeepUnit) {
       intro: item.line,
       learnLine: item.line,
       ...(item.facts ? { learnFacts: item.facts } : {}),
+      ...(item.context ? { learnContext: item.context } : {}),
       ...(item.quote ? { quote: item.quote } : {}),
       learnSource: item.source,
       lessonType: unit.lessonType,
