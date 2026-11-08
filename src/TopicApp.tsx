@@ -2228,7 +2228,8 @@ export default function TopicApp() {
       // LessonComplete plays the finish, streak and XP sounds itself.
       setLessonCompleteSummary({
         headline: t("You jumped ahead!"),
-        title: state.activeSession.clusterTitle ?? state.activeSession.lesson.title,
+        // The lesson's title in the learner's language (the session keeps the English one).
+        title: getNodeTitle(state.activeSession.lesson.id, state.activeSession.clusterTitle ?? state.activeSession.lesson.title, currentLanguage),
         xp: nextUser.totalXp - user.totalXp,
         streakExtended: didExtendStreak(user, nextUser),
         stars: lessonStars(state.sessionMistakes),
@@ -2276,7 +2277,7 @@ export default function TopicApp() {
 
     // LessonComplete plays the finish, streak and XP sounds itself, one after another.
     setLessonCompleteSummary({
-      title: state.activeSession.lesson.title,
+      title: getNodeTitle(state.activeSession.lesson.id, state.activeSession.lesson.title, currentLanguage),
       // A replayed lesson earns nothing, so show what was actually added.
       xp: nextUser.totalXp - user.totalXp,
       streakExtended: didExtendStreak(user, nextUser),
