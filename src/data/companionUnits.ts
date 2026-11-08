@@ -2029,4 +2029,287 @@ const UTHMAN_MAZUN: DeepUnit = {
   ]
 };
 
-export const COMPANION_UNITS: DeepUnit[] = [JAFAR, ABU_HURAIRAH, KAB, SAD_MUADH, ABDUR_RAHMAN, MUADH, UBAYY, ZAYD_THABIT, ABU_MUSA, JABIR, ABU_TALHAH, HUDHAYFAH, HAMZAH, ZAYD_HARITHAH, USAMAH, AMMAR, ABU_AYYUB, IBN_RAWAHAH, KHABBAB, UTHMAN_MAZUN, ABU_SAID];
+const ABU_DARDA: DeepUnit = {
+  key: "abu-darda",
+  topicId: "sahabah",
+  branchId: "sahabi-abu-ad-darda",
+  branch: { title: "Abu ad-Darda", description: "The Ansari who gathered the Quran and taught it in Damascus." },
+  name: "Abu ad-Darda",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "four-who-gathered",
+      title: "One of four",
+      line: "Abu ad-Darda was one of four who gathered the whole Quran.",
+      facts: ["Anas named four Ansar who had gathered the Quran.", "They were Abu ad-Darda, Mu'adh, Zayd ibn Thabit and Abu Zayd.", "He knew the whole Quran in the Prophet's ﷺ lifetime."],
+      source: hadith("bukhari", "5004", "Anas ibn Malik", "Sahih", "When the Prophet ﷺ died, none had collected the Quran but four: Abu ad-Darda, Mu'adh ibn Jabal, Zayd ibn Thabit and Abu Zayd.", "none had collected the Qur"),
+      difficulty: 2,
+      questions: [
+        { q: "What had Abu ad-Darda gathered?", a: "The whole Quran", wrong: ["Gold coins", "An army", "Camels"], why: "None had collected the Quran but four." },
+        { q: "Who else was among the four?", a: "Mu'adh ibn Jabal", wrong: ["Abu Jahl", "Abu Lahab", "Musaylimah"], why: "Mu'adh, Zayd ibn Thabit and Abu Zayd were the others." },
+        { q: "Anas named four men who had gathered the Quran.", tf: true, why: "None had collected the Quran but four persons." }
+      ]
+    },
+    {
+      slug: "three-things",
+      title: "Three things he never left",
+      line: "Abu ad-Darda kept three things his Friend ﷺ taught him.",
+      facts: ["Fast three days every month.", "Pray the forenoon prayer, called Duha.", "Do not sleep before praying Witr."],
+      source: hadith("muslim", "722", "Abu Darda", "Sahih", "My Friend ﷺ told me to do three things I will never leave as long as I live: three fasts each month, the forenoon prayer, and not to sleep until I pray Witr.", "instructed me in three"),
+      difficulty: 3,
+      questions: [
+        { q: "How many fasts each month did he keep?", a: "Three", wrong: ["One", "Ten", "Twenty"], why: "Three fasts during every month." },
+        { q: "Which prayer did he pray before sleeping?", a: "Witr", wrong: ["Duha", "Eid", "Jumu'ah"], why: "I should not sleep till I have observed the Witr prayer." },
+        { q: "Who did Abu ad-Darda call my Friend?", a: "The Prophet ﷺ", wrong: ["Salman", "Mu'awiyah", "Alqamah"], why: "My Friend ﷺ instructed me in three acts." }
+      ]
+    },
+    {
+      slug: "heaviest-on-the-scale",
+      title: "Heaviest on the Scale",
+      line: "Abu ad-Darda taught: good character is heaviest on the Scale.",
+      facts: ["On the Day of Judgment, deeds are weighed.", "Nothing weighs more than good character.", "Allah dislikes the rude, foul-mouthed person."],
+      source: hadith("tirmidhi", "2002", "Abu Darda", "Sahih (Al-Albani)", "Nothing is heavier on the believer's Scale on the Day of Judgment than good character, and Allah is angered by the shameless, obscene person.", "Nothing is heavier on the believer"),
+      difficulty: 2,
+      questions: [
+        { q: "What is heaviest on the believer's Scale?", a: "Good character", wrong: ["Gold", "A big house", "Fame"], why: "Nothing is heavier than good character." },
+        { q: "Whom does Allah dislike?", a: "The rude, foul-mouthed person", wrong: ["The kind person", "The patient person", "The shy person"], why: "Allah is angered by the shameless obscene person." },
+        { q: "Good manners count on the Day of Judgment.", tf: true, why: "They are weighed on the Scale." }
+      ]
+    },
+    {
+      slug: "path-to-knowledge",
+      title: "A journey for one hadith",
+      line: "A man came to Damascus just to hear one hadith from him.",
+      facts: ["Abu ad-Darda lived in Damascus.", "A man came all the way from Madinah only for a hadith.", "Seeking knowledge makes the road to Paradise easy."],
+      source: hadith("tirmidhi", "2682", "Abu Darda", "Sahih (Al-Albani)", "A man came from Madinah to Abu ad-Darda in Damascus only to hear a hadith. He said: I heard the Prophet ﷺ say: whoever takes a path seeking knowledge, Allah makes a path to Paradise easy for him, and the angels lower their wings for the seeker of knowledge.", "Allah makes a path to Paradise easy for him"),
+      difficulty: 3,
+      questions: [
+        { q: "Why did the man travel to Damascus?", a: "To hear one hadith", wrong: ["To trade", "To fight", "To visit family"], why: "I did not come except seeking this hadith." },
+        { q: "What does Allah make easy for a seeker of knowledge?", a: "A path to Paradise", wrong: ["A path to riches", "A long life", "Many camels"], why: "Allah makes a path to Paradise easy for him." },
+        { q: "Angels lower their wings for the seeker of knowledge.", tf: true, why: "The angels lower their wings in approval." }
+      ]
+    },
+    {
+      slug: "no-cursing",
+      title: "Cursers cannot intercede",
+      line: "Abu ad-Darda warned: people who curse will not intercede.",
+      facts: ["Some people curse others easily.", "On Judgment Day they will not be witnesses.", "They will not intercede for anyone either."],
+      source: hadith("muslim", "2598c", "Abu Darda", "Sahih", "I heard the Prophet ﷺ say: those who curse will be neither witnesses nor intercessors on the Day of Resurrection.", "neither be witness nor intercessor"),
+      difficulty: 3,
+      questions: [
+        { q: "What will a curser not be on Judgment Day?", a: "A witness or intercessor", wrong: ["A guest", "A traveler", "A king"], why: "Neither witness nor intercessor." },
+        { q: "What should a Muslim do with his tongue?", a: "Keep it from cursing", wrong: ["Curse when angry", "Shout at people", "Mock others"], why: "Cursing costs a great honor on that Day." },
+        { q: "Cursing people is a small, harmless thing.", tf: false, why: "Cursers lose the honor of interceding." }
+      ]
+    },
+    {
+      slug: "prayer-remains",
+      title: "Only the prayer is left",
+      line: "In old age, Abu ad-Darda grieved that good habits were fading.",
+      facts: ["He came home angry near the end of his life.", "People had left many good habits of the early days.", "Only the prayer in congregation still remained."],
+      source: hadith("bukhari", "650", "Umm ad-Darda", "Sahih", "Abu ad-Darda came in angry and said: by Allah, I do not see the followers of Muhammad ﷺ keep the good they used to do, except praying in congregation.", "except the offering of congregational prayer"),
+      difficulty: 4,
+      questions: [
+        { q: "Why was Abu ad-Darda angry?", a: "People left their good habits", wrong: ["He lost money", "He was hungry", "Someone took his camel"], why: "I do not find them doing the good things they used to do." },
+        { q: "Which good deed did people still keep?", a: "Praying in congregation", wrong: ["Fasting every day", "Night travel", "Long trade trips"], why: "Except the offering of congregational prayer." },
+        { q: "Who told this story about Abu ad-Darda?", a: "His wife Umm ad-Darda", wrong: ["Abu Jahl", "Caesar", "Alqamah"], why: "Salim heard Umm ad-Darda saying it." }
+      ]
+    }
+  ]
+};
+
+const UBADAH: DeepUnit = {
+  key: "ubadah",
+  topicId: "sahabah",
+  branchId: "sahabi-ubadah-ibn-as-samit",
+  branch: { title: "Ubadah ibn as-Samit", description: "A leader of the Ansar at Aqabah who spoke the truth without fear." },
+  name: "Ubadah ibn as-Samit",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "aqabah-and-badr",
+      title: "From Aqabah to Badr",
+      line: "Ubadah pledged at Aqabah and later fought at Badr.",
+      facts: ["He was one of the Ansar at the night of Aqabah.", "He pledged to worship Allah alone and avoid sins.", "He then fought at Badr with the Prophet ﷺ."],
+      source: hadith("bukhari", "3892", "Ubadah ibn as-Samit", "Sahih", "Ubadah, who fought at Badr and was at the Aqabah pledge, said: the Prophet ﷺ said: pledge to me not to worship anything besides Allah, not to steal and not to disobey me in good. So I gave him the pledge.", "had taken part in the battle of Badr"),
+      difficulty: 2,
+      questions: [
+        { q: "Where did Ubadah give his first pledge?", a: "At Aqabah", wrong: ["At Tabuk", "In Taif", "In Sham"], why: "He was among the companions on the night of Aqabah." },
+        { q: "Which battle did Ubadah fight in?", a: "Badr", wrong: ["Qadisiyyah", "Yarmuk only", "None"], why: "He had taken part in the battle of Badr." },
+        { q: "The pledge said: worship nothing besides Allah.", tf: true, why: "You will not worship anything besides Allah." }
+      ]
+    },
+    {
+      slug: "speak-the-truth",
+      title: "No fear of blame",
+      line: "Ubadah pledged to say the truth and fear no one's blame.",
+      facts: ["They pledged to listen and obey, active or tired.", "They promised to say the truth wherever they were.", "For Allah, they would not fear anyone's blame."],
+      source: hadith("bukhari", "7199", "Ubadah ibn as-Samit", "Sahih", "We pledged to listen and obey when active and when tired, to say the truth wherever we were, and not to fear the blame of anyone for the sake of Allah.", "would not be afraid of the blame of the blamers"),
+      difficulty: 3,
+      questions: [
+        { q: "What did they promise to say wherever they were?", a: "The truth", wrong: ["Only nice things", "Nothing at all", "Poems"], why: "We would say the truth wherever we might be." },
+        { q: "What would they not fear for Allah's sake?", a: "People's blame", wrong: ["Allah", "The Day of Judgment", "Sins"], why: "We would not be afraid of the blame of the blamers." },
+        { q: "They pledged to obey only when they felt active.", tf: false, why: "Both when active and when tired." }
+      ]
+    },
+    {
+      slug: "quarrel-and-qadr",
+      title: "A quarrel and a lost date",
+      line: "Ubadah told how a quarrel hid the date of Laylat al-Qadr.",
+      facts: ["The Prophet ﷺ came out to tell the night's date.", "Two Muslims were quarreling, so the knowledge was taken.", "He said: that might be better; seek it on the 29th, 27th and 25th."],
+      source: hadith("bukhari", "2023", "Ubadah ibn as-Samit", "Sahih", "The Prophet ﷺ came to tell us the date of the Night of Qadr, but two Muslims were quarreling, so it was taken away. That might be for your own good, so seek it on the 29th, 27th and 25th.", "that might be for your own good"),
+      difficulty: 3,
+      questions: [
+        { q: "Why was the date of Laylat al-Qadr taken away?", a: "Two Muslims were quarreling", wrong: ["Rain fell", "The Quran ended", "A war began"], why: "Such-and-such persons were quarreling." },
+        { q: "Which nights did he say to search?", a: "The 29th, 27th and 25th", wrong: ["The 1st and 2nd", "Only the 15th", "Any night of Shawwal"], why: "Search for it on the 29th, 27th and 25th." },
+        { q: "Quarreling can take away blessings.", tf: true, why: "The news was taken away because of the quarrel." }
+      ]
+    },
+    {
+      slug: "ask-for-firdaus",
+      title: "Ask for Al-Firdaus",
+      line: "Ubadah narrated: Paradise has a hundred levels.",
+      facts: ["Between two levels is like heaven and earth.", "Al-Firdaus is the highest level.", "The four rivers of Paradise flow from it."],
+      source: hadith("tirmidhi", "2531", "Ubadah ibn as-Samit", "Sahih (Al-Albani)", "In Paradise there are a hundred levels; between every two is like between heaven and earth. Al-Firdaus is the highest, the four rivers flow from it, so when you ask Allah, ask Him for Al-Firdaus.", "ask Him for Al-Firdaus"),
+      difficulty: 2,
+      questions: [
+        { q: "How many levels does Paradise have?", a: "A hundred", wrong: ["Seven", "Ten", "Three"], why: "In Paradise there are a hundred levels." },
+        { q: "What is the highest level called?", a: "Al-Firdaus", wrong: ["Al-Kawthar", "As-Sirat", "Al-Bayt"], why: "Al-Firdaus is its highest level." },
+        { q: "What should we ask Allah for?", a: "Al-Firdaus", wrong: ["The lowest level", "Only this world", "Nothing"], why: "When you ask Allah, ask Him for Al-Firdaus." }
+      ]
+    },
+    {
+      slug: "good-dreams",
+      title: "A believer's good dream",
+      line: "Ubadah narrated that a believer's good dream has great worth.",
+      facts: ["Good dreams can come to a believer.", "They are one part of forty-six parts of prophethood.", "Prophethood ended, but good dreams remain."],
+      source: hadith("bukhari", "6987", "Ubadah ibn as-Samit", "Sahih", "The Prophet ﷺ said: the good dream of a believer is one of forty-six parts of prophethood.", "forty-six parts of prophetism"),
+      difficulty: 3,
+      questions: [
+        { q: "A good dream is one of how many parts?", a: "Forty-six", wrong: ["Ten", "Seven", "A hundred"], why: "A part of the forty-six parts of prophetism." },
+        { q: "Whose good dreams are meant?", a: "A believer's", wrong: ["Anyone's at all", "Only kings'", "Only children's"], why: "The good dreams of a faithful believer." },
+        { q: "Good dreams are a gift to believers.", tf: true, why: "They are a part of prophethood." }
+      ]
+    },
+    {
+      slug: "by-the-sea",
+      title: "A home by the sea",
+      line: "Ubadah later lived by the sea at Hims with Umm Haram.",
+      facts: ["His wife was Umm Haram bint Milhan.", "She heard about the first sea army of Muslims.", "The Prophet ﷺ told her: you are among them."],
+      source: hadith("bukhari", "2924", "Umm Haram", "Sahih", "Umair visited Ubadah ibn as-Samit at his house on the coast of Hims with his wife Umm Haram. She said she heard the Prophet ﷺ say: Paradise is granted to the first of my ummah who sail to fight in Allah's way. She asked: will I be among them? He said: you are among them.", "the first batch of my followers who will undertake a naval expedition"),
+      difficulty: 4,
+      questions: [
+        { q: "Where did Ubadah live in later years?", a: "By the sea at Hims", wrong: ["In Yemen", "In Makkah", "In Egypt"], why: "His house at the sea-shore of Hims." },
+        { q: "Who was Ubadah's wife?", a: "Umm Haram", wrong: ["Umm Salamah", "Umm Ayman", "Umm al-Ala"], why: "He stayed with his wife Um Haram." },
+        { q: "What was promised to the first sea army?", a: "Paradise", wrong: ["Gold", "Ships", "Land"], why: "Paradise is granted to the first batch." }
+      ]
+    },
+    {
+      slug: "last-hadith",
+      title: "Saved for his last day",
+      line: "Before dying, Ubadah shared a hadith he had kept back.",
+      facts: ["A student cried at his bedside.", "Ubadah said: I kept one hadith to tell you now.", "Whoever testifies to the Shahadah, Allah forbids him the Fire."],
+      source: hadith("muslim", "29", "Ubadah ibn as-Samit", "Sahih", "As-Sunabihi visited Ubadah at his death and wept. Ubadah said: I have told you all I heard that benefits you, except one hadith I tell you today: whoever testifies there is no god but Allah and Muhammad is His Messenger, Allah forbids the Fire for him.", "Allah would prohibit the fire of Hell for him"),
+      difficulty: 4,
+      questions: [
+        { q: "When did Ubadah share that hadith?", a: "At his deathbed", wrong: ["At Badr", "In Ramadan", "At a wedding"], why: "I am going to breathe my last." },
+        { q: "What does Allah forbid for one who says the Shahadah?", a: "The Fire", wrong: ["Food", "Sleep", "Travel"], why: "Allah would prohibit the fire of Hell for him." },
+        { q: "Who wept at Ubadah's bedside?", a: "As-Sunabihi", wrong: ["Abu Jahl", "Umm Haram", "Alqamah"], why: "Sunabihi went to him when he was about to die." }
+      ]
+    }
+  ]
+};
+
+const SAD_UBADAH: DeepUnit = {
+  key: "sad-ubadah",
+  topicId: "sahabah",
+  branchId: "sahabi-sad-ibn-ubadah",
+  branch: { title: "Sa'd ibn Ubadah", description: "The generous chief of the Khazraj, famous for his charity." },
+  name: "Sa'd ibn Ubadah",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "into-the-sea",
+      title: "Into the sea with you",
+      line: "Before Badr, Sa'd said: we would ride into the sea for you.",
+      facts: ["News came that Abu Sufyan's caravan was near.", "The Prophet ﷺ asked his companions for advice.", "Sa'd stood up for the Ansar and promised to follow."],
+      source: hadith("muslim", "1779", "Anas ibn Malik", "Sahih", "When news of Abu Sufyan came, the Prophet ﷺ asked for advice. Sa'd ibn Ubadah stood and said: you want us to speak? By Allah, if you order us to plunge our horses into the sea, we would do so. Then they set out and camped at Badr.", "plunge our horses into the sea, we would do so"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Sa'd say they would ride into?", a: "The sea", wrong: ["A fire", "A cave", "A desert storm"], why: "If you order us to plunge our horses into the sea, we would." },
+        { q: "Where did the Muslims camp after that?", a: "At Badr", wrong: ["At Tabuk", "At Hunayn", "At Khaybar"], why: "They set out and encamped at Badr." },
+        { q: "The Prophet ﷺ asked his companions for advice.", tf: true, why: "He held consultations with his Companions." }
+      ]
+    },
+    {
+      slug: "garden-for-mother",
+      title: "A garden for his mother",
+      line: "Sa'd gave his garden Al-Mikhraf as charity for his mother.",
+      facts: ["His mother died while he was away.", "He asked: will charity for her benefit her?", "The Prophet ﷺ said yes, so he gave his garden."],
+      source: hadith("bukhari", "2756", "Ibn Abbas", "Sahih", "Sa'd ibn Ubadah's mother died while he was away. He asked: will charity on her behalf benefit her? The Prophet ﷺ said yes. Sa'd said: I make you witness that my garden Al-Mikhraf is charity for her.", "I gave my garden called Al Makhraf in charity on her behalf"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Sa'd give for his mother?", a: "His garden", wrong: ["His sword", "His house", "His camel"], why: "I gave my garden called Al-Makhraf in charity." },
+        { q: "Does charity for a dead parent help them?", a: "Yes", wrong: ["No", "Only gold helps", "Only in Ramadan"], why: "The Prophet ﷺ said yes." },
+        { q: "Sa'd was with his mother when she died.", tf: false, why: "She died in his absence." }
+      ]
+    },
+    {
+      slug: "her-vow",
+      title: "Keeping her promise",
+      line: "Sa'd asked what to do about a vow his mother never kept.",
+      facts: ["His mother made a vow to Allah.", "She died before she could fulfil it.", "The Prophet ﷺ told Sa'd: fulfil it for her."],
+      source: hadith("bukhari", "6959", "Ibn Abbas", "Sahih", "Sa'd ibn Ubadah asked the Prophet ﷺ about a vow his mother made and died before keeping. He said: fulfil it on her behalf.", "Fulfill it on her behalf"),
+      difficulty: 3,
+      questions: [
+        { q: "What had his mother left unfinished?", a: "A vow", wrong: ["A journey", "A house", "A poem"], why: "A vow made by his mother who died before fulfilling it." },
+        { q: "What did the Prophet ﷺ tell Sa'd to do?", a: "Fulfil it for her", wrong: ["Forget it", "Pay a fine", "Wait a year"], why: "Fulfill it on her behalf." },
+        { q: "A child can help a parent after death.", tf: true, why: "He could fulfil her vow for her." }
+      ]
+    },
+    {
+      slug: "visiting-sad",
+      title: "Barefoot to visit him",
+      line: "The Prophet ﷺ and his companions walked barefoot to visit Sa'd.",
+      facts: ["The Prophet ﷺ asked: how is my brother Sa'd?", "He asked: who will visit him with me?", "Over ten went, without shoes, across rough ground."],
+      source: hadith("muslim", "925", "Abdullah ibn Umar", "Sahih", "The Prophet ﷺ asked an Ansari: how is my brother Sa'd ibn Ubadah? Then he said: who will visit him? He stood and more than ten of us went with him, without shoes or caps, across barren land until we reached him.", "Who amongst you would visit him"),
+      difficulty: 2,
+      questions: [
+        { q: "What did the Prophet ﷺ call Sa'd?", a: "My brother", wrong: ["My son", "My servant", "My guard"], why: "How is my brother Sa'd?" },
+        { q: "How many went with the Prophet ﷺ?", a: "More than ten", wrong: ["Two", "A hundred", "None"], why: "We were more than ten persons." },
+        { q: "Visiting the sick is a good Sunnah.", tf: true, why: "The Prophet ﷺ himself went to visit Sa'd." }
+      ]
+    },
+    {
+      slug: "tears-are-allowed",
+      title: "Tears are not a sin",
+      line: "At Sa'd's sickbed, the Prophet ﷺ wept and taught about tears.",
+      facts: ["Sa'd was very ill, with his family around him.", "The Prophet ﷺ wept, and the people wept too.", "He said: Allah does not punish for tears or a sad heart."],
+      source: hadith("bukhari", "1304", "Abdullah ibn Umar", "Sahih", "Sa'd ibn Ubadah fell ill and the Prophet ﷺ visited him with Abdur-Rahman ibn Awf, Sa'd ibn Abi Waqqas and Ibn Mas'ud. He wept and the people wept. He said: Allah does not punish for tears or for the grief of the heart, but for this, and he pointed to his tongue.", "Allah does not punish for shedding tears, nor for the grief of the heart"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the Prophet ﷺ do at Sa'd's bedside?", a: "He wept", wrong: ["He laughed", "He left", "He shouted"], why: "The Prophet ﷺ wept and the people wept." },
+        { q: "What does Allah not punish for?", a: "Tears and a sad heart", wrong: ["Lying", "Stealing", "Cursing"], why: "Allah does not punish for shedding tears." },
+        { q: "To what did he point as the real danger?", a: "His tongue", wrong: ["His eyes", "His hands", "His feet"], why: "He pointed to his tongue." }
+      ]
+    },
+    {
+      slug: "among-the-best",
+      title: "Among the best is enough",
+      line: "Sa'd learned that being among the best is enough.",
+      facts: ["The Prophet ﷺ ranked the best families of the Ansar.", "Sa'd's clan, Banu Sa'idah, came fourth.", "He was told: is being among the best not enough?"],
+      source: hadith("bukhari", "3791", "Abu Humayd as-Sa'idi", "Sahih", "The Prophet ﷺ named the best homes of the Ansar, with Banu Sa'idah after three others, and said: in all the homes of the Ansar there is good. Sa'd ibn Ubadah said: you made us last. He said: is it not enough that you are among the best?", "sufficient that you are regarded amongst the best"),
+      difficulty: 4,
+      questions: [
+        { q: "What was Sa'd's clan called?", a: "Banu Sa'idah", wrong: ["Banu Hashim", "Banu Umayyah", "Quraysh"], why: "Then that of Banu Saida." },
+        { q: "What did the Prophet ﷺ say about all Ansar homes?", a: "There is good in all of them", wrong: ["Some are bad", "Only one is good", "None is good"], why: "There is good in all the homes of the Ansar." },
+        { q: "Sa'd's clan was named among the best.", tf: true, why: "You are regarded amongst the best." }
+      ]
+    }
+  ]
+};
+
+export const COMPANION_UNITS: DeepUnit[] = [JAFAR, ABU_HURAIRAH, KAB, SAD_MUADH, ABDUR_RAHMAN, MUADH, UBAYY, ZAYD_THABIT, ABU_MUSA, JABIR, ABU_TALHAH, HUDHAYFAH, HAMZAH, ZAYD_HARITHAH, USAMAH, AMMAR, ABU_AYYUB, IBN_RAWAHAH, KHABBAB, UTHMAN_MAZUN, ABU_SAID, ABU_DARDA, UBADAH, SAD_UBADAH];
