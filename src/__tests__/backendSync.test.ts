@@ -127,4 +127,40 @@ describe("backend sync", () => {
     await backend.logoutRemoteAccount().catch(() => undefined);
     expect(backend.hasPendingSync()).toBe(false);
   });
+
+  it("sends only the newest copy, a few seconds after the last change, one save at a time", async () => {
+    jest.useFakeTimers();
+    try {
+      const backend = loadBackend("https://api.example.org");
+      backend.setSessionToken("saved-token");
+      let finishFirst: (value: Response) => void = () => undefined;
+      const fetchMock = jest
+        .fn()
+        .mockImplementationOnce(() => new Promise<Response>((resolve) => (finishFirst = resolve)))
+        .mockResolvedValue(jsonResponse(200, { ok: true }));
+      global.fetch = fetchMock;
+      const sentXp = () => fetchMock.mock.calls.map((call) => JSON.parse(String(call[1].body)).user.totalXp);
+
+      // Three answers in a row: nothing is sent until the learner pauses.
+      for (const totalXp of [10, 20, 30]) {
+        backend.queueRemoteSync({ id: 7, hasAccount: true, totalXp } as never);
+      }
+      expect(fetchMock).not.toHaveBeenCalled();
+      expect(backend.hasPendingSync()).toBe(true);
+      await jest.advanceTimersByTimeAsync(4000);
+      expect(sentXp()).toEqual([30]);
+
+      // More changes while that save is still on its way wait for it, then only the newest goes.
+      backend.queueRemoteSync({ id: 7, hasAccount: true, totalXp: 40 } as never);
+      backend.queueRemoteSync({ id: 7, hasAccount: true, totalXp: 50 } as never);
+      await jest.advanceTimersByTimeAsync(4000);
+      expect(sentXp()).toEqual([30]);
+      finishFirst(jsonResponse(200, { ok: true }));
+      await jest.advanceTimersByTimeAsync(0);
+      expect(sentXp()).toEqual([30, 50]);
+      expect(backend.hasPendingSync()).toBe(false);
+    } finally {
+      jest.useRealTimers();
+    }
+  });
 });

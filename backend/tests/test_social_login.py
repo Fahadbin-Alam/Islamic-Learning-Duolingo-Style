@@ -6,7 +6,10 @@ import uuid
 import pytest
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
-from jose import jwk, jwt
+import json
+
+import jwt
+from jwt.algorithms import RSAAlgorithm
 
 from backend.app.core import social_tokens
 from backend.app.core.config import settings
@@ -18,7 +21,7 @@ USER = {"totalXp": 15, "streakDays": 1, "hearts": {"current": 5, "max": 5, "unli
 _private = rsa.generate_private_key(public_exponent=65537, key_size=2048)
 PRIVATE_PEM = _private.private_bytes(serialization.Encoding.PEM, serialization.PrivateFormat.PKCS8, serialization.NoEncryption()).decode()
 PUBLIC_JWK = {
-    **jwk.construct(_private.public_key().public_bytes(serialization.Encoding.PEM, serialization.PublicFormat.SubjectPublicKeyInfo).decode(), "RS256").to_dict(),
+    **json.loads(RSAAlgorithm.to_jwk(_private.public_key())),
     "kid": "test-key",
     "alg": "RS256",
     "use": "sig",
@@ -86,8 +89,11 @@ def test_google_joins_a_password_account_with_the_same_email(client):
     response = social(client, token, allowCreate=False)
     assert response.status_code == 200
     assert response.json()["account"]["name"] == "Yusuf"
-    # The password still works too.
-    assert client.post("/api/auth/login", json={"email": email, "password": "long-enough-1"}).status_code == 200
+    # Google proved the email; the unproven password (maybe set by a stranger) stops working, and its sessions end.
+    assert client.post("/api/auth/login", json={"email": email, "password": "long-enough-1"}).status_code == 401
+    assert client.get("/api/session", headers={"Authorization": f"Bearer {registered.json()['token']}"}).status_code == 401
+    # Google keeps working.
+    assert social(client, token, allowCreate=False).status_code == 200
 
 
 @pytest.mark.parametrize(

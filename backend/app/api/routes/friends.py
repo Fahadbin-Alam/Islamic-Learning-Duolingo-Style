@@ -8,6 +8,7 @@ from pydantic import BaseModel
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 
+from backend.app.core.rate_limit import check_rate
 from backend.app.api.deps import DbSession, current_user
 from backend.app.models import FriendStreak, Friendship, User
 from backend.app.service_layer import LEAGUE_TOP_TIER, initials, normalize_email
@@ -193,6 +194,8 @@ def list_friends(db: DbSession, today: Optional[str] = Query(default=None), user
 
 @router.post("/friends", status_code=status.HTTP_201_CREATED)
 def add_friend(payload: AddFriendInput, db: DbSession, today: Optional[str] = Query(default=None), user: User = Depends(current_user)):
+    # Stops one account from testing thousands of emails to see which ones use Muslimo.
+    check_rate("add-friend", str(user.id), 30, 60 * 60)
     email = normalize_email(payload.email)
     friend = db.scalar(select(User).where(User.email == email))
 

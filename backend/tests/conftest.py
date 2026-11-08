@@ -7,6 +7,8 @@ from pathlib import Path
 # Point the app at a throwaway SQLite file before any backend module reads settings.
 _DB_DIR = tempfile.mkdtemp(prefix="sira_path_tests_")
 os.environ["SIRA_DATABASE_URL"] = f"sqlite:///{Path(_DB_DIR, 'test.db').as_posix()}"
+# Tests sign up and log in many times in a row; test_rate_limits.py turns the limits back on.
+os.environ["SIRA_RATE_LIMIT_ENABLED"] = "false"
 
 import pytest
 from fastapi.testclient import TestClient
