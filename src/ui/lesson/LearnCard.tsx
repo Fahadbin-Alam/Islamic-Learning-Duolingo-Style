@@ -21,8 +21,8 @@ import type { LessonPicture } from "../../data/lessonPictures";
 import { LessonPhoto } from "./LessonPhoto";
 import { LookFor, lookForWords } from "./LookFor";
 import { SurahCover, SurahParts } from "./SurahCover";
-import { splitLessonFacts } from "./lessonNotes";
-import { highlightPieces, type LearnPageKind, type TeachLesson } from "./lessonPages";
+import { isCredit, splitLessonFacts } from "./lessonNotes";
+import { highlightPieces, saidInSummary, type LearnPageKind, type TeachLesson } from "./lessonPages";
 import { Teacher, talkTime, type TeacherLook } from "./Teacher";
 
 export type LearnCardProps = {
@@ -84,6 +84,8 @@ export type LearnCardProps = {
   page?: LearnPageKind;
   /** What the source says, in one sentence: shown on the "facts" page under the points. */
   summary?: string;
+  /** The same summary in English, to tell which facts it already says (the rules compare English words). */
+  englishSummary?: string;
   /** Words to highlight on the page: the answers this lesson's questions ask for. */
   marks?: string[];
   /** The "teach" page's fact. */
@@ -179,6 +181,7 @@ export function LearnCard({
   surah,
   page,
   summary,
+  englishSummary,
   marks = [],
   teach,
   quizCount,
@@ -211,10 +214,23 @@ export function LearnCard({
     : legacySource;
   // The line the source's link opens on, shown under its chip so the reader knows what to look for.
   const lookFor = source && learnSource ? lookForWords(learnSource) : undefined;
-  const factList = (facts ?? []).map((fact) => fact.trim()).filter(Boolean).slice(0, MAX_FACTS);
-  const englishList = englishFacts?.map((fact) => fact.trim()).filter(Boolean).slice(0, MAX_FACTS);
+  const allFacts = (facts ?? []).map((fact) => fact.trim()).filter(Boolean).slice(0, MAX_FACTS);
+  const allEnglish = englishFacts?.map((fact) => fact.trim()).filter(Boolean).slice(0, MAX_FACTS);
+  const englishMatch = allEnglish?.length === allFacts.length ? allEnglish : undefined;
+  // On the facts page the source's summary sits under the points: a point it already says is not shown twice.
+  const sourceSays = page === "facts" ? summary?.trim() : undefined;
+  const english = getActiveLanguage() === "en";
+  // Only when the summary is in the learner's language: a Bangla learner keeps the Bangla points next to an English summary.
+  const summaryTranslated = english || (Boolean(englishSummary?.trim()) && englishSummary?.trim() !== sourceSays);
+  const sourceSaysEnglish = sourceSays && summaryTranslated ? englishSummary?.trim() || (english ? sourceSays : undefined) : undefined;
+  const keep = allFacts.map((fact, index) => {
+    const englishFact = englishMatch?.[index] ?? (english ? fact : undefined);
+    return !englishFact || !sourceSaysEnglish || isCredit(englishFact, { reference: learnReference }) || !saidInSummary(englishFact, sourceSaysEnglish);
+  });
+  const factList = allFacts.filter((_, index) => keep[index]);
+  const englishList = englishMatch?.filter((_, index) => keep[index]);
   const notes = splitLessonFacts(factList, {
-    english: englishList?.length === factList.length ? englishList : undefined,
+    english: englishList,
     sourceReference: learnReference,
     hadith: learnSource?.category === "hadith" || /^(sahih|sunan|jami|muwatta|riyad|al-adab)/i.test(learnReference ?? ""),
     language: getActiveLanguage()
@@ -373,12 +389,12 @@ export function LearnCard({
 
           {pagePicture && !all && page !== "start" ? <LessonPhoto picture={pagePicture} short={short} delay={soon(240)} /> : null}
 
-          {notes.points.length > 0 && at("facts") ? (
-            // The facts read as a short lesson: a heading, then each fact as its own numbered line.
+          {(notes.points.length > 0 && at("facts")) || sourceSays ? (
+            // One card: the facts read as a short lesson, each its own numbered line, then what the source says.
             <PopIn delay={soon(420)} from="up" style={[styles.notesWrap, short ? styles.notesWrapShort : null]}>
               <View style={[styles.notes, { borderColor: palette.soft }]} testID="learn-facts">
                 <View style={styles.notesHead}>
-                  <Icon name="bookOpen" size={18} color={palette.ink} />
+                  <Icon name="bookOpen" size={20} color={palette.ink} />
                   <Text style={[styles.notesTitle, { color: palette.ink }]} accessibilityRole="header">
                     {t("What you learn")}
                   </Text>
@@ -394,17 +410,18 @@ export function LearnCard({
                     </Text>
                   </View>
                 ))}
-              </View>
-            </PopIn>
-          ) : null}
-
-          {page === "facts" && summary?.trim() ? (
-            <PopIn delay={soon(notes.points.length ? 520 : 200)} from="up" style={[styles.notesWrap, short ? styles.notesWrapShort : null]}>
-              <View style={[styles.summary, { backgroundColor: palette.light, borderColor: palette.soft }]} testID="learn-summary">
-                <Text style={[styles.deeperLabel, { color: palette.ink }]}>{t("What the source says")}</Text>
-                <Text style={[styles.deeperText, styles.summaryText]}>
-                  <Marked text={noBreakHyphens(summary.trim())} marks={marks} />
-                </Text>
+                {sourceSays ? (
+                  <View
+                    // With no points above it, the source's words are the lesson: no box inside the box.
+                    style={notes.points.length ? [styles.summary, { backgroundColor: palette.light }] : styles.summaryOnly}
+                    testID="learn-summary"
+                  >
+                    <Text style={[styles.summaryLabel, { color: palette.ink }]}>{t("What the source says")}</Text>
+                    <Text style={[styles.summaryText, short ? styles.noteTextShort : null]}>
+                      <Marked text={noBreakHyphens(sourceSays)} marks={marks} />
+                    </Text>
+                  </View>
+                ) : null}
               </View>
             </PopIn>
           ) : null}
@@ -995,14 +1012,13 @@ const styles = StyleSheet.create({
   },
   notesHead: {
     flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 2
+    alignItems: "center"
   },
   notesTitle: {
-    marginStart: 6,
+    marginStart: 8,
     fontFamily: fonts.displayHeavy,
-    fontSize: 16,
-    lineHeight: 22
+    fontSize: 18,
+    lineHeight: 24
   },
   noteRow: {
     flexDirection: "row",
@@ -1010,9 +1026,9 @@ const styles = StyleSheet.create({
     marginTop: space.sm
   },
   noteNumber: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
+    width: 26,
+    height: 26,
+    borderRadius: 13,
     alignItems: "center",
     justifyContent: "center",
     marginEnd: 10,
@@ -1020,8 +1036,8 @@ const styles = StyleSheet.create({
   },
   noteNumberText: {
     fontFamily: fonts.displayHeavy,
-    fontSize: 13,
-    lineHeight: 17,
+    fontSize: 14,
+    lineHeight: 18,
     color: colors.white
   },
   noteText: {
@@ -1082,8 +1098,8 @@ const styles = StyleSheet.create({
     marginTop: space.xs,
     flexShrink: 1,
     fontFamily: fonts.bodyBold,
-    fontSize: 13,
-    lineHeight: 18,
+    fontSize: 14,
+    lineHeight: 19,
     color: colors.inkSoft,
     textAlign: "right"
   },
@@ -1107,8 +1123,8 @@ const styles = StyleSheet.create({
   },
   sourceLabel: {
     fontFamily: fonts.bodyHeavy,
-    fontSize: 12,
-    lineHeight: 16,
+    fontSize: 13,
+    lineHeight: 18,
     letterSpacing: 1,
     textTransform: "uppercase",
     color: colors.inkSoft,
@@ -1117,16 +1133,16 @@ const styles = StyleSheet.create({
   sourceCredits: {
     marginTop: 6,
     fontFamily: fonts.bodyBold,
-    fontSize: 13,
-    lineHeight: 18,
+    fontSize: 14,
+    lineHeight: 19,
     color: colors.inkSoft,
     textAlign: "center"
   },
   quoteCredits: {
     marginTop: 2,
     fontFamily: fonts.bodyBold,
-    fontSize: 12,
-    lineHeight: 17,
+    fontSize: 13,
+    lineHeight: 18,
     color: colors.inkSoft,
     textAlign: "right"
   },
@@ -1167,10 +1183,10 @@ const styles = StyleSheet.create({
     marginBottom: space.xs
   },
   deeperTitle: {
-    marginStart: 6,
+    marginStart: 8,
     fontFamily: fonts.displayHeavy,
-    fontSize: 17,
-    lineHeight: 23
+    fontSize: 18,
+    lineHeight: 24
   },
   deeperRow: {
     flexDirection: "row",
@@ -1194,8 +1210,8 @@ const styles = StyleSheet.create({
   },
   deeperLabel: {
     fontFamily: fonts.bodyHeavy,
-    fontSize: 13,
-    lineHeight: 18,
+    fontSize: 14,
+    lineHeight: 19,
     letterSpacing: 0.5,
     marginBottom: 2
   },
@@ -1240,18 +1256,17 @@ const styles = StyleSheet.create({
     marginStart: 5,
     flexShrink: 1,
     fontFamily: fonts.bodyHeavy,
-    fontSize: 13,
-    lineHeight: 18,
-    color: colors.inkSoft
+    fontSize: 14,
+    lineHeight: 19,
+    color: colors.ink
   },
   pageEyebrow: {
     alignSelf: "stretch",
     textAlign: "center",
     fontFamily: fonts.displayHeavy,
-    fontSize: 15,
-    lineHeight: 20,
-    letterSpacing: 0.5,
-    color: colors.inkSoft,
+    fontSize: 18,
+    lineHeight: 24,
+    color: colors.ink,
     marginBottom: space.xs
   },
   pagedText: {
@@ -1267,13 +1282,25 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFE9A8"
   },
   summary: {
-    borderWidth: 2,
-    borderRadius: radii.lg,
-    paddingHorizontal: space.md,
+    marginTop: space.md,
+    borderRadius: radii.md,
+    paddingHorizontal: space.sm + 4,
     paddingVertical: space.sm
   },
+  summaryOnly: {
+    marginTop: space.xs
+  },
+  summaryLabel: {
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 14,
+    lineHeight: 19,
+    marginBottom: 4
+  },
   summaryText: {
-    flex: 0
+    fontFamily: fonts.bodyBold,
+    fontSize: 18,
+    lineHeight: 27,
+    color: colors.ink
   },
   teach: {
     alignSelf: "stretch",
@@ -1332,8 +1359,8 @@ const styles = StyleSheet.create({
     marginStart: 6,
     flexShrink: 1,
     fontFamily: fonts.bodyHeavy,
-    fontSize: 14,
-    lineHeight: 19,
-    color: colors.inkSoft
+    fontSize: 15,
+    lineHeight: 20,
+    color: colors.ink
   }
 });

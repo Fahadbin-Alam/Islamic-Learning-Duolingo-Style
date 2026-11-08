@@ -101,7 +101,7 @@ export function LessonPhoto({ picture, short, delay = 200 }: { picture: LessonPi
       >
         <Image source={picture.image} style={styles.photoImage} resizeMode="cover" testID="lesson-photo-image" />
         <View style={styles.captionChip}>
-          <Text style={styles.captionText} numberOfLines={2}>
+          <Text style={[styles.captionText, short ? styles.captionTextShort : null]} numberOfLines={2}>
             {t(picture.caption)}
           </Text>
         </View>
@@ -136,7 +136,6 @@ const styles = StyleSheet.create({
   photoWrap: {
     alignSelf: "stretch",
     marginTop: space.lg,
-    maxWidth: 440,
     width: "100%"
   },
   photoWrapShort: {
@@ -146,6 +145,7 @@ const styles = StyleSheet.create({
     width: "100%",
     // Always 16:9, so the photo is never squeezed into a strip that cuts the place off.
     aspectRatio: 16 / 9,
+    maxHeight: 280,
     borderRadius: radii.lg,
     overflow: "hidden",
     backgroundColor: colors.mist,
@@ -173,14 +173,18 @@ const styles = StyleSheet.create({
   captionText: {
     flexShrink: 1,
     fontFamily: fonts.bodyHeavy,
-    fontSize: 13,
-    lineHeight: 17,
+    fontSize: 14,
+    lineHeight: 19,
     color: colors.white,
-    backgroundColor: "rgba(31,45,39,0.72)",
+    backgroundColor: "rgba(31,45,39,0.82)",
     borderRadius: radii.xs,
     overflow: "hidden",
     paddingHorizontal: 8,
     paddingVertical: 3
+  },
+  captionTextShort: {
+    fontSize: 13,
+    lineHeight: 17
   },
   creditTap: {
     alignSelf: "flex-end",
@@ -188,9 +192,9 @@ const styles = StyleSheet.create({
     marginTop: 2
   },
   credit: {
-    fontFamily: fonts.body,
-    fontSize: 11,
-    lineHeight: 15,
+    fontFamily: fonts.bodyBold,
+    fontSize: 12,
+    lineHeight: 16,
     color: colors.inkSoft
   },
   thumb: {

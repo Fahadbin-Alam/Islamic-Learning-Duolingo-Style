@@ -94,6 +94,16 @@ function teachingWhy(why: string | undefined) {
   return why!.trim();
 }
 
+/**
+ * True when the source's summary already says everything a fact says ("286 ayahs." in "... It has 286 ayahs."), so
+ * the fact is not shown a second time on the same page. Both are compared in English.
+ */
+export function saidInSummary(fact: string, summary: string | undefined) {
+  const words = contentWords(fact);
+  if (!words.length || !summary?.trim()) return false;
+  return coverage(words, new Set(contentWords(summary))) === 1;
+}
+
 /** The source's own summary, when it is a real sentence about this lesson (some older ones only name a verse). */
 export function lessonSummary(lesson: Pick<Lesson, "learnSource" | "title" | "learnLine" | "learnFacts" | "challenges" | "intro">) {
   const summary = lesson.learnSource?.summary?.trim();
