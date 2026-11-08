@@ -847,5 +847,17 @@
   "Donate {amount}": "{amount} দান করুন",
   "You pay on {name}'s website, not in the app.": "টাকা দেবেন {name}-এর ওয়েবসাইটে, অ্যাপে নয়।",
   "Choose {amount} on the page.": "পেজে {amount} বেছে নিন।",
-  "QR code for {name}": "{name}-এর কিউআর কোড"
+  "QR code for {name}": "{name}-এর কিউআর কোড",
+  "All done! May Allah accept it from you.": "সব শেষ! আল্লাহ তোমার কাছ থেকে কবুল করুন।",
+  "Daily adhkar": "প্রতিদিনের জিকির",
+  "Done for now. Alhamdulillah!": "আপাতত শেষ। আলহামদুলিল্লাহ!",
+  "Duas and adhkar": "দোয়া ও জিকির",
+  "Morning and evening adhkar, bedtime duas and the duas of the day, from the Quran and sahih hadith.": "সকাল-সন্ধ্যার জিকির, ঘুমের দোয়া আর দিনের দোয়া, কুরআন ও সহিহ হাদিস থেকে।",
+  "Morning and evening, sleep and waking, eating, travel, the mosque, and duas from the Quran.": "সকাল-সন্ধ্যা, ঘুম ও জাগা, খাওয়া, সফর, মসজিদ, আর কুরআনের দোয়া।",
+  "Remind me every morning and evening": "প্রতি সকাল-সন্ধ্যায় আমাকে মনে করিয়ে দাও",
+  "Tap to count": "গুনতে ট্যাপ করো",
+  "Time for your bedtime adhkar.": "ঘুমের জিকিরের সময় হয়েছে।",
+  "Time for your evening adhkar.": "সন্ধ্যার জিকিরের সময় হয়েছে।",
+  "Time for your morning adhkar.": "সকালের জিকিরের সময় হয়েছে।",
+  "Topic 13": "বিষয় ১৩"
 }
