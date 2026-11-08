@@ -186,7 +186,7 @@ import {
 import { playGameSound, primeGameAudio } from "./services/gameAudio";
 import { markLeagueResultSeen, settleLeague, unseenLeagueResult } from "./services/leagues";
 import { answerLessonStep, isLastLessonStep, startLessonQueue, type FlowStep } from "./services/lessonQueue";
-import { buildLessonFlow, flowProgress, isLearnStep, isMatchStep, isQuestionStep, isRecallLesson, teachLesson, highlightWords, lessonSummary } from "./ui/lesson/lessonPages";
+import { buildLessonFlow, flowProgress, isLearnStep, isMatchStep, isQuestionStep, isRecallLesson, teachLesson, teachText, highlightWords, lessonExplain, lessonSummary } from "./ui/lesson/lessonPages";
 import { checkAnswerId, checkCandidate, fillPiece, questionFormat } from "./ui/lesson/questionFormats";
 import { CheckGame, FillGame, GapGame, MatchGame } from "./ui/lesson/WordGames";
 import * as Speech from "expo-speech";
@@ -265,7 +265,7 @@ import { SCHOLAR_TREE, type ScholarYears } from "./data/scholarUnits";
 import { didRamadanToday, ramadanDoneDayNumbers, ramadanSeason, ramadanStreak } from "./data/ramadanCalendar";
 import { RAMADAN_TOPIC } from "./data/ramadanDays";
 import { teacherFor } from "./ui/lesson/Teacher";
-import { pictureForLesson, pictureForPage, pictureForQuestion, pictureForText } from "./data/lessonPictures";
+import { flowPictures, pictureForLesson, pictureForQuestion, pictureForText } from "./data/lessonPictures";
 import { surahNumberForTitle, surahParts } from "./data/surahPictures";
 import { BACKGROUND_KEY, INTRO_TOPIC, introStartFor, isLearnerBackground, type LearnerBackground } from "./data/introToIslam";
 import type {
@@ -2002,6 +2002,21 @@ export default function TopicApp() {
 
   // A lesson is learn pages and questions in turn, the ordering game after the last page, then the circle's quiz:
   // CONTINUE on a page (or finishing the game) goes to the next step.
+  // A wrong pair in the matching round costs a heart, like a wrong answer.
+  function missInMatch() {
+    const session = state.activeSession;
+    dispatch({ type: "apply_user_latest", update: (user) => loseHeart(user, session) });
+  }
+
+  // The matching round is done: with no hearts left, the refill first, like after a wrong answer.
+  function continueFromMatch() {
+    if (state.user && isOutOfHearts(state.user) && !isHeartFree(state.activeSession)) {
+      openOutOfHearts(state.user, true);
+      return;
+    }
+    continueFromTeach();
+  }
+
   function continueFromTeach() {
     challengeStartedAtRef.current = Date.now();
     dispatch({ type: "next_page" });
@@ -3497,16 +3512,23 @@ export default function TopicApp() {
   // A surah's own lesson ("Surah Al-Baqarah") opens on a picture of what its name means, then lists its parts.
   const lessonSurahNumber = pictureLesson ? surahNumberForTitle(pictureLesson.title) : undefined;
   const lessonSurah = lessonSurahNumber ? { number: lessonSurahNumber, parts: surahParts(lessonSurahNumber) } : undefined;
-  // A later page shows a picture of what it teaches (the bridge, the scales, the ark...), once per lesson.
-  const pageMatch =
-    pictureLesson && learnStep && learnStep.page !== "start" && learnStep.page !== "teach" && learnStep.page !== "quiz"
-      ? pictureForPage(
-          pictureLesson,
-          learnStep.page,
-          state.lessonQueue.slice(0, state.stepIndex).flatMap((step) => (isLearnStep(step) ? [step.page] : []))
-        )
-      : undefined;
-  const pagePicture = pageMatch && pageMatch.id !== lessonPicture?.id ? pageMatch : undefined;
+  // Every page shows a big picture: what it teaches (the bridge, the ark, a market...), else the lesson's own, else
+  // one that fits the topic, never the same one twice in a row (flowPictures).
+  const learnQueue = state.lessonQueue.flatMap((step, index) => (isLearnStep(step) ? [{ step, index }] : []));
+  const queuePictures = pictureLesson
+    ? flowPictures(
+        pictureLesson,
+        currentLessonSection.topicId,
+        learnQueue.map(({ step }) => ({
+          page: step.page,
+          text: step.page === "teach" && step.index !== undefined && pictureLesson.challenges[step.index] ? teachText(pictureLesson.challenges[step.index]) : undefined
+        })),
+        { startPicture: lessonPicture, cover: Boolean(lessonSurah) }
+      )
+    : [];
+  const shownPictureAt = learnQueue.findIndex(({ index }) => index === state.stepIndex);
+  const stepPicture = learnStep && shownPictureAt >= 0 ? queuePictures[shownPictureAt] : undefined;
+  const pagePicture = learnStep && learnStep.page !== "start" ? stepPicture : undefined;
   const pictureChallenge = englishChallenge ?? challenge;
   const questionPicture = pictureChallenge ? pictureForQuestion(pictureChallenge.prompt) : undefined;
   const inTest = isTestSession(lessonSession);
@@ -3706,6 +3728,7 @@ export default function TopicApp() {
             // Each page comes in fresh, with its own entry.
             key={`${lesson.id}-${state.stepIndex}`}
             page={learnStep?.page}
+            explain={learnStep?.page === "facts" && englishLesson && lessonExplain(englishLesson) ? lesson.intro : undefined}
             summary={learnStep?.page === "facts" ? lessonSummaryShown : undefined}
             englishSummary={learnStep?.page === "facts" && lessonSummaryShown ? englishLesson?.learnSource?.summary : undefined}
             marks={lessonMarks}
@@ -3730,7 +3753,7 @@ export default function TopicApp() {
             learnSource={lesson.learnSource}
             onOpenSource={openWebPage}
             arabicRecitation={lessonRecitation ?? undefined}
-            picture={lessonPicture}
+            picture={lessonSurah ? lessonPicture : stepPicture ?? lessonPicture}
             pagePicture={pagePicture}
             teacher={lessonTeacher}
             surah={lessonSurah}
@@ -3741,7 +3764,7 @@ export default function TopicApp() {
           />
         )}
         {state.screen === "lesson_match" && matchPairs.length > 0 && lessonShell(
-          <MatchGame key={`${lesson?.id}-match-${state.stepIndex}`} pairs={matchPairs} mascotVariant={lessonMascot} accent={lessonAccent} onDone={continueFromTeach} />
+          <MatchGame key={`${lesson?.id}-match-${state.stepIndex}`} pairs={matchPairs} mascotVariant={lessonMascot} accent={lessonAccent} onMiss={missInMatch} onDone={continueFromMatch} />
         )}
         {state.screen === "lesson_practice" && currentPracticeActivity && lessonShell(
           <OrderGame

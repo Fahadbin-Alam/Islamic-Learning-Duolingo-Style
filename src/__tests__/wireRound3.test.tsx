@@ -147,8 +147,9 @@ describe("JUMP HERE in a library topic", () => {
     expect(learningApi.getPathNodes(after).find((node) => node.id === target.id)?.status).not.toBe("locked");
   });
 
-  it("ends as soon as it can no longer be passed, and its misses cost no hearts", async () => {
-    const user = makeUser({ hearts: TODAY_HEARTS(false), lastTopicId: "quran_tafseer" });
+  it("ends as soon as it can no longer be passed, and each miss costs a heart", async () => {
+    const start = 40;
+    const user = makeUser({ hearts: { ...TODAY_HEARTS(false), current: start }, lastTopicId: "quran_tafseer" });
     seedUser(user);
     const { target, challenges } = quranJump(user);
     const lostAfter = challenges.length - testOutPassingScore(challenges.length) + 1;
@@ -166,8 +167,8 @@ describe("JUMP HERE in a library topic", () => {
     expect(screen.queryByTestId("exercise-view")).toBeNull();
     // The score is out of the questions it asked.
     expect(screen.getByText(`0 of ${lostAfter} right`)).toBeTruthy();
-    expect(screen.getByLabelText("5 of 5 hearts")).toBeTruthy();
-    expect(savedUser().hearts.current).toBe(5);
+    expect(screen.getByLabelText(`${start - lostAfter} of 5 hearts`)).toBeTruthy();
+    expect(savedUser().hearts.current).toBe(start - lostAfter);
 
     // TRY AGAIN tests for the same circle.
     await press("test-out-result-confirm");

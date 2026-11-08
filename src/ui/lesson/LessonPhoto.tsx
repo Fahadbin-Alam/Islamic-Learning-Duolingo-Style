@@ -84,24 +84,34 @@ export function PhotoSheet({ picture, visible, onClose }: { picture: LessonPictu
 }
 
 /**
- * The learn card's photo: full width, 16:9 (shorter on short phones), a caption chip on it and the credit under it.
- * Tapping it shows it large.
+ * The tallest a lesson page's big picture gets (it is the full width at 4:3 up to this): about two fifths of the
+ * screen (a third on a short phone), so the words under it still start on the first screen.
  */
-export function LessonPhoto({ picture, short, delay = 200 }: { picture: LessonPicture; short?: boolean; delay?: number }) {
+export function bigPhotoMaxHeight(screenHeight: number, short?: boolean) {
+  return Math.round(Math.min(420, Math.max(150, screenHeight * (short ? 0.32 : 0.42))));
+}
+
+/**
+ * The learn card's photo: full width, 16:9 (shorter on short phones), a caption chip on it and the credit under it.
+ * `big`: a lesson page's picture, as big as the page allows (bigPhotoHeight). Tapping it shows it large.
+ */
+export function LessonPhoto({ picture, short, delay = 200, big }: { picture: LessonPicture; short?: boolean; delay?: number; big?: boolean }) {
   const [open, setOpen] = useState(false);
+  const { height } = useWindowDimensions();
+  const bigStyle = big ? { aspectRatio: 4 / 3, maxHeight: bigPhotoMaxHeight(height || 800, short) } : null;
   return (
-    <PopIn delay={delay} style={[styles.photoWrap, short ? styles.photoWrapShort : null]}>
+    <PopIn delay={delay} style={[styles.photoWrap, short ? styles.photoWrapShort : null, big ? styles.photoWrapBig : null]}>
       <Tappable
         onPress={() => setOpen(true)}
         pressScale={0.98}
         accessibilityLabel={t(picture.caption)}
         accessibilityHint={t("Shows the photo bigger")}
-        style={[styles.photo, short ? styles.photoShort : null]}
+        style={[styles.photo, short ? styles.photoShort : null, bigStyle]}
         testID="lesson-photo"
       >
         <Image source={picture.image} style={styles.photoImage} resizeMode="cover" testID="lesson-photo-image" />
         <View style={styles.captionChip}>
-          <Text style={[styles.captionText, short ? styles.captionTextShort : null]} numberOfLines={2}>
+          <Text style={[styles.captionText, short ? styles.captionTextShort : null, big && !short ? styles.captionTextBig : null]} numberOfLines={2}>
             {t(picture.caption)}
           </Text>
         </View>
@@ -109,6 +119,31 @@ export function LessonPhoto({ picture, short, delay = 200 }: { picture: LessonPi
       <PhotoCredit picture={picture} testID="lesson-photo-credit" />
       <PhotoSheet picture={picture} visible={open} onClose={() => setOpen(false)} />
     </PopIn>
+  );
+}
+
+/**
+ * A wide picture over a question that names a place: the full width, up to about a quarter of the screen tall, so
+ * it is big enough to see while the answers still fit. Tapping it shows it large.
+ */
+export function QuestionBanner({ picture }: { picture: LessonPicture }) {
+  const [open, setOpen] = useState(false);
+  const { height } = useWindowDimensions();
+  const maxHeight = Math.round(Math.min(230, Math.max(110, (height || 800) * (height && height < 700 ? 0.21 : 0.26))));
+  return (
+    <>
+      <Tappable
+        onPress={() => setOpen(true)}
+        pressScale={0.98}
+        accessibilityLabel={t(picture.caption)}
+        accessibilityHint={t("Shows the photo bigger")}
+        style={[styles.banner, { maxHeight }]}
+        testID="question-photo"
+      >
+        <Image source={picture.image} style={styles.photoImage} resizeMode="cover" />
+      </Tappable>
+      <PhotoSheet picture={picture} visible={open} onClose={() => setOpen(false)} />
+    </>
   );
 }
 
@@ -140,6 +175,10 @@ const styles = StyleSheet.create({
   },
   photoWrapShort: {
     marginTop: space.sm
+  },
+  photoWrapBig: {
+    marginTop: space.sm,
+    marginBottom: space.xs
   },
   photo: {
     width: "100%",
@@ -182,6 +221,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 3
   },
+  captionTextBig: {
+    fontSize: 16,
+    lineHeight: 22
+  },
   captionTextShort: {
     fontSize: 13,
     lineHeight: 17
@@ -196,6 +239,17 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 16,
     color: colors.inkSoft
+  },
+  banner: {
+    alignSelf: "stretch",
+    width: "100%",
+    aspectRatio: 16 / 9,
+    borderRadius: radii.lg,
+    overflow: "hidden",
+    backgroundColor: colors.mist,
+    borderWidth: 2,
+    borderColor: colors.line,
+    marginBottom: space.sm
   },
   thumb: {
     borderRadius: radii.md,

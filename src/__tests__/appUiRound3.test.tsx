@@ -201,11 +201,11 @@ describe("learn card source chip", () => {
     );
     fireEvent.press(screen.getByTestId("learn-source"));
     expect(onOpenSource).toHaveBeenCalledWith("https://islamqa.info/en/answers/119256#:~:text=He%20studied%20with%20Ibn,Imam%20Ibn%20Shihab%20az%2DZuhri");
-    // The line to look for is also shown under the chip.
-    expect(screen.getByTestId("learn-look-for")).toHaveTextContent(/He studied with Ibn Hormuz/);
+    // No extra "look for" box crowds the page: the link itself lands on the highlighted line.
+    expect(screen.queryByTestId("learn-look-for")).toBeNull();
   });
 
-  it("opens an Arabic book on its page, and says in English what its highlighted line says", async () => {
+  it("opens an Arabic book on its page at its highlighted line", async () => {
     const onOpenSource = jest.fn();
     await render(
       <LearnCard
@@ -221,7 +221,6 @@ describe("learn card source chip", () => {
     );
     fireEvent.press(screen.getByTestId("learn-source"));
     expect(onOpenSource.mock.calls[0][0]).toMatch(/^https:\/\/shamela\.ws\/book\/10906\/5800#:~:text=/);
-    expect(screen.getByTestId("learn-look-for-arabic")).toHaveTextContent(/محمد بن الحسن بن فرقد/);
-    expect(screen.getByTestId("learn-look-for")).toHaveTextContent(/faqih of Iraq/);
+    expect(screen.queryByTestId("learn-look-for")).toBeNull();
   });
 });

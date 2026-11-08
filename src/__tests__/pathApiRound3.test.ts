@@ -161,7 +161,7 @@ describe("gated library units", () => {
   });
 });
 
-describe("a test-out ends once it cannot be passed, and costs no hearts", () => {
+describe("a test-out ends once it cannot be passed, and costs hearts like a lesson", () => {
   const wudu = unitsOf(sectionOf("prayer"))[0];
   const session = sessionFor(makeUser(), wudu[0].branchId);
   const total = session.lesson.challenges.length;
@@ -179,11 +179,11 @@ describe("a test-out ends once it cannot be passed, and costs no hearts", () => 
     expect(isTestLost(undefined, 10)).toBe(false);
   });
 
-  it("takes no heart for a wrong answer in a test, and one in a lesson", async () => {
+  it("takes a heart for a wrong answer in a test, and in a lesson", async () => {
     const user = makeUser({ hearts: { current: 5, max: 5, unlimited: false, lastRefillDate: "2026-10-19" } });
     const lesson = await learningApi.getLessonSession(wudu[0].lessonIds[0], user);
 
-    expect(loseHeart(user, session).hearts.current).toBe(5);
+    expect(loseHeart(user, session).hearts.current).toBe(4);
     expect(loseHeart(user, lesson).hearts.current).toBe(4);
     expect(loseHeart(user).hearts.current).toBe(4);
   });

@@ -966,7 +966,182 @@ const STORY_PICTURES = {
   }
 };
 
-Object.assign(PICTURES, UNSEEN_PICTURES, LIFE_PICTURES, STORY_PICTURES);
+
+// More things lessons teach about, so every page can have a picture (2026-11-08): a masjid, the Quran on its stand,
+// a night with the crescent, a home at evening, rain on the land, an old market, sheep on the hills, a sealed letter,
+// sunrise over the mountains and food shared at a door. Things and places only: never a person.
+const MORE_PICTURES = {
+  // A masjid long ago: mud-brick walls, a small dome and a plain tower for the call to prayer, palms around it.
+  masjid: () =>
+    sky("s", "#8fcbea", "#fbe7c4") +
+    sun(860, 110, 34) +
+    cloud(200, 110, 1.6) +
+    cloud(560, 80, 1.2) +
+    ridge([[0, 330], [180, 290], [380, 320], [620, 280], [860, 316], [1024, 296]], "#c9a274", H) +
+    `<path d="M0,400 Q512,380 1024,400 L1024,576 L0,576 Z" fill="${valleySand}"/>` +
+    palm(120, 430, 210, -14, 3) +
+    palm(930, 440, 230, 16, 5) +
+    `<ellipse cx="512" cy="452" rx="330" ry="22" fill="#000" opacity="0.14"/>` +
+    `<rect x="250" y="300" width="520" height="150" fill="#d9ad72"/><rect x="250" y="300" width="520" height="12" fill="#c19358"/>` +
+    `<path d="M410,300 Q410,190 512,180 Q614,190 614,300 Z" fill="#e3bd83"/><path d="M512,180 L512,150" stroke="#8a6239" stroke-width="5"/><circle cx="512" cy="146" r="7" fill="#e8b04a"/>` +
+    `<rect x="700" y="170" width="50" height="280" fill="#d2a468"/><rect x="692" y="160" width="66" height="20" fill="#c19358"/><path d="M700,160 L725,120 L750,160 Z" fill="#c19358"/>` +
+    arch(470, 450, 84, 110, "#6b4526") +
+    arch(300, 400, 46, 70, "#7a5532") + arch(370, 400, 46, 70, "#7a5532") + arch(608, 400, 46, 70, "#7a5532") +
+    pebbles(0, 1024, 470, 570, 50, 211),
+
+  // The Quran open on a wooden stand (a rehal), on a rug, by an oil lamp.
+  quran: () => {
+    let lines = "";
+    for (let i = 0; i < 7; i += 1) {
+      const y = 236 + i * 20;
+      lines += `<path d="M372,${y} Q430,${y - 8} 500,${y + 2}" stroke="#3a3020" stroke-width="3" fill="none" opacity="0.75"/>`;
+      lines += `<path d="M524,${y + 2} Q594,${y - 8} 652,${y}" stroke="#3a3020" stroke-width="3" fill="none" opacity="0.75"/>`;
+    }
+    return (
+      `<rect width="${W}" height="${H}" fill="#ead9b8"/>` +
+      arch(120, 360, 150, 260, "#d8c39b") + arch(754, 360, 150, 260, "#d8c39b") +
+      `<rect x="0" y="390" width="${W}" height="186" fill="#a33b32"/><rect x="0" y="390" width="${W}" height="10" fill="#8a2f28"/>` +
+      `<path d="M60,420 L964,420 M60,556 L964,556" stroke="#e8b04a" stroke-width="5"/>` +
+      `<ellipse cx="512" cy="470" rx="250" ry="26" fill="#000" opacity="0.2"/>` +
+      `<path d="M330,470 L512,330 L694,470 L660,470 L512,360 L364,470 Z" fill="#7a4a24"/><path d="M380,470 L512,380 L644,470" stroke="#5e3818" stroke-width="10" fill="none"/>` +
+      `<path d="M352,214 Q430,196 512,222 L512,370 Q430,346 352,362 Z" fill="#fbf1dc"/><path d="M672,214 Q594,196 512,222 L512,370 Q594,346 672,362 Z" fill="#f3e6cc"/>` +
+      `<path d="M352,214 Q430,196 512,222 Q594,196 672,214" stroke="#2f6b4f" stroke-width="6" fill="none"/>` +
+      `<rect x="360" y="214" width="16" height="16" rx="8" fill="#2f6b4f" opacity="0.8"/>` +
+      lines +
+      `<path d="M820,470 Q820,436 868,432 Q916,436 916,470 Z" fill="#c99a3a"/><path d="M868,432 Q862,404 870,388 Q880,408 868,432" fill="#ffb84d"/><circle cx="869" cy="408" r="40" fill="#ffd27a" opacity="0.25"/>`
+    );
+  },
+
+  // Night over the desert: the crescent moon, many stars, dunes and two tents.
+  night: () =>
+    sky("s", "#141d3d", "#3c3f6e") +
+    stars(140, 307, H * 0.6) +
+    crescent(780, 130, 54) +
+    ridge([[0, 400], [220, 350], [470, 392], [720, 340], [1024, 380]], "#2d2b4a", H) +
+    ridge([[0, 470], [300, 430], [620, 468], [1024, 440]], "#4a3f5a", H) +
+    tent(250, 470, 160, "#3a2e2a", 2) +
+    tent(470, 476, 120, "#43352e", 4) +
+    `<circle cx="420" cy="456" r="10" fill="#ffb84d"/><circle cx="420" cy="456" r="34" fill="#ffd27a" opacity="0.2"/>` +
+    palm(880, 480, 170, 12, 9, { trunk: "#2a2430", leaf: "#2f3a3a", dark: "#232c2c" }),
+
+  // A home at evening: a mud-brick house with warm light in its window and door, a palm and a well beside it.
+  home: () =>
+    sky("s", "#f2a66a", "#fde3b0") +
+    sun(200, 330, 44, "#ffcf6a", "#ffe9b8") +
+    ridge([[0, 360], [260, 320], [520, 352], [800, 310], [1024, 340]], "#b77f5a", H) +
+    `<path d="M0,420 Q512,404 1024,420 L1024,576 L0,576 Z" fill="#dcb17a"/>` +
+    `<ellipse cx="540" cy="462" rx="260" ry="20" fill="#000" opacity="0.15"/>` +
+    `<rect x="330" y="250" width="400" height="210" fill="#d29a5e"/><path d="M730,250 l90,-30 l0,210 l-90,30 Z" fill="#b07a44"/><path d="M330,250 l90,-30 l400,0 l-90,30 Z" fill="#dfae76"/>` +
+    `<rect x="330" y="250" width="400" height="14" fill="#b9854d"/>` +
+    arch(500, 460, 70, 130, "#ffcf6a") + `<path d="M510,460 L510,350 Q535,326 560,350 L560,460 Z" fill="#ffe1a0" opacity="0.6"/>` +
+    `<rect x="380" y="300" width="60" height="56" rx="4" fill="#ffcf6a"/><rect x="620" y="300" width="60" height="56" rx="4" fill="#ffcf6a"/>` +
+    `<path d="M410,300 L410,356 M380,328 L440,328 M650,300 L650,356 M620,328 L680,328" stroke="#8a5a2a" stroke-width="4"/>` +
+    palm(900, 470, 230, 10, 11) +
+    well(190, 476, 1) +
+    pebbles(0, 1024, 480, 570, 40, 113),
+
+  // Rain from dark clouds onto green fields, a little stream running.
+  rain: () => {
+    let drops = "";
+    const r = rng(401);
+    for (let i = 0; i < 170; i += 1) {
+      const x = r() * W;
+      const y = 120 + r() * 300;
+      drops += `<path d="M${x.toFixed(0)},${y.toFixed(0)} l-6,22" stroke="#d6ecf7" stroke-width="2.4" stroke-linecap="round" opacity="0.8"/>`;
+    }
+    return (
+      sky("s", "#7d8ea3", "#c8d6df") +
+      cloud(200, 110, 4.2, "#5f6e80", 1) + cloud(560, 90, 4.6, "#68778a", 1) + cloud(900, 120, 4, "#5a687a", 1) +
+      cloud(380, 150, 3.2, "#76869a", 1) + cloud(760, 160, 3, "#7a8a9e", 1) +
+      drops +
+      ridge([[0, 380], [240, 330], [520, 370], [780, 320], [1024, 360]], "#5e8f4a", H) +
+      `<path d="M0,450 Q512,420 1024,450 L1024,576 L0,576 Z" fill="#6fa654"/>` +
+      `<path d="M300,576 Q380,520 520,500 Q680,480 760,440" stroke="#8fc9e6" stroke-width="26" fill="none" stroke-linecap="round"/>` +
+      bush(150, 500, 30, "#4f8a3a") + bush(880, 520, 34, "#4f8a3a") + bush(640, 560, 24, "#4f8a3a")
+    );
+  },
+
+  // An old market: cloth awnings over stalls of dates, cloth and spices, and a balance scale on a counter.
+  market: () => {
+    const stall = (x, cloth, goods) =>
+      `<rect x="${x}" y="300" width="200" height="140" fill="#b9854d"/>` +
+      `<path d="M${x - 20},300 L${x + 220},300 L${x + 200},230 L${x},230 Z" fill="${cloth}"/>` +
+      [0, 1, 2, 3, 4].map((i) => `<path d="M${x - 20 + i * 48},300 q24,22 48,0" fill="${shade(cloth, -0.15)}"/>`).join("") +
+      `<rect x="${x + 6}" y="300" width="8" height="140" fill="#6b4a2b"/><rect x="${x + 186}" y="300" width="8" height="140" fill="#6b4a2b"/>` +
+      goods(x);
+    const dates = (x) => `<ellipse cx="${x + 100}" cy="${352}" rx="70" ry="22" fill="#a8743a"/>` + date(x + 70, 344, -8) + date(x + 100, 338, 6) + date(x + 130, 344, -4) + date(x + 86, 330, 10) + date(x + 116, 328, -10);
+    const cloths = (x) => ["#2f6b8a", "#c0492f", "#e8b04a", "#5e7a3f"].map((c, i) => `<rect x="${x + 30 + i * 36}" y="${330 - i * 6}" width="34" height="${50 + i * 6}" fill="${c}"/>`).join("");
+    const spices = (x) => [["#d2691e", 60], ["#e8b04a", 100], ["#8b2f1e", 140]].map(([c, cx]) => `<path d="M${x + cx - 26},360 Q${x + cx},310 ${x + cx + 26},360 Z" fill="${c}"/><rect x="${x + cx - 30}" y="358" width="60" height="22" fill="#7a5532"/>`).join("");
+    return (
+      sky("s", "#9fd3ee", "#fbe9cc") +
+      `<rect x="0" y="180" width="${W}" height="150" fill="#d7b07c"/>` +
+      `<rect x="0" y="440" width="${W}" height="136" fill="#d8bd8c"/>` +
+      stall(60, "#c0492f", dates) + stall(410, "#2f6b8a", cloths) + stall(760, "#5e7a3f", spices) +
+      `<g transform="translate(512 520)"><rect x="-4" y="-80" width="8" height="80" fill="#6b4a2b"/><rect x="-60" y="-84" width="120" height="6" fill="#6b4a2b"/><path d="M-60,-78 l-20,40 l40,0 Z M60,-78 l-20,40 l40,0 Z" fill="none" stroke="#6b4a2b" stroke-width="2"/><ellipse cx="-60" cy="-38" rx="26" ry="6" fill="#c99a3a"/><ellipse cx="60" cy="-38" rx="26" ry="6" fill="#c99a3a"/><rect x="-40" y="-4" width="80" height="8" fill="#6b4a2b"/></g>` +
+      pebbles(0, 1024, 470, 570, 40, 501)
+    );
+  },
+
+  // Sheep grazing on green hills under a wide sky.
+  sheep: () => {
+    const one = (x, y, s, seed) => {
+      const r = rng(seed);
+      const face = r() > 0.5;
+      const dir = face ? 1 : -1;
+      return (
+        `<g transform="translate(${x} ${y}) scale(${s * dir} ${s})">` +
+        `<rect x="-26" y="10" width="8" height="30" rx="3" fill="#3a3530"/><rect x="14" y="10" width="8" height="30" rx="3" fill="#3a3530"/>` +
+        `<ellipse cx="0" cy="0" rx="46" ry="30" fill="#f4efe2"/><circle cx="-24" cy="-14" r="18" fill="#f4efe2"/><circle cx="20" cy="-16" r="20" fill="#f4efe2"/><circle cx="0" cy="-22" r="18" fill="#faf6ec"/>` +
+        `<ellipse cx="50" cy="-6" rx="16" ry="12" fill="#3a3530"/><ellipse cx="44" cy="-16" rx="8" ry="4" fill="#3a3530" transform="rotate(-30 44 -16)"/><circle cx="54" cy="-9" r="2.4" fill="#fff"/>` +
+        `</g>`
+      );
+    };
+    return (
+      sky("s", "#8fd0f0", "#f4f0d6") +
+      sun(160, 100, 36) +
+      cloud(620, 90, 1.8) + cloud(880, 140, 1.4) +
+      ridge([[0, 300], [200, 250], [460, 290], [700, 240], [1024, 280]], "#86b860", H) +
+      ridge([[0, 400], [320, 360], [660, 396], [1024, 366]], "#6fa654", H) +
+      one(220, 420, 1, 1) + one(420, 470, 1.2, 2) + one(640, 430, 0.95, 3) + one(820, 500, 1.3, 4) + one(330, 360, 0.7, 5) + one(560, 350, 0.65, 6) +
+      bush(80, 520, 30, "#4f8a3a") + bush(980, 400, 26, "#4f8a3a")
+    );
+  },
+
+  // A letter long ago: a rolled scroll with a wax seal, a reed pen and ink on a wooden table.
+  scroll: () =>
+    `<rect width="${W}" height="${H}" fill="#e6d3ad"/>` +
+    arch(400, 300, 220, 250, "#9fd2ec") + rays(510, 120, 6, 400, "#fff8e0", 0.25, 0.6) +
+    `<rect x="0" y="330" width="${W}" height="246" fill="#8a5a33"/><rect x="0" y="330" width="${W}" height="12" fill="#a06c40"/>` +
+    `<ellipse cx="500" cy="470" rx="300" ry="28" fill="#000" opacity="0.18"/>` +
+    `<path d="M240,380 L760,380 L760,470 L240,470 Z" fill="#f3e3bf"/>` +
+    `<ellipse cx="240" cy="425" rx="26" ry="48" fill="#e2cc9c"/><ellipse cx="760" cy="425" rx="26" ry="48" fill="#e2cc9c"/><ellipse cx="760" cy="425" rx="12" ry="26" fill="#c7ad78"/>` +
+    [0, 1, 2].map((i) => `<path d="M300,${404 + i * 20} Q450,${396 + i * 20} 640,${404 + i * 20}" stroke="#5a4630" stroke-width="3" fill="none" opacity="0.7"/>`).join("") +
+    `<circle cx="680" cy="446" r="22" fill="#a32a22"/><circle cx="680" cy="446" r="13" fill="#c23b30"/>` +
+    `<ellipse cx="860" cy="470" rx="30" ry="9" fill="#2a2420"/><path d="M834,470 Q832,436 860,432 Q888,436 886,470 Z" fill="#3a3330"/><path d="M852,434 L900,340" stroke="#c9a46a" stroke-width="5" stroke-linecap="round"/>`,
+
+  // The sun rising over the mountains, light spreading over the valley.
+  sunrise: () =>
+    sky("s", "#f6b37a", "#fff1cf") +
+    rays(512, 330, 15, 600, "#fff6d0", 0.16, 3.0) +
+    sun(512, 330, 70, "#ffd76a", "#fff0b8") +
+    rocks([[0, 330], [140, 250], [300, 320], [420, 270], [512, 330], [620, 260], [780, 320], [900, 240], [1024, 300]], "#8a5f52") +
+    `<path d="M0,420 Q512,396 1024,420 L1024,576 L0,576 Z" fill="#d9b07c"/>` +
+    palm(140, 470, 180, -10, 13) + palm(880, 480, 200, 12, 17) +
+    pebbles(0, 1024, 470, 570, 40, 601),
+
+  // Food shared at a door: a bowl of stew, bread and dates set by an open wooden door.
+  sharing: () =>
+    `<rect width="${W}" height="${H}" fill="#e3c08c"/>` +
+    `<rect x="380" y="80" width="300" height="360" fill="#6b4526"/><rect x="396" y="96" width="268" height="344" fill="#3a2614"/>` +
+    `<path d="M396,96 L520,130 L520,440 L396,440 Z" fill="#8a5a33"/><circle cx="500" cy="300" r="7" fill="#e8b04a"/>` +
+    `<rect x="0" y="440" width="${W}" height="136" fill="#c9a274"/><rect x="0" y="440" width="${W}" height="10" fill="#b38d60"/>` +
+    `<ellipse cx="700" cy="500" rx="110" ry="22" fill="#000" opacity="0.16"/>` +
+    `<path d="M610,470 Q700,540 790,470 Z" fill="#b8643a"/><ellipse cx="700" cy="470" rx="90" ry="18" fill="#c8743f"/><ellipse cx="700" cy="472" rx="76" ry="12" fill="#9a4a20"/>` +
+    `<ellipse cx="300" cy="500" rx="80" ry="20" fill="#d9a85e"/><ellipse cx="300" cy="492" rx="70" ry="16" fill="#e8bb72"/><path d="M250,490 L350,490" stroke="#c48e4a" stroke-width="3"/>` +
+    date(830, 510, -8) + date(860, 518, 8) + date(845, 500, 2)
+};
+
+Object.assign(PICTURES, UNSEEN_PICTURES, LIFE_PICTURES, STORY_PICTURES, MORE_PICTURES);
 
 /** The unseen things of the Last Day: shown with a line that only Allah knows how they truly look. */
 export const UNSEEN_PICTURE_IDS = Object.keys(UNSEEN_PICTURES);

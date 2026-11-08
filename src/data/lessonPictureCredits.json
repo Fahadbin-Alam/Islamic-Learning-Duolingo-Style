@@ -341,5 +341,95 @@
     "license": "Drawing",
     "licenseUrl": "",
     "drawn": true
+  },
+  "masjid": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true,
+    "note": "thing"
+  },
+  "quran": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true,
+    "note": "thing"
+  },
+  "night": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true,
+    "note": "thing"
+  },
+  "home": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true,
+    "note": "thing"
+  },
+  "rain": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true,
+    "note": "thing"
+  },
+  "market": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true,
+    "note": "thing"
+  },
+  "sheep": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true,
+    "note": "thing"
+  },
+  "scroll": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true,
+    "note": "thing"
+  },
+  "sunrise": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true,
+    "note": "thing"
+  },
+  "sharing": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true,
+    "note": "thing"
   }
 }
