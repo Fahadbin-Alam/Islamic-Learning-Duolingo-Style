@@ -228,6 +228,8 @@ export function LearnCard({
     return !englishFact || !sourceSaysEnglish || isCredit(englishFact, { reference: learnReference }) || !saidInSummary(englishFact, sourceSaysEnglish);
   });
   const factList = allFacts.filter((_, index) => keep[index]);
+  // On the facts page a surah's parts sit in the same card as what you learn, not in a box of their own.
+  const partsInCard = Boolean(page === "facts" && sourceHere && surah?.parts?.length);
   const englishList = englishMatch?.filter((_, index) => keep[index]);
   const notes = splitLessonFacts(factList, {
     english: englishList,
@@ -389,8 +391,9 @@ export function LearnCard({
 
           {pagePicture && !all && page !== "start" ? <LessonPhoto picture={pagePicture} short={short} delay={soon(240)} /> : null}
 
-          {(notes.points.length > 0 && at("facts")) || sourceSays ? (
-            // One card: the facts read as a short lesson, each its own numbered line, then what the source says.
+          {(notes.points.length > 0 && at("facts")) || sourceSays || partsInCard ? (
+            // One card: the story in a short paragraph, the points it does not already say, then what the surah is
+            // made of. Where it is from is the source at the bottom of the page.
             <PopIn delay={soon(420)} from="up" style={[styles.notesWrap, short ? styles.notesWrapShort : null]}>
               <View style={[styles.notes, { borderColor: palette.soft }]} testID="learn-facts">
                 <View style={styles.notesHead}>
@@ -399,6 +402,11 @@ export function LearnCard({
                     {t("What you learn")}
                   </Text>
                 </View>
+                {sourceSays ? (
+                  <Text style={[styles.summaryText, short ? styles.noteTextShort : null]} testID="learn-summary">
+                    <Marked text={noBreakHyphens(sourceSays)} marks={marks} />
+                  </Text>
+                ) : null}
                 {notes.points.map((point, index) => (
                   <View key={`${index}-${point.key ?? ""}-${point.text}`} style={styles.noteRow} testID="learn-fact">
                     <View style={[styles.noteNumber, { backgroundColor: palette.main }]}>
@@ -410,18 +418,7 @@ export function LearnCard({
                     </Text>
                   </View>
                 ))}
-                {sourceSays ? (
-                  <View
-                    // With no points above it, the source's words are the lesson: no box inside the box.
-                    style={notes.points.length ? [styles.summary, { backgroundColor: palette.light }] : styles.summaryOnly}
-                    testID="learn-summary"
-                  >
-                    <Text style={[styles.summaryLabel, { color: palette.ink }]}>{t("What the source says")}</Text>
-                    <Text style={[styles.summaryText, short ? styles.noteTextShort : null]}>
-                      <Marked text={noBreakHyphens(sourceSays)} marks={marks} />
-                    </Text>
-                  </View>
-                ) : null}
+                {partsInCard ? <SurahParts parts={surah!.parts!} accent={accent} short={short} inline /> : null}
               </View>
             </PopIn>
           ) : null}
@@ -485,7 +482,7 @@ export function LearnCard({
             </PopIn>
           ) : null}
 
-          {surah?.parts?.length && (all || sourceHere) ? <SurahParts parts={surah.parts} accent={accent} short={short} /> : null}
+          {surah?.parts?.length && (all || sourceHere) && !partsInCard ? <SurahParts parts={surah.parts} accent={accent} short={short} /> : null}
 
           {deeper && (all || page === "meaning" || page === "story" || page === "takeaway") ? (
             <DeeperLesson deeper={deeper} palette={palette} short={short} onOpen={openSource} part={all ? undefined : (page as "meaning" | "story" | "takeaway")} marks={marks} />
@@ -1281,22 +1278,8 @@ const styles = StyleSheet.create({
     color: colors.ink,
     backgroundColor: "#FFE9A8"
   },
-  summary: {
-    marginTop: space.md,
-    borderRadius: radii.md,
-    paddingHorizontal: space.sm + 4,
-    paddingVertical: space.sm
-  },
-  summaryOnly: {
-    marginTop: space.xs
-  },
-  summaryLabel: {
-    fontFamily: fonts.bodyHeavy,
-    fontSize: 14,
-    lineHeight: 19,
-    marginBottom: 4
-  },
   summaryText: {
+    marginTop: space.sm,
     fontFamily: fonts.bodyBold,
     fontSize: 18,
     lineHeight: 27,
