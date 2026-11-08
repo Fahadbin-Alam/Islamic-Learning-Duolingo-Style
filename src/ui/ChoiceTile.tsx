@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { memo, useEffect, useRef } from "react";
 import { Animated, Pressable, StyleSheet, Text, View } from "react-native";
 import { isRtlLanguage } from "../i18n";
 import { ArabicText, isArabicOnly, isQuranText, withHonorifics } from "./ArabicText";
@@ -95,7 +95,31 @@ const ARABIC_COMPACT = 22;
 const ARABIC = 24;
 
 /** Big answer tile. Pops when selected, shakes when wrong. Text always wraps. */
-export function ChoiceTile({ label, onPress, state = "idle", badge, icon, iconColor, layout = "row", compact, tight, long: longProp, smallText, testID, accessibilityLabel }: ChoiceTileProps) {
+export function ChoiceTile(props: ChoiceTileProps) {
+  return <TileFace {...props} rtl={isRtlLanguage()} />;
+}
+
+/**
+ * The tile itself, drawn again only when what it shows changes (its props, or the way the screen's lines run): a
+ * question drawn again while its answer sheet opens leaves its tiles as they are.
+ */
+const TileFace = memo(function TileFace({
+  label,
+  onPress,
+  state = "idle",
+  badge,
+  icon,
+  iconColor,
+  layout = "row",
+  compact,
+  tight,
+  long: longProp,
+  smallText,
+  testID,
+  accessibilityLabel,
+  rtl
+}: ChoiceTileProps & { rtl: boolean }) {
+  const start = rtl ? "right" : "left";
   const look = LOOKS[state];
   const interactive = state !== "disabled" && state !== "dimmed";
   const press = useRef(new Animated.Value(0)).current;
@@ -150,7 +174,7 @@ export function ChoiceTile({ label, onPress, state = "idle", badge, icon, iconCo
       ) : (
         // A row tile's text starts where the screen's lines start: on the left left to right, on the right right to left,
         // whatever its own script (a number or a Latin word keeps its own direction, so "start" alone would put it left).
-        <Text style={[styles.label, labelSize, square ? styles.squareLabel : styles.rowLabel, { color: look.text, textAlign: square ? "center" : lineStart() }]}>
+        <Text style={[styles.label, labelSize, square ? styles.squareLabel : styles.rowLabel, { color: look.text, textAlign: square ? "center" : start }]}>
           {withHonorifics(noBreakHyphens(label))}
         </Text>
       )}
@@ -199,7 +223,7 @@ export function ChoiceTile({ label, onPress, state = "idle", badge, icon, iconCo
       </Animated.View>
     </Animated.View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   rowRoot: {
