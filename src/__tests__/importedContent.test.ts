@@ -68,7 +68,8 @@ describe("imported lessons on the path", () => {
   });
 
   it("orders the hadith lessons from young children's to adults'", () => {
-    const levels = section("hadith").nodes.map((node) => lessonOf(node.id)?.difficulty ?? 0);
+    // The imported units, kids' sayings then Safe with Allah; the deep units in between (kidsHadithUnits.ts) ramp up on their own.
+    const levels = section("hadith").nodes.filter((node) => !node.id.startsWith("deep-")).map((node) => lessonOf(node.id)?.difficulty ?? 0);
     expect(levels).toEqual([...levels].sort((left, right) => left - right));
     expect(levels[0]).toBe(1);
   });
@@ -201,12 +202,12 @@ describe("Hadith topic", () => {
   const hadith = () => section("hadith");
   const lessonsOf = (branchId: string) => hadith().nodes.filter((node) => node.branchId === branchId).map((node) => lessonOf(node.id)!);
 
-  it("is a child's path: Hadith for kids, then Safe with Allah, and no unit waits behind a gate", () => {
+  it("is a child's path: Hadith for kids, three units of short sayings, then Safe with Allah, and no unit waits behind a gate", () => {
     const branches = hadith().branches;
-    expect(branches.map((branch) => branch.title)).toEqual(["Hadith for kids", "Safe with Allah"]);
+    expect(branches.map((branch) => branch.title)).toEqual(["Hadith for kids", "Words that please Allah", "Small deeds, big rewards", "Kindness at home", "Safe with Allah"]);
     expect(branches.some((branch) => branch.gated)).toBe(false);
     // Unit ids stay those of the imported units, so saved progress still counts.
-    expect(branches.map((branch) => branch.id)).toEqual([HADITH_BASICS_BRANCH_ID, "notes-hadith-hadith-from-your-notes-1"]);
+    expect(branches.map((branch) => branch.id)).toEqual([HADITH_BASICS_BRANCH_ID, "hadith-dhikr", "hadith-small-deeds", "hadith-kindness", "notes-hadith-hadith-from-your-notes-1"]);
   });
 
   it("teaches the hadith about marriage only as the last unit of the Marriage topic, in order", () => {
@@ -230,8 +231,8 @@ describe("Hadith topic", () => {
   });
 
   it("keeps marriage, wives and Iblis out of the Hadith topic", () => {
-    const [kids, safe] = hadith().branches;
-    const young = [...lessonsOf(kids.id), ...lessonsOf(safe.id)];
+    const safe = hadith().branches.find((branch) => branch.id.startsWith("notes-"))!;
+    const young = hadith().branches.flatMap((branch) => lessonsOf(branch.id));
     const adult = /\bmarr|\bwife\b|\bwives\b|husband|fertile|iblis/i;
     expect(young.filter((lesson) => shownText(lesson).some((text) => adult.test(text))).map((lesson) => lesson.title)).toEqual([]);
     expect(hadith().nodes.length).toBe(young.length);
