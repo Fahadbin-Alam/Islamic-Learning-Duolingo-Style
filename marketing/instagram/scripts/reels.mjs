@@ -1,5 +1,5 @@
 import { chromium } from "playwright";
-import { pathToFileURL } from "node:url"; import { writeFileSync, readFileSync, mkdirSync } from "node:fs";
+import { pathToFileURL } from "node:url"; import { writeFileSync, readFileSync, mkdirSync, existsSync } from "node:fs";
 const R = process.env.MUSLIMO_ROOT ?? "C:/Users/Mihad/Desktop/Islamic-Learning-Duolingo-Style"; const S = process.cwd().replaceAll("\\", "/");
 mkdirSync(`${S}/out`, { recursive: true });
 mkdirSync(`${S}/frames`, { recursive: true });
@@ -51,6 +51,10 @@ const REELS = {
   "reel-1-salam-quiz": [{ src: fr("hook"), d: 2.2 }, { src: fr("q"), d: 5, timer: true }, { src: fr("reveal"), d: 2.5 }, { src: fr("quote"), d: 5 }, { src: fr("cta"), d: 3 }],
   "reel-2-app-tour": [{ src: ph("01-learn"), d: 2.4 }, { src: ph("02-path"), d: 2.4 }, { src: ph("03-question"), d: 2.4 }, { src: ph("04-feedback"), d: 2.4 }, { src: ph("05-complete"), d: 2.4 }, { src: ph("06-topics"), d: 2.4 }, { src: fr("cta"), d: 3 }],
 };
+// Reel 3 uses the frames duo.mjs writes; run `node duo.mjs out2` first.
+const d3 = k => pathToFileURL(`${S}/out2/frames/${k}.png`).href;
+if (existsSync(`${S}/out2/frames/r3-end.png`))
+  REELS["reel-3-camel-misses-you"] = [{ src: d3("r3-0"), d: 2.5 }, { src: d3("r3-1"), d: 2.5 }, { src: d3("r3-2"), d: 2.5 }, { src: d3("r3-3"), d: 3.5 }, { src: d3("r3-end"), d: 3 }];
 writeFileSync(`${S}/enc.html`, `<html><body><canvas id=c width=1080 height=1920></canvas></body></html>`);
 await pg.goto(pathToFileURL(`${S}/enc.html`).href);
 await pg.addScriptTag({ content: readFileSync(`${S}/node_modules/mp4-muxer/build/mp4-muxer.js`, "utf8") });
