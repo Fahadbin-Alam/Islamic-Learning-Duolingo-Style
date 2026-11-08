@@ -3376,7 +3376,7 @@ const IBN_MUGHAFFAL: DeepUnit = {
       difficulty: 2,
       questions: [
         { q: "When is this extra prayer?", a: "Between adhan and iqamah", wrong: ["After sunset only", "At midnight only", "After Eid only"], why: "There is a prayer between the two Adhans." },
-        { q: "How many times did he say it?", a: "Three", wrong: ["Once", "Seven", "Ten"], why: "Allah's Messenger said thrice." },
+        { q: "How many times did he say it?", a: "Three", wrong: ["Once", "Seven", "Ten"], why: "Allah's Messenger ﷺ said it three times." },
         { q: "This prayer is a must for everyone.", tf: false, why: "For the one who wants to pray." }
       ]
     },
