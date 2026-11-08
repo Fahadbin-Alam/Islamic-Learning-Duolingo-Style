@@ -3,7 +3,7 @@
 Google Play: Play Console → Grow users → Store presence → Main store listing → Manage translations → Add your own translations → **Urdu – ur**, then paste each block.
 App Store: App Store Connect → your app → the language menu at the top right → add **Urdu** (only if App Store Connect offers it), then paste the App Store blocks.
 
-Screenshots can stay in English for now. Character limits were checked by `scripts/check-store-listings.mjs`.
+Screenshots: Google Play and App Store both let each language have its own. Use the Urdu ones in `store/graphics/localized/ur/` (same folder names as the English set: `google-play/phone`, `google-play/tablet`, `app-store/iphone-6.9`, `app-store/ipad-13`). In Play they go in the same "Manage translations" page, under Graphics. Character limits were checked by `scripts/check-store-listings.mjs`.
 
 ## Google Play
 
@@ -29,9 +29,10 @@ Muslimo اسلام سیکھنے کو چھوٹے، کھیل جیسے اسباق �
 آپ کیا سیکھیں گے
 • ایمان، سلام، روزانہ اذکار اور ہر مسلمان کے لیے ضروری بنیادی باتیں
 • وضو قدم بہ قدم، پھر تکبیر سے سلام تک نماز
-• قرآن اور تفسیر: سورت بہ سورت معنی کے ساتھ
+• قرآن اور تفسیر: ہر سورت آیت بہ آیت، معنی اور احادیث کے ساتھ
 • انبیاء کی زندگیاں: آدم علیہ السلام سے محمد ﷺ تک، ترتیب سے
-• صحابہ کرام: خلفائے راشدین اور دوسرے صحابہ
+• سیرت اور صحابہ کرام: خلفائے راشدین اور دوسرے صحابہ کی زندگیاں، کہانی کی طرح
+• صحیح بخاری اور صحیح مسلم کی احادیث، کتاب بہ کتاب
 • آداب: سچائی، رحم دلی، والدین کی عزت اور بہت کچھ
 • روزہ، زکوٰۃ، حج اور قیامت کا دن
 
@@ -39,10 +40,12 @@ Muslimo اسلام سیکھنے کو چھوٹے، کھیل جیسے اسباق �
 • نماز کے بعد یا وقفے میں ہونے والے چھوٹے اسباق
 • غلط سوال دوبارہ آتے ہیں جب تک یاد نہ ہو جائیں
 • ہر جواب کے بعد آسان وضاحت
+• انٹرنیٹ کے بغیر بھی اسباق چلتے ہیں
 
 حوصلہ قائم رکھیں
 • روزانہ اسٹریک، XP، کھجوریں اور انعامی صندوق
 • گھر والوں اور دوستوں کے ساتھ ہفتہ وار مقابلہ اور کوئز بیٹل
+• دوست کے ساتھ مل کر مشترکہ اسٹریک
 • اپنے کوڈ سے دوست کو بلائیں، دونوں کو کھجوریں ملیں گی
 • اونٹ کی مزے دار یاد دہانیاں (جب چاہیں بند کریں)
 

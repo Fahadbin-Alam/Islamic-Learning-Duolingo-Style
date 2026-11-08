@@ -129,6 +129,8 @@ export function displayName(item: ShopItem) {
       return t("Refill hearts");
     case "rewarded_ad":
       return item.gemsGranted ? t("Free dates") : t("Free heart");
+    case "heart_pack":
+      return t("Heart pack");
     default:
       return item.name;
   }
