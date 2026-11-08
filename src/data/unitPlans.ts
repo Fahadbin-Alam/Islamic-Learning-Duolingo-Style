@@ -15,8 +15,8 @@ interface UnitPlan {
   nodes: string[];
 }
 
-/** Topics whose units follow the plan's order, new units included (the prophets, from Adam to Muhammad ﷺ). */
-const PLAN_ORDERED: ReadonlySet<TopicId> = new Set<TopicId>(["prophets"]);
+/** Topics whose units follow the plan's order, new units included (the prophets, from Adam to Muhammad ﷺ; Great Women). */
+const PLAN_ORDERED: ReadonlySet<TopicId> = new Set<TopicId>(["prophets", "women_of_the_book"]);
 
 /**
  * Reviews that named people from other units, left off the path now that each prophet has a unit of his own (each
@@ -171,43 +171,125 @@ export const UNIT_PLANS: Partial<Record<TopicId, UnitPlan[]>> = {
       nodes: ["prophets-muhammad"]
     }
   ],
+  // Great Women: the Mothers of the Believers in the order the Prophet ﷺ married them, each wife's lessons together
+  // (a mother of a wife sits with her daughter), then the Women of Islam: the women of the Quran in the order of
+  // their times, then women of the Prophet's ﷺ time. Deep lessons (womenUnits.ts) are placed too, by orderDeepUnits.
   women_of_the_book: [
     {
-      unit: "women-quran",
-      nodes: [
-        "women-hawwa",
-        "women-quran-depth-hawwa-and-return",
-        "women-mother-musa",
-        "women-quran-depth-mother-of-musa-and-trust",
-        "women-asiyah",
-        "women-virtues-and-legacy-courage-under-pressure",
-        "women-quran-depth-asiyah-and-steadfastness",
-        "women-maryam",
-        "women-virtues-and-legacy-worship-and-devotion",
-        "women-quran-depth-maryam-and-purity",
-        "women-quran-depth-quran-women-review"
-      ]
-    },
-    {
       unit: "women-mothers",
+      title: "Mothers of the Believers",
+      description: "Every wife of the Prophet ﷺ, one after another in the order he married them.",
       nodes: [
+        "deep-mothers-mothers-of-believers",
+        "deep-mothers-wives-not-like-others",
         "women-khadijah",
         "women-virtues-and-legacy-service-to-revelation",
         "women-mothers-depth-khadijah-and-support",
+        "deep-mothers-khadijah-never-disgrace",
+        "deep-mothers-khadijah-best",
+        "deep-mothers-khadijah-remembered",
+        "deep-mothers-khadijah-palace",
         "women-mothers-depth-sawdah-and-stability",
+        "deep-mothers-sawdah-her-day",
+        "deep-mothers-sawdah-early",
+        "deep-mothers-sawdah-loved",
         "women-aishah",
         "women-mothers-depth-aishah-and-knowledge",
+        "deep-mothers-aishah-tharid",
+        "deep-mothers-aishah-jibril",
+        "deep-mothers-aishah-choice",
+        "deep-mothers-aishah-necklace",
+        "deep-mothers-aishah-innocent",
+        "deep-mothers-aishah-scholar",
+        "deep-mothers-aishah-loved",
+        "deep-mothers-aishah-last-days",
         "women-hafsah",
+        "deep-mothers-hafsah-widow",
+        "deep-mothers-hafsah-sheets",
         "women-mothers-depth-mothers-review",
         `${WIFE}-3-zaynab-bint-khuzayma`,
         `${WIFE}-3-umm-salamah-wife-of-the-prophet`,
+        "deep-mothers-umm-salamah-dua",
+        "deep-mothers-umm-salamah-advice",
+        "deep-mothers-umm-salamah-jibril",
         `${WIFE}-3-zaynab-bint-jahsh`,
+        `${WIFE}-2-umayma-bint-abd-al-muttalib`,
+        "deep-mothers-zaynab-jahsh-married",
+        "deep-mothers-zaynab-jahsh-generous",
+        "deep-mothers-zaynab-longest-hand",
         `${WIFE}-1-juwayriya-bint-al-harith`,
+        "deep-mothers-juwayriyah-name",
+        "deep-mothers-juwayriyah-blessing",
+        "deep-mothers-juwayriyah-words",
         `${WIFE}-3-umm-habibah`,
+        "deep-mothers-umm-habibah-twelve",
+        "deep-mothers-umm-habibah-mourning",
         `${WIFE}-2-safiyyah-bint-huyayy`,
+        `${WIFE}-1-barrah-bint-samuel`,
+        "deep-mothers-safiyyah-freed",
+        "deep-mothers-safiyyah-honor",
+        "deep-mothers-safiyyah-itikaf",
         `${WIFE}-2-maymunah-bint-al-harith`,
+        "deep-mothers-maymunah-ghusl",
+        "deep-mothers-maymunah-gentle",
+        "deep-mothers-maymunah-night-prayer",
         "women-virtues-and-legacy-lessons-for-today",
-        "women-virtues-and-legacy-women-legacy-review"
+        "women-virtues-and-legacy-women-legacy-review",
+        "deep-mothers-final-quiz"
+      ]
+    },
+    {
+      unit: "women-quran",
+      title: "Women of Islam",
+      description: "The women of the Quran, from Hawwa to Maryam, then women of the Prophet's ﷺ time who did great things.",
+      nodes: [
+        "women-hawwa",
+        "women-quran-depth-hawwa-and-return",
+        "deep-quranwomen-two-wives-warning",
+        `${WIFE}-2-sarah`,
+        "deep-quranwomen-sarah-smiled",
+        `${WIFE}-1-hajar`,
+        "deep-quranwomen-hajar-trust",
+        "deep-quranwomen-hajar-safa-marwah",
+        "women-mother-musa",
+        "women-quran-depth-mother-of-musa-and-trust",
+        "deep-quranwomen-musa-mother-promise",
+        "deep-quranwomen-musa-mother-heart",
+        "deep-quranwomen-musa-sister",
+        "women-asiyah",
+        "women-virtues-and-legacy-courage-under-pressure",
+        "women-quran-depth-asiyah-and-steadfastness",
+        "deep-quranwomen-asiyah-dont-kill",
+        "deep-quranwomen-asiyah-perfect",
+        "deep-quranwomen-asiyah-example",
+        "deep-quranwomen-madyan-sisters",
+        "deep-quranwomen-madyan-shyness",
+        "deep-quranwomen-madyan-strong-trustworthy",
+        "deep-quranwomen-saba-queen",
+        "deep-quranwomen-saba-submits",
+        "women-quran-depth-quran-women-review",
+        `${WIFE}-1-grandmother-of-isa-wife-of-imran`,
+        "deep-quranwomen-imran-vow",
+        "women-maryam",
+        "women-virtues-and-legacy-worship-and-devotion",
+        "women-quran-depth-maryam-and-purity",
+        "deep-quranwomen-maryam-named",
+        "deep-quranwomen-maryam-provision",
+        "deep-quranwomen-maryam-chosen",
+        "deep-quranwomen-maryam-palm",
+        "deep-quranwomen-maryam-silence",
+        `${WIFE}-1-aminah-bint-wahb`,
+        `${WIFE}-1-halima-al-sadeya`,
+        "deep-quranwomen-sumayyah-first-seven",
+        "deep-quranwomen-sumayyah-first-martyr",
+        "deep-quranwomen-women-ask-a-day",
+        "deep-quranwomen-woman-who-argued",
+        "deep-quranwomen-umm-umarah-ayah",
+        "deep-quranwomen-rubayyi-water",
+        "deep-quranwomen-umm-sulaym-patience",
+        "deep-quranwomen-umm-haram-sea",
+        "deep-quranwomen-umm-ayman-visit",
+        "deep-quranwomen-final-quiz"
       ]
     }
   ]
@@ -276,6 +358,12 @@ function arrangeSection(section: LearningSection, plans: UnitPlan[], lessonsById
   const all = PLAN_ORDERED.has(section.topicId)
     ? [...section.branches, ...added].map((branch, index) => ({ branch, index })).sort((left, right) => rank(left.branch.id) - rank(right.branch.id) || left.index - right.index).map(({ branch }) => branch)
     : [...section.branches, ...added];
+  // A plan's title and description rename a unit that already exists.
+  const named = all.map((branch) => {
+    const plan = plans.find((each) => each.unit === branch.id && each.title);
+    return plan ? { ...branch, title: plan.title!, description: plan.description ?? branch.description } : branch;
+  });
+  all.splice(0, all.length, ...named);
   const members = new Map<string, LearningNode[]>(all.map((branch) => [branch.id, []]));
   for (const plan of plans) {
     if (members.has(plan.unit)) members.set(plan.unit, plan.nodes.filter((id) => byId.has(id)).map((id) => byId.get(id)!));
@@ -319,6 +407,55 @@ export function arrangeUnits(content: { course: LearningCourse; lessonsById: Rec
   const sections = content.course.sections.map((section) => {
     const plans = UNIT_PLANS[section.topicId];
     return plans ? arrangeSection(section, plans, lessonsById) : section;
+  });
+  return { course: { ...content.course, sections }, lessonsById };
+}
+
+/**
+ * Puts the deep lessons (deepUnits.ts) of a planned unit in the places its plan gives them, among the unit's own
+ * lessons, once addDeepUnits has added them after the unit's own circles. A lesson the plan does not name (a deep
+ * review) stays right after the lesson it followed, so it only asks about lessons before it. A unit whose plan names
+ * none of its deep lessons is left as it is.
+ */
+export function orderDeepUnits(content: { course: LearningCourse; lessonsById: Record<string, Lesson> }) {
+  const lessonsById = { ...content.lessonsById };
+  const sections = content.course.sections.map((section) => {
+    const plans = (UNIT_PLANS[section.topicId] ?? []).filter((plan) => plan.nodes.some((id) => id.startsWith("deep-")));
+    if (!plans.length) return section;
+    let nodes = [...section.nodes];
+    for (const plan of plans) {
+      const own = nodes.filter((node) => node.branchId === plan.unit);
+      if (!own.length) continue;
+      const listed = new Set(plan.nodes);
+      const followers = new Map<string, LearningNode[]>();
+      const unit: LearningNode[] = [];
+      own.forEach((node, index) => {
+        if (listed.has(node.id)) return;
+        const before = own.slice(0, index).reverse().find((each) => listed.has(each.id));
+        if (!before) unit.push(node);
+        else followers.set(before.id, [...(followers.get(before.id) ?? []), node]);
+      });
+      const place = (node: LearningNode): LearningNode[] => [node, ...(followers.get(node.id) ?? []).flatMap(place)];
+      const byPlan = new Map(own.map((node) => [node.id, node]));
+      unit.push(...plan.nodes.filter((id) => byPlan.has(id)).flatMap((id) => place(byPlan.get(id)!)));
+      const oldLast = own[own.length - 1];
+      const newLast = unit[unit.length - 1];
+      const chained = unit.map((node, index) => {
+        const previous = index > 0 ? unit[index - 1] : undefined;
+        for (const lessonId of node.lessonIds) {
+          if (lessonsById[lessonId]) lessonsById[lessonId] = { ...lessonsById[lessonId], unlockRules: previous ? [`Complete ${previous.title}`] : [] };
+        }
+        return { ...node, order: index + 1, requiredNodeIds: previous ? [previous.id] : [] };
+      });
+      const byId = new Map(chained.map((node) => [node.id, node]));
+      const first = nodes.findIndex((node) => node.branchId === plan.unit);
+      nodes = [
+        ...nodes.slice(0, first).filter((node) => node.branchId !== plan.unit),
+        ...chained,
+        ...nodes.slice(first).filter((node) => node.branchId !== plan.unit)
+      ].map((node) => (byId.has(node.id) || !node.requiredNodeIds.includes(oldLast.id) ? node : { ...node, requiredNodeIds: node.requiredNodeIds.map((id) => (id === oldLast.id ? newLast.id : id)) }));
+    }
+    return { ...section, nodes };
   });
   return { course: { ...content.course, sections }, lessonsById };
 }

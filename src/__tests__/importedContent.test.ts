@@ -34,11 +34,22 @@ describe("imported lessons on the path", () => {
     expect(branches.slice(firstImported).every((id) => id.startsWith("notes-"))).toBe(true);
   });
 
-  it("puts the built-in women first, then the women from the notes", () => {
-    const branches = section("women_of_the_book").branches.map((branch) => branch.id);
-    const firstImported = branches.findIndex((id) => id.startsWith("notes-"));
-    expect(firstImported).toBeGreaterThan(0);
-    expect(branches.slice(firstImported).every((id) => id.startsWith("notes-"))).toBe(true);
+  it("teaches Great Women in two units: the Mothers of the Believers, then the Women of Islam", () => {
+    const women = section("women_of_the_book");
+    expect(women.branches.map((branch) => branch.title)).toEqual(["Mothers of the Believers", "Women of Islam"]);
+    const titles = (unit: string) => women.nodes.filter((node) => node.branchId === unit).map((node) => node.title);
+    // Each wife's lessons are together, in the order the Prophet ﷺ married them.
+    const wives = ["Khadijah", "Sawdah", "Aishah", "Hafsah", "Zaynab bint Khuzaymah", "Umm Salamah", "Zaynab bint Jahsh", "Juwayriyah bint al-Harith", "Umm Habibah", "Safiyyah bint Huyayy", "Maymunah bint al-Harith"];
+    expect(titles("women-mothers").filter((title) => wives.includes(title))).toEqual(wives);
+    const mothers = women.nodes.filter((node) => node.branchId === "women-mothers").map((node) => node.id);
+    expect(mothers.indexOf("deep-mothers-khadijah-palace")).toBeLessThan(mothers.indexOf("women-mothers-depth-sawdah-and-stability"));
+    expect(mothers[mothers.length - 1]).toBe("deep-mothers-final-quiz");
+    // The Women of Islam: the women of the Quran from Hawwa to Maryam, then Sumayyah, the first martyr, and more.
+    const islam = titles("women-quran");
+    expect(islam[0]).toBe("Hawwa");
+    expect(islam.indexOf("Maryam")).toBeLessThan(islam.indexOf("The first martyr in Islam"));
+    expect(islam).toEqual(expect.arrayContaining(["Hajar", "Sarah", "Aminah bint Wahb"]));
+    expect(women.nodes.filter((node) => node.branchId === "women-quran").pop()!.id).toBe("deep-quranwomen-final-quiz");
   });
 
   it("teaches the prophets in order, a unit each, from Adam to Muhammad ﷺ and then his Seerah", () => {
@@ -338,8 +349,8 @@ describe("imported lessons stand on their own", () => {
 
   it("group the women from the notes by theme, without Umm Jamil or Umm Anmar", () => {
     const women = section("women_of_the_book");
-    const fromNotes = women.branches.filter((branch) => branch.id.startsWith("notes-"));
-    expect(fromNotes.map((branch) => branch.title)).toEqual(["Mothers"]);
+    // The women from the notes join the two units; none is left in a unit of its own.
+    expect(women.branches.filter((branch) => branch.id.startsWith("notes-"))).toEqual([]);
     // Ali's family is not a unit, and none of its women are taught anywhere.
     expect(women.branches.map((branch) => branch.title)).not.toContain("Ali's family");
     expect(women.nodes.filter((node) => /zaynab-bint-ali|umm-kulthoom-bint-ali|umm-al-banin|sayyida-nafisa/.test(node.id))).toEqual([]);
@@ -349,7 +360,7 @@ describe("imported lessons stand on their own", () => {
     const mothers = women.nodes.filter((node) => node.branchId === "women-mothers").map((node) => node.title);
     const wives = ["Zaynab bint Khuzaymah", "Umm Salamah", "Zaynab bint Jahsh", "Juwayriyah bint al-Harith", "Umm Habibah", "Safiyyah bint Huyayy", "Maymunah bint al-Harith"];
     expect(mothers.filter((title) => wives.includes(title))).toEqual(wives);
-    expect(mothers.slice(0, 1)).toEqual(["Khadijah"]);
+    expect(mothers.slice(0, 3)).toEqual(["Mothers of the Believers", "Not like other women", "Khadijah"]);
   });
 });
 

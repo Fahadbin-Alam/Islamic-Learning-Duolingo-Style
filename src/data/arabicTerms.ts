@@ -297,12 +297,10 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "sahabi-al-mughirah-ibn-shubah": { ar: "المغيرة بن شعبة", translit: "Al-Mughirah ibn Shu'bah", meaning: "The helper on journeys" },
   "sahabi-samurah-ibn-jundub": { ar: "سمرة بن جندب", translit: "Samurah ibn Jundub", meaning: "The narrator of the dream" },
 
-  // Women of the Book: women of the Quran and the Mothers of the Believers
-  "women-quran": { ar: "النساء في القرآن", translit: "An-nisa fil-Quran", meaning: "Women in the Quran" },
+  // Great Women: the Mothers of the Believers, and the Women of Islam (the women of the Quran and after)
+  "women-quran": { ar: "نساء الإسلام", translit: "Nisa al-Islam", meaning: "Women of Islam" },
   "women-mothers": { ar: "أمهات المؤمنين", translit: "Ummahat al-muminin", meaning: "Mothers of the Believers" },
-  // The imported women, one unit per theme (src/data/importedNotes.ts); the Mothers of the Believers from the
-  // notes are taught in "women-mothers" (src/data/unitPlans.ts).
-  "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1": { ar: "الأمهات", translit: "Al-ummahat", meaning: "Mothers" },
+  // The women from the notes are all taught in these two units (src/data/unitPlans.ts).
 
   // Hadith: sayings for children first, then the imported hadith for young children (src/data/importedNotes.ts)
   "hadith-for-kids": { ar: "أحاديث للأطفال", translit: "Ahadith lil-atfal", meaning: "Hadith for children" },
@@ -559,7 +557,7 @@ export const NODE_ARABIC: Record<string, ArabicTerm> = {
   "prophets-power-and-deliverance-dawud-and-justice": { ar: "الْعَدْلُ", translit: "Al-adl", meaning: "Justice" },
   "prophets-power-and-deliverance-sulayman-and-gratitude": { ar: "الشُّكْرُ", translit: "Ash-shukr", meaning: "Gratitude" },
 
-  // Women of the Book: women of the Quran and the Mothers of the Believers
+  // Great Women: the Mothers of the Believers, and the Women of Islam (the women of the Quran and after)
   "women-hawwa": { ar: "حَوَّاءُ", translit: "Hawwa", meaning: "Eve, first woman" },
   "women-mother-musa": { ar: "أُمُّ مُوسَى", translit: "Umm Musa", meaning: "Mother of Musa" },
   "women-asiyah": { ar: "آسِيَةُ", translit: "Asiyah", meaning: "Pharaoh's believing wife" },
@@ -834,7 +832,7 @@ const LEARN_FORMS = [
   "خَالِدُ بْنُ الْوَلِيدِ", "بِلَالُ بْنُ رَبَاحٍ", "أَبُو عُبَيْدَةَ بْنُ الْجَرَّاحِ",
   "طَلْحَةُ بْنُ عُبَيْدِ اللَّهِ", "الزُّبَيْرُ بْنُ الْعَوَّامِ", "سَعْدُ بْنُ أَبِي وَقَّاصٍ",
   "سَلْمَانُ الْفَارِسِيُّ", "أَبُو ذَرٍّ الْغِفَارِيُّ", "عَبْدُ اللَّهِ بْنُ مَسْعُودٍ",
-  "أَنَسُ بْنُ مَالِكٍ", "جَعْفَرُ بْنُ أَبِي طَالِبٍ", "أَبُو هُرَيْرَةَ", "كَعْبُ بْنُ مَالِكٍ", "سَعْدُ بْنُ مُعَاذٍ", "عَبْدُ الرَّحْمَنِ بْنُ عَوْفٍ", "مُعَاذُ بْنُ جَبَلٍ", "أُبَيُّ بْنُ كَعْبٍ", "زَيْدُ بْنُ ثَابِتٍ", "أَبُو مُوسَى الْأَشْعَرِيُّ", "جَابِرُ بْنُ عَبْدِ اللَّهِ", "أَبُو طَلْحَةَ الْأَنْصَارِيُّ", "حُذَيْفَةُ بْنُ الْيَمَانِ", "حَمْزَةُ بْنُ عَبْدِ الْمُطَّلِبِ", "زَيْدُ بْنُ حَارِثَةَ", "أُسَامَةُ بْنُ زَيْدٍ", "عَمَّارُ بْنُ يَاسِرٍ", "أَبُو أَيُّوبَ الْأَنْصَارِيُّ", "عَبْدُ اللَّهِ بْنُ رَوَاحَةَ", "خَبَّابُ بْنُ الْأَرَتِّ", "عُثْمَانُ بْنُ مَظْعُونٍ", "أَبُو سَعِيدٍ الْخُدْرِيُّ", "أَبُو الدَّرْدَاءِ", "عُبَادَةُ بْنُ الصَّامِتِ", "سَعْدُ بْنُ عُبَادَةَ", "الْبَرَاءُ بْنُ عَازِبٍ", "عَبْدُ اللَّهِ بْنُ عَمْرٍو", "عَبْدُ اللَّهِ بْنُ سَلَامٍ", "أَسْمَاءُ بِنْتُ أَبِي بَكْرٍ", "سَهْلُ بْنُ سَعْدٍ", "أَبُو قَتَادَةَ", "النُّعْمَانُ بْنُ بَشِيرٍ", "جَرِيرُ بْنُ عَبْدِ اللَّهِ", "ثَوْبَانُ", "عُقْبَةُ بْنُ عَامِرٍ", "أَبُو أُمَامَةَ", "عِمْرَانُ بْنُ حُصَيْنٍ", "عَبْدُ اللَّهِ بْنُ مُغَفَّلٍ", "الْمُغِيرَةُ بْنُ شُعْبَةَ", "سَمُرَةُ بْنُ جُنْدُبٍ", "النِّسَاءُ فِي الْقُرْآنِ", "أُمَّهَاتُ الْمُؤْمِنِينَ",
+  "أَنَسُ بْنُ مَالِكٍ", "جَعْفَرُ بْنُ أَبِي طَالِبٍ", "أَبُو هُرَيْرَةَ", "كَعْبُ بْنُ مَالِكٍ", "سَعْدُ بْنُ مُعَاذٍ", "عَبْدُ الرَّحْمَنِ بْنُ عَوْفٍ", "مُعَاذُ بْنُ جَبَلٍ", "أُبَيُّ بْنُ كَعْبٍ", "زَيْدُ بْنُ ثَابِتٍ", "أَبُو مُوسَى الْأَشْعَرِيُّ", "جَابِرُ بْنُ عَبْدِ اللَّهِ", "أَبُو طَلْحَةَ الْأَنْصَارِيُّ", "حُذَيْفَةُ بْنُ الْيَمَانِ", "حَمْزَةُ بْنُ عَبْدِ الْمُطَّلِبِ", "زَيْدُ بْنُ حَارِثَةَ", "أُسَامَةُ بْنُ زَيْدٍ", "عَمَّارُ بْنُ يَاسِرٍ", "أَبُو أَيُّوبَ الْأَنْصَارِيُّ", "عَبْدُ اللَّهِ بْنُ رَوَاحَةَ", "خَبَّابُ بْنُ الْأَرَتِّ", "عُثْمَانُ بْنُ مَظْعُونٍ", "أَبُو سَعِيدٍ الْخُدْرِيُّ", "أَبُو الدَّرْدَاءِ", "عُبَادَةُ بْنُ الصَّامِتِ", "سَعْدُ بْنُ عُبَادَةَ", "الْبَرَاءُ بْنُ عَازِبٍ", "عَبْدُ اللَّهِ بْنُ عَمْرٍو", "عَبْدُ اللَّهِ بْنُ سَلَامٍ", "أَسْمَاءُ بِنْتُ أَبِي بَكْرٍ", "سَهْلُ بْنُ سَعْدٍ", "أَبُو قَتَادَةَ", "النُّعْمَانُ بْنُ بَشِيرٍ", "جَرِيرُ بْنُ عَبْدِ اللَّهِ", "ثَوْبَانُ", "عُقْبَةُ بْنُ عَامِرٍ", "أَبُو أُمَامَةَ", "عِمْرَانُ بْنُ حُصَيْنٍ", "عَبْدُ اللَّهِ بْنُ مُغَفَّلٍ", "الْمُغِيرَةُ بْنُ شُعْبَةَ", "سَمُرَةُ بْنُ جُنْدُبٍ", "نِسَاءُ الْإِسْلَامِ", "أُمَّهَاتُ الْمُؤْمِنِينَ",
   "سُوَرُ الْقُرْآنِ", "الْأَنْبِيَاءُ", "النِّسَاءُ", "الصَّحَابَةُ",
   "الْحَدِيثُ", "الْأُمَّهَاتُ", "آلُ عَلِيٍّ", "أَحَادِيثُ لِلْأَطْفَالِ", "فِي حِفْظِ اللَّهِ",
   "الزَّوَاجُ فِي السُّنَّةِ", "أَهْلًا رَمَضَانُ", "أَعْمَالُ رَمَضَانَ", "الْعَشْرُ الْأَوَاخِرُ",
