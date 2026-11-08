@@ -41,13 +41,14 @@ export function SurahCover({ surah, meaning, arabicName, short }: { surah: numbe
 }
 
 /** "Inside this surah": the parts it is taught in, one per row, so the learner sees what is coming. */
-export function SurahParts({ parts, accent, short }: { parts: string[]; accent: string; short?: boolean }) {
+export function SurahParts({ parts, accent, short, inline }: { parts: string[]; accent: string; short?: boolean; inline?: boolean }) {
   if (!parts.length) return null;
   const palette = topicPalette(accent);
   const shown = parts.slice(0, SHOWN_PARTS);
   const more = parts.length - shown.length;
   return (
-    <PopIn delay={180} from="up" style={[styles.parts, short ? styles.partsShort : null, { borderColor: palette.soft }]}>
+    // Inline, it is the last part of the What you learn card, under a thin line, not a box of its own.
+    <PopIn delay={180} from="up" style={inline ? [styles.partsInline, { borderTopColor: palette.soft }] : [styles.parts, short ? styles.partsShort : null, { borderColor: palette.soft }]}>
       <View testID="surah-parts">
         <Text style={[styles.partsHead, { color: palette.ink }]} accessibilityRole="header">
           {t("Inside this surah")}
@@ -122,6 +123,12 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     paddingHorizontal: space.md,
     paddingVertical: space.sm
+  },
+  partsInline: {
+    alignSelf: "stretch",
+    marginTop: space.md,
+    paddingTop: space.sm,
+    borderTopWidth: 2
   },
   partsShort: {
     marginTop: space.sm
