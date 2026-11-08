@@ -3205,7 +3205,7 @@ export function addSurahDeepUnits(content: { course: LearningCourse; lessonsById
   return addUnits(content, SURAH_DEEP_UNITS);
 }
 
-function addUnits(content: { course: LearningCourse; lessonsById: Record<string, Lesson> }, deepUnits: readonly DeepUnit[]) {
+function addUnits(content: { course: LearningCourse; lessonsById: Record<string, Lesson> }, deepUnits: readonly DeepUnit[]): { course: LearningCourse; lessonsById: Record<string, Lesson> } {
   const lessonsById = { ...content.lessonsById };
   // A topic made only of deep units (Scholars, Eid, Day of Judgment) starts as an empty section.
   const all = [SCHOLARS_SECTION, EID_SECTION, AKHIRAH_SECTION, SAHIHAYN_SECTION].reduce(
