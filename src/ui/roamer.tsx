@@ -25,10 +25,12 @@ type Gait = {
   rest: number;
   /** Crabs walk sideways, so they never turn round. */
   turns: boolean;
+  /** Paces the row end to end like the camel (each walk crosses to the far side) instead of short hops to random spots. */
+  paces?: boolean;
 };
 
 export const GAITS: Record<RoamKind, Gait> = {
-  sheep: { speed: 30, step: 0.2, rest: 2600, turns: true },
+  sheep: { speed: 34, step: 0.2, rest: 900, turns: true, paces: true },
   goat: { speed: 36, step: 0.22, rest: 2200, turns: true },
   horse: { speed: 44, step: 0.26, rest: 2400, turns: true },
   rabbit: { speed: 70, step: 0.42, rest: 2000, turns: true },
@@ -128,7 +130,7 @@ export function Roamer({ kind, size, width, left, active, seed = 0, children }: 
       );
     };
     const rest = (done: () => void) => {
-      const ms = gait.rest + s.random() * 1400;
+      const ms = gait.rest + s.random() * (gait.paces ? 600 : 1400);
       act.setValue(0);
       run(Animated.timing(act, { toValue: 1, duration: ms, easing: Easing.linear, useNativeDriver: true }), done);
     };
@@ -145,6 +147,12 @@ export function Roamer({ kind, size, width, left, active, seed = 0, children }: 
           const spot = minX + (maxX - minX) * (0.2 + s.random() * 0.6);
           walkTo(spot, () => rest(trip));
         });
+        return;
+      }
+      if (gait.paces) {
+        // Like the camel: across to the far side of the row, turn round, and back again.
+        const far = s.pos > (minX + maxX) / 2 ? minX + (maxX - minX) * 0.08 * s.random() : maxX - (maxX - minX) * 0.08 * s.random();
+        face(far >= s.pos ? 1 : -1, () => walkTo(far, () => rest(trip)));
         return;
       }
       // A new spot at least a body length away, mostly the other way from the last walk.

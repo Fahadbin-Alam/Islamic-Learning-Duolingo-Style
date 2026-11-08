@@ -54,11 +54,11 @@ describe("ayah and hadith of the day on opening the app", () => {
     });
   }
 
-  it("opens by itself on the first open of the day and recites the ayah", async () => {
+  it("opens by itself on the first open of the day, quietly (no voice until Listen is tapped)", async () => {
     setStoredItem("sira-path-daily-seen", "0");
     await open();
     expect(screen.getByTestId("daily-hadith")).toBeTruthy();
-    expect(playAyah).toHaveBeenCalledWith(expect.stringContaining(".mp3"), { once: true });
+    expect(playAyah).not.toHaveBeenCalled();
     expect(getStoredItem("sira-path-daily-seen")).toBe(String(localDayNumber()));
     await act(async () => {
       fireEvent.press(screen.getByTestId("daily-close"));
