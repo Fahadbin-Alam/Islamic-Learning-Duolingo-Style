@@ -3303,6 +3303,329 @@ const WILLS: DeepUnit = {
   ]
 };
 
+const QURAN_VIRTUES: DeepUnit = {
+  key: "book-quran-virtues",
+  topicId: "sahihayn",
+  branchId: "hadith-book-quran",
+  branch: { title: "The Book of the Virtues of the Quran", description: "From the Books of the Virtues of the Quran: learning it, keeping it, reciting it well, and its reward." },
+  name: "the Book of the Quran",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "learned-before-he-came",
+      title: "Learned before he ﷺ came",
+      line: "Al-Bara learned Surah al-A'la before he ﷺ reached Madinah.",
+      facts: ["Madinah learned Quran early", "Told by al-Bara"],
+      source: hadith("bukhari", "4995", "Al-Bara ibn Azib", "Sahih", "Al-Bara said: I learned Surah al-A'la (Glorify the Name of your Lord, the Most High) before the Prophet ﷺ came to Madinah.", "before the Prophet (ﷺ) came (to Medina)"),
+      difficulty: 1,
+      questions: [
+        { q: "Which surah did al-Bara learn early?", a: "Surah al-A'la", wrong: ["Surah al-Baqarah", "Surah Yusuf", "Surah al-Kahf"], why: "I learnt, Glorify the Name of your Lord the Most High (Surat al-A'la)." },
+        { q: "When did he learn it?", a: "Before he ﷺ came to Madinah", wrong: ["After the conquest", "In his old age", "After Hajj"], why: "Before the Prophet ﷺ came to Medina." },
+        { q: "Young Companions learned the Quran early.", tf: true, why: "Sahih al-Bukhari 4995." }
+      ]
+    },
+    {
+      slug: "recite-in-a-pleasant-voice",
+      title: "Recite in a pleasant voice",
+      line: "Allah loves to hear the Quran recited in a pleasant voice.",
+      facts: ["A beautiful, clear voice", "Told by Abu Hurairah"],
+      source: hadith("bukhari", "5023", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: Allah does not listen to anything as He listens to a prophet reciting the Quran in a pleasant voice.", "in a pleasant tone"),
+      difficulty: 2,
+      questions: [
+        { q: "How should the Quran be recited?", a: "In a pleasant voice", wrong: ["Very fast", "Angrily", "Without care"], why: "A prophet who recites the Quran in a pleasant tone." },
+        { q: "Who told this hadith?", a: "Abu Hurairah", wrong: ["Anas", "Jabir", "Ibn Umar"], why: "Narrated Abu Huraira." },
+        { q: "Making our recitation beautiful is loved.", tf: true, why: "Sahih al-Bukhari 5023." }
+      ]
+    },
+    {
+      slug: "like-tied-camels",
+      title: "Like tied camels",
+      line: "Keep the Quran you memorised like camels you keep tied.",
+      facts: ["Let go and it runs away", "Told by Ibn Umar"],
+      source: hadith("bukhari", "5031", "Abdullah ibn Umar", "Sahih", "The Prophet ﷺ said: one who knows the Quran by heart is like the owner of tied camels. If he keeps them tied he keeps them, and if he lets them go they run away.", "but if he releases them, they will run away"),
+      difficulty: 1,
+      questions: [
+        { q: "What is a hafiz compared to?", a: "An owner of tied camels", wrong: ["A rich trader", "A sailor", "A builder"], why: "Like the owner of tied camels." },
+        { q: "What happens if the camels are let go?", a: "They run away", wrong: ["They sleep", "They come home", "They grow"], why: "If he releases them, they will run away." },
+        { q: "Memorised Quran needs regular review.", tf: true, why: "Sahih al-Bukhari 5031." }
+      ]
+    },
+    {
+      slug: "it-slips-away-fast",
+      title: "It slips away fast",
+      line: "Keep reviewing the Quran. It slips away faster than a camel.",
+      facts: ["He ﷺ swore by Allah on it", "Told by Abu Musa"],
+      source: hadith("bukhari", "5033", "Abu Musa al-Ash'ari", "Sahih", "The Prophet ﷺ said: keep reviewing the Quran, for by Him in whose Hand is my soul, it slips away faster than a camel from its rope.", "it is surely more prone to break away than a camel in its bind"),
+      difficulty: 1,
+      questions: [
+        { q: "What slips away faster than a camel?", a: "The Quran we memorised", wrong: ["Our money", "Our friends", "Our time"], why: "It is surely more prone to break away than a camel." },
+        { q: "What are we told to do?", a: "Keep reviewing it", wrong: ["Memorise once only", "Hide it", "Leave it"], why: "Commit yourself to the Qur'an." },
+        { q: "Once memorised, the Quran never leaves us.", tf: false, why: "It slips away if not reviewed. Sahih al-Bukhari 5033." }
+      ]
+    },
+    {
+      slug: "a-reciter-reminded-him",
+      title: "A reciter reminded him ﷺ",
+      line: "He ﷺ heard a man recite and prayed for mercy for him.",
+      facts: ["Reciting aloud can help others", "Told by Aisha"],
+      source: hadith("bukhari", "5037", "Aisha", "Sahih", "The Prophet ﷺ heard a man reciting in the masjid and said: may Allah have mercy on him, he reminded me of such and such verses.", "May Allah bestow His Mercy on him"),
+      difficulty: 2,
+      questions: [
+        { q: "What did he ﷺ say about the reciter?", a: "May Allah have mercy on him", wrong: ["Be quiet", "Go home", "Recite faster"], why: "May Allah bestow His Mercy on him." },
+        { q: "Where was the man reciting?", a: "In the masjid", wrong: ["In the market", "On a ship", "In a garden"], why: "He heard a man reciting the Quran in the mosque." },
+        { q: "Hearing others recite can remind us of verses.", tf: true, why: "Sahih al-Bukhari 5037." }
+      ]
+    },
+    {
+      slug: "say-i-was-made-to-forget",
+      title: "Say I was made to forget",
+      line: "Don't say I forgot verses. Say I was made to forget.",
+      facts: ["Mind how we speak of the Quran", "Told by Ibn Mas'ud"],
+      source: hadith("bukhari", "5039", "Abdullah ibn Mas'ud", "Sahih", "The Prophet ﷺ said: why does one of you say I have forgotten such and such verses? Rather, he was made to forget.", "He, in fact, is caused (by Allah) to forget"),
+      difficulty: 3,
+      questions: [
+        { q: "What should one say instead of I forgot?", a: "I was made to forget", wrong: ["I never knew it", "It does not matter", "Nothing at all"], why: "He, in fact, is caused by Allah to forget." },
+        { q: "Who told this hadith?", a: "Ibn Mas'ud", wrong: ["Abu Bakr", "Anas", "Salman"], why: "Narrated Abdullah (ibn Mas'ud)." },
+        { q: "We should speak about the Quran with care.", tf: true, why: "Sahih al-Bukhari 5039." }
+      ]
+    },
+    {
+      slug: "recite-while-hearts-agree",
+      title: "Recite while hearts agree",
+      line: "Read the Quran while hearts agree. If you argue, get up.",
+      facts: ["Do not argue over the Quran", "Told by Jundub"],
+      source: hadith("bukhari", "5061", "Jundub ibn Abdullah", "Sahih", "The Prophet ﷺ said: recite the Quran as long as your hearts agree on it, and when you differ about it, stop for the time being.", "then you should stop reciting it (for the time being)"),
+      difficulty: 3,
+      questions: [
+        { q: "When should we stop for a while?", a: "When we start to argue", wrong: ["When it is hot", "When we are hungry", "Never"], why: "When you have any difference of opinion, stop reciting for the time being." },
+        { q: "When do we keep reciting together?", a: "While our hearts agree", wrong: ["While we fight", "While we shout", "While we compete"], why: "Recite the Quran as long as you agree." },
+        { q: "Arguing over the Quran is a good way to study it.", tf: false, why: "Stop and calm down. Sahih al-Bukhari 5061." }
+      ]
+    },
+    {
+      slug: "ibn-abbas-at-ten",
+      title: "Ibn Abbas at ten",
+      line: "Ibn Abbas was ten and had learned the short surahs by heart.",
+      facts: ["Al-Mufassal: the short surahs at the end", "Told by Sa'id ibn Jubayr"],
+      source: hadith("bukhari", "5035", "Abdullah ibn Abbas", "Sahih", "Ibn Abbas said: the Prophet ﷺ died when I was a boy of ten, and I had learned the Muhkam, the short surahs called al-Mufassal.", "when I was a boy of ten years, and I had learnt the Muhkam"),
+      difficulty: 2,
+      questions: [
+        { q: "How old was Ibn Abbas then?", a: "Ten years old", wrong: ["Twenty", "Five", "Forty"], why: "I was a boy of ten years." },
+        { q: "What had he learned?", a: "The short surahs", wrong: ["Only al-Fatihah", "Poetry", "Nothing"], why: "I had learnt the Muhkam, the Mufassal." },
+        { q: "Children can learn many surahs by heart.", tf: true, why: "Sahih al-Bukhari 5035." }
+      ]
+    },
+    {
+      slug: "like-a-citron",
+      title: "Like a citron",
+      line: "A believer who recites is like a citron: good taste, good smell.",
+      facts: ["Not reciting: a date with no smell", "Told by Abu Musa"],
+      source: hadith("bukhari", "5020", "Abu Musa al-Ash'ari", "Sahih", "The Prophet ﷺ said: a believer who recites the Quran is like a citron, good in taste and smell. A believer who does not recite it is like a date, good in taste but with no smell.", "is like that of a citron which tastes good and smells good"),
+      difficulty: 2,
+      questions: [
+        { q: "A believer who recites is like what?", a: "A citron", wrong: ["A stone", "A thorn", "A cloud"], why: "Like a citron which tastes good and smells good." },
+        { q: "A believer who does not recite is like what?", a: "A date with no smell", wrong: ["A rose", "A citron", "A lemon tree"], why: "Like a date which is good in taste but has no smell." },
+        { q: "Reciting the Quran adds a good scent to a believer.", tf: true, why: "Sahih al-Bukhari 5020." }
+      ]
+    },
+    {
+      slug: "better-than-camels",
+      title: "Better than camels",
+      line: "Learning two verses is better than getting two big she-camels.",
+      facts: ["Three verses, three camels", "Told by Uqbah ibn Amir"],
+      source: hadith("muslim", "803", "Uqbah ibn Amir", "Sahih", "The Prophet ﷺ asked who would like two big she-camels each morning. Then he said: going to the masjid to learn or recite two verses is better than two she-camels.", "That is better for him than two she-camels"),
+      difficulty: 1,
+      questions: [
+        { q: "What is better than two she-camels?", a: "Learning two verses", wrong: ["Two houses", "Two horses", "Two swords"], why: "Two verses from the Book of Allah is better for him than two she-camels." },
+        { q: "Where did they go to learn?", a: "The masjid", wrong: ["The market", "The desert", "The sea"], why: "Does not one of you go out in the morning to the mosque and learn?" },
+        { q: "Each verse learned is worth more than wealth.", tf: true, why: "Sahih Muslim 803." }
+      ]
+    },
+    {
+      slug: "two-rewards-for-trying",
+      title: "Two rewards for trying",
+      line: "Who finds reciting hard but keeps trying gets two rewards.",
+      facts: ["The skilled are with the noble angels", "Told by Aisha"],
+      source: hadith("muslim", "798a", "Aisha", "Sahih", "The Prophet ﷺ said: one skilled in the Quran is with the noble, righteous angel scribes, and one who stumbles in it and finds it hard has two rewards.", "will have two rewards"),
+      difficulty: 1,
+      questions: [
+        { q: "What does one who finds it hard get?", a: "Two rewards", wrong: ["No reward", "Half a reward", "A warning"], why: "He who falters in it and finds it difficult will have two rewards." },
+        { q: "Who is the skilled reciter with?", a: "The noble angel scribes", wrong: ["Kings", "Poets", "Traders"], why: "Associated with the noble, upright, recording angels." },
+        { q: "Struggling with recitation is a reason to stop.", tf: false, why: "Keep trying for two rewards. Sahih Muslim 798a." }
+      ]
+    }
+  ]
+};
+
+const NIGHT_PRAYER: DeepUnit = {
+  key: "book-night-prayer",
+  topicId: "sahihayn",
+  branchId: "hadith-book-tahajjud",
+  branch: { title: "The Book of Night Prayer", description: "From the Books of Tahajjud and voluntary prayer: how he ﷺ prayed at night, the sunnah prayers, and keeping it up." },
+  name: "the Book of Night Prayer",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "a-deed-done-always",
+      title: "A deed done always",
+      line: "The deed he ﷺ loved most was one done regularly.",
+      facts: ["He rose when the rooster crowed", "Told by Aisha"],
+      source: hadith("bukhari", "1132", "Aisha", "Sahih", "Aisha was asked which deed the Prophet ﷺ loved most. She said: one done regularly. He rose for night prayer when he heard the rooster crow.", "A deed done continuously"),
+      difficulty: 1,
+      questions: [
+        { q: "Which deed did he ﷺ love most?", a: "One done regularly", wrong: ["The longest one", "The hardest one", "One done once"], why: "A deed done continuously." },
+        { q: "When did he ﷺ get up at night?", a: "When the rooster crowed", wrong: ["At noon", "At sunset", "Never"], why: "He used to get up on hearing the crowing of a cock." },
+        { q: "A small deed done always is better than a big one stopped.", tf: true, why: "Sahih al-Bukhari 1132." }
+      ]
+    },
+    {
+      slug: "he-stood-so-long",
+      title: "He ﷺ stood so long",
+      line: "He ﷺ stood so long at night that Ibn Mas'ud almost sat down.",
+      facts: ["Long standing in tahajjud", "Told by Ibn Mas'ud"],
+      source: hadith("bukhari", "1135", "Abdullah ibn Mas'ud", "Sahih", "Ibn Mas'ud prayed tahajjud with the Prophet ﷺ, who stood so long that Ibn Mas'ud thought of sitting down and leaving him standing.", "he kept on standing till an ill-thought came to me"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Ibn Mas'ud almost do?", a: "Sit down", wrong: ["Run away", "Fall asleep", "Shout"], why: "It was to sit down and leave the Prophet ﷺ standing." },
+        { q: "Which prayer was this?", a: "Tahajjud", wrong: ["Fajr", "Jumu'ah", "Eid"], why: "One night I offered the Tahajjud prayer with the Prophet ﷺ." },
+        { q: "He ﷺ stood long in the night prayer.", tf: true, why: "Sahih al-Bukhari 1135." }
+      ]
+    },
+    {
+      slug: "two-by-two",
+      title: "Two by two",
+      line: "Night prayer is two by two. Near dawn, end with one witr.",
+      facts: ["Witr closes the night", "Told by Ibn Umar"],
+      source: hadith("bukhari", "1137", "Abdullah ibn Umar", "Sahih", "A man asked how to pray at night. The Prophet ﷺ said: two rak'ahs then two rak'ahs, and when you fear dawn is near, pray one rak'ah as witr.", "offer one rak`a as witr"),
+      difficulty: 1,
+      questions: [
+        { q: "How is the night prayer prayed?", a: "Two rak'ahs at a time", wrong: ["Ten at once", "One only", "Five at a time"], why: "Two rak'at followed by two rak'at and so on." },
+        { q: "What do we pray when dawn is near?", a: "One rak'ah of witr", wrong: ["Nothing", "Four rak'ahs", "Eid prayer"], why: "When you apprehend the approaching dawn, offer one rak'a as witr." },
+        { q: "Witr comes at the end of the night prayer.", tf: true, why: "Sahih al-Bukhari 1137." }
+      ]
+    },
+    {
+      slug: "seven-nine-or-eleven",
+      title: "Seven, nine or eleven",
+      line: "His ﷺ night prayer was seven, nine or eleven rak'ahs.",
+      facts: ["Besides the two of Fajr", "Told by Aisha"],
+      source: hadith("bukhari", "1139", "Aisha", "Sahih", "Masruq asked Aisha about the Prophet's ﷺ night prayer. She said: seven, nine or eleven rak'ahs, besides the two rak'ahs of Fajr.", "It was seven, nine or eleven rak`at"),
+      difficulty: 2,
+      questions: [
+        { q: "How many rak'ahs could his night prayer be?", a: "Seven, nine or eleven", wrong: ["Always forty", "Only two", "One hundred"], why: "It was seven, nine or eleven rak'at." },
+        { q: "What was not counted in these?", a: "The two of Fajr", wrong: ["The witr", "Isha", "Maghrib"], why: "Besides the two rak'at of the Fajr prayer." },
+        { q: "His ﷺ night prayer was not always the same number.", tf: true, why: "Sahih al-Bukhari 1139." }
+      ]
+    },
+    {
+      slug: "dont-stop-the-night-prayer",
+      title: "Don't stop the night prayer",
+      line: "Don't be like the one who prayed at night, then stopped.",
+      facts: ["Said to Abdullah ibn Amr", "Told by Abdullah ibn Amr"],
+      source: hadith("bukhari", "1152", "Abdullah ibn Amr", "Sahih", "The Prophet ﷺ said to Abdullah ibn Amr: do not be like so-and-so, who used to pray at night and then gave it up.", "who used to pray at night and then stopped the night prayer"),
+      difficulty: 1,
+      questions: [
+        { q: "What did so-and-so do wrong?", a: "Stopped his night prayer", wrong: ["Prayed too much", "Fasted too much", "Gave charity"], why: "Who used to pray at night and then stopped the night prayer." },
+        { q: "Who was told this?", a: "Abdullah ibn Amr", wrong: ["Abu Bakr", "Bilal", "Ali"], why: "O Abdullah! Do not be like so and so." },
+        { q: "Keeping up a good habit matters.", tf: true, why: "Sahih al-Bukhari 1152." }
+      ]
+    },
+    {
+      slug: "resting-on-the-right-side",
+      title: "Resting on the right side",
+      line: "After the two sunnah of Fajr, he ﷺ lay on his right side.",
+      facts: ["A short rest before Fajr", "Told by Aisha"],
+      source: hadith("bukhari", "1160", "Aisha", "Sahih", "The Prophet ﷺ used to lie down on his right side after praying the two sunnah rak'ahs of Fajr.", "used to lie down on his right side"),
+      difficulty: 2,
+      questions: [
+        { q: "Which side did he ﷺ lie on?", a: "His right side", wrong: ["His left side", "His back", "He stood"], why: "He used to lie down on his right side." },
+        { q: "After which prayer?", a: "The two sunnah of Fajr", wrong: ["Isha", "Asr", "Eid"], why: "After offering two rak'at Sunna of the Fajr prayer." },
+        { q: "He ﷺ rested on his left side after Fajr sunnah.", tf: false, why: "It was his right side. Sahih al-Bukhari 1160." }
+      ]
+    },
+    {
+      slug: "light-fajr-sunnah",
+      title: "A light Fajr sunnah",
+      line: "He ﷺ kept the two rak'ahs before Fajr very short.",
+      facts: ["So light Aisha wondered", "Told by Aisha"],
+      source: hadith("bukhari", "1165", "Aisha", "Sahih", "The Prophet ﷺ made the two rak'ahs before Fajr so light that Aisha wondered whether he had recited al-Fatihah.", "used to make the two rak`at before the Fajr prayer so light"),
+      difficulty: 2,
+      questions: [
+        { q: "How were the two before Fajr?", a: "Very light and short", wrong: ["Very long", "Skipped", "Prayed at noon"], why: "He used to make the two rak'at before the Fajr prayer so light." },
+        { q: "What did Aisha wonder?", a: "If he recited al-Fatihah", wrong: ["If he was ill", "If it was night", "If he was travelling"], why: "I would wonder whether he recited Al-Fatiha." },
+        { q: "The sunnah before Fajr is long in this hadith.", tf: false, why: "It was light. Sahih al-Bukhari 1165." }
+      ]
+    },
+    {
+      slug: "sunnah-around-the-prayers",
+      title: "Sunnah around the prayers",
+      line: "Two before and after Zuhr, and two after Maghrib and Isha.",
+      facts: ["Also two after Jumu'ah", "Told by Ibn Umar"],
+      source: hadith("bukhari", "1169", "Abdullah ibn Umar", "Sahih", "Ibn Umar prayed with the Prophet ﷺ two rak'ahs before Zuhr and two after it, and two after Jumu'ah, Maghrib and Isha.", "two rak`at after Jumua, Maghrib and `Isha"),
+      difficulty: 2,
+      questions: [
+        { q: "How many after Maghrib?", a: "Two", wrong: ["Four", "None", "Six"], why: "Two rak'at after Jumua, Maghrib and Isha prayers." },
+        { q: "Which prayer had two before and two after?", a: "Zuhr", wrong: ["Fajr", "Asr", "Maghrib"], why: "Two rak'at before the Zuhr prayer and two rak'at after the Zuhr prayer." },
+        { q: "There is a sunnah after Isha.", tf: true, why: "Sahih al-Bukhari 1169." }
+      ]
+    },
+    {
+      slug: "never-missed",
+      title: "Never missed",
+      line: "He ﷺ never missed four before Zuhr and two before Fajr.",
+      facts: ["Prayers he always kept", "Told by Aisha"],
+      source: hadith("bukhari", "1182", "Aisha", "Sahih", "Aisha said: the Prophet ﷺ never left four rak'ahs before Zuhr and two rak'ahs before Fajr.", "never missed four rak`at before the Zuhr prayer and two rak`at before the Fajr prayer"),
+      difficulty: 2,
+      questions: [
+        { q: "How many before Zuhr did he ﷺ keep?", a: "Four", wrong: ["One", "Ten", "None"], why: "He never missed four rak'at before the Zuhr prayer." },
+        { q: "How many before Fajr?", a: "Two", wrong: ["Four", "Six", "Eight"], why: "And two rak'at before the Fajr prayer." },
+        { q: "He ﷺ held on to the sunnah before Fajr.", tf: true, why: "Sahih al-Bukhari 1182." }
+      ]
+    },
+    {
+      slug: "pray-before-maghrib",
+      title: "Pray before Maghrib",
+      line: "Pray before Maghrib, for whoever wishes. It is not a must.",
+      facts: ["Said three times", "Told by Abdullah al-Muzani"],
+      source: hadith("bukhari", "1183", "Abdullah al-Muzani", "Sahih", "The Prophet ﷺ said three times: pray before Maghrib. The third time he said: for whoever wishes, so people would not take it as a must.", "Whoever wants to offer it can do so"),
+      difficulty: 3,
+      questions: [
+        { q: "How many times did he ﷺ say it?", a: "Three times", wrong: ["Once", "Ten times", "Never"], why: "He said it thrice." },
+        { q: "What did he add the third time?", a: "For whoever wishes", wrong: ["It is a must", "Only men", "Only in Ramadan"], why: "Whoever wants to offer it can do so." },
+        { q: "Praying before Maghrib is a must for everyone.", tf: false, why: "It is for whoever wishes. Sahih al-Bukhari 1183." }
+      ]
+    },
+    {
+      slug: "an-hour-every-night",
+      title: "An hour every night",
+      line: "Every night there is an hour when Allah gives what is asked.",
+      facts: ["Good in this world and the next", "Told by Jabir"],
+      source: hadith("muslim", "757a", "Jabir ibn Abdullah", "Sahih", "The Prophet ﷺ said: in the night there is an hour in which no Muslim asks Allah for good of this world and the next but He gives it, and that is every night.", "and that applies to every night"),
+      difficulty: 1,
+      questions: [
+        { q: "What happens in that hour?", a: "Allah gives what is asked", wrong: ["Nothing", "The sun rises", "Prayer is closed"], why: "No Muslim will ask Allah for good without His giving it to him." },
+        { q: "How often is this hour?", a: "Every night", wrong: ["Once a year", "Only in Ramadan", "Only on Friday"], why: "And that applies to every night." },
+        { q: "The night is a special time for dua.", tf: true, why: "Sahih Muslim 757a." }
+      ]
+    },
+    {
+      slug: "pray-while-fresh",
+      title: "Pray while fresh",
+      line: "He ﷺ untied Zaynab's rope: pray while fresh, stop when tired.",
+      facts: ["Ease, not strain", "Told by Anas"],
+      source: hadith("muslim", "784a", "Anas ibn Malik", "Sahih", "The Prophet ﷺ found a rope in the masjid that Zaynab held when tired in prayer. He said: untie it. Let one pray while fresh, and when tired, stop.", "Let one pray as long as one feels fresh"),
+      difficulty: 2,
+      questions: [
+        { q: "What was the rope for?", a: "Holding on when tired in prayer", wrong: ["Tying camels", "Drying clothes", "Hanging lamps"], why: "She prays and when she feels tired she holds it." },
+        { q: "What did he ﷺ say to do?", a: "Pray while fresh, stop when tired", wrong: ["Pray all night no matter what", "Never pray at night", "Tie the rope tighter"], why: "Let one pray as long as one feels fresh, but when tired one must stop." },
+        { q: "Islam asks us to pray past our strength.", tf: false, why: "Pray while fresh. Sahih Muslim 784a." }
+      ]
+    }
+  ]
+};
+
 /** The Bukhari and Muslim topic. Its units hold only deep lessons, added by addDeepUnits. */
 export const SAHIHAYN_SECTION: LearningSection = {
   id: "sahihayn",
@@ -3318,4 +3641,4 @@ export const SAHIHAYN_SECTION: LearningSection = {
   nodes: []
 };
 
-export const HADITH_BOOK_UNITS: readonly DeepUnit[] = [FAITH, PURITY, ADAB, FOOD, DUA, RIQAQ, DRESS, TRADE, MEDICINE, COMPANIONS, PRAYER, FASTING, ZAKAT, MARRIAGE, ADHAN, FUNERALS, HAJJ, OATHS, WILLS];
+export const HADITH_BOOK_UNITS: readonly DeepUnit[] = [FAITH, PURITY, ADAB, FOOD, DUA, RIQAQ, DRESS, TRADE, MEDICINE, COMPANIONS, PRAYER, FASTING, ZAKAT, MARRIAGE, ADHAN, FUNERALS, HAJJ, OATHS, WILLS, QURAN_VIRTUES, NIGHT_PRAYER];
