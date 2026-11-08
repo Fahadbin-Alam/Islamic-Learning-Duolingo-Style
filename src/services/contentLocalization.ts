@@ -21,8 +21,6 @@ export function localizeLessonContent(lesson: Lesson, language: SupportedLanguag
       ? { text: translateStudyText(lesson.quote.text, language), reference: lesson.quote.reference ? translateStudyText(lesson.quote.reference, language) : lesson.quote.reference }
       : lesson.quote,
     learnLine: lesson.learnLine ? translateStudyText(lesson.learnLine, language) : lesson.learnLine,
-    // The story behind the lesson shows only once it is translated: an English paragraph in a Bangla lesson reads as a bug.
-    learnContext: lesson.learnContext && translateStudyText(lesson.learnContext, language) !== lesson.learnContext ? translateStudyText(lesson.learnContext, language) : undefined,
     learnFacts: lesson.learnFacts?.map((fact) => translateStudyText(fact, language)),
     learnDeeper: lesson.learnDeeper
       ? {

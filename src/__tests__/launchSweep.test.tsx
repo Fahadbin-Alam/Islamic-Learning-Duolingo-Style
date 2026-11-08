@@ -41,7 +41,6 @@ async function drawPages(english: Lesson, language: SupportedLanguage) {
     const { unmount } = await render(
       <LearnCard
         page={step.page}
-        context={step.page === "facts" ? lesson.learnContext : undefined}
         summary={step.page === "facts" && lessonSummary(english) ? lesson.learnSource?.summary : undefined}
         englishSummary={step.page === "facts" ? english.learnSource?.summary : undefined}
         sourceHere={step.page === "facts"}
@@ -91,12 +90,4 @@ describe("ready to publish: every lesson opens", () => {
     }
     expect(broken.slice(0, 10)).toEqual([]);
   }, 600_000);
-
-  it("gives every surah's own lesson the story behind its name, in its What you learn box", () => {
-    const missing = Object.values(LESSONS_BY_ID)
-      .filter((lesson) => /quran/.test(lesson.id) && surahNumberForTitle(lesson.title))
-      .filter((lesson) => !lesson.learnContext || !lessonPages(lesson).some((page) => page.page === "facts"))
-      .map((lesson) => lesson.id);
-    expect(missing).toEqual([]);
-  });
 });

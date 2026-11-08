@@ -30,11 +30,15 @@ describe("smooth motion", () => {
     expect(config.outputRange[50]).toBeCloseTo(1);
   });
 
-  it("draws the waving mascot in layers and the others in one picture", async () => {
+  it("draws the waving mascot in layers and the others in one picture (plus the blink lids)", async () => {
     const { toJSON, rerender } = await render(<Mascot mood="wave" />);
     const count = () => JSON.stringify(toJSON()).split('"type":"RNSVGSvgView"').length - 1;
-    expect(count()).toBe(5);
+    // body, arm, head, blink lids, hand, front
+    expect(count()).toBe(6);
     await rerender(<Mascot mood="happy" />);
+    expect(count()).toBe(2);
+    // Cheering eyes are already shut arcs, so there is nothing to blink.
+    await rerender(<Mascot mood="cheer" />);
     expect(count()).toBe(1);
     expect(screen).toBeTruthy();
   });

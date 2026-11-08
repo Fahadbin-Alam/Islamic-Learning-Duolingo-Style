@@ -46,8 +46,10 @@ export function SurahParts({ parts, accent, short, inline }: { parts: string[]; 
   const palette = topicPalette(accent);
   const shown = parts.slice(0, SHOWN_PARTS);
   const more = parts.length - shown.length;
-  const body = (
-      <View testID="surah-parts" style={inline ? [styles.partsInline, { borderTopColor: palette.soft }] : undefined}>
+  return (
+    // Inline, it is the last part of the What you learn card, under a thin line, not a box of its own.
+    <PopIn delay={180} from="up" style={inline ? [styles.partsInline, { borderTopColor: palette.soft }] : [styles.parts, short ? styles.partsShort : null, { borderColor: palette.soft }]}>
+      <View testID="surah-parts">
         <Text style={[styles.partsHead, { color: palette.ink }]} accessibilityRole="header">
           {t("Inside this surah")}
         </Text>
@@ -59,12 +61,6 @@ export function SurahParts({ parts, accent, short, inline }: { parts: string[]; 
         ))}
         {more > 0 ? <Text style={styles.partMore}>{t("And {count} more parts", { count: more })}</Text> : null}
       </View>
-  );
-  // Inside the lesson's "What you learn" box it is a section of the box, not a box of its own.
-  if (inline) return body;
-  return (
-    <PopIn delay={180} from="up" style={[styles.parts, short ? styles.partsShort : null, { borderColor: palette.soft }]}>
-      {body}
     </PopIn>
   );
 }
@@ -119,11 +115,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 3
   },
-  partsInline: {
-    marginTop: space.md,
-    paddingTop: space.sm,
-    borderTopWidth: 2
-  },
   parts: {
     alignSelf: "stretch",
     marginTop: space.lg,
@@ -132,6 +123,12 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     paddingHorizontal: space.md,
     paddingVertical: space.sm
+  },
+  partsInline: {
+    alignSelf: "stretch",
+    marginTop: space.md,
+    paddingTop: space.sm,
+    borderTopWidth: 2
   },
   partsShort: {
     marginTop: space.sm

@@ -3,13 +3,12 @@ import { applySourceHighlights } from "./sourceHighlights";
 import { mergeImportedNotes } from "./importedNotes";
 import { arrangeUnits, dropEmptyUnits } from "./unitPlans";
 import { LESSON_SOURCES, QUESTION_SOURCES } from "./questionSources";
+import { withSurahIntro } from "./surahIntros";
 import { addDeepUnits, addSurahDeepUnits } from "./deepUnits";
 import { addSurahMeanings } from "./surahMeanings";
 import { RAMADAN } from "./ramadanDays";
 import { INTRO } from "./introToIslam";
 import { IMPORTED_NOTES } from "./importedNotes.generated";
-import { surahNumberForTitle } from "./surahPictures";
-import { SURAH_CONTEXT } from "./surahContext";
 import type { Challenge, LearningCourse, Lesson, LessonSource, ShopItem, UserProfile } from "../types";
 import { preciseResourceUrl } from "../services/resourceSupport";
 
@@ -3965,23 +3964,12 @@ const withQuestionSource = (challenge: Challenge): Challenge =>
 const expandedContent = {
   ...chainedContent,
   lessonsById: Object.fromEntries(
-    Object.entries(chainedContent.lessonsById).map(([id, lesson]) => {
+    Object.entries(chainedContent.lessonsById).map(([id, rawLesson]) => {
+      // A surah's own lesson tells why it has its name (surahIntros.ts).
+      const lesson = withSurahIntro(rawLesson);
       const learnSource = lesson.learnSource ?? LESSON_SOURCES[id];
       const sources = learnSource ? [learnSource, ...lesson.sources.filter((source) => source.id !== learnSource.id && source.url !== learnSource.url)] : lesson.sources;
-      // The story behind the lesson, for the top of its "What you learn" box: a surah's own lesson gets why it has
-      // its name and what it is about (surahContext.ts).
-      const surah = /quran/.test(lesson.id) ? surahNumberForTitle(lesson.title) : undefined;
-      const learnContext = lesson.learnContext ?? (surah ? SURAH_CONTEXT[surah] : undefined);
-      return [
-        id,
-        {
-          ...lesson,
-          sources,
-          ...(learnSource ? { learnSource } : {}),
-          ...(learnContext ? { learnContext } : {}),
-          challenges: withoutGiveaways(lesson.challenges).map(withQuestionSource)
-        }
-      ];
+      return [id, { ...lesson, sources, ...(learnSource ? { learnSource } : {}), challenges: withoutGiveaways(lesson.challenges).map(withQuestionSource) }];
     })
   )
 };

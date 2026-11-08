@@ -3344,4 +3344,236 @@ const IMRAN: DeepUnit = {
   ]
 };
 
-export const COMPANION_UNITS: DeepUnit[] = [JAFAR, ABU_HURAIRAH, KAB, SAD_MUADH, ABDUR_RAHMAN, MUADH, UBAYY, ZAYD_THABIT, ABU_MUSA, JABIR, ABU_TALHAH, HUDHAYFAH, HAMZAH, ZAYD_HARITHAH, USAMAH, AMMAR, ABU_AYYUB, IBN_RAWAHAH, KHABBAB, UTHMAN_MAZUN, ABU_SAID, ABU_DARDA, UBADAH, SAD_UBADAH, BARA, IBN_AMR, IBN_SALAM, ASMA, SAHL, ABU_QATADAH, NUMAN, JARIR, THAWBAN, UQBAH, ABU_UMAMAH, IMRAN];
+const IBN_MUGHAFFAL: DeepUnit = {
+  key: "ibn-mughaffal",
+  topicId: "sahabah",
+  branchId: "sahabi-abdullah-ibn-mughaffal",
+  branch: { title: "Abdullah ibn Mughaffal al-Muzani", description: "A companion of the Tree pledge who remembered the Prophet's ﷺ recitation at the Conquest." },
+  name: "Abdullah ibn Mughaffal",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "surah-al-fath-on-the-camel",
+      title: "Al-Fath on the camel",
+      line: "Ibn Mughaffal saw the Prophet ﷺ recite Al-Fath entering Makkah.",
+      facts: ["The day Makkah was opened, he rode his she-camel.", "He recited Surah Al-Fath in a moving voice.", "Ibn Mughaffal never forgot that sound."],
+      quote: quranQuote(48, 1),
+      source: hadith("bukhari", "4281", "Abdullah ibn Mughaffal", "Sahih", "I saw the Prophet ﷺ on the day of the Conquest of Makkah on his she-camel, reciting Surah Al-Fath in a beautiful, vibrating voice.", "reciting Surat-al-Fath in a vibrant quivering tone"),
+      difficulty: 1,
+      questions: [
+        { q: "Which surah did the Prophet ﷺ recite at the Conquest?", a: "Al-Fath", wrong: ["Al-Fatihah", "Al-Kahf", "Yasin"], why: "Reciting Surat-al-Fath on the day of the Conquest of Mecca." },
+        { q: "What was he riding?", a: "His she-camel", wrong: ["A horse", "A donkey", "A boat"], why: "Over his she-camel." },
+        { q: "Al-Fath means the victory or opening.", tf: true, why: "Indeed, We have given you a clear victory, 48:1." }
+      ]
+    },
+    {
+      slug: "prayer-between-adhans",
+      title: "A prayer between two calls",
+      line: "Ibn Mughaffal heard: there is a prayer between adhan and iqamah.",
+      facts: ["The Prophet ﷺ said it three times.", "There is a voluntary prayer between the two calls.", "The third time he said: for whoever wishes."],
+      source: hadith("bukhari", "624", "Abdullah ibn Mughaffal", "Sahih", "The Prophet ﷺ said three times: there is a prayer between every two calls, and the third time he added: for whoever wishes.", "There is a prayer between the two Adhans"),
+      difficulty: 2,
+      questions: [
+        { q: "When is this extra prayer?", a: "Between adhan and iqamah", wrong: ["After sunset only", "At midnight only", "After Eid only"], why: "There is a prayer between the two Adhans." },
+        { q: "How many times did he say it?", a: "Three", wrong: ["Once", "Seven", "Ten"], why: "Allah's Messenger ﷺ said it three times." },
+        { q: "This prayer is a must for everyone.", tf: false, why: "For the one who wants to pray." }
+      ]
+    },
+    {
+      slug: "the-bag-of-fat",
+      title: "Shy at Khaybar",
+      line: "Ibn Mughaffal ran for a bag of fat, then felt shy.",
+      facts: ["During the siege of Khaybar, a bag of fat was thrown out.", "Ibn Mughaffal rushed to grab it.", "He turned, saw the Prophet ﷺ, and felt shy."],
+      source: hadith("bukhari", "4214", "Abdullah ibn Mughaffal", "Sahih", "While we were besieging Khaybar, someone threw out a leather bag of fat and I ran to take it. I turned and saw the Prophet ﷺ behind me, and I felt shy.", "So I felt shy"),
+      difficulty: 2,
+      questions: [
+        { q: "What was thrown from the fort?", a: "A leather bag of fat", wrong: ["A sword", "A letter", "A shield"], why: "A person threw a leather container containing some fat." },
+        { q: "Why did he stop?", a: "He felt shy before the Prophet ﷺ", wrong: ["He was hurt", "The bag broke", "It was locked"], why: "I looked behind and the Prophet ﷺ was there, so I felt shy." },
+        { q: "Where did this happen?", a: "At Khaybar", wrong: ["At Badr", "In Makkah", "At Tabuk"], why: "While we were besieging Khaibar." }
+      ]
+    },
+    {
+      slug: "no-flicking-stones",
+      title: "Do not flick stones",
+      line: "Ibn Mughaffal taught: flicking stones only breaks eyes, teeth.",
+      facts: ["The Prophet ﷺ forbade flicking small stones.", "A flicked stone does not hunt or stop an enemy.", "Harm comes from it, like a hurt eye."],
+      source: hadith("bukhari", "6220", "Abdullah ibn Mughaffal", "Sahih", "The Prophet ﷺ forbade flicking stones with the fingers and said: it neither hunts game nor hurts an enemy, but it puts out an eye or breaks a tooth.", "it gouges out an eye or breaks a tooth"),
+      difficulty: 1,
+      questions: [
+        { q: "What kind of throwing did the Prophet ﷺ forbid?", a: "Flicking small stones", wrong: ["Swimming", "Archery", "Riding"], why: "He forbade the throwing of stones with the fingers." },
+        { q: "What harm can a flicked stone do?", a: "Hurt an eye or tooth", wrong: ["Nothing at all", "Catch a fish", "Stop an army"], why: "It gouges out an eye or breaks a tooth." },
+        { q: "Flicking stones is a good way to hunt.", tf: false, why: "It neither hunts a game nor kills an enemy." }
+      ]
+    }
+  ]
+};
+
+const MUGHIRAH: DeepUnit = {
+  key: "mughirah",
+  topicId: "sahabah",
+  branchId: "sahabi-al-mughirah-ibn-shubah",
+  branch: { title: "Al-Mughirah ibn Shu'bah", description: "A clever companion who served the Prophet ﷺ on journeys and told how he worshipped." },
+  name: "Al-Mughirah ibn Shu'bah",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "wiping-the-khuffs",
+      title: "Wiping over leather socks",
+      line: "Mughirah poured water as the Prophet ﷺ made wudu on a journey.",
+      facts: ["Mughirah carried water for the Prophet ﷺ.", "He helped him make wudu.", "The Prophet ﷺ wiped over his leather socks."],
+      source: hadith("bukhari", "388", "Al-Mughirah ibn Shu'bah", "Sahih", "I helped the Prophet ﷺ make wudu, and he wiped his wet hands over his leather socks and prayed.", "he passed his wet hands over his Khuffs and prayed"),
+      difficulty: 1,
+      questions: [
+        { q: "What did the Prophet ﷺ wipe over?", a: "His leather socks", wrong: ["His sandals", "His turban only", "His cloak"], why: "He passed his wet hands over his Khuffs." },
+        { q: "How did Mughirah help?", a: "He poured water", wrong: ["He cooked", "He led prayer", "He rode ahead"], why: "I poured water and he performed ablution." },
+        { q: "Wiping over khuffs makes wudu easier on journeys.", tf: true, why: "He wiped over his Khuffs and prayed." }
+      ]
+    },
+    {
+      slug: "the-eclipse",
+      title: "The eclipse and Ibrahim",
+      line: "Mughirah heard: eclipses are not for anyone's death or birth.",
+      facts: ["The sun eclipsed the day Ibrahim, the Prophet's ﷺ son, died.", "People said it was because of his death.", "He said: pray and call on Allah at an eclipse."],
+      source: hadith("bukhari", "1043", "Al-Mughirah ibn Shu'bah", "Sahih", "The sun eclipsed on the day Ibrahim died and people said it was for his death. The Prophet ﷺ said: the sun and moon do not eclipse for anyone's death or birth. When you see it, pray and call on Allah.", "do not eclipse because of the death or life"),
+      difficulty: 2,
+      questions: [
+        { q: "What did people wrongly think?", a: "The eclipse was for Ibrahim", wrong: ["The sun was gone forever", "Rain was coming", "Night had ended"], why: "The people said that the sun had eclipsed because of the death of Ibrahim." },
+        { q: "What should we do at an eclipse?", a: "Pray and call on Allah", wrong: ["Hide inside", "Light fires", "Sleep"], why: "When you see the eclipse pray and invoke Allah." },
+        { q: "The Prophet ﷺ let a wrong belief spread to honor his son.", tf: false, why: "He said the sun and moon do not eclipse because of anyone's death." }
+      ]
+    },
+    {
+      slug: "forbidden-and-disliked",
+      title: "What Allah dislikes",
+      line: "Mughirah narrated what Allah forbade and what He dislikes.",
+      facts: ["Allah forbade harming mothers and burying daughters.", "He forbade withholding rights and begging.", "He dislikes gossip, too many questions and waste."],
+      source: hadith("bukhari", "2408", "Al-Mughirah ibn Shu'bah", "Sahih", "Allah has forbidden you to be undutiful to mothers, to bury daughters alive, to withhold others' rights, and to beg. He dislikes idle talk, asking too many questions, and wasting wealth.", "Allah has forbidden for you"),
+      difficulty: 3,
+      questions: [
+        { q: "Who did Allah forbid us to be undutiful to?", a: "Our mothers", wrong: ["Our rivals", "Strangers only", "Kings"], why: "Allah has forbidden for you to be undutiful to your mothers." },
+        { q: "Which of these does Allah dislike?", a: "Wasting wealth", wrong: ["Giving charity", "Saying salam", "Smiling"], why: "And to waste the wealth by extravagance." },
+        { q: "Idle talk about others is loved by Allah.", tf: false, why: "Allah has hated for you vain, useless talk." }
+      ]
+    },
+    {
+      slug: "a-thankful-servant",
+      title: "A thankful servant",
+      line: "Mughirah saw the Prophet ﷺ pray until his feet swelled.",
+      facts: ["The Prophet ﷺ prayed long at night.", "His feet would swell from standing.", "He said: shall I not be a thankful servant?"],
+      source: hadith("bukhari", "6471", "Al-Mughirah ibn Shu'bah", "Sahih", "The Prophet ﷺ used to pray so long that his feet swelled. When asked why, he said: shall I not be a thankful servant?", "Shall I not be a thankful slave"),
+      difficulty: 2,
+      questions: [
+        { q: "What happened to his feet?", a: "They swelled", wrong: ["They bled", "They froze", "Nothing"], why: "His feet used to become swollen." },
+        { q: "Why did he pray so much?", a: "To be a thankful servant", wrong: ["To be seen", "Out of fear of people", "To win a prize"], why: "Shall I not be a thankful slave to Allah?" },
+        { q: "Worship is a way of saying thank you to Allah.", tf: true, why: "Shall I not be a thankful slave?" }
+      ]
+    },
+    {
+      slug: "a-group-on-the-truth",
+      title: "Always a group on the truth",
+      line: "Mughirah heard: some of this ummah will stay on the truth.",
+      facts: ["A group of the ummah will always stay on the truth.", "They will remain until the Last Day.", "So the truth will never be lost."],
+      source: hadith("bukhari", "3640", "Al-Mughirah ibn Shu'bah", "Sahih", "The Prophet ﷺ said: some of my followers will remain victorious on the truth until the Last Day comes, and they will still be victorious.", "Some of my followers will remain victorious"),
+      difficulty: 2,
+      questions: [
+        { q: "How long will this group remain?", a: "Until the Last Day", wrong: ["One year", "Until Badr", "Ten years"], why: "Till the Last Day comes." },
+        { q: "The truth will one day vanish completely.", tf: false, why: "Some of my followers will remain victorious till the Last Day." },
+        { q: "What will the group stay on?", a: "The truth", wrong: ["Wealth", "Power only", "A mountain"], why: "They will remain on the right path." }
+      ]
+    },
+    {
+      slug: "questions-about-dajjal",
+      title: "Asking about Dajjal",
+      line: "Mughirah asked more about Dajjal than anyone else.",
+      facts: ["Mughirah asked many questions about Dajjal.", "People said Dajjal would bring bread and water.", "He said: Dajjal is too low before Allah for that."],
+      source: hadith("bukhari", "7122", "Al-Mughirah ibn Shu'bah", "Sahih", "Nobody asked the Prophet ﷺ as much about Dajjal as I did. He asked: what worries you? I said: people say he will have mountains of bread and rivers of water. He said: he is too lowly before Allah for that.", "Nobody asked the Prophet"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Mughirah ask about most?", a: "Dajjal", wrong: ["Trade", "Poetry", "Horses"], why: "Nobody asked as many questions as I asked regarding Ad-Dajjal." },
+        { q: "What did people say Dajjal would carry?", a: "Bread and water", wrong: ["Gold coins", "Swords", "Books"], why: "A mountain of bread and a river of water." },
+        { q: "Dajjal is honored by Allah.", tf: false, why: "He is too mean to be allowed such a thing by Allah." }
+      ]
+    }
+  ]
+};
+
+const SAMURAH: DeepUnit = {
+  key: "samurah",
+  topicId: "sahabah",
+  branchId: "sahabi-samurah-ibn-jundub",
+  branch: { title: "Samurah ibn Jundub", description: "A young companion who told the long dream the Prophet ﷺ described after Fajr." },
+  name: "Samurah ibn Jundub",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "who-saw-a-dream",
+      title: "Who saw a dream?",
+      line: "Samurah said the Prophet ﷺ asked after Fajr who saw a dream.",
+      facts: ["After Fajr he would face the people.", "He asked: who among you saw a dream?", "One day he told his own long dream."],
+      source: hadith("bukhari", "1386", "Samurah ibn Jundub", "Sahih", "Whenever the Prophet ﷺ finished the morning prayer, he faced us and asked: who among you saw a dream last night? One day he said: I saw that two men came to me and took me by the hands.", "Who amongst you had a dream last night"),
+      difficulty: 1,
+      questions: [
+        { q: "When did the Prophet ﷺ ask about dreams?", a: "After the Fajr prayer", wrong: ["At noon", "Before sleep", "On Eid only"], why: "Whenever the Prophet ﷺ finished the morning prayer." },
+        { q: "What did he ask the people?", a: "Who saw a dream last night?", wrong: ["Who ate today?", "Who is tired?", "Who has money?"], why: "Who amongst you had a dream last night?" },
+        { q: "He faced the people after the prayer.", tf: true, why: "He would face us and ask." }
+      ]
+    },
+    {
+      slug: "the-torn-cheek",
+      title: "The punishment of lying",
+      line: "Samurah told of the liar in the dream whose lies spread far.",
+      facts: ["In the dream a man's cheek was being torn.", "He was a liar whose lies spread everywhere.", "Lies told to many bring a heavy punishment."],
+      source: hadith("bukhari", "6096", "Samurah ibn Jundub", "Sahih", "The one whose cheek you saw being torn was a liar who told lies that people spread all over the world. He will be punished like that until the Day of Resurrection.", "was a liar and used to tell lies"),
+      difficulty: 2,
+      questions: [
+        { q: "What sin did the torn-cheek man do?", a: "Telling lies", wrong: ["Stealing food", "Missing Eid", "Being lazy"], why: "He was a liar and used to tell lies." },
+        { q: "How far did his lies go?", a: "All over the world", wrong: ["Only his home", "Nowhere", "One street"], why: "The people would report those lies till they spread all over the world." },
+        { q: "Spreading lies is a small matter.", tf: false, why: "He will be punished like that till the Day of Resurrection." }
+      ]
+    },
+    {
+      slug: "the-crushed-head",
+      title: "Quran without action",
+      line: "Samurah told of one who learned the Quran but ignored it.",
+      facts: ["A man's head was struck with a rock in the dream.", "He learned the Quran but did not act on it.", "He slept through the obligatory prayers."],
+      source: hadith("bukhari", "1143", "Samurah ibn Jundub", "Sahih", "The one whose head was being crushed with a stone learned the Quran but never acted on it, and slept through the obligatory prayers.", "never acted on it"),
+      difficulty: 2,
+      questions: [
+        { q: "What did the man fail to do?", a: "Act on the Quran", wrong: ["Learn to swim", "Build a house", "Travel"], why: "One who learnt the Quran but never acted on it." },
+        { q: "What did he sleep through?", a: "The obligatory prayers", wrong: ["A wedding", "The market", "A journey"], why: "Slept ignoring the compulsory prayers." },
+        { q: "Knowing the Quran is enough without acting.", tf: false, why: "He learnt the Quran but never acted on it." }
+      ]
+    },
+    {
+      slug: "the-river-of-blood",
+      title: "The river of blood",
+      line: "Samurah told of a riba-eater in a river of blood.",
+      facts: ["In the dream a man stood in a river of blood.", "Each time he tried to leave, a stone pushed him back.", "He was one who ate riba, interest."],
+      source: hadith("bukhari", "2085", "Samurah ibn Jundub", "Sahih", "We reached a river of blood with a man in it. Whenever he tried to come out, a man on the bank threw a stone into his mouth. I was told: the person in the river was a riba-eater.", "The person in the river was a Riba-eater"),
+      difficulty: 3,
+      questions: [
+        { q: "Who was the man in the river?", a: "One who ate riba", wrong: ["A thief of camels", "A lazy guard", "A poet"], why: "The person in the river was a Riba-eater." },
+        { q: "What was the river made of?", a: "Blood", wrong: ["Milk", "Honey", "Water"], why: "We reached a river of blood." },
+        { q: "Riba means taking interest on loans.", tf: true, why: "Those dealing in Riba (usury)." }
+      ]
+    },
+    {
+      slug: "ibrahim-and-the-children",
+      title: "Ibrahim and the children",
+      line: "Samurah told of Prophet Ibrahim with children in a garden.",
+      facts: ["The dream reached a green garden with a great tree.", "Ibrahim sat at its root with children.", "They were children who died on the fitrah."],
+      source: hadith("bukhari", "7047", "Samurah ibn Jundub", "Sahih", "In the green garden was an old man with children around him. He was Ibrahim, and the children around him were those who die on the fitrah, the natural faith.", "those children who die with Al-Fitra"),
+      difficulty: 2,
+      questions: [
+        { q: "Who sat with the children in the garden?", a: "Prophet Ibrahim", wrong: ["Prophet Nuh", "A king", "An angel of rain"], why: "Abraham and the children around him." },
+        { q: "Who were the children?", a: "Children who died on the fitrah", wrong: ["Children of kings", "Angels", "Grown men"], why: "Those children who die with Al-Fitra." },
+        { q: "Where was this scene?", a: "A green garden", wrong: ["A desert", "A river", "A cave"], why: "A well-flourished green garden having a huge tree." }
+      ]
+    }
+  ]
+};
+
+export const COMPANION_UNITS: DeepUnit[] = [JAFAR, ABU_HURAIRAH, KAB, SAD_MUADH, ABDUR_RAHMAN, MUADH, UBAYY, ZAYD_THABIT, ABU_MUSA, JABIR, ABU_TALHAH, HUDHAYFAH, HAMZAH, ZAYD_HARITHAH, USAMAH, AMMAR, ABU_AYYUB, IBN_RAWAHAH, KHABBAB, UTHMAN_MAZUN, ABU_SAID, ABU_DARDA, UBADAH, SAD_UBADAH, BARA, IBN_AMR, IBN_SALAM, ASMA, SAHL, ABU_QATADAH, NUMAN, JARIR, THAWBAN, UQBAH, ABU_UMAMAH, IMRAN, IBN_MUGHAFFAL, MUGHIRAH, SAMURAH];

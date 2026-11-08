@@ -119,7 +119,6 @@ function FactsPageDemo({ lesson: english }: { lesson: Lesson }) {
     <LessonScreen progress={0.12} hearts={FULL_HEARTS} onClose={noop}>
       <LearnCard
         page="facts"
-        context={lesson.learnContext}
         summary={summaryShown}
         englishSummary={summaryShown ? english.learnSource?.summary : undefined}
         marks={highlightWords(lesson)}

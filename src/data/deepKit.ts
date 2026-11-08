@@ -14,8 +14,6 @@ export interface DeepLesson {
   slug: string;
   title: string;
   line: string;
-  /** The story and context behind the lesson, in a few easy sentences, at the top of its "What you learn" box. */
-  context?: string;
   facts?: string[];
   quote?: { text: string; reference: string };
   source: LessonSource;

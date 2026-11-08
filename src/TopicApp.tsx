@@ -3706,7 +3706,6 @@ export default function TopicApp() {
             // Each page comes in fresh, with its own entry.
             key={`${lesson.id}-${state.stepIndex}`}
             page={learnStep?.page}
-            context={learnStep?.page === "facts" ? lesson.learnContext : undefined}
             summary={learnStep?.page === "facts" ? lessonSummaryShown : undefined}
             englishSummary={learnStep?.page === "facts" && lessonSummaryShown ? englishLesson?.learnSource?.summary : undefined}
             marks={lessonMarks}
