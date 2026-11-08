@@ -621,6 +621,30 @@ function TalkMouth() {
   );
 }
 
+/** Moods whose eyes are open dots, so a blink can close them. */
+const BLINKS: ReadonlySet<MascotMood> = new Set<MascotMood>(["happy", "wave", "think", "sad", "mad", "surprised"]);
+
+/**
+ * Shut eyelids drawn over the open eyes. A blink fades this layer in and out on the native driver, so the
+ * kid blinks without React drawing the whole picture again (the old redraw made a small hitch every blink).
+ */
+function BlinkLids({ mood }: { mood: MascotMood }) {
+  const lookX = mood === "think" ? 1.6 : 0;
+  const lookY = mood === "think" ? -2.6 : mood === "sad" ? 1.2 : 0;
+  const big = mood === "surprised";
+  const y = 56;
+  return (
+    <G>
+      {[48.5, 71.5].map((cx) => (
+        <G key={cx}>
+          <Ellipse cx={cx + (big ? 0 : lookX)} cy={y + (big ? 0 : lookY)} rx={big ? 7.6 : 5.8} ry={big ? 7.6 : 7} fill={SKIN} />
+          <Path d={`M${cx - 4.5} ${y} Q${cx} ${y + 3} ${cx + 4.5} ${y}`} stroke={EYE} strokeWidth={2.8} strokeLinecap="round" fill="none" />
+        </G>
+      ))}
+    </G>
+  );
+}
+
 /** The waving arm (sleeve only) or its hand, for the swinging layers. */
 function WaveArmArt({ accent, part }: { accent: string; part: "arm" | "hand" }) {
   const pose = poseFor("wave");
@@ -630,10 +654,15 @@ function WaveArmArt({ accent, part }: { accent: string; part: "arm" | "hand" }) 
 
 const MemoArt = memo(MascotArt);
 const MemoWaveArm = memo(WaveArmArt);
+const MemoLids = memo(BlinkLids);
 
-/** The wave swings the raised arm this far either side, about the shoulder. */
-const WAVE_DEG = 11;
-const WAVE_MS = 300;
+/**
+ * A real wave: three or four easy swings of the raised hand, then the hand rests up for a breath before
+ * the next wave. The old non-stop 0.3 s back-and-forth read as a shaking, glitchy hand.
+ */
+const WAVE_DEG = 16;
+const WAVE_MS = 380;
+const WAVE_REST_MS = 1500;
 
 /** The app's mascot: a friendly child (girl in hijab, or boy in a kufi). */
 function MascotFigure({ variant, mood = "happy", size = 120, accent = colors.green, animated = true, style, outfit = "plain", talkMs = 0 }: MascotProps) {
@@ -642,7 +671,8 @@ function MascotFigure({ variant, mood = "happy", size = 120, accent = colors.gre
   const moving = animated && !reduceMotion;
   const bob = useRef(new Animated.Value(0)).current;
   const wave = useRef(new Animated.Value(0)).current;
-  const [blink, setBlink] = useState(false);
+  const lids = useRef(new Animated.Value(0)).current;
+  const blink = false;
   const talk = useTalk(moving ? talkMs : 0);
 
   // Bob (or bounce when cheering).
@@ -672,28 +702,30 @@ function MascotFigure({ variant, mood = "happy", size = 120, accent = colors.gre
     return () => loop.stop();
   }, [moving, bob, mood]);
 
-  // Blink every few seconds.
+  // Blink every few seconds: the lids layer fades in and out on the native driver (no redraw).
+  const blinks = moving && BLINKS.has(mood);
   useEffect(() => {
-    if (!moving || mood === "cheer") {
-      return undefined;
-    }
-    let open: ReturnType<typeof setTimeout> | undefined;
+    lids.setValue(0);
+    if (!blinks) return undefined;
     let next: ReturnType<typeof setTimeout> | undefined;
+    let running: Animated.CompositeAnimation | undefined;
     const schedule = () => {
       next = setTimeout(() => {
-        setBlink(true);
-        open = setTimeout(() => {
-          setBlink(false);
-          schedule();
-        }, 140);
+        running = Animated.sequence([
+          Animated.timing(lids, { toValue: 1, duration: 55, easing: Easing.in(Easing.quad), useNativeDriver: true }),
+          Animated.timing(lids, { toValue: 1, duration: 70, useNativeDriver: true }),
+          Animated.timing(lids, { toValue: 0, duration: 75, easing: Easing.out(Easing.quad), useNativeDriver: true })
+        ]);
+        running.start();
+        schedule();
       }, 2400 + Math.random() * 2200);
     };
     schedule();
     return () => {
-      if (open) clearTimeout(open);
       if (next) clearTimeout(next);
+      running?.stop();
     };
-  }, [moving, mood]);
+  }, [blinks, lids]);
 
   // Wave the raised hand: a smooth swing on the native driver, not a redraw.
   const waving = mood === "wave";
@@ -702,12 +734,11 @@ function MascotFigure({ variant, mood = "happy", size = 120, accent = colors.gre
     if (!moving || !waving) {
       return undefined;
     }
-    const swing = (toValue: number) =>
-      Animated.timing(wave, { toValue, duration: WAVE_MS, easing: Easing.inOut(Easing.sin), useNativeDriver: true });
-    const loop = Animated.loop(Animated.sequence([swing(1), swing(-1)]));
-    // Start from the middle so the first swing is the same length as the rest.
-    const start = Animated.timing(wave, { toValue: -1, duration: WAVE_MS / 2, easing: Easing.out(Easing.sin), useNativeDriver: true });
-    const all = Animated.sequence([start, loop]);
+    const swing = (toValue: number, duration = WAVE_MS) =>
+      Animated.timing(wave, { toValue, duration, easing: Easing.inOut(Easing.sin), useNativeDriver: true });
+    // From the middle out and back to the middle, so each wave starts and ends softly at rest.
+    const burst = Animated.sequence([swing(-1, WAVE_MS / 2), swing(1), swing(-1), swing(1), swing(0, WAVE_MS / 2), Animated.delay(WAVE_REST_MS)]);
+    const all = Animated.loop(burst);
     all.start();
     return () => all.stop();
   }, [moving, waving, wave]);
@@ -746,6 +777,13 @@ function MascotFigure({ variant, mood = "happy", size = 120, accent = colors.gre
           <Svg width={size} height={height} viewBox={viewBox} style={StyleSheet.absoluteFill}>
             <MemoArt variant={resolved} mood={mood} accent={accent} blink={blink} outfit={outfit} layer="head" />
           </Svg>
+          {blinks ? (
+            <Animated.View style={[StyleSheet.absoluteFill, { opacity: lids }]} pointerEvents="none">
+              <Svg width={size} height={height} viewBox={viewBox}>
+                <MemoLids mood={mood} />
+              </Svg>
+            </Animated.View>
+          ) : null}
           <Animated.View style={swingStyle} pointerEvents="none">
             <Svg width={size} height={height} viewBox={viewBox}>
               <MemoWaveArm accent={accent} part="hand" />
@@ -756,9 +794,18 @@ function MascotFigure({ variant, mood = "happy", size = 120, accent = colors.gre
           </Svg>
         </>
       ) : (
-        <Svg width={size} height={height} viewBox={viewBox}>
-          <MemoArt variant={resolved} mood={mood} accent={accent} blink={blink} outfit={outfit} layer="all" />
-        </Svg>
+        <>
+          <Svg width={size} height={height} viewBox={viewBox}>
+            <MemoArt variant={resolved} mood={mood} accent={accent} blink={blink} outfit={outfit} layer="all" />
+          </Svg>
+          {blinks ? (
+              <Animated.View style={[StyleSheet.absoluteFill, { opacity: lids }]} pointerEvents="none">
+                <Svg width={size} height={height} viewBox={viewBox}>
+                  <MemoLids mood={mood} />
+                </Svg>
+              </Animated.View>
+            ) : null}
+        </>
       )}
       {talkMs > 0 && moving ? (
         <Animated.View style={[StyleSheet.absoluteFill, { opacity: talk }]} pointerEvents="none" testID="mascot-talking">

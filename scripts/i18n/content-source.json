@@ -29941,6 +29941,42 @@
   },
   {
     "kind": "course",
+    "text": "Abdullah ibn Mughaffal al-Muzani"
+  },
+  {
+    "kind": "course",
+    "text": "A companion of the Tree pledge who remembered the Prophet's ﷺ recitation at the Conquest."
+  },
+  {
+    "kind": "arabic",
+    "text": "A companion of the Tree pledge"
+  },
+  {
+    "kind": "course",
+    "text": "Al-Mughirah ibn Shu'bah"
+  },
+  {
+    "kind": "course",
+    "text": "A clever companion who served the Prophet ﷺ on journeys and told how he worshipped."
+  },
+  {
+    "kind": "arabic",
+    "text": "The helper on journeys"
+  },
+  {
+    "kind": "course",
+    "text": "Samurah ibn Jundub"
+  },
+  {
+    "kind": "course",
+    "text": "A young companion who told the long dream the Prophet ﷺ described after Fajr."
+  },
+  {
+    "kind": "arabic",
+    "text": "The narrator of the dream"
+  },
+  {
+    "kind": "course",
     "text": "The Muhajirun"
   },
   {
@@ -31478,6 +31514,62 @@
   {
     "kind": "course",
     "text": "Modesty brings good"
+  },
+  {
+    "kind": "course",
+    "text": "Al-Fath on the camel"
+  },
+  {
+    "kind": "course",
+    "text": "A prayer between two calls"
+  },
+  {
+    "kind": "course",
+    "text": "Shy at Khaybar"
+  },
+  {
+    "kind": "course",
+    "text": "Do not flick stones"
+  },
+  {
+    "kind": "course",
+    "text": "Wiping over leather socks"
+  },
+  {
+    "kind": "course",
+    "text": "The eclipse and Ibrahim"
+  },
+  {
+    "kind": "course",
+    "text": "What Allah dislikes"
+  },
+  {
+    "kind": "course",
+    "text": "Always a group on the truth"
+  },
+  {
+    "kind": "course",
+    "text": "Asking about Dajjal"
+  },
+  {
+    "kind": "course",
+    "text": "Who saw a dream?"
+  },
+  {
+    "kind": "course",
+    "text": "The punishment of lying"
+  },
+  {
+    "kind": "course",
+    "text": "Quran without action"
+  },
+  {
+    "kind": "course",
+    "text": "The river of blood"
+  },
+  {
+    "kind": "course",
+    "text": "Ibrahim and the children"
   },
   {
     "kind": "course",
@@ -35478,10 +35570,6 @@
   {
     "kind": "course",
     "text": "The full bath"
-  },
-  {
-    "kind": "course",
-    "text": "Wiping over leather socks"
   },
   {
     "kind": "course",
@@ -73909,10 +73997,6 @@
   },
   {
     "kind": "question",
-    "text": "Al-Mughirah ibn Shu'bah"
-  },
-  {
-    "kind": "question",
     "text": "Al-Mughirah bin Shu'bah proposed to a woman."
   },
   {
@@ -99625,6 +99709,946 @@
   },
   {
     "kind": "lesson",
+    "text": "Ibn Mughaffal saw the Prophet ﷺ recite Al-Fath entering Makkah."
+  },
+  {
+    "kind": "lesson",
+    "text": "The day Makkah was opened, he rode his she-camel."
+  },
+  {
+    "kind": "lesson",
+    "text": "He recited Surah Al-Fath in a moving voice."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Mughaffal never forgot that sound."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 4281"
+  },
+  {
+    "kind": "question",
+    "text": "Which surah did the Prophet ﷺ recite at the Conquest?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Fath"
+  },
+  {
+    "kind": "question",
+    "text": "Reciting Surat-al-Fath on the day of the Conquest of Mecca."
+  },
+  {
+    "kind": "question",
+    "text": "What was he riding?"
+  },
+  {
+    "kind": "question",
+    "text": "A boat"
+  },
+  {
+    "kind": "question",
+    "text": "His she-camel"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Fath means the victory or opening."
+  },
+  {
+    "kind": "question",
+    "text": "Indeed, We have given you a clear victory, 48:1."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Mughaffal heard: there is a prayer between adhan and iqamah."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ said it three times."
+  },
+  {
+    "kind": "lesson",
+    "text": "There is a voluntary prayer between the two calls."
+  },
+  {
+    "kind": "lesson",
+    "text": "The third time he said: for whoever wishes."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 624"
+  },
+  {
+    "kind": "question",
+    "text": "When is this extra prayer?"
+  },
+  {
+    "kind": "question",
+    "text": "Between adhan and iqamah"
+  },
+  {
+    "kind": "question",
+    "text": "After sunset only"
+  },
+  {
+    "kind": "question",
+    "text": "After Eid only"
+  },
+  {
+    "kind": "question",
+    "text": "There is a prayer between the two Adhans."
+  },
+  {
+    "kind": "question",
+    "text": "Allah's Messenger ﷺ said it three times."
+  },
+  {
+    "kind": "question",
+    "text": "This prayer is a must for everyone."
+  },
+  {
+    "kind": "question",
+    "text": "For the one who wants to pray."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Mughaffal ran for a bag of fat, then felt shy."
+  },
+  {
+    "kind": "lesson",
+    "text": "During the siege of Khaybar, a bag of fat was thrown out."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Mughaffal rushed to grab it."
+  },
+  {
+    "kind": "lesson",
+    "text": "He turned, saw the Prophet ﷺ, and felt shy."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 4214"
+  },
+  {
+    "kind": "question",
+    "text": "What was thrown from the fort?"
+  },
+  {
+    "kind": "question",
+    "text": "A leather bag of fat"
+  },
+  {
+    "kind": "question",
+    "text": "A person threw a leather container containing some fat."
+  },
+  {
+    "kind": "question",
+    "text": "Why did he stop?"
+  },
+  {
+    "kind": "question",
+    "text": "He was hurt"
+  },
+  {
+    "kind": "question",
+    "text": "The bag broke"
+  },
+  {
+    "kind": "question",
+    "text": "It was locked"
+  },
+  {
+    "kind": "question",
+    "text": "He felt shy before the Prophet ﷺ"
+  },
+  {
+    "kind": "question",
+    "text": "I looked behind and the Prophet ﷺ was there, so I felt shy."
+  },
+  {
+    "kind": "question",
+    "text": "Where did this happen?"
+  },
+  {
+    "kind": "question",
+    "text": "While we were besieging Khaibar."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Mughaffal taught: flicking stones only breaks eyes, teeth."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ forbade flicking small stones."
+  },
+  {
+    "kind": "lesson",
+    "text": "A flicked stone does not hunt or stop an enemy."
+  },
+  {
+    "kind": "lesson",
+    "text": "Harm comes from it, like a hurt eye."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 6220"
+  },
+  {
+    "kind": "question",
+    "text": "What kind of throwing did the Prophet ﷺ forbid?"
+  },
+  {
+    "kind": "question",
+    "text": "Riding"
+  },
+  {
+    "kind": "question",
+    "text": "Flicking small stones"
+  },
+  {
+    "kind": "question",
+    "text": "He forbade the throwing of stones with the fingers."
+  },
+  {
+    "kind": "question",
+    "text": "What harm can a flicked stone do?"
+  },
+  {
+    "kind": "question",
+    "text": "Catch a fish"
+  },
+  {
+    "kind": "question",
+    "text": "Stop an army"
+  },
+  {
+    "kind": "question",
+    "text": "Hurt an eye or tooth"
+  },
+  {
+    "kind": "question",
+    "text": "It gouges out an eye or breaks a tooth."
+  },
+  {
+    "kind": "question",
+    "text": "Flicking stones is a good way to hunt."
+  },
+  {
+    "kind": "question",
+    "text": "It neither hunts a game nor kills an enemy."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Abdullah ibn Mughaffal!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Mughirah poured water as the Prophet ﷺ made wudu on a journey."
+  },
+  {
+    "kind": "lesson",
+    "text": "Mughirah carried water for the Prophet ﷺ."
+  },
+  {
+    "kind": "lesson",
+    "text": "He helped him make wudu."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ wiped over his leather socks."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 388"
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ wipe over?"
+  },
+  {
+    "kind": "question",
+    "text": "His leather socks"
+  },
+  {
+    "kind": "question",
+    "text": "His sandals"
+  },
+  {
+    "kind": "question",
+    "text": "His turban only"
+  },
+  {
+    "kind": "question",
+    "text": "He passed his wet hands over his Khuffs."
+  },
+  {
+    "kind": "question",
+    "text": "How did Mughirah help?"
+  },
+  {
+    "kind": "question",
+    "text": "He led prayer"
+  },
+  {
+    "kind": "question",
+    "text": "He rode ahead"
+  },
+  {
+    "kind": "question",
+    "text": "He poured water"
+  },
+  {
+    "kind": "question",
+    "text": "I poured water and he performed ablution."
+  },
+  {
+    "kind": "question",
+    "text": "Wiping over khuffs makes wudu easier on journeys."
+  },
+  {
+    "kind": "question",
+    "text": "He wiped over his Khuffs and prayed."
+  },
+  {
+    "kind": "lesson",
+    "text": "Mughirah heard: eclipses are not for anyone's death or birth."
+  },
+  {
+    "kind": "lesson",
+    "text": "The sun eclipsed the day Ibrahim, the Prophet's ﷺ son, died."
+  },
+  {
+    "kind": "lesson",
+    "text": "People said it was because of his death."
+  },
+  {
+    "kind": "lesson",
+    "text": "He said: pray and call on Allah at an eclipse."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1043"
+  },
+  {
+    "kind": "question",
+    "text": "What did people wrongly think?"
+  },
+  {
+    "kind": "question",
+    "text": "The sun was gone forever"
+  },
+  {
+    "kind": "question",
+    "text": "Rain was coming"
+  },
+  {
+    "kind": "question",
+    "text": "Night had ended"
+  },
+  {
+    "kind": "question",
+    "text": "The eclipse was for Ibrahim"
+  },
+  {
+    "kind": "question",
+    "text": "The people said that the sun had eclipsed because of the death of Ibrahim."
+  },
+  {
+    "kind": "question",
+    "text": "What should we do at an eclipse?"
+  },
+  {
+    "kind": "question",
+    "text": "Light fires"
+  },
+  {
+    "kind": "question",
+    "text": "Pray and call on Allah"
+  },
+  {
+    "kind": "question",
+    "text": "Hide inside"
+  },
+  {
+    "kind": "question",
+    "text": "When you see the eclipse pray and invoke Allah."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ let a wrong belief spread to honor his son."
+  },
+  {
+    "kind": "question",
+    "text": "He said the sun and moon do not eclipse because of anyone's death."
+  },
+  {
+    "kind": "lesson",
+    "text": "Mughirah narrated what Allah forbade and what He dislikes."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah forbade harming mothers and burying daughters."
+  },
+  {
+    "kind": "lesson",
+    "text": "He forbade withholding rights and begging."
+  },
+  {
+    "kind": "lesson",
+    "text": "He dislikes gossip, too many questions and waste."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 2408"
+  },
+  {
+    "kind": "question",
+    "text": "Who did Allah forbid us to be undutiful to?"
+  },
+  {
+    "kind": "question",
+    "text": "Our rivals"
+  },
+  {
+    "kind": "question",
+    "text": "Our mothers"
+  },
+  {
+    "kind": "question",
+    "text": "Which of these does Allah dislike?"
+  },
+  {
+    "kind": "question",
+    "text": "Saying salam"
+  },
+  {
+    "kind": "question",
+    "text": "Wasting wealth"
+  },
+  {
+    "kind": "question",
+    "text": "And to waste the wealth by extravagance."
+  },
+  {
+    "kind": "question",
+    "text": "Idle talk about others is loved by Allah."
+  },
+  {
+    "kind": "question",
+    "text": "Allah has hated for you vain, useless talk."
+  },
+  {
+    "kind": "lesson",
+    "text": "Mughirah saw the Prophet ﷺ pray until his feet swelled."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ prayed long at night."
+  },
+  {
+    "kind": "lesson",
+    "text": "His feet would swell from standing."
+  },
+  {
+    "kind": "lesson",
+    "text": "He said: shall I not be a thankful servant?"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 6471"
+  },
+  {
+    "kind": "question",
+    "text": "What happened to his feet?"
+  },
+  {
+    "kind": "question",
+    "text": "They bled"
+  },
+  {
+    "kind": "question",
+    "text": "They froze"
+  },
+  {
+    "kind": "question",
+    "text": "They swelled"
+  },
+  {
+    "kind": "question",
+    "text": "His feet used to become swollen."
+  },
+  {
+    "kind": "question",
+    "text": "Why did he pray so much?"
+  },
+  {
+    "kind": "question",
+    "text": "To be a thankful servant"
+  },
+  {
+    "kind": "question",
+    "text": "To be seen"
+  },
+  {
+    "kind": "question",
+    "text": "Out of fear of people"
+  },
+  {
+    "kind": "question",
+    "text": "To win a prize"
+  },
+  {
+    "kind": "question",
+    "text": "Worship is a way of saying thank you to Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Mughirah heard: some of this ummah will stay on the truth."
+  },
+  {
+    "kind": "lesson",
+    "text": "A group of the ummah will always stay on the truth."
+  },
+  {
+    "kind": "lesson",
+    "text": "They will remain until the Last Day."
+  },
+  {
+    "kind": "lesson",
+    "text": "So the truth will never be lost."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3640"
+  },
+  {
+    "kind": "question",
+    "text": "How long will this group remain?"
+  },
+  {
+    "kind": "question",
+    "text": "Until the Last Day"
+  },
+  {
+    "kind": "question",
+    "text": "Until Badr"
+  },
+  {
+    "kind": "question",
+    "text": "Till the Last Day comes."
+  },
+  {
+    "kind": "question",
+    "text": "The truth will one day vanish completely."
+  },
+  {
+    "kind": "question",
+    "text": "Some of my followers will remain victorious till the Last Day."
+  },
+  {
+    "kind": "question",
+    "text": "What will the group stay on?"
+  },
+  {
+    "kind": "question",
+    "text": "Power only"
+  },
+  {
+    "kind": "question",
+    "text": "They will remain on the right path."
+  },
+  {
+    "kind": "lesson",
+    "text": "Mughirah asked more about Dajjal than anyone else."
+  },
+  {
+    "kind": "lesson",
+    "text": "Mughirah asked many questions about Dajjal."
+  },
+  {
+    "kind": "lesson",
+    "text": "People said Dajjal would bring bread and water."
+  },
+  {
+    "kind": "lesson",
+    "text": "He said: Dajjal is too low before Allah for that."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 7122"
+  },
+  {
+    "kind": "question",
+    "text": "What did Mughirah ask about most?"
+  },
+  {
+    "kind": "question",
+    "text": "Dajjal"
+  },
+  {
+    "kind": "question",
+    "text": "Nobody asked as many questions as I asked regarding Ad-Dajjal."
+  },
+  {
+    "kind": "question",
+    "text": "What did people say Dajjal would carry?"
+  },
+  {
+    "kind": "question",
+    "text": "Bread and water"
+  },
+  {
+    "kind": "question",
+    "text": "A mountain of bread and a river of water."
+  },
+  {
+    "kind": "question",
+    "text": "Dajjal is honored by Allah."
+  },
+  {
+    "kind": "question",
+    "text": "He is too mean to be allowed such a thing by Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Al-Mughirah ibn Shu'bah!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Samurah said the Prophet ﷺ asked after Fajr who saw a dream."
+  },
+  {
+    "kind": "lesson",
+    "text": "After Fajr he would face the people."
+  },
+  {
+    "kind": "lesson",
+    "text": "He asked: who among you saw a dream?"
+  },
+  {
+    "kind": "lesson",
+    "text": "One day he told his own long dream."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1386"
+  },
+  {
+    "kind": "question",
+    "text": "When did the Prophet ﷺ ask about dreams?"
+  },
+  {
+    "kind": "question",
+    "text": "After the Fajr prayer"
+  },
+  {
+    "kind": "question",
+    "text": "On Eid only"
+  },
+  {
+    "kind": "question",
+    "text": "Whenever the Prophet ﷺ finished the morning prayer."
+  },
+  {
+    "kind": "question",
+    "text": "What did he ask the people?"
+  },
+  {
+    "kind": "question",
+    "text": "Who ate today?"
+  },
+  {
+    "kind": "question",
+    "text": "Who is tired?"
+  },
+  {
+    "kind": "question",
+    "text": "Who has money?"
+  },
+  {
+    "kind": "question",
+    "text": "Who saw a dream last night?"
+  },
+  {
+    "kind": "question",
+    "text": "He faced the people after the prayer."
+  },
+  {
+    "kind": "question",
+    "text": "He would face us and ask."
+  },
+  {
+    "kind": "lesson",
+    "text": "Samurah told of the liar in the dream whose lies spread far."
+  },
+  {
+    "kind": "lesson",
+    "text": "In the dream a man's cheek was being torn."
+  },
+  {
+    "kind": "lesson",
+    "text": "He was a liar whose lies spread everywhere."
+  },
+  {
+    "kind": "lesson",
+    "text": "Lies told to many bring a heavy punishment."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 6096"
+  },
+  {
+    "kind": "question",
+    "text": "What sin did the torn-cheek man do?"
+  },
+  {
+    "kind": "question",
+    "text": "Missing Eid"
+  },
+  {
+    "kind": "question",
+    "text": "Telling lies"
+  },
+  {
+    "kind": "question",
+    "text": "Stealing food"
+  },
+  {
+    "kind": "question",
+    "text": "He was a liar and used to tell lies."
+  },
+  {
+    "kind": "question",
+    "text": "How far did his lies go?"
+  },
+  {
+    "kind": "question",
+    "text": "Only his home"
+  },
+  {
+    "kind": "question",
+    "text": "One street"
+  },
+  {
+    "kind": "question",
+    "text": "All over the world"
+  },
+  {
+    "kind": "question",
+    "text": "The people would report those lies till they spread all over the world."
+  },
+  {
+    "kind": "question",
+    "text": "Spreading lies is a small matter."
+  },
+  {
+    "kind": "question",
+    "text": "He will be punished like that till the Day of Resurrection."
+  },
+  {
+    "kind": "lesson",
+    "text": "Samurah told of one who learned the Quran but ignored it."
+  },
+  {
+    "kind": "lesson",
+    "text": "A man's head was struck with a rock in the dream."
+  },
+  {
+    "kind": "lesson",
+    "text": "He learned the Quran but did not act on it."
+  },
+  {
+    "kind": "lesson",
+    "text": "He slept through the obligatory prayers."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1143"
+  },
+  {
+    "kind": "question",
+    "text": "What did the man fail to do?"
+  },
+  {
+    "kind": "question",
+    "text": "Act on the Quran"
+  },
+  {
+    "kind": "question",
+    "text": "Learn to swim"
+  },
+  {
+    "kind": "question",
+    "text": "Build a house"
+  },
+  {
+    "kind": "question",
+    "text": "One who learnt the Quran but never acted on it."
+  },
+  {
+    "kind": "question",
+    "text": "What did he sleep through?"
+  },
+  {
+    "kind": "question",
+    "text": "The obligatory prayers"
+  },
+  {
+    "kind": "question",
+    "text": "Slept ignoring the compulsory prayers."
+  },
+  {
+    "kind": "question",
+    "text": "Knowing the Quran is enough without acting."
+  },
+  {
+    "kind": "question",
+    "text": "He learnt the Quran but never acted on it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Samurah told of a riba-eater in a river of blood."
+  },
+  {
+    "kind": "lesson",
+    "text": "In the dream a man stood in a river of blood."
+  },
+  {
+    "kind": "lesson",
+    "text": "Each time he tried to leave, a stone pushed him back."
+  },
+  {
+    "kind": "lesson",
+    "text": "He was one who ate riba, interest."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 2085"
+  },
+  {
+    "kind": "question",
+    "text": "Who was the man in the river?"
+  },
+  {
+    "kind": "question",
+    "text": "One who ate riba"
+  },
+  {
+    "kind": "question",
+    "text": "A thief of camels"
+  },
+  {
+    "kind": "question",
+    "text": "A lazy guard"
+  },
+  {
+    "kind": "question",
+    "text": "The person in the river was a Riba-eater."
+  },
+  {
+    "kind": "question",
+    "text": "What was the river made of?"
+  },
+  {
+    "kind": "question",
+    "text": "Blood"
+  },
+  {
+    "kind": "question",
+    "text": "We reached a river of blood."
+  },
+  {
+    "kind": "question",
+    "text": "Riba means taking interest on loans."
+  },
+  {
+    "kind": "question",
+    "text": "Those dealing in Riba (usury)."
+  },
+  {
+    "kind": "lesson",
+    "text": "Samurah told of Prophet Ibrahim with children in a garden."
+  },
+  {
+    "kind": "lesson",
+    "text": "The dream reached a green garden with a great tree."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibrahim sat at its root with children."
+  },
+  {
+    "kind": "lesson",
+    "text": "They were children who died on the fitrah."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 7047"
+  },
+  {
+    "kind": "question",
+    "text": "Who sat with the children in the garden?"
+  },
+  {
+    "kind": "question",
+    "text": "Prophet Ibrahim"
+  },
+  {
+    "kind": "question",
+    "text": "Prophet Nuh"
+  },
+  {
+    "kind": "question",
+    "text": "An angel of rain"
+  },
+  {
+    "kind": "question",
+    "text": "Abraham and the children around him."
+  },
+  {
+    "kind": "question",
+    "text": "Who were the children?"
+  },
+  {
+    "kind": "question",
+    "text": "Grown men"
+  },
+  {
+    "kind": "question",
+    "text": "Children who died on the fitrah"
+  },
+  {
+    "kind": "question",
+    "text": "Children of kings"
+  },
+  {
+    "kind": "question",
+    "text": "Those children who die with Al-Fitra."
+  },
+  {
+    "kind": "question",
+    "text": "Where was this scene?"
+  },
+  {
+    "kind": "question",
+    "text": "A green garden"
+  },
+  {
+    "kind": "question",
+    "text": "A desert"
+  },
+  {
+    "kind": "question",
+    "text": "A well-flourished green garden having a huge tree."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Samurah ibn Jundub!"
+  },
+  {
+    "kind": "lesson",
     "text": "The Muhajirun left their homes and wealth in Makkah for Allah."
   },
   {
@@ -103097,10 +104121,6 @@
   },
   {
     "kind": "question",
-    "text": "A green garden"
-  },
-  {
-    "kind": "question",
     "text": "An island"
   },
   {
@@ -103746,10 +104766,6 @@
   {
     "kind": "question",
     "text": "Yusuf's shirt with false blood"
-  },
-  {
-    "kind": "question",
-    "text": "His sandals"
   },
   {
     "kind": "question",
@@ -105005,10 +106021,6 @@
   },
   {
     "kind": "question",
-    "text": "To be seen"
-  },
-  {
-    "kind": "question",
     "text": "Establish prayer to remember Me."
   },
   {
@@ -105098,10 +106110,6 @@
   {
     "kind": "question",
     "text": "What did Musa ask Allah to untie?"
-  },
-  {
-    "kind": "question",
-    "text": "A boat"
   },
   {
     "kind": "question",
@@ -111932,16 +112940,8 @@
     "text": "He ﷺ entered Makkah reciting Surah Al-Fath on his camel."
   },
   {
-    "kind": "source",
-    "text": "Sahih al-Bukhari 4281"
-  },
-  {
     "kind": "question",
     "text": "Which surah did he ﷺ recite on that day?"
-  },
-  {
-    "kind": "question",
-    "text": "Al-Fath"
   },
   {
     "kind": "question",
@@ -138213,10 +139213,6 @@
   },
   {
     "kind": "question",
-    "text": "Riding"
-  },
-  {
-    "kind": "question",
     "text": "A man is riding as it were when he wears sandals."
   },
   {
@@ -140804,24 +141800,8 @@
     "text": "For whoever wants to pray"
   },
   {
-    "kind": "source",
-    "text": "Sahih al-Bukhari 624"
-  },
-  {
-    "kind": "question",
-    "text": "When is this extra prayer?"
-  },
-  {
-    "kind": "question",
-    "text": "Between adhan and iqamah"
-  },
-  {
     "kind": "question",
     "text": "After sunrise"
-  },
-  {
-    "kind": "question",
-    "text": "There is a prayer between the two Adhans."
   },
   {
     "kind": "question",
@@ -140834,10 +141814,6 @@
   {
     "kind": "question",
     "text": "This prayer is for whoever wants to pray it."
-  },
-  {
-    "kind": "question",
-    "text": "For the one who wants to pray."
   },
   {
     "kind": "lesson",
@@ -143322,10 +144298,6 @@
   {
     "kind": "question",
     "text": "At night only"
-  },
-  {
-    "kind": "question",
-    "text": "On Eid only"
   },
   {
     "kind": "question",
@@ -148494,10 +149466,6 @@
   {
     "kind": "question",
     "text": "Prophet Isa"
-  },
-  {
-    "kind": "question",
-    "text": "Prophet Nuh"
   },
   {
     "kind": "question",
@@ -178150,10 +179118,6 @@
   {
     "kind": "question",
     "text": "A safe place with gardens"
-  },
-  {
-    "kind": "question",
-    "text": "A desert"
   },
   {
     "kind": "question",
@@ -232944,10 +233908,6 @@
     "text": "Yahduna bil-haqq"
   },
   {
-    "kind": "lesson",
-    "text": "Until the Last Day"
-  },
-  {
     "kind": "source",
     "text": "Quran 7:181"
   },
@@ -232986,10 +233946,6 @@
   {
     "kind": "question",
     "text": "One century"
-  },
-  {
-    "kind": "question",
-    "text": "Until Badr"
   },
   {
     "kind": "question",
@@ -239770,10 +240726,6 @@
   {
     "kind": "question",
     "text": "To please the people"
-  },
-  {
-    "kind": "question",
-    "text": "To win a prize"
   },
   {
     "kind": "question",
@@ -250038,10 +250990,6 @@
   {
     "kind": "question",
     "text": "What did Ibrahim bring his guests, in 11:69?"
-  },
-  {
-    "kind": "question",
-    "text": "Bread and water"
   },
   {
     "kind": "question",
@@ -270613,10 +271561,6 @@
   },
   {
     "kind": "question",
-    "text": "Blood"
-  },
-  {
-    "kind": "question",
     "text": "Feelings only"
   },
   {
@@ -283525,10 +284469,6 @@
   },
   {
     "kind": "question",
-    "text": "He was hurt"
-  },
-  {
-    "kind": "question",
     "text": "No, healthy and fit"
   },
   {
@@ -288714,10 +289654,6 @@
   {
     "kind": "question",
     "text": "Follow me and obey my order"
-  },
-  {
-    "kind": "question",
-    "text": "Build a house"
   },
   {
     "kind": "question",
@@ -395761,10 +396697,6 @@
   },
   {
     "kind": "question",
-    "text": "To be a thankful servant"
-  },
-  {
-    "kind": "question",
     "text": "What happened to his feet, per Bukhari 4836?"
   },
   {
@@ -474433,19 +475365,7 @@
   },
   {
     "kind": "question",
-    "text": "They froze"
-  },
-  {
-    "kind": "question",
-    "text": "They swelled"
-  },
-  {
-    "kind": "question",
     "text": "The Prophet ﷺ used to stand in the prayer till both his feet or legs swelled."
-  },
-  {
-    "kind": "question",
-    "text": "Why did he pray so much?"
   },
   {
     "kind": "question",
