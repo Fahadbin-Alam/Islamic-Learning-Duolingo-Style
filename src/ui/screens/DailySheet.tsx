@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { ScrollView, StyleSheet, Text, View, useWindowDimensions, type StyleProp, type TextStyle } from "react-native";
 import { ArabicText, isArabicOnly, withHonorifics } from "../ArabicText";
 import { GameButton } from "../GameButton";
@@ -10,7 +10,7 @@ import { colors, darken, fonts, lighten, radii, space, text } from "../theme";
 import { useBackToClose } from "./sheetParts";
 import { getActiveLanguage, t } from "../../i18n";
 import { getDailyCard } from "../../data/dailyCard";
-import { playAyah, stopAyah } from "../../services/ayahPlayer";
+import { stopAyah } from "../../services/ayahPlayer";
 import { quranAudioUrl } from "../../services/quranAudio";
 import { openWebPage } from "../../services/network";
 import { AyahListen } from "../lesson/AyahListen";
@@ -20,8 +20,6 @@ export type DailySheetProps = {
   onClose: () => void;
   /** The day to show. Default: today. */
   date?: Date;
-  /** Opened by itself as the app opened: recite the ayah once, straight away. */
-  autoPlay?: boolean;
 };
 
 const AYAH_COLOR = colors.green;
@@ -52,7 +50,7 @@ function Line({ value, style, testID }: { value: string; style: StyleProp<TextSt
 }
 
 /** Today's ayah and hadith, from the top bar's book button. Same pair for everyone on that date. */
-export function DailySheet({ visible, onClose, date, autoPlay = false }: DailySheetProps) {
+export function DailySheet({ visible, onClose, date }: DailySheetProps) {
   const { height } = useWindowDimensions();
   const { ayah, hadith } = getDailyCard(getActiveLanguage(), date);
   const audio = quranAudioUrl(`Quran ${ayah.ref}`);
@@ -61,9 +59,6 @@ export function DailySheet({ visible, onClose, date, autoPlay = false }: DailySh
     onClose();
   };
   useBackToClose(visible, close);
-  useEffect(() => {
-    if (visible && autoPlay && audio) playAyah(audio, { once: true });
-  }, [audio, autoPlay, visible]);
 
   return (
     <Sheet visible={visible} onClose={close} testID="daily-sheet">

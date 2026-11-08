@@ -58,7 +58,10 @@ describe("animals that wander their row like the camel", () => {
     );
     expect(screen.getByTestId("roam-sheep")).toBeTruthy();
     await run(20000);
-    expect(farthestWalk(timing)).toBeGreaterThan(60);
+    // It paces the row end to end like the camel, with only short stops.
+    expect(GAITS.sheep.paces).toBe(true);
+    expect(GAITS.sheep.rest).toBeLessThan(1500);
+    expect(farthestWalk(timing)).toBeGreaterThan(200);
     timing.mockRestore();
   });
 
