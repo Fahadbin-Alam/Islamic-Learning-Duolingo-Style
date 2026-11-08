@@ -91,6 +91,12 @@ function teachingWhy(why: string | undefined) {
   const value = (why ?? "").trim().replace(/[.!]+$/, "");
   if (contentWords(value).length < 3) return undefined;
   if (isCredit(value, { hadith: true })) return undefined;
+  // Arabic in Latin letters ("Wa la yaktumunallaha hadith") teaches nothing to read: an English sentence has some
+  // small word (the, is, of, to...) in it.
+  const words = value.toLowerCase().replace(/[^a-z'\s-]/g, " ").split(/\s+/).filter(Boolean);
+  if (words.length >= 3 && !words.some((word) => STOP.has(word))) return undefined;
+  // A line about the course, not the lesson ("That lesson focuses on...", "the learner has been building").
+  if (/\b(?:this|that|the|these) (?:lesson|branch|topic|unit|course)s?\b|\bthe learner\b/i.test(value)) return undefined;
   return why!.trim();
 }
 
@@ -104,6 +110,21 @@ export function saidInSummary(fact: string, summary: string | undefined) {
   return coverage(words, new Set(contentWords(summary))) === 1;
 }
 
+const SAYS = /^(?:ibn kathir|as-sa['‘’]di|al-qurtubi|ibn jarir|at-tabari|al-baghawi|ibn ['‘’]?ashur)\s+(?:says|explains|writes|notes|adds)(?:\s+that)?[:,]?\s+/i;
+const QUOTES = /^(?:ibn kathir|as-sa['‘’]di|al-qurtubi)\s+(?:quotes|reports|cites|links|lists|explains)\b[^:]{0,70}:\s+/i;
+
+/**
+ * The source's summary told as the lesson, not as a report on the book: "Ibn Kathir says Hamim is boiling water"
+ * reads "Hamim is boiling water" (the source at the bottom of the page names the book). Only English is reworded.
+ */
+export function plainSummary(summary: string | undefined) {
+  const text = summary?.trim();
+  if (!text) return undefined;
+  const plain = text.replace(QUOTES, "").replace(SAYS, "").replace(/,?\s+per (?:ibn kathir|as-sa['‘’]di)(?=[.!?]?$)/i, "");
+  if (plain === text || plain.length < 12) return text;
+  return plain.charAt(0).toUpperCase() + plain.slice(1);
+}
+
 /** The source's own summary, when it is a real sentence about this lesson (some older ones only name a verse). */
 export function lessonSummary(lesson: Pick<Lesson, "learnSource" | "title" | "learnLine" | "learnFacts" | "challenges" | "intro">) {
   const summary = lesson.learnSource?.summary?.trim();
@@ -115,6 +136,17 @@ export function lessonSummary(lesson: Pick<Lesson, "learnSource" | "title" | "le
   );
   // A summary that shares almost no words with its own lesson was attached to the wrong one: leave it out.
   return contentWords(summary).filter((word) => about.has(word)).length >= 2 ? summary : undefined;
+}
+
+/**
+ * The lesson told plainly (its intro), for the top of "What you learn", when it says more than the mascot's line
+ * already said on the first page.
+ */
+export function lessonExplain(lesson: Pick<Lesson, "intro" | "learnLine" | "title">) {
+  const intro = lesson.intro?.trim();
+  if (!intro || contentWords(intro).length < 4) return undefined;
+  const line = new Set(contentWords([lesson.learnLine, lesson.title].filter(Boolean).join(" ")));
+  return coverage(contentWords(intro), line) >= 0.8 ? undefined : intro;
 }
 
 /** Review and quiz lessons ask about earlier circles: they teach nothing new and have no quiz of their own. */
@@ -137,8 +169,9 @@ export function lessonPages(lesson: Lesson): LessonPage[] {
   }
   const facts = (lesson.learnFacts ?? []).filter((fact) => fact.trim());
   const summary = lessonSummary(lesson);
-  if (facts.length || summary) {
-    pages.push({ page: "facts", text: [...facts, summary].filter(Boolean).join(" ") });
+  const explain = lessonExplain(lesson);
+  if (facts.length || summary || explain) {
+    pages.push({ page: "facts", text: [explain, ...facts, summary].filter(Boolean).join(" ") });
   }
   const deeper = lesson.learnDeeper;
   if (deeper?.meaning.some((line) => line.trim())) {

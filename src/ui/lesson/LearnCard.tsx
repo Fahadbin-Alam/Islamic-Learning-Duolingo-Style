@@ -19,10 +19,9 @@ import { openWebPage, useOnline } from "../../services/network";
 import { getActiveLanguage, t } from "../../i18n";
 import type { LessonPicture } from "../../data/lessonPictures";
 import { LessonPhoto } from "./LessonPhoto";
-import { LookFor, lookForWords } from "./LookFor";
 import { SurahCover, SurahParts } from "./SurahCover";
 import { isCredit, splitLessonFacts } from "./lessonNotes";
-import { highlightPieces, saidInSummary, type LearnPageKind, type TeachLesson } from "./lessonPages";
+import { highlightPieces, plainSummary, saidInSummary, type LearnPageKind, type TeachLesson } from "./lessonPages";
 import { Teacher, talkTime, type TeacherLook } from "./Teacher";
 
 export type LearnCardProps = {
@@ -82,6 +81,11 @@ export type LearnCardProps = {
    * lesson's parts; "teach" is one Good to know fact; "quiz" says the circle's quiz starts. Unset: everything at once.
    */
   page?: LearnPageKind;
+  /**
+   * The lesson told plainly, in a sentence or two (lesson.intro when it says more than the mascot's line): it opens
+   * "What you learn" on the "facts" page, so the page teaches, not only names the source.
+   */
+  explain?: string;
   /** What the source says, in one sentence: shown on the "facts" page under the points. */
   summary?: string;
   /** The same summary in English, to tell which facts it already says (the rules compare English words). */
@@ -180,6 +184,7 @@ export function LearnCard({
   deeper,
   surah,
   page,
+  explain,
   summary,
   englishSummary,
   marks = [],
@@ -212,13 +217,14 @@ export function LearnCard({
       ? { label: learnReference, url: sourceUrl(learnSource) }
       : undefined
     : legacySource;
-  // The line the source's link opens on, shown under its chip so the reader knows what to look for.
-  const lookFor = source && learnSource ? lookForWords(learnSource) : undefined;
   const allFacts = (facts ?? []).map((fact) => fact.trim()).filter(Boolean).slice(0, MAX_FACTS);
   const allEnglish = englishFacts?.map((fact) => fact.trim()).filter(Boolean).slice(0, MAX_FACTS);
   const englishMatch = allEnglish?.length === allFacts.length ? allEnglish : undefined;
   // On the facts page the source's summary sits under the points: a point it already says is not shown twice.
-  const sourceSays = page === "facts" ? summary?.trim() : undefined;
+  const sourceSays = page === "facts" ? plainSummary(summary) : undefined;
+  // The plain telling, unless the source's summary (or the mascot's line) already says it.
+  const explainText =
+    page === "facts" && explain?.trim() && !looksSame(explain, line) && !(sourceSays && saidInSummary(explain, sourceSays)) ? explain.trim() : undefined;
   const english = getActiveLanguage() === "en";
   // Only when the summary is in the learner's language: a Bangla learner keeps the Bangla points next to an English summary.
   const summaryTranslated = english || (Boolean(englishSummary?.trim()) && englishSummary?.trim() !== sourceSays);
@@ -266,6 +272,8 @@ export function LearnCard({
               {withHonorifics(noBreakHyphens(page === "teach" ? t("Good to know") : title))}
             </Text>
           ) : null}
+          {/* Every later page opens on a big picture of what it teaches (or one that fits the lesson). */}
+          {pagePicture && !all && page !== "start" && page !== "quiz" ? <LessonPhoto picture={pagePicture} short={short} delay={0} big /> : null}
           {page === "teach" && teach ? <TeachPage teach={teach} marks={marks} palette={palette} mascotVariant={mascotVariant} teacher={teacher} accent={accent} short={short} /> : null}
           {page === "quiz" ? <QuizPage count={quizCount} testPass={testPass} mascotVariant={mascotVariant} teacher={teacher} accent={accent} short={short} /> : null}
           {/* A surah's own lesson opens on a picture of what its name means. */}
@@ -365,19 +373,9 @@ export function LearnCard({
           )}
 
           {/* Under the mascot's line, so the line the lesson teaches stays in view on small phones. */}
-          {picture && at("start") ? <LessonPhoto picture={picture} short={short} delay={soon(380)} /> : null}
+          {picture && at("start") ? <LessonPhoto picture={picture} short={short} delay={soon(380)} big={!all} /> : null}
 
           {/* On its own page, each part of the lesson is said by the teacher, who stays on the page talking. */}
-          {page === "facts" && (notes.points.length > 0 || summary?.trim()) ? (
-            <TeacherIntro
-              text={t("Here is what you learn.")}
-              saying={[...notes.points.map((point) => point.text), summary ?? ""].join(" ")}
-              teacher={teacher}
-              mascotVariant={mascotVariant}
-              accent={accent}
-              short={short}
-            />
-          ) : null}
           {deeper && (page === "meaning" || page === "story" || page === "takeaway") ? (
             <TeacherIntro
               text={page === "meaning" ? t("Let me explain what it means.") : page === "story" ? t("Let me tell you the story.") : t("Take this home with you.")}
@@ -389,19 +387,26 @@ export function LearnCard({
             />
           ) : null}
 
-          {pagePicture && !all && page !== "start" ? <LessonPhoto picture={pagePicture} short={short} delay={soon(240)} /> : null}
-
-          {(notes.points.length > 0 && at("facts")) || sourceSays || partsInCard ? (
+          {(notes.points.length > 0 && at("facts")) || sourceSays || explainText || partsInCard ? (
             // One card: the story in a short paragraph, the points it does not already say, then what the surah is
             // made of. Where it is from is the source at the bottom of the page.
             <PopIn delay={soon(420)} from="up" style={[styles.notesWrap, short ? styles.notesWrapShort : null]}>
               <View style={[styles.notes, { borderColor: palette.soft }]} testID="learn-facts">
                 <View style={styles.notesHead}>
-                  <Icon name="bookOpen" size={20} color={palette.ink} />
+                  {page === "facts" ? (
+                    <Teacher look={teacher} variant={mascotVariant} accent={accent} size={short ? 40 : 48} talkMs={talkTime([explain ?? "", sourceSays ?? "", ...notes.points.map((point) => point.text)].join(" "))} />
+                  ) : (
+                    <Icon name="bookOpen" size={20} color={palette.ink} />
+                  )}
                   <Text style={[styles.notesTitle, { color: palette.ink }]} accessibilityRole="header">
                     {t("What you learn")}
                   </Text>
                 </View>
+                {explainText ? (
+                  <Text style={[styles.explainText, short ? styles.explainTextShort : null]} testID="learn-explain">
+                    <Marked text={noBreakHyphens(explainText)} marks={marks} />
+                  </Text>
+                ) : null}
                 {sourceSays ? (
                   <Text style={[styles.summaryText, short ? styles.noteTextShort : null]} testID="learn-summary">
                     <Marked text={noBreakHyphens(sourceSays)} marks={marks} />
@@ -470,7 +475,6 @@ export function LearnCard({
                       {withHonorifics(quoteReference)}
                     </Text>
                   ) : null}
-                  {lookFor && linkedReference ? <LookFor words={lookFor} summary={learnSource?.summary} /> : null}
                   {credits && linkedReference ? (
                     <Text style={styles.quoteCredits} testID="learn-credits">
                       {withHonorifics(noBreakHyphens(credits))}
@@ -509,7 +513,6 @@ export function LearnCard({
                   </View>
                 </Tappable>
               ) : null}
-              {source && !linkedReference && lookFor ? <LookFor words={lookFor} summary={learnSource?.summary} /> : null}
               {credits ? (
                 <Text style={styles.sourceCredits} testID="learn-credits">
                   {withHonorifics(noBreakHyphens(credits))}
@@ -1014,8 +1017,8 @@ const styles = StyleSheet.create({
   notesTitle: {
     marginStart: 8,
     fontFamily: fonts.displayHeavy,
-    fontSize: 18,
-    lineHeight: 24
+    fontSize: 20,
+    lineHeight: 26
   },
   noteRow: {
     flexDirection: "row",
@@ -1041,8 +1044,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexShrink: 1,
     fontFamily: fonts.bodyBold,
-    fontSize: 18,
-    lineHeight: 26,
+    fontSize: 19,
+    lineHeight: 28,
     color: colors.ink
   },
   noteTextShort: {
@@ -1281,9 +1284,21 @@ const styles = StyleSheet.create({
   summaryText: {
     marginTop: space.sm,
     fontFamily: fonts.bodyBold,
-    fontSize: 18,
-    lineHeight: 27,
+    fontSize: 19,
+    lineHeight: 28,
     color: colors.ink
+  },
+  // The lesson told plainly: the biggest words on the page.
+  explainText: {
+    marginTop: space.sm,
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 21,
+    lineHeight: 30,
+    color: colors.ink
+  },
+  explainTextShort: {
+    fontSize: 18,
+    lineHeight: 26
   },
   teach: {
     alignSelf: "stretch",

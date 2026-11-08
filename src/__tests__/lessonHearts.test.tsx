@@ -264,8 +264,9 @@ describe("TopicApp heart rule", () => {
     expect(savedUser().hearts.current).toBe(0);
   });
 
-  it("keeps a test-out free of hearts: each question once, and it ends when it cannot be passed", async () => {
-    const user = makeUser({ hearts: hearts(5) });
+  it("takes a heart for each miss in a test-out too: each question once, and it ends when it cannot be passed", async () => {
+    const start = 30;
+    const user = makeUser({ hearts: hearts(start) });
     seedUser(user);
     const unit = COURSE.sections.find((section) => section.topicId === "foundation")!.branches[0];
     const plan = getTestOutPlan(user, unit.id)!;
@@ -274,7 +275,7 @@ describe("TopicApp heart rule", () => {
       branchId: unit.id,
       lessons: plan.lessons,
       nodeIds: plan.nodeIds,
-      heartsAtStart: 5,
+      heartsAtStart: start,
       attempt: 0
     }).lesson.challenges;
 
@@ -284,11 +285,13 @@ describe("TopicApp heart rule", () => {
     await press("test-out-start");
 
     const lostAfter = questions.length - testOutPassingScore(questions.length) + 1;
+    let left = start;
     for (const challenge of questions.slice(0, lostAfter)) {
       expect(shownChallenge(questions)?.id).toBe(challenge.id);
       expect(screen.queryByText("Try again!")).toBeNull();
       await check(challenge, false);
-      expect(heartLabel()).toBe("5 of 5 hearts");
+      left -= 1;
+      expect(heartLabel()).toBe(`${left} of 5 hearts`);
       await press("feedback-continue");
     }
     expect(screen.getByTestId("test-out-result")).toBeTruthy();
