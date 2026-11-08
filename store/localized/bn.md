@@ -3,7 +3,7 @@
 Google Play: Play Console → Grow users → Store presence → Main store listing → Manage translations → Add your own translations → **Bengali – bn-BD**, then paste each block.
 App Store: App Store Connect → your app → the language menu at the top right → add **Bangla** (only if App Store Connect offers it), then paste the App Store blocks.
 
-Screenshots can stay in English for now. Character limits were checked by `scripts/check-store-listings.mjs`.
+Screenshots: Google Play and App Store both let each language have its own. Use the Bangla ones in `store/graphics/localized/bn/` (same folder names as the English set: `google-play/phone`, `google-play/tablet`, `app-store/iphone-6.9`, `app-store/ipad-13`). In Play they go in the same "Manage translations" page, under Graphics. Character limits were checked by `scripts/check-store-listings.mjs`.
 
 ## Google Play
 
@@ -29,9 +29,10 @@ Muslimo ইসলাম শেখাকে ছোট ছোট খেলার �
 যা শিখবেন
 • ঈমান, সালাম, দৈনিক জিকির ও প্রতিটি মুসলিমের দরকারি মূল বিষয়
 • অজু ধাপে ধাপে, তারপর তাকবির থেকে সালাম পর্যন্ত নামাজ
-• কুরআন ও তাফসির: সূরা ধরে ধরে অর্থসহ
-• নবীদের জীবন: আদম (আ.) থেকে মুহাম্মদ ﷺ পর্যন্ত, ক্রমানুসারে
-• সাহাবীগণ: খুলাফায়ে রাশেদীন ও অন্যান্য সাহাবী
+• কুরআন ও তাফসির: প্রতিটি সূরা আয়াত ধরে ধরে, অর্থ ও হাদিসসহ
+• নবীদের জীবন: আদম (আ.) থেকে মুহাম্মাদ ﷺ পর্যন্ত, ক্রমানুসারে
+• সীরাত ও সাহাবীগণ: খুলাফায়ে রাশেদীন ও অন্যান্য সাহাবীর জীবন, গল্পের মতো করে
+• সহিহ বুখারি ও সহিহ মুসলিমের হাদিস, অধ্যায় ধরে ধরে
 • আদব: সত্যবাদিতা, দয়া, মা-বাবার সম্মান ও আরও অনেক কিছু
 • রোজা, যাকাত, হজ্জ ও কিয়ামতের দিন
 
@@ -39,10 +40,12 @@ Muslimo ইসলাম শেখাকে ছোট ছোট খেলার �
 • নামাজের পরে বা বিরতিতে করা যায় এমন ছোট পাঠ
 • ভুল প্রশ্নগুলো আবার ফিরে আসে, যতক্ষণ না মনে থাকে
 • প্রতিটি উত্তরের পর সহজ ব্যাখ্যা
+• ইন্টারনেট না থাকলেও পাঠ চলে
 
 উৎসাহ ধরে রাখুন
 • দৈনিক স্ট্রিক, XP, খেজুর ও পুরস্কারের সিন্দুক
 • পরিবার ও বন্ধুদের সাথে সাপ্তাহিক প্রতিযোগিতা ও কুইজ ব্যাটেল
+• বন্ধুর সাথে মিলে একসাথে স্ট্রিক
 • বন্ধুকে আপনার কোড দিয়ে ডাকুন, দুজনেই খেজুর পাবেন
 • উটের মজার রিমাইন্ডার (যেকোনো সময় বন্ধ করা যায়)
 

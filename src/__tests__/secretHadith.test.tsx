@@ -19,11 +19,11 @@ async function tap(testID: string, times: number) {
   }
 }
 
-describe("the hidden hadith after 50 taps", () => {
+describe("the hidden hadith after 25 taps", () => {
   beforeEach(() => jest.useFakeTimers());
   afterEach(() => jest.useRealTimers());
 
-  it("pops up a sourced hadith on the 50th tap in a row on one picture", async () => {
+  it("pops up a sourced hadith on the 25th tap in a row on one picture", async () => {
     await render(
       <SecretHadithProvider>
         <Camel size={64} tappable testID="camel" />

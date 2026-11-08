@@ -110,7 +110,8 @@ import {
   redeemInviteCode,
   claimInviteRewards,
   type InviteInfo,
-  syncRemoteUser,
+  queueRemoteSync,
+  flushRemoteSync,
   hasPendingSync,
   pickStartingUser,
   wakeBackend,
@@ -956,7 +957,7 @@ export default function TopicApp() {
     }
 
     saveUserProfile(state.user);
-    void syncRemoteUser(state.user).catch(() => undefined);
+    queueRemoteSync(state.user);
   }, [state.user]);
 
   // Progress made offline is sent once the phone is back online: on each return to the app, and every
@@ -967,11 +968,18 @@ export default function TopicApp() {
     const retry = () => {
       const user = latestUserRef.current;
       if (user && hasPendingSync()) {
-        void syncRemoteUser(user).catch(() => undefined);
+        queueRemoteSync(user, { now: true });
       }
     };
     const timer = setInterval(retry, 60000);
-    const listener = PhoneAppState.addEventListener("change", (status) => status === "active" && retry());
+    const listener = PhoneAppState.addEventListener("change", (status) => {
+      if (status === "active") {
+        retry();
+      } else if (status === "background") {
+        // Leaving the app: send the waiting copy now instead of after the quiet seconds.
+        void flushRemoteSync();
+      }
+    });
     // And the moment the phone gets its internet back.
     const stopWatching = subscribeOnline((online) => online && retry());
     return () => {
@@ -2220,7 +2228,8 @@ export default function TopicApp() {
       // LessonComplete plays the finish, streak and XP sounds itself.
       setLessonCompleteSummary({
         headline: t("You jumped ahead!"),
-        title: state.activeSession.clusterTitle ?? state.activeSession.lesson.title,
+        // The lesson's title in the learner's language (the session keeps the English one).
+        title: getNodeTitle(state.activeSession.lesson.id, state.activeSession.clusterTitle ?? state.activeSession.lesson.title, currentLanguage),
         xp: nextUser.totalXp - user.totalXp,
         streakExtended: didExtendStreak(user, nextUser),
         stars: lessonStars(state.sessionMistakes),
@@ -2268,7 +2277,7 @@ export default function TopicApp() {
 
     // LessonComplete plays the finish, streak and XP sounds itself, one after another.
     setLessonCompleteSummary({
-      title: state.activeSession.lesson.title,
+      title: getNodeTitle(state.activeSession.lesson.id, state.activeSession.lesson.title, currentLanguage),
       // A replayed lesson earns nothing, so show what was actually added.
       xp: nextUser.totalXp - user.totalXp,
       streakExtended: didExtendStreak(user, nextUser),
@@ -3698,6 +3707,7 @@ export default function TopicApp() {
             key={`${lesson.id}-${state.stepIndex}`}
             page={learnStep?.page}
             summary={learnStep?.page === "facts" ? lessonSummaryShown : undefined}
+            englishSummary={learnStep?.page === "facts" && lessonSummaryShown ? englishLesson?.learnSource?.summary : undefined}
             marks={lessonMarks}
             teach={teachShown}
             quizCount={learnStep?.page === "quiz" ? quizQuestionCount || lesson.challenges.length : undefined}

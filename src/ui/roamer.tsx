@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, type ReactNode } from "react";
 import { Animated, Easing, View } from "react-native";
 import { sampleCurve, smoothKeys } from "./motion";
+import { WalkContext } from "./walkingLegs";
 
 /**
  * The animals beside the path wander their whole row by themselves, the way the camel does: the sheep
@@ -190,6 +191,8 @@ export function Roamer({ kind, size, width, left, active, seed = 0, children }: 
   }, [active, width, left, size, u, gait, pos, step, stride, dir, act, seed]);
 
   const moves = useMemo(() => gaitMoves(kind, step, stride, act, u), [kind, step, stride, act, u]);
+  // The sheep, goat and horse swing real legs off the same walk clock (walkingLegs.tsx).
+  const clock = useMemo(() => ({ step, stride }), [step, stride]);
 
   return (
     <Animated.View
@@ -204,7 +207,7 @@ export function Roamer({ kind, size, width, left, active, seed = 0, children }: 
     >
       <Animated.View pointerEvents="box-none" style={{ width: size, height: size, transformOrigin: "bottom", transform: [{ scaleX: dir }, ...(moves as never[])] }}>
         <View pointerEvents="box-none" style={{ width: size, height: size }}>
-          {children}
+          <WalkContext.Provider value={clock}>{children}</WalkContext.Provider>
         </View>
       </Animated.View>
     </Animated.View>

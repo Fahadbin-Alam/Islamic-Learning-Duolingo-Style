@@ -264,7 +264,7 @@ export function ProfileView({
         <PopIn delay={120} from="up">
           <View style={styles.saveCard} testID="profile-save">
             <View style={styles.saveHead}>
-              <Mascot variant={mascotVariant} mood="wave" size={64} accent={accent} />
+              <Mascot variant={mascotVariant} mood="wave" size={72} accent={accent} tappable testID="profile-save-kid" />
               <Text style={styles.saveTitle} numberOfLines={2}>
                 {hasSavedAccount ? t("Welcome back!") : t("Save your progress")}
               </Text>

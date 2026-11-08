@@ -7,6 +7,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, Field
 from sqlalchemy import func, select
 
+from backend.app.core.rate_limit import check_rate
 from backend.app.api.deps import DbSession, current_user
 from backend.app.models import Invite, User
 
@@ -86,6 +87,7 @@ def my_invites(db: DbSession, user: User = Depends(current_user)):
 
 @router.post("/invites/redeem")
 def redeem_code(payload: RedeemInput, db: DbSession, user: User = Depends(current_user)):
+    check_rate("invite-code", str(user.id), 10, 15 * 60)
     inviter_id = user_id_from_code(payload.code)
     inviter = db.get(User, inviter_id) if inviter_id else None
     if not inviter:

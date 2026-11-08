@@ -10,17 +10,28 @@
 // Pass a device prefix (for example "iphone") to redo only that size.
 // NO_FEATURE_GRAPHIC=1 leaves google-play/feature-graphic.png as it is and redoes only the screenshots.
 // APP_URL points it at another server (default http://localhost:8090/), CHROMIUM_PATH at another Chromium.
+// SHOT_LANG=bn, ur or ar takes the same screens with the app in that language and the captions translated, into
+// store/graphics/localized/<lang>/ (no feature graphic). The machine needs Noto Bengali, Arabic and Nastaliq fonts
+// (apt-get install fonts-noto-core), or the letters draw as boxes.
 import { chromium } from "playwright";
-import { mkdirSync } from "node:fs";
+import { mkdirSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
 const APP_URL = process.env.APP_URL ?? "http://localhost:8090/";
-const FEATURE_GRAPHIC = !["1", "true", "yes"].includes((process.env.NO_FEATURE_GRAPHIC ?? "").toLowerCase());
+const SHOT_LANG = process.env.SHOT_LANG ?? "en";
+if (!["en", "bn", "ur", "ar"].includes(SHOT_LANG)) throw new Error(`SHOT_LANG must be en, bn, ur or ar, not ${SHOT_LANG}`);
+const FEATURE_GRAPHIC = SHOT_LANG === "en" && !["1", "true", "yes"].includes((process.env.NO_FEATURE_GRAPHIC ?? "").toLowerCase());
 const ROOT = resolve(import.meta.dirname, "..");
-const OUT = join(ROOT, "store", "graphics");
-const SOURCE = join(OUT, "source");
+const SOURCE = join(ROOT, "store", "graphics", "source");
+const OUT = SHOT_LANG === "en" ? join(ROOT, "store", "graphics") : join(ROOT, "store", "graphics", "localized", SHOT_LANG);
+// The app's own catalogs (English text -> translation), to find the buttons and answer tiles by what they say.
+const catalog = (kind) => (SHOT_LANG === "en" ? {} : JSON.parse(readFileSync(join(ROOT, "src", "translations", kind, `${SHOT_LANG}.json`), "utf8")));
+const UI = catalog("ui");
+const CONTENT = catalog("content");
+// Every way the app may show an English label in this language: as screen text or as lesson text.
+const said = (label) => [...new Set([UI[label], CONTENT[label], label].filter(Boolean))];
 const RAW = join(tmpdir(), "muslimo-raw-screens");
 mkdirSync(RAW, { recursive: true });
 
@@ -36,7 +47,7 @@ const DEVICES = {
 // A no-break space keeps a phrase on one line where a two-line caption would split it ("a few minutes", "learn
 // why", "clear question": the frame balances the two lines, which would otherwise end the first on "One clear").
 // "Free" stays out of the captions: Google Play asks for screenshots without words like "free" or "best".
-const CAPTIONS = {
+const CAPTIONS_EN = {
   "01-learn": "Learn Islam a\u00a0few\u00a0minutes a day",
   "02-path": "Wudu and salah, step by step",
   "03-question": "One clear\u00a0question at a time",
@@ -47,11 +58,50 @@ const CAPTIONS = {
   "08-profile": "See your streak, XP and stars"
 };
 
+// The same captions for the bn, ur and ar store pages, in the words the app itself uses (নামাজ, তারা, اسٹریک...).
+// Bangla is polite আপনি here, as in its store listing, though the app says তুমি to the learner. Their 07 caption is
+// about the shop's hearts and dates, not Premium: the plans stay hidden until the stores price them, and these
+// pages should not promise them first.
+const CAPTIONS_BY_LANG = {
+  en: CAPTIONS_EN,
+  bn: {
+    "01-learn": "প্রতিদিন কয়েক\u00a0মিনিটে ইসলাম শিখুন",
+    "02-path": "অজু ও নামাজ, ধাপে\u00a0ধাপে",
+    "03-question": "একবারে একটি\u00a0সহজ\u00a0প্রশ্ন",
+    "04-feedback": "উত্তর দিন, কারণ\u00a0জানুন, এগিয়ে\u00a0যান",
+    "05-complete": "স্ট্রিক ধরে রাখুন, তারা\u00a0জিতুন",
+    "06-topics": "নামাজ, কুরআন, আদব আর\u00a0আরও\u00a0অনেক",
+    "07-shop": "খেজুর দিয়ে হার্ট আর\u00a0আরও\u00a0অনেক\u00a0কিছু",
+    "08-profile": "আপনার স্ট্রিক, XP ও\u00a0তারা দেখুন"
+  },
+  ur: {
+    "01-learn": "روزانہ چند\u00a0منٹ میں اسلام سیکھیں",
+    "02-path": "وضو اور نماز، قدم\u00a0بہ\u00a0قدم",
+    "03-question": "ایک وقت میں ایک\u00a0واضح\u00a0سوال",
+    "04-feedback": "جواب دیں، وجہ\u00a0جانیں، آگے\u00a0بڑھیں",
+    "05-complete": "اسٹریک قائم رکھیں، ستارے\u00a0جیتیں",
+    "06-topics": "نماز، قرآن، آداب اور\u00a0بہت\u00a0کچھ",
+    "07-shop": "کھجوروں سے دل اور\u00a0بہت\u00a0کچھ\u00a0لیں",
+    "08-profile": "اپنا اسٹریک، XP اور\u00a0ستارے دیکھیں"
+  },
+  ar: {
+    "01-learn": "تعلّم الإسلام في\u00a0دقائق كل\u00a0يوم",
+    "02-path": "الوضوء والصلاة خطوة\u00a0بخطوة",
+    "03-question": "سؤال واضح في\u00a0كل\u00a0مرة",
+    "04-feedback": "أجب، واعرف\u00a0السبب، وتابع",
+    "05-complete": "حافظ على سلسلتك، واجمع\u00a0النجوم",
+    "06-topics": "الصلاة والقرآن والآداب والمزيد",
+    "07-shop": "استخدم تمرك للقلوب والمزيد",
+    "08-profile": "سلسلتك ونقاط XP والنجوم في\u00a0مكان\u00a0واحد"
+  }
+};
+const CAPTIONS = CAPTIONS_BY_LANG[SHOT_LANG];
+
 // A learner three lessons into the wudu branch, with a 24 day streak that today's lessons already kept, partway
 // to today's goal and on the Prayer topic, so every screen shows the same streak and topic. One heart is gone
 // from today's five, so every hearts row in the shop can be used (at full hearts the refill and the heart video
 // are muted).
-const SEED_PROFILE = () => {
+const SEED_PROFILE = (lang) => {
   const key = "sira-path-user-profile";
   // The app keys the day's XP by the local calendar day.
   const now = new Date();
@@ -72,10 +122,18 @@ const SEED_PROFILE = () => {
     dailyXp: { date: today, xp: 24 },
     gems: 640,
     hearts: { ...user.hearts, current: user.hearts.max - 1, lastRefillDate: today },
+    preferredLanguage: lang,
     completedNodeIds: nodes,
     completedLessonIds: nodes.map((id) => `lesson-${id}`)
   });
   localStorage[key] = JSON.stringify(user);
+  // A grown-up, so the age question does not cover the screens.
+  localStorage["sira-path-age-group"] = "18+";
+  localStorage["sira-path-learner-background"] = "muslim";
+  // Today's ayah and hadith already seen twice, so the card does not open by itself over the screens.
+  const day = Math.floor(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) / 86400000);
+  localStorage["sira-path-daily-seen"] = String(day);
+  localStorage["sira-path-daily-shown"] = JSON.stringify({ day, count: 2, at: Date.now() });
 };
 
 // The circle START sits on for that learner: its Learn card (the word النِّيَّةُ), a fill-in question, then a
@@ -84,6 +142,9 @@ const SEED_PROFILE = () => {
 const LESSON_NODE = "prayer-wudu-intention-basics";
 const RIGHT_ANSWERS = ["heart", "True"];
 const WRONG_ANSWER = "mouth";
+// The lesson also mixes in a review question from the circles before it ("Wudu is the washing we do before ___.", "Wudu needs clean ___."),
+// placed by the words its pages teach, so in another language it may come before the True / False one.
+const REVIEW_ANSWERS = ["salah", "water"];
 // The path's pinned unit banner with a one-line title (STICKY_MIN in LearnPath), until it measures itself.
 const PATH_STICKY = 64;
 
@@ -136,7 +197,7 @@ async function tap(page, id, wait = 900) {
   await pause(page, wait);
 }
 async function pick(page, label, wait = 500) {
-  await page.locator('[data-testid^="choice-"]').filter({ hasText: new RegExp(`^\\s*${label}\\s*$`) }).first().click();
+  await choice(page, label).first().click();
   await pause(page, wait);
 }
 async function isOpen(page, id) {
@@ -166,6 +227,22 @@ async function answer(page, label) {
   await pick(page, label);
   await tap(page, "exercise-check", 1500);
   await tap(page, "feedback-continue", 1500);
+}
+
+const choice = (page, label) =>
+  page.locator('[data-testid^="choice-"]').filter({ hasText: new RegExp(`^\\s*(${said(label).map((word) => word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})\\s*$`) });
+
+// Answers any review question and turns any Learn page until the question with `label` among its answers shows.
+async function reachQuestion(page, label) {
+  for (let step = 0; step < 6; step += 1) {
+    if (await choice(page, label).count()) return;
+    const review = [];
+    for (const answerLabel of REVIEW_ANSWERS) if (await choice(page, answerLabel).count()) review.push(answerLabel);
+    if (review.length) await answer(page, review[0]);
+    else if (await isOpen(page, "learn-continue")) await tap(page, "learn-continue", 1500);
+    else break;
+  }
+  throw new Error(`no question with "${label}" came up`);
 }
 
 // Scrolls a list the least it takes for its top and bottom edges to fall between lines of text, so the
@@ -338,12 +415,19 @@ const SCREENS = {
     // As near the top of the path as shows START whole: on a tall screen the whole Wudu banner, with its Arabic
     // name, and the three finished circles above START; the Android phone is too short for that, so it shows the
     // pinned copy of the banner and the last two finished circles under it.
-    await scrollClearOfText(page, "learn-path-prayer", { keep: [`path-node-${LESSON_NODE}`], keepText: "START", sticky: PATH_STICKY });
+    await scrollClearOfText(page, "learn-path-prayer", { keep: [`path-node-${LESSON_NODE}`], keepText: said("START")[0], sticky: PATH_STICKY });
   },
   async "03-question"(page) {
     // The True / False card, with True picked before CHECK.
+    // In Bangla, Urdu and Arabic the lesson asks its True / False fact in another format, so those screens show
+    // the first question instead, with "heart" placed in the gap before CHECK.
     await openLessonQuestion(page);
+    if (SHOT_LANG !== "en") {
+      await pick(page, RIGHT_ANSWERS[0]);
+      return;
+    }
     await answer(page, RIGHT_ANSWERS[0]);
+    await reachQuestion(page, RIGHT_ANSWERS[1]);
     await pick(page, RIGHT_ANSWERS[1]);
   },
   async "04-feedback"(page) {
@@ -357,7 +441,20 @@ const SCREENS = {
   },
   async "05-complete"(page) {
     await openLessonQuestion(page);
-    for (const label of RIGHT_ANSWERS) await answer(page, label);
+    for (const label of SHOT_LANG === "en" ? RIGHT_ANSWERS : RIGHT_ANSWERS.slice(0, 1)) {
+      await reachQuestion(page, label);
+      await answer(page, label);
+    }
+    // Any review question still to come, then the end of the lesson.
+    for (let step = 0; step < 4 && !(await isOpen(page, "lesson-complete")); step += 1) {
+      if (await isOpen(page, "learn-continue")) await tap(page, "learn-continue", 1500);
+      else {
+        let review;
+        for (const label of REVIEW_ANSWERS) if (!review && (await choice(page, label).count())) review = label;
+        if (!review) break;
+        await answer(page, review);
+      }
+    }
     // Confetti, the cards popping in, the counters and the stars all finish within about three seconds.
     await page.locator(tid("lesson-complete")).waitFor();
     await pause(page, 3500);
@@ -381,6 +478,8 @@ const SCREENS = {
   },
   async "07-shop"(page) {
     await tap(page, "tab-shop", 1500);
+    // The localized captions are about hearts and dates: the shop as it opens.
+    if (SHOT_LANG !== "en") return;
     // The note a build without purchases shows in place of Premium would make the caption untrue.
     if (await isOpen(page, "shop-app-hint")) throw new Error("07-shop: the shop has no Premium plans; export the web build in sandbox mode");
     // Everything from the Premium card down (both plans, Restore purchases, the renewal line, Terms and Privacy),
@@ -409,12 +508,18 @@ async function captureScreen(browser, device, name) {
   const page = await context.newPage();
   await page.goto(APP_URL);
   await page.locator(tid("bottom-tabs")).waitFor();
-  await page.evaluate(SEED_PROFILE);
+  await page.evaluate(SEED_PROFILE, SHOT_LANG);
   await page.reload();
   await page.locator(tid("bottom-tabs")).waitFor();
   // The path's rings fill and its circles pop in.
   await pause(page, 2000);
-  await SCREENS[name](page);
+  try {
+    await SCREENS[name](page);
+  } catch (error) {
+    await page.screenshot({ path: join(RAW, `${device.key}-${name}-failed.png`) });
+    console.error(`  ${name} stopped; the screen it was on is in ${join(RAW, `${device.key}-${name}-failed.png`)}`);
+    throw error;
+  }
   // Reset sideways-scrolled rows and move the pointer off any hover state.
   await page.evaluate(() => document.querySelectorAll("*").forEach((el) => { if (el.scrollLeft) el.scrollLeft = 0; }));
   await page.mouse.move(0, 0);
@@ -439,6 +544,7 @@ async function frame(browser, device, name, rawFile) {
     w: width,
     h: height,
     tablet: device.tablet ? "1" : "0",
+    lang: SHOT_LANG,
     cap: CAPTIONS[name],
     img: pathToFileURL(rawFile).href
   });

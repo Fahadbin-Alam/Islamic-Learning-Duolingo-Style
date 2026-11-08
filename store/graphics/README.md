@@ -27,6 +27,14 @@ The camel on a desert dune at sunset. [`source/cover.html`](source/cover.html) d
 
 App Store Connect scales the 6.9" set down for smaller iPhones and the 13" set for smaller iPads, so no other sizes are needed.
 
+## Bangla, Urdu and Arabic
+
+`localized/bn/`, `localized/ur/` and `localized/ar/` hold the same eight screens at the same four sizes, with the app switched to that language and the caption translated (Urdu and Arabic right to left). Upload them with that language's listing: in Play Console under Main store listing → Manage translations → the language → Graphics, and in App Store Connect after choosing the language at the top right of the version page. The feature graphic and icon have no words, so every language uses the English ones.
+
+They differ from the English set in two screens. `03-question` shows the first question with its answer placed in the gap (in these languages the lesson asks its True / False fact in another format), and `07-shop` shows the top of the shop with the caption "Use your dates for hearts and more", because Premium is not on sale yet.
+
+Redo them with `SHOT_LANG=bn` (or `ur`, `ar`) in front of the usual command. The machine needs the Noto Bengali, Arabic and Nastaliq fonts (`apt-get install fonts-noto-core`), or the letters draw as boxes.
+
 ## The eight screens
 
 | # | Screen | Caption |

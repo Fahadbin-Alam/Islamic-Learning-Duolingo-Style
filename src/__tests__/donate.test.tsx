@@ -60,7 +60,8 @@ describe("charity config", () => {
     expect(charityEnabled(charity)).toBe(true);
     // The shipped config: One World Relief's own donate page.
     expect(charityEnabled(CHARITY)).toBe(true);
-    expect(donationUrl(50)).toBe("https://one-world-relief.org/donate");
+    expect(donationUrl(50)).toBe("https://one-world-relief.org/donate?amount=50");
+    expect(carriesAmount(250)).toBe(true);
   });
 
   it("puts the amount on the link when the page can take it", () => {
