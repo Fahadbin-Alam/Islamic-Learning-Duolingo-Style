@@ -27,7 +27,7 @@ import { noBreakHyphens, shortWhy } from "./lessonText";
 import { EVERY_FRAME, SCROLL_HINT_SLACK, scrollHintGrowth, useScrollMore } from "./ScrollHint";
 import { getActiveLanguage, t } from "../../i18n";
 import type { LessonPicture } from "../../data/lessonPictures";
-import { QuestionPhoto } from "./LessonPhoto";
+import { QuestionBanner, QuestionPhoto } from "./LessonPhoto";
 import {
   centerSpace,
   edgesOnScreen,
@@ -217,15 +217,25 @@ export const QuestionBubble = memo(function QuestionBubble({ prompt, mascotVaria
     );
   }
   const mascotSize = compact ? 64 : narrow ? 72 : 96;
-  return (
+  // The place shows big over the question, the mascot asking it (a question too tall for its room drops it: small).
+  const banner = Boolean(picture);
+  const row = (
     <View style={[styles.questionRow, compact ? styles.questionRowCompact : null]}>
-      {picture ? <QuestionPhoto picture={picture} size={mascotSize} /> : <Mascot variant={mascotVariant} mood={mood} accent={accent} size={mascotSize} />}
+      {picture && !banner ? <QuestionPhoto picture={picture} size={mascotSize} /> : <Mascot variant={mascotVariant} mood={mood} accent={accent} size={mascotSize} />}
       <PopIn from="up" delay={60} style={styles.bubbleWrap}>
         <SpeechBubble>
           <PromptText size={promptSize}>{prompt}</PromptText>
         </SpeechBubble>
       </PopIn>
     </View>
+  );
+  return banner && picture ? (
+    <View style={styles.bannerColumn}>
+      <QuestionBanner picture={picture} />
+      {row}
+    </View>
+  ) : (
+    row
   );
 });
 
@@ -1300,6 +1310,9 @@ export function ExerciseView({
 }
 
 const styles = StyleSheet.create({
+  bannerColumn: {
+    alignSelf: "stretch"
+  },
   root: {
     flex: 1,
     position: "relative",

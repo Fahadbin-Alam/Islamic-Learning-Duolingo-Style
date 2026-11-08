@@ -35,7 +35,8 @@ export type LessonPicture = {
   credit: PictureCredit;
 };
 
-type PlaceRule = { id: string; caption: string; match: RegExp };
+/** `broad`: a rule that matches many everyday words (prayer, Quran, home): fine for a lesson page, never for a question. */
+type PlaceRule = { id: string; caption: string; match: RegExp; broad?: boolean };
 
 /** Most specific first: "the Cave of Hira near Makkah" shows Hira, "the Kaaba in Makkah" the Kaaba. */
 const PLACES: PlaceRule[] = [
@@ -85,6 +86,17 @@ const PLACES: PlaceRule[] = [
   { id: "zakat", caption: "Giving zakat from what you have", match: /\bzakat\b|\bzakah\b|\bnisab\b/i },
   { id: "prayer", caption: "A prayer rug before the mihrab", match: /\bprayer (?:mat|rug)\b|\bmihrab\b|\bsujud\b|\bsajdah\b|\bprostrat(?:e|es|ion|ing)\b|\bruku'?\b|\btakbir\b|\bsalah\b|\bsalat\b/i },
   { id: "books", caption: "Books of knowledge", match: /\bwrote\b[^.]{0,40}\bbooks?\b|\bhis books?\b|\bher books?\b|\bauthored\b|\blibrar(?:y|ies)\b|\bmusnad\b|\bal-muwatta\b|\bcompiled\b[^.]{0,40}\bhadith\b/i },
+  // More things a lesson can be about (drawn 2026-11-08), so most pages have a picture of what they teach.
+  { id: "sheep", caption: "Sheep grazing on the hills", match: /\bsheep\b|\bshepherds?\b|\bflocks?\b|\bgoats?\b|\budhiyah\b|\bqurbani\b|\bsacrific(?:e|ed|es|ing)\b[^.]{0,30}\b(?:animal|ram|lamb)s?\b|\blambs?\b/i, broad: true },
+  { id: "rain", caption: "Rain falling on the land", match: /\brain(?:s|fall|ed|ing)?\b|\bclouds?\b|\bthunder\b|\blightning\b/i, broad: true },
+  { id: "scroll", caption: "A letter with a seal", match: /\bletters? to\b|\bsent (?:a )?letters?\b|\btreaty\b|\bhudaybiyy?ah\b|\bwrote to\b|\bsealed?\b[^.]{0,20}\bletter\b/i, broad: true },
+  { id: "market", caption: "A market long ago", match: /\bmarkets?\b|\bmerchants?\b|\btrad(?:e|er|ers|ing)\b|\bbuy(?:s|ing|er)?\b|\bsell(?:s|ing|er)?\b|\bweighs?\b|\bcheat(?:s|ing)?\b|\briba\b|\binterest on\b/i, broad: true },
+  { id: "sharing", caption: "Food shared at the door", match: /\bsadaqah?\b|\bcharity\b|\bfeed(?:s|ing)?\b|\bhungry\b|\bthe poor\b|\bguests?\b|\borphans?\b|\bneighbou?rs?\b|\bgifts?\b/i, broad: true },
+  { id: "night", caption: "The crescent moon over the desert", match: /\bnight\b|\bmoon\b|\bcrescent\b|\bhilal\b|\bstars?\b|\blaylat\b|\bqiyam\b|\btahajjud\b|\btarawee?h\b|\bisha\b/i, broad: true },
+  { id: "sunrise", caption: "The sun rising over the mountains", match: /\bsunrise\b|\bfajr\b|\bdawn\b|\bmorning\b|\bthe sun\b/i, broad: true },
+  { id: "home", caption: "A home at evening", match: /\bparents?\b|\bmothers?\b|\bfathers?\b|\bfamil(?:y|ies)\b|\bhomes?\b|\bhouses?\b|\bchild(?:ren)?\b|\bwi(?:fe|ves)\b|\bhusbands?\b|\bmarri(?:age|ed|y)\b|\bsons?\b|\bdaughters?\b/i, broad: true },
+  { id: "masjid", caption: "A masjid long ago", match: /\bmasjids?\b|\bmosques?\b|\bjumu['‘’]?ah\b|\bfriday\b|\badhan\b|\bimam\b|\bcongregation\b|\bpray(?:s|ed|ing|er)?\b/i, broad: true },
+  { id: "quran", caption: "The Quran open on its stand", match: /\bqur['‘’]?an\b|\bayahs?\b|\bayat\b|\bsurahs?\b|\brecit(?:e|es|ed|ing|ation)\b|\btafsee?r\b|\brevealed\b|\brevelation\b/i, broad: true },
   { id: "date-palms", caption: "Date palms", match: /\bdate palms?\b|\bpalm trees?\b|\bdate trees?\b/i },
   { id: "desert", caption: "The Arabian desert", match: /\bdesert\b/i }
 ];
@@ -135,9 +147,76 @@ export function pictureForLesson(lesson: Pick<Lesson, "title" | "learnLine">): L
   return pictureForText(lesson.title) ?? pictureForText(lesson.learnLine?.replace(ONLY_WHERE, ""));
 }
 
-/** A question's photo: only a place its own prompt names, never one from its answers. */
+/** A question's photo: only a place its own prompt names, never one from its answers, nor a broad everyday word. */
 export function pictureForQuestion(prompt: string): LessonPicture | undefined {
-  return pictureForText(prompt);
+  if (!prompt) return undefined;
+  const place = AVAILABLE.find((entry) => !entry.broad && entry.match.test(prompt));
+  return place ? getLessonPicture(place.id) : undefined;
+}
+
+/** Pictures that fit a whole topic, for a page that names nothing with a picture of its own. */
+const TOPIC_PICTURES: Record<string, string[]> = {
+  quran_tafseer: ["quran", "manuscript", "night", "sunrise"],
+  sahabah: ["madinah", "date-palms", "makkah", "desert"],
+  prophets: ["desert", "night", "sunrise", "desert-well"],
+  women_of_the_book: ["home", "madinah", "date-palms", "night"],
+  scholars: ["books", "scroll", "masjid"],
+  sahihayn: ["books", "scroll", "masjid"],
+  hadith: ["books", "scroll", "home"],
+  manners: ["home", "sharing", "market", "masjid"],
+  marriage: ["home", "night", "date-palms"],
+  prayer: ["prayer", "masjid", "wudu", "sunrise"],
+  akhirah: ["gathering", "night", "book-deeds", "garden"],
+  aqidah: ["night", "sunrise", "rain", "quran"],
+  foundation: ["masjid", "quran", "sunrise", "night"],
+  intro: ["sunrise", "masjid", "quran", "night"],
+  fasting: ["iftar", "night", "sunrise"],
+  ramadan: ["iftar", "night", "quran"],
+  eid: ["masjid", "sharing", "sunrise", "sheep"],
+  zakat: ["zakat", "sharing", "market"],
+  hajj: ["kaaba", "arafah", "mina", "zamzam"]
+};
+const ANY_TOPIC = ["sunrise", "desert", "night", "date-palms"];
+
+export function topicPictures(topicId: string | undefined): LessonPicture[] {
+  return (TOPIC_PICTURES[topicId ?? ""] ?? ANY_TOPIC).flatMap((id) => getLessonPicture(id) ?? []);
+}
+
+export type FlowPage = { page: string; text?: string };
+
+/**
+ * A big picture for every page of a lesson, so reading it feels like turning the pages of a picture book: each page
+ * shows what it names (the bridge, the Ka'bah, a market), else the lesson's own picture, else one that fits the topic.
+ * Two pages in a row never show the same one when another fits, and a picture not seen yet in the lesson comes first.
+ * `startPicture` is the lesson's first page's picture (its place, or what its Arabic word means); `cover`: the first
+ * page already opens on a picture of its own (a surah's), so it gets no other. A quiz page has none.
+ */
+export function flowPictures(
+  lesson: Pick<Lesson, "title" | "learnLine" | "learnFacts" | "learnDeeper">,
+  topicId: string | undefined,
+  pages: FlowPage[],
+  options: { startPicture?: LessonPicture; cover?: boolean } = {}
+): (LessonPicture | undefined)[] {
+  const lessonPicture = options.startPicture ?? pictureForLesson(lesson);
+  const topic = topicPictures(topicId);
+  const used = new Set<string>();
+  let previous: string | undefined;
+  return pages.map(({ page, text }) => {
+    if (page === "quiz" || (page === "start" && options.cover)) {
+      previous = undefined;
+      return undefined;
+    }
+    const own = page === "start" ? lessonPicture : pictureForText(text ?? pageText(lesson, page));
+    const candidates = [own, lessonPicture, ...topic].filter((each): each is LessonPicture => Boolean(each));
+    const pick =
+      (own && own.id !== previous && !used.has(own.id) ? own : undefined) ??
+      candidates.find((each) => each.id !== previous && !used.has(each.id)) ??
+      candidates.find((each) => each.id !== previous) ??
+      candidates[0];
+    if (pick) used.add(pick.id);
+    previous = pick?.id;
+    return pick;
+  });
 }
 
 /** "Photo: Jane Doe, CC BY-SA 4.0" */

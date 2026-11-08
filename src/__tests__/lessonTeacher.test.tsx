@@ -46,8 +46,11 @@ describe("the lesson's teacher", () => {
   };
 
   it("stands on every page of the lesson and says what the page is about", async () => {
+    // On What you learn the teacher sits in the card's head, next to its title, so the page is one simple card.
+    await render(<LearnCard {...props} page="facts" />);
+    expect(screen.queryByTestId("learn-teacher-line", ALL)).toBeNull();
+    expect(screen.getAllByTestId("lesson-teacher", ALL).length).toBe(1);
     for (const [page, intro] of [
-      ["facts", "Here is what you learn."],
       ["meaning", "Let me explain what it means."],
       ["story", "Let me tell you the story."],
       ["takeaway", "Take this home with you."]
