@@ -1,8 +1,9 @@
-import { hadith, quran, quranQuote, type DeepUnit } from "./deepKit";
+import { hadith, quran, quranQuote, siyar, type DeepUnit } from "./deepKit";
 
-// Great Women, in depth: the Mothers of the Believers in the order they joined the Prophet's ﷺ home, and the women
-// the Quran tells about. Every card is from the Quran or a hadith checked on sunnah.com (its number and grade as
-// sunnah.com gives them). Anything the scholars differ on (dates, ages, which marriage came first, weak reports)
+// Great Women, in depth: the Mothers of the Believers in the order they joined the Prophet's ﷺ home, and the Women
+// of Islam: the women the Quran tells about, then women of the Prophet's ﷺ time who did great things (Sumayyah, the
+// first martyr, and more). The order on the path is in UNIT_PLANS (unitPlans.ts). Every card is from the Quran or a
+// hadith checked on sunnah.com (its number and grade as sunnah.com gives them), or adh-Dhahabi's Siyar for Sumayyah. Anything the scholars differ on (dates, ages, which marriage came first, weak reports)
 // is left out.
 
 const MOTHERS: DeepUnit = {
@@ -25,6 +26,33 @@ const MOTHERS: DeepUnit = {
         { q: "What does the Quran call the Prophet's ﷺ wives?", a: "Mothers of the believers", wrong: ["Queens of Arabia", "Daughters of Makkah", "Sisters of the Ansar"], why: "Quran 33:6 calls them the believers' mothers." },
         { q: "In which surah are they called mothers of the believers?", a: "Al-Ahzab", wrong: ["Al-Baqarah", "Maryam", "An-Nisa"], why: "Ayah 6 of Surah Al-Ahzab, the 33rd surah." },
         { q: "Believers should honor the Prophet's ﷺ wives like their own mothers.", tf: true, why: "That is why Allah gave them this name." }
+      ]
+    },
+    {
+      slug: "wives-not-like-others",
+      title: "Not like other women",
+      line: "Allah told the Prophet's ﷺ wives: you are not like others.",
+      facts: ["Allah speaks to them directly in Surah Al-Ahzab.", "Their high rank comes with fearing Allah.", "So they were careful in how they spoke and lived."],
+      quote: quranQuote(33, 32),
+      source: quran(33, 32, "O wives of the Prophet ﷺ, you are not like anyone among women, if you fear Allah."),
+      difficulty: 2,
+      questions: [
+        { q: "What did Allah tell the wives of the Prophet ﷺ in Quran 33:32?", a: "You are not like other women", wrong: ["You must live in Makkah", "You will rule after him", "You must never speak"], why: "O wives of the Prophet ﷺ, you are not like anyone among women." },
+        { q: "Their high rank in Quran 33:32 comes with what?", a: "Fearing Allah", wrong: ["Being rich", "Being from Quraysh", "Being young"], why: "The ayah says: if you fear Allah." },
+        { q: "Allah speaks to the Prophet's ﷺ wives directly in the Quran.", tf: true, why: "Quran 33:32 begins: O wives of the Prophet ﷺ." }
+      ]
+    },
+    {
+      slug: "khadijah-never-disgrace",
+      title: "Allah will never disgrace you",
+      line: "Khadijah calmed the Prophet ﷺ after the first revelation.",
+      facts: ["He came home from the cave of Hira afraid.", "She said: Allah will never disgrace you.", "She named his good deeds: kind to family, helps the poor, honors guests."],
+      source: hadith("bukhari", "3", "Aishah", "Sahih", "After the first revelation in the cave of Hira, the Prophet ﷺ came home afraid; Khadijah said: Never! By Allah, Allah will never disgrace you. You keep ties with your relatives, help the poor and serve your guests.", "Allah will never disgrace you"),
+      difficulty: 2,
+      questions: [
+        { q: "Where was the Prophet ﷺ when the first revelation came?", a: "The cave of Hira", wrong: ["The Kaaba", "Mount Uhud", "His house in Madinah"], why: "He used to worship alone in the cave of Hira." },
+        { q: "What did Khadijah say when he came home afraid?", a: "Allah will never disgrace you", wrong: ["Stay home and rest", "Go and ask the priests", "Forget what you saw"], why: "Never! By Allah, Allah will never disgrace you." },
+        { q: "Which good deed did Khadijah name to comfort him?", a: "He helps the poor", wrong: ["He is rich", "He is a great poet", "He wins every fight"], why: "She said he keeps ties with family, helps the poor and serves guests." }
       ]
     },
     {
@@ -147,6 +175,46 @@ const MOTHERS: DeepUnit = {
       ]
     },
     {
+      slug: "aishah-necklace",
+      title: "A lost necklace, a new ruling",
+      line: "Aishah's lost necklace led to the ayah of tayammum.",
+      facts: ["The army stopped to look for it, with no water near.", "Allah allowed tayammum: wiping with clean earth.", "Usayd said: this is not your family's first blessing."],
+      source: hadith("bukhari", "334", "Aishah", "Sahih", "Aishah's necklace was lost on a journey and the people stopped where there was no water; Allah revealed the verses of tayammum, and Usayd ibn Hudayr said: O family of Abu Bakr, this is not the first blessing of yours.", "This is not the first blessing of yours"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Aishah lose on the journey?", a: "Her necklace", wrong: ["Her camel", "Her Quran", "Her shoes"], why: "The army stopped to search for her necklace." },
+        { q: "What did Allah allow when there was no water for wudu?", a: "Tayammum with clean earth", wrong: ["Skipping the prayer", "Praying without wudu", "Waiting until Madinah"], why: "Allah revealed the verses of tayammum." },
+        { q: "Usayd ibn Hudayr called it the first blessing from Abu Bakr's family.", tf: false, why: "He said it is not the first blessing of yours." }
+      ]
+    },
+    {
+      slug: "aishah-innocent",
+      title: "Cleared from above the heavens",
+      line: "Allah sent ayahs in Surah An-Nur to clear Aishah's name.",
+      facts: ["The ayahs are Quran 24:11 to 20.", "She said: I will thank no one but Allah.", "Allah told believers not to pass on rumors."],
+      quote: quranQuote(24, 11),
+      source: hadith("bukhari", "4750", "Aishah", "Sahih", "When people spread the slander about Aishah, Allah revealed: Those who brought the lie are a group among you (24:11-20), to confirm her innocence.", "So Allah revealed: \"Verily! They who spread the Slander are a gang among you"),
+      difficulty: 4,
+      questions: [
+        { q: "In which surah did Allah clear Aishah's name?", a: "An-Nur", wrong: ["Al-Baqarah", "Yusuf", "Al-Kahf"], why: "Ayahs 11 to 20 of Surah An-Nur, the 24th surah." },
+        { q: "Whom did Aishah say she would thank for clearing her?", a: "Only Allah", wrong: ["The poets", "Her neighbors", "The judge"], why: "She said: I will not thank anybody but Allah." },
+        { q: "What do these ayahs teach about rumors?", a: "Do not pass them on", wrong: ["Share them quickly", "Believe the loudest person", "Rumors are harmless"], why: "Allah blamed those who spread the lie without proof." }
+      ]
+    },
+    {
+      slug: "aishah-scholar",
+      title: "The Sahabah asked Aishah",
+      line: "The Sahabah asked Aishah when a hadith was unclear.",
+      facts: ["Abu Musa al-Ash'ari said this.", "She taught for many years after the Prophet ﷺ.", "Grown men came to learn from her."],
+      source: hadith("tirmidhi", "3883", "Abu Musa al-Ashari", "Sahih", "Abu Musa said: whenever a hadith was unclear to us, the Companions of the Messenger of Allah, and we asked Aishah, we found she had knowledge about it.", "except that we found some knowledge concerning it with her"),
+      difficulty: 3,
+      questions: [
+        { q: "Whom did the Sahabah ask when a hadith was unclear?", a: "Aishah", wrong: ["The poets of Makkah", "The traders", "No one"], why: "Abu Musa said they always found knowledge with her." },
+        { q: "Who said the Sahabah found knowledge with Aishah?", a: "Abu Musa al-Ash'ari", wrong: ["Abu Jahl", "Abu Lahab", "Abu Talib"], why: "Jami at-Tirmidhi 3883, graded sahih." },
+        { q: "Aishah was one of the great teachers of the Ummah.", tf: true, why: "Even the Sahabah came to learn from her." }
+      ]
+    },
+    {
       slug: "aishah-loved",
       title: "Who he loved most",
       line: "Asked who he loved most, he said Aishah; of men, her father.",
@@ -226,6 +294,19 @@ const MOTHERS: DeepUnit = {
       ]
     },
     {
+      slug: "umm-salamah-jibril",
+      title: "Umm Salamah saw Jibril",
+      line: "Umm Salamah saw Jibril, looking like a man named Dihyah.",
+      facts: ["She thought it was Dihyah, a Sahabi.", "Later the Prophet ﷺ said it was Jibril.", "Usamah ibn Zayd told this."],
+      source: hadith("bukhari", "3634", "Usamah ibn Zayd", "Sahih", "Jibril came to the Prophet ﷺ while Umm Salamah was there; she thought he was Dihyah, until she heard the Prophet ﷺ speak about Jibril in his sermon.", "I thought he was none but Dihya"),
+      difficulty: 3,
+      questions: [
+        { q: "Who did Umm Salamah think the visitor was?", a: "Dihyah, a Sahabi", wrong: ["Abu Bakr", "A trader from Sham", "Her brother"], why: "Jibril came in the form of Dihyah." },
+        { q: "Who was the visitor really?", a: "The angel Jibril", wrong: ["Umar", "A king's messenger", "Bilal"], why: "The Prophet ﷺ spoke of Jibril in his sermon." },
+        { q: "Umm Salamah was there when Jibril came.", tf: true, why: "Jibril came while Umm Salamah was present." }
+      ]
+    },
+    {
       slug: "zaynab-jahsh-married",
       title: "Married by Allah",
       line: "Zaynab said: Allah married me from above seven heavens.",
@@ -240,6 +321,19 @@ const MOTHERS: DeepUnit = {
       ]
     },
     {
+      slug: "zaynab-jahsh-generous",
+      title: "No woman better in religion",
+      line: "Aishah never saw a woman better in religion than Zaynab.",
+      facts: ["More God-fearing and more truthful", "Kind to her relatives", "Gave the most in charity"],
+      source: hadith("muslim", "2442", "Aishah", "Sahih", "Aishah said: I have never seen a woman more advanced in religion than Zaynab, more God-conscious, more truthful, kinder to relatives and more generous in charity.", "I have never seen a woman more advanced in religious piety than Zainab"),
+      difficulty: 3,
+      questions: [
+        { q: "Who praised Zaynab bint Jahsh as the best in religion?", a: "Aishah", wrong: ["Abu Sufyan", "Her enemy", "A poet"], why: "Aishah said she never saw a woman better in religion." },
+        { q: "Which good quality did Aishah praise in Zaynab?", a: "Giving charity", wrong: ["Winning races", "Writing poems", "Being rich"], why: "She was more generous and charitable than others." },
+        { q: "The wives of the Prophet ﷺ could praise each other.", tf: true, why: "Aishah praised Zaynab with many good words." }
+      ]
+    },
+    {
       slug: "zaynab-longest-hand",
       title: "The longest hand",
       line: "Zaynab had the 'longest hand': she worked and gave in charity.",
@@ -250,6 +344,19 @@ const MOTHERS: DeepUnit = {
         { q: "What did 'the longest hand' really mean?", a: "Giving the most charity", wrong: ["Being the tallest", "Writing the most", "Having long fingers"], why: "The wives measured hands at first, then understood." },
         { q: "How did Zaynab earn what she gave away?", a: "Working with her own hands", wrong: ["Gifts from kings", "Trading camels", "From her father"], why: "She worked and spent it on charity." },
         { q: "The 'longest hand' would be the first to do what?", a: "Join the Prophet ﷺ after death", wrong: ["Lead the prayer", "Go on Hajj", "Learn the Quran"], why: "She was the first wife to die after him." }
+      ]
+    },
+    {
+      slug: "juwayriyah-name",
+      title: "A new name",
+      line: "The Prophet ﷺ changed the name Barrah to Juwayriyah.",
+      facts: ["Barrah means 'pious'.", "He did not want people to say: he left Barrah (the pious one).", "Ibn Abbas told this."],
+      source: hadith("muslim", "2140", "Abdullah ibn Abbas", "Sahih", "The name of Juwayriyah was Barrah; the Messenger of Allah ﷺ changed her name to Juwayriyah, as he did not like it to be said: he has left Barrah.", "changed her name to Juwairiya"),
+      difficulty: 3,
+      questions: [
+        { q: "What was Juwayriyah's name before?", a: "Barrah", wrong: ["Hind", "Sumayyah", "Layla"], why: "The Prophet ﷺ changed Barrah to Juwayriyah." },
+        { q: "Who told about Juwayriyah's name change?", a: "Abdullah ibn Abbas", wrong: ["Abu Jahl", "Her father", "Khalid ibn al-Walid"], why: "Sahih Muslim 2140, from Ibn Abbas." },
+        { q: "The Prophet ﷺ sometimes changed people's names.", tf: true, why: "He changed Barrah to Juwayriyah." }
       ]
     },
     {
@@ -369,6 +476,19 @@ const MOTHERS: DeepUnit = {
         { q: "What did Ibn Abbas tell the people carrying her?", a: "Walk gently, don't shake it", wrong: ["Hurry up", "Sing as you walk", "Put it down"], why: "Out of respect: she was the Prophet's ﷺ wife." },
         { q: "Ibn Abbas was Maymunah's nephew. What do his words show?", a: "Love and respect for the Mothers", wrong: ["He was in a rush", "He disliked her", "He was a stranger"], why: "Believers honor the Mothers even after death." }
       ]
+    },
+    {
+      slug: "maymunah-night-prayer",
+      title: "A night at Maymunah's house",
+      line: "Ibn Abbas learned the night prayer in Maymunah's house.",
+      facts: ["Maymunah was Ibn Abbas's aunt.", "The Prophet ﷺ woke at night and made wudu.", "Ibn Abbas stood and prayed beside him."],
+      source: hadith("bukhari", "183", "Abdullah ibn Abbas", "Sahih", "Ibn Abbas stayed overnight in the house of Maymunah, the wife of the Prophet ﷺ and his aunt; the Prophet ﷺ woke in the night, made wudu and prayed, and Ibn Abbas prayed beside him.", "he stayed overnight in the house of Maimuna the wife of the Prophet, his aunt"),
+      difficulty: 3,
+      questions: [
+        { q: "How was Maymunah related to Ibn Abbas?", a: "She was his aunt", wrong: ["She was his sister", "She was his teacher's wife", "She was his grandmother"], why: "Ibn Abbas called her his aunt." },
+        { q: "What did Ibn Abbas learn at Maymunah's house?", a: "The Prophet's ﷺ night prayer", wrong: ["How to trade", "How to ride a horse", "Poetry"], why: "He watched and prayed beside the Prophet ﷺ." },
+        { q: "The homes of the Mothers of the Believers were places of learning.", tf: true, why: "Ibn Abbas learned the night prayer in Maymunah's house." }
+      ]
     }
   ]
 };
@@ -377,93 +497,63 @@ const QURAN_WOMEN: DeepUnit = {
   key: "quranwomen",
   topicId: "women_of_the_book",
   branchId: "women-quran",
-  name: "the women in the Quran",
+  name: "the women of Islam",
   kind: "story",
   lessonType: "story",
   lessons: [
     {
-      slug: "imran-vow",
-      title: "The wife of Imran's vow",
-      line: "Imran's wife promised her unborn child to Allah's service.",
-      facts: ["She was the grandmother of Isa.", "She prayed: accept it from me."],
-      quote: quranQuote(3, 35),
-      source: quran(3, 35, "The wife of Imran said: my Lord, I have vowed to You what is in my womb, set free for Your service, so accept it from me."),
-      difficulty: 2,
+      slug: "two-wives-warning",
+      title: "A warning: two wives",
+      line: "The wives of Nuh and Lut married prophets but were not saved.",
+      facts: ["Quran 66:10", "Your faith is your own."],
+      quote: quranQuote(66, 10),
+      source: quran(66, 10, "Allah gives an example of the disbelievers: the wife of Nuh and the wife of Lut; they betrayed two righteous servants, and their husbands could not help them against Allah."),
+      difficulty: 5,
       questions: [
-        { q: "What did the wife of Imran promise to Allah?", a: "Her unborn child", wrong: ["Her house", "Her gold", "A camel"], why: "She vowed the child to Allah's service." },
-        { q: "Who was the child she was carrying?", a: "Maryam", wrong: ["Isa", "Yahya", "Musa"], why: "Maryam, the mother of Isa." },
-        { q: "What did she ask Allah to do with her gift?", a: "Accept it from her", wrong: ["Return it", "Make it rich", "Keep it secret"], why: "Accept this from me, You are the Hearing, the Knowing." }
+        { q: "Whose wives are given as a warning?", a: "Nuh's and Lut's", wrong: ["Ibrahim's and Musa's", "Adam's and Idris's", "Yusuf's and Dawud's"], why: "Quran 66:10." },
+        { q: "Could their prophet husbands save them?", a: "No", wrong: ["Yes, fully", "Only one of them", "Only in this world"], why: "They could not help them against Allah at all." },
+        { q: "Asiyah was saved with a bad husband; these two lost with good ones. What is the lesson?", a: "Each soul answers for its own faith", wrong: ["Marriage decides everything", "Husbands choose for wives", "Family names save people"], why: "Read 66:10 and 66:11 together." }
       ]
     },
     {
-      slug: "maryam-named",
-      title: "I named her Maryam",
-      line: "She named her daughter Maryam and asked Allah to protect her.",
-      facts: ["She had hoped for a boy.", "She asked: protect her and her children.", "She asked for protection from Shaytan."],
-      quote: quranQuote(3, 36),
-      source: quran(3, 36, "When she gave birth she said: I have delivered a girl; I named her Maryam, and I seek refuge for her and her children in You from Satan."),
-      difficulty: 2,
-      questions: [
-        { q: "Who did Maryam's mother ask Allah to protect her from?", a: "Shaytan", wrong: ["Pharaoh", "Wild animals", "Her own family"], why: "From Satan, the expelled." },
-        { q: "Who else did she ask protection for?", a: "Maryam's children", wrong: ["Her husband", "Her tribe", "Zakariyya"], why: "Her and her descendants." },
-        { q: "Maryam's mother named her daughter herself.", tf: true, why: "She said: I have named her Maryam." }
-      ]
-    },
-    {
-      slug: "maryam-provision",
-      title: "It is from Allah",
-      line: "Zakariyya found food with Maryam; she said: it is from Allah.",
-      facts: ["Zakariyya took care of her.", "It was in her prayer room (mihrab)."],
-      quote: quranQuote(3, 37),
-      source: quran(3, 37, "Allah put Maryam in Zakariyya's care. Whenever he entered her prayer chamber he found food with her; she said: it is from Allah, who provides without measure."),
+      slug: "sarah-smiled",
+      title: "Sarah smiled",
+      line: "Sarah smiled, and was given news of Ishaq, and after him Ya'qub.",
+      facts: ["Sarah was Ibrahim's wife.", "She was already old.", "Angels brought the good news."],
+      quote: quranQuote(11, 71),
+      source: quran(11, 71, "His wife was standing and she smiled; We gave her good news of Ishaq, and after Ishaq, Ya'qub."),
       difficulty: 3,
       questions: [
-        { q: "Who looked after Maryam as she grew up?", a: "Zakariyya", wrong: ["Imran", "Yusuf", "Harun"], why: "Allah placed her in his care." },
-        { q: "What did Zakariyya find each time he entered her room?", a: "Food", wrong: ["A letter", "Gold", "A lamp"], why: "Provision that no one had brought her." },
-        { q: "What did Maryam answer when asked where it came from?", a: "It is from Allah", wrong: ["From my mother", "From the market", "From the priests"], why: "Allah gives to whom He wills without measure." }
+        { q: "What news did Sarah receive?", a: "A son, Ishaq", wrong: ["A new house", "Ibrahim's return", "Rain"], why: "And after Ishaq, a grandson, Ya'qub." },
+        { q: "Why was she amazed?", a: "She and Ibrahim were old", wrong: ["She did not like children", "It was winter", "She was a queen"], why: "Quran 11:72." },
+        { q: "Who would come after Ishaq?", a: "Ya'qub", wrong: ["Ismail", "Yusuf", "Lut"], why: "Two generations of prophets in one piece of news." }
       ]
     },
     {
-      slug: "maryam-chosen",
-      title: "Chosen above all women",
-      line: "Angels said: Allah chose Maryam above all women.",
-      facts: ["She was chosen twice over.", "Allah purified her.", "The angels told her this."],
-      quote: quranQuote(3, 42),
-      source: quran(3, 42, "The angels said: O Maryam, Allah has chosen you, purified you, and chosen you above the women of the worlds."),
+      slug: "hajar-trust",
+      title: "Then He won't abandon us",
+      line: "Hajar said: if Allah ordered this, He won't abandon us.",
+      facts: ["She was there with baby Ismail.", "It was near where the Ka'bah stands."],
+      source: hadith("bukhari", "3364", "Ibn Abbas", "Sahih", "Ibrahim left Hajar and baby Ismail in Makkah with dates and water. She asked: has Allah ordered you to do this? He said yes. She said: then He will not neglect us."),
       difficulty: 3,
       questions: [
-        { q: "Who told Maryam she had been chosen?", a: "The angels", wrong: ["Zakariyya", "Her mother", "A dream"], why: "Quran 3:42." },
-        { q: "Above whom did Allah choose Maryam?", a: "The women of the worlds", wrong: ["Only her village", "The men of Bani Isra'il", "The prophets"], why: "Chosen above the women of the worlds." },
-        { q: "Maryam is the only woman named in the Quran.", tf: true, why: "She is the one woman the Quran calls by name." }
+        { q: "What did Hajar ask Ibrahim as he left?", a: "Has Allah ordered you to do this?", wrong: ["When will you be back?", "Why are you angry?", "Where is the city?"], why: "Her question was about Allah, not herself." },
+        { q: "What did she say when he said yes?", a: "Then He will not abandon us", wrong: ["Then I will leave too", "Then we will starve", "Then take us back"], why: "Total trust in Allah." },
+        { q: "Where were Hajar and Ismail left?", a: "The valley of Makkah", wrong: ["Jerusalem", "Egypt", "Madinah"], why: "Near the spot of Zamzam and the Ka'bah." }
       ]
     },
     {
-      slug: "maryam-palm",
-      title: "Shake the palm tree",
-      line: "In pain, Maryam was told: shake the palm, fresh dates will fall.",
-      facts: ["A stream flowed below her.", "She was told: eat, drink, be glad."],
-      quote: quranQuote(19, 25),
-      source: quran(19, 25, "She was told: shake the trunk of the palm tree toward you; it will drop ripe, fresh dates on you."),
-      difficulty: 3,
-      questions: [
-        { q: "Where did Maryam go when the birth pains came?", a: "To the trunk of a palm tree", wrong: ["Into the city", "To the Ka'bah", "To a cave"], why: "Quran 19:23." },
-        { q: "What would fall when she shook the trunk?", a: "Fresh, ripe dates", wrong: ["Leaves", "Water", "Stones"], why: "Quran 19:25." },
-        { q: "What was placed below her to drink from?", a: "A stream", wrong: ["A well", "A jug", "Rain"], why: "Your Lord has put a stream beneath you." },
-        { q: "What does this show?", a: "Allah cares in hard moments", wrong: ["Pain means Allah is angry", "She was alone forever", "Trees are holy"], why: "Allah provided food, drink and comfort." }
-      ]
-    },
-    {
-      slug: "maryam-silence",
-      title: "A fast from speaking",
-      line: "Maryam was told: say you vowed a fast from speaking.",
-      facts: ["Then baby Isa spoke.", "Quran 19:26-30"],
-      quote: quranQuote(19, 26),
-      source: quran(19, 26, "Eat and drink and be content; and if you see anyone, say: I have vowed a fast to the Most Merciful, so I will not speak to anyone today."),
+      slug: "hajar-safa-marwah",
+      title: "Seven runs and Zamzam",
+      line: "Hajar ran seven times between Safa and Marwah. Then: Zamzam.",
+      facts: ["Pilgrims still do it: sa'i", "An angel uncovered the water."],
+      source: hadith("bukhari", "3364", "Ibn Abbas", "Sahih", "Hajar ran between Safa and Marwah seven times looking for help; the Prophet ﷺ said this is why people walk between them. Then an angel struck the ground at Zamzam and water flowed."),
       difficulty: 4,
       questions: [
-        { q: "What kind of fast did Maryam vow?", a: "A fast from speaking", wrong: ["A fast from water", "A month-long fast", "A fast from sleep"], why: "I will not speak to anyone today." },
-        { q: "To whom did she make the vow?", a: "The Most Merciful", wrong: ["Her people", "Zakariyya", "The angels"], why: "Ar-Rahman, Allah." },
-        { q: "Who spoke for her when people blamed her?", a: "Baby Isa", wrong: ["Zakariyya", "Jibril", "Her mother"], why: "Isa spoke from the cradle (19:29-30)." }
+        { q: "How many times did Hajar go between Safa and Marwah?", a: "Seven", wrong: ["Three", "Five", "Ten"], why: "Pilgrims do the same seven in sa'i." },
+        { q: "What was she looking for?", a: "Someone to help, and water", wrong: ["A lost camel", "Ibrahim", "A place to sleep"], why: "She and her baby were very thirsty." },
+        { q: "What came out at the spot of Zamzam?", a: "Water", wrong: ["Gold", "A palm tree", "A spring of milk"], why: "An angel dug the ground and water flowed." },
+        { q: "Why do pilgrims walk between Safa and Marwah today?", a: "Because Hajar did", wrong: ["It is the way to Mina", "To exercise", "It was Sulayman's road"], why: "The Prophet ﷺ said this is its origin." }
       ]
     },
     {
@@ -550,20 +640,6 @@ const QURAN_WOMEN: DeepUnit = {
       ]
     },
     {
-      slug: "two-wives-warning",
-      title: "A warning: two wives",
-      line: "The wives of Nuh and Lut married prophets but were not saved.",
-      facts: ["Quran 66:10", "Your faith is your own."],
-      quote: quranQuote(66, 10),
-      source: quran(66, 10, "Allah gives an example of the disbelievers: the wife of Nuh and the wife of Lut; they betrayed two righteous servants, and their husbands could not help them against Allah."),
-      difficulty: 5,
-      questions: [
-        { q: "Whose wives are given as a warning?", a: "Nuh's and Lut's", wrong: ["Ibrahim's and Musa's", "Adam's and Idris's", "Yusuf's and Dawud's"], why: "Quran 66:10." },
-        { q: "Could their prophet husbands save them?", a: "No", wrong: ["Yes, fully", "Only one of them", "Only in this world"], why: "They could not help them against Allah at all." },
-        { q: "Asiyah was saved with a bad husband; these two lost with good ones. What is the lesson?", a: "Each soul answers for its own faith", wrong: ["Marriage decides everything", "Husbands choose for wives", "Family names save people"], why: "Read 66:10 and 66:11 together." }
-      ]
-    },
-    {
       slug: "madyan-sisters",
       title: "The two sisters of Madyan",
       line: "At Madyan's well, two sisters waited for the shepherds to go.",
@@ -634,44 +710,127 @@ const QURAN_WOMEN: DeepUnit = {
       ]
     },
     {
-      slug: "sarah-smiled",
-      title: "Sarah smiled",
-      line: "Sarah smiled, and was given news of Ishaq, and after him Ya'qub.",
-      facts: ["Sarah was Ibrahim's wife.", "She was already old.", "Angels brought the good news."],
-      quote: quranQuote(11, 71),
-      source: quran(11, 71, "His wife was standing and she smiled; We gave her good news of Ishaq, and after Ishaq, Ya'qub."),
-      difficulty: 3,
+      slug: "imran-vow",
+      title: "The wife of Imran's vow",
+      line: "Imran's wife promised her unborn child to Allah's service.",
+      facts: ["She was the grandmother of Isa.", "She prayed: accept it from me."],
+      quote: quranQuote(3, 35),
+      source: quran(3, 35, "The wife of Imran said: my Lord, I have vowed to You what is in my womb, set free for Your service, so accept it from me."),
+      difficulty: 2,
       questions: [
-        { q: "What news did Sarah receive?", a: "A son, Ishaq", wrong: ["A new house", "Ibrahim's return", "Rain"], why: "And after Ishaq, a grandson, Ya'qub." },
-        { q: "Why was she amazed?", a: "She and Ibrahim were old", wrong: ["She did not like children", "It was winter", "She was a queen"], why: "Quran 11:72." },
-        { q: "Who would come after Ishaq?", a: "Ya'qub", wrong: ["Ismail", "Yusuf", "Lut"], why: "Two generations of prophets in one piece of news." }
+        { q: "What did the wife of Imran promise to Allah?", a: "Her unborn child", wrong: ["Her house", "Her gold", "A camel"], why: "She vowed the child to Allah's service." },
+        { q: "Who was the child she was carrying?", a: "Maryam", wrong: ["Isa", "Yahya", "Musa"], why: "Maryam, the mother of Isa." },
+        { q: "What did she ask Allah to do with her gift?", a: "Accept it from her", wrong: ["Return it", "Make it rich", "Keep it secret"], why: "Accept this from me, You are the Hearing, the Knowing." }
       ]
     },
     {
-      slug: "hajar-trust",
-      title: "Then He won't abandon us",
-      line: "Hajar said: if Allah ordered this, He won't abandon us.",
-      facts: ["She was there with baby Ismail.", "It was near where the Ka'bah stands."],
-      source: hadith("bukhari", "3364", "Ibn Abbas", "Sahih", "Ibrahim left Hajar and baby Ismail in Makkah with dates and water. She asked: has Allah ordered you to do this? He said yes. She said: then He will not neglect us."),
-      difficulty: 3,
+      slug: "maryam-named",
+      title: "I named her Maryam",
+      line: "She named her daughter Maryam and asked Allah to protect her.",
+      facts: ["She had hoped for a boy.", "She asked: protect her and her children.", "She asked for protection from Shaytan."],
+      quote: quranQuote(3, 36),
+      source: quran(3, 36, "When she gave birth she said: I have delivered a girl; I named her Maryam, and I seek refuge for her and her children in You from Satan."),
+      difficulty: 2,
       questions: [
-        { q: "What did Hajar ask Ibrahim as he left?", a: "Has Allah ordered you to do this?", wrong: ["When will you be back?", "Why are you angry?", "Where is the city?"], why: "Her question was about Allah, not herself." },
-        { q: "What did she say when he said yes?", a: "Then He will not abandon us", wrong: ["Then I will leave too", "Then we will starve", "Then take us back"], why: "Total trust in Allah." },
-        { q: "Where were Hajar and Ismail left?", a: "The valley of Makkah", wrong: ["Jerusalem", "Egypt", "Madinah"], why: "Near the spot of Zamzam and the Ka'bah." }
+        { q: "Who did Maryam's mother ask Allah to protect her from?", a: "Shaytan", wrong: ["Pharaoh", "Wild animals", "Her own family"], why: "From Satan, the expelled." },
+        { q: "Who else did she ask protection for?", a: "Maryam's children", wrong: ["Her husband", "Her tribe", "Zakariyya"], why: "Her and her descendants." },
+        { q: "Maryam's mother named her daughter herself.", tf: true, why: "She said: I have named her Maryam." }
       ]
     },
     {
-      slug: "hajar-safa-marwah",
-      title: "Seven runs and Zamzam",
-      line: "Hajar ran seven times between Safa and Marwah. Then: Zamzam.",
-      facts: ["Pilgrims still do it: sa'i", "An angel uncovered the water."],
-      source: hadith("bukhari", "3364", "Ibn Abbas", "Sahih", "Hajar ran between Safa and Marwah seven times looking for help; the Prophet ﷺ said this is why people walk between them. Then an angel struck the ground at Zamzam and water flowed."),
+      slug: "maryam-provision",
+      title: "It is from Allah",
+      line: "Zakariyya found food with Maryam; she said: it is from Allah.",
+      facts: ["Zakariyya took care of her.", "It was in her prayer room (mihrab)."],
+      quote: quranQuote(3, 37),
+      source: quran(3, 37, "Allah put Maryam in Zakariyya's care. Whenever he entered her prayer chamber he found food with her; she said: it is from Allah, who provides without measure."),
+      difficulty: 3,
+      questions: [
+        { q: "Who looked after Maryam as she grew up?", a: "Zakariyya", wrong: ["Imran", "Yusuf", "Harun"], why: "Allah placed her in his care." },
+        { q: "What did Zakariyya find each time he entered her room?", a: "Food", wrong: ["A letter", "Gold", "A lamp"], why: "Provision that no one had brought her." },
+        { q: "What did Maryam answer when asked where it came from?", a: "It is from Allah", wrong: ["From my mother", "From the market", "From the priests"], why: "Allah gives to whom He wills without measure." }
+      ]
+    },
+    {
+      slug: "maryam-chosen",
+      title: "Chosen above all women",
+      line: "Angels said: Allah chose Maryam above all women.",
+      facts: ["She was chosen twice over.", "Allah purified her.", "The angels told her this."],
+      quote: quranQuote(3, 42),
+      source: quran(3, 42, "The angels said: O Maryam, Allah has chosen you, purified you, and chosen you above the women of the worlds."),
+      difficulty: 3,
+      questions: [
+        { q: "Who told Maryam she had been chosen?", a: "The angels", wrong: ["Zakariyya", "Her mother", "A dream"], why: "Quran 3:42." },
+        { q: "Above whom did Allah choose Maryam?", a: "The women of the worlds", wrong: ["Only her village", "The men of Bani Isra'il", "The prophets"], why: "Chosen above the women of the worlds." },
+        { q: "Maryam is the only woman named in the Quran.", tf: true, why: "She is the one woman the Quran calls by name." }
+      ]
+    },
+    {
+      slug: "maryam-palm",
+      title: "Shake the palm tree",
+      line: "In pain, Maryam was told: shake the palm, fresh dates will fall.",
+      facts: ["A stream flowed below her.", "She was told: eat, drink, be glad."],
+      quote: quranQuote(19, 25),
+      source: quran(19, 25, "She was told: shake the trunk of the palm tree toward you; it will drop ripe, fresh dates on you."),
+      difficulty: 3,
+      questions: [
+        { q: "Where did Maryam go when the birth pains came?", a: "To the trunk of a palm tree", wrong: ["Into the city", "To the Ka'bah", "To a cave"], why: "Quran 19:23." },
+        { q: "What would fall when she shook the trunk?", a: "Fresh, ripe dates", wrong: ["Leaves", "Water", "Stones"], why: "Quran 19:25." },
+        { q: "What was placed below her to drink from?", a: "A stream", wrong: ["A well", "A jug", "Rain"], why: "Your Lord has put a stream beneath you." },
+        { q: "What does this show?", a: "Allah cares in hard moments", wrong: ["Pain means Allah is angry", "She was alone forever", "Trees are holy"], why: "Allah provided food, drink and comfort." }
+      ]
+    },
+    {
+      slug: "maryam-silence",
+      title: "A fast from speaking",
+      line: "Maryam was told: say you vowed a fast from speaking.",
+      facts: ["Then baby Isa spoke.", "Quran 19:26-30"],
+      quote: quranQuote(19, 26),
+      source: quran(19, 26, "Eat and drink and be content; and if you see anyone, say: I have vowed a fast to the Most Merciful, so I will not speak to anyone today."),
       difficulty: 4,
       questions: [
-        { q: "How many times did Hajar go between Safa and Marwah?", a: "Seven", wrong: ["Three", "Five", "Ten"], why: "Pilgrims do the same seven in sa'i." },
-        { q: "What was she looking for?", a: "Someone to help, and water", wrong: ["A lost camel", "Ibrahim", "A place to sleep"], why: "She and her baby were very thirsty." },
-        { q: "What came out at the spot of Zamzam?", a: "Water", wrong: ["Gold", "A palm tree", "A spring of milk"], why: "An angel dug the ground and water flowed." },
-        { q: "Why do pilgrims walk between Safa and Marwah today?", a: "Because Hajar did", wrong: ["It is the way to Mina", "To exercise", "It was Sulayman's road"], why: "The Prophet ﷺ said this is its origin." }
+        { q: "What kind of fast did Maryam vow?", a: "A fast from speaking", wrong: ["A fast from water", "A month-long fast", "A fast from sleep"], why: "I will not speak to anyone today." },
+        { q: "To whom did she make the vow?", a: "The Most Merciful", wrong: ["Her people", "Zakariyya", "The angels"], why: "Ar-Rahman, Allah." },
+        { q: "Who spoke for her when people blamed her?", a: "Baby Isa", wrong: ["Zakariyya", "Jibril", "Her mother"], why: "Isa spoke from the cradle (19:29-30)." }
+      ]
+    },
+    {
+      slug: "sumayyah-first-seven",
+      title: "Sumayyah: one of the first seven",
+      line: "Sumayyah was one of the first seven to show Islam openly.",
+      facts: ["The seven: the Prophet ﷺ, Abu Bakr, Ammar, Sumayyah, Suhayb, Bilal and Al-Miqdad.", "She had no tribe to protect her.", "The idolaters hurt the weak Muslims in the hot sun."],
+      source: hadith("ibnmajah", "150", "Abdullah ibn Masud", "Hasan", "The first seven to show their Islam openly were the Messenger of Allah ﷺ, Abu Bakr, Ammar and his mother Sumayyah, Suhayb, Bilal and Al-Miqdad; the idolaters seized the weak ones and tortured them in the heat of the sun.", "The first people to declare their Islam publicly were seven"),
+      difficulty: 2,
+      questions: [
+        { q: "Who was Sumayyah's son?", a: "Ammar ibn Yasir", wrong: ["Bilal", "Abu Bakr", "Suhayb"], why: "Ibn Mas'ud said: Ammar and his mother Sumayyah." },
+        { q: "How many people first showed their Islam openly?", a: "Seven", wrong: ["Two", "Forty", "Twelve"], why: "Ibn Mas'ud counted seven, Sumayyah among them." },
+        { q: "Sumayyah hid her Islam until the conquest of Makkah.", tf: false, why: "She was one of the first seven to show it openly." }
+      ]
+    },
+    {
+      slug: "sumayyah-first-martyr",
+      title: "The first martyr in Islam",
+      line: "Sumayyah gave her life for Islam, its very first martyr.",
+      facts: ["She would not leave Islam.", "Abu Jahl killed her with his spear.", "Adh-Dhahabi writes: she was the first martyr in Islam."],
+      source: siyar(1, 409, "Ammar ibn Yasir", "Adh-Dhahabi reports, through Mujahid, that Abu Jahl killed Sumayyah, the mother of Ammar, and that she was the first martyr in Islam.", "فكانت أول شهيدة في الإسلام"),
+      difficulty: 3,
+      questions: [
+        { q: "Who was the first martyr in Islam?", a: "Sumayyah, Ammar's mother", wrong: ["Hamzah", "Mus'ab ibn Umayr", "Sa'd ibn Mu'adh"], why: "Adh-Dhahabi writes: she was the first martyr in Islam." },
+        { q: "Who killed Sumayyah?", a: "Abu Jahl", wrong: ["Abu Sufyan", "Abu Talib", "Abu Lahab's son"], why: "Abu Jahl killed her with his spear." },
+        { q: "What does Sumayyah teach us?", a: "Hold on to your faith", wrong: ["Hide when it is hard", "Give up when hurt", "Faith is only for men"], why: "She gave her life rather than leave Islam." }
+      ]
+    },
+    {
+      slug: "women-ask-a-day",
+      title: "A day for the women",
+      line: "The women asked the Prophet ﷺ for a day to learn.",
+      facts: ["They said: the men take all your time.", "He promised them a day and taught them.", "Abu Sa'id al-Khudri told this."],
+      source: hadith("bukhari", "101", "Abu Sa'id al-Khudri", "Sahih", "Some women asked the Prophet ﷺ to fix a day for them, as the men were taking all his time; he promised them a day for lessons and teaching.", "Some women requested the Prophet (ﷺ) to fix a day for them"),
+      difficulty: 2,
+      questions: [
+        { q: "What did the women ask the Prophet ﷺ for?", a: "A day to learn", wrong: ["A new masjid", "Gold", "A market"], why: "They asked for a day of their own." },
+        { q: "Why did the women ask?", a: "The men took all his time", wrong: ["They were bored", "It was Ramadan", "They wanted to travel"], why: "They said the men were taking all his time." },
+        { q: "The Prophet ﷺ said no to the women.", tf: false, why: "He promised them a day and taught them." }
       ]
     },
     {
@@ -686,6 +845,72 @@ const QURAN_WOMEN: DeepUnit = {
         { q: "What does 'Al-Mujadilah', the surah's name, mean?", a: "The woman who argues", wrong: ["The patient woman", "The queen", "The mother"], why: "Named after her complaint." },
         { q: "To whom did she complain besides the Prophet ﷺ?", a: "Allah", wrong: ["Her tribe", "Umar", "A judge in Sham"], why: "She directed her complaint to Allah." },
         { q: "What does Quran 58:1 teach women wronged at home?", a: "Allah hears them; speak up", wrong: ["Stay silent always", "Nobody cares", "Only men can complain"], why: "Allah answered her from above the heavens." }
+      ]
+    },
+    {
+      slug: "umm-umarah-ayah",
+      title: "And the Muslim women",
+      line: "Umm Umarah's question brought an ayah naming the women too.",
+      facts: ["She was a woman of the Ansar.", "Quran 33:35 says: Muslim men and Muslim women.", "Allah promises both forgiveness and a great reward."],
+      quote: quranQuote(33, 35),
+      source: hadith("tirmidhi", "3211", "Umm Umarah al-Ansariyyah", "Sahih", "Umm Umarah said to the Prophet ﷺ: I see that everything is for the men, and women are not mentioned; so the ayah was revealed: Indeed the Muslim men and the Muslim women, the believing men and the believing women.", "I do not see but that everything is for the men"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Umm Umarah ask about?", a: "Why only men were mentioned", wrong: ["Where to live", "How to trade", "When Ramadan starts"], why: "She said: I see that everything is for the men." },
+        { q: "Which ayah came after her question?", a: "Quran 33:35", wrong: ["Quran 2:255", "Quran 112:1", "Quran 1:1"], why: "Indeed the Muslim men and the Muslim women..." },
+        { q: "In Quran 33:35, Allah promises a great reward to both men and women.", tf: true, why: "Forgiveness and a great reward for all of them." }
+      ]
+    },
+    {
+      slug: "rubayyi-water",
+      title: "Water for the wounded",
+      line: "Ar-Rubayyi' and other women gave water to the wounded.",
+      facts: ["They gave water to the thirsty.", "They treated the wounded.", "They carried the fallen back to Madinah."],
+      source: hadith("bukhari", "2882", "Ar-Rubayyi' bint Mu'awwidh", "Sahih", "Ar-Rubayyi' said: we were with the Prophet ﷺ giving water to the people, treating the wounded and bringing the killed back to Madinah.", "providing the wounded with water and treating them"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Ar-Rubayyi' and other women do in battle?", a: "Gave water and treated the wounded", wrong: ["Sold goods", "Wrote poems", "Stayed asleep"], why: "She said: giving water and treating the wounded." },
+        { q: "Where did they carry the fallen?", a: "Back to Madinah", wrong: ["To Makkah", "To Sham", "To Yemen"], why: "Bringing the killed back to Madinah." },
+        { q: "Women of the Sahabah helped in times of war.", tf: true, why: "Ar-Rubayyi' tells how they cared for the wounded." }
+      ]
+    },
+    {
+      slug: "umm-sulaym-patience",
+      title: "Umm Sulaym's patience",
+      line: "Umm Sulaym stayed patient when her little son died.",
+      facts: ["She was the wife of Abu Talhah and mother of Anas.", "She told the news gently.", "Allah gave them a new son, and Anas carried him to the Prophet ﷺ."],
+      source: hadith("bukhari", "5470", "Anas ibn Malik", "Sahih", "Abu Talhah's sick son died; Umm Sulaym stayed calm and told him gently, and the Prophet ﷺ said: O Allah, bless them; then Umm Sulaym gave birth to a boy.", "Bestow your blessing on them"),
+      difficulty: 3,
+      questions: [
+        { q: "Whose mother was Umm Sulaym?", a: "Anas ibn Malik", wrong: ["Bilal", "Ammar", "Ibn Abbas"], why: "Anas tells this story about his mother." },
+        { q: "How did Umm Sulaym act when her son died?", a: "Calm and patient", wrong: ["She screamed at people", "She ran away", "She blamed Allah"], why: "She stayed calm and told her husband gently." },
+        { q: "What did the Prophet ﷺ ask Allah for her family?", a: "Blessing", wrong: ["Wealth", "A long trip", "A big house"], why: "He said: O Allah, bless them." }
+      ]
+    },
+    {
+      slug: "umm-haram-sea",
+      title: "Umm Haram sails the sea",
+      line: "Umm Haram was among the first Muslims to sail for Allah.",
+      facts: ["He smiled after a dream of Muslims on ships like kings on thrones.", "She asked: pray that I am one of them.", "It came true in the time of Mu'awiyah."],
+      source: hadith("bukhari", "2788", "Anas ibn Malik", "Sahih", "The Prophet ﷺ dreamt of his followers sailing the sea in Allah's cause like kings on thrones; Umm Haram asked to be one of them and he said: you are among the first; she sailed in the time of Mu'awiyah.", "You are amongst the first ones"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the Prophet ﷺ see in his dream at Umm Haram's house?", a: "Muslims sailing the sea", wrong: ["A great flood", "A new city", "A golden palace"], why: "They sailed like kings on thrones." },
+        { q: "What did Umm Haram ask for?", a: "To be one of them", wrong: ["A ship of her own", "To stay home", "Gold from the sea"], why: "She said: ask Allah to make me one of them." },
+        { q: "What did he tell her?", a: "You are among the first", wrong: ["You will never sail", "You will be a queen", "Wait for the next dream"], why: "And she sailed in the time of Mu'awiyah." }
+      ]
+    },
+    {
+      slug: "umm-ayman-visit",
+      title: "Visiting Umm Ayman",
+      line: "Abu Bakr and Umar visited Umm Ayman, as the Prophet ﷺ did.",
+      facts: ["This was after the Prophet ﷺ had died.", "She wept: revelation from the sky has stopped.", "Abu Bakr and Umar wept with her."],
+      source: hadith("muslim", "2454", "Anas ibn Malik", "Sahih", "After the Prophet ﷺ died, Abu Bakr said to Umar: let us visit Umm Ayman as the Messenger of Allah ﷺ used to visit her; she wept because revelation from the heaven had stopped, and they wept with her.", "Let us visit Umm Aiman"),
+      difficulty: 3,
+      questions: [
+        { q: "Why did Abu Bakr and Umar visit Umm Ayman?", a: "The Prophet ﷺ used to visit her", wrong: ["She invited them to dinner", "She was a queen", "She sold dates"], why: "They kept up his good habit." },
+        { q: "Why did Umm Ayman weep?", a: "Revelation had stopped", wrong: ["She was hungry", "She lost her house", "She was afraid of them"], why: "No more revelation would come from the sky." },
+        { q: "What does this teach?", a: "Keep visiting those he loved", wrong: ["Forget old friends", "Visit only the rich", "Never cry"], why: "Abu Bakr and Umar honored her after he died." }
       ]
     }
   ]
