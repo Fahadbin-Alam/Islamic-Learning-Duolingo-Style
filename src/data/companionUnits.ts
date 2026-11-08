@@ -2815,4 +2815,262 @@ const ABU_QATADAH: DeepUnit = {
   ]
 };
 
-export const COMPANION_UNITS: DeepUnit[] = [JAFAR, ABU_HURAIRAH, KAB, SAD_MUADH, ABDUR_RAHMAN, MUADH, UBAYY, ZAYD_THABIT, ABU_MUSA, JABIR, ABU_TALHAH, HUDHAYFAH, HAMZAH, ZAYD_HARITHAH, USAMAH, AMMAR, ABU_AYYUB, IBN_RAWAHAH, KHABBAB, UTHMAN_MAZUN, ABU_SAID, ABU_DARDA, UBADAH, SAD_UBADAH, BARA, IBN_AMR, IBN_SALAM, ASMA, SAHL, ABU_QATADAH];
+const NUMAN: DeepUnit = {
+  key: "numan",
+  topicId: "sahabah",
+  branchId: "sahabi-an-numan-ibn-bashir",
+  branch: { title: "An-Nu'man ibn Bashir", description: "The first Ansari baby born after the Hijrah, who passed on wise parables." },
+  name: "An-Nu'man ibn Bashir",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "a-fair-gift",
+      title: "Fair to every child",
+      line: "Nu'man's father learned to be fair with gifts to his children.",
+      facts: ["His father gave him a gift.", "His mother asked for the Prophet ﷺ as witness.", "He said: fear Allah and be just to your children."],
+      source: hadith("bukhari", "2587", "An-Nu'man ibn Bashir", "Sahih", "My father gave me a gift, and my mother wanted the Prophet ﷺ as witness. He asked: have you given the same to all your sons? He said no. He said: fear Allah and be just to your children. So my father took back the gift.", "be just to your children"),
+      difficulty: 2,
+      questions: [
+        { q: "What did the Prophet ﷺ ask Nu'man's father?", a: "Did all your sons get the same?", wrong: ["How much was it?", "Where is your house?", "Who is your king?"], why: "Have you given the like of it to everyone of your sons?" },
+        { q: "What did he tell parents to be?", a: "Just to their children", wrong: ["Strict only", "Rich", "Silent"], why: "Be afraid of Allah, and be just to your children." },
+        { q: "Nu'man's father took the gift back.", tf: true, why: "My father then returned and took back his gift." }
+      ]
+    },
+    {
+      slug: "clear-and-doubtful",
+      title: "Clear and doubtful",
+      line: "Nu'man narrated: halal and haram are clear; avoid the doubtful.",
+      facts: ["Some things are clearly halal, some clearly haram.", "In between are doubtful things.", "Whoever avoids them keeps his religion and honor safe."],
+      source: hadith("bukhari", "52", "An-Nu'man bin Bashir", "Sahih", "The halal is clear and the haram is clear, and between them are doubtful things many do not know. Whoever avoids them protects his religion and honor. In the body is a piece of flesh: if it is good the whole body is good. It is the heart.", "Both legal and illegal things are evident"),
+      difficulty: 3,
+      questions: [
+        { q: "What lies between halal and haram?", a: "Doubtful things", wrong: ["Nothing", "Only halal", "Only gold"], why: "In between them there are doubtful things." },
+        { q: "What does avoiding doubtful things protect?", a: "Religion and honor", wrong: ["Wealth only", "Fame", "Strength"], why: "He saves his religion and his honor." },
+        { q: "Which body part decides if the body is good?", a: "The heart", wrong: ["The hand", "The foot", "The eye"], why: "There is a piece of flesh in the body: the heart." }
+      ]
+    },
+    {
+      slug: "one-body",
+      title: "Like one body",
+      line: "Nu'man narrated: believers are like one body in mercy.",
+      facts: ["Believers love and care for each other.", "When one part hurts, the whole body feels it.", "So a Muslim feels his brother's pain."],
+      source: hadith("bukhari", "6011", "An-Nu'man ibn Bashir", "Sahih", "You see the believers in their mercy, love and kindness to each other like one body: if one part is ill, the whole body shares the sleeplessness and fever.", "resembling one body"),
+      difficulty: 2,
+      questions: [
+        { q: "Believers are like what?", a: "One body", wrong: ["Separate stones", "Strangers", "Rival teams"], why: "Resembling one body." },
+        { q: "What happens when one part hurts?", a: "The whole body feels it", wrong: ["Nothing", "Only that part feels it", "The body gets stronger"], why: "The whole body shares the sleeplessness and fever." },
+        { q: "Muslims should care when others suffer.", tf: true, why: "They are like one body." }
+      ]
+    },
+    {
+      slug: "the-ship",
+      title: "Holes in the ship",
+      line: "Nu'man narrated the parable of people sharing one ship.",
+      facts: ["Some sat on the top deck, some below.", "Those below wanted to drill a hole for water.", "If stopped, all are saved; if not, all drown."],
+      source: hadith("bukhari", "2493", "An-Nu'man ibn Bashir", "Sahih", "Those who keep Allah's limits and those who break them are like people sharing a ship by lot, some above and some below. Those below said: let us make a hole in our part for water. If the others let them, all would drown; if they stopped them, all would be saved.", "all the people of the ship would be destroyed"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the people below want to do?", a: "Make a hole for water", wrong: ["Paint the ship", "Sing songs", "Sleep"], why: "Let us make a hole in our share of the ship." },
+        { q: "What if nobody stopped them?", a: "Everyone would drown", wrong: ["Only they would drown", "Nothing", "The ship would fly"], why: "All the people of the ship would be destroyed." },
+        { q: "Stopping wrong protects the whole community.", tf: true, why: "If they prevented them, both parties would be safe." }
+      ]
+    },
+    {
+      slug: "straight-rows",
+      title: "Straighten the rows",
+      line: "Nu'man narrated: straighten your rows in prayer.",
+      facts: ["Rows in prayer should be straight.", "Crooked rows can bring division.", "Straight rows unite the hearts."],
+      source: hadith("muslim", "436a", "An-Nu'man ibn Bashir", "Sahih", "I heard the Prophet ﷺ say: straighten your rows, or Allah will put division between you.", "Straighten your rows"),
+      difficulty: 2,
+      questions: [
+        { q: "How should prayer rows be?", a: "Straight", wrong: ["Crooked", "Far apart", "In circles"], why: "Straighten your rows." },
+        { q: "What may crooked rows bring?", a: "Division between people", wrong: ["More reward", "Rain", "Wealth"], why: "Or Allah would create dissension amongst you." },
+        { q: "Standing straight in rows is a small, unimportant thing.", tf: false, why: "Crooked rows can bring division." }
+      ]
+    },
+    {
+      slug: "jumuah-surahs",
+      title: "Surahs for Friday and Eid",
+      line: "Nu'man told which surahs the Prophet ﷺ read on Friday and Eid.",
+      facts: ["He recited Al-A'la in the first rak'ah.", "He recited Al-Ghashiyah in the second.", "He did this on Jumu'ah and both Eids."],
+      quote: quranQuote(87, 1),
+      source: hadith("muslim", "878a", "An-Nu'man ibn Bashir", "Sahih", "The Prophet ﷺ used to recite on the two Eids and on Friday: Glorify the name of your Lord, the Most High, and: Has there come to you the news of the Overwhelming.", "used to recite on two"),
+      difficulty: 3,
+      questions: [
+        { q: "Which surah did he recite first?", a: "Al-A'la", wrong: ["Al-Baqarah", "Yasin", "Al-Kahf"], why: "Glorify the name of your Lord, the Most High, 87:1." },
+        { q: "Which surah came second?", a: "Al-Ghashiyah", wrong: ["Al-Fatihah", "An-Nas", "Al-Ikhlas"], why: "Has there come to you the news of the overwhelming event." },
+        { q: "When did he recite these two?", a: "Jumu'ah and the two Eids", wrong: ["Only at Fajr", "Only in Ramadan", "Only at funerals"], why: "On two Ids and in Friday prayer." }
+      ]
+    }
+  ]
+};
+
+const JARIR: DeepUnit = {
+  key: "jarir",
+  topicId: "sahabah",
+  branchId: "sahabi-jarir-ibn-abdullah",
+  branch: { title: "Jarir ibn Abdullah al-Bajali", description: "The chief of Bajilah, met with a smile and sent to tear down an idol house." },
+  name: "Jarir ibn Abdullah",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "always-a-smile",
+      title: "Always a smile",
+      line: "The Prophet ﷺ always met Jarir with a smile.",
+      facts: ["Since Jarir became Muslim, he was always welcomed in.", "The Prophet ﷺ smiled every time he saw him.", "A smile to your brother is a good deed."],
+      source: hadith("bukhari", "3035", "Jarir ibn Abdullah", "Sahih", "Since I became Muslim the Prophet ﷺ never kept me away, and whenever he saw me he smiled. I told him I could not sit firm on a horse, so he struck my chest and said: O Allah, make him firm and make him a guide, rightly guided.", "he would receive me with a smile"),
+      difficulty: 2,
+      questions: [
+        { q: "How did the Prophet ﷺ greet Jarir?", a: "With a smile", wrong: ["With a frown", "In silence", "With a shout"], why: "Whenever he saw me he would receive me with a smile." },
+        { q: "What was Jarir's problem with horses?", a: "He could not sit firm", wrong: ["He had none", "He feared them", "He sold them"], why: "I could not sit firm on horses." },
+        { q: "The Prophet ﷺ made du'a to make Jarir firm.", tf: true, why: "O Allah! Make him firm." }
+      ]
+    },
+    {
+      slug: "sincere-to-all",
+      title: "Sincere to every Muslim",
+      line: "Jarir pledged to pray, pay zakat and be sincere to every Muslim.",
+      facts: ["Jarir gave his pledge to the Prophet ﷺ.", "He promised prayer and zakat.", "He also promised good will to every Muslim."],
+      source: hadith("bukhari", "57", "Jarir ibn Abdullah", "Sahih", "I pledged to the Prophet ﷺ to pray perfectly, pay zakat, and be sincere and true to every Muslim.", "be sincere and true to every Muslim"),
+      difficulty: 2,
+      questions: [
+        { q: "To whom did Jarir pledge sincerity?", a: "Every Muslim", wrong: ["Only his tribe", "Only kings", "Only himself"], why: "Be sincere and true to every Muslim." },
+        { q: "Which worship was in his pledge?", a: "Prayer and zakat", wrong: ["Only Hajj", "Only fasting", "None"], why: "Offer prayers perfectly and pay the Zakat." },
+        { q: "Wishing good for others is part of Islam.", tf: true, why: "He pledged sincerity to every Muslim." }
+      ]
+    },
+    {
+      slug: "the-full-moon",
+      title: "Like the full moon",
+      line: "Jarir heard: believers will see their Lord like the full moon.",
+      facts: ["They sat with the Prophet ﷺ on a full moon night.", "He said believers will see their Lord clearly.", "So do not miss Fajr and Asr."],
+      source: hadith("bukhari", "554", "Jarir ibn Abdullah", "Sahih", "The Prophet ﷺ looked at the full moon and said: you will see your Lord as you see this moon, with no trouble. So if you can, do not miss the prayer before sunrise and the prayer before sunset.", "Certainly you will see your Lord as you see this moon"),
+      difficulty: 3,
+      questions: [
+        { q: "What were they looking at?", a: "The full moon", wrong: ["The sun", "A star", "The sea"], why: "He looked at the moon, the full moon." },
+        { q: "Which two prayers did he urge them to keep?", a: "Fajr and Asr", wrong: ["Dhuhr and Isha", "Eid and Jumu'ah", "Witr and Duha"], why: "Before the sunrise and before sunset." },
+        { q: "Believers will see their Lord in the Hereafter.", tf: true, why: "You will see your Lord as you see this moon." }
+      ]
+    },
+    {
+      slug: "dhul-khalasah",
+      title: "The false Kaaba of Yemen",
+      line: "Jarir was sent to tear down an idol house in Yemen.",
+      facts: ["Dhul-Khalasah was an idol house of the Khath'am tribe.", "Jarir rode out with 150 horsemen of Ahmas.", "He took it down and sent the good news."],
+      source: hadith("bukhari", "3020", "Jarir ibn Abdullah", "Sahih", "The Prophet ﷺ said: will you relieve me of Dhul-Khalasah, an idol house of Khath'am called the Yemeni Kaaba? I set out with 150 horsemen of Ahmas, pulled it down and burnt it, and sent word to the Prophet ﷺ.", "Will you relieve me from Dhul-Khalasa"),
+      difficulty: 4,
+      questions: [
+        { q: "What was Dhul-Khalasah?", a: "An idol house", wrong: ["A masjid", "A market", "A well"], why: "A house of an idol belonging to the tribe of Khath'am." },
+        { q: "How many horsemen went with Jarir?", a: "150", wrong: ["10", "1,000", "3"], why: "One hundred and fifty cavalry men from Ahmas." },
+        { q: "Jarir brought down the idol house.", tf: true, why: "He dismantled and burnt it." }
+      ]
+    },
+    {
+      slug: "be-merciful",
+      title: "Mercy for mercy",
+      line: "Jarir narrated: Allah is not merciful to the merciless.",
+      facts: ["Mercy to people brings Allah's mercy.", "Whoever has no mercy for people loses it.", "Be kind to everyone around you."],
+      source: hadith("bukhari", "7376", "Jarir ibn Abdullah", "Sahih", "The Prophet ﷺ said: Allah will not be merciful to those who are not merciful to people.", "Allah will not be merciful to those who are not merciful to mankind"),
+      difficulty: 2,
+      questions: [
+        { q: "Who does not receive Allah's mercy?", a: "Those with no mercy for people", wrong: ["The poor", "Travelers", "Children"], why: "Those who are not merciful to mankind." },
+        { q: "What brings Allah's mercy?", a: "Being merciful to people", wrong: ["Being harsh", "Being proud", "Being lazy"], why: "Allah is merciful to the merciful." },
+        { q: "Mercy is only for family, not strangers.", tf: false, why: "Merciful to mankind." }
+      ]
+    },
+    {
+      slug: "gentleness",
+      title: "Gentleness is good",
+      line: "Jarir narrated: whoever loses gentleness loses all good.",
+      facts: ["Gentleness makes things beautiful.", "Harshness spoils them.", "Without gentleness, much good is lost."],
+      source: hadith("muslim", "2592a", "Jarir ibn Abdullah", "Sahih", "The Prophet ﷺ said: whoever is deprived of gentleness is deprived of good.", "deprived of good"),
+      difficulty: 3,
+      questions: [
+        { q: "Whoever lacks gentleness loses what?", a: "Good", wrong: ["Money", "Sleep", "Friends only"], why: "He who is deprived of tenderly feelings is deprived of good." },
+        { q: "Which is better in dealing with people?", a: "Gentleness", wrong: ["Harshness", "Shouting", "Ignoring"], why: "Gentleness brings good." },
+        { q: "Being harsh brings more good than being gentle.", tf: false, why: "Without gentleness good is lost." }
+      ]
+    }
+  ]
+};
+
+const THAWBAN: DeepUnit = {
+  key: "thawban",
+  topicId: "sahabah",
+  branchId: "sahabi-thawban",
+  branch: { title: "Thawban", description: "The freed servant of the Prophet ﷺ who stayed close to him and passed on his words." },
+  name: "Thawban",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "many-sajdahs",
+      title: "Prostrate often",
+      line: "Thawban taught: prostrate often, each sajdah raises you a level.",
+      facts: ["A man asked him three times for the most loved deed.", "Thawban said he had asked the Prophet ﷺ the same.", "Each sajdah raises a level and removes a sin."],
+      source: hadith("muslim", "488", "Thawban", "Sahih", "Ma'dan asked Thawban, freed servant of the Prophet ﷺ, about a deed that takes one to Paradise. On the third ask he said: I asked the Prophet ﷺ and he said: prostrate often to Allah, for every prostration raises you a degree and removes a sin.", "Make frequent prostrations before Allah"),
+      difficulty: 3,
+      questions: [
+        { q: "What deed did Thawban recommend?", a: "Prostrating often", wrong: ["Traveling far", "Buying land", "Sleeping early"], why: "Make frequent prostrations before Allah." },
+        { q: "What does each sajdah do?", a: "Raises a level, removes a sin", wrong: ["Nothing", "Makes you rich", "Makes you tired"], why: "Raising you a degree and removing a sin." },
+        { q: "Thawban was a freed servant of the Prophet ﷺ.", tf: true, why: "Thauban, the freed slave of Allah's Messenger." }
+      ]
+    },
+    {
+      slug: "after-the-prayer",
+      title: "Words after salah",
+      line: "Thawban told what the Prophet ﷺ said after each prayer.",
+      facts: ["He asked Allah's forgiveness three times.", "Then he said: O Allah, You are As-Salam.", "And peace comes from You, Owner of Majesty."],
+      source: hadith("muslim", "591", "Thawban", "Sahih", "When the Prophet ﷺ finished his prayer he asked forgiveness three times and said: O Allah, You are Peace and from You is peace; blessed are You, Owner of Majesty and Honor.", "He begged forgiveness three times"),
+      difficulty: 2,
+      questions: [
+        { q: "How many times did he ask forgiveness?", a: "Three", wrong: ["One", "Seven", "Ten"], why: "He begged forgiveness three times." },
+        { q: "Which name of Allah did he say next?", a: "As-Salam", wrong: ["Al-Malik", "Al-Ghani", "Al-Qawi"], why: "O Allah! Thou art Peace." },
+        { q: "He said Astaghfirullah after finishing prayer.", tf: true, why: "I beg forgiveness from Allah." }
+      ]
+    },
+    {
+      slug: "best-dinar",
+      title: "The best coin",
+      line: "Thawban narrated: the best coin is the one spent on family.",
+      facts: ["A coin spent on your family is the best.", "Then one spent on a mount in Allah's way.", "Then one spent on companions in Allah's way."],
+      source: hadith("muslim", "994", "Thawban", "Sahih", "The best dinar is one a man spends on his family, then one he spends on his mount in Allah's way, then one he spends on his companions in Allah's way.", "The most excellent dinar is one that a person spends on his family"),
+      difficulty: 3,
+      questions: [
+        { q: "Which coin is the best?", a: "One spent on your family", wrong: ["One kept hidden", "One spent on games", "One thrown away"], why: "The most excellent dinar is one spent on his family." },
+        { q: "Spending on family earns reward.", tf: true, why: "It is the most excellent dinar." },
+        { q: "What comes after family in the list?", a: "A mount in Allah's way", wrong: ["New clothes", "A palace", "Perfume"], why: "The dinar which he spends on his animal in Allah's path." }
+      ]
+    },
+    {
+      slug: "garden-of-fruit",
+      title: "In Paradise's orchard",
+      line: "Thawban narrated: visiting the sick is picking Paradise fruit.",
+      facts: ["Visiting a sick Muslim is a great deed.", "While visiting, you are in Paradise's orchard.", "Khurfat al-Jannah means its fruit garden."],
+      source: hadith("muslim", "2568d", "Thawban", "Sahih", "The Prophet ﷺ said: whoever visits the sick remains in the khurfah of Paradise. He was asked: what is the khurfah? He said: its harvest of fruit.", "It is a place abounding in fruits"),
+      difficulty: 2,
+      questions: [
+        { q: "Visiting the sick is like being where?", a: "In Paradise's fruit garden", wrong: ["In a market", "At sea", "In a desert"], why: "He remains in the fruit garden of Paradise." },
+        { q: "What is Khurfat al-Jannah?", a: "Paradise's fruit garden", wrong: ["A river", "A gate", "A tent"], why: "It is a place abounding in fruits." },
+        { q: "Visiting the sick brings great reward.", tf: true, why: "Until he returns, he is in Paradise's garden." }
+      ]
+    },
+    {
+      slug: "like-foam",
+      title: "Foam on the flood",
+      line: "Thawban warned: many but weak, like foam on a flood.",
+      facts: ["Nations will call each other against Muslims like diners to a dish.", "Muslims will be many, but like foam on a flood.", "The cause: love of this world and dislike of death."],
+      source: hadith("abudawud", "4297", "Thawban", "Sahih (Al-Albani)", "Nations will call each other against you as diners call each other to a dish. Will we be few? No, you will be many, but like the foam of a flood, and Allah will put wahn in your hearts. What is wahn? Love of the world and dislike of death.", "Love of the world and dislike of death"),
+      difficulty: 4,
+      questions: [
+        { q: "Will Muslims be few at that time?", a: "No, they will be many", wrong: ["Yes, very few", "None will remain", "Only ten"], why: "No, you will be numerous at that time." },
+        { q: "What is wahn?", a: "Love of the world and dislike of death", wrong: ["Love of prayer", "Fear of Allah", "Hard work"], why: "Love of the world and dislike of death." },
+        { q: "Being many is enough without strong faith.", tf: false, why: "They will be many but like foam." }
+      ]
+    }
+  ]
+};
+
+export const COMPANION_UNITS: DeepUnit[] = [JAFAR, ABU_HURAIRAH, KAB, SAD_MUADH, ABDUR_RAHMAN, MUADH, UBAYY, ZAYD_THABIT, ABU_MUSA, JABIR, ABU_TALHAH, HUDHAYFAH, HAMZAH, ZAYD_HARITHAH, USAMAH, AMMAR, ABU_AYYUB, IBN_RAWAHAH, KHABBAB, UTHMAN_MAZUN, ABU_SAID, ABU_DARDA, UBADAH, SAD_UBADAH, BARA, IBN_AMR, IBN_SALAM, ASMA, SAHL, ABU_QATADAH, NUMAN, JARIR, THAWBAN];
