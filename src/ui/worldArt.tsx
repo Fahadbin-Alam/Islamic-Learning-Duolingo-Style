@@ -45,7 +45,8 @@ const PAGE = "#FFFFFF";
 const INK = "#1F2D27";
 const SHADOW = <Ellipse cx={32} cy={58.5} rx={20} ry={2.6} fill={INK} opacity={0.08} />;
 
-export function WorldDrawing({ kind }: { kind: WorldKind }) {
+/** `legless`: the goat and horse without their legs, for the walking legs drawn in their own layers (walkingLegs.tsx). */
+export function WorldDrawing({ kind, legless = false }: { kind: WorldKind; legless?: boolean }) {
   switch (kind) {
     case "crab":
       return (
@@ -192,8 +193,12 @@ export function WorldDrawing({ kind }: { kind: WorldKind }) {
       return (
         <G>
           {SHADOW}
-          <Rect x={18} y={42} width={4.6} height={14} rx={2.3} fill="#8E8579" />
-          <Rect x={36} y={42} width={4.6} height={14} rx={2.3} fill="#8E8579" />
+          {legless ? null : (
+            <>
+              <Rect x={18} y={42} width={4.6} height={14} rx={2.3} fill="#8E8579" />
+              <Rect x={36} y={42} width={4.6} height={14} rx={2.3} fill="#8E8579" />
+            </>
+          )}
           <Path d="M14 36L10 32" stroke="#E3DED4" strokeWidth={3} strokeLinecap="round" />
           <Ellipse cx={29} cy={39} rx={16} ry={10} fill="#F4F1EA" />
           <Path d="M17 44C22 48 34 49 42 45" stroke="#E3DED4" strokeWidth={2} strokeLinecap="round" fill="none" />
@@ -223,12 +228,20 @@ export function WorldDrawing({ kind }: { kind: WorldKind }) {
       return (
         <G>
           {SHADOW}
-          <Rect x={20} y={40} width={4.6} height={16} rx={2.3} fill="#7E5232" />
-          <Rect x={40} y={40} width={4.6} height={16} rx={2.3} fill="#7E5232" />
+          {legless ? null : (
+            <>
+              <Rect x={20} y={40} width={4.6} height={16} rx={2.3} fill="#7E5232" />
+              <Rect x={40} y={40} width={4.6} height={16} rx={2.3} fill="#7E5232" />
+            </>
+          )}
           <Path d="M14 35C8 38 7 46 9 53" stroke="#4A2F1E" strokeWidth={4} strokeLinecap="round" fill="none" />
-          <Rect x={15} y={40} width={4.6} height={16} rx={2.3} fill="#A8703F" />
-          <Rect x={35} y={40} width={4.6} height={16} rx={2.3} fill="#A8703F" />
-          <Path d="M14.6 54H20M34.6 54H40" stroke="#3B2618" strokeWidth={3} strokeLinecap="round" />
+          {legless ? null : (
+            <>
+              <Rect x={15} y={40} width={4.6} height={16} rx={2.3} fill="#A8703F" />
+              <Rect x={35} y={40} width={4.6} height={16} rx={2.3} fill="#A8703F" />
+              <Path d="M14.6 54H20M34.6 54H40" stroke="#3B2618" strokeWidth={3} strokeLinecap="round" />
+            </>
+          )}
           <Ellipse cx={30} cy={38} rx={17} ry={9.5} fill="#A8703F" />
           <Path d="M40 34C43 27 46 21 50 17L56 21C54 27 50 35 45 41Z" fill="#A8703F" />
           <Path d="M48 14C52 10 58 12 60 18L62 25C62.4 28 59 30 56.6 28.4L50 22Z" fill="#A8703F" />

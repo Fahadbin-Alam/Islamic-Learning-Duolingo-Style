@@ -105,6 +105,17 @@ describe("lesson photos", () => {
     if (LESSON_PICTURE_IDS.includes("uhud")) expect(pictureForQuestion("Which mountain is Uhud?")?.id).toBe("uhud");
   });
 
+  test("a place always gives the same picture, so a question drawn again keeps its photo as it is", () => {
+    if (LESSON_PICTURE_IDS.includes("uhud")) {
+      const first = pictureForQuestion("Which mountain is Uhud?");
+      expect(pictureForQuestion("Which mountain is Uhud?")).toBe(first);
+      expect(getLessonPicture("uhud")).toBe(first);
+    }
+    for (const id of LESSON_PICTURE_IDS) {
+      expect(getLessonPicture(id)).toBe(getLessonPicture(id));
+    }
+  });
+
   test("hundreds of lessons and questions get a photo", () => {
     const lessons = Object.values(LESSONS_BY_ID);
     const withPhoto = lessons.filter((lesson) => pictureForLesson(lesson));

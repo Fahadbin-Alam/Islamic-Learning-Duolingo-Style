@@ -10,6 +10,7 @@ import { BACKDROP_H, WorldBackdrop, type PathWorld } from "./pathWorlds";
 import { feedback, playUi } from "./sound";
 import { METEOR_HIT, bigLook } from "./bigShows";
 import { NoahsArk, SailingBoat } from "./seaSail";
+import { useSecretTap } from "./secretHadith";
 
 /**
  * The sky behind a unit of the path. Each unit has its own weather, so walking down the path feels
@@ -95,8 +96,10 @@ function TapCloud({ sky, size, reduceMotion }: { sky: Sky; size: number; reduceM
   const [show, setShow] = useState<CloudShow | null>(null);
   const { value: t, play } = useOneShot();
   const next = useCycle(CLOUD_SHOWS.length);
+  const secret = useSecretTap("cloud");
   const height = (size * CLOUD_H) / CLOUD_W;
   const onTap = () => {
+    secret();
     if (show) return;
     const pick = CLOUD_SHOWS[next()];
     feedback(pick.sound, pick.kind === "storm" ? "medium" : "light");
@@ -294,6 +297,7 @@ function Sun({ top, left, low, moving, reduceMotion }: { top: number; left: numb
   const [show, setShow] = useState<SunShow | null>(null);
   const { value: t, play } = useOneShot();
   const next = useCycle(SUN_SHOWS.length);
+  const secret = useSecretTap("sky");
   const [phase, setPhase] = useState(0);
   const { value: moonT, play: playMoon } = useOneShot();
   // However night ended (a tap, or a touch waking everyone), the next one starts with a full moon.
@@ -301,6 +305,7 @@ function Sun({ top, left, low, moving, reduceMotion }: { top: number; left: numb
     if (!night) setPhase(0);
   }, [night]);
   const onTap = () => {
+    secret();
     if (night) {
       // The moon: each tap shows its next look (full, gibbous, half), then the day comes back.
       if (phase + 1 < MOON_PHASES.length) {
@@ -443,9 +448,11 @@ function Birds({ top, width, moving, reduceMotion }: { top: number; width: numbe
   const [show, setShow] = useState<BirdShow | null>(null);
   const { value: s, play } = useOneShot();
   const next = useCycle(BIRD_SHOWS.length);
+  const secret = useSecretTap("birds");
   const translateX = t.interpolate({ inputRange: [0, 1], outputRange: [-70, width + 10] });
   const wings = flap.interpolate(smoothKeys([0, 0.5, 1], [1, 0.35, 1]));
   const onTap = () => {
+    secret();
     const pick = BIRD_SHOWS[next()];
     feedback(pick.sound, "light");
     setShow(pick.kind);

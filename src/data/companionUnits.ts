@@ -1524,4 +1524,2056 @@ const HAMZAH: DeepUnit = {
   ]
 };
 
-export const COMPANION_UNITS: DeepUnit[] = [JAFAR, ABU_HURAIRAH, KAB, SAD_MUADH, ABDUR_RAHMAN, MUADH, UBAYY, ZAYD_THABIT, ABU_MUSA, JABIR, ABU_TALHAH, HUDHAYFAH, HAMZAH, ZAYD_HARITHAH, USAMAH];
+const AMMAR: DeepUnit = {
+  key: "ammar",
+  topicId: "sahabah",
+  branchId: "sahabi-ammar-ibn-yasir",
+  branch: { title: "Ammar ibn Yasir", description: "One of the very first Muslims, called the pure and purified one." },
+  name: "Ammar ibn Yasir",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "first-believers",
+      title: "Among the first",
+      line: "Ammar saw Islam when only a handful believed.",
+      facts: ["Ammar was one of the earliest Muslims.", "He saw the Prophet ﷺ with only five slaves, two women and Abu Bakr.", "Those were all the Muslims at that time."],
+      source: hadith("bukhari", "3660", "Ammar ibn Yasir", "Sahih", "I saw the Prophet ﷺ when there was none with him but five slaves, two women and Abu Bakr.", "there was none with him but five slaves, two women and Abu Bakr"),
+      difficulty: 2,
+      questions: [
+        { q: "Who was with the Prophet ﷺ when Ammar saw him?", a: "Five slaves, two women and Abu Bakr", wrong: ["A big army", "All of Makkah", "Only Umar"], why: "There was none with him but five slaves, two women and Abu Bakr." },
+        { q: "Ammar was one of the earliest Muslims.", tf: true, why: "He saw Islam when only a few believed." },
+        { q: "How many Muslims were there then?", a: "Very few", wrong: ["Thousands", "Hundreds", "Nobody"], why: "Only a handful were with the Prophet ﷺ." }
+      ]
+    },
+    {
+      slug: "tayammum",
+      title: "Rolling in the dust",
+      line: "Ammar rolled in the dust, and learned the easy tayammum.",
+      facts: ["On a journey Ammar needed a bath but had no water.", "He rolled on the ground like an animal, then prayed.", "The Prophet ﷺ showed him: strike the earth, wipe face and hands."],
+      source: hadith("bukhari", "338", "Abd ar-Rahman ibn Abza", "Sahih", "Ammar reminded Umar that on a journey he rolled in the dust because there was no water. The Prophet ﷺ said: this would have been enough, and struck the earth lightly, blew off the dust and wiped his face and hands.", "It would have been sufficient for you to do like this"),
+      difficulty: 3,
+      questions: [
+        { q: "Why did Ammar roll in the dust?", a: "There was no water", wrong: ["To play", "To hide", "To get warm"], why: "No water was available." },
+        { q: "What did the Prophet ﷺ show him?", a: "Wipe face and hands after striking the earth", wrong: ["Roll in sand again", "Wait for rain", "Skip the prayer"], why: "He struck the earth and wiped his face and hands." },
+        { q: "Without water, a Muslim can make tayammum.", tf: true, why: "The Prophet ﷺ taught Ammar how." }
+      ]
+    },
+    {
+      slug: "pure-one",
+      title: "The pure and purified",
+      line: "The Prophet ﷺ welcomed Ammar as the pure and purified one.",
+      facts: ["Ammar asked permission to enter.", "The Prophet ﷺ said: let him in.", "He greeted him: welcome, the pure, the purified."],
+      source: hadith("tirmidhi", "3798", "Ali ibn Abi Talib", "Sahih", "Ammar asked permission to come in to the Prophet ﷺ, who said: let him in; welcome to the pure one, the purified.", "greetings to the pure one, the purified"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the Prophet ﷺ call Ammar?", a: "The pure and purified", wrong: ["The traveler", "The trader", "The poet"], why: "Greetings to the pure one, the purified." },
+        { q: "Ammar asked permission before entering.", tf: true, why: "Ammar came seeking permission to enter." },
+        { q: "Who narrated the welcome?", a: "Ali", wrong: ["Abu Jahl", "Wahshi", "Abu Sufyan"], why: "Ali narrated it." }
+      ]
+    },
+    {
+      slug: "protected",
+      title: "Protected from Shaytan",
+      line: "Abu Darda said Ammar was protected from Shaytan.",
+      facts: ["Abu Darda lived in Sham and met a man from Kufa.", "He asked about the man protected from Shaytan.", "That man was Ammar, by the Prophet's ﷺ dua."],
+      source: hadith("bukhari", "3743", "Ibrahim an-Nakha'i", "Sahih", "Abu Darda asked a man from Kufa: is not among you the one whom Allah protected from Shaytan through the dua of His Prophet ﷺ, namely Ammar?", "the person whom Allah gave Refuge from Satan through the invocation of His Prophet namely"),
+      difficulty: 4,
+      questions: [
+        { q: "From whom was Ammar protected?", a: "Shaytan", wrong: ["Rain", "Lions", "The cold"], why: "Allah gave him refuge from Satan." },
+        { q: "How was he protected?", a: "By the Prophet's ﷺ dua", wrong: ["By a sword", "By a wall", "By gold"], why: "Through the invocation of His Prophet ﷺ." },
+        { q: "Who called Ammar protected from Shaytan?", a: "Abu Darda", wrong: ["Abu Jahl", "Abu Talib", "Abu Lahab"], why: "Abu Darda asked the man from Kufa." }
+      ]
+    },
+    {
+      slug: "governor",
+      title: "Governor of Kufa",
+      line: "Umar made Ammar the leader of Kufa.",
+      facts: ["The people of Kufa complained about Sa'd.", "Umar removed Sa'd and appointed Ammar.", "Kufa was a new city in Iraq."],
+      source: hadith("bukhari", "755", "Jabir ibn Samurah", "Sahih", "The people of Kufa complained about Sa'd to Umar, so he removed him and made Ammar their leader.", "dismissed him and appointed"),
+      difficulty: 3,
+      questions: [
+        { q: "Who made Ammar the leader of Kufa?", a: "Umar", wrong: ["Abu Jahl", "Caesar", "Abu Sufyan"], why: "Umar appointed Ammar as their chief." },
+        { q: "Whom did Ammar replace?", a: "Sa'd", wrong: ["Khalid", "Bilal", "Zayd"], why: "Umar dismissed Sa'd and appointed Ammar." },
+        { q: "Kufa is a city in Iraq.", tf: true, why: "Kufa was built in Iraq." }
+      ]
+    },
+    {
+      slug: "short-khutbah",
+      title: "A short khutbah",
+      line: "Ammar gave a short khutbah, as the Prophet ﷺ taught.",
+      facts: ["Ammar's khutbah was short and clear.", "People wished it had been longer.", "He said: a long prayer and a short khutbah show understanding."],
+      source: hadith("muslim", "869", "Abu Wa'il", "Sahih", "Ammar gave a short, eloquent khutbah. He said: I heard the Prophet ﷺ say: a long prayer and a short khutbah are a sign of a man's understanding, so lengthen the prayer and shorten the khutbah.", "The lengthening of prayer by a man and the shortness of the sermon is the sign of his understanding"),
+      difficulty: 4,
+      questions: [
+        { q: "What kind of khutbah did Ammar give?", a: "Short and clear", wrong: ["Very long", "Silent", "In a whisper"], why: "It was short and eloquent." },
+        { q: "What should be long, the prayer or the khutbah?", a: "The prayer", wrong: ["The khutbah", "Both very long", "Neither"], why: "Lengthen the prayer and shorten the sermon." },
+        { q: "A short khutbah is a sign of understanding.", tf: true, why: "It is the sign of his understanding." }
+      ]
+    }
+  ]
+};
+
+const ABU_AYYUB: DeepUnit = {
+  key: "abu-ayyub",
+  topicId: "sahabah",
+  branchId: "sahabi-abu-ayyub-al-ansari",
+  branch: { title: "Abu Ayyub al-Ansari", description: "The host of the Prophet ﷺ in Madinah, who strove in Allah's way to old age." },
+  name: "Abu Ayyub al-Ansari",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "the-host",
+      title: "The Prophet's ﷺ host",
+      line: "In Madinah, the Prophet ﷺ stayed in Abu Ayyub's house.",
+      facts: ["After the Hijrah, the Prophet ﷺ stayed with Abu Ayyub.", "The Prophet ﷺ lived downstairs; Abu Ayyub upstairs.", "Abu Ayyub could not bear walking above him, so they swapped."],
+      source: hadith("muslim", "2053c", "Aflah, freed slave of Abu Ayyub", "Sahih", "The Prophet ﷺ stayed in Abu Ayyub's house on the lower floor. Abu Ayyub said: we walk above the head of the Messenger of Allah ﷺ! He would not live above him, so the Prophet ﷺ moved upstairs.", "that we walk above the head of Allah"),
+      difficulty: 2,
+      questions: [
+        { q: "Where did the Prophet ﷺ stay when he came to Madinah?", a: "In Abu Ayyub's house", wrong: ["In a tent", "In Umar's house", "In the market"], why: "He alighted in the house of Abu Ayyub." },
+        { q: "Why was Abu Ayyub upset?", a: "He was walking above the Prophet ﷺ", wrong: ["The house was small", "It was too hot", "He had no food"], why: "We walk above the head of the Messenger of Allah ﷺ." },
+        { q: "In the end, the Prophet ﷺ moved upstairs.", tf: true, why: "Abu Ayyub would not live above him." }
+      ]
+    },
+    {
+      slug: "the-garlic",
+      title: "What he did not like",
+      line: "Garlic was left uneaten, so Abu Ayyub disliked it too.",
+      facts: ["The Prophet ﷺ sent his leftover food to Abu Ayyub.", "One day he had not eaten it, as it had garlic.", "Garlic was not forbidden; he disliked its smell."],
+      source: hadith("muslim", "2053a", "Abu Ayyub al-Ansari", "Sahih", "The Prophet ﷺ sent me his leftovers, and one day he had not eaten from it because of garlic. I asked: is it forbidden? He said: no, but I dislike its smell. I said: then I dislike what you dislike.", "Then I also do not like what you do not like"),
+      difficulty: 3,
+      questions: [
+        { q: "Why did the Prophet ﷺ not eat the food?", a: "It had garlic", wrong: ["It was cold", "It was too salty", "It was old"], why: "It included garlic." },
+        { q: "Is garlic forbidden?", a: "No", wrong: ["Yes", "Only on Fridays", "Only in Ramadan"], why: "He said: no, but I dislike its smell." },
+        { q: "What did Abu Ayyub say?", a: "I dislike what you dislike", wrong: ["I will eat it all", "Give it away", "Throw it out"], why: "Then I also do not like what you do not like." }
+      ]
+    },
+    {
+      slug: "qiblah-respect",
+      title: "Respect for the qiblah",
+      line: "Abu Ayyub taught not to face the qiblah in the toilet.",
+      facts: ["The Prophet ﷺ said: do not face or turn your back to the qiblah when relieving yourself.", "In Sham, some toilets faced the qiblah.", "Abu Ayyub turned away and asked Allah's forgiveness."],
+      source: hadith("bukhari", "394", "Abu Ayyub al-Ansari", "Sahih", "The Prophet ﷺ said: when relieving yourself, do not face the qiblah or turn your back to it. Abu Ayyub said: in Sham we found toilets facing the qiblah, so we turned aside and asked Allah's forgiveness.", "we turned ourselves while using them and asked for Allah"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the Prophet ﷺ teach about the toilet?", a: "Do not face the qiblah", wrong: ["Face the qiblah", "Pray there", "Recite Quran there"], why: "Neither face nor turn your back to the qiblah." },
+        { q: "What did Abu Ayyub do in Sham?", a: "Turned aside and asked forgiveness", wrong: ["Ignored it", "Broke the toilets", "Left Sham"], why: "We turned ourselves and asked for Allah's forgiveness." },
+        { q: "Abu Ayyub respected the qiblah even far from Madinah.", tf: true, why: "He turned aside in Sham." }
+      ]
+    },
+    {
+      slug: "three-nights",
+      title: "Not more than three nights",
+      line: "Abu Ayyub taught: do not cut off a brother over three nights.",
+      facts: ["It is not allowed to cut off a Muslim brother over three nights.", "Two people meet and each turns away.", "The better one is the one who says salam first."],
+      source: hadith("bukhari", "6077", "Abu Ayyub al-Ansari", "Sahih", "The Prophet ﷺ said: it is not lawful to cut off a brother for more than three nights, each turning away when they meet; the better of the two is the one who greets first.", "the better of the two will be the one who greets the other first"),
+      difficulty: 3,
+      questions: [
+        { q: "How long at most can you stay cut off from a Muslim?", a: "Three nights", wrong: ["One year", "Forty days", "Forever"], why: "Not more than three nights." },
+        { q: "Who is the better of the two?", a: "The one who greets first", wrong: ["The older one", "The richer one", "The louder one"], why: "The better is the one who greets the other first." },
+        { q: "Saying salam first is a good deed.", tf: true, why: "The one who greets first is better." }
+      ]
+    },
+    {
+      slug: "six-of-shawwal",
+      title: "Six days of Shawwal",
+      line: "Abu Ayyub taught the reward of six fasts in Shawwal.",
+      facts: ["Shawwal is the month after Ramadan.", "Fast Ramadan, then six days of Shawwal.", "It is like fasting the whole year."],
+      source: hadith("muslim", "1164", "Abu Ayyub al-Ansari", "Sahih", "The Prophet ﷺ said: whoever fasts Ramadan and follows it with six days of Shawwal, it is as if he fasted for all time.", "followed it with six"),
+      difficulty: 2,
+      questions: [
+        { q: "How many days of Shawwal are in the hadith?", a: "Six", wrong: ["Ten", "Three", "Thirty"], why: "Six fasts of Shawwal." },
+        { q: "What is the reward like?", a: "Fasting all the time", wrong: ["One day", "One week", "Nothing"], why: "As if he fasted perpetually." },
+        { q: "Shawwal comes right after Ramadan.", tf: true, why: "Shawwal is the month after Ramadan." }
+      ]
+    },
+    {
+      slug: "constantinople",
+      title: "Striving to the end",
+      line: "Abu Ayyub kept striving and was buried at Constantinople.",
+      facts: ["In old age he went with the army to Constantinople.", "He explained 2:195: ruin is leaving the effort for wealth.", "He kept striving until he was buried there."],
+      quote: quranQuote(2, 195),
+      source: hadith("abudawud", "2512", "Abu Ayyub", "Sahih", "At Constantinople, Abu Ayyub said 2:195 came about the Ansar: when Islam grew strong, they thought to stay with their wealth. Ruin was leaving the effort. He kept striving in Allah's way until he was buried in Constantinople.", "AbuAyyub continued to strive in the cause of Allah until he (died and) was buried in Constantinople"),
+      difficulty: 5,
+      questions: [
+        { q: "Where was Abu Ayyub buried?", a: "Constantinople", wrong: ["Madinah", "Makkah", "Kufa"], why: "He was buried in Constantinople." },
+        { q: "What did he say ruin meant in 2:195?", a: "Leaving the effort for wealth", wrong: ["Fighting bravely", "Giving charity", "Praying at night"], why: "Staying with wealth and leaving the effort." },
+        { q: "Abu Ayyub stopped striving when he grew old.", tf: false, why: "He continued until he died there." }
+      ]
+    }
+  ]
+};
+
+const IBN_RAWAHAH: DeepUnit = {
+  key: "ibn-rawahah",
+  topicId: "sahabah",
+  branchId: "sahabi-abdullah-ibn-rawahah",
+  branch: { title: "Abdullah ibn Rawahah", description: "The poet of the Prophet ﷺ, who fasted in the heat and fell at Mu'tah." },
+  name: "Abdullah ibn Rawahah",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "the-poet",
+      title: "A poet with clean words",
+      line: "The Prophet ﷺ praised Ibn Rawahah's clean poetry.",
+      facts: ["Ibn Rawahah was a poet of the Ansar.", "The Prophet ﷺ said: your brother does not say bad words.", "His poem praised the Prophet ﷺ reciting at night."],
+      source: hadith("bukhari", "1155", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: your brother Abdullah ibn Rawahah does not say obscene things. His poem: among us is the Messenger of Allah ﷺ, who recites His Book at dawn, and spends his nights with his side away from his bed.", "does not say obscene"),
+      difficulty: 2,
+      questions: [
+        { q: "What was Ibn Rawahah known for?", a: "Poetry", wrong: ["Trading", "Archery only", "Farming"], why: "He was a poet of the Ansar." },
+        { q: "What did the Prophet ﷺ say about his words?", a: "He does not say bad words", wrong: ["He talks too much", "He is too quiet", "He should stop"], why: "Your brother does not say obscene." },
+        { q: "His poem said the Prophet ﷺ prayed at night.", tf: true, why: "His sides do not touch his bed." }
+      ]
+    },
+    {
+      slug: "trench-verses",
+      title: "Verses at the Trench",
+      line: "At the Trench, the Prophet ﷺ sang Ibn Rawahah's verses.",
+      facts: ["The Prophet ﷺ carried earth while digging the Trench.", "He recited verses made by Ibn Rawahah.", "O Allah, without You we would not be guided."],
+      source: hadith("bukhari", "4106", "Al-Bara ibn Azib", "Sahih", "At the Trench I saw the Prophet ﷺ carrying earth and reciting the verses of Ibn Rawahah: O Allah, without You we would not have been guided, nor given charity, nor prayed; so send calm upon us.", "I heard him reciting the poetic verses composed by Ibn Rawaha"),
+      difficulty: 3,
+      questions: [
+        { q: "Whose verses did the Prophet ﷺ recite at the Trench?", a: "Ibn Rawahah's", wrong: ["Abu Jahl's", "A Roman poet's", "Nobody's"], why: "The poetic verses composed by Ibn Rawaha." },
+        { q: "What did the verses say?", a: "Without You we would not be guided", wrong: ["We are the strongest", "We will win by ourselves", "Let us go home"], why: "O Allah, without You we would not have been guided." },
+        { q: "The Prophet ﷺ carried earth with the companions.", tf: true, why: "I saw him carrying earth out of the trench." }
+      ]
+    },
+    {
+      slug: "fasting-in-heat",
+      title: "Fasting in the heat",
+      line: "On a burning day, only the Prophet ﷺ and Ibn Rawahah fasted.",
+      facts: ["It was a very hot day on a journey.", "People put their hands on their heads from the heat.", "Only the Prophet ﷺ and Ibn Rawahah were fasting."],
+      source: hadith("bukhari", "1945", "Abu Darda", "Sahih", "We set out with the Prophet ﷺ on a very hot day, so hot that one put his hand on his head. None of us was fasting except the Prophet ﷺ and Ibn Rawahah.", "None of us was fasting except the Prophet and Ibn Rawaha"),
+      difficulty: 3,
+      questions: [
+        { q: "Who was fasting on that hot day?", a: "The Prophet ﷺ and Ibn Rawahah", wrong: ["Everyone", "Nobody", "Only Abu Darda"], why: "None was fasting except the Prophet ﷺ and Ibn Rawahah." },
+        { q: "How hot was it?", a: "Very hot", wrong: ["Cold", "Rainy", "Snowy"], why: "One had to put his hand over his head." },
+        { q: "A traveler may choose not to fast.", tf: true, why: "The others on the journey were not fasting." }
+      ]
+    },
+    {
+      slug: "umrah-poetry",
+      title: "Poetry at the Umrah",
+      line: "At the Umrah of Qada, Ibn Rawahah recited before the Prophet ﷺ.",
+      facts: ["The Prophet ﷺ entered Makkah for Umrat al-Qada.", "Ibn Rawahah walked in front, reciting poetry.", "Umar objected; the Prophet ﷺ said: leave him."],
+      source: hadith("tirmidhi", "2847", "Anas ibn Malik", "Sahih", "The Prophet ﷺ entered Makkah at Umrat al-Qada with Ibn Rawahah walking ahead reciting poetry. Umar objected, and the Prophet ﷺ said: leave him, O Umar, for it hits them faster than arrows.", "For it is quicker upon them than the raining arrow"),
+      difficulty: 4,
+      questions: [
+        { q: "Who walked in front of the Prophet ﷺ into Makkah?", a: "Ibn Rawahah", wrong: ["Abu Lahab", "Wahshi", "Abu Sufyan"], why: "Abdullah ibn Rawahah was walking in front of him." },
+        { q: "Who objected to the poetry?", a: "Umar", wrong: ["Ali", "Bilal", "Anas"], why: "Umar said: in the sanctuary you utter poetry?" },
+        { q: "What did the Prophet ﷺ say?", a: "Leave him", wrong: ["Stop him", "Send him home", "Take his sword"], why: "Leave him, O Umar." }
+      ]
+    },
+    {
+      slug: "are-you-so",
+      title: "Are you really so?",
+      line: "Ibn Rawahah feared praise he did not deserve.",
+      facts: ["He fainted, and his sister cried out his good qualities.", "When he woke he said: I was asked, are you really so?", "So she did not wail at his death."],
+      source: hadith("bukhari", "4267", "An-Nu'man ibn Bashir", "Sahih", "Abdullah ibn Rawahah fainted and his sister cried, listing his good qualities. When he woke he said: every time you said something, I was asked: are you really so?", "Are you really so"),
+      difficulty: 4,
+      questions: [
+        { q: "What did his sister do when he fainted?", a: "Cried out his good qualities", wrong: ["Laughed", "Ran away", "Sang"], why: "She went on calling him by his good qualities." },
+        { q: "What was he asked each time?", a: "Are you really so?", wrong: ["Are you hungry?", "Where are you?", "Who is she?"], why: "I was asked: are you really so?" },
+        { q: "Ibn Rawahah liked being praised loudly.", tf: false, why: "He warned his sister against it." }
+      ]
+    },
+    {
+      slug: "third-commander",
+      title: "The third commander",
+      line: "At Mu'tah, Ibn Rawahah took the flag third and was martyred.",
+      facts: ["The Prophet ﷺ named three leaders for Mu'tah.", "Zayd first, then Ja'far, then Abdullah ibn Rawahah.", "All three were martyred, one after the other."],
+      source: hadith("bukhari", "4261", "Abdullah ibn Umar", "Sahih", "The Prophet ﷺ made Zayd commander at Mu'tah and said: if Zayd is killed, Ja'far; and if Ja'far is killed, Abdullah ibn Rawahah.", "Abdullah bin Rawaha should take over his position"),
+      difficulty: 3,
+      questions: [
+        { q: "Which leader was Ibn Rawahah at Mu'tah?", a: "The third", wrong: ["The first", "The second", "He stayed home"], why: "If Ja'far is martyred, Abdullah ibn Rawahah takes over." },
+        { q: "Who led before Ibn Rawahah?", a: "Zayd and Ja'far", wrong: ["Abu Bakr and Umar", "Khalid and Amr", "Ali and Hamzah"], why: "Zayd first, then Ja'far." },
+        { q: "All three leaders at Mu'tah were martyred.", tf: true, why: "Each took the flag and was martyred." }
+      ]
+    }
+  ]
+};
+
+const KHABBAB: DeepUnit = {
+  key: "khabbab",
+  topicId: "sahabah",
+  branchId: "sahabi-khabbab-ibn-al-aratt",
+  branch: { title: "Khabbab ibn al-Aratt", description: "The blacksmith who stayed firm under torture in Makkah, and feared the riches that came later." },
+  name: "Khabbab ibn al-Aratt",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "the-blacksmith",
+      title: "The blacksmith's debt",
+      line: "Khabbab the blacksmith refused to leave Islam for his money.",
+      facts: ["Khabbab was a blacksmith in Makkah.", "Al-As ibn Wail owed him money and said: leave Islam first.", "Khabbab refused, and Allah revealed 19:77 about Al-As."],
+      quote: quranQuote(19, 77),
+      source: hadith("bukhari", "2091", "Khabbab ibn al-Aratt", "Sahih", "I was a blacksmith, and Al-As ibn Wail owed me money. He said: I will not pay you unless you disbelieve in Muhammad ﷺ. I refused. Then the ayah came: have you seen the one who disbelieved in Our signs and said: I will surely be given wealth and children?", "I was a blacksmith in the Pre-Islamic period"),
+      difficulty: 2,
+      questions: [
+        { q: "What was Khabbab's job?", a: "Blacksmith", wrong: ["Farmer", "Sailor", "Shepherd"], why: "I was a blacksmith." },
+        { q: "What did Al-As want before paying?", a: "That Khabbab leave Islam", wrong: ["More time", "A new sword", "A camel"], why: "I will not pay you unless you disbelieve in Muhammad ﷺ." },
+        { q: "Khabbab gave up Islam to get his money.", tf: false, why: "He refused." }
+      ]
+    },
+    {
+      slug: "in-the-shade",
+      title: "Patience by the Kaaba",
+      line: "Khabbab asked for help, and was taught patience and hope.",
+      facts: ["The Muslims suffered greatly in Makkah.", "Khabbab asked the Prophet ﷺ to make dua for help.", "He was told: earlier believers bore worse, and Islam will be complete."],
+      source: hadith("bukhari", "3852", "Khabbab ibn al-Aratt", "Sahih", "We were suffering from the pagans and I asked the Prophet ﷺ in the shade of the Kaaba to pray for us. He said believers before were combed with iron combs and did not leave their faith, and Allah will complete this religion until a rider travels from Sana to Hadramawt fearing none but Allah.", "Allah will surely complete this religion"),
+      difficulty: 3,
+      questions: [
+        { q: "Where was the Prophet ﷺ when Khabbab came?", a: "In the shade of the Kaaba", wrong: ["In Madinah", "In a cave", "In the market"], why: "He was leaning in the shade of the Kaaba." },
+        { q: "What did the Prophet ﷺ promise?", a: "Allah will complete this religion", wrong: ["They will get rich", "The pain will stop that day", "They must leave Islam"], why: "Allah will surely complete this religion." },
+        { q: "Earlier believers also suffered for their faith.", tf: true, why: "They were combed with iron combs and stayed firm." }
+      ]
+    },
+    {
+      slug: "beard-moving",
+      title: "Watching the Prophet ﷺ pray",
+      line: "Khabbab knew the Prophet ﷺ recited in Dhuhr by his beard moving.",
+      facts: ["Dhuhr and Asr are recited silently.", "Khabbab was asked how he knew the Prophet ﷺ recited in them.", "He said: by the movement of his beard."],
+      source: hadith("bukhari", "746", "Abu Ma'mar", "Sahih", "We asked Khabbab whether the Prophet ﷺ recited in Dhuhr and Asr. He said yes. We asked how he knew, and he said: by the movement of his beard.", "By the movement of his beard"),
+      difficulty: 3,
+      questions: [
+        { q: "How did Khabbab know the Prophet ﷺ recited in Dhuhr?", a: "His beard moved", wrong: ["He heard it loudly", "Someone told him", "He guessed"], why: "By the movement of his beard." },
+        { q: "Which prayers are recited silently?", a: "Dhuhr and Asr", wrong: ["Fajr and Maghrib", "Isha only", "Eid"], why: "He was asked about Dhuhr and Asr." },
+        { q: "The Prophet ﷺ recited in Dhuhr and Asr.", tf: true, why: "Khabbab replied in the affirmative." }
+      ]
+    },
+    {
+      slug: "musabs-cloak",
+      title: "Mus'ab's short cloak",
+      line: "Khabbab remembered Mus'ab, buried in one short cloak.",
+      facts: ["Mus'ab ibn Umayr was martyred at Uhud.", "His cloak covered either his head or his feet.", "They covered his head and put grass on his feet."],
+      source: hadith("bukhari", "3897", "Abu Wa'il", "Sahih", "Khabbab said: some of us died without taking any reward in this world; one was Mus'ab ibn Umayr, martyred at Uhud, leaving only a cloak. Covering his head left his feet bare, so the Prophet ﷺ told us to cover his head and put idhkhir grass on his feet.", "who was martyred on the day (of the battle) of Uhud leaving a striped woolen cloak"),
+      difficulty: 3,
+      questions: [
+        { q: "Who did Khabbab remember?", a: "Mus'ab ibn Umayr", wrong: ["Abu Jahl", "Abu Lahab", "Abu Sufyan"], why: "One of them was Mus'ab ibn Umayr." },
+        { q: "What did they put on Mus'ab's feet?", a: "Grass", wrong: ["Gold", "Silk", "Nothing"], why: "Idhkhir grass on his feet." },
+        { q: "Mus'ab left behind great riches.", tf: false, why: "He left only a woolen cloak." }
+      ]
+    },
+    {
+      slug: "fearing-riches",
+      title: "Afraid of riches",
+      line: "When rich and sick, Khabbab feared the world's wealth.",
+      facts: ["Khabbab was very sick, with seven burn treatments.", "He said: our friends left without enjoying this world.", "He would have wished for death, but the Prophet ﷺ forbade it."],
+      source: hadith("bukhari", "5672", "Qays ibn Abi Hazim", "Sahih", "We visited Khabbab, who had been cauterized seven times. He said: our companions who died left without their reward being reduced by this world, but we have so much wealth. Had the Prophet ﷺ not forbidden us to wish for death, I would have wished for it.", "Had the Prophet not forbidden us to wish for death, I would have wished for it"),
+      difficulty: 4,
+      questions: [
+        { q: "What did the Prophet ﷺ forbid?", a: "Wishing for death", wrong: ["Visiting the sick", "Building houses", "Eating dates"], why: "The Prophet ﷺ forbade us to wish for death." },
+        { q: "Why was Khabbab worried?", a: "He had much wealth", wrong: ["He was poor", "He was lost", "He had no friends"], why: "We have got so much wealth." },
+        { q: "A Muslim should not wish for death.", tf: true, why: "The Prophet ﷺ forbade wishing for death." }
+      ]
+    }
+  ]
+};
+
+const ABU_SAID: DeepUnit = {
+  key: "abu-said",
+  topicId: "sahabah",
+  branchId: "sahabi-abu-said-al-khudri",
+  branch: { title: "Abu Sa'id al-Khudri", description: "The young Ansari who learned and passed on a great amount of the Sunnah." },
+  name: "Abu Sa'id al-Khudri",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "a-day-for-women",
+      title: "A day for the women",
+      line: "Abu Sa'id told how women asked for their own lesson day.",
+      facts: ["The men took most of the Prophet's ﷺ time.", "The women asked for a day of their own.", "He gave them a day to teach them."],
+      source: hadith("bukhari", "101", "Abu Sa'id al-Khudri", "Sahih", "Some women asked the Prophet ﷺ to fix a day for them, as the men took all his time. He promised them a day for lessons and commands.", "Some women requested the Prophet"),
+      difficulty: 2,
+      questions: [
+        { q: "What did the women ask for?", a: "A day of lessons for them", wrong: ["A new masjid", "Gold", "A journey"], why: "They asked him to fix a day for them." },
+        { q: "Did the Prophet ﷺ agree?", a: "Yes, he gave them a day", wrong: ["No", "Only once a year", "He sent them away"], why: "He promised them one day for religious lessons." },
+        { q: "Women in the Prophet's ﷺ time learned the religion.", tf: true, why: "He gave them a day for lessons." }
+      ]
+    },
+    {
+      slug: "fatihah-ruqyah",
+      title: "Al-Fatihah as a cure",
+      line: "Companions cured a stung chief by reciting Al-Fatihah.",
+      facts: ["A tribe refused the companions as guests.", "Their chief was stung, and one companion recited Al-Fatihah over him.", "He got up healed, and the Prophet ﷺ said: you did right."],
+      quote: quranQuote(1, 2),
+      source: hadith("bukhari", "2276", "Abu Sa'id al-Khudri", "Sahih", "A tribe refused the companions hospitality; then their chief was stung. One companion recited Al-Fatihah and blew over him, and he got up as if freed from a chain. The Prophet ﷺ said: how did you know it is a ruqyah? You did right.", "How did you come to know that Surat-ul-Fatiha was recited as Ruqya"),
+      difficulty: 3,
+      questions: [
+        { q: "Which surah did the companion recite?", a: "Al-Fatihah", wrong: ["Al-Baqarah", "Yasin", "Al-Kahf"], why: "One of them recited Surat-ul-Fatiha." },
+        { q: "What happened to the chief?", a: "He got up healed", wrong: ["He got worse", "He ran away", "Nothing"], why: "He got up as if released from a chain." },
+        { q: "The Prophet ﷺ said they did right.", tf: true, why: "You have done the right thing." }
+      ]
+    },
+    {
+      slug: "mud-and-water",
+      title: "Mud on his forehead",
+      line: "Abu Sa'id saw mud on the Prophet's ﷺ forehead on Laylat al-Qadr.",
+      facts: ["The Prophet ﷺ saw himself prostrating in mud and water.", "He said: seek Laylat al-Qadr in the odd last ten nights.", "That night it rained and the masjid roof leaked."],
+      source: hadith("bukhari", "2027", "Abu Sa'id al-Khudri", "Sahih", "The Prophet ﷺ said: I saw myself prostrating in mud and water on the morning of that night, so seek it in the odd nights of the last ten. It rained that night, the roof leaked, and I saw mud on his forehead on the morning of the twenty-first.", "I saw myself prostrating in mud and water"),
+      difficulty: 4,
+      questions: [
+        { q: "When should we seek Laylat al-Qadr?", a: "Odd nights of the last ten", wrong: ["The first night", "Any day in Shawwal", "Only the 15th"], why: "Look for it in the last ten nights and the odd ones." },
+        { q: "What did the Prophet ﷺ see himself doing?", a: "Prostrating in mud and water", wrong: ["Riding a camel", "Climbing a mountain", "Swimming"], why: "I saw myself prostrating in mud and water." },
+        { q: "Rain fell on that night of Laylat al-Qadr.", tf: true, why: "It rained that night and the roof dribbled." }
+      ]
+    },
+    {
+      slug: "a-third",
+      title: "A third of the Quran",
+      line: "Abu Sa'id taught that Al-Ikhlas equals a third of the Quran.",
+      facts: ["A man kept reciting Qul huwa Allahu ahad.", "Another thought that was too little.", "The Prophet ﷺ said: it equals a third of the Quran."],
+      quote: quranQuote(112, 1),
+      source: hadith("bukhari", "5013", "Abu Sa'id al-Khudri", "Sahih", "A man heard another reciting Say: He is Allah, One, again and again, and thought it was little. The Prophet ﷺ said: by Him in Whose hand is my soul, it equals a third of the Quran.", "this Surah is equal to one-third of the Qur"),
+      difficulty: 2,
+      questions: [
+        { q: "Which surah equals a third of the Quran?", a: "Al-Ikhlas", wrong: ["Al-Fatihah", "An-Nas", "Al-Kawthar"], why: "This surah is equal to one-third of the Quran." },
+        { q: "How does Al-Ikhlas begin?", a: "Say: He is Allah, One", wrong: ["In the name of Allah", "Read!", "By the dawn"], why: "Say He is Allah, (the) One, 112:1." },
+        { q: "The man thought reciting it was not enough.", tf: true, why: "He thought that it was not enough to recite." }
+      ]
+    },
+    {
+      slug: "my-companions",
+      title: "Do not curse my companions",
+      line: "Abu Sa'id narrated: do not curse my companions.",
+      facts: ["The Prophet ﷺ said: do not abuse my companions.", "Gold like Mount Uhud from you would not equal their handful.", "This shows the high rank of the Sahabah."],
+      source: hadith("bukhari", "3673", "Abu Sa'id al-Khudri", "Sahih", "The Prophet ﷺ said: do not abuse my companions; if one of you spent gold like Uhud, it would not equal a mudd of theirs, or even half of it.", "Do not abuse my companions"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the Prophet ﷺ forbid about his companions?", a: "Abusing them", wrong: ["Learning from them", "Loving them", "Following them"], why: "Do not abuse my companions." },
+        { q: "What would gold like Uhud not equal?", a: "A handful of theirs", wrong: ["A palace", "A big army", "A city"], why: "It would not equal a mudd or half a mudd of theirs." },
+        { q: "The Sahabah have a very high rank.", tf: true, why: "Their small charity outweighs a mountain of ours." }
+      ]
+    },
+    {
+      slug: "changing-evil",
+      title: "Change it with your hand",
+      line: "Abu Sa'id taught: change wrong with hand, tongue or heart.",
+      facts: ["A man spoke up when a governor put the Eid khutbah first.", "Abu Sa'id said: he has done his duty.", "Change wrong with your hand, then tongue, then heart."],
+      source: hadith("muslim", "49a", "Abu Sa'id al-Khudri", "Sahih", "When the khutbah was put before the Eid prayer, a man objected. Abu Sa'id said: he has done his duty; I heard the Prophet ﷺ say: whoever sees a wrong, let him change it with his hand, if not then with his tongue, if not then hate it in his heart, and that is the weakest faith.", "He who amongst you sees something abominable should modify it with the help of his hand"),
+      difficulty: 4,
+      questions: [
+        { q: "What is the first way to change a wrong?", a: "With your hand", wrong: ["With your heart", "By ignoring it", "By shouting"], why: "Modify it with the help of his hand." },
+        { q: "What is the weakest level of faith?", a: "Hating it in your heart", wrong: ["Changing it by hand", "Speaking up", "Doing nothing"], why: "That is the least of faith." },
+        { q: "Who said the man had done his duty?", a: "Abu Sa'id", wrong: ["Marwan", "Abu Jahl", "Wahshi"], why: "Abu Sa'id remarked: he has performed his duty." }
+      ]
+    }
+  ]
+};
+
+const UTHMAN_MAZUN: DeepUnit = {
+  key: "uthman-mazun",
+  topicId: "sahabah",
+  branchId: "sahabi-uthman-ibn-mazun",
+  branch: { title: "Uthman ibn Maz'un", description: "An early emigrant devoted to worship, whose good deeds flowed like a spring." },
+  name: "Uthman ibn Maz'un",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "balance",
+      title: "No giving up marriage",
+      line: "The Prophet ﷺ told Uthman ibn Maz'un not to give up marriage.",
+      facts: ["Uthman ibn Maz'un wanted to give up marriage for worship.", "The Prophet ﷺ did not allow it.", "Islam asks for balance, not leaving the world."],
+      source: hadith("bukhari", "5073", "Sa'd ibn Abi Waqqas", "Sahih", "The Prophet ﷺ forbade Uthman ibn Maz'un from giving up marriage; had he allowed him, others would have done the same.", "to abstain from marrying"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Uthman ibn Maz'un want to give up?", a: "Marriage", wrong: ["Prayer", "Fasting", "Charity"], why: "He wished to abstain from marrying." },
+        { q: "Did the Prophet ﷺ allow it?", a: "No", wrong: ["Yes", "Only for a year", "Only in Makkah"], why: "He forbade Uthman ibn Maz'un." },
+        { q: "Islam teaches balance in worship and life.", tf: true, why: "He was not allowed to leave marriage." }
+      ]
+    },
+    {
+      slug: "drawn-by-lot",
+      title: "A home with the Ansar",
+      line: "Uthman ibn Maz'un was given a home by lot with the Ansar.",
+      facts: ["In Madinah, the Ansar drew lots to host the emigrants.", "Uthman came to the house of Umm al-Ala.", "She nursed him when he fell ill."],
+      source: hadith("bukhari", "3929", "Umm al-Ala", "Sahih", "The Ansar drew lots for where the emigrants would live, and Uthman ibn Maz'un came to us. He fell ill and I nursed him until he died.", "the Ansar drew lots concerning the dwelling of the Emigrants"),
+      difficulty: 2,
+      questions: [
+        { q: "How did the Ansar share out the emigrants?", a: "By drawing lots", wrong: ["By a race", "By money", "By age"], why: "The Ansar drew lots for the emigrants." },
+        { q: "Whose house did Uthman live in?", a: "Umm al-Ala's", wrong: ["Abu Jahl's", "Caesar's", "Abu Lahab's"], why: "Uthman was decided to dwell with them." },
+        { q: "Umm al-Ala nursed him when he was ill.", tf: true, why: "I nursed him till he died." }
+      ]
+    },
+    {
+      slug: "how-do-you-know",
+      title: "How do you know?",
+      line: "At his death, the Prophet ﷺ taught: only Allah knows our end.",
+      facts: ["Umm al-Ala said: I testify that Allah has honored you.", "The Prophet ﷺ asked: how do you know?", "He said: I wish him good, but only Allah knows."],
+      source: hadith("bukhari", "1243", "Umm al-Ala", "Sahih", "When Uthman ibn Maz'un died, I said: I testify that Allah has honored you. The Prophet ﷺ said: how do you know Allah has honored him? I wish him good, but by Allah, I do not know what Allah will do, though I am His Messenger.", "How do you know that Allah has honored him"),
+      difficulty: 4,
+      questions: [
+        { q: "What did the Prophet ﷺ ask Umm al-Ala?", a: "How do you know?", wrong: ["Where is he?", "Who washed him?", "Why cry?"], why: "How do you know that Allah has honored him?" },
+        { q: "What does this teach us?", a: "Only Allah knows a person's end", wrong: ["We can be sure of Paradise", "Do not pray for the dead", "Never speak at funerals"], why: "I do not know what Allah will do." },
+        { q: "Umm al-Ala later stopped declaring people righteous.", tf: true, why: "She said she would never attest anyone's righteousness after that." }
+      ]
+    },
+    {
+      slug: "flowing-spring",
+      title: "A flowing spring",
+      line: "Umm al-Ala dreamt of a flowing spring for Uthman ibn Maz'un.",
+      facts: ["After his death, Umm al-Ala saw a dream.", "She saw a spring flowing for Uthman.", "The Prophet ﷺ said: it is his good deeds, still flowing."],
+      source: hadith("bukhari", "7018", "Umm al-Ala", "Sahih", "Later I saw in a dream a flowing spring for Uthman. I told the Prophet ﷺ and he said: that is his good deeds, still going on for him.", "That is (the symbol of) his good deeds"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Umm al-Ala see in her dream?", a: "A flowing spring", wrong: ["A tall tree", "A palace", "A ship"], why: "I saw in a dream a flowing spring for Uthman." },
+        { q: "What did the spring stand for?", a: "His good deeds", wrong: ["His wealth", "His house", "His camels"], why: "That is his good deeds." },
+        { q: "Good deeds can keep giving reward after death.", tf: true, why: "Their reward is going on for him." }
+      ]
+    }
+  ]
+};
+
+const ABU_DARDA: DeepUnit = {
+  key: "abu-darda",
+  topicId: "sahabah",
+  branchId: "sahabi-abu-ad-darda",
+  branch: { title: "Abu ad-Darda", description: "The Ansari who gathered the Quran and taught it in Damascus." },
+  name: "Abu ad-Darda",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "four-who-gathered",
+      title: "One of four",
+      line: "Abu ad-Darda was one of four who gathered the whole Quran.",
+      facts: ["Anas named four Ansar who had gathered the Quran.", "They were Abu ad-Darda, Mu'adh, Zayd ibn Thabit and Abu Zayd.", "He knew the whole Quran in the Prophet's ﷺ lifetime."],
+      source: hadith("bukhari", "5004", "Anas ibn Malik", "Sahih", "When the Prophet ﷺ died, none had collected the Quran but four: Abu ad-Darda, Mu'adh ibn Jabal, Zayd ibn Thabit and Abu Zayd.", "none had collected the Qur"),
+      difficulty: 2,
+      questions: [
+        { q: "What had Abu ad-Darda gathered?", a: "The whole Quran", wrong: ["Gold coins", "An army", "Camels"], why: "None had collected the Quran but four." },
+        { q: "Who else was among the four?", a: "Mu'adh ibn Jabal", wrong: ["Abu Jahl", "Abu Lahab", "Musaylimah"], why: "Mu'adh, Zayd ibn Thabit and Abu Zayd were the others." },
+        { q: "Anas named four men who had gathered the Quran.", tf: true, why: "None had collected the Quran but four persons." }
+      ]
+    },
+    {
+      slug: "three-things",
+      title: "Three things he never left",
+      line: "Abu ad-Darda kept three things his Friend ﷺ taught him.",
+      facts: ["Fast three days every month.", "Pray the forenoon prayer, called Duha.", "Do not sleep before praying Witr."],
+      source: hadith("muslim", "722", "Abu Darda", "Sahih", "My Friend ﷺ told me to do three things I will never leave as long as I live: three fasts each month, the forenoon prayer, and not to sleep until I pray Witr.", "instructed me in three"),
+      difficulty: 3,
+      questions: [
+        { q: "How many fasts each month did he keep?", a: "Three", wrong: ["One", "Ten", "Twenty"], why: "Three fasts during every month." },
+        { q: "Which prayer did he pray before sleeping?", a: "Witr", wrong: ["Duha", "Eid", "Jumu'ah"], why: "I should not sleep till I have observed the Witr prayer." },
+        { q: "Who did Abu ad-Darda call my Friend?", a: "The Prophet ﷺ", wrong: ["Salman", "Mu'awiyah", "Alqamah"], why: "My Friend ﷺ instructed me in three acts." }
+      ]
+    },
+    {
+      slug: "heaviest-on-the-scale",
+      title: "Heaviest on the Scale",
+      line: "Abu ad-Darda taught: good character is heaviest on the Scale.",
+      facts: ["On the Day of Judgment, deeds are weighed.", "Nothing weighs more than good character.", "Allah dislikes the rude, foul-mouthed person."],
+      source: hadith("tirmidhi", "2002", "Abu Darda", "Sahih (Al-Albani)", "Nothing is heavier on the believer's Scale on the Day of Judgment than good character, and Allah is angered by the shameless, obscene person.", "Nothing is heavier on the believer"),
+      difficulty: 2,
+      questions: [
+        { q: "What is heaviest on the believer's Scale?", a: "Good character", wrong: ["Gold", "A big house", "Fame"], why: "Nothing is heavier than good character." },
+        { q: "Whom does Allah dislike?", a: "The rude, foul-mouthed person", wrong: ["The kind person", "The patient person", "The shy person"], why: "Allah is angered by the shameless obscene person." },
+        { q: "Good manners count on the Day of Judgment.", tf: true, why: "They are weighed on the Scale." }
+      ]
+    },
+    {
+      slug: "path-to-knowledge",
+      title: "A journey for one hadith",
+      line: "A man came to Damascus just to hear one hadith from him.",
+      facts: ["Abu ad-Darda lived in Damascus.", "A man came all the way from Madinah only for a hadith.", "Seeking knowledge makes the road to Paradise easy."],
+      source: hadith("tirmidhi", "2682", "Abu Darda", "Sahih (Al-Albani)", "A man came from Madinah to Abu ad-Darda in Damascus only to hear a hadith. He said: I heard the Prophet ﷺ say: whoever takes a path seeking knowledge, Allah makes a path to Paradise easy for him, and the angels lower their wings for the seeker of knowledge.", "Allah makes a path to Paradise easy for him"),
+      difficulty: 3,
+      questions: [
+        { q: "Why did the man travel to Damascus?", a: "To hear one hadith", wrong: ["To trade", "To fight", "To visit family"], why: "I did not come except seeking this hadith." },
+        { q: "What does Allah make easy for a seeker of knowledge?", a: "A path to Paradise", wrong: ["A path to riches", "A long life", "Many camels"], why: "Allah makes a path to Paradise easy for him." },
+        { q: "Angels lower their wings for the seeker of knowledge.", tf: true, why: "The angels lower their wings in approval." }
+      ]
+    },
+    {
+      slug: "no-cursing",
+      title: "Cursers cannot intercede",
+      line: "Abu ad-Darda warned: people who curse will not intercede.",
+      facts: ["Some people curse others easily.", "On Judgment Day they will not be witnesses.", "They will not intercede for anyone either."],
+      source: hadith("muslim", "2598c", "Abu Darda", "Sahih", "I heard the Prophet ﷺ say: those who curse will be neither witnesses nor intercessors on the Day of Resurrection.", "neither be witness nor intercessor"),
+      difficulty: 3,
+      questions: [
+        { q: "What will a curser not be on Judgment Day?", a: "A witness or intercessor", wrong: ["A guest", "A traveler", "A king"], why: "Neither witness nor intercessor." },
+        { q: "What should a Muslim do with his tongue?", a: "Keep it from cursing", wrong: ["Curse when angry", "Shout at people", "Mock others"], why: "Cursing costs a great honor on that Day." },
+        { q: "Cursing people is a small, harmless thing.", tf: false, why: "Cursers lose the honor of interceding." }
+      ]
+    },
+    {
+      slug: "prayer-remains",
+      title: "Only the prayer is left",
+      line: "In old age, Abu ad-Darda grieved that good habits were fading.",
+      facts: ["He came home angry near the end of his life.", "People had left many good habits of the early days.", "Only the prayer in congregation still remained."],
+      source: hadith("bukhari", "650", "Umm ad-Darda", "Sahih", "Abu ad-Darda came in angry and said: by Allah, I do not see the followers of Muhammad ﷺ keep the good they used to do, except praying in congregation.", "except the offering of congregational prayer"),
+      difficulty: 4,
+      questions: [
+        { q: "Why was Abu ad-Darda angry?", a: "People left their good habits", wrong: ["He lost money", "He was hungry", "Someone took his camel"], why: "I do not find them doing the good things they used to do." },
+        { q: "Which good deed did people still keep?", a: "Praying in congregation", wrong: ["Fasting every day", "Night travel", "Long trade trips"], why: "Except the offering of congregational prayer." },
+        { q: "Who told this story about Abu ad-Darda?", a: "His wife Umm ad-Darda", wrong: ["Abu Jahl", "Caesar", "Alqamah"], why: "Salim heard Umm ad-Darda saying it." }
+      ]
+    }
+  ]
+};
+
+const UBADAH: DeepUnit = {
+  key: "ubadah",
+  topicId: "sahabah",
+  branchId: "sahabi-ubadah-ibn-as-samit",
+  branch: { title: "Ubadah ibn as-Samit", description: "A leader of the Ansar at Aqabah who spoke the truth without fear." },
+  name: "Ubadah ibn as-Samit",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "aqabah-and-badr",
+      title: "From Aqabah to Badr",
+      line: "Ubadah pledged at Aqabah and later fought at Badr.",
+      facts: ["He was one of the Ansar at the night of Aqabah.", "He pledged to worship Allah alone and avoid sins.", "He then fought at Badr with the Prophet ﷺ."],
+      source: hadith("bukhari", "3892", "Ubadah ibn as-Samit", "Sahih", "Ubadah, who fought at Badr and was at the Aqabah pledge, said: the Prophet ﷺ said: pledge to me not to worship anything besides Allah, not to steal and not to disobey me in good. So I gave him the pledge.", "had taken part in the battle of Badr"),
+      difficulty: 2,
+      questions: [
+        { q: "Where did Ubadah give his first pledge?", a: "At Aqabah", wrong: ["At Tabuk", "In Taif", "In Sham"], why: "He was among the companions on the night of Aqabah." },
+        { q: "Which battle did Ubadah fight in?", a: "Badr", wrong: ["Qadisiyyah", "Yarmuk only", "None"], why: "He had taken part in the battle of Badr." },
+        { q: "The pledge said: worship nothing besides Allah.", tf: true, why: "You will not worship anything besides Allah." }
+      ]
+    },
+    {
+      slug: "speak-the-truth",
+      title: "No fear of blame",
+      line: "Ubadah pledged to say the truth and fear no one's blame.",
+      facts: ["They pledged to listen and obey, active or tired.", "They promised to say the truth wherever they were.", "For Allah, they would not fear anyone's blame."],
+      source: hadith("bukhari", "7199", "Ubadah ibn as-Samit", "Sahih", "We pledged to listen and obey when active and when tired, to say the truth wherever we were, and not to fear the blame of anyone for the sake of Allah.", "would not be afraid of the blame of the blamers"),
+      difficulty: 3,
+      questions: [
+        { q: "What did they promise to say wherever they were?", a: "The truth", wrong: ["Only nice things", "Nothing at all", "Poems"], why: "We would say the truth wherever we might be." },
+        { q: "What would they not fear for Allah's sake?", a: "People's blame", wrong: ["Allah", "The Day of Judgment", "Sins"], why: "We would not be afraid of the blame of the blamers." },
+        { q: "They pledged to obey only when they felt active.", tf: false, why: "Both when active and when tired." }
+      ]
+    },
+    {
+      slug: "quarrel-and-qadr",
+      title: "A quarrel and a lost date",
+      line: "Ubadah told how a quarrel hid the date of Laylat al-Qadr.",
+      facts: ["The Prophet ﷺ came out to tell the night's date.", "Two Muslims were quarreling, so the knowledge was taken.", "He said: that might be better; seek it on the 29th, 27th and 25th."],
+      source: hadith("bukhari", "2023", "Ubadah ibn as-Samit", "Sahih", "The Prophet ﷺ came to tell us the date of the Night of Qadr, but two Muslims were quarreling, so it was taken away. That might be for your own good, so seek it on the 29th, 27th and 25th.", "that might be for your own good"),
+      difficulty: 3,
+      questions: [
+        { q: "Why was the date of Laylat al-Qadr taken away?", a: "Two Muslims were quarreling", wrong: ["Rain fell", "The Quran ended", "A war began"], why: "Such-and-such persons were quarreling." },
+        { q: "Which nights did he say to search?", a: "The 29th, 27th and 25th", wrong: ["The 1st and 2nd", "Only the 15th", "Any night of Shawwal"], why: "Search for it on the 29th, 27th and 25th." },
+        { q: "Quarreling can take away blessings.", tf: true, why: "The news was taken away because of the quarrel." }
+      ]
+    },
+    {
+      slug: "ask-for-firdaus",
+      title: "Ask for Al-Firdaus",
+      line: "Ubadah narrated: Paradise has a hundred levels.",
+      facts: ["Between two levels is like heaven and earth.", "Al-Firdaus is the highest level.", "The four rivers of Paradise flow from it."],
+      source: hadith("tirmidhi", "2531", "Ubadah ibn as-Samit", "Sahih (Al-Albani)", "In Paradise there are a hundred levels; between every two is like between heaven and earth. Al-Firdaus is the highest, the four rivers flow from it, so when you ask Allah, ask Him for Al-Firdaus.", "ask Him for Al-Firdaus"),
+      difficulty: 2,
+      questions: [
+        { q: "How many levels does Paradise have?", a: "A hundred", wrong: ["Seven", "Ten", "Three"], why: "In Paradise there are a hundred levels." },
+        { q: "What is the highest level called?", a: "Al-Firdaus", wrong: ["Al-Kawthar", "As-Sirat", "Al-Bayt"], why: "Al-Firdaus is its highest level." },
+        { q: "What should we ask Allah for?", a: "Al-Firdaus", wrong: ["The lowest level", "Only this world", "Nothing"], why: "When you ask Allah, ask Him for Al-Firdaus." }
+      ]
+    },
+    {
+      slug: "good-dreams",
+      title: "A believer's good dream",
+      line: "Ubadah narrated that a believer's good dream has great worth.",
+      facts: ["Good dreams can come to a believer.", "They are one part of forty-six parts of prophethood.", "Prophethood ended, but good dreams remain."],
+      source: hadith("bukhari", "6987", "Ubadah ibn as-Samit", "Sahih", "The Prophet ﷺ said: the good dream of a believer is one of forty-six parts of prophethood.", "forty-six parts of prophetism"),
+      difficulty: 3,
+      questions: [
+        { q: "A good dream is one of how many parts?", a: "Forty-six", wrong: ["Ten", "Seven", "A hundred"], why: "A part of the forty-six parts of prophetism." },
+        { q: "Whose good dreams are meant?", a: "A believer's", wrong: ["Anyone's at all", "Only kings'", "Only children's"], why: "The good dreams of a faithful believer." },
+        { q: "Good dreams are a gift to believers.", tf: true, why: "They are a part of prophethood." }
+      ]
+    },
+    {
+      slug: "by-the-sea",
+      title: "A home by the sea",
+      line: "Ubadah later lived by the sea at Hims with Umm Haram.",
+      facts: ["His wife was Umm Haram bint Milhan.", "She heard about the first sea army of Muslims.", "The Prophet ﷺ told her: you are among them."],
+      source: hadith("bukhari", "2924", "Umm Haram", "Sahih", "Umair visited Ubadah ibn as-Samit at his house on the coast of Hims with his wife Umm Haram. She said she heard the Prophet ﷺ say: Paradise is granted to the first of my ummah who sail to fight in Allah's way. She asked: will I be among them? He said: you are among them.", "the first batch of my followers who will undertake a naval expedition"),
+      difficulty: 4,
+      questions: [
+        { q: "Where did Ubadah live in later years?", a: "By the sea at Hims", wrong: ["In Yemen", "In Makkah", "In Egypt"], why: "His house at the sea-shore of Hims." },
+        { q: "Who was Ubadah's wife?", a: "Umm Haram", wrong: ["Umm Salamah", "Umm Ayman", "Umm al-Ala"], why: "He stayed with his wife Um Haram." },
+        { q: "What was promised to the first sea army?", a: "Paradise", wrong: ["Gold", "Ships", "Land"], why: "Paradise is granted to the first batch." }
+      ]
+    },
+    {
+      slug: "last-hadith",
+      title: "Saved for his last day",
+      line: "Before dying, Ubadah shared a hadith he had kept back.",
+      facts: ["A student cried at his bedside.", "Ubadah said: I kept one hadith to tell you now.", "Whoever testifies to the Shahadah, Allah forbids him the Fire."],
+      source: hadith("muslim", "29", "Ubadah ibn as-Samit", "Sahih", "As-Sunabihi visited Ubadah at his death and wept. Ubadah said: I have told you all I heard that benefits you, except one hadith I tell you today: whoever testifies there is no god but Allah and Muhammad is His Messenger, Allah forbids the Fire for him.", "Allah would prohibit the fire of Hell for him"),
+      difficulty: 4,
+      questions: [
+        { q: "When did Ubadah share that hadith?", a: "At his deathbed", wrong: ["At Badr", "In Ramadan", "At a wedding"], why: "I am going to breathe my last." },
+        { q: "What does Allah forbid for one who says the Shahadah?", a: "The Fire", wrong: ["Food", "Sleep", "Travel"], why: "Allah would prohibit the fire of Hell for him." },
+        { q: "Who wept at Ubadah's bedside?", a: "As-Sunabihi", wrong: ["Abu Jahl", "Umm Haram", "Alqamah"], why: "Sunabihi went to him when he was about to die." }
+      ]
+    }
+  ]
+};
+
+const SAD_UBADAH: DeepUnit = {
+  key: "sad-ubadah",
+  topicId: "sahabah",
+  branchId: "sahabi-sad-ibn-ubadah",
+  branch: { title: "Sa'd ibn Ubadah", description: "The generous chief of the Khazraj, famous for his charity." },
+  name: "Sa'd ibn Ubadah",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "into-the-sea",
+      title: "Into the sea with you",
+      line: "Before Badr, Sa'd said: we would ride into the sea for you.",
+      facts: ["News came that Abu Sufyan's caravan was near.", "The Prophet ﷺ asked his companions for advice.", "Sa'd stood up for the Ansar and promised to follow."],
+      source: hadith("muslim", "1779", "Anas ibn Malik", "Sahih", "When news of Abu Sufyan came, the Prophet ﷺ asked for advice. Sa'd ibn Ubadah stood and said: you want us to speak? By Allah, if you order us to plunge our horses into the sea, we would do so. Then they set out and camped at Badr.", "plunge our horses into the sea, we would do so"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Sa'd say they would ride into?", a: "The sea", wrong: ["A fire", "A cave", "A desert storm"], why: "If you order us to plunge our horses into the sea, we would." },
+        { q: "Where did the Muslims camp after that?", a: "At Badr", wrong: ["At Tabuk", "At Hunayn", "At Khaybar"], why: "They set out and encamped at Badr." },
+        { q: "The Prophet ﷺ asked his companions for advice.", tf: true, why: "He held consultations with his Companions." }
+      ]
+    },
+    {
+      slug: "garden-for-mother",
+      title: "A garden for his mother",
+      line: "Sa'd gave his garden Al-Mikhraf as charity for his mother.",
+      facts: ["His mother died while he was away.", "He asked: will charity for her benefit her?", "The Prophet ﷺ said yes, so he gave his garden."],
+      source: hadith("bukhari", "2756", "Ibn Abbas", "Sahih", "Sa'd ibn Ubadah's mother died while he was away. He asked: will charity on her behalf benefit her? The Prophet ﷺ said yes. Sa'd said: I make you witness that my garden Al-Mikhraf is charity for her.", "I gave my garden called Al Makhraf in charity on her behalf"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Sa'd give for his mother?", a: "His garden", wrong: ["His sword", "His house", "His camel"], why: "I gave my garden called Al-Makhraf in charity." },
+        { q: "Does charity for a dead parent help them?", a: "Yes", wrong: ["No", "Only gold helps", "Only in Ramadan"], why: "The Prophet ﷺ said yes." },
+        { q: "Sa'd was with his mother when she died.", tf: false, why: "She died in his absence." }
+      ]
+    },
+    {
+      slug: "her-vow",
+      title: "Keeping her promise",
+      line: "Sa'd asked what to do about a vow his mother never kept.",
+      facts: ["His mother made a vow to Allah.", "She died before she could fulfil it.", "The Prophet ﷺ told Sa'd: fulfil it for her."],
+      source: hadith("bukhari", "6959", "Ibn Abbas", "Sahih", "Sa'd ibn Ubadah asked the Prophet ﷺ about a vow his mother made and died before keeping. He said: fulfil it on her behalf.", "Fulfill it on her behalf"),
+      difficulty: 3,
+      questions: [
+        { q: "What had his mother left unfinished?", a: "A vow", wrong: ["A journey", "A house", "A poem"], why: "A vow made by his mother who died before fulfilling it." },
+        { q: "What did the Prophet ﷺ tell Sa'd to do?", a: "Fulfil it for her", wrong: ["Forget it", "Pay a fine", "Wait a year"], why: "Fulfill it on her behalf." },
+        { q: "A child can help a parent after death.", tf: true, why: "He could fulfil her vow for her." }
+      ]
+    },
+    {
+      slug: "visiting-sad",
+      title: "Barefoot to visit him",
+      line: "The Prophet ﷺ and his companions walked barefoot to visit Sa'd.",
+      facts: ["The Prophet ﷺ asked: how is my brother Sa'd?", "He asked: who will visit him with me?", "Over ten went, without shoes, across rough ground."],
+      source: hadith("muslim", "925", "Abdullah ibn Umar", "Sahih", "The Prophet ﷺ asked an Ansari: how is my brother Sa'd ibn Ubadah? Then he said: who will visit him? He stood and more than ten of us went with him, without shoes or caps, across barren land until we reached him.", "Who amongst you would visit him"),
+      difficulty: 2,
+      questions: [
+        { q: "What did the Prophet ﷺ call Sa'd?", a: "My brother", wrong: ["My son", "My servant", "My guard"], why: "How is my brother Sa'd?" },
+        { q: "How many went with the Prophet ﷺ?", a: "More than ten", wrong: ["Two", "A hundred", "None"], why: "We were more than ten persons." },
+        { q: "Visiting the sick is a good Sunnah.", tf: true, why: "The Prophet ﷺ himself went to visit Sa'd." }
+      ]
+    },
+    {
+      slug: "tears-are-allowed",
+      title: "Tears are not a sin",
+      line: "At Sa'd's sickbed, the Prophet ﷺ wept and taught about tears.",
+      facts: ["Sa'd was very ill, with his family around him.", "The Prophet ﷺ wept, and the people wept too.", "He said: Allah does not punish for tears or a sad heart."],
+      source: hadith("bukhari", "1304", "Abdullah ibn Umar", "Sahih", "Sa'd ibn Ubadah fell ill and the Prophet ﷺ visited him with Abdur-Rahman ibn Awf, Sa'd ibn Abi Waqqas and Ibn Mas'ud. He wept and the people wept. He said: Allah does not punish for tears or for the grief of the heart, but for this, and he pointed to his tongue.", "Allah does not punish for shedding tears, nor for the grief of the heart"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the Prophet ﷺ do at Sa'd's bedside?", a: "He wept", wrong: ["He laughed", "He left", "He shouted"], why: "The Prophet ﷺ wept and the people wept." },
+        { q: "What does Allah not punish for?", a: "Tears and a sad heart", wrong: ["Lying", "Stealing", "Cursing"], why: "Allah does not punish for shedding tears." },
+        { q: "To what did he point as the real danger?", a: "His tongue", wrong: ["His eyes", "His hands", "His feet"], why: "He pointed to his tongue." }
+      ]
+    },
+    {
+      slug: "among-the-best",
+      title: "Among the best is enough",
+      line: "Sa'd learned that being among the best is enough.",
+      facts: ["The Prophet ﷺ ranked the best families of the Ansar.", "Sa'd's clan, Banu Sa'idah, came fourth.", "He was told: is being among the best not enough?"],
+      source: hadith("bukhari", "3791", "Abu Humayd as-Sa'idi", "Sahih", "The Prophet ﷺ named the best homes of the Ansar, with Banu Sa'idah after three others, and said: in all the homes of the Ansar there is good. Sa'd ibn Ubadah said: you made us last. He said: is it not enough that you are among the best?", "sufficient that you are regarded amongst the best"),
+      difficulty: 4,
+      questions: [
+        { q: "What was Sa'd's clan called?", a: "Banu Sa'idah", wrong: ["Banu Hashim", "Banu Umayyah", "Quraysh"], why: "Then that of Banu Saida." },
+        { q: "What did the Prophet ﷺ say about all Ansar homes?", a: "There is good in all of them", wrong: ["Some are bad", "Only one is good", "None is good"], why: "There is good in all the homes of the Ansar." },
+        { q: "Sa'd's clan was named among the best.", tf: true, why: "You are regarded amongst the best." }
+      ]
+    }
+  ]
+};
+
+const IBN_AMR: DeepUnit = {
+  key: "ibn-amr",
+  topicId: "sahabah",
+  branchId: "sahabi-abdullah-ibn-amr",
+  branch: { title: "Abdullah ibn Amr", description: "The young companion who wrote down hadith and loved worship." },
+  name: "Abdullah ibn Amr",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "write-it-down",
+      title: "Write it down",
+      line: "Abdullah ibn Amr wrote down what he heard from the Prophet ﷺ.",
+      facts: ["He wrote every word to memorise it.", "Some told him to stop, as people speak in anger too.", "The Prophet ﷺ said: write, only truth comes from me."],
+      source: hadith("abudawud", "3646", "Abdullah ibn Amr", "Sahih (Al-Albani)", "I used to write everything I heard from the Prophet ﷺ to memorise it. Quraysh told me to stop, saying he speaks in anger and pleasure. He pointed to his mouth and said: write, by Him in Whose hand is my soul, only truth comes out of it.", "only right comes out from it"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Abdullah ibn Amr do with hadith?", a: "He wrote them down", wrong: ["He hid them", "He sold them", "He forgot them"], why: "I used to write everything which I heard." },
+        { q: "What did the Prophet ﷺ tell him?", a: "Write", wrong: ["Stop writing", "Burn them", "Only listen"], why: "Write, only right comes out from it." },
+        { q: "The Prophet ﷺ only spoke the truth.", tf: true, why: "Only right comes out from it." }
+      ]
+    },
+    {
+      slug: "more-than-abu-hurairah",
+      title: "Even more than Abu Hurairah",
+      line: "Abu Hurairah said Abdullah ibn Amr had more hadith: he wrote.",
+      facts: ["Abu Hurairah narrated a great number of hadith.", "He said only Abdullah ibn Amr had more.", "Writing them down kept them safe."],
+      source: hadith("bukhari", "113", "Abu Hurairah", "Sahih", "None of the companions narrated more hadith than me except Abdullah ibn Amr, who used to write them, and I did not.", "who used to write them and I never did the same"),
+      difficulty: 3,
+      questions: [
+        { q: "Who said Abdullah ibn Amr had more hadith?", a: "Abu Hurairah", wrong: ["Abu Jahl", "Wahshi", "Caesar"], why: "There is none who narrated more than I except Abdullah ibn Amr." },
+        { q: "Why did Abdullah ibn Amr have more?", a: "He wrote them down", wrong: ["He was older", "He was a king", "He traveled less"], why: "He used to write them and I never did the same." },
+        { q: "Abu Hurairah also wrote his hadith down.", tf: false, why: "I never did the same." }
+      ]
+    },
+    {
+      slug: "seven-days",
+      title: "Not faster than seven days",
+      line: "He was told: never finish the Quran in under seven days.",
+      facts: ["He wanted to recite the whole Quran very often.", "The Prophet ﷺ first said: finish it in a month.", "He asked for more, and was told: not less than seven days."],
+      source: hadith("bukhari", "5054", "Abdullah ibn Amr", "Sahih", "The Prophet ﷺ said: recite the whole Quran in a month. I said: I can do more. He said: then finish it in seven days, and not in less than that.", "in seven days, and do not finish it in less than this period"),
+      difficulty: 3,
+      questions: [
+        { q: "What was the first advice for finishing the Quran?", a: "Once a month", wrong: ["Once a year", "Once a day", "Never"], why: "Recite the whole Quran in one month." },
+        { q: "What was the shortest time he was allowed?", a: "Seven days", wrong: ["One day", "Three hours", "One night"], why: "Do not finish it in less than this period." },
+        { q: "Islam asks for steady worship we can keep.", tf: true, why: "He was given a limit he could keep up." }
+      ]
+    },
+    {
+      slug: "fast-of-dawud",
+      title: "The fast of Prophet Dawud",
+      line: "Abdullah ibn Amr learned the best fast: one day on, one off.",
+      facts: ["He vowed to fast every day and pray all night.", "The Prophet ﷺ said: you cannot keep that up.", "The best is Dawud's fast: fast one day, eat the next."],
+      source: hadith("bukhari", "1976", "Abdullah ibn Amr", "Sahih", "I had vowed to fast daily and pray all night. The Prophet ﷺ said: you cannot do that; fast three days a month. I said I could do more, until he said: fast one day and leave one day, that is the fasting of Dawud, and it is the best fasting.", "that is the fasting of Prophet David and that is the best fasting"),
+      difficulty: 4,
+      questions: [
+        { q: "What had Abdullah ibn Amr vowed?", a: "To fast every day", wrong: ["To never fast", "To travel", "To build a masjid"], why: "I had taken an oath to fast daily." },
+        { q: "What is the fast of Dawud?", a: "One day on, one day off", wrong: ["Every single day", "Once a year", "Only Mondays"], why: "Fast one day and give up fasting for a day." },
+        { q: "Which fast did the Prophet ﷺ call the best?", a: "The fast of Dawud", wrong: ["Fasting every day", "Fasting with no suhur", "Fasting all year"], why: "That is the best fasting." }
+      ]
+    },
+    {
+      slug: "tongue-and-hand",
+      title: "Safe from your tongue",
+      line: "He narrated: a Muslim keeps people safe from his tongue.",
+      facts: ["A true Muslim does not hurt people.", "Not with words, and not with his hands.", "A true emigrant leaves what Allah forbade."],
+      source: hadith("bukhari", "10", "Abdullah ibn Amr", "Sahih", "The Prophet ﷺ said: a Muslim is one from whose tongue and hand the Muslims are safe, and an emigrant is one who leaves what Allah has forbidden.", "A Muslim is the one who avoids harming Muslims with his tongue and hands"),
+      difficulty: 2,
+      questions: [
+        { q: "A Muslim keeps others safe from what?", a: "His tongue and hand", wrong: ["His money", "His house", "His camel"], why: "Avoids harming Muslims with his tongue and hands." },
+        { q: "Who is a true emigrant?", a: "One who leaves what Allah forbade", wrong: ["One who moves often", "One who travels for trade", "One who never moves"], why: "Gives up all that Allah has forbidden." },
+        { q: "Hurtful words go against being a good Muslim.", tf: true, why: "A Muslim avoids harm with his tongue." }
+      ]
+    },
+    {
+      slug: "even-one-ayah",
+      title: "Pass on even one ayah",
+      line: "He narrated: pass on from me, even if just one ayah.",
+      facts: ["Everyone can teach something they know.", "Even one sentence of the religion is worth passing on.", "Lying about the Prophet ﷺ is a grave sin."],
+      source: hadith("bukhari", "3461", "Abdullah ibn Amr", "Sahih", "The Prophet ﷺ said: convey from me even if it is one ayah. Whoever lies about me on purpose, let him take his seat in the Fire.", "Convey (my teachings) to the people even if it were a single sentence"),
+      difficulty: 3,
+      questions: [
+        { q: "How much should we pass on?", a: "Even one ayah", wrong: ["Only whole books", "Nothing", "Only when old"], why: "Even if it were a single sentence." },
+        { q: "What is the punishment for lying about him ﷺ on purpose?", a: "A seat in the Fire", wrong: ["Nothing", "A small fine", "A warning only"], why: "He will surely take his place in the Fire." },
+        { q: "Only scholars may share what they learned.", tf: false, why: "Convey even a single sentence." }
+      ]
+    }
+  ]
+};
+
+const IBN_SALAM: DeepUnit = {
+  key: "ibn-salam",
+  topicId: "sahabah",
+  branchId: "sahabi-abdullah-ibn-salam",
+  branch: { title: "Abdullah ibn Salam", description: "A learned rabbi of Madinah who knew the truth and accepted Islam." },
+  name: "Abdullah ibn Salam",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "not-a-liars-face",
+      title: "Not the face of a liar",
+      line: "One look at the Prophet's ﷺ face, and Abdullah saw truth.",
+      facts: ["People rushed out when the Prophet ﷺ reached Madinah.", "Abdullah looked at his face and saw honesty.", "His first words: spread salam, feed people, pray at night."],
+      source: hadith("tirmidhi", "2485", "Abdullah ibn Salam", "Sahih (Al-Albani)", "When the Prophet ﷺ arrived in Madinah I went to look at him, and when I saw his face I knew it was not the face of a liar. The first thing he said was: spread the salam, feed people, and pray while people sleep; you will enter Paradise in peace.", "this face was not the face of a liar"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Abdullah see in the Prophet's ﷺ face?", a: "Truthfulness", wrong: ["Anger", "Fear", "Pride"], why: "This face was not the face of a liar." },
+        { q: "Which deed was among the first words?", a: "Spread the salam", wrong: ["Build towers", "Collect gold", "Fight everyone"], why: "Spread the Salam, feed others." },
+        { q: "He told people to pray while others sleep.", tf: true, why: "Perform Salat while the people are sleeping." }
+      ]
+    },
+    {
+      slug: "three-questions",
+      title: "Three questions",
+      line: "He asked three questions only a prophet could answer.",
+      facts: ["He asked about the first sign of the Hour.", "He asked about the first food of Paradise.", "Hearing the answers, he said: you are Allah's Messenger."],
+      source: hadith("bukhari", "3329", "Anas ibn Malik", "Sahih", "Abdullah ibn Salam came and said: I will ask you three things only a prophet knows: the first sign of the Hour, the first meal of the people of Paradise, and why a child looks like a parent. The Prophet ﷺ answered, and Abdullah said: I testify that you are the Messenger of Allah.", "I testify that you are the Messenger of Allah"),
+      difficulty: 3,
+      questions: [
+        { q: "How many questions did he ask?", a: "Three", wrong: ["One", "Ten", "Seven"], why: "I am going to ask you about three things." },
+        { q: "Who could answer such questions, he said?", a: "Only a prophet", wrong: ["Any poet", "A king", "A merchant"], why: "Nobody knows them except a prophet." },
+        { q: "What did he say after the answers?", a: "You are Allah's Messenger", wrong: ["I need more time", "I will ask my friends", "I am not sure"], why: "I testify that you are the Messenger of Allah." }
+      ]
+    },
+    {
+      slug: "a-witness",
+      title: "A witness from Bani Isra'il",
+      line: "Sa'd said Abdullah ibn Salam was named a man of Paradise.",
+      facts: ["Sa'd heard the Prophet ﷺ say he is of Paradise's people.", "An ayah tells of a witness from Bani Isra'il.", "The witness believed, as Abdullah did."],
+      quote: quranQuote(46, 10),
+      source: hadith("bukhari", "3812", "Sa'd ibn Abi Waqqas", "Sahih", "I never heard the Prophet ﷺ say of anyone walking on earth that he is of the people of Paradise except Abdullah ibn Salam, and about him came the ayah: a witness from the Children of Israel testifies.", "And a witness from the children of Israel testifies"),
+      difficulty: 3,
+      questions: [
+        { q: "Who told of his place in Paradise?", a: "Sa'd ibn Abi Waqqas", wrong: ["Abu Jahl", "Abu Lahab", "Musaylimah"], why: "Sa'd heard the Prophet ﷺ say it." },
+        { q: "Where is the ayah about the witness?", a: "Surah Al-Ahqaf", wrong: ["Surah Al-Fatihah", "Surah An-Nas", "Surah Al-Kawthar"], why: "Quran 46:10, in Surah Al-Ahqaf." },
+        { q: "The witness came from Bani Isra'il.", tf: true, why: "A witness from the children of Israel testifies." }
+      ]
+    },
+    {
+      slug: "the-handhold",
+      title: "The firm handhold",
+      line: "Abdullah dreamt he held a handhold at the top of a pillar.",
+      facts: ["He saw a green garden with a tall pillar.", "He climbed it and held a handhold at the top.", "The Prophet ﷺ said: you will hold Islam until you die."],
+      source: hadith("bukhari", "7010", "Abdullah ibn Salam", "Sahih", "People said he is of the people of Paradise. He said: they should not say what they do not know. I dreamt of a pillar in a green garden with a handhold at its top, and I climbed and held it. The Prophet ﷺ said: Abdullah will die holding the firm handhold.", "will die while still holding the firm reliable handhold"),
+      difficulty: 4,
+      questions: [
+        { q: "What did he hold in his dream?", a: "A handhold on a pillar", wrong: ["A sword", "A lamp", "A book"], why: "I got hold of the handhold." },
+        { q: "What does the firm handhold mean?", a: "Islam", wrong: ["Wealth", "Power", "Fame"], why: "The firm reliable handhold, which is Islam." },
+        { q: "What did he say about praising people?", a: "Do not say what you do not know", wrong: ["Praise everyone", "Praise only kings", "Never speak"], why: "They ought not to have said things of which they have no knowledge." }
+      ]
+    },
+    {
+      slug: "a-blessed-bowl",
+      title: "A bowl he drank from",
+      line: "Ibn Salam served guests from a bowl the Prophet ﷺ used.",
+      facts: ["Abu Burdah visited him in Madinah.", "He served him sawiq and dates.", "He let him drink from a bowl the Prophet ﷺ drank from."],
+      source: hadith("bukhari", "7342", "Abu Burdah", "Sahih", "When I came to Madinah, Abdullah ibn Salam said: come to my house so I can give you a drink from a bowl the Prophet ﷺ drank from, and you can pray in the masjid he prayed in. He gave me sawiq and dates, then I prayed in his masjid.", "drink from a bowl from which Allah"),
+      difficulty: 2,
+      questions: [
+        { q: "What did he serve his guest?", a: "Sawiq and dates", wrong: ["Roast meat", "Honey cakes", "Nothing"], why: "He made me drink Sawiq and gave me dates." },
+        { q: "What was special about the bowl?", a: "The Prophet ﷺ drank from it", wrong: ["It was gold", "It was huge", "It came from Rome"], why: "A bowl from which the Messenger ﷺ used to drink." },
+        { q: "Abdullah ibn Salam was a kind host.", tf: true, why: "He invited his guest home and fed him." }
+      ]
+    }
+  ]
+};
+
+const BARA: DeepUnit = {
+  key: "bara",
+  topicId: "sahabah",
+  branchId: "sahabi-al-bara-ibn-azib",
+  branch: { title: "Al-Bara ibn Azib", description: "A young Ansari who grew up beside the Prophet ﷺ and told what he saw." },
+  name: "Al-Bara ibn Azib",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "too-young-for-badr",
+      title: "Too young for Badr",
+      line: "Al-Bara and Ibn Umar were sent home, too young for Badr.",
+      facts: ["Al-Bara wanted to join the army at Badr.", "He and Ibn Umar were judged too young.", "The emigrants at Badr were over sixty men."],
+      source: hadith("bukhari", "3956", "Al-Bara ibn Azib", "Sahih", "I and Ibn Umar were considered too young for Badr. The emigrants there were over sixty and the Ansar over two hundred and forty.", "were considered too young (to take part) in the battle of Badr"),
+      difficulty: 2,
+      questions: [
+        { q: "Why did Al-Bara miss Badr?", a: "He was too young", wrong: ["He was ill", "He was traveling", "He was afraid"], why: "We were considered too young." },
+        { q: "Who else was too young for Badr?", a: "Ibn Umar", wrong: ["Hamzah", "Abu Bakr", "Umar"], why: "I and Ibn Umar were considered too young." },
+        { q: "Young companions were eager to serve Islam.", tf: true, why: "They came forward even as boys." }
+      ]
+    },
+    {
+      slug: "the-new-qiblah",
+      title: "Turning to the Kaaba",
+      line: "Al-Bara told how the qiblah turned from Jerusalem to the Kaaba.",
+      facts: ["In Madinah, Muslims first faced Jerusalem in prayer.", "That lasted sixteen or seventeen months.", "Then the qiblah became the Kaaba, first at Asr."],
+      source: hadith("bukhari", "40", "Al-Bara ibn Azib", "Sahih", "The Prophet ﷺ prayed facing Jerusalem for sixteen or seventeen months, wishing to face the Kaaba. The first prayer he prayed facing the Kaaba was Asr. A man who prayed with him passed people bowing toward Jerusalem, told them, and they turned to the Kaaba at once.", "for sixteen or seventeen months"),
+      difficulty: 3,
+      questions: [
+        { q: "Which way did Muslims first pray in Madinah?", a: "Toward Jerusalem", wrong: ["Toward Yemen", "Toward the sea", "Any direction"], why: "He offered his prayers facing Baitul-Maqdis." },
+        { q: "Which was the first prayer toward the Kaaba?", a: "Asr", wrong: ["Fajr", "Isha", "Jumu'ah"], why: "The first prayer facing the Kaaba was the Asr prayer." },
+        { q: "The people bowing turned to the Kaaba right away.", tf: true, why: "They changed their direction immediately." }
+      ]
+    },
+    {
+      slug: "bedtime-dua",
+      title: "Words before sleep",
+      line: "The Prophet ﷺ taught Al-Bara a du'a to say before sleeping.",
+      facts: ["Make wudu, then lie on your right side.", "Say: O Allah, I surrender myself to You.", "If you die that night, you die on Islam."],
+      source: hadith("bukhari", "247", "Al-Bara ibn Azib", "Sahih", "The Prophet ﷺ told me: when you go to bed, make wudu as for prayer, lie on your right side and say: O Allah, I submit myself to You, entrust my affairs to You and rely on You. If you die that night, you die on the fitrah; make these your last words.", "lie on your right side"),
+      difficulty: 3,
+      questions: [
+        { q: "What should you do before bed?", a: "Make wudu", wrong: ["Eat a big meal", "Watch the stars", "Run"], why: "Perform ablution like that for the prayer." },
+        { q: "On which side should you lie?", a: "The right side", wrong: ["The left side", "On your back", "Face down"], why: "Lie on your right side." },
+        { q: "What if you die that night?", a: "You die on Islam", wrong: ["Nothing at all", "You lose reward", "You wake up"], why: "You will die with faith." }
+      ]
+    },
+    {
+      slug: "digging-the-trench",
+      title: "Dust on his chest",
+      line: "Al-Bara saw the Prophet ﷺ carry earth while digging the Trench.",
+      facts: ["The Muslims dug a trench around Madinah.", "The Prophet ﷺ carried earth until dust covered him.", "He sang: without You, O Allah, we would have no guidance."],
+      source: hadith("bukhari", "2837", "Al-Bara ibn Azib", "Sahih", "On the day of Al-Ahzab I saw the Prophet ﷺ carrying earth until it covered his belly, and he was saying: O Allah, without You we would not have been guided, nor given charity, nor prayed; send down calm on us and make our feet firm.", "Without You (O Allah!) we would have got no guidance"),
+      difficulty: 2,
+      questions: [
+        { q: "What was the Prophet ﷺ carrying?", a: "Earth from the trench", wrong: ["A flag", "Water jars", "Swords"], why: "I saw the Prophet ﷺ carrying earth." },
+        { q: "What did he ask Allah for?", a: "Calm and firm feet", wrong: ["Gold and silver", "A palace", "Rain"], why: "Bless us with tranquility and make firm our feet." },
+        { q: "The Prophet ﷺ worked alongside his companions.", tf: true, why: "He carried earth himself." }
+      ]
+    },
+    {
+      slug: "seven-and-seven",
+      title: "Seven to do",
+      line: "Al-Bara narrated seven good things the Prophet ﷺ told us to do.",
+      facts: ["Follow funerals and visit the sick.", "Accept invitations and help the wronged.", "Keep oaths, return salam, and answer a sneezer."],
+      source: hadith("bukhari", "1239", "Al-Bara ibn Azib", "Sahih", "The Prophet ﷺ ordered us seven things: to follow funerals, visit the sick, accept invitations, help the oppressed, fulfil oaths, return the greeting and reply to one who sneezes. He forbade us silver vessels, gold rings and silk.", "ordered us to do seven things"),
+      difficulty: 3,
+      questions: [
+        { q: "How many things were they ordered to do?", a: "Seven", wrong: ["Two", "Ten", "Forty"], why: "He ordered us to do seven things." },
+        { q: "Which is one of the seven?", a: "Visiting the sick", wrong: ["Skipping prayer", "Mocking others", "Wasting food"], why: "To visit the sick." },
+        { q: "Helping the wronged is one of the seven.", tf: true, why: "To help the oppressed." }
+      ]
+    },
+    {
+      slug: "no-retreat",
+      title: "He did not run",
+      line: "Al-Bara told how the Prophet ﷺ stood firm at Hunayn.",
+      facts: ["Arrows fell on the Muslims at Hunayn.", "Hasty ones ran, but the Prophet ﷺ did not.", "On his white mule he said: I am the Prophet ﷺ in truth."],
+      source: hadith("bukhari", "2874", "Al-Bara ibn Azib", "Sahih", "A man asked: did you flee at Hunayn? He said: no, by Allah, the Prophet ﷺ did not flee, but hasty people did when Hawazin shot arrows. He was on his white mule saying: I am the Prophet in truth, I am the son of Abdul-Muttalib.", "the Prophet (ﷺ) did not flee"),
+      difficulty: 4,
+      questions: [
+        { q: "What did the Prophet ﷺ ride at Hunayn?", a: "A white mule", wrong: ["A black horse", "A camel", "A donkey"], why: "He was riding his white mule." },
+        { q: "What did the Prophet ﷺ say?", a: "I am the Prophet ﷺ in truth", wrong: ["Run away", "I give up", "Hide quickly"], why: "I am the Prophet ﷺ in truth." },
+        { q: "The Prophet ﷺ fled from the arrows.", tf: false, why: "The Prophet ﷺ did not flee." }
+      ]
+    }
+  ]
+};
+
+const ASMA: DeepUnit = {
+  key: "asma",
+  topicId: "sahabah",
+  branchId: "sahabi-asma-bint-abi-bakr",
+  branch: { title: "Asma bint Abi Bakr", description: "Abu Bakr's brave daughter, who helped the Hijrah and lived a life of giving." },
+  name: "Asma bint Abi Bakr",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "two-belts",
+      title: "The woman of two belts",
+      line: "Asma cut her belt in two to tie food for the Hijrah.",
+      facts: ["She packed food for the Prophet ﷺ and Abu Bakr.", "Nothing was found to tie the bags with.", "She split her waist belt and was called Dhat an-Nitaqayn."],
+      source: hadith("bukhari", "2979", "Asma bint Abi Bakr", "Sahih", "I prepared the journey food for the Prophet ﷺ in Abu Bakr's house when he set out for Madinah, and found nothing to tie it with except my waist belt. Abu Bakr said: cut it in two, and tie the water skin with one and the food with the other. So she was called Dhat an-Nitaqayn.", "except my waist belt"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Asma use to tie the food?", a: "Her waist belt, cut in two", wrong: ["A camel rope", "Her shoes", "A palm leaf"], why: "I do not find anything to tie except my waist belt." },
+        { q: "What does Dhat an-Nitaqayn mean?", a: "The one with two belts", wrong: ["The brave rider", "The poet", "The trader"], why: "That was the reason for calling her two-belted woman." },
+        { q: "Asma helped the Hijrah journey.", tf: true, why: "She prepared the journey food." }
+      ]
+    },
+    {
+      slug: "hard-work",
+      title: "Date stones on her head",
+      line: "Asma carried date stones on her head from far fields.",
+      facts: ["Her husband was Az-Zubair ibn al-Awwam.", "She carried date stones from his land.", "She walked about two miles each way."],
+      source: hadith("bukhari", "3151", "Asma bint Abi Bakr", "Sahih", "I used to carry date stones on my head from the land of Az-Zubair that the Prophet ﷺ had given him, two thirds of a farsakh from my house.", "I used to carry the date stones on my head"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Asma carry on her head?", a: "Date stones", wrong: ["Gold", "Books", "Water only"], why: "I used to carry the date stones on my head." },
+        { q: "Who was Asma's husband?", a: "Az-Zubair", wrong: ["Khalid", "Bilal", "Salman"], why: "From the land of Az-Zubair." },
+        { q: "Asma worked hard for her family.", tf: true, why: "She carried loads from a far field." }
+      ]
+    },
+    {
+      slug: "give-freely",
+      title: "Do not hold it back",
+      line: "The Prophet ﷺ told Asma: give charity and do not hold back.",
+      facts: ["Asma had only what her husband gave her.", "She asked: may I give charity from it?", "He said: give, or Allah will hold back from you."],
+      source: hadith("bukhari", "2590", "Asma bint Abi Bakr", "Sahih", "I said: I have nothing except what Az-Zubair gives me; may I give charity? He said: give in charity and do not hold it back, or Allah will hold it back from you.", "Give in charity and do not withhold it"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Asma ask the Prophet ﷺ?", a: "May I give charity?", wrong: ["May I travel?", "May I fast?", "May I sell land?"], why: "May I give in charity?" },
+        { q: "What happens if we hold back charity?", a: "Allah holds back from us", wrong: ["Nothing", "We get richer", "We get praise"], why: "Otherwise Allah will withhold it back from you." },
+        { q: "Even a little charity is worth giving.", tf: true, why: "He told her to give from what she had." }
+      ]
+    },
+    {
+      slug: "her-mother",
+      title: "Kind to her mother",
+      line: "Asma was told: be kind to your mother, though not Muslim.",
+      facts: ["Her mother visited during the treaty with Quraysh.", "Asma asked if she should keep good ties.", "The Prophet ﷺ said: yes, keep good ties with her."],
+      quote: quranQuote(60, 8),
+      source: hadith("bukhari", "3183", "Asma bint Abi Bakr", "Sahih", "During the treaty with Quraysh my mother came to visit me, and she was not Muslim. I asked the Prophet ﷺ: shall I keep good ties with her? He said: yes, keep good ties with her.", "Yes, keep good relation with her"),
+      difficulty: 3,
+      questions: [
+        { q: "Who came to visit Asma?", a: "Her mother", wrong: ["Her uncle", "A king", "A trader"], why: "My mother came to visit me." },
+        { q: "What did the Prophet ﷺ tell her?", a: "Keep good ties with her", wrong: ["Send her away", "Do not speak to her", "Ignore her"], why: "Yes, keep good relation with her." },
+        { q: "Muslims are kind to parents who are not Muslim.", tf: true, why: "She was told to keep good ties." }
+      ]
+    },
+    {
+      slug: "the-eclipse",
+      title: "The day of the eclipse",
+      line: "During an eclipse, Asma prayed so long she nearly fainted.",
+      facts: ["She saw people praying and asked Aishah why.", "Aishah pointed to the sky: a sign.", "After it, the Prophet ﷺ spoke of the questions in the grave."],
+      source: hadith("bukhari", "184", "Asma bint Abi Bakr", "Sahih", "During the eclipse I came to Aishah while people prayed. She pointed to the sky and said: Subhan Allah. I stood to pray until I nearly fainted. Afterwards the Prophet ﷺ said: you will be tested in your graves, and asked: what do you know about this man?", "you will be put to trials in your graves"),
+      difficulty: 4,
+      questions: [
+        { q: "What happened in the sky that day?", a: "An eclipse", wrong: ["A storm", "A rainbow", "A meteor"], why: "I came to Aishah during the solar eclipse." },
+        { q: "What did the Prophet ﷺ speak about after?", a: "The test in the grave", wrong: ["Trade", "Poetry", "Farming"], why: "You will be put to trials in your graves." },
+        { q: "What will a believer answer in the grave?", a: "He is Muhammad, Allah's Messenger ﷺ", wrong: ["I do not know", "I heard people say", "He was a poet"], why: "A believer will reply: he is Muhammad, Allah's Messenger." }
+      ]
+    }
+  ]
+};
+
+const SAHL: DeepUnit = {
+  key: "sahl",
+  topicId: "sahabah",
+  branchId: "sahabi-sahl-ibn-sad",
+  branch: { title: "Sahl ibn Sa'd", description: "An Ansari who was a boy in the Prophet's ﷺ time and told many small, warm stories." },
+  name: "Sahl ibn Sa'd",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "friday-lunch",
+      title: "Looking forward to Friday",
+      line: "Sahl remembered a kind old woman who fed them on Fridays.",
+      facts: ["She grew silq, a leafy plant, by the streams.", "On Fridays she cooked its roots with barley.", "After Jumu'ah she fed them, so they loved Fridays."],
+      source: hadith("bukhari", "938", "Sahl ibn Sa'd", "Sahih", "A woman among us grew silq by the streams. On Fridays she cooked its roots with barley; after the Jumu'ah prayer we greeted her and she gave us that food, so we looked forward to Friday.", "we used to look forward to Friday"),
+      difficulty: 2,
+      questions: [
+        { q: "What did the woman cook on Fridays?", a: "Silq roots with barley", wrong: ["Roast lamb", "Honey cake", "Fish"], why: "She put a handful of powdered barley over it and cooked it." },
+        { q: "When did she feed them?", a: "After Jumu'ah", wrong: ["Before Fajr", "At midnight", "In Ramadan only"], why: "After finishing the Jumua prayer we used to greet her." },
+        { q: "Small kindness can make people love a day.", tf: true, why: "Because of that meal, we used to look forward to Friday." }
+      ]
+    },
+    {
+      slug: "the-boy-on-the-right",
+      title: "The boy on the right",
+      line: "The Prophet ﷺ asked a boy's permission before serving old men.",
+      facts: ["A boy sat on his right, old men on his left.", "He asked the boy: may I give the drink to them?", "The boy wished to drink after him, and he gave it to him."],
+      source: hadith("bukhari", "2351", "Sahl ibn Sa'd", "Sahih", "A drink was brought to the Prophet ﷺ and he drank. A boy, the youngest, was on his right and old men on his left. He said: boy, will you allow me to give it to the old men? The boy said: I will not give anyone my share of what is left from you. So he gave it to him.", "will you allow me to give it"),
+      difficulty: 3,
+      questions: [
+        { q: "Who sat on the Prophet's ﷺ right?", a: "A young boy", wrong: ["An old man", "A king", "Nobody"], why: "On his right side there was sitting a boy." },
+        { q: "What did the Prophet ﷺ do first?", a: "Asked the boy's permission", wrong: ["Gave it to the old men", "Poured it away", "Drank it all"], why: "Will you allow me to give it to the old men?" },
+        { q: "The right side has the first turn when serving.", tf: true, why: "He asked the boy because he was on the right." }
+      ]
+    },
+    {
+      slug: "ar-rayyan",
+      title: "The gate of Ar-Rayyan",
+      line: "Sahl narrated: Paradise has a gate only for those who fast.",
+      facts: ["The gate's name is Ar-Rayyan.", "Only people who fasted will enter by it.", "Once they are in, it will be closed."],
+      source: hadith("bukhari", "1896", "Sahl bin Sa'd", "Sahih", "There is a gate in Paradise called Ar-Rayyan; those who fast will enter through it on the Day of Resurrection and none but them. Once they enter, it is closed.", "There is a gate in Paradise called Ar-Raiyan"),
+      difficulty: 2,
+      questions: [
+        { q: "What is the gate called?", a: "Ar-Rayyan", wrong: ["Al-Firdaus", "Al-Kawthar", "As-Salam"], why: "A gate in Paradise called Ar-Raiyan." },
+        { q: "Who enters by that gate?", a: "Those who fasted", wrong: ["Everyone", "Only kings", "Traders"], why: "Those who observe fasts will enter through it." },
+        { q: "The gate closes once they have entered.", tf: true, why: "After their entry the gate will be closed." }
+      ]
+    },
+    {
+      slug: "two-things-to-guard",
+      title: "Guard two things",
+      line: "Sahl narrated: guard tongue and chastity, and win Paradise.",
+      facts: ["The Prophet ﷺ named two things to guard.", "The tongue, from bad words.", "And chastity, from what Allah forbade."],
+      source: hadith("bukhari", "6474", "Sahl ibn Sa'd", "Sahih", "The Prophet ﷺ said: whoever guarantees me what is between his jaws and what is between his legs, I guarantee him Paradise.", "I guarantee Paradise for him"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the Prophet ﷺ promise for guarding both?", a: "Paradise", wrong: ["Gold", "A long life", "Fame"], why: "I guarantee Paradise for him." },
+        { q: "Which body part speaks words?", a: "The tongue", wrong: ["The feet", "The ears", "The hair"], why: "What is between his two jaw-bones, his tongue." },
+        { q: "Guarding the tongue is part of faith.", tf: true, why: "The tongue is one of the two things to guard." }
+      ]
+    },
+    {
+      slug: "caring-for-orphans",
+      title: "Like two fingers",
+      line: "Sahl narrated: an orphan's carer is near him ﷺ in Paradise.",
+      facts: ["He held up two fingers side by side.", "The one who looks after an orphan will be that close.", "Caring for orphans is a great deed."],
+      source: hadith("bukhari", "5304", "Sahl bin Sa'd", "Sahih", "The Prophet ﷺ said: I and the one who looks after an orphan will be like this in Paradise, showing his index and middle fingers.", "I and the one who looks after an orphan will be like this in Paradise"),
+      difficulty: 2,
+      questions: [
+        { q: "Whom should we look after?", a: "Orphans", wrong: ["Only the rich", "Only ourselves", "Nobody"], why: "The one who looks after an orphan." },
+        { q: "What did he show with his hand?", a: "Two fingers together", wrong: ["A fist", "An open palm", "One finger"], why: "Showing his middle and index fingers." },
+        { q: "Caring for orphans brings one near him in Paradise.", tf: true, why: "Will be like this in Paradise." }
+      ]
+    }
+  ]
+};
+
+const ABU_QATADAH: DeepUnit = {
+  key: "abu-qatadah",
+  topicId: "sahabah",
+  branchId: "sahabi-abu-qatadah",
+  branch: { title: "Abu Qatadah al-Ansari", description: "The Prophet's ﷺ horseman, who kept him steady on a night journey." },
+  name: "Abu Qatadah",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "night-ride",
+      title: "Holding him steady",
+      line: "Abu Qatadah held the sleepy Prophet ﷺ steady on his camel.",
+      facts: ["On a night journey, the Prophet ﷺ dozed on his camel.", "Three times Abu Qatadah held him up without waking him.", "He prayed: may Allah protect you as you protected His Prophet."],
+      source: hadith("muslim", "681", "Abu Qatadah", "Sahih", "On a night journey the Prophet ﷺ dozed and leaned on his camel. Three times I supported him without waking him. He asked: who is this? I said: Abu Qatadah. He said: may Allah protect you, as you have protected His Messenger.", "May Allah protect you, as you have protected His Apostle"),
+      difficulty: 3,
+      questions: [
+        { q: "What happened to the Prophet ﷺ on the ride?", a: "He dozed off", wrong: ["He fell ill", "He got lost", "He sang"], why: "He began to doze and leaned to one side." },
+        { q: "How many times did Abu Qatadah hold him up?", a: "Three", wrong: ["Once", "Ten", "Never"], why: "He leaned three times and was supported." },
+        { q: "What du'a did Abu Qatadah receive?", a: "May Allah protect you", wrong: ["May you be rich", "May you be king", "May you be famous"], why: "May Allah protect you, as you have protected His Apostle." }
+      ]
+    },
+    {
+      slug: "the-wild-donkey",
+      title: "A meal from Allah",
+      line: "Abu Qatadah hunted a wild donkey, and it fed the pilgrims.",
+      facts: ["His companions were in ihram, but he was not.", "He hunted a wild donkey alone.", "The Prophet ﷺ said: a meal Allah has fed you."],
+      source: hadith("bukhari", "2914", "Abu Qatadah", "Sahih", "On the road to Makkah my companions were in ihram and I was not. I saw a wild donkey; they would not hand me my whip or spear, so I took it and hunted it. Some ate and some refused. The Prophet ﷺ said: that was a meal Allah fed you.", "That was a meal Allah fed you with"),
+      difficulty: 4,
+      questions: [
+        { q: "Why did the others not help him hunt?", a: "They were in ihram", wrong: ["They were asleep", "They were afraid", "They were full"], why: "They were in a state of Ihram, while he was not." },
+        { q: "What did he hunt?", a: "A wild donkey", wrong: ["A lion", "A deer", "A bird"], why: "He saw an onager and killed it." },
+        { q: "What did the Prophet ﷺ call it?", a: "A meal Allah fed you", wrong: ["A sin", "A waste", "A mistake"], why: "That was a meal Allah fed you with." }
+      ]
+    },
+    {
+      slug: "day-of-arafah",
+      title: "The fast of Arafah",
+      line: "Abu Qatadah narrated the great reward for fasting on Arafah.",
+      facts: ["The day of Arafah is the 9th of Dhul-Hijjah.", "Fasting it wipes out sins of two years.", "Fasting Ashura wipes out a year."],
+      source: hadith("muslim", "1162", "Abu Qatadah", "Sahih", "The Prophet ﷺ was asked about fasting the day of Arafah and said it expiates the sins of the year before and the year after; and Ashura expiates the year before.", "It expiates the sins of the preceding year and the coming year"),
+      difficulty: 3,
+      questions: [
+        { q: "Fasting Arafah covers sins of how many years?", a: "Two", wrong: ["One", "Ten", "Five"], why: "The preceding year and the coming year." },
+        { q: "When is the day of Arafah?", a: "9th of Dhul-Hijjah", wrong: ["1st of Ramadan", "10th of Muharram", "27th of Rajab"], why: "The day of Arafa, 9th of Dhu'l-Hijja." },
+        { q: "Fasting Ashura wipes out one year of sins.", tf: true, why: "It expiates the sins of the preceding year." }
+      ]
+    },
+    {
+      slug: "good-and-bad-dreams",
+      title: "Good dreams and bad dreams",
+      line: "Abu Qatadah taught what to do after a bad dream.",
+      facts: ["A good dream is from Allah.", "A bad dream is from Shaytan.", "Spit lightly to the left and seek Allah's refuge."],
+      source: hadith("bukhari", "3292", "Abu Qatadah", "Sahih", "A good dream is from Allah and a bad dream is from Shaytan; if one of you has a bad dream that frightens him, let him spit to his left and seek refuge with Allah from its evil, and it will not harm him.", "A good dream is from Allah"),
+      difficulty: 2,
+      questions: [
+        { q: "Where does a good dream come from?", a: "From Allah", wrong: ["From Shaytan", "From food", "From nowhere"], why: "A good dream is from Allah." },
+        { q: "What should you do after a bad dream?", a: "Seek Allah's refuge", wrong: ["Tell everyone", "Stay up all night", "Be scared"], why: "Seek refuge with Allah from its evil." },
+        { q: "A bad dream will not harm you if you seek refuge.", tf: true, why: "Then it will not harm him." }
+      ]
+    },
+    {
+      slug: "umamah-in-prayer",
+      title: "A child in his arms",
+      line: "Abu Qatadah saw the Prophet ﷺ pray carrying his granddaughter.",
+      facts: ["Umamah was the daughter of Zaynab.", "He carried her while standing in prayer.", "When he went down to prostrate, he set her down."],
+      source: hadith("bukhari", "516", "Abu Qatadah", "Sahih", "The Prophet ﷺ prayed carrying Umamah, daughter of Zaynab. When he prostrated he put her down, and when he stood he carried her.", "When he prostrated, he put her down"),
+      difficulty: 3,
+      questions: [
+        { q: "Whom did the Prophet ﷺ carry in prayer?", a: "Umamah, his granddaughter", wrong: ["A lamb", "A sword", "A book"], why: "He was carrying Umama the daughter of Zainab." },
+        { q: "What did he do when prostrating?", a: "Put her down", wrong: ["Kept holding her", "Stopped praying", "Called someone"], why: "When he prostrated, he put her down." },
+        { q: "The Prophet ﷺ was gentle with children.", tf: true, why: "He carried his granddaughter even in prayer." }
+      ]
+    },
+    {
+      slug: "greet-the-masjid",
+      title: "Two rak'ahs first",
+      line: "He narrated: pray two rak'ahs before sitting in a masjid.",
+      facts: ["When you enter a masjid, do not sit straight away.", "First pray two rak'ahs.", "This prayer honors the house of Allah."],
+      source: hadith("bukhari", "1167", "Abu Qatadah", "Sahih", "The Prophet ﷺ said: if one of you enters a masjid, let him not sit until he has prayed two rak'ahs.", "he should not sit until he has offered a two-rak"),
+      difficulty: 2,
+      questions: [
+        { q: "What do we do before sitting in a masjid?", a: "Pray two rak'ahs", wrong: ["Eat", "Sleep", "Talk loudly"], why: "He should not sit until he has offered two rak'ahs." },
+        { q: "How many rak'ahs are prayed?", a: "Two", wrong: ["Four", "One", "Ten"], why: "A two-rak'ah prayer." },
+        { q: "You should sit first, then pray later.", tf: false, why: "He should not sit until he has prayed." }
+      ]
+    }
+  ]
+};
+
+const NUMAN: DeepUnit = {
+  key: "numan",
+  topicId: "sahabah",
+  branchId: "sahabi-an-numan-ibn-bashir",
+  branch: { title: "An-Nu'man ibn Bashir", description: "The first Ansari baby born after the Hijrah, who passed on wise parables." },
+  name: "An-Nu'man ibn Bashir",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "a-fair-gift",
+      title: "Fair to every child",
+      line: "Nu'man's father learned to be fair with gifts to his children.",
+      facts: ["His father gave him a gift.", "His mother asked for the Prophet ﷺ as witness.", "He said: fear Allah and be just to your children."],
+      source: hadith("bukhari", "2587", "An-Nu'man ibn Bashir", "Sahih", "My father gave me a gift, and my mother wanted the Prophet ﷺ as witness. He asked: have you given the same to all your sons? He said no. He said: fear Allah and be just to your children. So my father took back the gift.", "be just to your children"),
+      difficulty: 2,
+      questions: [
+        { q: "What did the Prophet ﷺ ask Nu'man's father?", a: "Did all your sons get the same?", wrong: ["How much was it?", "Where is your house?", "Who is your king?"], why: "Have you given the like of it to everyone of your sons?" },
+        { q: "What did he tell parents to be?", a: "Just to their children", wrong: ["Strict only", "Rich", "Silent"], why: "Be afraid of Allah, and be just to your children." },
+        { q: "Nu'man's father took the gift back.", tf: true, why: "My father then returned and took back his gift." }
+      ]
+    },
+    {
+      slug: "clear-and-doubtful",
+      title: "Clear and doubtful",
+      line: "Nu'man narrated: halal and haram are clear; avoid the doubtful.",
+      facts: ["Some things are clearly halal, some clearly haram.", "In between are doubtful things.", "Whoever avoids them keeps his religion and honor safe."],
+      source: hadith("bukhari", "52", "An-Nu'man bin Bashir", "Sahih", "The halal is clear and the haram is clear, and between them are doubtful things many do not know. Whoever avoids them protects his religion and honor. In the body is a piece of flesh: if it is good the whole body is good. It is the heart.", "Both legal and illegal things are evident"),
+      difficulty: 3,
+      questions: [
+        { q: "What lies between halal and haram?", a: "Doubtful things", wrong: ["Nothing", "Only halal", "Only gold"], why: "In between them there are doubtful things." },
+        { q: "What does avoiding doubtful things protect?", a: "Religion and honor", wrong: ["Wealth only", "Fame", "Strength"], why: "He saves his religion and his honor." },
+        { q: "Which body part decides if the body is good?", a: "The heart", wrong: ["The hand", "The foot", "The eye"], why: "There is a piece of flesh in the body: the heart." }
+      ]
+    },
+    {
+      slug: "one-body",
+      title: "Like one body",
+      line: "Nu'man narrated: believers are like one body in mercy.",
+      facts: ["Believers love and care for each other.", "When one part hurts, the whole body feels it.", "So a Muslim feels his brother's pain."],
+      source: hadith("bukhari", "6011", "An-Nu'man ibn Bashir", "Sahih", "You see the believers in their mercy, love and kindness to each other like one body: if one part is ill, the whole body shares the sleeplessness and fever.", "resembling one body"),
+      difficulty: 2,
+      questions: [
+        { q: "Believers are like what?", a: "One body", wrong: ["Separate stones", "Strangers", "Rival teams"], why: "Resembling one body." },
+        { q: "What happens when one part hurts?", a: "The whole body feels it", wrong: ["Nothing", "Only that part feels it", "The body gets stronger"], why: "The whole body shares the sleeplessness and fever." },
+        { q: "Muslims should care when others suffer.", tf: true, why: "They are like one body." }
+      ]
+    },
+    {
+      slug: "the-ship",
+      title: "Holes in the ship",
+      line: "Nu'man narrated the parable of people sharing one ship.",
+      facts: ["Some sat on the top deck, some below.", "Those below wanted to drill a hole for water.", "If stopped, all are saved; if not, all drown."],
+      source: hadith("bukhari", "2493", "An-Nu'man ibn Bashir", "Sahih", "Those who keep Allah's limits and those who break them are like people sharing a ship by lot, some above and some below. Those below said: let us make a hole in our part for water. If the others let them, all would drown; if they stopped them, all would be saved.", "all the people of the ship would be destroyed"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the people below want to do?", a: "Make a hole for water", wrong: ["Paint the ship", "Sing songs", "Sleep"], why: "Let us make a hole in our share of the ship." },
+        { q: "What if nobody stopped them?", a: "Everyone would drown", wrong: ["Only they would drown", "Nothing", "The ship would fly"], why: "All the people of the ship would be destroyed." },
+        { q: "Stopping wrong protects the whole community.", tf: true, why: "If they prevented them, both parties would be safe." }
+      ]
+    },
+    {
+      slug: "straight-rows",
+      title: "Straighten the rows",
+      line: "Nu'man narrated: straighten your rows in prayer.",
+      facts: ["Rows in prayer should be straight.", "Crooked rows can bring division.", "Straight rows unite the hearts."],
+      source: hadith("muslim", "436a", "An-Nu'man ibn Bashir", "Sahih", "I heard the Prophet ﷺ say: straighten your rows, or Allah will put division between you.", "Straighten your rows"),
+      difficulty: 2,
+      questions: [
+        { q: "How should prayer rows be?", a: "Straight", wrong: ["Crooked", "Far apart", "In circles"], why: "Straighten your rows." },
+        { q: "What may crooked rows bring?", a: "Division between people", wrong: ["More reward", "Rain", "Wealth"], why: "Or Allah would create dissension amongst you." },
+        { q: "Standing straight in rows is a small, unimportant thing.", tf: false, why: "Crooked rows can bring division." }
+      ]
+    },
+    {
+      slug: "jumuah-surahs",
+      title: "Surahs for Friday and Eid",
+      line: "Nu'man told which surahs the Prophet ﷺ read on Friday and Eid.",
+      facts: ["He recited Al-A'la in the first rak'ah.", "He recited Al-Ghashiyah in the second.", "He did this on Jumu'ah and both Eids."],
+      quote: quranQuote(87, 1),
+      source: hadith("muslim", "878a", "An-Nu'man ibn Bashir", "Sahih", "The Prophet ﷺ used to recite on the two Eids and on Friday: Glorify the name of your Lord, the Most High, and: Has there come to you the news of the Overwhelming.", "used to recite on two"),
+      difficulty: 3,
+      questions: [
+        { q: "Which surah did he recite first?", a: "Al-A'la", wrong: ["Al-Baqarah", "Yasin", "Al-Kahf"], why: "Glorify the name of your Lord, the Most High, 87:1." },
+        { q: "Which surah came second?", a: "Al-Ghashiyah", wrong: ["Al-Fatihah", "An-Nas", "Al-Ikhlas"], why: "Has there come to you the news of the overwhelming event." },
+        { q: "When did he recite these two?", a: "Jumu'ah and the two Eids", wrong: ["Only at Fajr", "Only in Ramadan", "Only at funerals"], why: "On two Ids and in Friday prayer." }
+      ]
+    }
+  ]
+};
+
+const JARIR: DeepUnit = {
+  key: "jarir",
+  topicId: "sahabah",
+  branchId: "sahabi-jarir-ibn-abdullah",
+  branch: { title: "Jarir ibn Abdullah al-Bajali", description: "The chief of Bajilah, met with a smile and sent to tear down an idol house." },
+  name: "Jarir ibn Abdullah",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "always-a-smile",
+      title: "Always a smile",
+      line: "The Prophet ﷺ always met Jarir with a smile.",
+      facts: ["Since Jarir became Muslim, he was always welcomed in.", "The Prophet ﷺ smiled every time he saw him.", "A smile to your brother is a good deed."],
+      source: hadith("bukhari", "3035", "Jarir ibn Abdullah", "Sahih", "Since I became Muslim the Prophet ﷺ never kept me away, and whenever he saw me he smiled. I told him I could not sit firm on a horse, so he struck my chest and said: O Allah, make him firm and make him a guide, rightly guided.", "he would receive me with a smile"),
+      difficulty: 2,
+      questions: [
+        { q: "How did the Prophet ﷺ greet Jarir?", a: "With a smile", wrong: ["With a frown", "In silence", "With a shout"], why: "Whenever he saw me he would receive me with a smile." },
+        { q: "What was Jarir's problem with horses?", a: "He could not sit firm", wrong: ["He had none", "He feared them", "He sold them"], why: "I could not sit firm on horses." },
+        { q: "The Prophet ﷺ made du'a to make Jarir firm.", tf: true, why: "O Allah! Make him firm." }
+      ]
+    },
+    {
+      slug: "sincere-to-all",
+      title: "Sincere to every Muslim",
+      line: "Jarir pledged to pray, pay zakat and be sincere to every Muslim.",
+      facts: ["Jarir gave his pledge to the Prophet ﷺ.", "He promised prayer and zakat.", "He also promised good will to every Muslim."],
+      source: hadith("bukhari", "57", "Jarir ibn Abdullah", "Sahih", "I pledged to the Prophet ﷺ to pray perfectly, pay zakat, and be sincere and true to every Muslim.", "be sincere and true to every Muslim"),
+      difficulty: 2,
+      questions: [
+        { q: "To whom did Jarir pledge sincerity?", a: "Every Muslim", wrong: ["Only his tribe", "Only kings", "Only himself"], why: "Be sincere and true to every Muslim." },
+        { q: "Which worship was in his pledge?", a: "Prayer and zakat", wrong: ["Only Hajj", "Only fasting", "None"], why: "Offer prayers perfectly and pay the Zakat." },
+        { q: "Wishing good for others is part of Islam.", tf: true, why: "He pledged sincerity to every Muslim." }
+      ]
+    },
+    {
+      slug: "the-full-moon",
+      title: "Like the full moon",
+      line: "Jarir heard: believers will see their Lord like the full moon.",
+      facts: ["They sat with the Prophet ﷺ on a full moon night.", "He said believers will see their Lord clearly.", "So do not miss Fajr and Asr."],
+      source: hadith("bukhari", "554", "Jarir ibn Abdullah", "Sahih", "The Prophet ﷺ looked at the full moon and said: you will see your Lord as you see this moon, with no trouble. So if you can, do not miss the prayer before sunrise and the prayer before sunset.", "Certainly you will see your Lord as you see this moon"),
+      difficulty: 3,
+      questions: [
+        { q: "What were they looking at?", a: "The full moon", wrong: ["The sun", "A star", "The sea"], why: "He looked at the moon, the full moon." },
+        { q: "Which two prayers did he urge them to keep?", a: "Fajr and Asr", wrong: ["Dhuhr and Isha", "Eid and Jumu'ah", "Witr and Duha"], why: "Before the sunrise and before sunset." },
+        { q: "Believers will see their Lord in the Hereafter.", tf: true, why: "You will see your Lord as you see this moon." }
+      ]
+    },
+    {
+      slug: "dhul-khalasah",
+      title: "The false Kaaba of Yemen",
+      line: "Jarir was sent to tear down an idol house in Yemen.",
+      facts: ["Dhul-Khalasah was an idol house of the Khath'am tribe.", "Jarir rode out with 150 horsemen of Ahmas.", "He took it down and sent the good news."],
+      source: hadith("bukhari", "3020", "Jarir ibn Abdullah", "Sahih", "The Prophet ﷺ said: will you relieve me of Dhul-Khalasah, an idol house of Khath'am called the Yemeni Kaaba? I set out with 150 horsemen of Ahmas, pulled it down and burnt it, and sent word to the Prophet ﷺ.", "Will you relieve me from Dhul-Khalasa"),
+      difficulty: 4,
+      questions: [
+        { q: "What was Dhul-Khalasah?", a: "An idol house", wrong: ["A masjid", "A market", "A well"], why: "A house of an idol belonging to the tribe of Khath'am." },
+        { q: "How many horsemen went with Jarir?", a: "150", wrong: ["10", "1,000", "3"], why: "One hundred and fifty cavalry men from Ahmas." },
+        { q: "Jarir brought down the idol house.", tf: true, why: "He dismantled and burnt it." }
+      ]
+    },
+    {
+      slug: "be-merciful",
+      title: "Mercy for mercy",
+      line: "Jarir narrated: Allah is not merciful to the merciless.",
+      facts: ["Mercy to people brings Allah's mercy.", "Whoever has no mercy for people loses it.", "Be kind to everyone around you."],
+      source: hadith("bukhari", "7376", "Jarir ibn Abdullah", "Sahih", "The Prophet ﷺ said: Allah will not be merciful to those who are not merciful to people.", "Allah will not be merciful to those who are not merciful to mankind"),
+      difficulty: 2,
+      questions: [
+        { q: "Who does not receive Allah's mercy?", a: "Those with no mercy for people", wrong: ["The poor", "Travelers", "Children"], why: "Those who are not merciful to mankind." },
+        { q: "What brings Allah's mercy?", a: "Being merciful to people", wrong: ["Being harsh", "Being proud", "Being lazy"], why: "Allah is merciful to the merciful." },
+        { q: "Mercy is only for family, not strangers.", tf: false, why: "Merciful to mankind." }
+      ]
+    },
+    {
+      slug: "gentleness",
+      title: "Gentleness is good",
+      line: "Jarir narrated: whoever loses gentleness loses all good.",
+      facts: ["Gentleness makes things beautiful.", "Harshness spoils them.", "Without gentleness, much good is lost."],
+      source: hadith("muslim", "2592a", "Jarir ibn Abdullah", "Sahih", "The Prophet ﷺ said: whoever is deprived of gentleness is deprived of good.", "deprived of good"),
+      difficulty: 3,
+      questions: [
+        { q: "Whoever lacks gentleness loses what?", a: "Good", wrong: ["Money", "Sleep", "Friends only"], why: "He who is deprived of tenderly feelings is deprived of good." },
+        { q: "Which is better in dealing with people?", a: "Gentleness", wrong: ["Harshness", "Shouting", "Ignoring"], why: "Gentleness brings good." },
+        { q: "Being harsh brings more good than being gentle.", tf: false, why: "Without gentleness good is lost." }
+      ]
+    }
+  ]
+};
+
+const THAWBAN: DeepUnit = {
+  key: "thawban",
+  topicId: "sahabah",
+  branchId: "sahabi-thawban",
+  branch: { title: "Thawban", description: "The freed servant of the Prophet ﷺ who stayed close to him and passed on his words." },
+  name: "Thawban",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "many-sajdahs",
+      title: "Prostrate often",
+      line: "Thawban taught: prostrate often, each sajdah raises you a level.",
+      facts: ["A man asked him three times for the most loved deed.", "Thawban said he had asked the Prophet ﷺ the same.", "Each sajdah raises a level and removes a sin."],
+      source: hadith("muslim", "488", "Thawban", "Sahih", "Ma'dan asked Thawban, freed servant of the Prophet ﷺ, about a deed that takes one to Paradise. On the third ask he said: I asked the Prophet ﷺ and he said: prostrate often to Allah, for every prostration raises you a degree and removes a sin.", "Make frequent prostrations before Allah"),
+      difficulty: 3,
+      questions: [
+        { q: "What deed did Thawban recommend?", a: "Prostrating often", wrong: ["Traveling far", "Buying land", "Sleeping early"], why: "Make frequent prostrations before Allah." },
+        { q: "What does each sajdah do?", a: "Raises a level, removes a sin", wrong: ["Nothing", "Makes you rich", "Makes you tired"], why: "Raising you a degree and removing a sin." },
+        { q: "Thawban was a freed servant of the Prophet ﷺ.", tf: true, why: "Thauban, the freed slave of Allah's Messenger." }
+      ]
+    },
+    {
+      slug: "after-the-prayer",
+      title: "Words after salah",
+      line: "Thawban told what the Prophet ﷺ said after each prayer.",
+      facts: ["He asked Allah's forgiveness three times.", "Then he said: O Allah, You are As-Salam.", "And peace comes from You, Owner of Majesty."],
+      source: hadith("muslim", "591", "Thawban", "Sahih", "When the Prophet ﷺ finished his prayer he asked forgiveness three times and said: O Allah, You are Peace and from You is peace; blessed are You, Owner of Majesty and Honor.", "He begged forgiveness three times"),
+      difficulty: 2,
+      questions: [
+        { q: "How many times did he ask forgiveness?", a: "Three", wrong: ["One", "Seven", "Ten"], why: "He begged forgiveness three times." },
+        { q: "Which name of Allah did he say next?", a: "As-Salam", wrong: ["Al-Malik", "Al-Ghani", "Al-Qawi"], why: "O Allah! Thou art Peace." },
+        { q: "He said Astaghfirullah after finishing prayer.", tf: true, why: "I beg forgiveness from Allah." }
+      ]
+    },
+    {
+      slug: "best-dinar",
+      title: "The best coin",
+      line: "Thawban narrated: the best coin is the one spent on family.",
+      facts: ["A coin spent on your family is the best.", "Then one spent on a mount in Allah's way.", "Then one spent on companions in Allah's way."],
+      source: hadith("muslim", "994", "Thawban", "Sahih", "The best dinar is one a man spends on his family, then one he spends on his mount in Allah's way, then one he spends on his companions in Allah's way.", "The most excellent dinar is one that a person spends on his family"),
+      difficulty: 3,
+      questions: [
+        { q: "Which coin is the best?", a: "One spent on your family", wrong: ["One kept hidden", "One spent on games", "One thrown away"], why: "The most excellent dinar is one spent on his family." },
+        { q: "Spending on family earns reward.", tf: true, why: "It is the most excellent dinar." },
+        { q: "What comes after family in the list?", a: "A mount in Allah's way", wrong: ["New clothes", "A palace", "Perfume"], why: "The dinar which he spends on his animal in Allah's path." }
+      ]
+    },
+    {
+      slug: "garden-of-fruit",
+      title: "In Paradise's orchard",
+      line: "Thawban narrated: visiting the sick is picking Paradise fruit.",
+      facts: ["Visiting a sick Muslim is a great deed.", "While visiting, you are in Paradise's orchard.", "Khurfat al-Jannah means its fruit garden."],
+      source: hadith("muslim", "2568d", "Thawban", "Sahih", "The Prophet ﷺ said: whoever visits the sick remains in the khurfah of Paradise. He was asked: what is the khurfah? He said: its harvest of fruit.", "It is a place abounding in fruits"),
+      difficulty: 2,
+      questions: [
+        { q: "Visiting the sick is like being where?", a: "In Paradise's fruit garden", wrong: ["In a market", "At sea", "In a desert"], why: "He remains in the fruit garden of Paradise." },
+        { q: "What is Khurfat al-Jannah?", a: "Paradise's fruit garden", wrong: ["A river", "A gate", "A tent"], why: "It is a place abounding in fruits." },
+        { q: "Visiting the sick brings great reward.", tf: true, why: "Until he returns, he is in Paradise's garden." }
+      ]
+    },
+    {
+      slug: "like-foam",
+      title: "Foam on the flood",
+      line: "Thawban warned: many but weak, like foam on a flood.",
+      facts: ["Nations will call each other against Muslims like diners to a dish.", "Muslims will be many, but like foam on a flood.", "The cause: love of this world and dislike of death."],
+      source: hadith("abudawud", "4297", "Thawban", "Sahih (Al-Albani)", "Nations will call each other against you as diners call each other to a dish. Will we be few? No, you will be many, but like the foam of a flood, and Allah will put wahn in your hearts. What is wahn? Love of the world and dislike of death.", "Love of the world and dislike of death"),
+      difficulty: 4,
+      questions: [
+        { q: "Will Muslims be few at that time?", a: "No, they will be many", wrong: ["Yes, very few", "None will remain", "Only ten"], why: "No, you will be numerous at that time." },
+        { q: "What is wahn?", a: "Love of the world and dislike of death", wrong: ["Love of prayer", "Fear of Allah", "Hard work"], why: "Love of the world and dislike of death." },
+        { q: "Being many is enough without strong faith.", tf: false, why: "They will be many but like foam." }
+      ]
+    }
+  ]
+};
+
+const UQBAH: DeepUnit = {
+  key: "uqbah",
+  topicId: "sahabah",
+  branchId: "sahabi-uqbah-ibn-amir",
+  branch: { title: "Uqbah ibn Amir al-Juhani", description: "A shepherd of the Suffah who loved the Quran and taught the two surahs of refuge." },
+  name: "Uqbah ibn Amir",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "the-two-refuges",
+      title: "Verses like no others",
+      line: "Uqbah heard about two surahs of refuge sent down in one night.",
+      facts: ["The Prophet ﷺ told Uqbah about wonderful new verses.", "They were Al-Falaq and An-Nas.", "Nothing like them had been seen before."],
+      quote: quranQuote(113, 1),
+      source: hadith("muslim", "814a", "Uqbah ibn Amir", "Sahih", "The Prophet ﷺ said: What wonderful verses have been sent down today, the like of which has never been seen! They are: Say, I seek refuge with the Lord of the dawn, and Say, I seek refuge with the Lord of mankind.", "What wonderful verses have been sent down today"),
+      difficulty: 2,
+      questions: [
+        { q: "Which two surahs did the Prophet ﷺ praise to Uqbah?", a: "Al-Falaq and An-Nas", wrong: ["Al-Baqarah and Al-Imran", "Yasin and Al-Mulk", "Al-Kahf and Maryam"], why: "Say: I seek refuge with the Lord of the dawn, and with the Lord of mankind." },
+        { q: "Verses like these had been seen many times before.", tf: false, why: "The like of which has never been seen." },
+        { q: "What do both surahs begin with?", a: "Say: I seek refuge", wrong: ["Praise be to Allah", "O you who believe", "By the time"], why: "Say: I seek refuge with the Lord." }
+      ]
+    },
+    {
+      slug: "better-than-camels",
+      title: "Better than camels",
+      line: "Uqbah learned two verses are worth more than two big camels.",
+      facts: ["Uqbah was one of the people of the Suffah.", "Everyone wanted two fine she-camels.", "Learning two verses in the masjid is better."],
+      source: hadith("muslim", "803", "Uqbah ibn Amir", "Sahih", "We were in the Suffah when the Prophet ﷺ asked who would like to bring home two big she-camels each morning. We all said yes. He said: going to the masjid to learn or recite two verses of Allah's Book is better than two she-camels, three verses better than three, and so on.", "That is better for him than two she-camels"),
+      difficulty: 2,
+      questions: [
+        { q: "What is better than two big she-camels?", a: "Learning two verses", wrong: ["Two horses", "A new house", "A bag of gold"], why: "Two verses from the Book of Allah are better than two she-camels." },
+        { q: "Where was Uqbah when he heard this?", a: "In the Suffah", wrong: ["In Yemen", "At sea", "In a market"], why: "When we were in Suffa." },
+        { q: "Three verses are better than three she-camels.", tf: true, why: "Three verses are better than three she-camels." }
+      ]
+    },
+    {
+      slug: "fear-of-the-world",
+      title: "Not shirk but the world",
+      line: "Uqbah heard the Prophet ﷺ fear a race for this world.",
+      facts: ["He prayed for the martyrs of Uhud.", "Then he spoke from the minbar like a farewell.", "He feared competing for this world, not shirk."],
+      source: hadith("bukhari", "6426", "Uqbah ibn Amir", "Sahih", "The Prophet ﷺ prayed for the martyrs of Uhud, then went up the minbar and said: I am your predecessor and a witness over you. By Allah, I see my Cistern now. I do not fear that you will worship others after me, but I fear you will compete for this world.", "I am afraid that you will start competing for"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the Prophet ﷺ fear most for his ummah?", a: "Racing for this world", wrong: ["Worshipping idols", "Too much prayer", "Learning too much"], why: "I am afraid that you will start competing for this world." },
+        { q: "Whom did he pray for before this speech?", a: "The martyrs of Uhud", wrong: ["The people of Badr", "A king", "The Jinn"], why: "He offered the funeral prayer for the martyrs of Uhud." },
+        { q: "What did he say he was looking at?", a: "His Cistern", wrong: ["The sea", "Makkah", "A mountain"], why: "By Allah, I am now looking at my Tank-lake." }
+      ]
+    },
+    {
+      slug: "the-last-goat",
+      title: "The last young goat",
+      line: "Uqbah shared out sheep for Eid and got the last one himself.",
+      facts: ["The Prophet ﷺ gave Uqbah sheep to share for sacrifice.", "One young goat was left over.", "He told Uqbah: sacrifice it yourself."],
+      source: hadith("bukhari", "2500", "Uqbah ibn Amir", "Sahih", "The Prophet ﷺ gave him sheep to share among his companions for sacrifice, and one young goat was left. He told the Prophet ﷺ, who said: sacrifice it on your behalf.", "Sacrifice it on your behalf"),
+      difficulty: 1,
+      questions: [
+        { q: "What job did Uqbah get?", a: "Sharing out sheep", wrong: ["Guarding a gate", "Writing letters", "Building a wall"], why: "He gave him some sheep to distribute among his companions." },
+        { q: "What did he do with the last young goat?", a: "Sacrificed it himself", wrong: ["Sold it", "Set it free", "Gave it back"], why: "Sacrifice it on your behalf." },
+        { q: "Uqbah was trusted to share things fairly.", tf: true, why: "He was given the sheep to distribute." }
+      ]
+    },
+    {
+      slug: "brother-of-a-believer",
+      title: "Your brother's deal",
+      line: "Uqbah said from the minbar: a believer is a believer's brother.",
+      facts: ["A believer is the brother of a believer.", "Do not outbid your brother in a sale.", "Do not propose where he already proposed."],
+      source: hadith("muslim", "1414", "Uqbah ibn Amir", "Sahih", "Uqbah said on the minbar that the Prophet ﷺ said: A believer is the brother of a believer, so he must not outbid his brother, nor propose marriage over his brother's proposal until he leaves it.", "A believer is the brother of a believer"),
+      difficulty: 2,
+      questions: [
+        { q: "What is a believer to another believer?", a: "His brother", wrong: ["His rival", "His servant", "A stranger"], why: "A believer is the brother of a believer." },
+        { q: "What must you not do in your brother's sale?", a: "Outbid him", wrong: ["Greet him", "Help him", "Pray for him"], why: "It is not lawful for a believer to outbid his brother." },
+        { q: "You may propose marriage over your brother's proposal.", tf: false, why: "He should not propose when his brother has proposed until he gives it up." }
+      ]
+    },
+    {
+      slug: "the-guest-right",
+      title: "The right of a guest",
+      line: "Uqbah asked what to do when hosts would not feed travelers.",
+      facts: ["The Prophet ﷺ sent Uqbah and others on trips.", "Some people did not host them.", "A guest has a right, and good hosts honor it."],
+      source: hadith("bukhari", "6137", "Uqbah ibn Amir", "Sahih", "We said: you send us out and we stay with people who do not host us. He said: if they host you as a guest should be hosted, accept it; if not, take from them the right of the guest that they should give.", "the right of the guest"),
+      difficulty: 3,
+      questions: [
+        { q: "What was Uqbah's problem on trips?", a: "Hosts did not feed them", wrong: ["They got lost", "Their camels ran off", "They had no shoes"], why: "We stay with such people as do not entertain us." },
+        { q: "What does a traveler guest have?", a: "A right to hosting", wrong: ["No rights", "A right to gold", "A right to rule"], why: "The right of the guest, which they ought to give." },
+        { q: "When hosts are good, what should guests do?", a: "Accept their hosting", wrong: ["Refuse it", "Leave at once", "Complain"], why: "If they entertain you as they should for a guest, accept it." }
+      ]
+    }
+  ]
+};
+
+const ABU_UMAMAH: DeepUnit = {
+  key: "abu-umamah",
+  topicId: "sahabah",
+  branchId: "sahabi-abu-umamah",
+  branch: { title: "Abu Umamah al-Bahili", description: "A companion who settled in Hims and passed on words about the Quran and good deeds." },
+  name: "Abu Umamah",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "the-intercessor",
+      title: "The Quran will speak up",
+      line: "Abu Umamah heard: the Quran will plead for those who read it.",
+      facts: ["The Quran will intercede on the Day of Resurrection.", "Al-Baqarah and Al Imran will come like two clouds.", "Reading Al-Baqarah is a blessing."],
+      source: hadith("muslim", "804a", "Abu Umamah", "Sahih", "Recite the Quran, for on the Day of Resurrection it will come as an intercessor for its readers. Recite the two bright ones, Al-Baqarah and Al Imran, for they will come like two clouds or two flocks of birds pleading for their readers.", "it will come as an intercessor"),
+      difficulty: 2,
+      questions: [
+        { q: "What will the Quran do for its readers?", a: "Intercede for them", wrong: ["Forget them", "Judge them harshly", "Stay silent"], why: "It will come as an intercessor for those who recite it." },
+        { q: "Which are the two bright surahs?", a: "Al-Baqarah and Al Imran", wrong: ["Al-Falaq and An-Nas", "Yasin and Ar-Rahman", "Al-Mulk and Al-Kahf"], why: "Recite the two bright ones, al-Baqara and Surah Al Imran." },
+        { q: "How will the two surahs come?", a: "Like two clouds", wrong: ["Like two lions", "Like two rivers", "Like two stars"], why: "They will come as two clouds or two shades." }
+      ]
+    },
+    {
+      slug: "the-upper-hand",
+      title: "The upper hand",
+      line: "Abu Umamah narrated: spend what is extra, start with family.",
+      facts: ["Spending your extra wealth is good for you.", "Holding it back is bad for you.", "Begin with those you look after."],
+      source: hadith("muslim", "1036", "Abu Umamah", "Sahih", "O son of Adam, spending your surplus is better for you, and holding it back is bad for you. There is no blame for keeping what you need to live. Begin with your dependents, and the upper hand is better than the lower hand.", "the upper hand is better than the lower hand"),
+      difficulty: 2,
+      questions: [
+        { q: "Whom should you begin your charity with?", a: "Your dependents", wrong: ["Strangers only", "The rich", "Nobody"], why: "Begin charity with your dependents." },
+        { q: "Which hand is better?", a: "The upper, giving hand", wrong: ["The lower hand", "The left hand", "An empty hand"], why: "The upper hand is better than the lower hand." },
+        { q: "Keeping what you need to live is blamed.", tf: false, why: "There is no reproach for you if you withhold what you need for a living." }
+      ]
+    },
+    {
+      slug: "prayer-wipes-sin",
+      title: "Wudu and prayer cleanse",
+      line: "Abu Umamah saw a sorry man forgiven after wudu and prayer.",
+      facts: ["A man kept saying he had sinned.", "The Prophet ﷺ was silent, then prayed with him.", "He said Allah had forgiven his sin."],
+      source: hadith("muslim", "2765", "Abu Umamah", "Sahih", "A man kept saying he had done a sin. The Prophet ﷺ stayed silent and the prayer began. Afterward he asked: did you make wudu well and pray with us? He said yes. He said: Allah has forgiven you your sin.", "Allah has exempted you"),
+      difficulty: 3,
+      questions: [
+        { q: "What had the man done before the reply?", a: "Made wudu and prayed", wrong: ["Paid money", "Left the city", "Fasted a month"], why: "You performed ablution well, then you observed prayer along with us." },
+        { q: "Abu Umamah followed to hear the answer.", tf: true, why: "I too followed so that I should know what answer he would give." },
+        { q: "What did the man get in the end?", a: "Forgiveness from Allah", wrong: ["A punishment", "A reward of gold", "A new job"], why: "Allah has exempted you from your sin." }
+      ]
+    },
+    {
+      slug: "thanks-after-eating",
+      title: "Thanks after a meal",
+      line: "Abu Umamah taught the praise the Prophet ﷺ said after meals.",
+      facts: ["The Prophet ﷺ praised Allah when he finished eating.", "He thanked Allah for food and drink.", "No one can repay Allah's favor."],
+      source: hadith("bukhari", "5459", "Abu Umamah", "Sahih", "When the Prophet ﷺ finished his meal he would say: Praise be to Allah who has satisfied our needs and quenched our thirst. Your favor cannot be repaid or denied.", "Praise be to Allah Who has satisfied our needs"),
+      difficulty: 1,
+      questions: [
+        { q: "When did the Prophet ﷺ say this praise?", a: "After finishing a meal", wrong: ["Before sleep", "At sunrise", "In the market"], why: "Whenever the Prophet ﷺ finished his meals." },
+        { q: "What did he thank Allah for?", a: "Food and drink", wrong: ["Gold", "Fame", "Victory"], why: "Satisfied our needs and quenched our thirst." },
+        { q: "Allah's favor can be fully paid back.", tf: false, why: "Your favor cannot be compensated." }
+      ]
+    },
+    {
+      slug: "leave-the-argument",
+      title: "A house in Paradise",
+      line: "Abu Umamah narrated: leave arguing, lying, and gain a house.",
+      facts: ["Leave arguing even when right: a house in Paradise.", "Leave lying even in jest: a house in its middle.", "Good character: a house at its top."],
+      source: hadith("abudawud", "4800", "Abu Umamah", "Hasan (Al-Albani)", "The Prophet ﷺ said: I guarantee a house on the edge of Paradise for one who leaves arguing even if he is right, one in the middle for one who leaves lying even in jest, and one at the top for one with good character."),
+      difficulty: 3,
+      questions: [
+        { q: "What earns a house at Paradise's edge?", a: "Leaving arguing when right", wrong: ["Winning every debate", "Being loud", "Telling jokes"], why: "One who leaves arguing even if he is right." },
+        { q: "What earns the house at the top?", a: "Good character", wrong: ["Wealth", "Strength", "Fame"], why: "One at the top for one with good character." },
+        { q: "Lying is fine if only joking.", tf: false, why: "One who leaves lying even in jest." }
+      ]
+    },
+    {
+      slug: "plain-swords",
+      title: "Plain swords, open lands",
+      line: "Abu Umamah saw that the first Muslims lived without luxury.",
+      facts: ["Early Muslims reached many lands.", "Their swords had no gold or silver.", "The swords had leather, lead and iron."],
+      source: hadith("bukhari", "2909", "Abu Umamah", "Sahih", "Some people opened many lands, and their swords were decorated neither with gold nor silver, but with leather, lead and iron.", "decorated neither with gold nor silver"),
+      difficulty: 2,
+      questions: [
+        { q: "How were the early swords decorated?", a: "With leather, lead and iron", wrong: ["With gold", "With silver", "With jewels"], why: "Decorated with leather, lead and iron." },
+        { q: "The early Muslims loved showing off wealth.", tf: false, why: "Their swords had neither gold nor silver." },
+        { q: "What lesson does Abu Umamah teach?", a: "Simple living is strength", wrong: ["Gold wins battles", "Swords must shine", "Wealth comes first"], why: "They opened lands without gold or silver." }
+      ]
+    }
+  ]
+};
+
+const IMRAN: DeepUnit = {
+  key: "imran-ibn-husayn",
+  topicId: "sahabah",
+  branchId: "sahabi-imran-ibn-husayn",
+  branch: { title: "Imran ibn Husayn", description: "A patient companion of Khuza'ah who kept praying through long illness." },
+  name: "Imran ibn Husayn",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "pray-as-you-can",
+      title: "Pray as you can",
+      line: "Imran was ill and asked how to pray when standing is hard.",
+      facts: ["Imran had a painful illness.", "Pray standing; if you cannot, sit.", "If you cannot sit, pray on your side."],
+      source: hadith("bukhari", "1117", "Imran ibn Husayn", "Sahih", "I had piles, so I asked the Prophet ﷺ about prayer. He said: pray standing, and if you cannot, then sitting, and if you cannot, then lying on your side.", "pray while sitting"),
+      difficulty: 1,
+      questions: [
+        { q: "If you cannot stand, how do you pray?", a: "Sitting", wrong: ["You skip it", "Running", "Only in your mind"], why: "If you can't, pray while sitting." },
+        { q: "If you cannot sit, how do you pray?", a: "Lying on your side", wrong: ["You skip it", "Standing on one leg", "Next week"], why: "If you cannot do even that, then pray lying on your side." },
+        { q: "Islam makes prayer easy for the sick.", tf: true, why: "Each person prays as he is able." }
+      ]
+    },
+    {
+      slug: "earth-instead-of-water",
+      title: "No water? Tayammum",
+      line: "Imran saw a man taught tayammum when there was no water.",
+      facts: ["A man sat apart and did not pray.", "He needed ghusl but had no water.", "The Prophet ﷺ told him: use clean earth."],
+      source: hadith("bukhari", "348", "Imran ibn Husayn", "Sahih", "The Prophet ﷺ saw a man not praying with the people and asked why. He said: I need a bath and there is no water. He said: do tayammum with clean earth, that is enough for you.", "Perform Tayammum with clean earth"),
+      difficulty: 2,
+      questions: [
+        { q: "Why did the man not pray with them?", a: "He had no water for ghusl", wrong: ["He was asleep", "He was eating", "He was traveling ahead"], why: "I am Junub and there is no water." },
+        { q: "What did the Prophet ﷺ tell him to use?", a: "Clean earth", wrong: ["Sea water", "Perfume", "Sand from Makkah only"], why: "Perform Tayammum with clean earth." },
+        { q: "Tayammum was enough for him to pray.", tf: true, why: "That will be sufficient for you." }
+      ]
+    },
+    {
+      slug: "the-water-skins",
+      title: "The blessed water-skins",
+      line: "Imran saw forty thirsty men drink from one woman's water-skins.",
+      facts: ["On a journey the army ran out of water.", "They found a woman with two water-skins.", "Forty men drank and filled their vessels."],
+      source: hadith("bukhari", "3571", "Imran ibn Husayn", "Sahih", "On a journey we became very thirsty and met a woman with two water-skins. The Prophet ﷺ rubbed their mouths, and forty of us drank and filled our vessels. She went back to her people, and they all accepted Islam.", "we drank till we quenched our thirst and we were forty men"),
+      difficulty: 3,
+      questions: [
+        { q: "How many men drank from the water-skins?", a: "Forty", wrong: ["Four", "Ten", "Two hundred"], why: "We drank till we quenched our thirst and we were forty men." },
+        { q: "What happened to the woman's people?", a: "They accepted Islam", wrong: ["They moved away", "They went to war", "They forgot her"], why: "She embraced Islam and they all embraced Islam." },
+        { q: "The water-skins were nearly bursting full.", tf: true, why: "The waterskin was so full that it was almost about to burst." }
+      ]
+    },
+    {
+      slug: "the-best-generation",
+      title: "The best generation",
+      line: "Imran narrated: the best people are the Prophet's ﷺ generation.",
+      facts: ["The best are the Prophet's ﷺ own generation.", "Then those after them, then those after them.", "Later some will break trust and promises."],
+      source: hadith("bukhari", "3650", "Imran ibn Husayn", "Sahih", "The best of my ummah are my generation, then those who follow them, then those who follow them. After you will come people who testify without being asked, betray trusts and do not keep their vows.", "The best of my followers are those living in my generation"),
+      difficulty: 2,
+      questions: [
+        { q: "Which generation is the best?", a: "The Prophet's ﷺ own", wrong: ["The last one", "Ours", "None"], why: "The best of my followers are those living in my generation." },
+        { q: "What will some later people fail to keep?", a: "Their vows", wrong: ["Their houses", "Their names", "Their camels"], why: "They will vow and never fulfill their vows." },
+        { q: "Imran was sure how many generations were named.", tf: false, why: "I do not remember whether he mentioned two or three generations." }
+      ]
+    },
+    {
+      slug: "made-easy",
+      title: "Made easy for each",
+      line: "Imran heard: each person is helped toward deeds for his end.",
+      facts: ["A man asked why people should do deeds.", "Each is eased toward the deeds he was made for.", "So keep doing good deeds."],
+      source: hadith("bukhari", "6596", "Imran ibn Husayn", "Sahih", "A man asked: can the people of Paradise be known from the people of the Fire? He said yes. He asked: then why do people do deeds? He said: everyone will do the deeds he was created for, or that are made easy for him.", "made easy for him to do"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the man ask about?", a: "Why people do deeds", wrong: ["When to eat", "How to trade", "Where to travel"], why: "Why do people try to do good deeds?" },
+        { q: "What is made easy for each person?", a: "The deeds he was made for", wrong: ["Wealth", "Fame", "Sleep"], why: "Everyone will do the deeds for which he has been created." },
+        { q: "The answer means we should stop doing deeds.", tf: false, why: "Everyone will do the deeds which will be made easy for him." }
+      ]
+    },
+    {
+      slug: "modesty-brings-good",
+      title: "Modesty brings good",
+      line: "Imran narrated: modesty brings nothing but good.",
+      facts: ["Haya means modesty and shyness from wrong.", "Haya brings only good.", "Imran put the Prophet's ﷺ words above books of wisdom."],
+      source: hadith("muslim", "37a", "Imran ibn Husayn", "Sahih", "The Prophet ﷺ said: modesty brings nothing but good. A man said the books of wisdom say it brings calm. Imran said: I tell you the words of the Messenger of Allah ﷺ and you talk of your books?", "Modesty brings forth nothing but goodness"),
+      difficulty: 2,
+      questions: [
+        { q: "What does modesty bring?", a: "Nothing but good", wrong: ["Weakness", "Sadness", "Loss"], why: "Modesty brings forth nothing but goodness." },
+        { q: "Why was Imran upset with the man?", a: "He compared the hadith to books", wrong: ["He was late", "He was rude to a guest", "He forgot salah"], why: "I am narrating the tradition and you talk of your books." },
+        { q: "What is the Arabic word for modesty?", a: "Haya", wrong: ["Sabr", "Shukr", "Zuhd"], why: "Haya means modesty." }
+      ]
+    }
+  ]
+};
+
+const IBN_MUGHAFFAL: DeepUnit = {
+  key: "ibn-mughaffal",
+  topicId: "sahabah",
+  branchId: "sahabi-abdullah-ibn-mughaffal",
+  branch: { title: "Abdullah ibn Mughaffal al-Muzani", description: "A companion of the Tree pledge who remembered the Prophet's ﷺ recitation at the Conquest." },
+  name: "Abdullah ibn Mughaffal",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "surah-al-fath-on-the-camel",
+      title: "Al-Fath on the camel",
+      line: "Ibn Mughaffal saw the Prophet ﷺ recite Al-Fath entering Makkah.",
+      facts: ["The day Makkah was opened, he rode his she-camel.", "He recited Surah Al-Fath in a moving voice.", "Ibn Mughaffal never forgot that sound."],
+      quote: quranQuote(48, 1),
+      source: hadith("bukhari", "4281", "Abdullah ibn Mughaffal", "Sahih", "I saw the Prophet ﷺ on the day of the Conquest of Makkah on his she-camel, reciting Surah Al-Fath in a beautiful, vibrating voice.", "reciting Surat-al-Fath in a vibrant quivering tone"),
+      difficulty: 1,
+      questions: [
+        { q: "Which surah did the Prophet ﷺ recite at the Conquest?", a: "Al-Fath", wrong: ["Al-Fatihah", "Al-Kahf", "Yasin"], why: "Reciting Surat-al-Fath on the day of the Conquest of Mecca." },
+        { q: "What was he riding?", a: "His she-camel", wrong: ["A horse", "A donkey", "A boat"], why: "Over his she-camel." },
+        { q: "Al-Fath means the victory or opening.", tf: true, why: "Indeed, We have given you a clear victory, 48:1." }
+      ]
+    },
+    {
+      slug: "prayer-between-adhans",
+      title: "A prayer between two calls",
+      line: "Ibn Mughaffal heard: there is a prayer between adhan and iqamah.",
+      facts: ["The Prophet ﷺ said it three times.", "There is a voluntary prayer between the two calls.", "The third time he said: for whoever wishes."],
+      source: hadith("bukhari", "624", "Abdullah ibn Mughaffal", "Sahih", "The Prophet ﷺ said three times: there is a prayer between every two calls, and the third time he added: for whoever wishes.", "There is a prayer between the two Adhans"),
+      difficulty: 2,
+      questions: [
+        { q: "When is this extra prayer?", a: "Between adhan and iqamah", wrong: ["After sunset only", "At midnight only", "After Eid only"], why: "There is a prayer between the two Adhans." },
+        { q: "How many times did he say it?", a: "Three", wrong: ["Once", "Seven", "Ten"], why: "Allah's Messenger ﷺ said it three times." },
+        { q: "This prayer is a must for everyone.", tf: false, why: "For the one who wants to pray." }
+      ]
+    },
+    {
+      slug: "the-bag-of-fat",
+      title: "Shy at Khaybar",
+      line: "Ibn Mughaffal ran for a bag of fat, then felt shy.",
+      facts: ["During the siege of Khaybar, a bag of fat was thrown out.", "Ibn Mughaffal rushed to grab it.", "He turned, saw the Prophet ﷺ, and felt shy."],
+      source: hadith("bukhari", "4214", "Abdullah ibn Mughaffal", "Sahih", "While we were besieging Khaybar, someone threw out a leather bag of fat and I ran to take it. I turned and saw the Prophet ﷺ behind me, and I felt shy.", "So I felt shy"),
+      difficulty: 2,
+      questions: [
+        { q: "What was thrown from the fort?", a: "A leather bag of fat", wrong: ["A sword", "A letter", "A shield"], why: "A person threw a leather container containing some fat." },
+        { q: "Why did he stop?", a: "He felt shy before the Prophet ﷺ", wrong: ["He was hurt", "The bag broke", "It was locked"], why: "I looked behind and the Prophet ﷺ was there, so I felt shy." },
+        { q: "Where did this happen?", a: "At Khaybar", wrong: ["At Badr", "In Makkah", "At Tabuk"], why: "While we were besieging Khaibar." }
+      ]
+    },
+    {
+      slug: "no-flicking-stones",
+      title: "Do not flick stones",
+      line: "Ibn Mughaffal taught: flicking stones only breaks eyes, teeth.",
+      facts: ["The Prophet ﷺ forbade flicking small stones.", "A flicked stone does not hunt or stop an enemy.", "Harm comes from it, like a hurt eye."],
+      source: hadith("bukhari", "6220", "Abdullah ibn Mughaffal", "Sahih", "The Prophet ﷺ forbade flicking stones with the fingers and said: it neither hunts game nor hurts an enemy, but it puts out an eye or breaks a tooth.", "it gouges out an eye or breaks a tooth"),
+      difficulty: 1,
+      questions: [
+        { q: "What kind of throwing did the Prophet ﷺ forbid?", a: "Flicking small stones", wrong: ["Swimming", "Archery", "Riding"], why: "He forbade the throwing of stones with the fingers." },
+        { q: "What harm can a flicked stone do?", a: "Hurt an eye or tooth", wrong: ["Nothing at all", "Catch a fish", "Stop an army"], why: "It gouges out an eye or breaks a tooth." },
+        { q: "Flicking stones is a good way to hunt.", tf: false, why: "It neither hunts a game nor kills an enemy." }
+      ]
+    }
+  ]
+};
+
+const MUGHIRAH: DeepUnit = {
+  key: "mughirah",
+  topicId: "sahabah",
+  branchId: "sahabi-al-mughirah-ibn-shubah",
+  branch: { title: "Al-Mughirah ibn Shu'bah", description: "A clever companion who served the Prophet ﷺ on journeys and told how he worshipped." },
+  name: "Al-Mughirah ibn Shu'bah",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "wiping-the-khuffs",
+      title: "Wiping over leather socks",
+      line: "Mughirah poured water as the Prophet ﷺ made wudu on a journey.",
+      facts: ["Mughirah carried water for the Prophet ﷺ.", "He helped him make wudu.", "The Prophet ﷺ wiped over his leather socks."],
+      source: hadith("bukhari", "388", "Al-Mughirah ibn Shu'bah", "Sahih", "I helped the Prophet ﷺ make wudu, and he wiped his wet hands over his leather socks and prayed.", "he passed his wet hands over his Khuffs and prayed"),
+      difficulty: 1,
+      questions: [
+        { q: "What did the Prophet ﷺ wipe over?", a: "His leather socks", wrong: ["His sandals", "His turban only", "His cloak"], why: "He passed his wet hands over his Khuffs." },
+        { q: "How did Mughirah help?", a: "He poured water", wrong: ["He cooked", "He led prayer", "He rode ahead"], why: "I poured water and he performed ablution." },
+        { q: "Wiping over khuffs makes wudu easier on journeys.", tf: true, why: "He wiped over his Khuffs and prayed." }
+      ]
+    },
+    {
+      slug: "the-eclipse",
+      title: "The eclipse and Ibrahim",
+      line: "Mughirah heard: eclipses are not for anyone's death or birth.",
+      facts: ["The sun eclipsed the day Ibrahim, the Prophet's ﷺ son, died.", "People said it was because of his death.", "He said: pray and call on Allah at an eclipse."],
+      source: hadith("bukhari", "1043", "Al-Mughirah ibn Shu'bah", "Sahih", "The sun eclipsed on the day Ibrahim died and people said it was for his death. The Prophet ﷺ said: the sun and moon do not eclipse for anyone's death or birth. When you see it, pray and call on Allah.", "do not eclipse because of the death or life"),
+      difficulty: 2,
+      questions: [
+        { q: "What did people wrongly think?", a: "The eclipse was for Ibrahim", wrong: ["The sun was gone forever", "Rain was coming", "Night had ended"], why: "The people said that the sun had eclipsed because of the death of Ibrahim." },
+        { q: "What should we do at an eclipse?", a: "Pray and call on Allah", wrong: ["Hide inside", "Light fires", "Sleep"], why: "When you see the eclipse pray and invoke Allah." },
+        { q: "The Prophet ﷺ let a wrong belief spread to honor his son.", tf: false, why: "He said the sun and moon do not eclipse because of anyone's death." }
+      ]
+    },
+    {
+      slug: "forbidden-and-disliked",
+      title: "What Allah dislikes",
+      line: "Mughirah narrated what Allah forbade and what He dislikes.",
+      facts: ["Allah forbade harming mothers and burying daughters.", "He forbade withholding rights and begging.", "He dislikes gossip, too many questions and waste."],
+      source: hadith("bukhari", "2408", "Al-Mughirah ibn Shu'bah", "Sahih", "Allah has forbidden you to be undutiful to mothers, to bury daughters alive, to withhold others' rights, and to beg. He dislikes idle talk, asking too many questions, and wasting wealth.", "Allah has forbidden for you"),
+      difficulty: 3,
+      questions: [
+        { q: "Who did Allah forbid us to be undutiful to?", a: "Our mothers", wrong: ["Our rivals", "Strangers only", "Kings"], why: "Allah has forbidden for you to be undutiful to your mothers." },
+        { q: "Which of these does Allah dislike?", a: "Wasting wealth", wrong: ["Giving charity", "Saying salam", "Smiling"], why: "And to waste the wealth by extravagance." },
+        { q: "Idle talk about others is loved by Allah.", tf: false, why: "Allah has hated for you vain, useless talk." }
+      ]
+    },
+    {
+      slug: "a-thankful-servant",
+      title: "A thankful servant",
+      line: "Mughirah saw the Prophet ﷺ pray until his feet swelled.",
+      facts: ["The Prophet ﷺ prayed long at night.", "His feet would swell from standing.", "He said: shall I not be a thankful servant?"],
+      source: hadith("bukhari", "6471", "Al-Mughirah ibn Shu'bah", "Sahih", "The Prophet ﷺ used to pray so long that his feet swelled. When asked why, he said: shall I not be a thankful servant?", "Shall I not be a thankful slave"),
+      difficulty: 2,
+      questions: [
+        { q: "What happened to his feet?", a: "They swelled", wrong: ["They bled", "They froze", "Nothing"], why: "His feet used to become swollen." },
+        { q: "Why did he pray so much?", a: "To be a thankful servant", wrong: ["To be seen", "Out of fear of people", "To win a prize"], why: "Shall I not be a thankful slave to Allah?" },
+        { q: "Worship is a way of saying thank you to Allah.", tf: true, why: "Shall I not be a thankful slave?" }
+      ]
+    },
+    {
+      slug: "a-group-on-the-truth",
+      title: "Always a group on the truth",
+      line: "Mughirah heard: some of this ummah will stay on the truth.",
+      facts: ["A group of the ummah will always stay on the truth.", "They will remain until the Last Day.", "So the truth will never be lost."],
+      source: hadith("bukhari", "3640", "Al-Mughirah ibn Shu'bah", "Sahih", "The Prophet ﷺ said: some of my followers will remain victorious on the truth until the Last Day comes, and they will still be victorious.", "Some of my followers will remain victorious"),
+      difficulty: 2,
+      questions: [
+        { q: "How long will this group remain?", a: "Until the Last Day", wrong: ["One year", "Until Badr", "Ten years"], why: "Till the Last Day comes." },
+        { q: "The truth will one day vanish completely.", tf: false, why: "Some of my followers will remain victorious till the Last Day." },
+        { q: "What will the group stay on?", a: "The truth", wrong: ["Wealth", "Power only", "A mountain"], why: "They will remain on the right path." }
+      ]
+    },
+    {
+      slug: "questions-about-dajjal",
+      title: "Asking about Dajjal",
+      line: "Mughirah asked more about Dajjal than anyone else.",
+      facts: ["Mughirah asked many questions about Dajjal.", "People said Dajjal would bring bread and water.", "He said: Dajjal is too low before Allah for that."],
+      source: hadith("bukhari", "7122", "Al-Mughirah ibn Shu'bah", "Sahih", "Nobody asked the Prophet ﷺ as much about Dajjal as I did. He asked: what worries you? I said: people say he will have mountains of bread and rivers of water. He said: he is too lowly before Allah for that.", "Nobody asked the Prophet"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Mughirah ask about most?", a: "Dajjal", wrong: ["Trade", "Poetry", "Horses"], why: "Nobody asked as many questions as I asked regarding Ad-Dajjal." },
+        { q: "What did people say Dajjal would carry?", a: "Bread and water", wrong: ["Gold coins", "Swords", "Books"], why: "A mountain of bread and a river of water." },
+        { q: "Dajjal is honored by Allah.", tf: false, why: "He is too mean to be allowed such a thing by Allah." }
+      ]
+    }
+  ]
+};
+
+const SAMURAH: DeepUnit = {
+  key: "samurah",
+  topicId: "sahabah",
+  branchId: "sahabi-samurah-ibn-jundub",
+  branch: { title: "Samurah ibn Jundub", description: "A young companion who told the long dream the Prophet ﷺ described after Fajr." },
+  name: "Samurah ibn Jundub",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "who-saw-a-dream",
+      title: "Who saw a dream?",
+      line: "Samurah said the Prophet ﷺ asked after Fajr who saw a dream.",
+      facts: ["After Fajr he would face the people.", "He asked: who among you saw a dream?", "One day he told his own long dream."],
+      source: hadith("bukhari", "1386", "Samurah ibn Jundub", "Sahih", "Whenever the Prophet ﷺ finished the morning prayer, he faced us and asked: who among you saw a dream last night? One day he said: I saw that two men came to me and took me by the hands.", "Who amongst you had a dream last night"),
+      difficulty: 1,
+      questions: [
+        { q: "When did the Prophet ﷺ ask about dreams?", a: "After the Fajr prayer", wrong: ["At noon", "Before sleep", "On Eid only"], why: "Whenever the Prophet ﷺ finished the morning prayer." },
+        { q: "What did he ask the people?", a: "Who saw a dream last night?", wrong: ["Who ate today?", "Who is tired?", "Who has money?"], why: "Who amongst you had a dream last night?" },
+        { q: "He faced the people after the prayer.", tf: true, why: "He would face us and ask." }
+      ]
+    },
+    {
+      slug: "the-torn-cheek",
+      title: "The punishment of lying",
+      line: "Samurah told of the liar in the dream whose lies spread far.",
+      facts: ["In the dream a man's cheek was being torn.", "He was a liar whose lies spread everywhere.", "Lies told to many bring a heavy punishment."],
+      source: hadith("bukhari", "6096", "Samurah ibn Jundub", "Sahih", "The one whose cheek you saw being torn was a liar who told lies that people spread all over the world. He will be punished like that until the Day of Resurrection.", "was a liar and used to tell lies"),
+      difficulty: 2,
+      questions: [
+        { q: "What sin did the torn-cheek man do?", a: "Telling lies", wrong: ["Stealing food", "Missing Eid", "Being lazy"], why: "He was a liar and used to tell lies." },
+        { q: "How far did his lies go?", a: "All over the world", wrong: ["Only his home", "Nowhere", "One street"], why: "The people would report those lies till they spread all over the world." },
+        { q: "Spreading lies is a small matter.", tf: false, why: "He will be punished like that till the Day of Resurrection." }
+      ]
+    },
+    {
+      slug: "the-crushed-head",
+      title: "Quran without action",
+      line: "Samurah told of one who learned the Quran but ignored it.",
+      facts: ["A man's head was struck with a rock in the dream.", "He learned the Quran but did not act on it.", "He slept through the obligatory prayers."],
+      source: hadith("bukhari", "1143", "Samurah ibn Jundub", "Sahih", "The one whose head was being crushed with a stone learned the Quran but never acted on it, and slept through the obligatory prayers.", "never acted on it"),
+      difficulty: 2,
+      questions: [
+        { q: "What did the man fail to do?", a: "Act on the Quran", wrong: ["Learn to swim", "Build a house", "Travel"], why: "One who learnt the Quran but never acted on it." },
+        { q: "What did he sleep through?", a: "The obligatory prayers", wrong: ["A wedding", "The market", "A journey"], why: "Slept ignoring the compulsory prayers." },
+        { q: "Knowing the Quran is enough without acting.", tf: false, why: "He learnt the Quran but never acted on it." }
+      ]
+    },
+    {
+      slug: "the-river-of-blood",
+      title: "The river of blood",
+      line: "Samurah told of a riba-eater in a river of blood.",
+      facts: ["In the dream a man stood in a river of blood.", "Each time he tried to leave, a stone pushed him back.", "He was one who ate riba, interest."],
+      source: hadith("bukhari", "2085", "Samurah ibn Jundub", "Sahih", "We reached a river of blood with a man in it. Whenever he tried to come out, a man on the bank threw a stone into his mouth. I was told: the person in the river was a riba-eater.", "The person in the river was a Riba-eater"),
+      difficulty: 3,
+      questions: [
+        { q: "Who was the man in the river?", a: "One who ate riba", wrong: ["A thief of camels", "A lazy guard", "A poet"], why: "The person in the river was a Riba-eater." },
+        { q: "What was the river made of?", a: "Blood", wrong: ["Milk", "Honey", "Water"], why: "We reached a river of blood." },
+        { q: "Riba means taking interest on loans.", tf: true, why: "Those dealing in Riba (usury)." }
+      ]
+    },
+    {
+      slug: "ibrahim-and-the-children",
+      title: "Ibrahim and the children",
+      line: "Samurah told of Prophet Ibrahim with children in a garden.",
+      facts: ["The dream reached a green garden with a great tree.", "Ibrahim sat at its root with children.", "They were children who died on the fitrah."],
+      source: hadith("bukhari", "7047", "Samurah ibn Jundub", "Sahih", "In the green garden was an old man with children around him. He was Ibrahim, and the children around him were those who die on the fitrah, the natural faith.", "those children who die with Al-Fitra"),
+      difficulty: 2,
+      questions: [
+        { q: "Who sat with the children in the garden?", a: "Prophet Ibrahim", wrong: ["Prophet Nuh", "A king", "An angel of rain"], why: "Abraham and the children around him." },
+        { q: "Who were the children?", a: "Children who died on the fitrah", wrong: ["Children of kings", "Angels", "Grown men"], why: "Those children who die with Al-Fitra." },
+        { q: "Where was this scene?", a: "A green garden", wrong: ["A desert", "A river", "A cave"], why: "A well-flourished green garden having a huge tree." }
+      ]
+    }
+  ]
+};
+
+export const COMPANION_UNITS: DeepUnit[] = [JAFAR, ABU_HURAIRAH, KAB, SAD_MUADH, ABDUR_RAHMAN, MUADH, UBAYY, ZAYD_THABIT, ABU_MUSA, JABIR, ABU_TALHAH, HUDHAYFAH, HAMZAH, ZAYD_HARITHAH, USAMAH, AMMAR, ABU_AYYUB, IBN_RAWAHAH, KHABBAB, UTHMAN_MAZUN, ABU_SAID, ABU_DARDA, UBADAH, SAD_UBADAH, BARA, IBN_AMR, IBN_SALAM, ASMA, SAHL, ABU_QATADAH, NUMAN, JARIR, THAWBAN, UQBAH, ABU_UMAMAH, IMRAN, IBN_MUGHAFFAL, MUGHIRAH, SAMURAH];

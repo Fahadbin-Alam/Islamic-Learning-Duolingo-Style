@@ -39,6 +39,8 @@ function addLesson(lesson: Lesson) {
   add("quote", lesson.quote?.text);
   add("source", lesson.quote?.reference);
   add("source", lesson.learnSource?.reference);
+  // A surah's own lesson teaches its story from its source's summary (surahIntros.ts), so it is shown translated.
+  if (/^lesson-notes-quran-tafseer-surahs-/.test(lesson.id)) add("lesson", lesson.learnSource?.summary);
   lesson.learnDeeper?.meaning.forEach((line) => add("lesson", line));
   add("lesson", lesson.learnDeeper?.story);
   add("lesson", lesson.learnDeeper?.takeaway);

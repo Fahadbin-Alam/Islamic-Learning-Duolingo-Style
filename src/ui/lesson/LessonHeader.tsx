@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { Animated, Easing, Platform, StyleSheet, Text, View, type StyleProp, type ViewStyle } from "react-native";
 import { Icon } from "../Icon";
 import { useShake } from "../PopIn";
 import { ProgressBar } from "../ProgressBar";
 import { Tappable } from "../Tappable";
+import { GameButton } from "../GameButton";
 import { colors, darken, fonts, space } from "../theme";
 import { ScrollHintGap, type ScrollHintDirection } from "./ScrollHint";
 import { t } from "../../i18n";
@@ -140,6 +141,47 @@ export function LessonBottomBar({ children, bottomInset = DEFAULT_BOTTOM_INSET, 
     </View>
   );
 }
+
+export type LessonCheckBarProps = {
+  /** The CHECK button's label, in the app's language. */
+  label: string;
+  disabled: boolean;
+  onCheck: () => void;
+  testID: string;
+  bottomInset?: number;
+  /** The "more below" arrow riding on the bar's top edge (see LessonBottomBarProps' scrollHint). */
+  hintVisible: boolean;
+  hintHold?: boolean;
+  onHint: () => void;
+  hintDirection?: ScrollHintDirection;
+  hintStill?: boolean;
+  /** The app's language: the arrow's own label follows it. */
+  language: string;
+};
+
+/**
+ * The bar under a question: its CHECK button, and the "more below" arrow on its top edge. Drawn again only when what it
+ * shows changes: a question drawn again while its answer sheet opens leaves its bar as it is.
+ */
+export const LessonCheckBar = memo(function LessonCheckBar({
+  label,
+  disabled,
+  onCheck,
+  testID,
+  bottomInset,
+  hintVisible,
+  hintHold,
+  onHint,
+  hintDirection,
+  hintStill
+}: LessonCheckBarProps) {
+  return (
+    <LessonBottomBar bottomInset={bottomInset} scrollHint={{ visible: hintVisible, hold: hintHold, onPress: onHint, direction: hintDirection, still: hintStill }}>
+      {/* The correct / wrong sound follows right away, so CHECK itself stays quiet. */}
+      <GameButton label={label} fullWidth sound={false} disabled={disabled} onPress={onCheck} testID={testID} />
+    </LessonBottomBar>
+  );
+});
 
 export type LessonScreenProps = {
   progress: number;

@@ -1,7 +1,7 @@
 import { hadith, type DeepUnit } from "./deepKit";
 
 // Units built on famous hadith: the hadith scholars teach first and hadith about seeking knowledge (end of the
-// Foundation topic), and hadith for a good heart (end of Manners). The Hadith topic itself stays the short child's
+// Foundation topic), and hadith for a good heart (end of Manners). The Hadith topic itself stays the child's
 // path its tests pin down. Each card is one sahih or hasan hadith, with its number and grade as sunnah.com gives them.
 
 const FAMOUS: DeepUnit = {

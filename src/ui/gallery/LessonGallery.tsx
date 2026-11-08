@@ -3,8 +3,12 @@ import React, { useEffect, useState } from "react";
 import { Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import { getLessonArabic, NODE_ARABIC } from "../../data/arabicTerms";
 import { COURSE, LESSONS_BY_ID } from "../../data/course";
-import { pictureForLesson, pictureForQuestion } from "../../data/lessonPictures";
-import type { Challenge, Lesson } from "../../types";
+import { pictureForLesson, pictureForPage, pictureForQuestion } from "../../data/lessonPictures";
+import { surahNumberForTitle, surahParts } from "../../data/surahPictures";
+import { localizeLessonContent } from "../../services/contentLocalization";
+import { setActiveLanguage } from "../../i18n";
+import { highlightWords, lessonSummary } from "../lesson/lessonPages";
+import type { Challenge, Lesson, SupportedLanguage } from "../../types";
 import { ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, QuitSheet, getLessonLine, shortWhy, type LessonHearts } from "../lesson";
 import { colors, fonts, space } from "../theme";
 
@@ -45,7 +49,7 @@ const hadithLesson = (allLessons.find((lesson) => lesson.id.startsWith("lesson-n
   allLessons.find((lesson) => lesson.id.startsWith("lesson-notes-hadith")) ??
   salam) as Lesson;
 // The longest quote in the course and a lesson with fact chips (a prophet or companion).
-const longQuoteLesson = allLessons.filter((lesson) => lesson.quote).sort((a, b) => (b.quote?.text.length ?? 0) - (a.quote?.text.length ?? 0))[0] ?? hadithLesson;
+const longQuoteLesson = allLessons.filter((lesson) => lesson.quote).sort((a, b) => (b.quote?.text?.length ?? 0) - (a.quote?.text?.length ?? 0))[0] ?? hadithLesson;
 // An Arabic ayah with Listen and Repeat under it (a surah lesson).
 const ayahLesson =
   allLessons.find((lesson) => /^Quran \d+:\d+$/.test(lesson.quote?.reference ?? "") && /^[\u0600-\u06FF\s]+$/.test(lesson.quote?.text ?? "")) ?? hadithLesson;
@@ -97,6 +101,48 @@ function LearnDemo({ lesson, accent, mascot = "boy", isNewWord }: { lesson: Less
     </LessonScreen>
   );
 }
+
+/**
+ * A lesson's "What you learn" page as the app shows it: the teacher, the page's picture, the facts with what the
+ * source says, the surah's parts and the source. ?lang=bn (or ur, ar) shows it in that language.
+ */
+function FactsPageDemo({ lesson: english }: { lesson: Lesson }) {
+  const query = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("lang") : null;
+  const language = (["en", "bn", "ur", "ar"].includes(query ?? "") ? query : "en") as SupportedLanguage;
+  setActiveLanguage(language);
+  const lesson = localizeLessonContent(english, language);
+  const surahNumber = surahNumberForTitle(english.title);
+  const picture = pictureForLesson(english);
+  const pagePicture = pictureForPage(english, "facts", ["start"]);
+  const summaryShown = lessonSummary(english) ? lesson.learnSource?.summary : undefined;
+  return (
+    <LessonScreen progress={0.12} hearts={FULL_HEARTS} onClose={noop}>
+      <LearnCard
+        page="facts"
+        summary={summaryShown}
+        englishSummary={summaryShown ? english.learnSource?.summary : undefined}
+        marks={highlightWords(lesson)}
+        sourceHere
+        title={lesson.title}
+        line={getLessonLine(lesson)}
+        facts={lesson.learnFacts}
+        englishFacts={english.learnFacts}
+        quote={lesson.quote}
+        learnSource={lesson.learnSource}
+        picture={picture}
+        pagePicture={pagePicture && pagePicture.id !== picture?.id ? pagePicture : undefined}
+        surah={surahNumber ? { number: surahNumber, parts: surahParts(surahNumber) } : undefined}
+        teacher={teacherFor(COURSE.sections.find((section) => section.nodes.some((node) => node.id === english.nodeId))?.topicId)}
+        mascotVariant="boy"
+        accent={accentOf(english)}
+        onContinue={noop}
+        onOpenSource={noop}
+      />
+    </LessonScreen>
+  );
+}
+
+const baqarahLesson = (LESSONS_BY_ID["lesson-notes-quran-tafseer-surahs-1-10-surah-al-baqarah"] ?? salam) as Lesson;
 
 // The accent of the section that holds the lesson's circle. Not the id prefix: the marriage hadith keep
 // "lesson-notes-hadith-…" ids but sit in the Marriage topic.
@@ -315,6 +361,8 @@ const STATES: State[] = [
   { id: "learn-ayah", render: () => <LearnDemo lesson={ayahLesson} accent={accentOf(ayahLesson)} isNewWord={false} /> },
   // A passage of a whole surah's meaning (surahMeanings): its line, facts and a long ayah to listen to.
   { id: "learn-surah-meaning", render: () => <LearnDemo lesson={surahMeaningLesson} accent={accentOf(surahMeaningLesson)} isNewWord={false} /> },
+  // A surah's "What you learn" page (the one Fahad found hard to read): facts the source repeats are shown once.
+  { id: "learn-surah-facts", render: () => <FactsPageDemo lesson={baqarahLesson} /> },
   { id: "learn-facts", render: () => <LearnDemo lesson={factsLesson} accent={accentOf(factsLesson)} mascot="girl" /> },
   // The facts as a short lesson, and who told it and the grade with the source at the end.
   { id: "learn-eid", render: () => <LearnDemo lesson={eidLesson} accent={accentOf(eidLesson)} mascot="girl" isNewWord={false} /> },

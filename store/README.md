@@ -9,6 +9,7 @@ Everything Google Play and the App Store ask for besides the app build itself.
 | Google Play reviewer notes | [google-play/reviewer-notes.md](google-play/reviewer-notes.md) |
 | App Store listing text, app information and IAP names | [app-store/listing.en-US.md](app-store/listing.en-US.md) |
 | Bangla, Urdu and Arabic listings for both stores (`npm run check:store` checks every length) | [localized/](localized) |
+| Bangla, Urdu and Arabic screenshots, app and captions in that language (`SHOT_LANG=bn` etc. in `scripts/store-graphics.mjs`) | [graphics/localized/](graphics/localized) |
 | App Store privacy labels | [app-store/privacy-labels.md](app-store/privacy-labels.md) |
 | App Review notes | [app-store/review-notes.md](app-store/review-notes.md) |
 | Content rating answers for both stores | [content-ratings.md](content-ratings.md) |

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { memo, useRef } from "react";
 import { Animated, Pressable, StyleSheet, Text, View, type StyleProp, type ViewStyle } from "react-native";
 import type { GameSoundEvent } from "../services/gameSoundLibrary";
 import { Icon, type IconName } from "./Icon";
@@ -65,8 +65,11 @@ function resolveLook(variant: GameButtonVariant, color: string | undefined, disa
   }
 }
 
-/** Duolingo-style 3D button: a face sitting on a darker lip that presses down. */
-export function GameButton({
+/**
+ * Duolingo-style 3D button: a face sitting on a darker lip that presses down. Drawn again only when what it shows
+ * changes (its props): a screen drawn again while its answer sheet opens leaves its buttons as they are.
+ */
+export const GameButton = memo(function GameButton({
   label,
   onPress,
   variant = "primary",
@@ -156,7 +159,7 @@ export function GameButton({
       </Animated.View>
     </Pressable>
   );
-}
+});
 
 const styles = StyleSheet.create({
   root: {

@@ -55,6 +55,7 @@ import {
 } from "./api/islamicLearningApi";
 import { challengeLevel, HARDER_OFFER_AFTER, nextLevel, TOP_LEVEL } from "./data/challengeLevel";
 import { cleanReviewCards } from "./services/reviewDeck";
+import { ReviewBanner } from "./ui/screens/ReviewBanner";
 import { COURSE, LESSONS_BY_ID, SHOP_ITEMS } from "./data/course";
 import { buildTopicSearchIndex, searchTopics } from "./utils/topicSearch";
 import { dailyAutoDue, localDayNumber, markDailyShown, parseDailyShown } from "./data/dailyCard";
@@ -72,6 +73,7 @@ import {
   setActiveLanguage,
   t
 } from "./i18n";
+import { CHARITY, charityEnabled } from "./config/charity";
 import { localizeLessonContent } from "./services/contentLocalization";
 import { localizedLessonLine, localizedWhy } from "./ui/lesson/localizedLines";
 import {
@@ -108,7 +110,8 @@ import {
   redeemInviteCode,
   claimInviteRewards,
   type InviteInfo,
-  syncRemoteUser,
+  queueRemoteSync,
+  flushRemoteSync,
   hasPendingSync,
   pickStartingUser,
   wakeBackend,
@@ -963,7 +966,7 @@ export default function TopicApp() {
     }
 
     saveUserProfile(state.user);
-    void syncRemoteUser(state.user).catch(() => undefined);
+    queueRemoteSync(state.user);
   }, [state.user]);
 
   // Progress made offline is sent once the phone is back online: on each return to the app, and every
@@ -974,11 +977,18 @@ export default function TopicApp() {
     const retry = () => {
       const user = latestUserRef.current;
       if (user && hasPendingSync()) {
-        void syncRemoteUser(user).catch(() => undefined);
+        queueRemoteSync(user, { now: true });
       }
     };
     const timer = setInterval(retry, 60000);
-    const listener = PhoneAppState.addEventListener("change", (status) => status === "active" && retry());
+    const listener = PhoneAppState.addEventListener("change", (status) => {
+      if (status === "active") {
+        retry();
+      } else if (status === "background") {
+        // Leaving the app: send the waiting copy now instead of after the quiet seconds.
+        void flushRemoteSync();
+      }
+    });
     // And the moment the phone gets its internet back.
     const stopWatching = subscribeOnline((online) => online && retry());
     return () => {
@@ -1323,6 +1333,7 @@ export default function TopicApp() {
   }, [localizedSections, pathNodes, prayerPrefs, season, state.user]);
   const storyReadIds = useMemo(() => new Set(Object.keys(state.user?.stories ?? {}).filter((id) => state.user?.stories?.[id]?.readAt)), [state.user?.stories]);
   const storyGroup = storyGroupFor(selectedSection.topicId);
+  const pathReviewDue = state.user ? reviewDueCount(state.user) : 0;
   const storyBanner = storyGroup ? (
     <StoryBanner
       group={storyGroup}
@@ -2247,7 +2258,8 @@ export default function TopicApp() {
       // LessonComplete plays the finish, streak and XP sounds itself.
       setLessonCompleteSummary({
         headline: t("You jumped ahead!"),
-        title: state.activeSession.clusterTitle ?? state.activeSession.lesson.title,
+        // The lesson's title in the learner's language (the session keeps the English one).
+        title: getNodeTitle(state.activeSession.lesson.id, state.activeSession.clusterTitle ?? state.activeSession.lesson.title, currentLanguage),
         xp: nextUser.totalXp - user.totalXp,
         streakExtended: didExtendStreak(user, nextUser),
         stars: lessonStars(state.sessionMistakes),
@@ -2295,7 +2307,7 @@ export default function TopicApp() {
 
     // LessonComplete plays the finish, streak and XP sounds itself, one after another.
     setLessonCompleteSummary({
-      title: state.activeSession.lesson.title,
+      title: getNodeTitle(state.activeSession.lesson.id, state.activeSession.lesson.title, currentLanguage),
       // A replayed lesson earns nothing, so show what was actually added.
       xp: nextUser.totalXp - user.totalXp,
       streakExtended: didExtendStreak(user, nextUser),
@@ -3583,7 +3595,8 @@ export default function TopicApp() {
           }
         : undefined,
     attempt: lessonStep?.attempt ?? 0,
-    review: challenge?.isReview,
+    // A question missed before and back from the Review deck says so; other review questions just say REVIEW.
+    review: challenge?.missedBefore ? ("missed" as const) : challenge?.isReview,
     mascotVariant: lessonMascot,
     accent: lessonAccent,
     praiseSeed: challenge?.id,
@@ -3710,14 +3723,14 @@ export default function TopicApp() {
                 </Tappable>
               ) : selectedSection.topicId === "duas" ? (
                 <AdhkarBanner accent={selectedSection.accentColor} now={adhkarTimeFor(new Date())} doneToday={adhkarDone} onOpen={(time) => openAdhkar(time)} />
-              ) : ramadanBanner && storyBanner ? (
+              ) : ramadanBanner || storyBanner || pathReviewDue > 0 ? (
                 <>
                   {ramadanBanner}
+                  {/* Missed questions due again (spaced review): one tap starts a Review of them. */}
+                  {pathReviewDue > 0 ? <ReviewBanner count={pathReviewDue} onOpen={startReviewDeck} /> : null}
                   {storyBanner}
                 </>
-              ) : (
-                ramadanBanner ?? storyBanner
-              )
+              ) : undefined
             }
           />
         )}
@@ -3727,6 +3740,7 @@ export default function TopicApp() {
             key={`${lesson.id}-${state.stepIndex}`}
             page={learnStep?.page}
             summary={learnStep?.page === "facts" ? lessonSummaryShown : undefined}
+            englishSummary={learnStep?.page === "facts" && lessonSummaryShown ? englishLesson?.learnSource?.summary : undefined}
             marks={lessonMarks}
             teach={teachShown}
             quizCount={learnStep?.page === "quiz" ? quizQuestionCount || lesson.challenges.length : undefined}
@@ -3833,7 +3847,7 @@ export default function TopicApp() {
                     }
                   : undefined}
                 attempt={lessonStep.attempt}
-                review={challenge.isReview}
+                review={challenge.missedBefore ? "missed" : challenge.isReview}
                 mascotVariant={lessonMascot}
                 accent={lessonAccent}
                 praiseSeed={challenge.id}
@@ -3946,6 +3960,7 @@ export default function TopicApp() {
             onShareApp={() => void shareApp(invite?.code, invite?.rewardDates)}
             certificateCount={earnedCertificates.length}
             onOpenCertificates={() => setCertificatesSheetVisible(true)}
+            charity={charityEnabled() ? CHARITY : undefined}
             hasSavedAccount={hasSavedAccount}
             onCreateAccount={() => openAccountPanel()}
           />

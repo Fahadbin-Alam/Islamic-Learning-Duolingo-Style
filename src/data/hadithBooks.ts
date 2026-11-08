@@ -2308,6 +2308,1324 @@ const ZAKAT: DeepUnit = {
   ]
 };
 
+const MARRIAGE: DeepUnit = {
+  key: "book-marriage",
+  topicId: "sahihayn",
+  branchId: "hadith-book-nikah",
+  branch: { title: "The Book of Marriage", description: "From the Books of Marriage: consent, the mahr, the wedding meal and kindness at home." },
+  name: "the Book of Marriage",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "marriage-not-monkhood",
+      title: "Marriage, not monkhood",
+      line: "The Prophet ﷺ did not let Uthman ibn Maz'un give up marriage.",
+      facts: ["Islam has no monkhood", "Told by Sa'd ibn Abi Waqqas"],
+      source: hadith("bukhari", "5073", "Sa'd ibn Abi Waqqas", "Sahih", "The Prophet ﷺ forbade Uthman ibn Maz'un from staying away from marriage for worship.", "to abstain from marrying"),
+      difficulty: 1,
+      questions: [
+        { q: "What did Uthman ibn Maz'un want to give up?", a: "Marriage", wrong: ["Fasting", "Prayer", "Trade"], why: "He wanted to abstain from marrying, and the Prophet ﷺ forbade it." },
+        { q: "What did the Prophet ﷺ say to his wish?", a: "He forbade it", wrong: ["He praised it", "He ordered all to copy it", "He said nothing"], why: "Allah's Messenger ﷺ forbade it." },
+        { q: "Leaving marriage forever is a better way to worship.", tf: false, why: "The Prophet ﷺ forbade it. Sahih al-Bukhari 5073." }
+      ]
+    },
+    {
+      slug: "her-consent-first",
+      title: "Her consent comes first",
+      line: "A woman is not married off until she is asked and agrees.",
+      facts: ["A shy girl may agree by silence", "Told by Abu Hurairah"],
+      source: hadith("bukhari", "5136", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: a woman who was married before is not married again until she is consulted, and a young girl not until she gives permission; her silence shows her permission.", "a virgin should not be given in marriage except after her permission"),
+      difficulty: 1,
+      questions: [
+        { q: "What is needed before a girl is married?", a: "Her permission", wrong: ["Only her father's wish", "Nothing", "A big party"], why: "She is not given in marriage except after her permission." },
+        { q: "How may a shy girl show her yes?", a: "By staying silent", wrong: ["By running away", "By crying out no", "By writing a poem"], why: "Her silence indicates her permission." },
+        { q: "A woman married before must be consulted too.", tf: true, why: "A matron is not married except after consulting her. Sahih al-Bukhari 5136." }
+      ]
+    },
+    {
+      slug: "a-forced-marriage-undone",
+      title: "A forced marriage undone",
+      line: "Khansa was married against her wish; the Prophet ﷺ cancelled it.",
+      facts: ["Her father chose without her", "Told by Khansa bint Khidam"],
+      source: hadith("bukhari", "5138", "Khansa bint Khidam", "Sahih", "Khansa's father married her off while she disliked it. She went to the Prophet ﷺ and he declared the marriage invalid.", "he declared that marriage invalid"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Khansa feel about her marriage?", a: "She disliked it", wrong: ["She loved it", "She did not know", "She chose it"], why: "Her father married her off and she disliked that marriage." },
+        { q: "What did the Prophet ﷺ do?", a: "Declared it invalid", wrong: ["Told her to accept it", "Sent her away", "Asked for money"], why: "He declared that marriage invalid." },
+        { q: "A father may force his grown daughter into a marriage she refuses.", tf: false, why: "The Prophet ﷺ cancelled such a marriage. Sahih al-Bukhari 5138." }
+      ]
+    },
+    {
+      slug: "no-swap-marriages",
+      title: "No swap marriages",
+      line: "He ﷺ forbade swapping daughters in marriage with no mahr.",
+      facts: ["This is called shighar", "Told by Ibn Umar"],
+      source: hadith("bukhari", "5112", "Abdullah ibn Umar", "Sahih", "The Prophet ﷺ forbade shighar: a man marries his daughter to another man so that the other marries his daughter to him, with no mahr for either bride.", "forbade Ash-Shighar"),
+      difficulty: 3,
+      questions: [
+        { q: "What is shighar?", a: "Swapping daughters with no mahr", wrong: ["A wedding song", "A kind of mahr", "A wedding meal"], why: "Each man marries off his daughter to the other without paying mahr." },
+        { q: "What did the Prophet ﷺ say about it?", a: "He forbade it", wrong: ["He ordered it", "He praised it", "He made it a sunnah"], why: "Allah's Messenger ﷺ forbade Ash-Shighar." },
+        { q: "Each bride has a right to her own mahr.", tf: true, why: "Shighar was forbidden because the brides got no mahr. Sahih al-Bukhari 5112." }
+      ]
+    },
+    {
+      slug: "no-proposal-over-a-brother",
+      title: "Don't cut in on a proposal",
+      line: "Do not propose to a woman your brother has already asked for.",
+      facts: ["Wait until he marries or leaves", "Told by Abu Hurairah"],
+      source: hadith("bukhari", "5144", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: no one should propose to a woman his Muslim brother has proposed to, but should wait until the first man marries her or leaves her.", "none should ask for the hand of a girl who is already engaged to his (Muslim) brother"),
+      difficulty: 2,
+      questions: [
+        { q: "What must you not do?", a: "Propose over your brother", wrong: ["Ask her family", "Pray istikharah", "Give a mahr"], why: "None should ask for the hand of a girl already engaged to his brother." },
+        { q: "When may you propose instead?", a: "When the first suitor leaves", wrong: ["Right away", "Never", "If you are richer"], why: "Wait till the first suitor marries her or leaves her." },
+        { q: "The same hadith warns against spying and suspicion.", tf: true, why: "Beware of suspicion and do not spy. Sahih al-Bukhari 5144." }
+      ]
+    },
+    {
+      slug: "a-feast-of-one-sheep",
+      title: "A feast of one sheep",
+      line: "His ﷺ biggest wedding meal, for Zainab, was one sheep.",
+      facts: ["The walimah is the wedding meal", "Told by Anas"],
+      source: hadith("bukhari", "5168", "Anas ibn Malik", "Sahih", "Anas said the Prophet ﷺ gave no better wedding meal for any wife than for Zainab, and it was one sheep.", "that banquet was with (consisted of) one sheep"),
+      difficulty: 1,
+      questions: [
+        { q: "What was the meal for Zainab's wedding?", a: "One sheep", wrong: ["Ten camels", "A hundred sheep", "Only water"], why: "That banquet consisted of one sheep." },
+        { q: "What is the wedding meal called?", a: "Walimah", wrong: ["Aqiqah", "Iftar", "Suhur"], why: "The wedding banquet is the walimah." },
+        { q: "A wedding meal must be very costly.", tf: false, why: "His ﷺ best one was a single sheep. Sahih al-Bukhari 5168." }
+      ]
+    },
+    {
+      slug: "answer-the-wedding-invite",
+      title: "Answer the wedding invite",
+      line: "If you are invited to a wedding meal, go.",
+      facts: ["Accepting is a right", "Told by Ibn Umar"],
+      source: hadith("bukhari", "5173", "Abdullah ibn Umar", "Sahih", "The Prophet ﷺ said: if one of you is invited to a wedding meal, he should go.", "If anyone of you is invited to a wedding banquet, he must go for it"),
+      difficulty: 1,
+      questions: [
+        { q: "What should you do with a wedding invite?", a: "Accept and go", wrong: ["Ignore it", "Ask for money", "Send it back"], why: "If invited to a wedding banquet, he must go for it." },
+        { q: "Who told this hadith?", a: "Ibn Umar", wrong: ["Anas", "Jabir", "Aishah"], why: "Sahih al-Bukhari 5173." },
+        { q: "Going to a wedding meal you are invited to is from the Sunnah.", tf: true, why: "He ﷺ told us to go. Sahih al-Bukhari 5173." }
+      ]
+    },
+    {
+      slug: "the-worst-wedding-food",
+      title: "The worst wedding food",
+      line: "The worst wedding meal invites the rich and leaves out the poor.",
+      facts: ["Invite the poor too", "Told by Abu Hurairah"],
+      source: hadith("bukhari", "5177", "Abu Hurairah", "Sahih", "Abu Hurairah said: the worst food is a wedding meal where only the rich are invited and the poor are left out.", "The worst food is that of a wedding banquet to which only the rich are invited"),
+      difficulty: 2,
+      questions: [
+        { q: "Which wedding food is the worst?", a: "One that leaves out the poor", wrong: ["One with little food", "One with dates", "One at night"], why: "Only the rich are invited while the poor are not." },
+        { q: "What about refusing an invitation without reason?", a: "It is disobeying Allah and His Messenger ﷺ", wrong: ["It is better", "It is a sunnah", "It does not matter"], why: "He who refuses an invitation disobeys Allah and His Messenger ﷺ." },
+        { q: "A good wedding meal welcomes the poor as well.", tf: true, why: "Sahih al-Bukhari 5177." }
+      ]
+    },
+    {
+      slug: "joy-at-a-wedding",
+      title: "Joy at a wedding",
+      line: "Seeing families come from a wedding, he ﷺ stood up happily.",
+      facts: ["He ﷺ loved the Ansar", "Told by Anas"],
+      source: hadith("bukhari", "5180", "Anas ibn Malik", "Sahih", "The Prophet ﷺ saw women and children coming back from a wedding, stood up happily and said: by Allah, you are among the most beloved people to me.", "He got up energetically and happily"),
+      difficulty: 2,
+      questions: [
+        { q: "How did he ﷺ react to the wedding guests?", a: "He stood up happily", wrong: ["He turned away", "He scolded them", "He did not notice"], why: "He got up energetically and happily." },
+        { q: "Who were the guests from?", a: "The Ansar", wrong: ["Quraysh", "The Romans", "The Persians"], why: "You, the Ansar, are the most beloved of people to me." },
+        { q: "A wedding is a happy time in Islam.", tf: true, why: "He ﷺ met the guests with joy. Sahih al-Bukhari 5180." }
+      ]
+    },
+    {
+      slug: "let-her-go-to-the-masjid",
+      title: "Let her go to the masjid",
+      line: "If your wife asks to go to the masjid, let her go.",
+      facts: ["Women prayed in his ﷺ masjid", "Told by Ibn Umar"],
+      source: hadith("bukhari", "5238", "Abdullah ibn Umar", "Sahih", "The Prophet ﷺ said: if a man's wife asks permission to go to the masjid, he should not forbid her.", "If the wife of anyone of you asks permission to go to the mosque, he should not forbid her"),
+      difficulty: 1,
+      questions: [
+        { q: "If a wife asks to go to the masjid, the husband should...?", a: "Not forbid her", wrong: ["Always refuse", "Make her pay", "Ask the neighbours"], why: "He should not forbid her." },
+        { q: "Who told this hadith?", a: "Ibn Umar", wrong: ["Abu Musa", "Jabir", "Anas"], why: "Narrated by Salim from his father, Ibn Umar. Sahih al-Bukhari 5238." },
+        { q: "Women came to the masjid in the Prophet's ﷺ time.", tf: true, why: "Sahih al-Bukhari 5238." }
+      ]
+    },
+    {
+      slug: "dont-surprise-them-at-night",
+      title: "Don't surprise them at night",
+      line: "After a long trip, do not come home to family at night.",
+      facts: ["Give them time to get ready", "Told by Jabir"],
+      source: hadith("bukhari", "5244", "Jabir ibn Abdullah", "Sahih", "The Prophet ﷺ said: when one of you has been away from home a long time, he should not come back to his family at night.", "he should not return to his family at night"),
+      difficulty: 2,
+      questions: [
+        { q: "After a long trip, when should you not arrive home?", a: "At night", wrong: ["In the morning", "At noon", "After Asr"], why: "He should not return to his family at night." },
+        { q: "Why is this good manners?", a: "It lets the family get ready", wrong: ["It saves money", "It is cooler", "It is shorter"], why: "Coming suddenly at night can catch the family unprepared." },
+        { q: "This is about a long time away from home.", tf: true, why: "When away from his house for a long time. Sahih al-Bukhari 5244." }
+      ]
+    },
+    {
+      slug: "milk-family",
+      title: "The milk family",
+      line: "Nursing makes the same relatives unlawful as birth does.",
+      facts: ["A milk mother is like a mother", "Told by Aishah"],
+      source: hadith("muslim", "1444b", "Aishah", "Sahih", "The Prophet ﷺ said: what becomes unlawful through birth also becomes unlawful through breastfeeding.", "What becomes unlawful through breastfeeding is that which becomes unlawful through birth"),
+      difficulty: 3,
+      questions: [
+        { q: "Nursing makes unlawful the same as...?", a: "Birth", wrong: ["Friendship", "Neighbours", "Trade"], why: "What becomes unlawful through breastfeeding is what becomes unlawful through birth." },
+        { q: "A boy nursed by a woman cannot marry her daughter because...?", a: "They are milk siblings", wrong: ["They are neighbours", "They are rich", "They are young"], why: "Nursing makes them like brother and sister." },
+        { q: "A milk brother is like a real brother for marriage rules.", tf: true, why: "Sahih Muslim 1444b." }
+      ]
+    }
+  ]
+};
+
+const ADHAN: DeepUnit = {
+  key: "book-adhan",
+  topicId: "sahihayn",
+  branchId: "hadith-book-adhan",
+  branch: { title: "The Book of the Adhan", description: "From the Book of the Adhan: the call, the rows, the imam and praying in congregation." },
+  name: "the Book of the Adhan",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "two-light-rakahs-at-fajr",
+      title: "Two light rak'ahs at Fajr",
+      line: "He ﷺ prayed two short rak'ahs between the Fajr adhan and iqamah.",
+      facts: ["The sunnah before Fajr", "Told by Aishah"],
+      source: hadith("bukhari", "619", "Aishah", "Sahih", "Aishah said the Prophet ﷺ used to pray two light rak'ahs between the adhan and iqamah of Fajr.", "two light rak`at between the Adhan and the Iqama of the Fajr prayer"),
+      difficulty: 1,
+      questions: [
+        { q: "How many rak'ahs did he ﷺ pray before Fajr?", a: "Two", wrong: ["Four", "Six", "None"], why: "He offered two light rak'at between the adhan and iqamah." },
+        { q: "Were those two rak'ahs long or short?", a: "Short and light", wrong: ["Very long", "Silent all night", "Only standing"], why: "Two light rak'at." },
+        { q: "These two rak'ahs come before the Fajr fard prayer.", tf: true, why: "Between the adhan and the iqamah. Sahih al-Bukhari 619." }
+      ]
+    },
+    {
+      slug: "travellers-call-too",
+      title: "Travellers call too",
+      line: "Even two travellers give the adhan and iqamah; the elder leads.",
+      facts: ["Adhan is not only for the masjid", "Told by Malik ibn al-Huwairith"],
+      source: hadith("bukhari", "630", "Malik ibn al-Huwairith", "Sahih", "The Prophet ﷺ told two men going on a journey: give the adhan, then the iqamah, and let the older of you lead.", "pronounce Adhan and then Iqama and the oldest of you should lead the prayer"),
+      difficulty: 2,
+      questions: [
+        { q: "What should two travellers do at prayer time?", a: "Give adhan and iqamah", wrong: ["Skip the prayer", "Pray only alone", "Wait till home"], why: "Pronounce adhan and then iqamah." },
+        { q: "Who leads them?", a: "The older one", wrong: ["The richer one", "The taller one", "Whoever is faster"], why: "The oldest of you should lead the prayer." },
+        { q: "The adhan is only for big masjids.", tf: false, why: "Even two travellers call it. Sahih al-Bukhari 630." }
+      ]
+    },
+    {
+      slug: "stand-calmly-for-iqamah",
+      title: "Stand calmly for the iqamah",
+      line: "At the iqamah, stand up calmly once you see the imam.",
+      facts: ["No running or pushing", "Told by Abu Qatadah"],
+      source: hadith("bukhari", "638", "Abu Qatadah", "Sahih", "The Prophet ﷺ said: when the iqamah is called, do not stand until you see me, and do it calmly.", "do not stand for the prayer till you see me (in front of you) and do it calmly"),
+      difficulty: 2,
+      questions: [
+        { q: "How should we get up for the prayer?", a: "Calmly", wrong: ["Rushing", "Shouting", "Pushing ahead"], why: "Do it calmly." },
+        { q: "When did they stand?", a: "When they saw him ﷺ", wrong: ["Before the adhan", "At sunrise", "After the prayer"], why: "Do not stand till you see me." },
+        { q: "Calmness is part of the manners of prayer.", tf: true, why: "Sahih al-Bukhari 638." }
+      ]
+    },
+    {
+      slug: "dinner-before-maghrib",
+      title: "Dinner first, then Maghrib",
+      line: "If dinner is served at Maghrib, eat it first.",
+      facts: ["Don't rush the meal", "Told by Anas"],
+      source: hadith("bukhari", "672", "Anas ibn Malik", "Sahih", "The Prophet ﷺ said: if supper is served, start eating before praying Maghrib, and do not hurry to finish it.", "If the supper is served start having it before praying the Maghrib prayer"),
+      difficulty: 2,
+      questions: [
+        { q: "If supper is served at Maghrib, what first?", a: "Eat the supper", wrong: ["Throw it away", "Skip Maghrib", "Give it away"], why: "Start having it before praying the Maghrib prayer." },
+        { q: "Why does this help the prayer?", a: "The mind is not on food", wrong: ["It makes it longer", "It makes it louder", "It is cheaper"], why: "A hungry person thinking of food cannot focus well." },
+        { q: "He ﷺ said not to rush finishing the meal.", tf: true, why: "Do not be hasty in finishing it. Sahih al-Bukhari 672." }
+      ]
+    },
+    {
+      slug: "obey-even-a-humble-leader",
+      title: "Obey even a humble leader",
+      line: "Listen and obey a leader, even one people look down on.",
+      facts: ["Not in disobeying Allah", "Told by Anas"],
+      source: hadith("bukhari", "693", "Anas ibn Malik", "Sahih", "The Prophet ﷺ said: listen and obey, even if an Ethiopian whose head is like a raisin is made your leader.", "Listen and obey (your chief) even if an Ethiopian"),
+      difficulty: 2,
+      questions: [
+        { q: "Whom did he ﷺ tell us to obey?", a: "The appointed leader", wrong: ["Only the richest", "Only Arabs", "No one"], why: "Listen and obey your chief." },
+        { q: "What does the leader's look have to do with it?", a: "Nothing, obey anyway", wrong: ["Obey only the handsome", "Only the tall", "Only the old"], why: "Even if an Ethiopian with a head like a raisin." },
+        { q: "Race and looks do not make a Muslim better.", tf: true, why: "Sahih al-Bukhari 693." }
+      ]
+    },
+    {
+      slug: "the-imams-mistake",
+      title: "The imam's mistake",
+      line: "If the imam errs, you keep your reward; the error is his.",
+      facts: ["Follow the imam", "Told by Abu Hurairah"],
+      source: hadith("bukhari", "694", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: if the imam leads well, you both get the reward; if he errs, you still get your reward and the sin is his.", "you will receive the reward for the prayer and the sin will be his"),
+      difficulty: 2,
+      questions: [
+        { q: "If the imam makes a mistake, who loses?", a: "Only the imam", wrong: ["Everyone", "Only the first row", "The muadhin"], why: "You receive the reward and the sin is his." },
+        { q: "If the imam prays well, who is rewarded?", a: "The imam and the people", wrong: ["Only the imam", "Only the people", "No one"], why: "He and you will receive the rewards." },
+        { q: "An imam carries a big trust.", tf: true, why: "Sahih al-Bukhari 694." }
+      ]
+    },
+    {
+      slug: "one-follower-stands-right",
+      title: "One follower stands on the right",
+      line: "Ibn Abbas stood on his ﷺ left, and was moved to his right.",
+      facts: ["Two praying: follower on the right", "Told by Ibn Abbas"],
+      source: hadith("bukhari", "699", "Abdullah ibn Abbas", "Sahih", "Young Ibn Abbas joined the Prophet's ﷺ night prayer on his left, and he ﷺ moved him by the head to his right.", "he drew me to his right by holding me by the head"),
+      difficulty: 2,
+      questions: [
+        { q: "Where should one follower stand?", a: "On the imam's right", wrong: ["On the left", "Far behind", "In front"], why: "He drew me to his right." },
+        { q: "Whose house was this in?", a: "Maimunah's", wrong: ["Abu Bakr's", "Umar's", "Ali's"], why: "I passed the night in the house of my aunt Maimuna." },
+        { q: "Ibn Abbas was a boy who prayed the night prayer with him ﷺ.", tf: true, why: "Sahih al-Bukhari 699." }
+      ]
+    },
+    {
+      slug: "straight-rows-close-together",
+      title: "Straight rows, close together",
+      line: "Make the rows straight and stand close together.",
+      facts: ["Said as the iqamah was called", "Told by Anas"],
+      source: hadith("bukhari", "719", "Anas ibn Malik", "Sahih", "As the iqamah was called the Prophet ﷺ faced the people and said: straighten your rows and stand close together.", "Straighten your rows and stand closer together"),
+      difficulty: 1,
+      questions: [
+        { q: "What did he ﷺ say about the rows?", a: "Straight and close", wrong: ["Wide gaps", "Any shape", "Only one row"], why: "Straighten your rows and stand closer together." },
+        { q: "When did he ﷺ say it?", a: "When the iqamah was called", wrong: ["After the prayer", "At night only", "On Eid only"], why: "Once the iqamah was pronounced he faced us." },
+        { q: "Leaving gaps in the rows is the Sunnah.", tf: false, why: "Stand closer together. Sahih al-Bukhari 719." }
+      ]
+    },
+    {
+      slug: "right-hand-over-left",
+      title: "Right hand over left",
+      line: "In prayer, the right hand is placed on the left forearm.",
+      facts: ["The people were ordered to", "Told by Sahl ibn Sa'd"],
+      source: hadith("bukhari", "740", "Sahl ibn Sa'd", "Sahih", "Sahl said: people were told to place the right hand on the left forearm in prayer, an order from the Prophet ﷺ.", "place the right hand on the left forearm in the prayer"),
+      difficulty: 1,
+      questions: [
+        { q: "Which hand goes on top in prayer?", a: "The right", wrong: ["The left", "Neither", "Both down"], why: "Place the right hand on the left forearm." },
+        { q: "Where does the right hand rest?", a: "On the left forearm", wrong: ["On the head", "On the knee", "Behind the back"], why: "On the left forearm in the prayer." },
+        { q: "This order came from the Prophet ﷺ.", tf: true, why: "Abu Hazim said he knew it was from the Prophet ﷺ. Sahih al-Bukhari 740." }
+      ]
+    },
+    {
+      slug: "bow-and-prostrate-fully",
+      title: "Bow and prostrate fully",
+      line: "Hudhayfah told a man who rushed his bowing: you have not prayed.",
+      facts: ["Each position needs calm", "Told by Zaid ibn Wahb"],
+      source: hadith("bukhari", "791", "Hudhayfah", "Sahih", "Hudhayfah saw a man not completing his bowing and prostration and told him: you have not prayed.", "not performing the bowing and prostration perfectly"),
+      difficulty: 3,
+      questions: [
+        { q: "What was the man doing wrong?", a: "Rushing bowing and sujud", wrong: ["Praying too long", "Praying in a group", "Saying amin"], why: "He was not performing the bowing and prostration perfectly." },
+        { q: "What did Hudhayfah tell him?", a: "You have not prayed", wrong: ["Well done", "Pray faster", "Go home"], why: "You have not prayed." },
+        { q: "A prayer rushed like pecking is still complete.", tf: false, why: "Bowing and prostration must be done fully. Sahih al-Bukhari 791." }
+      ]
+    },
+    {
+      slug: "waiting-counts-as-prayer",
+      title: "Waiting counts as prayer",
+      line: "While you wait for the prayer, you are counted as praying.",
+      facts: ["He ﷺ delayed Isha one night", "Told by Anas"],
+      source: hadith("bukhari", "847", "Anas ibn Malik", "Sahih", "The Prophet ﷺ delayed Isha until midnight, then said: people prayed and slept, but you were in prayer as long as you waited for it.", "you were in the prayer as long as you were waiting for it"),
+      difficulty: 2,
+      questions: [
+        { q: "What is waiting for the prayer counted as?", a: "Being in prayer", wrong: ["Wasted time", "Sleeping", "Nothing"], why: "You were in the prayer as long as you were waiting for it." },
+        { q: "Which prayer did he ﷺ delay that night?", a: "Isha", wrong: ["Fajr", "Dhuhr", "Asr"], why: "He delayed the Isha prayer until midnight." },
+        { q: "Sitting in the masjid waiting for salah earns reward.", tf: true, why: "Sahih al-Bukhari 847." }
+      ]
+    },
+    {
+      slug: "no-garlic-in-the-masjid",
+      title: "No garlic smell in the masjid",
+      line: "Whoever ate raw garlic should not come into our masjid.",
+      facts: ["Don't bother others with smells", "Told by Ibn Umar"],
+      source: hadith("bukhari", "853", "Abdullah ibn Umar", "Sahih", "At Khaybar the Prophet ﷺ said: whoever ate from this plant, garlic, should not enter our masjid.", "Whoever ate from this plant (i.e. garlic) should not enter our mosque"),
+      difficulty: 1,
+      questions: [
+        { q: "Which plant did he ﷺ name?", a: "Garlic", wrong: ["Dates", "Wheat", "Mint"], why: "Whoever ate from this plant, garlic." },
+        { q: "Why stay away after eating it?", a: "Its smell bothers others", wrong: ["It is haram to eat", "It breaks wudu", "It is costly"], why: "The smell troubles the people praying." },
+        { q: "Eating garlic is forbidden in Islam.", tf: false, why: "Only coming to the masjid with its smell is meant. Sahih al-Bukhari 853." }
+      ]
+    }
+  ]
+};
+
+const FUNERALS: DeepUnit = {
+  key: "book-funerals",
+  topicId: "sahihayn",
+  branchId: "hadith-book-janaiz",
+  branch: { title: "The Book of Funerals", description: "From the Books of Funerals: patience at a death, washing and shrouding, the prayer and the graves." },
+  name: "the Book of Funerals",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "how-you-die-matters",
+      title: "How you die matters",
+      line: "Whoever dies worshipping none but Allah enters Paradise.",
+      facts: ["Shirk at death leads to the Fire", "Told by Ibn Mas'ud"],
+      source: hadith("bukhari", "1238", "Abdullah ibn Mas'ud", "Sahih", "The Prophet ﷺ said: whoever dies worshipping others with Allah enters the Fire. Ibn Mas'ud said: so whoever dies worshipping none with Allah enters Paradise.", "Anyone who dies worshipping none along with Allah will definitely enter Paradise"),
+      difficulty: 1,
+      questions: [
+        { q: "Who enters Paradise, by this hadith?", a: "One who dies on tawhid", wrong: ["One who dies rich", "One who dies old", "One who dies famous"], why: "Anyone who dies worshipping none along with Allah enters Paradise." },
+        { q: "What leads to the Fire at death?", a: "Worshipping others with Allah", wrong: ["Being poor", "Dying young", "Dying far from home"], why: "Anyone who dies worshipping others along with Allah enters the Fire." },
+        { q: "The state we die in is what counts.", tf: true, why: "Sahih al-Bukhari 1238." }
+      ]
+    },
+    {
+      slug: "patience-at-the-grave",
+      title: "Patience at the grave",
+      line: "To a woman crying at a grave: fear Allah and be patient.",
+      facts: ["Patience is for the first shock", "Told by Anas"],
+      source: hadith("bukhari", "1252", "Anas ibn Malik", "Sahih", "The Prophet ﷺ passed a woman weeping beside a grave and said to her: fear Allah and be patient.", "Fear Allah and be patient"),
+      difficulty: 1,
+      questions: [
+        { q: "What did he ﷺ tell the crying woman?", a: "Fear Allah and be patient", wrong: ["Go home", "Cry louder", "Blame others"], why: "Fear Allah and be patient." },
+        { q: "Where was the woman sitting?", a: "Beside a grave", wrong: ["In the market", "In the masjid", "On a mountain"], why: "She was sitting and weeping beside a grave." },
+        { q: "Patience is asked of us when we lose someone.", tf: true, why: "Sahih al-Bukhari 1252." }
+      ]
+    },
+    {
+      slug: "three-children-who-died",
+      title: "Children who died young",
+      line: "A Muslim whose three young children die is given Paradise.",
+      facts: ["By Allah's mercy to them", "Told by Anas"],
+      source: hadith("bukhari", "1248", "Anas ibn Malik", "Sahih", "The Prophet ﷺ said: a Muslim whose three children die before puberty will be given Paradise by Allah, out of His mercy for them.", "will be granted Paradise by Allah due to his mercy for them"),
+      difficulty: 2,
+      questions: [
+        { q: "What does Allah give such a parent?", a: "Paradise", wrong: ["Wealth", "Fame", "Long life"], why: "He will be granted Paradise by Allah." },
+        { q: "Why is it given?", a: "Allah's mercy for the children", wrong: ["The parent's money", "Luck", "The doctor"], why: "Due to His mercy for them." },
+        { q: "Losing a child is never forgotten by Allah.", tf: true, why: "Sahih al-Bukhari 1248." }
+      ]
+    },
+    {
+      slug: "no-slapping-or-tearing",
+      title: "No slapping or tearing",
+      line: "Slapping cheeks or tearing clothes in grief is not our way.",
+      facts: ["Tears are allowed, wailing is not", "Told by Ibn Mas'ud"],
+      source: hadith("bukhari", "1294", "Abdullah ibn Mas'ud", "Sahih", "The Prophet ﷺ said: whoever slaps his cheeks, tears his clothes and follows the ways of the Days of Ignorance is not one of us.", "He who slaps his cheeks, tears his clothes"),
+      difficulty: 1,
+      questions: [
+        { q: "Which is NOT allowed in grief?", a: "Tearing your clothes", wrong: ["Quiet tears", "Making dua", "Saying inna lillah"], why: "He who tears his clothes is not one of us." },
+        { q: "Such acts come from...?", a: "The Days of Ignorance", wrong: ["The Sunnah", "The Quran", "The Sahabah"], why: "Follows the ways of the Days of Ignorance." },
+        { q: "Crying quietly at a death is forbidden.", tf: false, why: "Only wailing, slapping and tearing are meant. Sahih al-Bukhari 1294." }
+      ]
+    },
+    {
+      slug: "washing-starts-on-the-right",
+      title: "Washing starts on the right",
+      line: "Wash the dead from the right, starting with the wudu parts.",
+      facts: ["Said for his ﷺ daughter", "Told by Umm Atiyyah"],
+      source: hadith("bukhari", "1255", "Umm Atiyyah", "Sahih", "When his daughter died, the Prophet ﷺ told the women washing her: start with the right side and the parts washed in wudu.", "Start with the right side, and the parts which are washed in ablution"),
+      difficulty: 2,
+      questions: [
+        { q: "Which side is washed first?", a: "The right", wrong: ["The left", "The back", "The feet"], why: "Start with the right side." },
+        { q: "Which parts come first?", a: "The wudu parts", wrong: ["The hair only", "The back only", "No order"], why: "The parts which are washed in ablution." },
+        { q: "Umm Atiyyah helped wash his ﷺ daughter.", tf: true, why: "Sahih al-Bukhari 1255." }
+      ]
+    },
+    {
+      slug: "three-white-sheets",
+      title: "Three white sheets",
+      line: "He ﷺ was shrouded in three white cotton sheets.",
+      facts: ["No shirt and no turban", "Told by Aishah"],
+      source: hadith("bukhari", "1264", "Aishah", "Sahih", "Aishah said the Prophet ﷺ was shrouded in three white Yemeni cotton sheets, with no shirt or turban among them.", "shrouded in three Yemenite white Suhuliya (pieces of cloth) of cotton"),
+      difficulty: 1,
+      questions: [
+        { q: "How many sheets was he ﷺ shrouded in?", a: "Three", wrong: ["One", "Seven", "Ten"], why: "Shrouded in three white pieces of cloth." },
+        { q: "What colour were they?", a: "White", wrong: ["Green", "Black", "Red"], why: "Three Yemenite white cotton cloths." },
+        { q: "His ﷺ shroud had a shirt and a turban.", tf: false, why: "There was neither a shirt nor a turban. Sahih al-Bukhari 1264." }
+      ]
+    },
+    {
+      slug: "hurry-with-the-funeral",
+      title: "Hurry with the funeral",
+      line: "Do not delay a burial; hurry the body to what awaits it.",
+      facts: ["Good awaits the righteous", "Told by Abu Hurairah"],
+      source: hadith("bukhari", "1315", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: hurry with the body; if it was righteous you send it to good, and if not, you put a burden off your necks.", "Hurry up with the dead body"),
+      difficulty: 2,
+      questions: [
+        { q: "What should we do with the funeral?", a: "Hurry with it", wrong: ["Delay it for days", "Hide it", "Leave it"], why: "Hurry up with the dead body." },
+        { q: "If the person was righteous, you send them to...?", a: "Good", wrong: ["Harm", "The market", "Nothing"], why: "You are forwarding it to welfare." },
+        { q: "Delaying burial for no need is the Sunnah.", tf: false, why: "He ﷺ said to hurry. Sahih al-Bukhari 1315." }
+      ]
+    },
+    {
+      slug: "forty-who-pray",
+      title: "Forty who pray",
+      line: "If forty believers pray over a Muslim, Allah accepts their plea.",
+      facts: ["They must not do shirk", "Told by Ibn Abbas"],
+      source: hadith("muslim", "948", "Abdullah ibn Abbas", "Sahih", "The Prophet ﷺ said: if a Muslim dies and forty men who associate nothing with Allah pray over him, Allah accepts them as intercessors for him.", "forty men who associate nothing with Allah stand over his prayer"),
+      difficulty: 2,
+      questions: [
+        { q: "How many believers are named in the hadith?", a: "Forty", wrong: ["Three", "Ten", "A thousand"], why: "Forty men who associate nothing with Allah." },
+        { q: "What does Allah do with their prayer?", a: "Accepts them as intercessors", wrong: ["Rejects it", "Ignores it", "Delays it"], why: "Allah will accept them as intercessors for him." },
+        { q: "Ibn Abbas waited for forty people for his son's funeral.", tf: true, why: "Sahih Muslim 948." }
+      ]
+    },
+    {
+      slug: "a-dua-for-the-dead",
+      title: "A dua for the dead",
+      line: "He ﷺ prayed: O Allah, forgive Abu Salamah and light his grave.",
+      facts: ["Say only good near the dying", "Told by Umm Salamah"],
+      source: hadith("muslim", "920a", "Umm Salamah", "Sahih", "When Abu Salamah died, the Prophet ﷺ closed his eyes, told the family to say only good, as angels say amin, and prayed for his forgiveness, a spacious grave and light in it.", "O Allah, forgive Abu Salama"),
+      difficulty: 2,
+      questions: [
+        { q: "Why say only good when someone dies?", a: "Angels say amin to it", wrong: ["It is shorter", "No one hears", "It is a custom"], why: "Angels say Amen to what you say." },
+        { q: "What did he ﷺ ask for Abu Salamah's grave?", a: "Space and light", wrong: ["Gold", "A tall dome", "Flowers"], why: "Make his grave spacious, and grant him light in it." },
+        { q: "He ﷺ closed Abu Salamah's eyes.", tf: true, why: "When the soul is taken away the sight follows it. Sahih Muslim 920a." }
+      ]
+    },
+    {
+      slug: "martyrs-buried-as-they-fell",
+      title: "Martyrs buried as they fell",
+      line: "The martyrs of Uhud were buried in their blood, unwashed.",
+      facts: ["Their blood is their witness", "Told by Jabir"],
+      source: hadith("bukhari", "1346", "Jabir ibn Abdullah", "Sahih", "On the day of Uhud the Prophet ﷺ said: bury them with their blood, and they were not washed.", "Bury them (i.e. martyrs) with their blood"),
+      difficulty: 3,
+      questions: [
+        { q: "How were the martyrs of Uhud buried?", a: "With their blood", wrong: ["After a long wash", "In silk", "In gold"], why: "Bury them with their blood." },
+        { q: "Were they washed?", a: "No", wrong: ["Yes, three times", "Yes, with musk", "Only their hands"], why: "He did not get them washed." },
+        { q: "This was after the Battle of Uhud.", tf: true, why: "Sahih al-Bukhari 1346." }
+      ]
+    },
+    {
+      slug: "a-nurse-in-paradise",
+      title: "A nurse in Paradise",
+      line: "When baby Ibrahim died, he ﷺ said: he has a nurse in Paradise.",
+      facts: ["Ibrahim was his ﷺ son", "Told by al-Bara"],
+      source: hadith("bukhari", "1382", "al-Bara ibn Azib", "Sahih", "When the Prophet's ﷺ little son Ibrahim died, he said: there is a wet-nurse for him in Paradise.", "There is a wet-nurse for him in Paradise"),
+      difficulty: 1,
+      questions: [
+        { q: "Who was Ibrahim here?", a: "The Prophet's ﷺ son", wrong: ["A prophet", "A king", "A neighbour"], why: "Ibrahim, the son of the Prophet ﷺ." },
+        { q: "What did he ﷺ say Ibrahim has?", a: "A nurse in Paradise", wrong: ["A palace on earth", "A horse", "Nothing"], why: "There is a wet-nurse for him in Paradise." },
+        { q: "Young children who die are in Allah's care.", tf: true, why: "Sahih al-Bukhari 1382." }
+      ]
+    },
+    {
+      slug: "respect-the-graves",
+      title: "Respect the graves",
+      line: "Do not sit on graves, and do not pray facing them.",
+      facts: ["Graves are not for worship", "Told by Abu Marthad"],
+      source: hadith("muslim", "972a", "Abu Marthad al-Ghanawi", "Sahih", "The Prophet ﷺ said: do not sit on the graves and do not pray facing them.", "Do not sit on the graves and do not pray facing towards them"),
+      difficulty: 2,
+      questions: [
+        { q: "What must we not do on graves?", a: "Sit on them", wrong: ["Make dua for the dead", "Say salam", "Remember death"], why: "Do not sit on the graves." },
+        { q: "What else is forbidden?", a: "Praying facing graves", wrong: ["Visiting them", "Walking past", "Crying"], why: "Do not pray facing towards them." },
+        { q: "This keeps worship for Allah alone.", tf: true, why: "Sahih Muslim 972a." }
+      ]
+    },
+    {
+      slug: "salam-to-the-graves",
+      title: "Salam to the graves",
+      line: "At a graveyard say: peace be upon you, people of these homes.",
+      facts: ["We will join them, insha'Allah", "Told by Buraidah"],
+      source: hadith("muslim", "975", "Buraidah", "Sahih", "The Prophet ﷺ taught: peace be upon you, people of these homes, believers and Muslims; we shall join you, if Allah wills; I ask Allah for safety for us and you.", "Peace be upon you, the inhabitants of the city, among the believers, and Muslims, and God willing we shall join you"),
+      difficulty: 2,
+      questions: [
+        { q: "What do we say at a graveyard?", a: "Peace be upon you", wrong: ["Nothing", "Good morning", "Help us"], why: "Peace be upon you, the inhabitants of the city." },
+        { q: "What do we ask Allah for?", a: "Safety for us and them", wrong: ["Riches", "Fame", "A long trip"], why: "I beg of Allah peace for us and for you." },
+        { q: "The dua reminds us we will die too.", tf: true, why: "God willing we shall join you. Sahih Muslim 975." }
+      ]
+    }
+  ]
+};
+
+const HAJJ: DeepUnit = {
+  key: "book-hajj",
+  topicId: "sahihayn",
+  branchId: "hadith-book-hajj",
+  branch: { title: "The Book of Hajj", description: "From the Books of Hajj: ihram, the talbiyah, tawaf, Muzdalifah, Mina and the farewell tawaf." },
+  name: "the Book of Hajj",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "scent-before-ihram",
+      title: "Scent before ihram",
+      line: "Aishah perfumed him ﷺ before he entered ihram.",
+      facts: ["Before ihram, not after", "Told by Aishah"],
+      source: hadith("bukhari", "1539", "Aishah", "Sahih", "Aishah said she used to put scent on the Prophet ﷺ when he was about to enter ihram, and again on leaving it before Tawaf al-Ifadah.", "when he wanted to assume Ihram"),
+      difficulty: 2,
+      questions: [
+        { q: "When did Aishah put scent on him ﷺ?", a: "Before ihram", wrong: ["During tawaf", "At Arafah", "Never"], why: "When he wanted to assume ihram." },
+        { q: "When else did she scent him?", a: "On leaving ihram", wrong: ["At Mina's start", "At Fajr only", "On the way home"], why: "On finishing ihram before Tawaf al-Ifadah." },
+        { q: "Putting new perfume on while in ihram is fine.", tf: false, why: "The scent was before ihram and after it. Sahih al-Bukhari 1539." }
+      ]
+    },
+    {
+      slug: "labbayk-as-the-camel-rose",
+      title: "Labbayk as the camel rose",
+      line: "He ﷺ began the talbiyah as his camel stood up.",
+      facts: ["The miqat of Madinah", "Told by Ibn Umar"],
+      source: hadith("bukhari", "1514", "Abdullah ibn Umar", "Sahih", "Ibn Umar saw the Prophet ﷺ mount at Dhul-Hulaifah and begin saying labbayk when his camel stood up.", "when the Mount stood upright"),
+      difficulty: 2,
+      questions: [
+        { q: "Where did he ﷺ start the talbiyah?", a: "Dhul-Hulaifah", wrong: ["Arafah", "Mina", "Taif"], why: "He rode his mount at Dhul-Hulaifah." },
+        { q: "When exactly did he ﷺ begin?", a: "When his camel stood up", wrong: ["At night", "After tawaf", "At Arafah"], why: "He started saying labbaik when the mount stood upright." },
+        { q: "Dhul-Hulaifah is the miqat for people from Madinah.", tf: true, why: "Sahih al-Bukhari 1514." }
+      ]
+    },
+    {
+      slug: "the-words-of-talbiyah",
+      title: "The words of the talbiyah",
+      line: "Labbayk Allahumma labbayk: here I am, O Allah, here I am.",
+      facts: ["No partner have You", "Told by Aishah"],
+      source: hadith("bukhari", "1550", "Aishah", "Sahih", "Aishah said the Prophet's ﷺ talbiyah was: here I am, O Allah, here I am; here I am, You have no partner; all praise, blessing and kingdom are Yours; You have no partner.", "Labbaika Allahumma Labbaik, Labbaika la sharika Laka labbaik"),
+      difficulty: 1,
+      questions: [
+        { q: "What does labbayk mean?", a: "Here I am", wrong: ["Goodbye", "Thank you", "Wait for me"], why: "Labbaika Allahumma labbaik: here I am, O Allah." },
+        { q: "What does la sharika laka mean?", a: "You have no partner", wrong: ["You are far", "You are many", "You are new"], why: "Labbaika la sharika laka labbaik." },
+        { q: "The talbiyah praises Allah for all blessings.", tf: true, why: "All praise and blessings are Yours. Sahih al-Bukhari 1550." }
+      ]
+    },
+    {
+      slug: "into-makkah-from-the-top",
+      title: "Into Makkah from the top",
+      line: "He ﷺ entered Makkah from the high side, left from the low.",
+      facts: ["Different way in and out", "Told by Aishah"],
+      source: hadith("bukhari", "1577", "Aishah", "Sahih", "Aishah said: when the Prophet ﷺ came to Makkah he entered from its upper side and left from its lower side.", "he entered from its higher side and left from its lower side"),
+      difficulty: 2,
+      questions: [
+        { q: "From which side did he ﷺ enter Makkah?", a: "The higher side", wrong: ["The lower side", "The sea side", "No side"], why: "He entered from its higher side." },
+        { q: "Did he ﷺ leave the same way?", a: "No, from the lower side", wrong: ["Yes, the same", "He never left", "By ship"], why: "And left from its lower side." },
+        { q: "Aishah told this hadith.", tf: true, why: "Sahih al-Bukhari 1577." }
+      ]
+    },
+    {
+      slug: "ramal-in-three-rounds",
+      title: "Brisk in three rounds",
+      line: "In the first three rounds of tawaf he ﷺ walked briskly.",
+      facts: ["Called ramal", "Told by Ibn Umar"],
+      source: hadith("bukhari", "1604", "Abdullah ibn Umar", "Sahih", "Ibn Umar said the Prophet ﷺ did ramal, a brisk walk, in the first three rounds of tawaf and walked in the other four, in Hajj and Umrah.", "did Ramal in (first) three rounds (of Tawaf), and walked in the remaining four"),
+      difficulty: 2,
+      questions: [
+        { q: "In how many rounds is ramal done?", a: "The first three", wrong: ["All seven", "The last two", "None"], why: "He did ramal in the first three rounds." },
+        { q: "What about the other four rounds?", a: "Normal walking", wrong: ["Running fast", "Sitting", "Crawling"], why: "He walked in the remaining four." },
+        { q: "A tawaf has seven rounds.", tf: true, why: "Three with ramal and four walking. Sahih al-Bukhari 1604." }
+      ]
+    },
+    {
+      slug: "the-two-yemeni-corners",
+      title: "The two corners he touched",
+      line: "He ﷺ touched only the two Yemen-side corners of the Ka'bah.",
+      facts: ["The Black Stone and Yemeni corners", "Told by Ibn Umar"],
+      source: hadith("bukhari", "1609", "Abdullah ibn Umar", "Sahih", "Ibn Umar said he never saw the Prophet ﷺ touch any part of the Ka'bah except the two corners facing Yemen.", "touching except the two Yemenite Corners"),
+      difficulty: 3,
+      questions: [
+        { q: "Which corners did he ﷺ touch?", a: "The two facing Yemen", wrong: ["All four", "None", "Only the Syrian ones"], why: "Touching except the two Yemenite corners." },
+        { q: "The Black Stone sits in one of...?", a: "Those two corners", wrong: ["The roof", "The door", "The Hijr"], why: "The two Yemeni-side corners are the Black Stone corner and the Yemeni corner." },
+        { q: "Ibn Umar watched closely how he ﷺ did tawaf.", tf: true, why: "Sahih al-Bukhari 1609." }
+      ]
+    },
+    {
+      slug: "two-rakahs-at-mina",
+      title: "Two rak'ahs at Mina",
+      line: "At Mina he ﷺ shortened the four-rak'ah prayers to two.",
+      facts: ["Even in safety", "Told by Harithah ibn Wahb"],
+      source: hadith("bukhari", "1656", "Harithah ibn Wahb", "Sahih", "Harithah said: the Prophet ﷺ led us in two rak'ahs at Mina, though we were more and safer than ever.", "led us in a two-rak`at prayer at Mina"),
+      difficulty: 2,
+      questions: [
+        { q: "How many rak'ahs did he ﷺ pray at Mina?", a: "Two", wrong: ["Four", "Six", "One"], why: "He led us in a two-rak'at prayer at Mina." },
+        { q: "Were they in danger then?", a: "No, safer than ever", wrong: ["Yes, in war", "Yes, in a storm", "They were hiding"], why: "We were in better security than ever." },
+        { q: "Shortening prayer was a gift, not only for fear.", tf: true, why: "Sahih al-Bukhari 1656." }
+      ]
+    },
+    {
+      slug: "maghrib-and-isha-together",
+      title: "Maghrib and Isha together",
+      line: "At Muzdalifah he ﷺ prayed Maghrib and Isha together.",
+      facts: ["The night after Arafah", "Told by Abu Ayyub"],
+      source: hadith("bukhari", "1674", "Abu Ayyub al-Ansari", "Sahih", "Abu Ayyub said: the Prophet ﷺ prayed Maghrib and Isha together at Muzdalifah.", "prayers together at Al-Muzdalifa"),
+      difficulty: 1,
+      questions: [
+        { q: "Which prayers were joined at Muzdalifah?", a: "Maghrib and Isha", wrong: ["Fajr and Dhuhr", "Dhuhr and Asr", "Asr and Maghrib"], why: "He offered the Maghrib and Isha prayers together at Muzdalifah." },
+        { q: "Muzdalifah comes after...?", a: "The day of Arafah", wrong: ["Eid prayer", "Farewell tawaf", "Umrah"], why: "Pilgrims go to Muzdalifah on the night after Arafah." },
+        { q: "Abu Ayyub al-Ansari told this hadith.", tf: true, why: "Sahih al-Bukhari 1674." }
+      ]
+    },
+    {
+      slug: "the-weak-go-early",
+      title: "The weak go early",
+      line: "He ﷺ let the weak of his family leave Muzdalifah early at night.",
+      facts: ["Ease for the weak", "Told by Ibn Abbas"],
+      source: hadith("bukhari", "1678", "Abdullah ibn Abbas", "Sahih", "Ibn Abbas said: I was among the weak of his family whom the Prophet ﷺ sent early on the night of Muzdalifah.", "sent on the night of Al-Muzdalifa early being among the weak members of his family"),
+      difficulty: 2,
+      questions: [
+        { q: "Who was sent early from Muzdalifah?", a: "The weak of his family", wrong: ["The strongest men", "Only the camels", "No one"], why: "Among the weak members of his family." },
+        { q: "What does this show about Islam?", a: "It eases things for the weak", wrong: ["It is always hard", "Rules never change", "Only the rich matter"], why: "He sent the weak early to spare them the crowds." },
+        { q: "Ibn Abbas was a boy then.", tf: true, why: "He was among the weak of the family. Sahih al-Bukhari 1678." }
+      ]
+    },
+    {
+      slug: "shave-or-shorten",
+      title: "Shave or shorten",
+      line: "After Hajj, some shaved their heads and some cut it short.",
+      facts: ["He ﷺ shaved", "Told by Ibn Umar"],
+      source: hadith("bukhari", "1729", "Abdullah ibn Umar", "Sahih", "Ibn Umar said: the Prophet ﷺ and some companions shaved their heads, and others cut their hair short.", "got their heads shaved and some others got their hair cut short"),
+      difficulty: 1,
+      questions: [
+        { q: "What did the men do with their hair?", a: "Shaved or shortened it", wrong: ["Dyed it", "Braided it", "Nothing"], why: "Some got their heads shaved and some cut their hair short." },
+        { q: "What did the Prophet ﷺ do?", a: "He shaved his head", wrong: ["He left it", "He dyed it", "He cut one side"], why: "The Prophet ﷺ and some companions got their heads shaved." },
+        { q: "Both shaving and shortening were done.", tf: true, why: "Sahih al-Bukhari 1729." }
+      ]
+    },
+    {
+      slug: "no-harm-in-the-order",
+      title: "No harm in the order",
+      line: "Rites done out of order on Eid? He ﷺ said: no harm.",
+      facts: ["Sacrifice, shaving, stoning", "Told by Ibn Abbas"],
+      source: hadith("bukhari", "1734", "Abdullah ibn Abbas", "Sahih", "The Prophet ﷺ was asked about the sacrifice, shaving and stoning done before or after their time, and he said: there is no harm in that.", "There is no harm in that"),
+      difficulty: 3,
+      questions: [
+        { q: "What did he ﷺ say about the mixed-up order?", a: "No harm", wrong: ["Redo Hajj", "Pay a big fine", "Leave Makkah"], why: "There is no harm in that." },
+        { q: "Which rites were asked about?", a: "Sacrifice, shaving and stoning", wrong: ["Fasting and zakat", "Wudu and adhan", "Trade and travel"], why: "About the sacrifice, shaving and the stoning." },
+        { q: "He ﷺ made Hajj easy for people.", tf: true, why: "Sahih al-Bukhari 1734." }
+      ]
+    },
+    {
+      slug: "the-farewell-tawaf",
+      title: "The farewell tawaf",
+      line: "The last thing before leaving Makkah is the farewell tawaf.",
+      facts: ["Women in their period are excused", "Told by Ibn Abbas"],
+      source: hadith("bukhari", "1755", "Abdullah ibn Abbas", "Sahih", "Ibn Abbas said: people were told to make tawaf of the Ka'bah the last thing before leaving, except women in their period, who were excused.", "the Tawaf of the Ka`ba (Tawaf-al-Wada`) as the lastly thing, before leaving"),
+      difficulty: 2,
+      questions: [
+        { q: "What is the last rite before leaving Makkah?", a: "The farewell tawaf", wrong: ["Stoning", "Shaving", "Fasting"], why: "Tawaf al-Wada as the last thing before leaving." },
+        { q: "Who is excused from it?", a: "Women in their period", wrong: ["The rich", "Young men", "No one"], why: "Except the menstruating women who were excused." },
+        { q: "The farewell tawaf is done on arrival in Makkah.", tf: false, why: "It is the last thing before leaving. Sahih al-Bukhari 1755." }
+      ]
+    }
+  ]
+};
+
+const OATHS: DeepUnit = {
+  key: "book-oaths",
+  topicId: "sahihayn",
+  branchId: "hadith-book-ayman",
+  branch: { title: "The Book of Oaths and Vows", description: "From the Books of Oaths and Vows: swearing only by Allah, breaking an oath for something better, and keeping vows of good." },
+  name: "the Book of Oaths",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "do-what-is-better",
+      title: "Do what is better",
+      line: "If a better choice comes, take it and expiate your oath.",
+      facts: ["Abu Bakr kept every oath", "Told by Aisha"],
+      source: hadith("bukhari", "6621", "Aisha", "Sahih", "Abu Bakr never broke an oath until Allah revealed the expiation. Then he said: if I swear to do something and find something better, I do what is better and expiate my oath.", "then I do what is better and make expiation for my oath"),
+      difficulty: 1,
+      questions: [
+        { q: "What did Abu Bakr do when a better choice came?", a: "Did the better thing and expiated", wrong: ["Kept the oath no matter what", "Forgot the oath", "Made a new oath"], why: "Then I do what is better and make expiation for my oath." },
+        { q: "Before the expiation came, did Abu Bakr break oaths?", a: "Never", wrong: ["Often", "Only in trade", "Only when angry"], why: "Abu Bakr had never broken his oaths till Allah revealed the expiation." },
+        { q: "An oath can be broken for something better, with expiation.", tf: true, why: "Sahih al-Bukhari 6621." }
+      ]
+    },
+    {
+      slug: "an-oath-that-harms-family",
+      title: "An oath that harms family",
+      line: "Keeping an oath that harms your family is a bigger sin.",
+      facts: ["Better to expiate it", "Told by Abu Hurairah"],
+      source: hadith("bukhari", "6625", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: whoever insists on keeping an oath that harms his family commits a greater sin than breaking it and making expiation.", "than that of dissolving his oath and making expiation for it"),
+      difficulty: 2,
+      questions: [
+        { q: "What is the bigger sin here?", a: "Keeping an oath that harms family", wrong: ["Making expiation", "Talking to family", "Giving charity"], why: "He commits a greater sin than dissolving his oath and making expiation." },
+        { q: "What should he do instead?", a: "Break it and expiate", wrong: ["Swear again", "Leave home", "Stay silent"], why: "Dissolving his oath and making expiation for it." },
+        { q: "Our family should not be hurt by our oaths.", tf: true, why: "Sahih al-Bukhari 6625." }
+      ]
+    },
+    {
+      slug: "swear-by-allah-or-be-quiet",
+      title: "Swear by Allah or be quiet",
+      line: "Do not swear by your fathers. Swear by Allah or keep quiet.",
+      facts: ["Said to Umar on a journey", "Told by Ibn Umar"],
+      source: hadith("bukhari", "6646", "Abdullah ibn Umar", "Sahih", "The Prophet ﷺ met Umar swearing by his father and said: Allah forbids you to swear by your fathers. Whoever swears, let him swear by Allah or keep quiet.", "he should swear by Allah or keep quiet"),
+      difficulty: 1,
+      questions: [
+        { q: "Who may we swear by?", a: "Allah only", wrong: ["Our fathers", "Our teachers", "Our country"], why: "Whoever has to take an oath should swear by Allah or keep quiet." },
+        { q: "Who was swearing by his father?", a: "Umar", wrong: ["Abu Bakr", "Ali", "Bilal"], why: "He met Umar bin Al-Khattab, who was swearing by his father." },
+        { q: "Swearing by your father is fine in Islam.", tf: false, why: "Allah forbids you to swear by your fathers. Sahih al-Bukhari 6646." }
+      ]
+    },
+    {
+      slug: "fix-a-wrong-oath",
+      title: "Fix a wrong oath",
+      line: "Swore by an idol by mistake? Say la ilaha illallah.",
+      facts: ["Wiping out the wrong words", "Told by Abu Hurairah"],
+      source: hadith("bukhari", "6650", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: whoever swears by Al-Lat and Al-Uzza should say: none has the right to be worshipped but Allah. And whoever invites a friend to gamble should give something in charity.", "None has the right to be worshipped but Allah"),
+      difficulty: 2,
+      questions: [
+        { q: "What should one say after swearing by an idol?", a: "La ilaha illallah", wrong: ["Nothing", "Another oath", "A poem"], why: "He should say: None has the right to be worshipped but Allah." },
+        { q: "What should one do after inviting a friend to gamble?", a: "Give something in charity", wrong: ["Gamble once", "Run away", "Sleep"], why: "Whoever says to his friend, come, let me gamble with you, should give something in charity." },
+        { q: "A wrong word can be followed by a good one to fix it.", tf: true, why: "Sahih al-Bukhari 6650." }
+      ]
+    },
+    {
+      slug: "help-others-keep-oaths",
+      title: "Help others keep oaths",
+      line: "He ﷺ told us to help others keep their oaths.",
+      facts: ["Helping a brother keep his word", "Told by al-Bara"],
+      source: hadith("bukhari", "6654", "Al-Bara ibn Azib", "Sahih", "The Prophet ﷺ ordered us to help others fulfil their oaths.", "The Prophet (ﷺ) ordered us to help others to fulfill the oaths"),
+      difficulty: 1,
+      questions: [
+        { q: "What were we told to help others with?", a: "Keeping their oaths", wrong: ["Breaking oaths", "Making more oaths", "Hiding oaths"], why: "He ordered us to help others to fulfill the oaths." },
+        { q: "Who told this hadith?", a: "Al-Bara ibn Azib", wrong: ["Anas", "Aisha", "Jabir"], why: "Narrated Al-Bara." },
+        { q: "Helping a friend keep his word is a good deed.", tf: true, why: "Sahih al-Bukhari 6654." }
+      ]
+    },
+    {
+      slug: "thoughts-are-forgiven",
+      title: "Bad thoughts are forgiven",
+      line: "Bad thoughts are forgiven if you do not act or speak.",
+      facts: ["A mercy for this Ummah", "Told by Abu Hurairah"],
+      source: hadith("bukhari", "6664", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: Allah forgives my Ummah the bad things their souls whisper to them, as long as they do not act on it or speak it.", "as long as they do not act (on it) or speak"),
+      difficulty: 1,
+      questions: [
+        { q: "When are bad whispers forgiven?", a: "If we do not act or speak", wrong: ["Never", "Only on Friday", "Only if we tell people"], why: "As long as they do not act on it or speak." },
+        { q: "Who forgives these whispers?", a: "Allah", wrong: ["Our friends", "Our teachers", "No one"], why: "Allah forgives my followers what their souls whisper." },
+        { q: "A passing bad thought is written as a sin.", tf: false, why: "It is forgiven unless we act or speak. Sahih al-Bukhari 6664." }
+      ]
+    },
+    {
+      slug: "a-vow-changes-nothing",
+      title: "A vow changes nothing",
+      line: "A vow does not change what Allah has decreed.",
+      facts: ["It only takes wealth from a miser", "Told by Ibn Umar"],
+      source: hadith("bukhari", "6692", "Abdullah ibn Umar", "Sahih", "The Prophet ﷺ said: a vow neither brings a thing sooner nor later, but through vows some wealth is taken out of a miser.", "A vow neither hastens nor delays anything"),
+      difficulty: 2,
+      questions: [
+        { q: "Does a vow bring something sooner?", a: "No, it changes nothing", wrong: ["Yes, always", "Only big vows", "Only at night"], why: "A vow neither hastens nor delays anything." },
+        { q: "Who loses wealth through vows?", a: "The miser", wrong: ["The poor", "The traveller", "The orphan"], why: "By the making of vows, some of the wealth of a miser is taken out." },
+        { q: "Making a vow forces Allah to give us what we want.", tf: false, why: "A vow neither hastens nor delays anything. Sahih al-Bukhari 6692." }
+      ]
+    },
+    {
+      slug: "umars-old-vow",
+      title: "Umar's old vow",
+      line: "Umar vowed i'tikaf before Islam. He was told: fulfil it.",
+      facts: ["A night in al-Masjid al-Haram", "Told by Ibn Umar"],
+      source: hadith("bukhari", "6697", "Abdullah ibn Umar", "Sahih", "Umar said: I vowed before Islam to do i'tikaf for one night in al-Masjid al-Haram. The Prophet ﷺ said: fulfil your vow.", "Fulfill your vow"),
+      difficulty: 2,
+      questions: [
+        { q: "What had Umar vowed?", a: "One night of i'tikaf", wrong: ["A month of fasting", "A trip to Sham", "To build a well"], why: "I vowed to perform I'tikaf for one night in Al-Masjid-al-Haram." },
+        { q: "What was he told?", a: "Fulfil your vow", wrong: ["Forget it", "Pay money instead", "Do it twice"], why: "The Prophet ﷺ said: Fulfill your vow." },
+        { q: "A good vow should be kept.", tf: true, why: "Sahih al-Bukhari 6697." }
+      ]
+    },
+    {
+      slug: "allahs-right-comes-first",
+      title: "Allah's right comes first",
+      line: "A sister's vowed Hajj is like a debt. Allah's right comes first.",
+      facts: ["Fulfil it for the one who died", "Told by Ibn Abbas"],
+      source: hadith("bukhari", "6699", "Abdullah ibn Abbas", "Sahih", "A man said his sister vowed Hajj and died. The Prophet ﷺ said: would you not pay her debts? Then pay Allah's right, for He is more entitled to His right.", "as He is more entitled to receive His rights"),
+      difficulty: 2,
+      questions: [
+        { q: "What did his sister vow?", a: "To do Hajj", wrong: ["To fast a year", "To build a masjid", "To free a slave"], why: "My sister vowed to perform the Hajj, but she died." },
+        { q: "What was the vow compared to?", a: "A debt", wrong: ["A gift", "A dream", "A promise to a friend"], why: "Would you not have paid her debts if she had any?" },
+        { q: "Allah is more entitled to His right than people.", tf: true, why: "Sahih al-Bukhari 6699." }
+      ]
+    },
+    {
+      slug: "no-hurting-yourself",
+      title: "No hurting yourself",
+      line: "He ﷺ cut the rope of a man tied up during tawaf.",
+      facts: ["Worship is not self-harm", "Told by Ibn Abbas"],
+      source: hadith("bukhari", "6702", "Abdullah ibn Abbas", "Sahih", "The Prophet ﷺ saw a man doing tawaf tied with a rope while another held him, and he cut the rope.", "The Prophet (ﷺ) cut that rope off"),
+      difficulty: 2,
+      questions: [
+        { q: "What did he ﷺ do to the rope?", a: "Cut it off", wrong: ["Tied it tighter", "Left it", "Gave it away"], why: "The Prophet ﷺ cut that rope off." },
+        { q: "Where was the man?", a: "Doing tawaf at the Kaaba", wrong: ["In the market", "At home", "On a ship"], why: "A man was performing Tawaf around the Kaaba, tied with a rope." },
+        { q: "Hard ways that hurt us are not part of worship.", tf: true, why: "Sahih al-Bukhari 6702." }
+      ]
+    },
+    {
+      slug: "no-fasting-on-eid",
+      title: "No fasting on Eid",
+      line: "Even if you vowed to fast daily, do not fast on Eid.",
+      facts: ["He ﷺ never fasted on Eid", "Told by Ibn Umar"],
+      source: hadith("bukhari", "6705", "Abdullah ibn Umar", "Sahih", "Ibn Umar was asked about a man who vowed to fast every day, then Eid came. He said: the Prophet ﷺ did not fast on Eid al-Adha or Eid al-Fitr, and we do not fast on them.", "He did not fast on the day of `Id al Adha or the day of `Id-al-Fitr"),
+      difficulty: 2,
+      questions: [
+        { q: "What had the man vowed?", a: "To fast every day", wrong: ["To pray all night", "To give all his wealth", "To travel"], why: "A man vowed that he would fast all the days of his life." },
+        { q: "Which days are not for fasting?", a: "The two Eids", wrong: ["Mondays", "White days", "Ashura"], why: "He did not fast on the day of Id al-Adha or the day of Id al-Fitr." },
+        { q: "A vow can make fasting on Eid allowed.", tf: false, why: "Even then, do not fast on Eid. Sahih al-Bukhari 6705." }
+      ]
+    },
+    {
+      slug: "keep-some-of-your-wealth",
+      title: "Keep some of your wealth",
+      line: "Ka'b wanted to give all he had. He was told: keep some.",
+      facts: ["After his repentance from Tabuk", "Told by Ka'b ibn Malik"],
+      source: hadith("bukhari", "6690", "Ka'b ibn Malik", "Sahih", "When his repentance was accepted, Ka'b wanted to give all his property for Allah. The Prophet ﷺ said: keep some of your wealth, that is better for you.", "Keep some of your wealth, for that is better for you"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Ka'b want to give away?", a: "All his property", wrong: ["Half his food", "His sword", "His horse only"], why: "I shall give up all my property for the sake of Allah and His Apostle." },
+        { q: "What was he told?", a: "Keep some of your wealth", wrong: ["Give it all", "Give nothing", "Sell it"], why: "Keep some of your wealth, for that is better for you." },
+        { q: "Islam asks us to leave ourselves with nothing.", tf: false, why: "Keeping some is better for you. Sahih al-Bukhari 6690." }
+      ]
+    }
+  ]
+};
+
+const WILLS: DeepUnit = {
+  key: "book-wills",
+  topicId: "sahihayn",
+  branchId: "hadith-book-wasaya",
+  branch: { title: "The Book of Wills", description: "From the Books of Wills: writing a will, the one-third limit, charity for those who died, and endowments." },
+  name: "the Book of Wills",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "keep-your-will-ready",
+      title: "Keep your will ready",
+      line: "A Muslim with something to leave should have his will written.",
+      facts: ["Not two nights without it", "Told by Ibn Umar"],
+      source: hadith("bukhari", "2738", "Abdullah ibn Umar", "Sahih", "The Prophet ﷺ said: a Muslim who has something to leave in a will should not spend two nights without having it written and ready.", "without having his last will and testament written and kept ready with him"),
+      difficulty: 1,
+      questions: [
+        { q: "What should a Muslim keep ready?", a: "A written will", wrong: ["A packed bag", "A new house", "A big feast"], why: "His last will and testament written and kept ready with him." },
+        { q: "For how long should he not be without it?", a: "Two nights", wrong: ["Two years", "Ten days", "One month"], why: "To stay for two nights without having his last will written." },
+        { q: "Writing a will early is part of being ready for death.", tf: true, why: "Sahih al-Bukhari 2738." }
+      ]
+    },
+    {
+      slug: "what-he-left-behind",
+      title: "What he ﷺ left behind",
+      line: "He ﷺ left no money, just a mule, arms and land in charity.",
+      facts: ["He did not gather wealth", "Told by Amr ibn al-Harith"],
+      source: hadith("bukhari", "2739", "Amr ibn al-Harith", "Sahih", "When the Prophet ﷺ died he left no dirham or dinar, only his white mule, his weapons and a piece of land he had given in charity.", "except his white mule, his arms and a piece of land which he had given in charity"),
+      difficulty: 1,
+      questions: [
+        { q: "How much money did he ﷺ leave?", a: "None", wrong: ["A chest of gold", "A thousand dinars", "Many houses"], why: "He did not leave any Dirham or Dinar." },
+        { q: "What colour was his mule?", a: "White", wrong: ["Black", "Brown", "Grey"], why: "Except his white mule." },
+        { q: "His land was given in charity.", tf: true, why: "Sahih al-Bukhari 2739." }
+      ]
+    },
+    {
+      slug: "he-left-us-the-quran",
+      title: "He left us the Quran",
+      line: "Asked about his will: he ﷺ left us the Book of Allah.",
+      facts: ["The Quran is his legacy", "Told by Ibn Abi Awfa"],
+      source: hadith("bukhari", "2740", "Abdullah ibn Abi Awfa", "Sahih", "Talhah asked Ibn Abi Awfa whether the Prophet ﷺ made a will. He said the Prophet ﷺ left as his will the Book of Allah.", "The Prophet (ﷺ) bequeathed Allah"),
+      difficulty: 1,
+      questions: [
+        { q: "What did he ﷺ leave as his will?", a: "The Book of Allah", wrong: ["A palace", "A sword", "A letter of rulers"], why: "The Prophet ﷺ bequeathed Allah's Book." },
+        { q: "Who was asked the question?", a: "Ibn Abi Awfa", wrong: ["Abu Bakr", "Umar", "Zayd"], why: "I asked Abdullah bin Abu Aufa." },
+        { q: "Holding on to the Quran keeps his will.", tf: true, why: "Sahih al-Bukhari 2740." }
+      ]
+    },
+    {
+      slug: "one-third-is-a-lot",
+      title: "One third is a lot",
+      line: "Will away one third at most, and even that is a lot.",
+      facts: ["The rest goes to heirs", "Told by Ibn Abbas"],
+      source: hadith("bukhari", "2743", "Abdullah ibn Abbas", "Sahih", "Ibn Abbas advised people to will less than a third, because the Prophet ﷺ said: one third, and one third is a lot.", "One-third, yet even one third is too much"),
+      difficulty: 2,
+      questions: [
+        { q: "What is the most a will can give away?", a: "One third", wrong: ["One half", "All of it", "Two thirds"], why: "One-third, yet even one third is too much." },
+        { q: "What did Ibn Abbas advise?", a: "Giving less than a third", wrong: ["Giving all", "Giving nothing", "Giving half"], why: "I recommend that people reduce what they bequeath to the fourth." },
+        { q: "A person may will all his wealth away from his heirs.", tf: false, why: "Up to one third only. Sahih al-Bukhari 2743." }
+      ]
+    },
+    {
+      slug: "a-garden-for-his-mother",
+      title: "A garden for his mother",
+      line: "Sa'd gave his garden in charity for his mother after she died.",
+      facts: ["Charity reaches those who died", "Told by Ibn Abbas"],
+      source: hadith("bukhari", "2756", "Abdullah ibn Abbas", "Sahih", "Sa'd ibn Ubadah's mother died while he was away. He asked if charity for her would help. The Prophet ﷺ said yes, so Sa'd gave his garden al-Makhraf in charity for her.", "I gave my garden called Al Makhraf in charity on her behalf"),
+      difficulty: 1,
+      questions: [
+        { q: "What did Sa'd give for his mother?", a: "His garden", wrong: ["His horse", "His house", "His sword"], why: "I gave my garden called Al Makhraf in charity on her behalf." },
+        { q: "Does charity help a parent who died?", a: "Yes", wrong: ["No", "Only for kings", "Only in Ramadan"], why: "Will it benefit her? The Prophet ﷺ said: Yes." },
+        { q: "We can still do good for our parents after they die.", tf: true, why: "Sahih al-Bukhari 2756." }
+      ]
+    },
+    {
+      slug: "charity-for-a-father",
+      title: "Charity for a father",
+      line: "A father died without a will. Charity for him helps him.",
+      facts: ["It can lift his burden", "Told by Abu Hurairah"],
+      source: hadith("muslim", "1630", "Abu Hurairah", "Sahih", "A man said: my father died and left property without a will. Will it remove his sins if I give charity for him? The Prophet ﷺ said: yes.", "He (the Holy Prophet) said: Yes"),
+      difficulty: 1,
+      questions: [
+        { q: "What had the father not done?", a: "Made a will", wrong: ["Prayed", "Fasted", "Married"], why: "My father died and left behind property without making any will." },
+        { q: "What did the son ask about giving?", a: "Charity for his father", wrong: ["A gift to a king", "Money to himself", "A new house"], why: "Would he be relieved if I give sadaqa on his behalf?" },
+        { q: "Charity for a parent who died can help them.", tf: true, why: "Sahih Muslim 1630." }
+      ]
+    },
+    {
+      slug: "the-price-from-allah",
+      title: "The price is from Allah",
+      line: "For the masjid land they said: our price is from Allah.",
+      facts: ["The land of the Masjid of the Prophet ﷺ", "Told by Anas"],
+      source: hadith("bukhari", "2774", "Anas ibn Malik", "Sahih", "When the Prophet ﷺ came to Madinah he asked Banu an-Najjar the price of their garden for the masjid. They said: by Allah, we ask its price only from Allah.", "we will not ask its price except from Allah"),
+      difficulty: 1,
+      questions: [
+        { q: "What was the land for?", a: "Building the masjid", wrong: ["A market", "A palace", "A farm"], why: "When he came to Medina, he ordered that a mosque be built." },
+        { q: "Who would they ask the price from?", a: "Allah", wrong: ["The Prophet ﷺ", "The rich", "Nobody ever"], why: "We will not ask its price except from Allah." },
+        { q: "Giving land for a masjid is a lasting charity.", tf: true, why: "Sahih al-Bukhari 2774." }
+      ]
+    },
+    {
+      slug: "no-money-for-heirs",
+      title: "No money for his heirs",
+      line: "His heirs get no money. What he left is charity.",
+      facts: ["After his wives and workers are cared for", "Told by Abu Hurairah"],
+      source: hadith("bukhari", "2776", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: my heirs will not inherit a dinar or dirham. What I leave, after support for my wives and wages of my workers, is charity.", "for whatever I leave (excluding the adequate support of my wives and the wages of my employees) is given in charity"),
+      difficulty: 2,
+      questions: [
+        { q: "What happens to what he ﷺ left?", a: "It is charity", wrong: ["It goes to his heirs", "It is buried", "It goes to kings"], why: "Whatever I leave is given in charity." },
+        { q: "Who is cared for first?", a: "His wives and workers", wrong: ["Traders", "Soldiers", "Visitors"], why: "Excluding the adequate support of my wives and the wages of my employees." },
+        { q: "The heirs of the Prophet ﷺ inherit his money.", tf: false, why: "My heirs will not inherit a Dinar or a Dirham. Sahih al-Bukhari 2776." }
+      ]
+    },
+    {
+      slug: "the-keeper-of-a-waqf",
+      title: "The keeper of a waqf",
+      line: "Umar's waqf keeper could eat from it but not store for himself.",
+      facts: ["A waqf is a lasting endowment", "Told by Ibn Umar"],
+      source: hadith("bukhari", "2777", "Abdullah ibn Umar", "Sahih", "When Umar set up an endowment, he said its keeper may eat from it and feed a friend, as long as he stores nothing for himself.", "on the condition that he would not store anything for himself from it"),
+      difficulty: 2,
+      questions: [
+        { q: "What could the keeper do?", a: "Eat from it and feed a friend", wrong: ["Sell it", "Keep all of it", "Close it"], why: "Its administrator could eat from it and also feed his friend." },
+        { q: "What could he not do?", a: "Store things for himself", wrong: ["Eat from it", "Work in it", "Visit it"], why: "On the condition that he would not store anything for himself." },
+        { q: "A waqf keeps giving after the giver is gone.", tf: true, why: "Sahih al-Bukhari 2777." }
+      ]
+    },
+    {
+      slug: "jabirs-fathers-debts",
+      title: "Jabir's father's debts",
+      line: "Jabir's father died in debt. He ﷺ helped pay it with dates.",
+      facts: ["Debts are paid before shares", "Told by Jabir"],
+      source: hadith("bukhari", "2781", "Jabir ibn Abdullah", "Sahih", "Jabir's father died at Uhud leaving six daughters and debts. The Prophet ﷺ came at harvest, walked around the biggest heap of dates three times and sat on it, and the debts were paid.", "he went round the biggest heap for three times and sat over it"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Jabir's father leave?", a: "Six daughters and debts", wrong: ["A big palace", "Many camels", "No family"], why: "He left six daughters and some debts to be paid." },
+        { q: "What did he ﷺ do at the dates?", a: "Went round the biggest heap", wrong: ["Sold them", "Left them", "Ate them all"], why: "He went round the biggest heap for three times and sat over it." },
+        { q: "Paying a dead person's debts matters in Islam.", tf: true, why: "Sahih al-Bukhari 2781." }
+      ]
+    }
+  ]
+};
+
+const QURAN_VIRTUES: DeepUnit = {
+  key: "book-quran-virtues",
+  topicId: "sahihayn",
+  branchId: "hadith-book-quran",
+  branch: { title: "The Book of the Virtues of the Quran", description: "From the Books of the Virtues of the Quran: learning it, keeping it, reciting it well, and its reward." },
+  name: "the Book of the Quran",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "learned-before-he-came",
+      title: "Learned before he ﷺ came",
+      line: "Al-Bara learned Surah al-A'la before he ﷺ reached Madinah.",
+      facts: ["Madinah learned Quran early", "Told by al-Bara"],
+      source: hadith("bukhari", "4995", "Al-Bara ibn Azib", "Sahih", "Al-Bara said: I learned Surah al-A'la (Glorify the Name of your Lord, the Most High) before the Prophet ﷺ came to Madinah.", "before the Prophet (ﷺ) came (to Medina)"),
+      difficulty: 1,
+      questions: [
+        { q: "Which surah did al-Bara learn early?", a: "Surah al-A'la", wrong: ["Surah al-Baqarah", "Surah Yusuf", "Surah al-Kahf"], why: "I learnt, Glorify the Name of your Lord the Most High (Surat al-A'la)." },
+        { q: "When did he learn it?", a: "Before he ﷺ came to Madinah", wrong: ["After the conquest", "In his old age", "After Hajj"], why: "Before the Prophet ﷺ came to Medina." },
+        { q: "Young Companions learned the Quran early.", tf: true, why: "Sahih al-Bukhari 4995." }
+      ]
+    },
+    {
+      slug: "recite-in-a-pleasant-voice",
+      title: "Recite in a pleasant voice",
+      line: "Allah loves to hear the Quran recited in a pleasant voice.",
+      facts: ["A beautiful, clear voice", "Told by Abu Hurairah"],
+      source: hadith("bukhari", "5023", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: Allah does not listen to anything as He listens to a prophet reciting the Quran in a pleasant voice.", "in a pleasant tone"),
+      difficulty: 2,
+      questions: [
+        { q: "How should the Quran be recited?", a: "In a pleasant voice", wrong: ["Very fast", "Angrily", "Without care"], why: "A prophet who recites the Quran in a pleasant tone." },
+        { q: "Who told this hadith?", a: "Abu Hurairah", wrong: ["Anas", "Jabir", "Ibn Umar"], why: "Narrated Abu Huraira." },
+        { q: "Making our recitation beautiful is loved.", tf: true, why: "Sahih al-Bukhari 5023." }
+      ]
+    },
+    {
+      slug: "like-tied-camels",
+      title: "Like tied camels",
+      line: "Keep the Quran you memorised like camels you keep tied.",
+      facts: ["Let go and it runs away", "Told by Ibn Umar"],
+      source: hadith("bukhari", "5031", "Abdullah ibn Umar", "Sahih", "The Prophet ﷺ said: one who knows the Quran by heart is like the owner of tied camels. If he keeps them tied he keeps them, and if he lets them go they run away.", "but if he releases them, they will run away"),
+      difficulty: 1,
+      questions: [
+        { q: "What is a hafiz compared to?", a: "An owner of tied camels", wrong: ["A rich trader", "A sailor", "A builder"], why: "Like the owner of tied camels." },
+        { q: "What happens if the camels are let go?", a: "They run away", wrong: ["They sleep", "They come home", "They grow"], why: "If he releases them, they will run away." },
+        { q: "Memorised Quran needs regular review.", tf: true, why: "Sahih al-Bukhari 5031." }
+      ]
+    },
+    {
+      slug: "it-slips-away-fast",
+      title: "It slips away fast",
+      line: "Keep reviewing the Quran. It slips away faster than a camel.",
+      facts: ["He ﷺ swore by Allah on it", "Told by Abu Musa"],
+      source: hadith("bukhari", "5033", "Abu Musa al-Ash'ari", "Sahih", "The Prophet ﷺ said: keep reviewing the Quran, for by Him in whose Hand is my soul, it slips away faster than a camel from its rope.", "it is surely more prone to break away than a camel in its bind"),
+      difficulty: 1,
+      questions: [
+        { q: "What slips away faster than a camel?", a: "The Quran we memorised", wrong: ["Our money", "Our friends", "Our time"], why: "It is surely more prone to break away than a camel." },
+        { q: "What are we told to do?", a: "Keep reviewing it", wrong: ["Memorise once only", "Hide it", "Leave it"], why: "Commit yourself to the Qur'an." },
+        { q: "Once memorised, the Quran never leaves us.", tf: false, why: "It slips away if not reviewed. Sahih al-Bukhari 5033." }
+      ]
+    },
+    {
+      slug: "a-reciter-reminded-him",
+      title: "A reciter reminded him ﷺ",
+      line: "He ﷺ heard a man recite and prayed for mercy for him.",
+      facts: ["Reciting aloud can help others", "Told by Aisha"],
+      source: hadith("bukhari", "5037", "Aisha", "Sahih", "The Prophet ﷺ heard a man reciting in the masjid and said: may Allah have mercy on him, he reminded me of such and such verses.", "May Allah bestow His Mercy on him"),
+      difficulty: 2,
+      questions: [
+        { q: "What did he ﷺ say about the reciter?", a: "May Allah have mercy on him", wrong: ["Be quiet", "Go home", "Recite faster"], why: "May Allah bestow His Mercy on him." },
+        { q: "Where was the man reciting?", a: "In the masjid", wrong: ["In the market", "On a ship", "In a garden"], why: "He heard a man reciting the Quran in the mosque." },
+        { q: "Hearing others recite can remind us of verses.", tf: true, why: "Sahih al-Bukhari 5037." }
+      ]
+    },
+    {
+      slug: "say-i-was-made-to-forget",
+      title: "Say I was made to forget",
+      line: "Don't say I forgot verses. Say I was made to forget.",
+      facts: ["Mind how we speak of the Quran", "Told by Ibn Mas'ud"],
+      source: hadith("bukhari", "5039", "Abdullah ibn Mas'ud", "Sahih", "The Prophet ﷺ said: why does one of you say I have forgotten such and such verses? Rather, he was made to forget.", "He, in fact, is caused (by Allah) to forget"),
+      difficulty: 3,
+      questions: [
+        { q: "What should one say instead of I forgot?", a: "I was made to forget", wrong: ["I never knew it", "It does not matter", "Nothing at all"], why: "He, in fact, is caused by Allah to forget." },
+        { q: "Who told this hadith?", a: "Ibn Mas'ud", wrong: ["Abu Bakr", "Anas", "Salman"], why: "Narrated Abdullah (ibn Mas'ud)." },
+        { q: "We should speak about the Quran with care.", tf: true, why: "Sahih al-Bukhari 5039." }
+      ]
+    },
+    {
+      slug: "recite-while-hearts-agree",
+      title: "Recite while hearts agree",
+      line: "Read the Quran while hearts agree. If you argue, get up.",
+      facts: ["Do not argue over the Quran", "Told by Jundub"],
+      source: hadith("bukhari", "5061", "Jundub ibn Abdullah", "Sahih", "The Prophet ﷺ said: recite the Quran as long as your hearts agree on it, and when you differ about it, stop for the time being.", "then you should stop reciting it (for the time being)"),
+      difficulty: 3,
+      questions: [
+        { q: "When should we stop for a while?", a: "When we start to argue", wrong: ["When it is hot", "When we are hungry", "Never"], why: "When you have any difference of opinion, stop reciting for the time being." },
+        { q: "When do we keep reciting together?", a: "While our hearts agree", wrong: ["While we fight", "While we shout", "While we compete"], why: "Recite the Quran as long as you agree." },
+        { q: "Arguing over the Quran is a good way to study it.", tf: false, why: "Stop and calm down. Sahih al-Bukhari 5061." }
+      ]
+    },
+    {
+      slug: "ibn-abbas-at-ten",
+      title: "Ibn Abbas at ten",
+      line: "Ibn Abbas was ten and had learned the short surahs by heart.",
+      facts: ["Al-Mufassal: the short surahs at the end", "Told by Sa'id ibn Jubayr"],
+      source: hadith("bukhari", "5035", "Abdullah ibn Abbas", "Sahih", "Ibn Abbas said: the Prophet ﷺ died when I was a boy of ten, and I had learned the Muhkam, the short surahs called al-Mufassal.", "when I was a boy of ten years, and I had learnt the Muhkam"),
+      difficulty: 2,
+      questions: [
+        { q: "How old was Ibn Abbas then?", a: "Ten years old", wrong: ["Twenty", "Five", "Forty"], why: "I was a boy of ten years." },
+        { q: "What had he learned?", a: "The short surahs", wrong: ["Only al-Fatihah", "Poetry", "Nothing"], why: "I had learnt the Muhkam, the Mufassal." },
+        { q: "Children can learn many surahs by heart.", tf: true, why: "Sahih al-Bukhari 5035." }
+      ]
+    },
+    {
+      slug: "like-a-citron",
+      title: "Like a citron",
+      line: "A believer who recites is like a citron: good taste, good smell.",
+      facts: ["Not reciting: a date with no smell", "Told by Abu Musa"],
+      source: hadith("bukhari", "5020", "Abu Musa al-Ash'ari", "Sahih", "The Prophet ﷺ said: a believer who recites the Quran is like a citron, good in taste and smell. A believer who does not recite it is like a date, good in taste but with no smell.", "is like that of a citron which tastes good and smells good"),
+      difficulty: 2,
+      questions: [
+        { q: "A believer who recites is like what?", a: "A citron", wrong: ["A stone", "A thorn", "A cloud"], why: "Like a citron which tastes good and smells good." },
+        { q: "A believer who does not recite is like what?", a: "A date with no smell", wrong: ["A rose", "A citron", "A lemon tree"], why: "Like a date which is good in taste but has no smell." },
+        { q: "Reciting the Quran adds a good scent to a believer.", tf: true, why: "Sahih al-Bukhari 5020." }
+      ]
+    },
+    {
+      slug: "better-than-camels",
+      title: "Better than camels",
+      line: "Learning two verses is better than getting two big she-camels.",
+      facts: ["Three verses, three camels", "Told by Uqbah ibn Amir"],
+      source: hadith("muslim", "803", "Uqbah ibn Amir", "Sahih", "The Prophet ﷺ asked who would like two big she-camels each morning. Then he said: going to the masjid to learn or recite two verses is better than two she-camels.", "That is better for him than two she-camels"),
+      difficulty: 1,
+      questions: [
+        { q: "What is better than two she-camels?", a: "Learning two verses", wrong: ["Two houses", "Two horses", "Two swords"], why: "Two verses from the Book of Allah is better for him than two she-camels." },
+        { q: "Where did they go to learn?", a: "The masjid", wrong: ["The market", "The desert", "The sea"], why: "Does not one of you go out in the morning to the mosque and learn?" },
+        { q: "Each verse learned is worth more than wealth.", tf: true, why: "Sahih Muslim 803." }
+      ]
+    },
+    {
+      slug: "two-rewards-for-trying",
+      title: "Two rewards for trying",
+      line: "Who finds reciting hard but keeps trying gets two rewards.",
+      facts: ["The skilled are with the noble angels", "Told by Aisha"],
+      source: hadith("muslim", "798a", "Aisha", "Sahih", "The Prophet ﷺ said: one skilled in the Quran is with the noble, righteous angel scribes, and one who stumbles in it and finds it hard has two rewards.", "will have two rewards"),
+      difficulty: 1,
+      questions: [
+        { q: "What does one who finds it hard get?", a: "Two rewards", wrong: ["No reward", "Half a reward", "A warning"], why: "He who falters in it and finds it difficult will have two rewards." },
+        { q: "Who is the skilled reciter with?", a: "The noble angel scribes", wrong: ["Kings", "Poets", "Traders"], why: "Associated with the noble, upright, recording angels." },
+        { q: "Struggling with recitation is a reason to stop.", tf: false, why: "Keep trying for two rewards. Sahih Muslim 798a." }
+      ]
+    }
+  ]
+};
+
+const NIGHT_PRAYER: DeepUnit = {
+  key: "book-night-prayer",
+  topicId: "sahihayn",
+  branchId: "hadith-book-tahajjud",
+  branch: { title: "The Book of Night Prayer", description: "From the Books of Tahajjud and voluntary prayer: how he ﷺ prayed at night, the sunnah prayers, and keeping it up." },
+  name: "the Book of Night Prayer",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "a-deed-done-always",
+      title: "A deed done always",
+      line: "The deed he ﷺ loved most was one done regularly.",
+      facts: ["He rose when the rooster crowed", "Told by Aisha"],
+      source: hadith("bukhari", "1132", "Aisha", "Sahih", "Aisha was asked which deed the Prophet ﷺ loved most. She said: one done regularly. He rose for night prayer when he heard the rooster crow.", "A deed done continuously"),
+      difficulty: 1,
+      questions: [
+        { q: "Which deed did he ﷺ love most?", a: "One done regularly", wrong: ["The longest one", "The hardest one", "One done once"], why: "A deed done continuously." },
+        { q: "When did he ﷺ get up at night?", a: "When the rooster crowed", wrong: ["At noon", "At sunset", "Never"], why: "He used to get up on hearing the crowing of a cock." },
+        { q: "A small deed done always is better than a big one stopped.", tf: true, why: "Sahih al-Bukhari 1132." }
+      ]
+    },
+    {
+      slug: "he-stood-so-long",
+      title: "He ﷺ stood so long",
+      line: "He ﷺ stood so long at night that Ibn Mas'ud almost sat down.",
+      facts: ["Long standing in tahajjud", "Told by Ibn Mas'ud"],
+      source: hadith("bukhari", "1135", "Abdullah ibn Mas'ud", "Sahih", "Ibn Mas'ud prayed tahajjud with the Prophet ﷺ, who stood so long that Ibn Mas'ud thought of sitting down and leaving him standing.", "he kept on standing till an ill-thought came to me"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Ibn Mas'ud almost do?", a: "Sit down", wrong: ["Run away", "Fall asleep", "Shout"], why: "It was to sit down and leave the Prophet ﷺ standing." },
+        { q: "Which prayer was this?", a: "Tahajjud", wrong: ["Fajr", "Jumu'ah", "Eid"], why: "One night I offered the Tahajjud prayer with the Prophet ﷺ." },
+        { q: "He ﷺ stood long in the night prayer.", tf: true, why: "Sahih al-Bukhari 1135." }
+      ]
+    },
+    {
+      slug: "two-by-two",
+      title: "Two by two",
+      line: "Night prayer is two by two. Near dawn, end with one witr.",
+      facts: ["Witr closes the night", "Told by Ibn Umar"],
+      source: hadith("bukhari", "1137", "Abdullah ibn Umar", "Sahih", "A man asked how to pray at night. The Prophet ﷺ said: two rak'ahs then two rak'ahs, and when you fear dawn is near, pray one rak'ah as witr.", "offer one rak`a as witr"),
+      difficulty: 1,
+      questions: [
+        { q: "How is the night prayer prayed?", a: "Two rak'ahs at a time", wrong: ["Ten at once", "One only", "Five at a time"], why: "Two rak'at followed by two rak'at and so on." },
+        { q: "What do we pray when dawn is near?", a: "One rak'ah of witr", wrong: ["Nothing", "Four rak'ahs", "Eid prayer"], why: "When you apprehend the approaching dawn, offer one rak'a as witr." },
+        { q: "Witr comes at the end of the night prayer.", tf: true, why: "Sahih al-Bukhari 1137." }
+      ]
+    },
+    {
+      slug: "seven-nine-or-eleven",
+      title: "Seven, nine or eleven",
+      line: "His ﷺ night prayer was seven, nine or eleven rak'ahs.",
+      facts: ["Besides the two of Fajr", "Told by Aisha"],
+      source: hadith("bukhari", "1139", "Aisha", "Sahih", "Masruq asked Aisha about the Prophet's ﷺ night prayer. She said: seven, nine or eleven rak'ahs, besides the two rak'ahs of Fajr.", "It was seven, nine or eleven rak`at"),
+      difficulty: 2,
+      questions: [
+        { q: "How many rak'ahs could his night prayer be?", a: "Seven, nine or eleven", wrong: ["Always forty", "Only two", "One hundred"], why: "It was seven, nine or eleven rak'at." },
+        { q: "What was not counted in these?", a: "The two of Fajr", wrong: ["The witr", "Isha", "Maghrib"], why: "Besides the two rak'at of the Fajr prayer." },
+        { q: "His ﷺ night prayer was not always the same number.", tf: true, why: "Sahih al-Bukhari 1139." }
+      ]
+    },
+    {
+      slug: "dont-stop-the-night-prayer",
+      title: "Don't stop the night prayer",
+      line: "Don't be like the one who prayed at night, then stopped.",
+      facts: ["Said to Abdullah ibn Amr", "Told by Abdullah ibn Amr"],
+      source: hadith("bukhari", "1152", "Abdullah ibn Amr", "Sahih", "The Prophet ﷺ said to Abdullah ibn Amr: do not be like so-and-so, who used to pray at night and then gave it up.", "who used to pray at night and then stopped the night prayer"),
+      difficulty: 1,
+      questions: [
+        { q: "What did so-and-so do wrong?", a: "Stopped his night prayer", wrong: ["Prayed too much", "Fasted too much", "Gave charity"], why: "Who used to pray at night and then stopped the night prayer." },
+        { q: "Who was told this?", a: "Abdullah ibn Amr", wrong: ["Abu Bakr", "Bilal", "Ali"], why: "O Abdullah! Do not be like so and so." },
+        { q: "Keeping up a good habit matters.", tf: true, why: "Sahih al-Bukhari 1152." }
+      ]
+    },
+    {
+      slug: "resting-on-the-right-side",
+      title: "Resting on the right side",
+      line: "After the two sunnah of Fajr, he ﷺ lay on his right side.",
+      facts: ["A short rest before Fajr", "Told by Aisha"],
+      source: hadith("bukhari", "1160", "Aisha", "Sahih", "The Prophet ﷺ used to lie down on his right side after praying the two sunnah rak'ahs of Fajr.", "used to lie down on his right side"),
+      difficulty: 2,
+      questions: [
+        { q: "Which side did he ﷺ lie on?", a: "His right side", wrong: ["His left side", "His back", "He stood"], why: "He used to lie down on his right side." },
+        { q: "After which prayer?", a: "The two sunnah of Fajr", wrong: ["Isha", "Asr", "Eid"], why: "After offering two rak'at Sunna of the Fajr prayer." },
+        { q: "He ﷺ rested on his left side after Fajr sunnah.", tf: false, why: "It was his right side. Sahih al-Bukhari 1160." }
+      ]
+    },
+    {
+      slug: "light-fajr-sunnah",
+      title: "A light Fajr sunnah",
+      line: "He ﷺ kept the two rak'ahs before Fajr very short.",
+      facts: ["So light Aisha wondered", "Told by Aisha"],
+      source: hadith("bukhari", "1165", "Aisha", "Sahih", "The Prophet ﷺ made the two rak'ahs before Fajr so light that Aisha wondered whether he had recited al-Fatihah.", "used to make the two rak`at before the Fajr prayer so light"),
+      difficulty: 2,
+      questions: [
+        { q: "How were the two before Fajr?", a: "Very light and short", wrong: ["Very long", "Skipped", "Prayed at noon"], why: "He used to make the two rak'at before the Fajr prayer so light." },
+        { q: "What did Aisha wonder?", a: "If he recited al-Fatihah", wrong: ["If he was ill", "If it was night", "If he was travelling"], why: "I would wonder whether he recited Al-Fatiha." },
+        { q: "The sunnah before Fajr is long in this hadith.", tf: false, why: "It was light. Sahih al-Bukhari 1165." }
+      ]
+    },
+    {
+      slug: "sunnah-around-the-prayers",
+      title: "Sunnah around the prayers",
+      line: "Two before and after Zuhr, and two after Maghrib and Isha.",
+      facts: ["Also two after Jumu'ah", "Told by Ibn Umar"],
+      source: hadith("bukhari", "1169", "Abdullah ibn Umar", "Sahih", "Ibn Umar prayed with the Prophet ﷺ two rak'ahs before Zuhr and two after it, and two after Jumu'ah, Maghrib and Isha.", "two rak`at after Jumua, Maghrib and `Isha"),
+      difficulty: 2,
+      questions: [
+        { q: "How many after Maghrib?", a: "Two", wrong: ["Four", "None", "Six"], why: "Two rak'at after Jumua, Maghrib and Isha prayers." },
+        { q: "Which prayer had two before and two after?", a: "Zuhr", wrong: ["Fajr", "Asr", "Maghrib"], why: "Two rak'at before the Zuhr prayer and two rak'at after the Zuhr prayer." },
+        { q: "There is a sunnah after Isha.", tf: true, why: "Sahih al-Bukhari 1169." }
+      ]
+    },
+    {
+      slug: "never-missed",
+      title: "Never missed",
+      line: "He ﷺ never missed four before Zuhr and two before Fajr.",
+      facts: ["Prayers he always kept", "Told by Aisha"],
+      source: hadith("bukhari", "1182", "Aisha", "Sahih", "Aisha said: the Prophet ﷺ never left four rak'ahs before Zuhr and two rak'ahs before Fajr.", "never missed four rak`at before the Zuhr prayer and two rak`at before the Fajr prayer"),
+      difficulty: 2,
+      questions: [
+        { q: "How many before Zuhr did he ﷺ keep?", a: "Four", wrong: ["One", "Ten", "None"], why: "He never missed four rak'at before the Zuhr prayer." },
+        { q: "How many before Fajr?", a: "Two", wrong: ["Four", "Six", "Eight"], why: "And two rak'at before the Fajr prayer." },
+        { q: "He ﷺ held on to the sunnah before Fajr.", tf: true, why: "Sahih al-Bukhari 1182." }
+      ]
+    },
+    {
+      slug: "pray-before-maghrib",
+      title: "Pray before Maghrib",
+      line: "Pray before Maghrib, for whoever wishes. It is not a must.",
+      facts: ["Said three times", "Told by Abdullah al-Muzani"],
+      source: hadith("bukhari", "1183", "Abdullah al-Muzani", "Sahih", "The Prophet ﷺ said three times: pray before Maghrib. The third time he said: for whoever wishes, so people would not take it as a must.", "Whoever wants to offer it can do so"),
+      difficulty: 3,
+      questions: [
+        { q: "How many times did he ﷺ say it?", a: "Three times", wrong: ["Once", "Ten times", "Never"], why: "He said it thrice." },
+        { q: "What did he add the third time?", a: "For whoever wishes", wrong: ["It is a must", "Only men", "Only in Ramadan"], why: "Whoever wants to offer it can do so." },
+        { q: "Praying before Maghrib is a must for everyone.", tf: false, why: "It is for whoever wishes. Sahih al-Bukhari 1183." }
+      ]
+    },
+    {
+      slug: "an-hour-every-night",
+      title: "An hour every night",
+      line: "Every night there is an hour when Allah gives what is asked.",
+      facts: ["Good in this world and the next", "Told by Jabir"],
+      source: hadith("muslim", "757a", "Jabir ibn Abdullah", "Sahih", "The Prophet ﷺ said: in the night there is an hour in which no Muslim asks Allah for good of this world and the next but He gives it, and that is every night.", "and that applies to every night"),
+      difficulty: 1,
+      questions: [
+        { q: "What happens in that hour?", a: "Allah gives what is asked", wrong: ["Nothing", "The sun rises", "Prayer is closed"], why: "No Muslim will ask Allah for good without His giving it to him." },
+        { q: "How often is this hour?", a: "Every night", wrong: ["Once a year", "Only in Ramadan", "Only on Friday"], why: "And that applies to every night." },
+        { q: "The night is a special time for dua.", tf: true, why: "Sahih Muslim 757a." }
+      ]
+    },
+    {
+      slug: "pray-while-fresh",
+      title: "Pray while fresh",
+      line: "He ﷺ untied Zaynab's rope: pray while fresh, stop when tired.",
+      facts: ["Ease, not strain", "Told by Anas"],
+      source: hadith("muslim", "784a", "Anas ibn Malik", "Sahih", "The Prophet ﷺ found a rope in the masjid that Zaynab held when tired in prayer. He said: untie it. Let one pray while fresh, and when tired, stop.", "Let one pray as long as one feels fresh"),
+      difficulty: 2,
+      questions: [
+        { q: "What was the rope for?", a: "Holding on when tired in prayer", wrong: ["Tying camels", "Drying clothes", "Hanging lamps"], why: "She prays and when she feels tired she holds it." },
+        { q: "What did he ﷺ say to do?", a: "Pray while fresh, stop when tired", wrong: ["Pray all night no matter what", "Never pray at night", "Tie the rope tighter"], why: "Let one pray as long as one feels fresh, but when tired one must stop." },
+        { q: "Islam asks us to pray past our strength.", tf: false, why: "Pray while fresh. Sahih Muslim 784a." }
+      ]
+    }
+  ]
+};
+
 /** The Bukhari and Muslim topic. Its units hold only deep lessons, added by addDeepUnits. */
 export const SAHIHAYN_SECTION: LearningSection = {
   id: "sahihayn",
@@ -2323,4 +3641,4 @@ export const SAHIHAYN_SECTION: LearningSection = {
   nodes: []
 };
 
-export const HADITH_BOOK_UNITS: readonly DeepUnit[] = [FAITH, PURITY, ADAB, FOOD, DUA, RIQAQ, DRESS, TRADE, MEDICINE, COMPANIONS, PRAYER, FASTING, ZAKAT];
+export const HADITH_BOOK_UNITS: readonly DeepUnit[] = [FAITH, PURITY, ADAB, FOOD, DUA, RIQAQ, DRESS, TRADE, MEDICINE, COMPANIONS, PRAYER, FASTING, ZAKAT, MARRIAGE, ADHAN, FUNERALS, HAJJ, OATHS, WILLS, QURAN_VIRTUES, NIGHT_PRAYER];

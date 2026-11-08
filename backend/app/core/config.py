@@ -27,6 +27,8 @@ class Settings(BaseSettings):
     revenuecat_webhook_auth: str = ""
     # Owner's password for the stats page (GET /api/admin/stats, header X-Admin-Key). Empty turns the route off.
     admin_key: str = ""
+    # Slows down guessing of passwords and codes (see core/rate_limit.py). Tests turn it off.
+    rate_limit_enabled: bool = True
 
     model_config = SettingsConfigDict(
         env_file=".env",

@@ -12,10 +12,15 @@ import { AQIDAH_UNITS } from "./aqidahUnits";
 import { FASTING_UNITS } from "./fastingUnits";
 import { ZAKAT_UNITS } from "./zakatUnits";
 import { HADITH_UNITS } from "./hadithUnits";
+import { KIDS_HADITH_UNITS } from "./kidsHadithUnits";
+import { EID_UNITS } from "./eidUnits";
+import { INTRO_UNITS } from "./introUnits";
 import { HADITH_BOOK_UNITS, SAHIHAYN_SECTION } from "./hadithBooks";
 import { PRAYER_UNITS } from "./prayerUnits";
 import { HAJJ_UNITS } from "./hajjUnits";
 import { SAHABA_UNITS } from "./sahabaUnits";
+import { MANNERS_UNITS } from "./mannersUnits";
+import { MARRIAGE_UNITS } from "./marriageUnits";
 export type { DeepUnit } from "./deepKit";
 import { QURAN_AYAHS } from "./quranAyahs";
 import { SCHOLAR_UNITS, SCHOLARS_SECTION } from "./scholarUnits";
@@ -3065,9 +3070,9 @@ const ASR: DeepUnit = {
   ]
 };
 
-const SURAH_DEEP_UNITS: readonly DeepUnit[] = [NAS, FALAQ, IKHLAS, ASR, ...BAQARAH_UNITS, ...SURAH_DEPTH_UNITS];
+const SURAH_DEEP_UNITS: readonly DeepUnit[] = [NAS, FALAQ, IKHLAS, ASR, ...BAQARAH_UNITS, ...SURAH_DEPTH_UNITS, ...INTRO_UNITS];
 
-export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, ...SAHABA_UNITS, MUHAJIRUN, FATIHAH, MULK, NAS, FALAQ, IKHLAS, ASR, SPEECH, PARENTS, NEIGHBORS, ANGER, SPOUSES, CHILDREN, ...WOMEN_UNITS, ...LIFE_UNITS, ...SCHOLAR_UNITS, ...AKHIRAH_UNITS, ...DUA_UNITS, ...PROPHET_UNITS, ...SEERAH_UNITS, ...AQIDAH_UNITS, ...FASTING_UNITS, ...ZAKAT_UNITS, ...HADITH_UNITS, ...HADITH_BOOK_UNITS, ...PRAYER_UNITS, ...HAJJ_UNITS, ...BAQARAH_UNITS, ...SURAH_DEPTH_UNITS];
+export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, ...SAHABA_UNITS, MUHAJIRUN, FATIHAH, MULK, NAS, FALAQ, IKHLAS, ASR, SPEECH, PARENTS, NEIGHBORS, ANGER, ...MANNERS_UNITS, SPOUSES, CHILDREN, ...MARRIAGE_UNITS, ...WOMEN_UNITS, ...LIFE_UNITS, ...EID_UNITS, ...SCHOLAR_UNITS, ...AKHIRAH_UNITS, ...DUA_UNITS, ...PROPHET_UNITS, ...SEERAH_UNITS, ...AQIDAH_UNITS, ...FASTING_UNITS, ...ZAKAT_UNITS, ...HADITH_UNITS, ...KIDS_HADITH_UNITS, ...HADITH_BOOK_UNITS, ...PRAYER_UNITS, ...HAJJ_UNITS, ...BAQARAH_UNITS, ...SURAH_DEPTH_UNITS];
 
 // The hand-written answer comes first, so the four choices turn by a stable hash of the question id.
 function turn<T>(id: string, items: T[]): T[] {
@@ -3188,7 +3193,12 @@ function buildUnit(unit: DeepUnit) {
  * the units are arranged (arrangeUnits), before chainCourse. Lesson and node ids are fixed, so progress stays.
  */
 export function addDeepUnits(content: { course: LearningCourse; lessonsById: Record<string, Lesson> }) {
-  return addUnits(content, DEEP_UNITS.filter((unit) => !SURAH_DEEP_UNITS.includes(unit)));
+  return addUnits(content, DEEP_UNITS.filter((unit) => !SURAH_DEEP_UNITS.includes(unit) && !INTRO_UNITS.includes(unit)));
+}
+
+/** Adds the deep units of the beginner topic (introToIslam.ts), once its section has joined the course. */
+export function addIntroDeepUnits(content: { course: LearningCourse; lessonsById: Record<string, Lesson> }) {
+  return addUnits(content, INTRO_UNITS);
 }
 
 /** Adds the deep units of the surahs whose units addSurahMeanings makes, once it has made them. */
@@ -3196,7 +3206,7 @@ export function addSurahDeepUnits(content: { course: LearningCourse; lessonsById
   return addUnits(content, SURAH_DEEP_UNITS);
 }
 
-function addUnits(content: { course: LearningCourse; lessonsById: Record<string, Lesson> }, deepUnits: readonly DeepUnit[]) {
+function addUnits(content: { course: LearningCourse; lessonsById: Record<string, Lesson> }, deepUnits: readonly DeepUnit[]): { course: LearningCourse; lessonsById: Record<string, Lesson> } {
   const lessonsById = { ...content.lessonsById };
   // A topic made only of deep units (Scholars, Eid, Day of Judgment, Bukhari and Muslim, Duas) starts as an empty section.
   const all = [SCHOLARS_SECTION, EID_SECTION, AKHIRAH_SECTION, SAHIHAYN_SECTION, DUAS_SECTION].reduce(

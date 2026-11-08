@@ -1,15 +1,18 @@
 export {
   LessonHeader,
   LessonBottomBar,
+  LessonCheckBar,
   LessonScreen,
   type LessonHeaderProps,
   type LessonBottomBarProps,
+  type LessonCheckBarProps,
   type LessonScreenProps,
   type LessonHearts
 } from "./LessonHeader";
 export { LearnCard, sameReference, type LearnCardProps } from "./LearnCard";
 export {
   ExerciseView,
+  StackTile,
   FadeUnderSheet,
   FoldGap,
   PromptText,
