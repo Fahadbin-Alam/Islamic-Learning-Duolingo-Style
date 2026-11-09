@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useRef, useState } from "react";
 import { Animated, Easing, Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from "react-native";
-import Svg, { Circle, Ellipse, G, Path } from "react-native-svg";
+import Svg, { Circle, Defs, Ellipse, G, LinearGradient, Path, RadialGradient, Stop } from "react-native-svg";
 import { sampleCurve, smoothKeys, useReduceMotion } from "./motion";
 import { Drop, Floater, Heart, Puff, Sparkle, Word, shake, useCycle, useOneShot } from "./reactions";
 import { feedback } from "./sound";
@@ -47,6 +47,8 @@ export type MascotProps = {
   talkMs?: number;
   /** A tap makes the mascot react: laugh, get mad, wave, cry, fall in love... one after another. */
   tappable?: boolean;
+  /** A one-off move (a jump for joy, a head shake, a curious lean), played again each time its key changes. */
+  act?: MascotAct;
   testID?: string;
   style?: StyleProp<ViewStyle>;
 };
@@ -332,11 +334,20 @@ function Mouth({ mood }: { mood: MascotMood }) {
   }
 }
 
-function Face({ mood, blink }: { mood: MascotMood; blink: boolean }) {
+function Cheeks({ mood }: { mood: MascotMood }) {
   return (
     <G>
       <Ellipse cx={39} cy={65} rx={5.4} ry={3.4} fill={mood === "mad" ? "#FF5A5A" : CHEEK} fillOpacity={mood === "mad" || mood === "love" ? 0.8 : 0.55} />
       <Ellipse cx={81} cy={65} rx={5.4} ry={3.4} fill={mood === "mad" ? "#FF5A5A" : CHEEK} fillOpacity={mood === "mad" || mood === "love" ? 0.8 : 0.55} />
+    </G>
+  );
+}
+
+/** `cheeks`: false leaves them to the head (the girl's scarf frames her face closely, so they stay put as she turns). */
+function Face({ mood, blink, cheeks = true }: { mood: MascotMood; blink: boolean; cheeks?: boolean }) {
+  return (
+    <G>
+      {cheeks ? <Cheeks mood={mood} /> : null}
       <Eyes mood={mood} blink={blink} />
       <Path d="M58.2 62.4 Q60 63.8 61.8 62.4" stroke={SKIN_DEEP} strokeWidth={1.8} strokeLinecap="round" fill="none" />
       <Mouth mood={mood} />
@@ -372,7 +383,7 @@ function scarfFor(accent: string) {
   return SCARF_COLORS.find((candidate) => distance(candidate) > 70) ?? SCARF_COLORS[0];
 }
 
-function GirlHead({ accent, mood, blink, outfit }: { accent: string; mood: MascotMood; blink: boolean; outfit?: MascotOutfit }) {
+function GirlHead({ accent, mood, blink, outfit, faceless, shade }: { accent: string; mood: MascotMood; blink: boolean; outfit?: MascotOutfit; faceless?: boolean; shade?: string }) {
   const scarfBase = outfit === "ihram" ? "#FFFFFF" : outfit === "scholar" ? SCHOLAR_SCARF : scarfFor(accent);
   const scarf = scarfBase;
   const scarfDeep = darken(scarfBase, 0.18);
@@ -385,12 +396,15 @@ function GirlHead({ accent, mood, blink, outfit }: { accent: string; mood: Masco
         fill={scarf}
       />
       <Path d="M30 90 C38 99 50 102 60 102 C70 102 82 99 90 90 C84 97 72 100 60 100 C48 100 36 97 30 90 Z" fill={scarfDeep} />
+      {/* light from the top left: the scarf reads round, not flat */}
+      {shade ? <Path d="M22 54 A38 38 0 0 1 98 54 L98 72 C98 92 84 101 60 102 C36 101 22 92 22 72 Z" fill={`url(#${shade}-cloth)`} /> : null}
       {/* soft highlight */}
       <Path d="M32 34 C38 24 47 19 56 18" stroke="#FFFFFF" strokeOpacity={0.35} strokeWidth={4} strokeLinecap="round" fill="none" />
       {/* under-scarf band framing the face */}
       <Ellipse cx={60} cy={57} rx={28.5} ry={27.5} fill={band} />
       <Ellipse cx={60} cy={58} rx={25.5} ry={24.5} fill={SKIN} />
-      <Face mood={mood} blink={blink} />
+      {shade ? <Ellipse cx={60} cy={58} rx={25.5} ry={24.5} fill={`url(#${shade}-skin)`} /> : null}
+      {faceless ? <Cheeks mood={mood} /> : <Face mood={mood} blink={blink} />}
       {/* little pin */}
       <Circle cx={84} cy={84} r={3} fill={colors.gold} />
       <Circle cx={83.2} cy={83.1} r={1} fill="#FFFFFF" fillOpacity={0.7} />
@@ -398,7 +412,7 @@ function GirlHead({ accent, mood, blink, outfit }: { accent: string; mood: Masco
   );
 }
 
-function BoyHead({ mood, blink, outfit }: { mood: MascotMood; blink: boolean; outfit?: MascotOutfit }) {
+function BoyHead({ mood, blink, outfit, faceless, shade }: { mood: MascotMood; blink: boolean; outfit?: MascotOutfit; faceless?: boolean; shade?: string }) {
   // In ihram a man's head stays bare: hair, no kufi. A scholar winds a white turban round his kufi.
   const bare = outfit === "ihram";
   return (
@@ -410,6 +424,7 @@ function BoyHead({ mood, blink, outfit }: { mood: MascotMood; blink: boolean; ou
       <Circle cx={91.4} cy={60} r={3.4} fill={SKIN_DEEP} fillOpacity={0.55} />
       {/* head */}
       <Ellipse cx={60} cy={56} rx={32} ry={31} fill={SKIN} />
+      {shade ? <Ellipse cx={60} cy={56} rx={32} ry={31} fill={`url(#${shade}-skin)`} /> : null}
       {/* short dark hair, visible at the sides under the cap */}
       <Path
         d="M28.2 62 C26.6 34 41 22 60 22 C79 22 93.4 34 91.8 62 C90.4 54.6 88 50.6 84 48.6 C76 47.2 68 46.6 60 46.6 C52 46.6 44 47.2 36 48.6 C32 50.6 29.6 54.6 28.2 62 Z"
@@ -453,12 +468,42 @@ function BoyHead({ mood, blink, outfit }: { mood: MascotMood; blink: boolean; ou
           <Path d="M88 40 C94 46 95 54 92 60" stroke="#FBFBF6" strokeWidth={5} strokeLinecap="round" fill="none" />
         </G>
       ) : null}
-      <Face mood={mood} blink={blink} />
+      {faceless ? null : <Face mood={mood} blink={blink} />}
     </G>
   );
 }
 
-type ArtProps = { variant: MascotVariant; mood: MascotMood; accent: string; blink: boolean; outfit?: MascotOutfit };
+type ArtProps = { variant: MascotVariant; mood: MascotMood; accent: string; blink: boolean; outfit?: MascotOutfit; shade?: string };
+
+/**
+ * Soft light from the top left and shade on the far side, so the kid reads round (like a toy you could pick up), not
+ * a flat sticker. Only white and black at low strength: it works on every robe and scarf color. Each picture gets its
+ * own ids (`id`), so two kids on one screen never borrow each other's gradients.
+ */
+function ShadeDefs({ id }: { id: string }) {
+  return (
+    <Defs>
+      <RadialGradient id={`${id}-skin`} cx="38%" cy="30%" r="78%" fx="36%" fy="26%">
+        <Stop offset="0" stopColor="#FFFFFF" stopOpacity={0.42} />
+        <Stop offset="0.42" stopColor="#FFFFFF" stopOpacity={0} />
+        <Stop offset="0.78" stopColor="#B8673A" stopOpacity={0} />
+        <Stop offset="1" stopColor="#B8673A" stopOpacity={0.22} />
+      </RadialGradient>
+      <RadialGradient id={`${id}-cloth`} cx="34%" cy="22%" r="85%" fx="32%" fy="18%">
+        <Stop offset="0" stopColor="#FFFFFF" stopOpacity={0.34} />
+        <Stop offset="0.45" stopColor="#FFFFFF" stopOpacity={0} />
+        <Stop offset="0.8" stopColor="#000000" stopOpacity={0} />
+        <Stop offset="1" stopColor="#000000" stopOpacity={0.16} />
+      </RadialGradient>
+      <LinearGradient id={`${id}-robe`} x1="0" y1="0" x2="1" y2="0.25">
+        <Stop offset="0" stopColor="#FFFFFF" stopOpacity={0.26} />
+        <Stop offset="0.38" stopColor="#FFFFFF" stopOpacity={0} />
+        <Stop offset="0.66" stopColor="#000000" stopOpacity={0} />
+        <Stop offset="1" stopColor="#000000" stopOpacity={0.18} />
+      </LinearGradient>
+    </Defs>
+  );
+}
 
 const IHRAM = "#F6F6F0";
 const IHRAM_DEEP = "#D9D9CF";
@@ -469,9 +514,9 @@ const SCHOLAR_SCARF = "#4A5A8C";
  * "body" (shadow, feet, robe, still arms), "head", and "front" (hands and little extras). While
  * waving, the raised arm goes between body and head and its hand between head and front.
  */
-type Layer = "all" | "body" | "head" | "front";
+type Layer = "all" | "body" | "head" | "face" | "front";
 
-function MascotArt({ variant, mood, accent: robeAccent, blink, layer, outfit = "plain" }: ArtProps & { layer: Layer }) {
+function MascotArt({ variant, mood, accent: robeAccent, blink, layer, outfit = "plain", shade }: ArtProps & { layer: Layer }) {
   // Ihram is plain white cloth, whatever the topic's color.
   const accent = outfit === "ihram" ? IHRAM : robeAccent;
   const robeLip = outfit === "ihram" ? IHRAM_DEEP : darken(accent, 0.2);
@@ -483,16 +528,18 @@ function MascotArt({ variant, mood, accent: robeAccent, blink, layer, outfit = "
 
   return (
     <G>
+      {shade && (layer === "body" || layer === "head" || layer === "all") ? <ShadeDefs id={shade} /> : null}
       {show("body") ? (
         <G>
-          {/* shadow */}
-          <Ellipse cx={60} cy={135} rx={30} ry={4} fill="#000000" fillOpacity={0.08} />
+          {/* shadow (drawn on its own, on the ground, when the kid moves in layers) */}
+          {layer === "all" ? <Ellipse cx={60} cy={135} rx={30} ry={4} fill="#000000" fillOpacity={0.08} /> : null}
           {/* feet */}
           <Ellipse cx={50} cy={131} rx={8} ry={4.6} fill="#4A4F5C" />
           <Ellipse cx={70} cy={131} rx={8} ry={4.6} fill="#4A4F5C" />
           {/* robe */}
           <Path d="M36 92 C36 83 46 80 60 80 C74 80 84 83 84 92 L90 124 C90.8 129 87 131 82 131 L38 131 C33 131 29.2 129 30 124 Z" fill={robeLip} />
           <Path d="M36 92 C36 83 46 80 60 80 C74 80 84 83 84 92 L89.4 120.6 C90.2 125 87 127 82.4 127 L37.6 127 C33 127 29.8 125 30.6 120.6 Z" fill={accent} />
+          {shade ? <Path d="M36 92 C36 83 46 80 60 80 C74 80 84 83 84 92 L89.4 120.6 C90.2 125 87 127 82.4 127 L37.6 127 C33 127 29.8 125 30.6 120.6 Z" fill={`url(#${shade}-robe)`} /> : null}
           {variant === "boy" ? (
             <Path d="M60 84 L60 112" stroke={trim} strokeWidth={2.4} strokeLinecap="round" />
           ) : (
@@ -524,7 +571,18 @@ function MascotArt({ variant, mood, accent: robeAccent, blink, layer, outfit = "
       {/* head */}
       {show("head") ? (
         <G>
-          {variant === "boy" ? <BoyHead mood={mood} blink={blink} outfit={outfit} /> : <GirlHead accent={accent} mood={mood} blink={blink} outfit={outfit} />}
+          {variant === "boy" ? (
+            <BoyHead mood={mood} blink={blink} outfit={outfit} faceless={layer === "head"} shade={shade} />
+          ) : (
+            <GirlHead accent={accent} mood={mood} blink={blink} outfit={outfit} faceless={layer === "head"} shade={shade} />
+          )}
+          {outfit === "scholar" && layer === "all" ? <Glasses /> : null}
+        </G>
+      ) : null}
+      {/* The face on its own layer: it slides a little further than the head when the kid turns, so the head reads round. */}
+      {layer === "face" ? (
+        <G>
+          <Face mood={mood} blink={blink} cheeks={variant === "boy"} />
           {outfit === "scholar" ? <Glasses /> : null}
         </G>
       ) : null}
@@ -664,43 +722,156 @@ const WAVE_DEG = 16;
 const WAVE_MS = 380;
 const WAVE_REST_MS = 1500;
 
+/**
+ * A one-off move the kid makes on top of its idle life, played each time `key` changes:
+ * - "celebrate": crouches, springs up, lands with a squash and nods (a right answer);
+ * - "no": shakes its head and droops a little (a wrong answer), never cross;
+ * - "lean": leans in and looks at the answers, curious (an answer was picked);
+ * - "nod": two small nods (yes, I'm listening).
+ */
+export type MascotActKind = "celebrate" | "no" | "lean" | "nod";
+export type MascotAct = { kind: MascotActKind; key: string | number };
+
+const ACT_MS: Record<MascotActKind, number> = { celebrate: 1000, no: 820, lean: 700, nod: 640 };
+
+/** The kid's whole body for an act (on top of the bob), pivoting at the feet. */
+function actBody(kind: MascotActKind | undefined, t: Animated.Value, size: number) {
+  const key = (keys: number[], values: number[]) => t.interpolate(smoothKeys(keys, values));
+  const turn = (keys: number[], values: number[]) => t.interpolate(smoothKeys(keys, values.map((value) => `${value}deg`)));
+  switch (kind) {
+    case "celebrate":
+      // Anticipation (crouch), take-off (stretch), air, landing (squash), settle.
+      return [
+        { translateY: key([0, 0.16, 0.42, 0.66, 0.74, 1], [0, 0, -size * 0.24, 0, 0, 0]) },
+        { scaleY: key([0, 0.16, 0.26, 0.6, 0.7, 0.8, 0.9, 1], [1, 0.86, 1.1, 1.02, 0.88, 1.04, 0.99, 1]) },
+        { scaleX: key([0, 0.16, 0.26, 0.6, 0.7, 0.8, 0.9, 1], [1, 1.1, 0.93, 0.99, 1.1, 0.97, 1.01, 1]) }
+      ];
+    case "no":
+      return [{ scaleY: key([0, 0.2, 0.8, 1], [1, 0.965, 0.965, 1]) }, { translateY: key([0, 0.2, 0.8, 1], [0, size * 0.01, size * 0.01, 0]) }];
+    case "lean":
+      return [{ rotate: turn([0, 0.3, 0.7, 1], [0, 5, 5, 0]) }, { translateX: key([0, 0.3, 0.7, 1], [0, size * 0.02, size * 0.02, 0]) }];
+    case "nod":
+      return [{ scaleY: key([0, 0.25, 0.5, 0.75, 1], [1, 0.98, 1, 0.98, 1]) }];
+    default:
+      return [];
+  }
+}
+
+/** How far the head turns (yaw, -1 left .. 1 right), nods (pitch, + down) and tilts (deg) during an act. */
+function actHead(kind: MascotActKind | undefined, t: Animated.Value) {
+  const key = (keys: number[], values: number[]) => t.interpolate(smoothKeys(keys, values));
+  switch (kind) {
+    case "celebrate":
+      return { yaw: key([0, 1], [0, 0]), pitch: key([0, 0.16, 0.42, 0.7, 0.82, 0.92, 1], [0, 0.5, -0.9, 0.9, -0.3, 0.3, 0]), tilt: key([0, 0.4, 0.75, 1], [0, -4, 3, 0]) };
+    case "no":
+      return { yaw: key([0, 0.14, 0.32, 0.5, 0.68, 0.86, 1], [0, -0.85, 0.85, -0.7, 0.55, -0.2, 0]), pitch: key([0, 0.2, 0.8, 1], [0, 0.6, 0.6, 0]), tilt: key([0, 0.5, 1], [0, -3, 0]) };
+    case "lean":
+      return { yaw: key([0, 0.3, 0.7, 1], [0, 0.8, 0.8, 0]), pitch: key([0, 0.3, 0.7, 1], [0, 0.55, 0.55, 0]), tilt: key([0, 0.3, 0.7, 1], [0, 6, 6, 0]) };
+    case "nod":
+      return { yaw: key([0, 1], [0, 0]), pitch: key([0, 0.25, 0.5, 0.75, 1], [0, 1, 0, 1, 0]), tilt: key([0, 1], [0, 0]) };
+    default:
+      return undefined;
+  }
+}
+
+/** Shadow width while an act lifts the kid off the ground: it shrinks and fades as the kid goes up. */
+function actShadow(kind: MascotActKind | undefined, t: Animated.Value) {
+  if (kind !== "celebrate") return undefined;
+  return t.interpolate(smoothKeys([0, 0.16, 0.42, 0.66, 1], [1, 1.06, 0.62, 1.04, 1]));
+}
+
+/** Where the neck is (the head turns and tilts about it), in the picture's units. */
+const NECK = { x: 60, y: 88 };
+/** How far the face slides past the head when the kid turns (px in picture units), which is what makes it look round. */
+const FACE_YAW = 4.2;
+const HEAD_YAW = 1.4;
+const FACE_PITCH = 3;
+const HEAD_PITCH = 1;
+
+let shadeCount = 0;
+
 /** The app's mascot: a friendly child (girl in hijab, or boy in a kufi). */
-function MascotFigure({ variant, mood = "happy", size = 120, accent = colors.green, animated = true, style, outfit = "plain", talkMs = 0 }: MascotProps) {
+function MascotFigure({ variant, mood = "happy", size = 120, accent = colors.green, animated = true, style, outfit = "plain", talkMs = 0, act }: MascotProps) {
   const resolved = resolveMascotVariant(variant);
   const reduceMotion = useReduceMotion();
   const moving = animated && !reduceMotion;
   const bob = useRef(new Animated.Value(0)).current;
+  // The head follows the body a beat late (follow-through), so a bounce ripples up the kid instead of moving it as one block.
+  const headLag = useRef(new Animated.Value(0)).current;
   const wave = useRef(new Animated.Value(0)).current;
   const lids = useRef(new Animated.Value(0)).current;
+  // Where the kid looks on its own: -1 left .. 1 right, with a little nod (pitch) of its own.
+  const look = useRef(new Animated.Value(0)).current;
+  const lookPitch = useRef(new Animated.Value(0)).current;
+  const actT = useRef(new Animated.Value(0)).current;
+  const [acting, setActing] = useState<MascotActKind | undefined>(undefined);
+  const shade = useRef(`mk${(shadeCount += 1)}`).current;
   const blink = false;
   const talk = useTalk(moving ? talkMs : 0);
 
-  // Bob (or bounce when cheering).
+  // Bob (or bounce when cheering); the head's copy starts a beat later.
   useEffect(() => {
     if (!moving) {
       bob.setValue(0);
+      headLag.setValue(0);
       return undefined;
     }
     const cheer = mood === "cheer";
+    const make = (value: Animated.Value) =>
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(value, { toValue: 1, duration: cheer ? 340 : 1300, easing: cheer ? Easing.out(Easing.cubic) : Easing.inOut(Easing.sin), useNativeDriver: true }),
+          Animated.timing(value, { toValue: 0, duration: cheer ? 340 : 1300, easing: cheer ? Easing.in(Easing.quad) : Easing.inOut(Easing.sin), useNativeDriver: true })
+        ])
+      );
+    const loop = make(bob);
+    const lag = make(headLag);
+    loop.start();
+    const late = setTimeout(() => lag.start(), cheer ? 70 : 220);
+    return () => {
+      clearTimeout(late);
+      loop.stop();
+      lag.stop();
+    };
+  }, [moving, bob, headLag, mood]);
+
+  // Looks about now and then: turns its head one way, holds, the other way, back to you. Thinking, it looks up.
+  const looksAround = moving && mood !== "sleepy" && mood !== "cry" && mood !== "laugh";
+  useEffect(() => {
+    look.setValue(0);
+    lookPitch.setValue(0);
+    if (!looksAround) return undefined;
+    const go = (value: Animated.Value, toValue: number, duration: number) =>
+      Animated.timing(value, { toValue, duration, easing: Easing.inOut(Easing.cubic), useNativeDriver: true });
+    const think = mood === "think";
+    const both = (yaw: number, pitch: number, duration: number) => Animated.parallel([go(look, yaw, duration), go(lookPitch, pitch, duration)]);
     const loop = Animated.loop(
-      Animated.sequence([
-        Animated.timing(bob, {
-          toValue: 1,
-          duration: cheer ? 340 : 1300,
-          easing: cheer ? Easing.out(Easing.cubic) : Easing.inOut(Easing.sin),
-          useNativeDriver: true
-        }),
-        Animated.timing(bob, {
-          toValue: 0,
-          duration: cheer ? 340 : 1300,
-          easing: cheer ? Easing.in(Easing.quad) : Easing.inOut(Easing.sin),
-          useNativeDriver: true
-        })
-      ])
+      Animated.sequence(
+        think
+          ? [both(0.45, -0.7, 520), Animated.delay(1500), both(-0.2, -0.4, 600), Animated.delay(900), both(0, 0, 520), Animated.delay(1800)]
+          : [Animated.delay(1400), both(0.6, 0.1, 560), Animated.delay(900), both(-0.5, -0.15, 720), Animated.delay(800), both(0, 0, 520), Animated.delay(2200)]
+      )
     );
     loop.start();
     return () => loop.stop();
-  }, [moving, bob, mood]);
+  }, [looksAround, look, lookPitch, mood]);
+
+  // An act plays once each time its key changes.
+  const actKey = act?.key;
+  const actKind = act?.kind;
+  useEffect(() => {
+    if (actKey === undefined || !actKind || !moving) return undefined;
+    actT.setValue(0);
+    setActing(actKind);
+    const run = Animated.timing(actT, { toValue: 1, duration: ACT_MS[actKind], easing: Easing.linear, useNativeDriver: true });
+    run.start();
+    // Timed apart from the animation: a native-driver timing may finish at once in tests.
+    const done = setTimeout(() => setActing(undefined), ACT_MS[actKind] + 40);
+    return () => {
+      clearTimeout(done);
+      run.stop();
+    };
+  }, [actKey, actKind, moving, actT]);
 
   // Blink every few seconds: the lids layer fades in and out on the native driver (no redraw).
   const blinks = moving && BLINKS.has(mood);
@@ -743,6 +914,7 @@ function MascotFigure({ variant, mood = "happy", size = 120, accent = colors.gre
     return () => all.stop();
   }, [moving, waving, wave]);
 
+  const u = size / VIEW_W;
   const cheer = mood === "cheer";
   const lift = cheer ? -size * 0.07 : -size * 0.025;
   const translateY = bob.interpolate({ inputRange: [0, 1], outputRange: [0, lift] });
@@ -758,65 +930,105 @@ function MascotFigure({ variant, mood = "happy", size = 120, accent = colors.gre
     { transformOrigin: `${(SHOULDER_R.x / VIEW_W) * 100}% ${(SHOULDER_R.y / VIEW_H) * 100}%`, transform: [{ rotate }] }
   ];
 
+  // The head: its own turn (look) plus the act's, a lagging bounce, and a tilt that goes with the turn.
+  const head = moving ? actHead(acting, actT) : undefined;
+  const yaw = head ? Animated.add(look, head.yaw) : look;
+  const pitch = head ? Animated.add(lookPitch, head.pitch) : lookPitch;
+  const lagLift = Math.abs(lift) * 0.45;
+  const headBounce = Animated.subtract(bob, headLag).interpolate({ inputRange: [-1, 1], outputRange: [-lagLift, lagLift] });
+  const turnTilt = yaw.interpolate({ inputRange: [-1, 1], outputRange: [-4, 4] });
+  const tiltDeg = (head ? Animated.add(turnTilt, head.tilt) : turnTilt).interpolate({ inputRange: [-30, 30], outputRange: ["-30deg", "30deg"] });
+  const headStyle = [
+    StyleSheet.absoluteFill,
+    {
+      transformOrigin: `${(NECK.x / VIEW_W) * 100}% ${(NECK.y / VIEW_H) * 100}%`,
+      transform: [
+        { translateY: Animated.add(headBounce, pitch.interpolate({ inputRange: [-1, 1], outputRange: [-HEAD_PITCH * u, HEAD_PITCH * u] })) },
+        { translateX: yaw.interpolate({ inputRange: [-1, 1], outputRange: [-HEAD_YAW * u, HEAD_YAW * u] }) },
+        { rotate: tiltDeg }
+      ]
+    }
+  ];
+  // The face slides further than the head and narrows a little as it turns away: a round head turning, in 2D.
+  const faceStyle = [
+    StyleSheet.absoluteFill,
+    {
+      transformOrigin: "50% 40%",
+      transform: [
+        { translateX: yaw.interpolate({ inputRange: [-1, 1], outputRange: [-FACE_YAW * u, FACE_YAW * u] }) },
+        { translateY: pitch.interpolate({ inputRange: [-1, 1], outputRange: [-FACE_PITCH * u, FACE_PITCH * u] }) },
+        { scaleX: yaw.interpolate({ inputRange: [-1, 0, 1], outputRange: [0.93, 1, 0.93] }) }
+      ]
+    }
+  ];
+  // The shadow stays on the ground: it shrinks and pales as the kid rises.
+  const shadowScale = bob.interpolate({ inputRange: [0, 1], outputRange: [1, cheer ? 0.86 : 0.97] });
+  const shadowAct = moving ? actShadow(acting, actT) : undefined;
+  const bodyAct = moving ? actBody(acting, actT, size) : [];
+
+  const art = (layer: Layer) => <MemoArt variant={resolved} mood={mood} accent={accent} blink={blink} outfit={outfit} layer={layer} shade={shade} />;
+  const svg = (children: React.ReactNode) => (
+    <Svg width={size} height={height} viewBox={viewBox} style={StyleSheet.absoluteFill}>
+      {children}
+    </Svg>
+  );
+
   return (
-    <Animated.View
-      style={[styles.root, box, { transformOrigin: "bottom", transform: [{ translateY }, { scaleX }, { scaleY }] }, style]}
-      accessibilityElementsHidden
-      importantForAccessibility="no-hide-descendants"
-    >
-      {waving ? (
-        <>
-          <Svg width={size} height={height} viewBox={viewBox} style={StyleSheet.absoluteFill}>
-            <MemoArt variant={resolved} mood={mood} accent={accent} blink={blink} outfit={outfit} layer="body" />
-          </Svg>
-          <Animated.View style={swingStyle} pointerEvents="none">
-            <Svg width={size} height={height} viewBox={viewBox}>
-              <MemoWaveArm accent={accent} part="arm" />
-            </Svg>
-          </Animated.View>
-          <Svg width={size} height={height} viewBox={viewBox} style={StyleSheet.absoluteFill}>
-            <MemoArt variant={resolved} mood={mood} accent={accent} blink={blink} outfit={outfit} layer="head" />
-          </Svg>
-          {blinks ? (
-            <Animated.View style={[StyleSheet.absoluteFill, { opacity: lids }]} pointerEvents="none">
+    <View style={[styles.root, box, style]} accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
+      <Animated.View style={[StyleSheet.absoluteFill, { transform: [{ scaleX: shadowScale }] }]} pointerEvents="none">
+        <Animated.View style={[StyleSheet.absoluteFill, shadowAct ? { opacity: shadowAct, transform: [{ scaleX: shadowAct }] } : null]}>
+          {svg(<MemoShadow />)}
+        </Animated.View>
+      </Animated.View>
+      <Animated.View style={[StyleSheet.absoluteFill, { transformOrigin: "bottom", transform: [{ translateY }, { scaleX }, { scaleY }] }]}>
+        <Animated.View style={[StyleSheet.absoluteFill, { transformOrigin: "bottom", transform: bodyAct as never[] }]}>
+          {svg(art("body"))}
+          {waving ? (
+            <Animated.View style={swingStyle} pointerEvents="none">
               <Svg width={size} height={height} viewBox={viewBox}>
-                <MemoLids mood={mood} />
+                <MemoWaveArm accent={accent} part="arm" />
               </Svg>
             </Animated.View>
           ) : null}
-          <Animated.View style={swingStyle} pointerEvents="none">
-            <Svg width={size} height={height} viewBox={viewBox}>
-              <MemoWaveArm accent={accent} part="hand" />
-            </Svg>
+          <Animated.View style={headStyle} pointerEvents="none">
+            {svg(art("head"))}
+            <Animated.View style={faceStyle} pointerEvents="none">
+              {svg(art("face"))}
+              {blinks ? (
+                <Animated.View style={[StyleSheet.absoluteFill, { opacity: lids }]} pointerEvents="none">
+                  <Svg width={size} height={height} viewBox={viewBox}>
+                    <MemoLids mood={mood} />
+                  </Svg>
+                </Animated.View>
+              ) : null}
+              {talkMs > 0 && moving ? (
+                <Animated.View style={[StyleSheet.absoluteFill, { opacity: talk }]} pointerEvents="none" testID="mascot-talking">
+                  <Svg width={size} height={height} viewBox={viewBox}>
+                    <TalkMouth />
+                  </Svg>
+                </Animated.View>
+              ) : null}
+            </Animated.View>
           </Animated.View>
-          <Svg width={size} height={height} viewBox={viewBox} style={StyleSheet.absoluteFill}>
-            <MemoArt variant={resolved} mood={mood} accent={accent} blink={blink} outfit={outfit} layer="front" />
-          </Svg>
-        </>
-      ) : (
-        <>
-          <Svg width={size} height={height} viewBox={viewBox}>
-            <MemoArt variant={resolved} mood={mood} accent={accent} blink={blink} outfit={outfit} layer="all" />
-          </Svg>
-          {blinks ? (
-              <Animated.View style={[StyleSheet.absoluteFill, { opacity: lids }]} pointerEvents="none">
-                <Svg width={size} height={height} viewBox={viewBox}>
-                  <MemoLids mood={mood} />
-                </Svg>
-              </Animated.View>
-            ) : null}
-        </>
-      )}
-      {talkMs > 0 && moving ? (
-        <Animated.View style={[StyleSheet.absoluteFill, { opacity: talk }]} pointerEvents="none" testID="mascot-talking">
-          <Svg width={size} height={height} viewBox={viewBox}>
-            <TalkMouth />
-          </Svg>
+          {waving ? (
+            <Animated.View style={swingStyle} pointerEvents="none">
+              <Svg width={size} height={height} viewBox={viewBox}>
+                <MemoWaveArm accent={accent} part="hand" />
+              </Svg>
+            </Animated.View>
+          ) : null}
+          {svg(art("front"))}
         </Animated.View>
-      ) : null}
-    </Animated.View>
+      </Animated.View>
+    </View>
   );
 }
+
+/** The kid's shadow on the ground, drawn on its own so it can stay down when the kid jumps. */
+function GroundShadow() {
+  return <Ellipse cx={60} cy={135} rx={30} ry={4} fill="#000000" fillOpacity={0.1} />;
+}
+const MemoShadow = memo(GroundShadow);
 
 /** Big whole-body moves some taps do on top of the face: a high jump, a little dance, a twirl. */
 type TapMove = "jump" | "dance" | "twirl";

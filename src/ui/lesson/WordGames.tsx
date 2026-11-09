@@ -235,7 +235,7 @@ export function GapGame({ prompt, choices, correctChoiceId, question, testID, se
   return (
     <GameFrame ready={Boolean(placed)} result={result} prompt={question ?? prompt} praiseSeed={praiseSeed} playSound={playSound} continueSound={continueSound} bottomInset={bottomInset} onCheck={onCheck} onContinue={onContinue} testID={testID ?? "gap-game"}>
       <GameCue label={t("Fill in the gap")} review={review} attempt={attempt} accent={accent} />
-      <QuestionBubble prompt={question ?? t("Drag the right word into the gap!")} mascotVariant={mascotVariant} accent={accent} mood={mood} hideMascot={compact} />
+      <QuestionBubble prompt={question ?? t("Drag the right word into the gap!")} mascotVariant={mascotVariant} accent={accent} mood={mood} hideMascot={compact} pick={selectedChoiceId} />
       <PopIn from="up" delay={80}>
         <Animated.View style={[styles.sentence, shakeStyle]} testID="gap-sentence">
           <Text style={styles.sentenceText}>

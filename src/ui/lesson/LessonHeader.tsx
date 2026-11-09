@@ -6,8 +6,11 @@ import { ProgressBar } from "../ProgressBar";
 import { Tappable } from "../Tappable";
 import { GameButton } from "../GameButton";
 import { colors, darken, fonts, space } from "../theme";
+import { useReduceMotion } from "../motion";
 import { ScrollHintGap, type ScrollHintDirection } from "./ScrollHint";
 import { t } from "../../i18n";
+
+const t_ = t;
 
 export type LessonHearts = { current: number; max: number; unlimited: boolean };
 
@@ -192,19 +195,76 @@ export type LessonScreenProps = {
   children?: React.ReactNode;
   /** Rendered last, over everything (e.g. <QuitSheet/>). */
   overlay?: React.ReactNode;
+  /** Answers right in a row: at 3, 5, 10 and every 5 after, a "right in a row!" badge pops under the bar. */
+  inARow?: number;
   testID?: string;
 };
 
 /** Full lesson screen: header on top, the step under it, an optional overlay sheet on top of all. */
-export function LessonScreen({ progress, hearts, onClose, topInset, children, overlay, testID }: LessonScreenProps) {
+export function LessonScreen({ progress, hearts, onClose, topInset, children, overlay, inARow = 0, testID }: LessonScreenProps) {
+  const [headerHeight, setHeaderHeight] = useState(0);
   return (
     <View style={styles.screen} testID={testID}>
-      <LessonHeader progress={progress} hearts={hearts} onClose={onClose} topInset={topInset} />
+      <View onLayout={(event) => setHeaderHeight(Math.round(event.nativeEvent.layout.height))}>
+        <LessonHeader progress={progress} hearts={hearts} onClose={onClose} topInset={topInset} />
+      </View>
       <View style={styles.step}>{children}</View>
+      {headerHeight > 0 ? <ComboBadge inARow={inARow} top={headerHeight} /> : null}
       {overlay}
     </View>
   );
 }
+
+/** When a run of right answers gets a badge. */
+export function isComboMilestone(count: number) {
+  return count === 3 || count === 5 || (count >= 10 && count % 5 === 0);
+}
+
+const COMBO_MS = 1900;
+
+/**
+ * "5 right in a row!": a flame badge that pops in under the progress bar, wiggles, floats up a little and fades, the
+ * moment a run of right answers reaches a milestone. It sits over the screen (it takes no room), and nothing taps it.
+ */
+export const ComboBadge = memo(function ComboBadge({ inARow, top }: { inARow: number; top: number }) {
+  const reduceMotion = useReduceMotion();
+  const t = useRef(new Animated.Value(0)).current;
+  const [shown, setShown] = useState(0);
+  const before = useRef(inARow);
+  useEffect(() => {
+    const was = before.current;
+    before.current = inARow;
+    if (inARow <= was || !isComboMilestone(inARow)) return undefined;
+    setShown(inARow);
+    t.setValue(0);
+    const run = Animated.timing(t, { toValue: 1, duration: reduceMotion ? 1400 : COMBO_MS, easing: Easing.linear, useNativeDriver: true });
+    run.start();
+    const done = setTimeout(() => setShown(0), (reduceMotion ? 1400 : COMBO_MS) + 60);
+    return () => {
+      clearTimeout(done);
+      run.stop();
+    };
+  }, [inARow, reduceMotion, t]);
+  if (!shown) return null;
+  const opacity = t.interpolate({ inputRange: [0, 0.08, 0.8, 1], outputRange: [0, 1, 1, 0] });
+  const scale = reduceMotion ? 1 : t.interpolate({ inputRange: [0, 0.1, 0.18, 0.26, 1], outputRange: [0.4, 1.18, 0.94, 1, 1] });
+  const translateY = reduceMotion ? 0 : t.interpolate({ inputRange: [0, 0.7, 1], outputRange: [0, 0, -10] });
+  const wiggle = reduceMotion
+    ? "0deg"
+    : t.interpolate({ inputRange: [0, 0.2, 0.28, 0.36, 0.44, 0.52, 1], outputRange: ["0deg", "0deg", "-14deg", "12deg", "-8deg", "0deg", "0deg"] });
+  return (
+    <View pointerEvents="none" style={[styles.comboRow, { top: top - space.xs }]} testID="combo-badge">
+      <Animated.View style={[styles.combo, { opacity, transform: [{ translateY }, { scale }] }]}>
+        <Animated.View style={{ transform: [{ rotate: wiggle }] }}>
+          <Icon name="flame" size={20} />
+        </Animated.View>
+        <Text style={styles.comboText} numberOfLines={1}>
+          {t_("{count} right in a row!", { count: shown })}
+        </Text>
+      </Animated.View>
+    </View>
+  );
+});
 
 const styles = StyleSheet.create({
   root: {
@@ -278,5 +338,29 @@ const styles = StyleSheet.create({
     flex: 1,
     minHeight: 0,
     position: "relative"
+  },
+  comboRow: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    alignItems: "center"
+  },
+  combo: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    paddingHorizontal: 14,
+    paddingVertical: 6,
+    borderRadius: 999,
+    backgroundColor: "#FFF4E0",
+    borderWidth: 2,
+    borderColor: "#FFC46B"
+  },
+  comboText: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 15,
+    lineHeight: 20,
+    color: "#A84A00",
+    includeFontPadding: false
   }
 });

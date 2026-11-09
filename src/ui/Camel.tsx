@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Animated, Dimensions, Easing, Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from "react-native";
-import Svg, { Circle, Ellipse, G, Path, Rect } from "react-native-svg";
+import Svg, { Circle, Defs, Ellipse, G, Path, RadialGradient, Rect, Stop } from "react-native-svg";
 import type { GameSoundEvent } from "../services/gameSoundLibrary";
 import { sampleCurve, smoothKeys, useReduceMotion } from "./motion";
 import { Drop, Floater, Heart, Puff, Sparkle, Word, shake, useCycle, useOneShot } from "./reactions";
@@ -199,16 +199,34 @@ function CamelTalkMouth() {
   );
 }
 
-function Body({ accent, face, outfit = "plain" }: { accent: string; face: CamelFaceKind; outfit?: CamelOutfit }) {
+let camelShades = 0;
+
+/** Light from the top left and shade underneath, so the camel reads round; each camel has its own ids. */
+function CamelShadeDefs({ id }: { id: string }) {
+  return (
+    <Defs>
+      <RadialGradient id={`${id}-fur`} cx="36%" cy="24%" r="80%" fx="34%" fy="20%">
+        <Stop offset="0" stopColor="#FFFFFF" stopOpacity={0.36} />
+        <Stop offset="0.45" stopColor="#FFFFFF" stopOpacity={0} />
+        <Stop offset="0.78" stopColor="#7A4A16" stopOpacity={0} />
+        <Stop offset="1" stopColor="#7A4A16" stopOpacity={0.24} />
+      </RadialGradient>
+    </Defs>
+  );
+}
+
+const Body = memo(function Body({ accent, face, outfit = "plain", shade }: { accent: string; face: CamelFaceKind; outfit?: CamelOutfit; shade?: string }) {
   const cloth = accent;
   const clothLip = darken(accent, 0.18);
   return (
     <Svg width="100%" height="100%" viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}>
+      {shade ? <CamelShadeDefs id={shade} /> : null}
       {/* Tail */}
       <Path d="M22 50 Q12 54 15 66" stroke={FUR_DEEP} strokeWidth={3.4} strokeLinecap="round" fill="none" />
       <Ellipse cx={15} cy={67} rx={2.8} ry={3.6} fill={FUR_FAR} />
       {/* Body and hump */}
       <Path d="M20 54C20 42 28 37 36 36C40 20 60 18 64 34C74 34 82 40 82 52C82 64 72 70 52 70C30 70 20 66 20 54Z" fill={FUR} />
+      {shade ? <Path d="M20 54C20 42 28 37 36 36C40 20 60 18 64 34C74 34 82 40 82 52C82 64 72 70 52 70C30 70 20 66 20 54Z" fill={`url(#${shade}-fur)`} /> : null}
       <Path d="M24 60C30 66 40 68 52 68C66 68 76 64 80 56C78 66 68 71 52 71C36 71 26 67 24 60Z" fill={FUR_DEEP} />
       <Path d="M30 46C30 40 34 38 38 37" stroke={FUR_LIGHT} strokeWidth={2.4} strokeLinecap="round" fill="none" />
       {/* Saddle cloth over the hump, with a fringe */}
@@ -225,13 +243,14 @@ function Body({ accent, face, outfit = "plain" }: { accent: string; face: CamelF
       {/* Head */}
       <Ellipse cx={88} cy={11} rx={3.2} ry={4.6} fill={FUR_DEEP} transform="rotate(-24 88 11)" />
       <Ellipse cx={96} cy={20} rx={13} ry={10.5} fill={FUR} />
+      {shade ? <Ellipse cx={96} cy={20} rx={13} ry={10.5} fill={`url(#${shade}-fur)`} /> : null}
       <Ellipse cx={106} cy={25} rx={9} ry={7.4} fill={FUR_LIGHT} />
       <Path d="M110.5 21.5Q112.5 22.5 111.8 24.5" stroke={FUR_DEEP} strokeWidth={1.4} strokeLinecap="round" fill="none" />
       <CamelFace face={face} />
       <CamelOutfitArt outfit={outfit} />
     </Svg>
   );
-}
+});
 
 type CamelReaction = "happy" | "cooked" | "sad" | "zoom" | "spit" | "laugh" | "baby" | "jump";
 
@@ -285,6 +304,7 @@ export const Camel = memo(function Camel({
   const reduceMotion = useReduceMotion();
   const { asleep } = useScene();
   const talk = useTalk(reduceMotion ? 0 : talkMs);
+  const shade = useRef(`cs${(camelShades += 1)}`).current;
   const wraps = Boolean(wrapWidth && wrapWidth > size);
   const height = Math.round((size * VIEW_H) / VIEW_W);
   const travel = Math.max(0, range);
@@ -604,7 +624,7 @@ export const Camel = memo(function Camel({
         ))}
         </Animated.View>
         <Animated.View style={[StyleSheet.absoluteFill, { transform: [{ translateY: Animated.add(anim.bob, lieDown) }] }]}>
-          <Body accent={accent} face={faceNow} outfit={outfit} />
+          <Body accent={accent} face={faceNow} outfit={outfit} shade={shade} />
           {talkMs > 0 && !reduceMotion ? (
             <Animated.View style={[StyleSheet.absoluteFill, { opacity: talk }]} pointerEvents="none" testID="camel-talking">
               <CamelTalkMouth />
