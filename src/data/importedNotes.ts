@@ -426,6 +426,19 @@ function dropLeftOutWomen(notes: ImportedNotesContent): ImportedNotesContent {
   };
 }
 
+/**
+ * "Who was the father of Hamzah ibn Abd al-Muttalib?" with the answer "Abd al-Muttalib": the name in the question
+ * already says it ("ibn" is "son of"), so it tests nothing. Such a question is left out of its lesson.
+ */
+export function answerInName(challenge: Pick<Lesson["challenges"][number], "prompt" | "choices" | "correctChoiceId">) {
+  const asked = /^Who was the (father|mother) of (.+)\?$/i.exec(challenge.prompt.trim());
+  if (!asked) return false;
+  const answer = challenge.choices.find((choice) => choice.id === challenge.correctChoiceId)?.label ?? "";
+  const plain = (text: string) => text.toLowerCase().replace(/^(al-|an-|ar-|as-|az-|ad-|at-)/, "").replace(/['’]/g, "").trim();
+  const name = plain(asked[2]);
+  return answer.length > 0 && ` ${name.replace(/[-\s]+/g, " ")} `.includes(` ${plain(answer).replace(/[-\s]+/g, " ")} `);
+}
+
 // Women: one unit per theme in WOMEN_UNITS; anyone the themes do not name goes in a last unit.
 function regroupWomen(given: LearningBranch[], staying: LearningNode[], lessons: Record<string, Lesson>): Regrouped {
   const themeOf = new Map(WOMEN_UNITS.flatMap((unit, index) => unit.people.map((person) => [person, index] as const)));
@@ -506,9 +519,12 @@ export function mergeImportedNotes(course: LearningCourse, lessonsById: Record<s
       const learnSource = lesson.learnSource && { ...lesson.learnSource, url: preciseResourceUrl(lesson.learnSource.site, lesson.learnSource.url, lesson.learnSource.reference) };
       // The notes quote an ayah in old English ("Woe unto every slandering traducer"); the card shows the ayah itself.
       const arabic = lesson.quote?.reference ? quranAyahArabic(lesson.quote.reference) : undefined;
+      const asked = lesson.challenges.filter((challenge) => !answerInName(challenge));
+      // A lesson keeps at least two questions: one that gives itself away stays rather than leave it with one.
+      const challenges = asked.length >= 2 ? asked : lesson.challenges;
       return [
         lessonId,
-        { ...lesson, sources, sourceReferences: sources, ...(learnSource ? { learnSource } : {}), ...(lesson.quote && arabic ? { quote: { ...lesson.quote, text: arabic } } : {}) }
+        { ...lesson, challenges, sources, sourceReferences: sources, ...(learnSource ? { learnSource } : {}), ...(lesson.quote && arabic ? { quote: { ...lesson.quote, text: arabic } } : {}) }
       ];
     })
   );

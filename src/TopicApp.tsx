@@ -3649,6 +3649,7 @@ export default function TopicApp() {
       progress={lessonProgress}
       hearts={lessonHearts}
       onClose={() => setQuitLessonVisible(true)}
+      inARow={state.rightInARow}
       overlay={
         <>
           {quitSheet}

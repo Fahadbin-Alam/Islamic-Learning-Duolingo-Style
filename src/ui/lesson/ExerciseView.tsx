@@ -16,7 +16,7 @@ import type { GameSoundEvent } from "../../services/gameSoundLibrary";
 import { ArabicText, hasArabic, isArabicOnly, isQuranText, withHonorifics } from "../ArabicText";
 import { ChoiceTile, LONG_LABEL, tightSaving, tileTextBottom, tileTextTop, type ChoiceTileProps, type ChoiceTileState } from "../ChoiceTile";
 import { Icon } from "../Icon";
-import { Mascot, type MascotMood } from "../Mascot";
+import { Mascot, type MascotAct, type MascotActKind, type MascotMood } from "../Mascot";
 import { POP_IN_DISTANCE, PopIn } from "../PopIn";
 import { SHEET_RISE_MS, SHEET_SPRING, sheetRise, sheetSetOffAt } from "../Sheet";
 import { SpeechBubble } from "../SpeechBubble";
@@ -195,14 +195,40 @@ export type QuestionBubbleProps = {
   smallGaps?: boolean;
   /** A photo of the place the prompt names: it sits where the mascot would, the same size. */
   picture?: LessonPicture;
+  /** The answer picked so far: the mascot leans in to look each time it changes. */
+  pick?: string;
 };
+
+/**
+ * What the asking mascot does as the learner answers: leans in, curious, when an answer is picked; jumps for joy when
+ * it was right; shakes its head (kindly) when it was wrong. Worked out while drawing, so the move starts in the very
+ * frame the answer shows.
+ */
+export function useAnswerAct(mood: MascotMood, pick?: string): MascotAct | undefined {
+  const seen = useRef<{ mood: MascotMood; pick?: string; act?: MascotAct; count: number }>({ mood, pick, count: 0 });
+  const was = seen.current;
+  if (was.mood !== mood || was.pick !== pick) {
+    let kind: MascotActKind | undefined;
+    if (was.mood !== mood && mood === "cheer") kind = "celebrate";
+    else if (was.mood !== mood && mood === "sad") kind = "no";
+    else if (was.pick !== pick && pick && mood === "think") kind = "lean";
+    if (kind) {
+      was.count += 1;
+      was.act = { kind, key: was.count };
+    }
+    was.mood = mood;
+    was.pick = pick;
+  }
+  return was.act;
+}
 
 /**
  * Mascot next to a speech bubble holding the question. Very long prompts drop the mascot and use the full width. Drawn
  * again only when what it shows changes: a question drawn again while its answer sheet opens leaves it as it is.
  */
-export const QuestionBubble = memo(function QuestionBubble({ prompt, mascotVariant, accent, mood = "think", hideMascot, still, small, smallGaps, picture }: QuestionBubbleProps) {
+export const QuestionBubble = memo(function QuestionBubble({ prompt, mascotVariant, accent, mood = "think", hideMascot, still, small, smallGaps, picture, pick }: QuestionBubbleProps) {
   const { compact, narrow } = useLessonCompact();
+  const act = useAnswerAct(mood, pick);
   const long = prompt.length > LONG_PROMPT;
   const promptSize = (long || compact ? 17 : narrow ? 18 : 19) - (small ? SMALL_PROMPT_STEP : 0);
   if (long || hideMascot || small) {
@@ -221,7 +247,7 @@ export const QuestionBubble = memo(function QuestionBubble({ prompt, mascotVaria
   const banner = Boolean(picture);
   const row = (
     <View style={[styles.questionRow, compact ? styles.questionRowCompact : null]}>
-      {picture && !banner ? <QuestionPhoto picture={picture} size={mascotSize} /> : <Mascot variant={mascotVariant} mood={mood} accent={accent} size={mascotSize} />}
+      {picture && !banner ? <QuestionPhoto picture={picture} size={mascotSize} /> : <Mascot variant={mascotVariant} mood={mood} accent={accent} size={mascotSize} act={act} />}
       <PopIn from="up" delay={60} style={styles.bubbleWrap}>
         <SpeechBubble>
           <PromptText size={promptSize}>{prompt}</PromptText>
@@ -1201,6 +1227,7 @@ export function ExerciseView({
                 mascotVariant={mascotVariant}
                 accent={accent}
                 mood={mood}
+                pick={selectedChoiceId}
                 hideMascot={hideMascot}
                 still={fit.squeeze && !mascotAway}
                 small={look.smallPrompt}
