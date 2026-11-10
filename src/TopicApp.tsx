@@ -187,6 +187,10 @@ import {
   type FoundationPracticeResult
 } from "./services/foundationAssessment";
 import { playGameSound, primeGameAudio } from "./services/gameAudio";
+import { comboSound, type GameSoundEvent } from "./services/gameSoundLibrary";
+import { lessonRecap, PERFECT_LESSON_DATES, type LessonRecapItem } from "./ui/lesson/lessonRecap";
+import { claimQuestChest, recordQuestEvent, useQuestBoard, type Quest } from "./services/dailyQuests";
+import { QuestsBanner, QuestsSheet, questLabel } from "./ui/screens/DailyQuests";
 import { markLeagueResultSeen, settleLeague, unseenLeagueResult } from "./services/leagues";
 import { answerLessonStep, isLastLessonStep, startLessonQueue, type FlowStep } from "./services/lessonQueue";
 import { buildLessonFlow, flowProgress, isLearnStep, isMatchStep, isQuestionStep, isRecallLesson, teachLesson, teachText, highlightWords, lessonExplain, lessonSummary } from "./ui/lesson/lessonPages";
@@ -194,6 +198,9 @@ import { checkAnswerId, checkCandidate, fillPiece, questionFormat } from "./ui/l
 import { CheckGame, FillGame, GapGame, MatchGame } from "./ui/lesson/WordGames";
 import * as Speech from "expo-speech";
 import { findArabicVoice, recitationForArabic } from "./services/arabicVoice";
+import { playAyah, stopAyah } from "./services/ayahPlayer";
+import { useAyahPlayback } from "./ui/lesson/AyahListen";
+import { listenWhy, withListenQuestion } from "./ui/lesson/listenQuestion";
 import { colors, configureUiSound, darken, preloadUiSounds, fonts, Icon, lighten, Mascot, PopIn, radii, space, Tappable } from "./ui";
 import { PortalHost } from "./ui/Portal";
 import { applyBattle, buyIcon, rerollNickname, setUmmahJoined, wearIcon, type ProfileIconId } from "./services/ummah";
@@ -376,6 +383,15 @@ type LessonCelebration = {
   streakDays: number;
   streakExtended?: boolean;
   gemsReward?: number;
+  /** No question missed on its first try (a first finish): the bonus dates are in gemsReward. */
+  perfect?: boolean;
+  /** Share of questions right on their first try, 0..100. */
+  accuracy?: number;
+  bestInARow?: number;
+  /** What the lesson taught, again: a few of its questions with their answers, missed ones first. */
+  recap?: LessonRecapItem[];
+  /** Daily quests this lesson finished, in words. */
+  questsDone?: string[];
 };
 
 interface AppState {
@@ -413,6 +429,10 @@ interface AppState {
   sessionMissedLessonIds: string[];
   /** Questions right on the first try in a row, in a lesson: a few and it asks "Want it harder?". */
   rightInARow: number;
+  /** The longest run of first-try right answers in this lesson (the recap shows it). */
+  bestInARow: number;
+  /** Questions missed on their first try in this lesson, by id: the recap shows them first. */
+  missedChallengeIds: string[];
   /** The learner said no to "Want it harder?" in this lesson, so it does not ask again. */
   harderDeclined: boolean;
   loading: boolean;
@@ -437,7 +457,7 @@ type Action =
   | { type: "close_social" }
   | { type: "start_lesson"; session: LessonSession }
   | { type: "select_choice"; choiceId: string }
-  | { type: "answer"; correct: boolean; user: UserProfile; missedLessonId?: string; scored?: boolean; isTest?: boolean }
+  | { type: "answer"; correct: boolean; user: UserProfile; missedLessonId?: string; scored?: boolean; isTest?: boolean; challengeId?: string }
   | { type: "next_challenge" }
   | { type: "next_page" }
   | { type: "finish_lesson"; user: UserProfile; xpSummary: XpSummary[] }
@@ -462,6 +482,8 @@ const initialState: AppState = {
   sessionMistakes: 0,
   sessionMissedLessonIds: [],
   rightInARow: 0,
+  bestInARow: 0,
+  missedChallengeIds: [],
   harderDeclined: false,
   loading: true
 };
@@ -479,6 +501,8 @@ const NO_LESSON = {
   sessionMistakes: 0,
   sessionMissedLessonIds: [] as string[],
   rightInARow: 0,
+  bestInARow: 0,
+  missedChallengeIds: [] as string[],
   harderDeclined: false
 };
 
@@ -568,6 +592,11 @@ function reducer(state: AppState, action: Action): AppState {
         doneCount: step.done ? state.doneCount + 1 : state.doneCount,
         sessionCorrectCount: action.correct && scored ? state.sessionCorrectCount + 1 : state.sessionCorrectCount,
         rightInARow: action.correct && scored ? state.rightInARow + 1 : 0,
+        bestInARow: action.correct && scored ? Math.max(state.bestInARow, state.rightInARow + 1) : state.bestInARow,
+        missedChallengeIds:
+          action.correct || !scored || !action.challengeId || state.missedChallengeIds.includes(action.challengeId)
+            ? state.missedChallengeIds
+            : [...state.missedChallengeIds, action.challengeId],
         sessionMistakes: action.correct || !scored ? state.sessionMistakes : state.sessionMistakes + 1,
         sessionMissedLessonIds: action.correct || !scored || !action.missedLessonId || state.sessionMissedLessonIds.includes(action.missedLessonId)
           ? state.sessionMissedLessonIds
@@ -802,6 +831,16 @@ export default function TopicApp() {
   const [storyShelf, setStoryShelf] = useState<StoryGroup | undefined>(undefined);
   // An opened chest: its gems land when the learner taps COLLECT.
   const [rewardCelebration, setRewardCelebration] = useState<{ stop: JourneyRewardStop } | undefined>(undefined);
+  // Daily quests: the sheet, the chest's dates waiting in the reward pop, and the quests finished during this lesson.
+  const questBoardNow = useQuestBoard();
+  const [questsOpen, setQuestsOpen] = useState(false);
+  const [questChestDates, setQuestChestDates] = useState(0);
+  const questsDuringLesson = useRef<Quest[]>([]);
+  // A new lesson starts its own list, so a lesson left halfway does not show its quests on the next one's finish.
+  const sessionIdForQuests = state.activeSession?.id;
+  useEffect(() => {
+    questsDuringLesson.current = [];
+  }, [sessionIdForQuests]);
   const [topicPickerVisible, setTopicPickerVisible] = useState(false);
   // The circle a topic search hit asked the path to show; cleared once the path has scrolled to it.
   const [pathReveal, setPathReveal] = useState<string | undefined>(undefined);
@@ -1057,7 +1096,7 @@ export default function TopicApp() {
     preloadUiSounds();
   }, [soundPreferences]);
 
-  function playUiSound(event: "soft_ui" | "node_tap" | "correct" | "wrong" | "xp" | "unlock" | "lesson_complete" | "streak" | "reward_chest") {
+  function playUiSound(event: GameSoundEvent) {
     primeGameAudio(event === "soft_ui" && state.user?.soundEffectsEnabled === false
       ? { enabled: false, reduced: soundPreferences.reduced }
       : soundPreferences);
@@ -1853,9 +1892,65 @@ export default function TopicApp() {
     // While online, this circle's Quran recitations and the next few circles' are saved for no internet.
     void saveLessonsAhead(node.id);
     // Kids mode builds the lesson at the easiest level; the saved profile keeps its own difficulty.
-    const session = await learningApi.getLessonSession(node.firstLessonId, kidsMode ? kidsLearner(activeUser) : activeUser, lessonAge);
+    const built = await learningApi.getLessonSession(node.firstLessonId, kidsMode ? kidsLearner(activeUser) : activeUser, lessonAge);
+    const session = withListening(built, node.id, activeUser);
     challengeStartedAtRef.current = Date.now();
     dispatch({ type: "start_lesson", session });
+  }
+
+  // A lesson whose learn card teaches a checked Arabic word asks one listening question, when it can be heard:
+  // the reciter (online) for an ayah, else the phone's Arabic voice. Never with sound effects off, nor in a test.
+  function withListening(session: LessonSession, nodeId: string, user: UserProfile): LessonSession {
+    if ((session.mode ?? "standard") !== "standard" || session.unitTest || user.soundEffectsEnabled === false) return session;
+    const lesson = session.lesson;
+    const term = getNodeArabic(nodeId);
+    if (!term) return session;
+    const recitation = recitationForArabic(term.ar, [lesson.quote?.reference, lesson.learnSource?.reference]);
+    if (!arabicVoiceId && !(recitation && online)) return session;
+    const withListen = withListenQuestion(lesson, nodeId, recitation);
+    return withListen === lesson ? session : { ...session, lesson: withListen };
+  }
+
+  const [listenSpeaking, setListenSpeaking] = useState(false);
+  const ayahNow = useAyahPlayback();
+  // A listening question's Arabic stops when the learner moves on.
+  const listenStep = state.lessonQueue[state.stepIndex];
+  const listenNow = isQuestionStep(listenStep) ? state.activeSession?.lesson.challenges[listenStep.index]?.listen : undefined;
+  useEffect(() => {
+    if (!listenNow) return undefined;
+    return () => {
+      if (listenNow.recitation) stopAyah(listenNow.recitation);
+      else {
+        void Speech.stop();
+        setListenSpeaking(false);
+      }
+    };
+  }, [listenNow]);
+  function playListen(listen: NonNullable<Challenge["listen"]>) {
+    if (listen.recitation) {
+      const active = ayahNow.url === listen.recitation && (ayahNow.status === "playing" || ayahNow.status === "loading");
+      if (active) stopAyah(listen.recitation);
+      else playAyah(listen.recitation);
+      return;
+    }
+    try {
+      void Speech.stop();
+      if (listenSpeaking) {
+        setListenSpeaking(false);
+        return;
+      }
+      if (!arabicVoiceId) return;
+      setListenSpeaking(true);
+      // A voice that fails without a word still lets the speaker go back to rest.
+      const fallback = setTimeout(() => setListenSpeaking(false), 6000);
+      const done = () => {
+        clearTimeout(fallback);
+        setListenSpeaking(false);
+      };
+      Speech.speak(listen.ar, { language: "ar", voice: arabicVoiceId, rate: 0.8, onDone: done, onStopped: done, onError: done });
+    } catch {
+      setListenSpeaking(false);
+    }
   }
 
   // LearnPath asks "Jump ahead?" first and calls this on START TEST. A "unit" plan (the banner key)
@@ -2014,19 +2109,25 @@ export default function TopicApp() {
       });
     }
 
-    if (!isRetry) {
+    if (!isRetry && !challenge.listen) {
       // A first-try miss goes in the Review deck; a right answer moves a due one on (services/reviewDeck).
+      // A listening question is made for its lesson only, so it never goes in the deck.
       nextUser = recordLessonAnswer(nextUser, state.activeSession, challenge, correct);
     }
 
-    playUiSound(correct ? "correct" : "wrong");
+    if (!isRetry) {
+      questsDuringLesson.current.push(...recordQuestEvent({ type: "answer", correct, inARow: correct ? state.rightInARow + 1 : 0 }));
+    }
+    // A run of right answers climbs: each one in a row plays a higher chime (services/gameSoundLibrary comboSound).
+    playUiSound(correct ? (isRetry ? "correct" : comboSound(state.rightInARow + 1)) : "wrong");
     dispatch({
       type: "answer",
       correct,
       user: nextUser,
       missedLessonId: correct ? undefined : challenge.sourceLessonId ?? state.activeSession.lesson.id,
       scored: !isRetry,
-      isTest: isTestSession(state.activeSession)
+      isTest: isTestSession(state.activeSession),
+      challengeId: challenge.id
     });
   }
 
@@ -2155,6 +2256,13 @@ export default function TopicApp() {
     }
   }
 
+  /** A finished lesson counts towards today's quests; returns, in words, every quest this lesson finished. */
+  function finishQuests(perfect: boolean, xp: number) {
+    const done = [...questsDuringLesson.current, ...recordQuestEvent({ type: "lesson", perfect, xp })];
+    questsDuringLesson.current = [];
+    return done.map(questLabel);
+  }
+
   async function continueLesson(user = state.user) {
     if (!user || !state.activeSession) {
       return;
@@ -2179,7 +2287,9 @@ export default function TopicApp() {
         lastLearningAt: new Date().toISOString()
       });
 
+      const practiceQuests = finishQuests(false, xp);
       setLessonCompleteSummary({
+        questsDone: practiceQuests,
         headline: t("Practice done!"),
         title: t(state.activeSession.reviewDeck ? "Review" : "My lessons"),
         xp,
@@ -2226,6 +2336,8 @@ export default function TopicApp() {
         gems: record.gems,
         goOver
       });
+      // A quiz counts toward today's quests too; its own summary sheet has no room for the pills.
+      finishQuests(false, xp);
       const xpSummary = await learningApi.getXpSummaries(nextUser);
       dispatch({ type: "finish_lesson", user: nextUser, xpSummary });
       maybeShowLessonBreakAd(nextUser);
@@ -2279,7 +2391,8 @@ export default function TopicApp() {
         streakExtended: didExtendStreak(user, nextUser),
         stars: lessonStars(state.sessionMistakes),
         unlockedTitle: unlockedNode ? getNodeTitle(unlockedNode.id, unlockedNode.title, currentLanguage) : undefined,
-        streakDays: nextUser.streakDays
+        streakDays: nextUser.streakDays,
+        questsDone: finishQuests(false, nextUser.totalXp - user.totalXp)
       });
       const xpSummary = await learningApi.getXpSummaries(nextUser);
       dispatch({ type: "finish_lesson", user: nextUser, xpSummary });
@@ -2318,11 +2431,21 @@ export default function TopicApp() {
     const lessonBranchId = state.activeSession.lesson.branchId ?? findNodeById(state.activeSession.lesson.nodeId)?.branchId;
     const afterNodes = learningApi.getPathNodes(finishedUser);
     const unlockedNode = findUnlockedNode(beforeNodes, afterNodes, lessonBranchId);
-    const nextUser = withPathFocus(finishedUser, lessonBranchId, findFocusNode(afterNodes, unlockedNode, lessonBranchId)?.id);
+    const focusedUser = withPathFocus(finishedUser, lessonBranchId, findFocusNode(afterNodes, unlockedNode, lessonBranchId)?.id);
+    // A lesson finished for the first time with no mistakes pays a few bonus dates (a replay earns nothing, as XP).
+    const perfect = state.sessionMistakes === 0 && state.sessionCorrectCount > 0 && focusedUser.totalXp > user.totalXp;
+    const nextUser = perfect ? { ...focusedUser, gems: focusedUser.gems + PERFECT_LESSON_DATES } : focusedUser;
+    const asked = state.sessionCorrectCount + state.sessionMistakes;
 
     // LessonComplete plays the finish, streak and XP sounds itself, one after another.
     setLessonCompleteSummary({
       title: getNodeTitle(state.activeSession.lesson.id, state.activeSession.lesson.title, currentLanguage),
+      perfect,
+      gemsReward: perfect ? PERFECT_LESSON_DATES : undefined,
+      accuracy: asked ? Math.round((state.sessionCorrectCount / asked) * 100) : undefined,
+      bestInARow: state.bestInARow,
+      questsDone: finishQuests(perfect, nextUser.totalXp - user.totalXp),
+      recap: lessonRecap(localizeLessonContent(state.activeSession.lesson, currentLanguage).challenges, state.missedChallengeIds),
       // A replayed lesson earns nothing, so show what was actually added.
       xp: nextUser.totalXp - user.totalXp,
       streakExtended: didExtendStreak(user, nextUser),
@@ -2339,6 +2462,22 @@ export default function TopicApp() {
   // The chest opens at once; its gems land when the learner taps COLLECT, so the top bar ticks up
   // as the pop closes. LearnPath plays the chest sound and answers taps on locked or opened chests.
   // Closing the app mid-pop leaves the chest ready to open again.
+  function openQuestChest() {
+    const dates = claimQuestChest();
+    setQuestsOpen(false);
+    if (dates > 0) {
+      setQuestChestDates(dates);
+    }
+  }
+
+  function collectQuestChest() {
+    const dates = questChestDates;
+    setQuestChestDates(0);
+    if (dates > 0) {
+      dispatch({ type: "apply_user_latest", update: (user) => withExperienceDefaults({ ...user, gems: user.gems + dates }) });
+    }
+  }
+
   function claimJourneyReward(stop: JourneyRewardStop) {
     if (!state.user || !stop.unlocked || stop.claimed || rewardCelebration) {
       return;
@@ -3746,14 +3885,16 @@ export default function TopicApp() {
                 </Tappable>
               ) : selectedSection.topicId === "duas" ? (
                 <AdhkarBanner accent={selectedSection.accentColor} now={adhkarTimeFor(new Date())} doneToday={adhkarDone} onOpen={(time) => openAdhkar(time)} />
-              ) : ramadanBanner || storyBanner || pathReviewDue > 0 ? (
+              ) : (
                 <>
+                  {/* Today's three quests and their chest. */}
+                  <QuestsBanner board={questBoardNow} onOpen={() => setQuestsOpen(true)} />
                   {ramadanBanner}
                   {/* Missed questions due again (spaced review): one tap starts a Review of them. */}
                   {pathReviewDue > 0 ? <ReviewBanner count={pathReviewDue} onOpen={startReviewDeck} /> : null}
                   {storyBanner}
                 </>
-              ) : undefined
+              )
             }
           />
         )}
@@ -3866,10 +4007,20 @@ export default function TopicApp() {
                   ? {
                       correct: state.answerState === "correct",
                       correctLabel,
-                      why: localizedWhy(englishChallenge ?? challenge, currentLanguage),
+                      why: challenge.listen ? listenWhy(englishChallenge ?? challenge, currentLanguage) : localizedWhy(englishChallenge ?? challenge, currentLanguage),
                       source: feedbackSource(challenge, lesson)
                     }
                   : undefined}
+                listen={
+                  challenge.listen
+                    ? {
+                        onPlay: () => playListen(challenge.listen!),
+                        playing: challenge.listen.recitation
+                          ? ayahNow.url === challenge.listen.recitation && (ayahNow.status === "playing" || ayahNow.status === "loading")
+                          : listenSpeaking
+                      }
+                    : undefined
+                }
                 attempt={lessonStep.attempt}
                 review={challenge.missedBefore ? "missed" : challenge.isReview}
                 mascotVariant={lessonMascot}
@@ -3914,6 +4065,11 @@ export default function TopicApp() {
             goal={{ xpToday: getXpToday(state.user), goalXp: state.user.dailyGoalXp }}
             unlockedTitle={lessonCompleteSummary.unlockedTitle}
             gemsReward={lessonCompleteSummary.gemsReward}
+            perfect={lessonCompleteSummary.perfect}
+            accuracy={lessonCompleteSummary.accuracy}
+            bestInARow={lessonCompleteSummary.bestInARow}
+            recap={lessonCompleteSummary.recap}
+            questsDone={lessonCompleteSummary.questsDone}
             mascotVariant={lessonMascot}
             accent={lessonAccent}
             nextTitle={nextLessonNode?.title}
@@ -4316,6 +4472,8 @@ export default function TopicApp() {
           gems={rewardCelebration?.stop.gemsReward ?? 0}
           onClose={collectJourneyReward}
         />
+        <RewardPop visible={questChestDates > 0 && !rewardCelebration} gems={questChestDates} onClose={collectQuestChest} />
+        <QuestsSheet visible={questsOpen && !inLesson} board={questBoardNow} onClaim={openQuestChest} onClose={() => setQuestsOpen(false)} />
         <AgeSheet
           visible={hasUser && !ageGroup}
           onSave={(group) => {

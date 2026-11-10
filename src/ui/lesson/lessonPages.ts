@@ -245,6 +245,13 @@ export function buildLessonFlow(lesson: Lesson, options: { practice?: boolean; t
     return answeredBy(challenge, probe);
   };
   for (const { challenge, index } of own) {
+    if (challenge.listen) {
+      // Hear the learn card's word, pick its meaning: the first page taught it, so no page is needed first.
+      if (lastWasQuestion && shown < pages.length) show();
+      steps.push({ index, attempt: 0 });
+      lastWasQuestion = true;
+      continue;
+    }
     let pageSince = false;
     // The pages up to the one that teaches this answer.
     if (allPages(challenge)) {

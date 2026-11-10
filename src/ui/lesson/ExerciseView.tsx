@@ -1,6 +1,7 @@
 import React, { memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import {
   Animated,
+  Easing,
   ScrollView,
   StyleSheet,
   Text,
@@ -20,8 +21,10 @@ import { Mascot, type MascotAct, type MascotActKind, type MascotMood } from "../
 import { POP_IN_DISTANCE, PopIn } from "../PopIn";
 import { SHEET_RISE_MS, SHEET_SPRING, sheetRise, sheetSetOffAt } from "../Sheet";
 import { SpeechBubble } from "../SpeechBubble";
+import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, radii, space } from "../theme";
 import { FeedbackSheet, type FeedbackSource } from "./FeedbackSheet";
+import { useMistakeVoice } from "./useMistakeVoice";
 import { BAR_GAP, LessonCheckBar } from "./LessonHeader";
 import { noBreakHyphens, shortWhy } from "./lessonText";
 import { EVERY_FRAME, SCROLL_HINT_SLACK, scrollHintGrowth, useScrollMore } from "./ScrollHint";
@@ -197,6 +200,8 @@ export type QuestionBubbleProps = {
   picture?: LessonPicture;
   /** The answer picked so far: the mascot leans in to look each time it changes. */
   pick?: string;
+  /** The teacher is reading out a wrong answer's why: its mouth moves for this long (ms). */
+  talkMs?: number;
 };
 
 /**
@@ -226,7 +231,7 @@ export function useAnswerAct(mood: MascotMood, pick?: string): MascotAct | undef
  * Mascot next to a speech bubble holding the question. Very long prompts drop the mascot and use the full width. Drawn
  * again only when what it shows changes: a question drawn again while its answer sheet opens leaves it as it is.
  */
-export const QuestionBubble = memo(function QuestionBubble({ prompt, mascotVariant, accent, mood = "think", hideMascot, still, small, smallGaps, picture, pick }: QuestionBubbleProps) {
+export const QuestionBubble = memo(function QuestionBubble({ prompt, mascotVariant, accent, mood = "think", hideMascot, still, small, smallGaps, picture, pick, talkMs = 0 }: QuestionBubbleProps) {
   const { compact, narrow } = useLessonCompact();
   const act = useAnswerAct(mood, pick);
   const long = prompt.length > LONG_PROMPT;
@@ -247,7 +252,7 @@ export const QuestionBubble = memo(function QuestionBubble({ prompt, mascotVaria
   const banner = Boolean(picture);
   const row = (
     <View style={[styles.questionRow, compact ? styles.questionRowCompact : null]}>
-      {picture && !banner ? <QuestionPhoto picture={picture} size={mascotSize} /> : <Mascot variant={mascotVariant} mood={mood} accent={accent} size={mascotSize} act={act} />}
+      {picture && !banner ? <QuestionPhoto picture={picture} size={mascotSize} /> : <Mascot variant={mascotVariant} mood={mood} accent={accent} size={mascotSize} act={act} talkMs={talkMs} />}
       <PopIn from="up" delay={60} style={styles.bubbleWrap}>
         <SpeechBubble>
           <PromptText size={promptSize}>{prompt}</PromptText>
@@ -409,9 +414,48 @@ export type ExerciseViewProps = {
   defaultWhyOpen?: boolean;
   /** A photo of the place the prompt names, shown in the mascot's place (see QuestionBubble). */
   picture?: LessonPicture;
+  /** A listening question: a big speaker under the prompt plays the Arabic; tap again to stop. */
+  listen?: { onPlay: () => void; playing: boolean };
   bottomInset?: number;
   testID?: string;
 };
+
+/** The listening question's speaker: big, round, in the lesson's colour, and it pulses while the Arabic plays. */
+function ListenButton({ onPlay, playing, accent }: { onPlay: () => void; playing: boolean; accent: string }) {
+  const pulse = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    if (!playing) {
+      pulse.setValue(0);
+      return undefined;
+    }
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(pulse, { toValue: 1, duration: 420, easing: Easing.out(Easing.quad), useNativeDriver: true }),
+        Animated.timing(pulse, { toValue: 0, duration: 420, easing: Easing.in(Easing.quad), useNativeDriver: true })
+      ])
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [playing, pulse]);
+  const scale = pulse.interpolate({ inputRange: [0, 1], outputRange: [1, 1.08] });
+  return (
+    <View style={styles.listenRow}>
+      <Animated.View style={{ transform: [{ scale }] }}>
+        <Tappable
+          onPress={onPlay}
+          pressScale={0.92}
+          style={[styles.listenButton, { backgroundColor: accent, borderBottomColor: darken(accent, 0.22) }]}
+          accessibilityRole="button"
+          accessibilityLabel={playing ? t("Stop") : t("Listen")}
+          testID="exercise-listen"
+        >
+          <Icon name="speaker" size={34} color={colors.white} />
+        </Tappable>
+      </Animated.View>
+      <Text style={styles.listenHint}>{playing ? t("Listening…") : t("Tap to listen")}</Text>
+    </View>
+  );
+}
 
 function isTrueChoice(choice: ExerciseChoice) {
   return choice.id.toLowerCase() === "true" || choice.label.trim().toLowerCase() === "true";
@@ -517,6 +561,7 @@ export function ExerciseView({
   continueSound,
   defaultWhyOpen,
   picture,
+  listen,
   bottomInset,
   testID = "exercise-view"
 }: ExerciseViewProps) {
@@ -1003,6 +1048,7 @@ export function ExerciseView({
   const why = shown ? (getActiveLanguage() === "en" ? shortWhy({ explanation: shown.why, prompt, correctLabel: shown.correctLabel }) : shown.why) : undefined;
   // "Correct answer: ..." always names the answer, even though the green tile shows it too.
   const sheetLabel = shown && !shown.correct ? shown.correctLabel : undefined;
+  const voice = useMistakeVoice(checked, Boolean(shown?.correct), sheetLabel, shown?.why);
   const mood: MascotMood = result ? (result.correct ? "cheer" : "sad") : "think";
   // The mascot also hides while a squeezed question gives the feedback sheet its room.
   const hideMascot = mascotAway || fit.squeeze;
@@ -1228,6 +1274,7 @@ export function ExerciseView({
                 accent={accent}
                 mood={mood}
                 pick={selectedChoiceId}
+                talkMs={voice.talkMs}
                 hideMascot={hideMascot}
                 still={fit.squeeze && !mascotAway}
                 small={look.smallPrompt}
@@ -1235,6 +1282,7 @@ export function ExerciseView({
                 picture={picture}
               />
             </View>
+            {listen ? <ListenButton onPlay={listen.onPlay} playing={listen.playing} accent={accent} /> : null}
             {checked && promptGap?.key === shownKey ? (
               <FoldGap key={`prompt-gap-${promptGap.n}`} height={promptGap.height} shut={whyOpened} viewRef={gapRef(`prompt-${promptGap.n}`, promptGap.height)} />
             ) : null}
@@ -1331,12 +1379,33 @@ export function ExerciseView({
         onFullHeight={setSheetFull}
         onLeastHeight={setSheetLeast}
         onWhyToggle={setWhyOpened}
+        onListen={voice.onListen}
+        listening={voice.listening}
       />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  listenRow: {
+    alignItems: "center",
+    gap: 6,
+    marginTop: space.sm,
+    marginBottom: space.sm
+  },
+  listenButton: {
+    width: 84,
+    height: 84,
+    borderRadius: 42,
+    alignItems: "center",
+    justifyContent: "center",
+    borderBottomWidth: 5
+  },
+  listenHint: {
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 14,
+    color: colors.inkSoft
+  },
   bannerColumn: {
     alignSelf: "stretch"
   },

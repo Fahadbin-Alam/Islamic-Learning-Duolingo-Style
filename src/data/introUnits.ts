@@ -142,7 +142,7 @@ const QURAN_AND_PROPHET: DeepUnit = {
       difficulty: 1,
       questions: [
         { q: "Where was the Prophet ﷺ when the first ayahs came?", a: "In the cave of Hira", wrong: ["In Madinah", "At the Kaaba", "On a ship"], why: "He used to worship in the cave of Hira." },
-        { q: "What was the first word Jibril said to him?", a: "Read", wrong: ["Pray", "Run", "Sleep"], why: "The angel said: Read, and then: Read in the name of your Lord." },
+        { q: "What was the first word Jibril said to him?", a: "Read", wrong: ["Pray", "Write", "Listen"], why: "The angel said: Read, and then: Read in the name of your Lord." },
         { q: "Who comforted the Prophet ﷺ when he came home?", a: "Khadijah", wrong: ["Abu Bakr", "Aishah", "Abu Talib"], why: "He went to Khadijah, and she said: Allah will never disgrace you." }
       ]
     },
@@ -478,7 +478,7 @@ const DAILY_LIFE: DeepUnit = {
       difficulty: 1,
       questions: [
         { q: "What does as-salamu alaykum mean?", a: "Peace be upon you", wrong: ["Good morning", "Thank you", "Goodbye forever"], why: "As-salamu alaykum means peace be upon you." },
-        { q: "What does spreading the salam bring?", a: "Love between people", wrong: ["Wealth", "Fame", "Long hair"], why: "It is the thing that will foster love amongst you." },
+        { q: "What does spreading the salam bring?", a: "Love between people", wrong: ["Wealth", "Honor", "Long life"], why: "It is the thing that will foster love amongst you." },
         { q: "Loving one another is part of true faith.", tf: true, why: "You will not believe as long as you do not love one another." }
       ]
     }

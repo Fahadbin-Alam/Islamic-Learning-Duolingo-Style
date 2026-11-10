@@ -183,7 +183,7 @@ const BAQARAH_ONE: DeepUnit = {
       difficulty: 3,
       questions: [
         { q: "Why were their hearts sealed?", a: "They kept obeying Shaytan and sinning", wrong: ["By bad luck", "Because they were poor", "For no reason"], why: "Qatadah, in Ibn Kathir." },
-        { q: "What polishes a heart after a sin?", a: "Repentance", wrong: ["Sleep", "Money", "Games"], why: "A sin leaves a spot; tawbah cleans it." },
+        { q: "What polishes a heart after a sin?", a: "Repentance", wrong: ["Time passing", "Forgetting it", "Hiding it well"], why: "A sin leaves a spot; tawbah cleans it." },
         { q: "Repenting quickly keeps the heart soft.", tf: true, why: "The hadith Ibn Kathir quotes here." }
       ]
     },
@@ -295,7 +295,7 @@ const BAQARAH_ONE: DeepUnit = {
       difficulty: 3,
       questions: [
         { q: "In this parable, what is the rain?", a: "The Quran", wrong: ["Their money", "Their tears", "The sea"], why: "Ibn Kathir explains it so." },
-        { q: "What do they do when lightning flashes?", a: "Walk a little in its light", wrong: ["Run home", "Sleep", "Sing"], why: "Then stand still in the dark." },
+        { q: "What do they do when lightning flashes?", a: "Walk a little in its light", wrong: ["Run to the shelter", "Close their eyes", "Turn back home"], why: "Then stand still in the dark." },
         { q: "Why do they put fingers in their ears?", a: "Out of fear", wrong: ["To dance", "To hear better", "To greet"], why: "Fearing the thunder." }
       ]
     },
@@ -546,7 +546,7 @@ const BAQARAH_ONE: DeepUnit = {
       source: ik(38, "Allah promised that guidance would come through prophets and books; whoever follows it will have no fear of what is ahead and no grief over what they left."),
       difficulty: 2,
       questions: [
-        { q: "What is promised to those who follow guidance?", a: "No fear and no grief", wrong: ["Riches", "Fame", "Long life"], why: "Quran 2:38." },
+        { q: "What is promised to those who follow guidance?", a: "No fear and no grief", wrong: ["Riches in this world", "Victory over enemies", "A long life"], why: "Quran 2:38." },
         { q: "How does Allah's guidance come?", a: "Through prophets and books", wrong: ["Through stars", "Through dreams only", "Through luck"], why: "Ibn Kathir explains it." },
         { q: "No fear about what?", a: "What is ahead in the Hereafter", wrong: ["Spiders", "Tests at school", "The dark"], why: "And no grief over what passed." }
       ]
@@ -562,7 +562,7 @@ const BAQARAH_ONE: DeepUnit = {
       questions: [
         { q: "Who is 'Israel' in 2:40?", a: "Ya'qub, a prophet", wrong: ["Musa", "A city", "An angel"], why: "Ibn Kathir: Israel is Ya'qub." },
         { q: "What are they told to remember?", a: "Allah's favors on them", wrong: ["Their wars", "Their money", "Nothing"], why: "Quran 2:40." },
-        { q: "What does Allah promise if they keep their covenant?", a: "He keeps His", wrong: ["Nothing", "A new land only", "Gold"], why: "Fulfill My covenant, I fulfill yours." }
+        { q: "What does Allah promise if they keep their covenant?", a: "He keeps His", wrong: ["A new land only", "Victory in war", "Riches for all"], why: "Fulfill My covenant, I fulfill yours." }
       ]
     },
     {
@@ -660,7 +660,7 @@ const BAQARAH_ONE: DeepUnit = {
       questions: [
         { q: "Who did Allah save the Children of Israel from?", a: "Pharaoh's people", wrong: ["The Romans", "Ya'juj", "The Persians"], why: "Quran 2:49." },
         { q: "Who did Pharaoh's people harm the most?", a: "Their baby sons", wrong: ["Their animals", "Their houses only", "Nobody"], why: "A great trial." },
-        { q: "What does 2:49 call it?", a: "A great trial", wrong: ["A game", "A small thing", "A holiday"], why: "Bala'un 'azim." }
+        { q: "What does 2:49 call it?", a: "A great trial", wrong: ["A small test", "A punishment for Musa", "An old story"], why: "Bala'un 'azim." }
       ]
     },
     {
@@ -1132,7 +1132,7 @@ const BAQARAH_TWO: DeepUnit = {
       source: ik(114, "Who is more unjust than one who prevents Allah's name from being mentioned in His masjids and works to ruin them? Masjids are for Allah's remembrance."),
       difficulty: 2,
       questions: [
-        { q: "What does 2:114 call blocking Allah's name in masjids?", a: "The worst wrong", wrong: ["A small thing", "A good deed", "A game"], why: "Who is more unjust?" },
+        { q: "What does 2:114 call blocking Allah's name in masjids?", a: "The worst wrong", wrong: ["A small sin", "A mistake of the past", "A matter for later"], why: "Who is more unjust?" },
         { q: "What are masjids for?", a: "Remembering Allah", wrong: ["Shouting", "Selling goods", "Playing loud games"], why: "Allah's name is mentioned there." },
         { q: "Helping keep a masjid clean and open is good.", tf: true, why: "The opposite of 2:114." }
       ]
@@ -1189,7 +1189,7 @@ const BAQARAH_TWO: DeepUnit = {
       difficulty: 3,
       questions: [
         { q: "What did Allah make Ibrahim after his tests?", a: "An imam, a leader for people", wrong: ["A king", "A trader", "A poet"], why: "Quran 2:124." },
-        { q: "What did Ibrahim ask for his children?", a: "That some be leaders too", wrong: ["Gold", "Long life", "Nothing"], why: "And from my children?" },
+        { q: "What did Ibrahim ask for his children?", a: "That some be leaders too", wrong: ["That they be rich", "That they live long", "That they be kings"], why: "And from my children?" },
         { q: "Whom does Allah's promise not reach, in 2:124?", a: "The wrongdoers", wrong: ["The poor", "The young", "Travelers"], why: "La yanalu 'ahdi az-zalimin." }
       ]
     },
@@ -1244,7 +1244,7 @@ const BAQARAH_TWO: DeepUnit = {
       source: ik(128, "Ibrahim and Isma'il prayed: our Lord, make us Muslims, submitting to You, and from our children a nation submitting to You, show us our rites of worship and accept our repentance."),
       difficulty: 2,
       questions: [
-        { q: "What did they ask for their children, in 2:128?", a: "A nation submitting to Allah", wrong: ["Riches", "Fame", "Power"], why: "Wa min dhurriyyatina." },
+        { q: "What did they ask for their children, in 2:128?", a: "A nation submitting to Allah", wrong: ["Riches", "Victory over Makkah", "Many children"], why: "Wa min dhurriyyatina." },
         { q: "What does 'manasik' mean in 2:128?", a: "Rites of worship", wrong: ["Markets", "Houses", "Songs"], why: "Show us how to worship You." },
         { q: "Even prophets asked Allah to accept their repentance.", tf: true, why: "Wa tub 'alayna." }
       ]
@@ -1441,7 +1441,7 @@ const BAQARAH_TWO: DeepUnit = {
       difficulty: 2,
       questions: [
         { q: "What is the best dhikr, per as-Sa'di on 2:152?", a: "When heart and tongue agree", wrong: ["The loudest one", "Tongue only", "Only in Ramadan"], why: "The best dhikr is what the heart and tongue agree on." },
-        { q: "What reward does Allah give for remembering Him, per as-Sa'di on 2:152?", a: "Allah remembers you", wrong: ["Gold", "Long life only", "Nothing"], why: "He remembers whoever remembers Him." },
+        { q: "What reward does Allah give for remembering Him, per as-Sa'di on 2:152?", a: "Allah remembers you", wrong: ["Wealth", "Long life only", "Ease from all tests"], why: "He remembers whoever remembers Him." },
         { tf: true, q: "As-Sa'di calls dhikr the head of gratitude.", why: "As-Sa'di on 2:152." }
       ]
     },
@@ -1511,7 +1511,7 @@ const BAQARAH_TWO: DeepUnit = {
       difficulty: 2,
       questions: [
         { q: "What do the patient say in hardship, in 2:156?", a: "To Allah we belong and to Him we return", wrong: ["It's not fair", "Why me?", "I give up"], why: "Inna lillahi wa inna ilayhi raji'un." },
-        { q: "What did Umm Salamah get after saying the dua?", a: "Someone better: the Prophet ﷺ as husband", wrong: ["Nothing", "Gold", "A palace"], why: "Muslim 918a." },
+        { q: "What did Umm Salamah get after saying the dua?", a: "Someone better: the Prophet ﷺ as husband", wrong: ["A rich husband", "A palace in Madinah", "A long, easy life"], why: "Muslim 918a." },
         { q: "What is added to the dua in Muslim 918a?", a: "O Allah, reward me and give me better", wrong: ["Take everything", "Make me famous", "Punish others"], why: "Allahumma'jurni fi musibati." }
       ]
     },
@@ -1636,7 +1636,7 @@ const BAQARAH_TWO: DeepUnit = {
       source: ik(172, "Allah commands the believers to eat from the good, lawful things He provided and to thank Him for it, if it is Him they worship."),
       difficulty: 1,
       questions: [
-        { q: "What does 2:172 ask after eating good things?", a: "Thank Allah", wrong: ["Sleep", "Complain", "Waste the rest"], why: "Washkuru lillah." },
+        { q: "What does 2:172 ask after eating good things?", a: "Thank Allah", wrong: ["Eat more", "Fast the next day", "Rest after it"], why: "Washkuru lillah." },
         { q: "Who gave us our food?", a: "Allah", wrong: ["Only the shop", "Luck", "Nobody"], why: "Min tayyibati ma razaqnakum." },
         { q: "Saying alhamdulillah after eating fits 2:172.", tf: true, why: "Thanking Allah for food." }
       ]
@@ -1705,7 +1705,7 @@ const BAQARAH_THREE: DeepUnit = {
       source: ik(179, "Allah made equal justice a law so that people hold back from harming one another, which protects lives; and He allowed the victim's family to forgive, a lightening and a mercy from your Lord."),
       difficulty: 4,
       questions: [
-        { q: "What does 2:179 say is found in fair justice?", a: "Life", wrong: ["Wealth", "Fame", "Sleep"], why: "Fil-qisasi hayah." },
+        { q: "What does 2:179 say is found in fair justice?", a: "Life", wrong: ["Wealth", "Honor", "Victory"], why: "Fil-qisasi hayah." },
         { q: "How does justice protect life?", a: "People hold back from harming others", wrong: ["It makes people rich", "It stops the rain", "It ends all work"], why: "Ibn Kathir explains it." },
         { q: "What does 2:178 call the family's choice to forgive?", a: "A mercy from your Lord", wrong: ["A weakness", "A crime", "A mistake"], why: "Takhfifun min rabbikum wa rahmah." }
       ]
@@ -1916,7 +1916,7 @@ const BAQARAH_THREE: DeepUnit = {
       difficulty: 3,
       questions: [
         { q: "Is an answered dua always proof of Allah's love, per as-Sa'di on 2:201?", a: "No, Allah answers many people", wrong: ["Yes, always", "Only on Fridays", "Only for the rich"], why: "He answers Muslim, disbeliever and sinner; proof is only in matters of the Hereafter and religion." },
-        { q: "Which is good in this world, per as-Sa'di on 2:201?", a: "A righteous spouse", wrong: ["Fame", "Revenge", "Endless sleep"], why: "He lists halal provision, a righteous spouse, children and useful knowledge." },
+        { q: "Which is good in this world, per as-Sa'di on 2:201?", a: "A righteous spouse", wrong: ["Fame among people", "High rank over others", "Revenge on enemies"], why: "He lists halal provision, a righteous spouse, children and useful knowledge." },
         { tf: true, q: "Good in the Hereafter includes safety in the grave and from the Fire.", why: "As-Sa'di on 2:201." }
       ]
     },
@@ -2197,7 +2197,7 @@ const BAQARAH_THREE: DeepUnit = {
       questions: [
         { q: "When should we recite Ayat al-Kursi, in Bukhari 5010?", a: "When going to bed", wrong: ["Only at Eid", "Only when eating", "Only in the car"], why: "A guard stays till morning." },
         { q: "Who taught it to Abu Hurairah in the story?", a: "A devil, who spoke the truth that time", wrong: ["An angel", "A king", "A child"], why: "He told you the truth, though he is a liar." },
-        { q: "What does it bring until morning?", a: "Protection from Allah", wrong: ["Gold", "Bad dreams", "Nothing"], why: "Bukhari 5010." }
+        { q: "What does it bring until morning?", a: "Protection from Allah", wrong: ["Wealth by morning", "Good dreams", "A long life"], why: "Bukhari 5010." }
       ]
     },
     {
@@ -2421,7 +2421,7 @@ const BAQARAH_THREE: DeepUnit = {
       questions: [
         { q: "What should we do if a debtor is struggling, in 2:280?", a: "Give him time", wrong: ["Shame him", "Take his home", "Add interest"], why: "Fanaziratun ila maysarah." },
         { q: "What is even better than waiting?", a: "Forgiving the debt", wrong: ["Doubling it", "Telling everyone", "Taking his car"], why: "Wa an tasaddaqu khayrun lakum." },
-        { q: "What does Muslim 1563a promise the lender who gives time?", a: "Relief on the Day of Resurrection", wrong: ["More interest", "Nothing", "Fame"], why: "Saved from that Day's distress." }
+        { q: "What does Muslim 1563a promise the lender who gives time?", a: "Relief on the Day of Resurrection", wrong: ["Double his money back", "Praise from people", "A long life"], why: "Saved from that Day's distress." }
       ]
     },
     {
@@ -2462,7 +2462,7 @@ const BAQARAH_THREE: DeepUnit = {
       difficulty: 1,
       questions: [
         { q: "What do the believers say, in 2:285?", a: "We hear and we obey", wrong: ["We hear and disobey", "Maybe later", "Not now"], why: "Sami'na wa ata'na." },
-        { q: "What do the last two ayahs of Al-Baqarah give at night?", a: "They are enough for you", wrong: ["Nothing", "Bad dreams", "Hunger"], why: "Bukhari 5009." },
+        { q: "What do the last two ayahs of Al-Baqarah give at night?", a: "They are enough for you", wrong: ["Wealth by morning", "Good dreams", "A long night's sleep"], why: "Bukhari 5009." },
         { q: "Do the believers separate between Allah's messengers?", a: "No", wrong: ["Yes", "Sometimes", "Only two"], why: "La nufarriqu bayna ahadin min rusulih." }
       ]
     },

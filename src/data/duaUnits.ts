@@ -618,7 +618,7 @@ const DHIKR: DeepUnit = {
       source: quran(13, 28, "Those who believe and whose hearts find rest in the remembrance of Allah. Surely in the remembrance of Allah hearts find rest."),
       difficulty: 1,
       questions: [
-        { q: "In what do hearts find rest, says 13:28?", a: "The remembrance of Allah", wrong: ["Money", "Games", "Sleeping late"], why: "Bi dhikrillahi tatma'innul-qulub." },
+        { q: "In what do hearts find rest, says 13:28?", a: "The remembrance of Allah", wrong: ["Wealth", "Family", "Travel"], why: "Bi dhikrillahi tatma'innul-qulub." },
         { q: "You feel worried before an exam. What does this ayah point you to?", a: "Remembering Allah", wrong: ["Giving up", "Shouting", "Skipping prayer"], why: "Dhikr brings calm." },
         { q: "Dhikr is only for the mosque.", tf: false, why: "You can remember Allah anywhere, any time." }
       ]
@@ -632,7 +632,7 @@ const DHIKR: DeepUnit = {
       source: quran(2, 152, "So remember Me; I will remember you. And be grateful to Me and do not deny Me."),
       difficulty: 1,
       questions: [
-        { q: "What does Allah promise the one who remembers Him?", a: "He will remember them", wrong: ["Nothing", "A new car", "Fame"], why: "Fadhkuruni adhkurkum." },
+        { q: "What does Allah promise the one who remembers Him?", a: "He will remember them", wrong: ["Wealth", "A long life", "Ease from all tests"], why: "Fadhkuruni adhkurkum." },
         { q: "What else does 2:152 ask of us?", a: "To be thankful to Allah", wrong: ["To be proud", "To be lazy", "To complain"], why: "Washkuru li." },
         { q: "Allah remembers the one who remembers Him.", tf: true, why: "Quran 2:152." }
       ]

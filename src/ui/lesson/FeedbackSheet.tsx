@@ -132,6 +132,10 @@ export type FeedbackSheetProps = {
   onLeastHeight?: (height: number) => void;
   /** Called when the learner opens or shuts the Why line, and with false when the sheet goes. */
   onWhyToggle?: (open: boolean) => void;
+  /** After a wrong answer: a speaker button in the heading row; the teacher reads out the right answer and why. */
+  onListen?: () => void;
+  /** The teacher is reading it out now: the speaker shows lit, and a tap stops it. */
+  listening?: boolean;
   testID?: string;
 };
 
@@ -157,6 +161,8 @@ export function FeedbackSheet({
   onFullHeight,
   onLeastHeight,
   onWhyToggle,
+  onListen,
+  listening = false,
   testID = "feedback-sheet"
 }: FeedbackSheetProps) {
   const [whyOpen, setWhyOpen] = useState(defaultWhyOpen);
@@ -544,6 +550,19 @@ export function FeedbackSheet({
         <Text style={[correct ? styles.praise : styles.wrongTitle, { color: ink }]} accessibilityRole="header">
           {withHonorifics(heading)}
         </Text>
+        {!correct && onListen ? (
+          <Tappable
+            onPress={onListen}
+            style={[styles.listen, { borderColor: ink, backgroundColor: listening ? ink : withAlpha(colors.white, 0.6) }]}
+            accessibilityRole="button"
+            accessibilityLabel={listening ? t("Stop") : t("Hear why")}
+            accessibilityState={{ selected: listening }}
+            hitSlop={8}
+            testID="feedback-listen"
+          >
+            <Icon name="speaker" size={18} color={listening ? colors.white : ink} />
+          </Tappable>
+        ) : null}
         {source?.label ? (
           <Animated.View style={[styles.sourceSlot, { transform: [{ scale: sourceScale }] }]}>
             <Tappable
@@ -566,7 +585,7 @@ export function FeedbackSheet({
     ),
     // The language is read by t() inside.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [badgeRotate, badgeScale, correct, heading, ink, language, onHeadLayout, source, sourceScale]
+    [badgeRotate, badgeScale, correct, heading, ink, language, listening, onHeadLayout, onListen, source, sourceScale]
   );
   const answerBlock = useMemo(
     () => (
@@ -810,6 +829,16 @@ const styles = StyleSheet.create({
   headRow: {
     flexDirection: "row",
     alignItems: "center"
+  },
+  // As tall as the source chip, so the heading row keeps its height.
+  listen: {
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    borderWidth: 2,
+    alignItems: "center",
+    justifyContent: "center",
+    marginStart: space.sm
   },
   sourceSlot: {
     flexShrink: 1,

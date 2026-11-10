@@ -743,7 +743,7 @@ const IBN_BAZ: DeepUnit = {
       questions: [
         { q: "Which prize did Ibn Baz win in 1982?", a: "King Faisal Prize for Service to Islam", wrong: ["A sports medal", "A poetry prize", "A science prize"], why: "For his scholarship and good deeds." },
         { q: "Whom did he give special care to?", a: "The youth", wrong: ["Only rulers", "Only traders", "No one"], why: "He worked to help young Muslims." },
-        { q: "What did he tell Muslims to seek?", a: "Islamic knowledge", wrong: ["Fame", "Wealth", "Power"], why: "So they worship Allah with full awareness." }
+        { q: "What did he tell Muslims to seek?", a: "Islamic knowledge", wrong: ["Wealth", "Power", "Honor"], why: "So they worship Allah with full awareness." }
       ]
     },
     {
