@@ -431,6 +431,11 @@ export interface Challenge {
   isReview?: boolean;
   /** A question the learner missed before, back from the Review deck; the cue says "You missed this before". */
   missedBefore?: boolean;
+  /**
+   * A listening question: a speaker plays the Arabic (the reciter for an ayah, else the phone's Arabic voice) and
+   * the learner picks what it means. Built from the lesson's own checked Arabic word (src/ui/lesson/listenQuestion.ts).
+   */
+  listen?: { ar: string; translit: string; recitation?: string };
 }
 
 export interface LessonTeachingMoment {

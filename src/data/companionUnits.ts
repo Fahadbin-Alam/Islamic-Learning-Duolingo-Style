@@ -1853,7 +1853,7 @@ const KHABBAB: DeepUnit = {
       difficulty: 3,
       questions: [
         { q: "Who did Khabbab remember?", a: "Mus'ab ibn Umayr", wrong: ["Abu Jahl", "Abu Lahab", "Abu Sufyan"], why: "One of them was Mus'ab ibn Umayr." },
-        { q: "What did they put on Mus'ab's feet?", a: "Grass", wrong: ["Gold", "Silk", "Nothing"], why: "Idhkhir grass on his feet." },
+        { q: "What did they put on Mus'ab's feet?", a: "Grass", wrong: ["His sword", "Sand", "Palm leaves"], why: "Idhkhir grass on his feet." },
         { q: "Mus'ab left behind great riches.", tf: false, why: "He left only a woolen cloak." }
       ]
     },
@@ -2072,7 +2072,7 @@ const ABU_DARDA: DeepUnit = {
       source: hadith("tirmidhi", "2002", "Abu Darda", "Sahih (Al-Albani)", "Nothing is heavier on the believer's Scale on the Day of Judgment than good character, and Allah is angered by the shameless, obscene person.", "Nothing is heavier on the believer"),
       difficulty: 2,
       questions: [
-        { q: "What is heaviest on the believer's Scale?", a: "Good character", wrong: ["Gold", "A big house", "Fame"], why: "Nothing is heavier than good character." },
+        { q: "What is heaviest on the believer's Scale?", a: "Good character", wrong: ["Prayer at night", "Fasting", "Charity"], why: "Nothing is heavier than good character." },
         { q: "Whom does Allah dislike?", a: "The rude, foul-mouthed person", wrong: ["The kind person", "The patient person", "The shy person"], why: "Allah is angered by the shameless obscene person." },
         { q: "Good manners count on the Day of Judgment.", tf: true, why: "They are weighed on the Scale." }
       ]
@@ -2215,7 +2215,7 @@ const UBADAH: DeepUnit = {
       difficulty: 4,
       questions: [
         { q: "When did Ubadah share that hadith?", a: "At his deathbed", wrong: ["At Badr", "In Ramadan", "At a wedding"], why: "I am going to breathe my last." },
-        { q: "What does Allah forbid for one who says the Shahadah?", a: "The Fire", wrong: ["Food", "Sleep", "Travel"], why: "Allah would prohibit the fire of Hell for him." },
+        { q: "What does Allah forbid for one who says the Shahadah?", a: "The Fire", wrong: ["Hunger", "Sadness", "Questioning in the grave"], why: "Allah would prohibit the fire of Hell for him." },
         { q: "Who wept at Ubadah's bedside?", a: "As-Sunabihi", wrong: ["Abu Jahl", "Umm Haram", "Alqamah"], why: "Sunabihi went to him when he was about to die." }
       ]
     }
@@ -2460,7 +2460,7 @@ const IBN_SALAM: DeepUnit = {
       difficulty: 4,
       questions: [
         { q: "What did he hold in his dream?", a: "A handhold on a pillar", wrong: ["A sword", "A lamp", "A book"], why: "I got hold of the handhold." },
-        { q: "What does the firm handhold mean?", a: "Islam", wrong: ["Wealth", "Power", "Fame"], why: "The firm reliable handhold, which is Islam." },
+        { q: "What does the firm handhold mean?", a: "Islam", wrong: ["Wealth", "The tribe", "The sword"], why: "The firm reliable handhold, which is Islam." },
         { q: "What did he say about praising people?", a: "Do not say what you do not know", wrong: ["Praise everyone", "Praise only kings", "Never speak"], why: "They ought not to have said things of which they have no knowledge." }
       ]
     },
@@ -2704,7 +2704,7 @@ const SAHL: DeepUnit = {
       source: hadith("bukhari", "6474", "Sahl ibn Sa'd", "Sahih", "The Prophet ﷺ said: whoever guarantees me what is between his jaws and what is between his legs, I guarantee him Paradise.", "I guarantee Paradise for him"),
       difficulty: 3,
       questions: [
-        { q: "What did the Prophet ﷺ promise for guarding both?", a: "Paradise", wrong: ["Gold", "A long life", "Fame"], why: "I guarantee Paradise for him." },
+        { q: "What did the Prophet ﷺ promise for guarding both?", a: "Paradise", wrong: ["A long life", "Wealth", "Victory"], why: "I guarantee Paradise for him." },
         { q: "Which body part speaks words?", a: "The tongue", wrong: ["The feet", "The ears", "The hair"], why: "What is between his two jaw-bones, his tongue." },
         { q: "Guarding the tongue is part of faith.", tf: true, why: "The tongue is one of the two things to guard." }
       ]
@@ -2807,7 +2807,7 @@ const ABU_QATADAH: DeepUnit = {
       source: hadith("bukhari", "1167", "Abu Qatadah", "Sahih", "The Prophet ﷺ said: if one of you enters a masjid, let him not sit until he has prayed two rak'ahs.", "he should not sit until he has offered a two-rak"),
       difficulty: 2,
       questions: [
-        { q: "What do we do before sitting in a masjid?", a: "Pray two rak'ahs", wrong: ["Eat", "Sleep", "Talk loudly"], why: "He should not sit until he has offered two rak'ahs." },
+        { q: "What do we do before sitting in a masjid?", a: "Pray two rak'ahs", wrong: ["Read the Quran", "Make wudu again", "Sit facing the qiblah"], why: "He should not sit until he has offered two rak'ahs." },
         { q: "How many rak'ahs are prayed?", a: "Two", wrong: ["Four", "One", "Ten"], why: "A two-rak'ah prayer." },
         { q: "You should sit first, then pray later.", tf: false, why: "He should not sit until he has prayed." }
       ]
@@ -2846,7 +2846,7 @@ const NUMAN: DeepUnit = {
       difficulty: 3,
       questions: [
         { q: "What lies between halal and haram?", a: "Doubtful things", wrong: ["Nothing", "Only halal", "Only gold"], why: "In between them there are doubtful things." },
-        { q: "What does avoiding doubtful things protect?", a: "Religion and honor", wrong: ["Wealth only", "Fame", "Strength"], why: "He saves his religion and his honor." },
+        { q: "What does avoiding doubtful things protect?", a: "Religion and honor", wrong: ["Wealth only", "Health", "Friendships"], why: "He saves his religion and his honor." },
         { q: "Which body part decides if the body is good?", a: "The heart", wrong: ["The hand", "The foot", "The eye"], why: "There is a piece of flesh in the body: the heart." }
       ]
     },
@@ -2871,7 +2871,7 @@ const NUMAN: DeepUnit = {
       source: hadith("bukhari", "2493", "An-Nu'man ibn Bashir", "Sahih", "Those who keep Allah's limits and those who break them are like people sharing a ship by lot, some above and some below. Those below said: let us make a hole in our part for water. If the others let them, all would drown; if they stopped them, all would be saved.", "all the people of the ship would be destroyed"),
       difficulty: 3,
       questions: [
-        { q: "What did the people below want to do?", a: "Make a hole for water", wrong: ["Paint the ship", "Sing songs", "Sleep"], why: "Let us make a hole in our share of the ship." },
+        { q: "What did the people below want to do?", a: "Make a hole for water", wrong: ["Swim to the shore", "Leave the ship", "Fish from below"], why: "Let us make a hole in our share of the ship." },
         { q: "What if nobody stopped them?", a: "Everyone would drown", wrong: ["Only they would drown", "Nothing", "The ship would fly"], why: "All the people of the ship would be destroyed." },
         { q: "Stopping wrong protects the whole community.", tf: true, why: "If they prevented them, both parties would be safe." }
       ]
@@ -2988,7 +2988,7 @@ const JARIR: DeepUnit = {
       source: hadith("muslim", "2592a", "Jarir ibn Abdullah", "Sahih", "The Prophet ﷺ said: whoever is deprived of gentleness is deprived of good.", "deprived of good"),
       difficulty: 3,
       questions: [
-        { q: "Whoever lacks gentleness loses what?", a: "Good", wrong: ["Money", "Sleep", "Friends only"], why: "He who is deprived of tenderly feelings is deprived of good." },
+        { q: "Whoever lacks gentleness loses what?", a: "Good", wrong: ["Wealth", "Friends only", "Respect"], why: "He who is deprived of tenderly feelings is deprived of good." },
         { q: "Which is better in dealing with people?", a: "Gentleness", wrong: ["Harshness", "Shouting", "Ignoring"], why: "Gentleness brings good." },
         { q: "Being harsh brings more good than being gentle.", tf: false, why: "Without gentleness good is lost." }
       ]
@@ -3221,7 +3221,7 @@ const ABU_UMAMAH: DeepUnit = {
       difficulty: 1,
       questions: [
         { q: "When did the Prophet ﷺ say this praise?", a: "After finishing a meal", wrong: ["Before sleep", "At sunrise", "In the market"], why: "Whenever the Prophet ﷺ finished his meals." },
-        { q: "What did he thank Allah for?", a: "Food and drink", wrong: ["Gold", "Fame", "Victory"], why: "Satisfied our needs and quenched our thirst." },
+        { q: "What did he thank Allah for?", a: "Food and drink", wrong: ["Victory", "Wealth", "His health"], why: "Satisfied our needs and quenched our thirst." },
         { q: "Allah's favor can be fully paid back.", tf: false, why: "Your favor cannot be compensated." }
       ]
     },
@@ -3234,7 +3234,7 @@ const ABU_UMAMAH: DeepUnit = {
       difficulty: 3,
       questions: [
         { q: "What earns a house at Paradise's edge?", a: "Leaving arguing when right", wrong: ["Winning every debate", "Being loud", "Telling jokes"], why: "One who leaves arguing even if he is right." },
-        { q: "What earns the house at the top?", a: "Good character", wrong: ["Wealth", "Strength", "Fame"], why: "One at the top for one with good character." },
+        { q: "What earns the house at the top?", a: "Good character", wrong: ["Praying the most", "Giving the most", "Fasting the most"], why: "One at the top for one with good character." },
         { q: "Lying is fine if only joking.", tf: false, why: "One who leaves lying even in jest." }
       ]
     },
@@ -3324,7 +3324,7 @@ const IMRAN: DeepUnit = {
       difficulty: 3,
       questions: [
         { q: "What did the man ask about?", a: "Why people do deeds", wrong: ["When to eat", "How to trade", "Where to travel"], why: "Why do people try to do good deeds?" },
-        { q: "What is made easy for each person?", a: "The deeds he was made for", wrong: ["Wealth", "Fame", "Sleep"], why: "Everyone will do the deeds for which he has been created." },
+        { q: "What is made easy for each person?", a: "The deeds he was made for", wrong: ["Wealth", "A long life", "Every deed he wants"], why: "Everyone will do the deeds for which he has been created." },
         { q: "The answer means we should stop doing deeds.", tf: false, why: "Everyone will do the deeds which will be made easy for him." }
       ]
     },
@@ -3440,7 +3440,7 @@ const MUGHIRAH: DeepUnit = {
       difficulty: 2,
       questions: [
         { q: "What did people wrongly think?", a: "The eclipse was for Ibrahim", wrong: ["The sun was gone forever", "Rain was coming", "Night had ended"], why: "The people said that the sun had eclipsed because of the death of Ibrahim." },
-        { q: "What should we do at an eclipse?", a: "Pray and call on Allah", wrong: ["Hide inside", "Light fires", "Sleep"], why: "When you see the eclipse pray and invoke Allah." },
+        { q: "What should we do at an eclipse?", a: "Pray and call on Allah", wrong: ["Stay inside", "Fast that day", "Look at the sky"], why: "When you see the eclipse pray and invoke Allah." },
         { q: "The Prophet ﷺ let a wrong belief spread to honor his son.", tf: false, why: "He said the sun and moon do not eclipse because of anyone's death." }
       ]
     },

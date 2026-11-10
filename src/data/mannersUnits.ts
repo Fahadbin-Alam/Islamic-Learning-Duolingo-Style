@@ -459,7 +459,7 @@ const PATIENCE: DeepUnit = {
       source: hadith("bukhari", "1469", "Abu Sa'id al-Khudri", "Sahih", "Some of the Ansar asked the Prophet ﷺ and he gave them until what he had ran out. He said: whoever keeps from asking, Allah makes him content; whoever tries to be patient, Allah makes him patient; and no one is given a gift better and wider than patience.", "Nobody can be given a blessing better and greater than patience"),
       difficulty: 2,
       questions: [
-        { q: "What is the best gift a person can be given?", a: "Patience", wrong: ["Gold", "Fame", "A big house"], why: "Nobody can be given a blessing better and greater than patience." },
+        { q: "What is the best gift a person can be given?", a: "Patience", wrong: ["Wealth", "Children", "Health"], why: "Nobody can be given a blessing better and greater than patience." },
         { q: "What does Allah do for one who tries to be patient?", a: "Makes him patient", wrong: ["Makes him rich at once", "Nothing", "Makes him sad"], why: "Whoever remains patient, Allah will make him patient." },
         { q: "The Prophet ﷺ kept back some of what he had from the Ansar.", tf: false, why: "He gave them until all that was with him was finished." }
       ]
@@ -473,7 +473,7 @@ const PATIENCE: DeepUnit = {
       difficulty: 2,
       questions: [
         { q: "What does even a thorn's prick do for a Muslim?", a: "Wipes away some sins", wrong: ["Nothing", "Takes away reward", "Makes him weak"], why: "Allah expiates some of his sins for that." },
-        { q: "Which of these is also named in the hadith?", a: "Sadness", wrong: ["Wealth", "Laughter", "Sleep"], why: "Nor sorrow, nor sadness, nor hurt befalls a Muslim but sins are wiped." },
+        { q: "Which of these is also named in the hadith?", a: "Sadness", wrong: ["Wealth", "Laughter", "Travel"], why: "Nor sorrow, nor sadness, nor hurt befalls a Muslim but sins are wiped." },
         { q: "Hard moments can be a mercy for a believer.", tf: true, why: "Allah wipes away sins by them." }
       ]
     },
@@ -640,7 +640,7 @@ const CLEAN: DeepUnit = {
       difficulty: 1,
       questions: [
         { q: "How much of faith is purity?", a: "Half", wrong: ["A tenth", "None", "A little bit"], why: "Cleanliness is half of faith." },
-        { q: "What fills the scale, in the same hadith?", a: "Alhamdulillah", wrong: ["Gold", "Water", "Sleep"], why: "Al-Hamdu Lillah fills the scale." },
+        { q: "What fills the scale, in the same hadith?", a: "Alhamdulillah", wrong: ["Water", "Gold", "Silence"], why: "Al-Hamdu Lillah fills the scale." },
         { q: "In the same hadith, prayer is called a light.", tf: true, why: "Prayer is a light." }
       ]
     },

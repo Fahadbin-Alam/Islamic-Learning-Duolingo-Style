@@ -9,6 +9,7 @@ import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, radii, space, topicPalette } from "../theme";
 import { ExerciseView, QuestionBubble, useLessonCompact, type ExerciseChoice, type ExerciseResult, type ExerciseViewProps } from "./ExerciseView";
 import { CORRECT_TEXT, FeedbackSheet, WRONG_TEXT } from "./FeedbackSheet";
+import { useMistakeVoice } from "./useMistakeVoice";
 import { LessonBottomBar } from "./LessonHeader";
 import { noBreakHyphens, shortWhy } from "./lessonText";
 import { CHECK_FALSE, CHECK_TRUE, WRONG_BUILD, formatSeed, type FillPiece, type MatchPair } from "./questionFormats";
@@ -181,6 +182,7 @@ function GameFrame({
   if (result) lastResult.current = result;
   const shown = lastResult.current;
   const why = shown ? (getActiveLanguage() === "en" ? shortWhy({ explanation: shown.why, prompt, correctLabel: shown.correctLabel }) : shown.why) : undefined;
+  const voice = useMistakeVoice(checked, Boolean(shown?.correct), shown && !shown.correct ? shown.correctLabel : undefined, shown?.why);
   return (
     <View style={styles.root} testID={testID}>
       <ScrollView style={styles.scroll} contentContainerStyle={[styles.content, { paddingBottom: checked && sheetHeight ? sheetHeight : space.xxl }]}>
@@ -201,6 +203,8 @@ function GameFrame({
         buttonSound={continueSound}
         bottomInset={bottomInset}
         onHeight={setSheetHeight}
+        onListen={voice.onListen}
+        listening={voice.listening}
       />
     </View>
   );

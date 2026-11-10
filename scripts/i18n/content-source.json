@@ -47845,27 +47845,19 @@
   },
   {
     "kind": "question",
-    "text": "Who was the father of Umaymah bint Abd al-Muttalib?"
+    "text": "Who was the mother of Umaymah bint Abd al-Muttalib?"
   },
   {
     "kind": "question",
-    "text": "Abu Umayyah ibn al-Mughirah"
-  },
-  {
-    "kind": "question",
-    "text": "Abd al-Muttalib"
-  },
-  {
-    "kind": "question",
-    "text": "Khuwaylid ibn Asad"
-  },
-  {
-    "kind": "question",
-    "text": "Khuzaymah ibn al-Harith"
+    "text": "Fatimah bint Amr"
   },
   {
     "kind": "question",
     "text": "Who was the father of Zaynab bint Jahsh?"
+  },
+  {
+    "kind": "question",
+    "text": "Khuzaymah ibn al-Harith"
   },
   {
     "kind": "question",
@@ -47874,6 +47866,10 @@
   {
     "kind": "question",
     "text": "Ja'far ibn Qays"
+  },
+  {
+    "kind": "question",
+    "text": "Khuwaylid ibn Asad"
   },
   {
     "kind": "lesson",
@@ -50441,22 +50437,6 @@
   },
   {
     "kind": "question",
-    "text": "Who was the father of Abbas ibn Abd al-Muttalib?"
-  },
-  {
-    "kind": "question",
-    "text": "Hisham ibn al-Mughirah"
-  },
-  {
-    "kind": "question",
-    "text": "Hizam ibn Khuwaylid"
-  },
-  {
-    "kind": "question",
-    "text": "Harithah ibn Sharahil"
-  },
-  {
-    "kind": "question",
     "text": "Who was the mother of Abbas ibn Abd al-Muttalib?"
   },
   {
@@ -50494,10 +50474,6 @@
   {
     "kind": "source",
     "text": "Sahih al-Bukhari 113"
-  },
-  {
-    "kind": "question",
-    "text": "Who was the father of Abdullah ibn Amr ibn al-As?"
   },
   {
     "kind": "question",
@@ -51093,6 +51069,14 @@
   },
   {
     "kind": "question",
+    "text": "Hisham ibn al-Mughirah"
+  },
+  {
+    "kind": "question",
+    "text": "Harithah ibn Sharahil"
+  },
+  {
+    "kind": "question",
     "text": "Who was the mother of Al-Hasan ibn Ali?"
   },
   {
@@ -51237,10 +51221,6 @@
   },
   {
     "kind": "question",
-    "text": "Who was the father of Amr ibn al-Jamuh?"
-  },
-  {
-    "kind": "question",
     "text": "Which tribe was Amr ibn al-Jamuh from?"
   },
   {
@@ -51330,6 +51310,10 @@
   {
     "kind": "question",
     "text": "Who was the father of Asma bint Umays?"
+  },
+  {
+    "kind": "question",
+    "text": "Hizam ibn Khuwaylid"
   },
   {
     "kind": "question",
@@ -51490,10 +51474,6 @@
   {
     "kind": "source",
     "text": "Tabaqat Ibn Sa'd 3/5"
-  },
-  {
-    "kind": "question",
-    "text": "Who was the father of Hamzah ibn Abd al-Muttalib?"
   },
   {
     "kind": "question",
@@ -52357,10 +52337,6 @@
   },
   {
     "kind": "question",
-    "text": "Who was the father of Al-Walid ibn al-Walid ibn al-Mughirah?"
-  },
-  {
-    "kind": "question",
     "text": "Which tribe was Al-Walid ibn al-Walid ibn al-Mughirah from?"
   },
   {
@@ -52725,6 +52701,10 @@
   },
   {
     "kind": "question",
+    "text": "Abu Umayyah ibn al-Mughirah"
+  },
+  {
+    "kind": "question",
     "text": "Al-Harith ibn Abi Dirar"
   },
   {
@@ -52862,14 +52842,6 @@
   {
     "kind": "source",
     "text": "Tabaqat Ibn Sa'd 8/37"
-  },
-  {
-    "kind": "question",
-    "text": "Who was the mother of Umaymah bint Abd al-Muttalib?"
-  },
-  {
-    "kind": "question",
-    "text": "Fatimah bint Amr"
   },
   {
     "kind": "question",
@@ -58217,7 +58189,7 @@
   },
   {
     "kind": "question",
-    "text": "Fame"
+    "text": "Many children"
   },
   {
     "kind": "question",
@@ -59465,7 +59437,11 @@
   },
   {
     "kind": "question",
-    "text": "A prize"
+    "text": "Honor"
+  },
+  {
+    "kind": "question",
+    "text": "Long life"
   },
   {
     "kind": "question",
@@ -59697,14 +59673,6 @@
   },
   {
     "kind": "question",
-    "text": "Sleep"
-  },
-  {
-    "kind": "question",
-    "text": "Games"
-  },
-  {
-    "kind": "question",
     "text": "Praying well should change how we act."
   },
   {
@@ -59737,7 +59705,7 @@
   },
   {
     "kind": "question",
-    "text": "A new bike"
+    "text": "A long life"
   },
   {
     "kind": "question",
@@ -59905,15 +59873,15 @@
   },
   {
     "kind": "question",
-    "text": "A nap"
-  },
-  {
-    "kind": "question",
     "text": "One sip of water"
   },
   {
     "kind": "question",
-    "text": "A loud shout"
+    "text": "Fasting a day"
+  },
+  {
+    "kind": "question",
+    "text": "Washing your hands"
   },
   {
     "kind": "question",
@@ -60105,11 +60073,11 @@
   },
   {
     "kind": "question",
-    "text": "A game"
+    "text": "Our homes"
   },
   {
     "kind": "question",
-    "text": "Home to sleep"
+    "text": "Our work"
   },
   {
     "kind": "question",
@@ -60233,11 +60201,11 @@
   },
   {
     "kind": "question",
-    "text": "Chat"
+    "text": "Chat quietly"
   },
   {
     "kind": "question",
-    "text": "Play games"
+    "text": "Make dua aloud"
   },
   {
     "kind": "question",
@@ -60661,7 +60629,11 @@
   },
   {
     "kind": "question",
-    "text": "Long life"
+    "text": "Wealth for all of them"
+  },
+  {
+    "kind": "question",
+    "text": "Victory in every battle"
   },
   {
     "kind": "question",
@@ -61169,11 +61141,15 @@
   },
   {
     "kind": "question",
-    "text": "Cook our food"
+    "text": "Guard the gates of Jannah"
   },
   {
     "kind": "question",
-    "text": "Build houses"
+    "text": "Carry the Throne"
+  },
+  {
+    "kind": "question",
+    "text": "Blow the Trumpet"
   },
   {
     "kind": "question",
@@ -62157,6 +62133,10 @@
   },
   {
     "kind": "question",
+    "text": "Honor among people"
+  },
+  {
+    "kind": "question",
     "text": "Learning Allah's names is a great deed."
   },
   {
@@ -62425,7 +62405,19 @@
   },
   {
     "kind": "question",
+    "text": "Saying salam"
+  },
+  {
+    "kind": "question",
+    "text": "Praying at night"
+  },
+  {
+    "kind": "question",
     "text": "Removing harm from the road"
+  },
+  {
+    "kind": "question",
+    "text": "Giving charity"
   },
   {
     "kind": "question",
@@ -62457,7 +62449,19 @@
   },
   {
     "kind": "question",
+    "text": "One's children"
+  },
+  {
+    "kind": "question",
+    "text": "One's own self"
+  },
+  {
+    "kind": "question",
     "text": "Allah and His Messenger ﷺ"
+  },
+  {
+    "kind": "question",
+    "text": "One's parents"
   },
   {
     "kind": "question",
@@ -62890,10 +62894,6 @@
   {
     "kind": "question",
     "text": "What did the angel promise for reciting them?"
-  },
-  {
-    "kind": "question",
-    "text": "A long life"
   },
   {
     "kind": "question",
@@ -63449,10 +63449,6 @@
   },
   {
     "kind": "question",
-    "text": "Our homes"
-  },
-  {
-    "kind": "question",
     "text": "Allah's rule and justice"
   },
   {
@@ -63526,10 +63522,6 @@
   {
     "kind": "question",
     "text": "Shirk"
-  },
-  {
-    "kind": "question",
-    "text": "Hunger"
   },
   {
     "kind": "question",
@@ -64518,6 +64510,10 @@
   {
     "kind": "question",
     "text": "Forgiveness and a great reward"
+  },
+  {
+    "kind": "question",
+    "text": "Victory"
   },
   {
     "kind": "question",
@@ -65857,10 +65853,6 @@
   },
   {
     "kind": "question",
-    "text": "Rest"
-  },
-  {
-    "kind": "question",
     "text": "Serving them opens its door."
   },
   {
@@ -66021,7 +66013,7 @@
   },
   {
     "kind": "question",
-    "text": "Good looks"
+    "text": "Victory over enemies"
   },
   {
     "kind": "question",
@@ -67949,10 +67941,6 @@
   },
   {
     "kind": "question",
-    "text": "Giving charity"
-  },
-  {
-    "kind": "question",
     "text": "Breaking promises"
   },
   {
@@ -68942,6 +68930,10 @@
   {
     "kind": "question",
     "text": "What is the best gift a person can be given?"
+  },
+  {
+    "kind": "question",
+    "text": "Health"
   },
   {
     "kind": "question",
@@ -70777,6 +70769,10 @@
   },
   {
     "kind": "question",
+    "text": "A trade"
+  },
+  {
+    "kind": "question",
     "text": "A shield"
   },
   {
@@ -72449,10 +72445,6 @@
   },
   {
     "kind": "question",
-    "text": "A fast car"
-  },
-  {
-    "kind": "question",
     "text": "Who asked him ﷺ what to say that night?"
   },
   {
@@ -72826,10 +72818,6 @@
   {
     "kind": "question",
     "text": "What did he ﷺ call fasting in the same hadith?"
-  },
-  {
-    "kind": "question",
-    "text": "A trade"
   },
   {
     "kind": "question",
@@ -74829,7 +74817,7 @@
   },
   {
     "kind": "question",
-    "text": "Nothing special"
+    "text": "An Umrah only"
   },
   {
     "kind": "question",
@@ -74877,7 +74865,11 @@
   },
   {
     "kind": "question",
-    "text": "Staying home always"
+    "text": "Fighting in battle"
+  },
+  {
+    "kind": "question",
+    "text": "Giving all her wealth"
   },
   {
     "kind": "question",
@@ -76029,7 +76021,11 @@
   },
   {
     "kind": "question",
-    "text": "A cost"
+    "text": "A source of wealth"
+  },
+  {
+    "kind": "question",
+    "text": "A test only"
   },
   {
     "kind": "question",
@@ -79541,6 +79537,10 @@
   },
   {
     "kind": "question",
+    "text": "travel"
+  },
+  {
+    "kind": "question",
     "text": "hardship"
   },
   {
@@ -80358,6 +80358,10 @@
   {
     "kind": "question",
     "text": "In Quran 9:40 the Prophet ﷺ tells his companion: do not ____."
+  },
+  {
+    "kind": "question",
+    "text": "look back"
   },
   {
     "kind": "question",
@@ -82738,10 +82742,6 @@
   {
     "kind": "question",
     "text": "What did the Prophet ﷺ say the milk meant?"
-  },
-  {
-    "kind": "question",
-    "text": "Victory"
   },
   {
     "kind": "question",
@@ -87829,7 +87829,15 @@
   },
   {
     "kind": "question",
+    "text": "A prize"
+  },
+  {
+    "kind": "question",
     "text": "A right for all"
+  },
+  {
+    "kind": "question",
+    "text": "A reward"
   },
   {
     "kind": "question",
@@ -95497,10 +95505,6 @@
   },
   {
     "kind": "question",
-    "text": "Praying at night"
-  },
-  {
-    "kind": "question",
     "text": "Leaving the effort for wealth"
   },
   {
@@ -96138,6 +96142,10 @@
   {
     "kind": "question",
     "text": "What did they put on Mus'ab's feet?"
+  },
+  {
+    "kind": "question",
+    "text": "Palm leaves"
   },
   {
     "kind": "question",
@@ -96957,6 +96965,10 @@
   },
   {
     "kind": "question",
+    "text": "Prayer at night"
+  },
+  {
+    "kind": "question",
     "text": "Nothing is heavier than good character."
   },
   {
@@ -97602,6 +97614,14 @@
   {
     "kind": "question",
     "text": "What does Allah forbid for one who says the Shahadah?"
+  },
+  {
+    "kind": "question",
+    "text": "Questioning in the grave"
+  },
+  {
+    "kind": "question",
+    "text": "Hunger"
   },
   {
     "kind": "question",
@@ -98889,6 +98909,14 @@
   },
   {
     "kind": "question",
+    "text": "The tribe"
+  },
+  {
+    "kind": "question",
+    "text": "The sword"
+  },
+  {
+    "kind": "question",
     "text": "The firm reliable handhold, which is Islam."
   },
   {
@@ -99933,7 +99961,11 @@
   },
   {
     "kind": "question",
-    "text": "Talk loudly"
+    "text": "Make wudu again"
+  },
+  {
+    "kind": "question",
+    "text": "Sit facing the qiblah"
   },
   {
     "kind": "question",
@@ -100057,7 +100089,7 @@
   },
   {
     "kind": "question",
-    "text": "Strength"
+    "text": "Friendships"
   },
   {
     "kind": "question",
@@ -100169,7 +100201,11 @@
   },
   {
     "kind": "question",
-    "text": "Sing songs"
+    "text": "Leave the ship"
+  },
+  {
+    "kind": "question",
+    "text": "Fish from below"
   },
   {
     "kind": "question",
@@ -100177,7 +100213,7 @@
   },
   {
     "kind": "question",
-    "text": "Paint the ship"
+    "text": "Swim to the shore"
   },
   {
     "kind": "question",
@@ -100653,11 +100689,11 @@
   },
   {
     "kind": "question",
-    "text": "Friends only"
+    "text": "Good"
   },
   {
     "kind": "question",
-    "text": "Good"
+    "text": "Friends only"
   },
   {
     "kind": "question",
@@ -101669,6 +101705,10 @@
   },
   {
     "kind": "question",
+    "text": "His health"
+  },
+  {
+    "kind": "question",
     "text": "Food and drink"
   },
   {
@@ -101726,6 +101766,18 @@
   {
     "kind": "question",
     "text": "What earns the house at the top?"
+  },
+  {
+    "kind": "question",
+    "text": "Fasting the most"
+  },
+  {
+    "kind": "question",
+    "text": "Praying the most"
+  },
+  {
+    "kind": "question",
+    "text": "Giving the most"
   },
   {
     "kind": "question",
@@ -102106,6 +102158,10 @@
   {
     "kind": "question",
     "text": "What is made easy for each person?"
+  },
+  {
+    "kind": "question",
+    "text": "Every deed he wants"
   },
   {
     "kind": "question",
@@ -102557,7 +102613,11 @@
   },
   {
     "kind": "question",
-    "text": "Light fires"
+    "text": "Fast that day"
+  },
+  {
+    "kind": "question",
+    "text": "Look at the sky"
   },
   {
     "kind": "question",
@@ -102565,7 +102625,7 @@
   },
   {
     "kind": "question",
-    "text": "Hide inside"
+    "text": "Stay inside"
   },
   {
     "kind": "question",
@@ -102614,10 +102674,6 @@
   {
     "kind": "question",
     "text": "Which of these does Allah dislike?"
-  },
-  {
-    "kind": "question",
-    "text": "Saying salam"
   },
   {
     "kind": "question",
@@ -104453,6 +104509,10 @@
   },
   {
     "kind": "question",
+    "text": "Armies"
+  },
+  {
+    "kind": "question",
     "text": "Quran 2:38."
   },
   {
@@ -104773,7 +104833,15 @@
   },
   {
     "kind": "question",
+    "text": "Kingship"
+  },
+  {
+    "kind": "question",
     "text": "Abundant rain"
+  },
+  {
+    "kind": "question",
+    "text": "Victory in war"
   },
   {
     "kind": "question",
@@ -106050,6 +106118,10 @@
   {
     "kind": "question",
     "text": "A great sacrifice"
+  },
+  {
+    "kind": "question",
+    "text": "Another son"
   },
   {
     "kind": "question",
@@ -108817,6 +108889,10 @@
   },
   {
     "kind": "question",
+    "text": "The waves"
+  },
+  {
+    "kind": "question",
     "text": "Being caught"
   },
   {
@@ -109174,6 +109250,10 @@
   {
     "kind": "question",
     "text": "What sound did the calf make?"
+  },
+  {
+    "kind": "question",
+    "text": "No sound at all"
   },
   {
     "kind": "question",
@@ -110777,7 +110857,7 @@
   },
   {
     "kind": "question",
-    "text": "Wars"
+    "text": "War"
   },
   {
     "kind": "question",
@@ -112086,10 +112166,6 @@
   {
     "kind": "question",
     "text": "The pen"
-  },
-  {
-    "kind": "question",
-    "text": "The sword"
   },
   {
     "kind": "question",
@@ -120842,6 +120918,10 @@
   {
     "kind": "question",
     "text": "What is every good deed?"
+  },
+  {
+    "kind": "question",
+    "text": "A game"
   },
   {
     "kind": "question",
@@ -135289,7 +135369,7 @@
   },
   {
     "kind": "question",
-    "text": "Toys"
+    "text": "Fine clothes"
   },
   {
     "kind": "question",
@@ -135345,6 +135425,18 @@
   },
   {
     "kind": "question",
+    "text": "To see his family"
+  },
+  {
+    "kind": "question",
+    "text": "To be given more wealth"
+  },
+  {
+    "kind": "question",
+    "text": "To sleep in peace"
+  },
+  {
+    "kind": "question",
     "text": "\"My Lord, send me back.\""
   },
   {
@@ -135385,11 +135477,19 @@
   },
   {
     "kind": "question",
-    "text": "Thunder"
+    "text": "His family's voices"
   },
   {
     "kind": "question",
     "text": "Their footsteps"
+  },
+  {
+    "kind": "question",
+    "text": "The angels' wings"
+  },
+  {
+    "kind": "question",
+    "text": "The Quran recited"
   },
   {
     "kind": "question",
@@ -136993,11 +137093,19 @@
   },
   {
     "kind": "question",
-    "text": "Nothing can"
+    "text": "Making dua later"
+  },
+  {
+    "kind": "question",
+    "text": "Fasting the next day"
   },
   {
     "kind": "question",
     "text": "Extra (sunnah) prayers"
+  },
+  {
+    "kind": "question",
+    "text": "Praying faster next time"
   },
   {
     "kind": "question",
@@ -138441,7 +138549,19 @@
   },
   {
     "kind": "question",
+    "text": "A long, easy life"
+  },
+  {
+    "kind": "question",
     "text": "Forgiveness and Jannah"
+  },
+  {
+    "kind": "question",
+    "text": "Wealth and children"
+  },
+  {
+    "kind": "question",
+    "text": "Praise from people"
   },
   {
     "kind": "question",
@@ -139241,6 +139361,14 @@
   },
   {
     "kind": "question",
+    "text": "Many friends"
+  },
+  {
+    "kind": "question",
+    "text": "Our family name"
+  },
+  {
+    "kind": "question",
     "text": "The best provision is taqwa (2:197)."
   },
   {
@@ -139262,10 +139390,6 @@
   {
     "kind": "question",
     "text": "What gets us into Jannah in the end?"
-  },
-  {
-    "kind": "question",
-    "text": "Our family name"
   },
   {
     "kind": "question",
@@ -139345,7 +139469,7 @@
   },
   {
     "kind": "question",
-    "text": "A long nap"
+    "text": "An easy life"
   },
   {
     "kind": "question",
@@ -139454,6 +139578,14 @@
   {
     "kind": "question",
     "text": "What does the believer hear when death comes?"
+  },
+  {
+    "kind": "question",
+    "text": "Only silence"
+  },
+  {
+    "kind": "question",
+    "text": "A warning to wait"
   },
   {
     "kind": "question",
@@ -139613,11 +139745,15 @@
   },
   {
     "kind": "question",
+    "text": "Power over others"
+  },
+  {
+    "kind": "question",
     "text": "The joys of Jannah"
   },
   {
     "kind": "question",
-    "text": "Likes online"
+    "text": "Wealth of this world"
   },
   {
     "kind": "question",
@@ -139694,6 +139830,10 @@
   {
     "kind": "question",
     "text": "Which branch of faith does this hadith name?"
+  },
+  {
+    "kind": "question",
+    "text": "Strength"
   },
   {
     "kind": "question",
@@ -140917,7 +141057,11 @@
   },
   {
     "kind": "question",
-    "text": "Long games"
+    "text": "Walking in the market"
+  },
+  {
+    "kind": "question",
+    "text": "Eating with others"
   },
   {
     "kind": "question",
@@ -142253,15 +142397,7 @@
   },
   {
     "kind": "question",
-    "text": "Pearls"
-  },
-  {
-    "kind": "question",
     "text": "Gourd"
-  },
-  {
-    "kind": "question",
-    "text": "Candy"
   },
   {
     "kind": "question",
@@ -142497,6 +142633,14 @@
   },
   {
     "kind": "question",
+    "text": "Pouring water on it"
+  },
+  {
+    "kind": "question",
+    "text": "A coin inside it"
+  },
+  {
+    "kind": "question",
     "text": "A stick across it"
   },
   {
@@ -142653,11 +142797,7 @@
   },
   {
     "kind": "question",
-    "text": "Money only"
-  },
-  {
-    "kind": "question",
-    "text": "Long holidays"
+    "text": "A long life always"
   },
   {
     "kind": "question",
@@ -144889,7 +145029,15 @@
   },
   {
     "kind": "question",
+    "text": "Change clothes only"
+  },
+  {
+    "kind": "question",
     "text": "Take a bath"
+  },
+  {
+    "kind": "question",
+    "text": "Rest at home"
   },
   {
     "kind": "question",
@@ -145657,15 +145805,7 @@
   },
   {
     "kind": "question",
-    "text": "Sweets"
-  },
-  {
-    "kind": "question",
-    "text": "Fried meat"
-  },
-  {
-    "kind": "question",
-    "text": "Ice cream"
+    "text": "Meat broth"
   },
   {
     "kind": "question",
@@ -146525,11 +146665,11 @@
   },
   {
     "kind": "question",
-    "text": "A bell"
+    "text": "Thunder"
   },
   {
     "kind": "question",
-    "text": "Singing birds"
+    "text": "A bell"
   },
   {
     "kind": "question",
@@ -147677,11 +147817,11 @@
   },
   {
     "kind": "question",
-    "text": "Breakfast"
+    "text": "The Fajr prayer"
   },
   {
     "kind": "question",
-    "text": "The Fajr prayer"
+    "text": "Rest"
   },
   {
     "kind": "question",
@@ -151077,11 +151217,15 @@
   },
   {
     "kind": "question",
+    "text": "Say nothing"
+  },
+  {
+    "kind": "question",
     "text": "Give something in charity"
   },
   {
     "kind": "question",
-    "text": "Gamble once"
+    "text": "Fast for a day"
   },
   {
     "kind": "question",
@@ -155241,7 +155385,7 @@
   },
   {
     "kind": "question",
-    "text": "A new car"
+    "text": "Ease from all tests"
   },
   {
     "kind": "question",
@@ -155998,6 +156142,10 @@
   {
     "kind": "question",
     "text": "What made Iblis refuse to bow?"
+  },
+  {
+    "kind": "question",
+    "text": "Sleep"
   },
   {
     "kind": "question",
@@ -157329,6 +157477,10 @@
   },
   {
     "kind": "question",
+    "text": "Fame"
+  },
+  {
+    "kind": "question",
     "text": "Remember Me, and I will remember you."
   },
   {
@@ -157982,10 +158134,6 @@
   {
     "kind": "question",
     "text": "What is the best provision?"
-  },
-  {
-    "kind": "question",
-    "text": "Fine clothes"
   },
   {
     "kind": "question",
@@ -159622,10 +159770,6 @@
   {
     "kind": "question",
     "text": "Who gives and takes kingship, in Ali 'Imran?"
-  },
-  {
-    "kind": "question",
-    "text": "Armies"
   },
   {
     "kind": "question",
@@ -162169,10 +162313,6 @@
   },
   {
     "kind": "question",
-    "text": "Power over others"
-  },
-  {
-    "kind": "question",
     "text": "Ayah 39: whom does Allah forgive?"
   },
   {
@@ -163121,6 +163261,10 @@
   },
   {
     "kind": "question",
+    "text": "Toys"
+  },
+  {
+    "kind": "question",
     "text": "Idols"
   },
   {
@@ -164022,10 +164166,6 @@
   {
     "kind": "question",
     "text": "Snow only"
-  },
-  {
-    "kind": "question",
-    "text": "War"
   },
   {
     "kind": "lesson",
@@ -166134,6 +166274,10 @@
   {
     "kind": "question",
     "text": "What does Allah call people to, in Yunus?"
+  },
+  {
+    "kind": "question",
+    "text": "Games"
   },
   {
     "kind": "question",
@@ -168910,6 +169054,10 @@
   {
     "kind": "question",
     "text": "Fewer tests"
+  },
+  {
+    "kind": "question",
+    "text": "A long nap"
   },
   {
     "kind": "question",
@@ -172149,10 +172297,6 @@
   },
   {
     "kind": "question",
-    "text": "Wealth and children"
-  },
-  {
-    "kind": "question",
     "text": "Stars and moon"
   },
   {
@@ -174576,6 +174720,10 @@
     "text": "Ayah 24: what were the believers guided to?"
   },
   {
+    "kind": "question",
+    "text": "Long games"
+  },
+  {
     "kind": "lesson",
     "text": "Ibrahim was told to call people to Hajj; they come from afar."
   },
@@ -176877,10 +177025,6 @@
   },
   {
     "kind": "question",
-    "text": "A test only"
-  },
-  {
-    "kind": "question",
     "text": "A rest"
   },
   {
@@ -177382,10 +177526,6 @@
   {
     "kind": "question",
     "text": "Ayah 89: what will help on the Day?"
-  },
-  {
-    "kind": "question",
-    "text": "Many children"
   },
   {
     "kind": "lesson",
@@ -181246,10 +181386,6 @@
   {
     "kind": "question",
     "text": "Ayah 58: what do those who hurt believers with lies carry?"
-  },
-  {
-    "kind": "question",
-    "text": "A reward"
   },
   {
     "kind": "lesson",
@@ -193456,6 +193592,14 @@
     "text": "Feed the poor"
   },
   {
+    "kind": "question",
+    "text": "Build houses"
+  },
+  {
+    "kind": "question",
+    "text": "Sing songs"
+  },
+  {
     "kind": "lesson",
     "text": "The Quran is the word of a noble messenger, not a poet."
   },
@@ -194194,6 +194338,10 @@
   {
     "kind": "question",
     "text": "Soft clouds"
+  },
+  {
+    "kind": "question",
+    "text": "Singing birds"
   },
   {
     "kind": "question",
@@ -203305,10 +203453,6 @@
   },
   {
     "kind": "question",
-    "text": "Weather"
-  },
-  {
-    "kind": "question",
     "text": "The eye only comes from an envier."
   },
   {
@@ -203378,6 +203522,10 @@
   {
     "kind": "question",
     "text": "One ayah"
+  },
+  {
+    "kind": "question",
+    "text": "A quarter of the Quran"
   },
   {
     "kind": "question",
@@ -203730,6 +203878,10 @@
   {
     "kind": "question",
     "text": "Safety"
+  },
+  {
+    "kind": "question",
+    "text": "Gain"
   },
   {
     "kind": "question",
@@ -204589,6 +204741,18 @@
   },
   {
     "kind": "question",
+    "text": "Time passing"
+  },
+  {
+    "kind": "question",
+    "text": "Forgetting it"
+  },
+  {
+    "kind": "question",
+    "text": "Hiding it well"
+  },
+  {
+    "kind": "question",
     "text": "A sin leaves a spot; tawbah cleans it."
   },
   {
@@ -205081,7 +205245,11 @@
   },
   {
     "kind": "question",
-    "text": "Run home"
+    "text": "Run to the shelter"
+  },
+  {
+    "kind": "question",
+    "text": "Close their eyes"
   },
   {
     "kind": "question",
@@ -206049,6 +206217,10 @@
   },
   {
     "kind": "question",
+    "text": "Riches in this world"
+  },
+  {
+    "kind": "question",
     "text": "How does Allah's guidance come?"
   },
   {
@@ -206622,6 +206794,18 @@
   {
     "kind": "question",
     "text": "What does 2:49 call it?"
+  },
+  {
+    "kind": "question",
+    "text": "An old story"
+  },
+  {
+    "kind": "question",
+    "text": "A small test"
+  },
+  {
+    "kind": "question",
+    "text": "A punishment for Musa"
   },
   {
     "kind": "question",
@@ -208337,10 +208521,6 @@
   },
   {
     "kind": "question",
-    "text": "Health"
-  },
-  {
-    "kind": "question",
     "text": "Harm, not benefit"
   },
   {
@@ -208653,11 +208833,19 @@
   },
   {
     "kind": "question",
-    "text": "A good deed"
+    "text": "A mistake of the past"
+  },
+  {
+    "kind": "question",
+    "text": "A matter for later"
   },
   {
     "kind": "question",
     "text": "The worst wrong"
+  },
+  {
+    "kind": "question",
+    "text": "A small sin"
   },
   {
     "kind": "question",
@@ -208917,6 +209105,14 @@
   },
   {
     "kind": "question",
+    "text": "That they be rich"
+  },
+  {
+    "kind": "question",
+    "text": "That they be kings"
+  },
+  {
+    "kind": "question",
     "text": "Whom does Allah's promise not reach, in 2:124?"
   },
   {
@@ -209126,6 +209322,10 @@
   {
     "kind": "question",
     "text": "A nation submitting to Allah"
+  },
+  {
+    "kind": "question",
+    "text": "Victory over Makkah"
   },
   {
     "kind": "question",
@@ -210129,6 +210329,10 @@
   },
   {
     "kind": "question",
+    "text": "Long holidays"
+  },
+  {
+    "kind": "question",
     "text": "Too many friends"
   },
   {
@@ -210246,6 +210450,14 @@
   {
     "kind": "question",
     "text": "Someone better: the Prophet ﷺ as husband"
+  },
+  {
+    "kind": "question",
+    "text": "A rich husband"
+  },
+  {
+    "kind": "question",
+    "text": "A palace in Madinah"
   },
   {
     "kind": "question",
@@ -210781,7 +210993,11 @@
   },
   {
     "kind": "question",
-    "text": "Waste the rest"
+    "text": "Fast the next day"
+  },
+  {
+    "kind": "question",
+    "text": "Rest after it"
   },
   {
     "kind": "question",
@@ -211889,7 +212105,11 @@
   },
   {
     "kind": "question",
-    "text": "Endless sleep"
+    "text": "High rank over others"
+  },
+  {
+    "kind": "question",
+    "text": "Revenge on enemies"
   },
   {
     "kind": "question",
@@ -213097,7 +213317,11 @@
   },
   {
     "kind": "question",
-    "text": "Bad dreams"
+    "text": "Wealth by morning"
+  },
+  {
+    "kind": "question",
+    "text": "Good dreams"
   },
   {
     "kind": "question",
@@ -214049,7 +214273,7 @@
   },
   {
     "kind": "question",
-    "text": "More interest"
+    "text": "Double his money back"
   },
   {
     "kind": "question",
@@ -214226,6 +214450,10 @@
   {
     "kind": "question",
     "text": "What do the last two ayahs of Al-Baqarah give at night?"
+  },
+  {
+    "kind": "question",
+    "text": "A long night's sleep"
   },
   {
     "kind": "question",
@@ -217626,6 +217854,10 @@
   {
     "kind": "question",
     "text": "A prayer"
+  },
+  {
+    "kind": "question",
+    "text": "A good deed"
   },
   {
     "kind": "question",
@@ -224102,6 +224334,10 @@
   {
     "kind": "question",
     "text": "What does a person who speaks up for good get, in 4:85?"
+  },
+  {
+    "kind": "question",
+    "text": "Money only"
   },
   {
     "kind": "question",
@@ -248730,10 +248966,6 @@
   {
     "kind": "question",
     "text": "Hellfire is hotter"
-  },
-  {
-    "kind": "question",
-    "text": "Rest at home"
   },
   {
     "kind": "question",
@@ -273845,6 +274077,10 @@
   },
   {
     "kind": "question",
+    "text": "Nothing special"
+  },
+  {
+    "kind": "question",
     "text": "Which is an immense honor reflecting his high rank and noble status."
   },
   {
@@ -280270,10 +280506,6 @@
   {
     "kind": "question",
     "text": "What word did the Prophet ﷺ teach, in the hadith?"
-  },
-  {
-    "kind": "question",
-    "text": "Say nothing"
   },
   {
     "kind": "question",
@@ -288082,6 +288314,10 @@
   {
     "kind": "question",
     "text": "Which words are a treasure of Paradise?"
+  },
+  {
+    "kind": "question",
+    "text": "A loud shout"
   },
   {
     "kind": "question",
@@ -299169,11 +299405,11 @@
   },
   {
     "kind": "question",
-    "text": "Only silence"
+    "text": "Allah's clear proofs"
   },
   {
     "kind": "question",
-    "text": "Allah's clear proofs"
+    "text": "Nothing can"
   },
   {
     "kind": "question",
@@ -335145,10 +335381,6 @@
   },
   {
     "kind": "question",
-    "text": "Many friends"
-  },
-  {
-    "kind": "question",
     "text": "Knowledge, gentleness and patience"
   },
   {
@@ -337842,6 +338074,10 @@
   {
     "kind": "question",
     "text": "About what will He judge, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Weather"
   },
   {
     "kind": "question",
@@ -340970,10 +341206,6 @@
   {
     "kind": "question",
     "text": "With whom does their matter rest, per Ibn Kathir?"
-  },
-  {
-    "kind": "question",
-    "text": "The tribe"
   },
   {
     "kind": "question",
@@ -354229,6 +354461,10 @@
   },
   {
     "kind": "question",
+    "text": "Run home"
+  },
+  {
+    "kind": "question",
     "text": "Sit and eat"
   },
   {
@@ -356826,6 +357062,10 @@
   {
     "kind": "question",
     "text": "What are its fruit stalks like, in 37:65?"
+  },
+  {
+    "kind": "question",
+    "text": "Pearls"
   },
   {
     "kind": "question",
@@ -364282,6 +364522,10 @@
   {
     "kind": "question",
     "text": "Disbelief in the Messengers"
+  },
+  {
+    "kind": "question",
+    "text": "Wars"
   },
   {
     "kind": "question",
@@ -399669,10 +399913,6 @@
   },
   {
     "kind": "question",
-    "text": "That they be rich"
-  },
-  {
-    "kind": "question",
     "text": "That they be famous"
   },
   {
@@ -415810,10 +416050,6 @@
   {
     "kind": "question",
     "text": "Stone tablets"
-  },
-  {
-    "kind": "question",
-    "text": "Palm leaves"
   },
   {
     "kind": "question",
@@ -478472,10 +478708,6 @@
     "text": "Making the heavens is greater than making people again."
   },
   {
-    "kind": "lesson",
-    "text": "Look at the sky"
-  },
-  {
     "kind": "question",
     "text": "What is greater than creating mankind?"
   },
@@ -482882,10 +483114,6 @@
   {
     "kind": "question",
     "text": "Prayer while eating"
-  },
-  {
-    "kind": "question",
-    "text": "Prayer at night"
   },
   {
     "kind": "question",
@@ -510465,6 +510693,10 @@
   },
   {
     "kind": "question",
+    "text": "A new car"
+  },
+  {
+    "kind": "question",
     "text": "A garden here"
   },
   {
@@ -511058,6 +511290,10 @@
   {
     "kind": "question",
     "text": "A meal"
+  },
+  {
+    "kind": "question",
+    "text": "A nap"
   },
   {
     "kind": "question",
@@ -527229,10 +527465,6 @@
   },
   {
     "kind": "question",
-    "text": "travel"
-  },
-  {
-    "kind": "question",
     "text": "Al-Ankabut 29:45: prayer stops indecency and wrongdoing."
   },
   {
@@ -528102,10 +528334,6 @@
   {
     "kind": "question",
     "text": "Just wash the hands"
-  },
-  {
-    "kind": "question",
-    "text": "Make wudu again"
   },
   {
     "kind": "question",

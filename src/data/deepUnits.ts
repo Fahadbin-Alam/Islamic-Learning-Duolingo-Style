@@ -81,7 +81,7 @@ const ABU_BAKR: DeepUnit = {
       questions: [
         { q: "Which chief praised Abu Bakr's good deeds?", a: "Ibn ad-Dughunnah", wrong: ["Abu Jahl", "Abu Sufyan", "Utbah ibn Rabi'ah"], why: "He was the chief of the tribe of Qarah." },
         { q: "Which of these did the chief NOT say about Abu Bakr?", a: "He was the richest man in Makkah", wrong: ["He helped the poor", "He welcomed guests", "He kept ties with family"], why: "He praised his kindness, not his wealth." },
-        { q: "The chief said Abu Bakr helped people in ____.", a: "hardship", wrong: ["trade", "battle", "games"], why: "He helped those hit by hard times." },
+        { q: "The chief said Abu Bakr helped people in ____.", a: "hardship", wrong: ["trade", "battle", "travel"], why: "He helped those hit by hard times." },
         { q: "Ibn ad-Dughunnah said a man like Abu Bakr should be driven out.", tf: false, why: "He said a man like Abu Bakr should never be driven out." }
       ]
     },
@@ -223,7 +223,7 @@ const ABU_BAKR: DeepUnit = {
         { q: "What did Abu Bakr fear in the cave?", a: "The enemy would see them", wrong: ["Snakes in the cave", "Running out of water", "Getting lost"], why: "The men chasing them stood right above the cave." },
         { q: "What did the Prophet ﷺ say to calm him?", a: "Two, and Allah is the third", wrong: ["I brought a sword", "Let us run", "No one knows we are here"], why: "He trusted that Allah was with them." },
         { q: "Which surah tells of the two in the cave?", a: "At-Tawbah", wrong: ["Al-Kahf", "Al-Anfal", "Ya-Sin"], why: "Quran 9:40 is in Surah At-Tawbah. Al-Kahf tells of other young men in a cave." },
-        { q: "In Quran 9:40 the Prophet ﷺ tells his companion: do not ____.", a: "grieve", wrong: ["speak", "sleep", "move"], why: "Do not grieve, Allah is with us." }
+        { q: "In Quran 9:40 the Prophet ﷺ tells his companion: do not ____.", a: "grieve", wrong: ["speak", "look back", "move"], why: "Do not grieve, Allah is with us." }
       ]
     },
     {
@@ -718,7 +718,7 @@ const FATIHAH: DeepUnit = {
       difficulty: 5,
       questions: [
         { q: "Why does 'Iyyaka' (You) come first in the ayah?", a: "It means You alone, none else", wrong: ["It sounds nicer", "It is a question", "It is a name of the surah"], why: "Putting the object first makes it only His." },
-        { q: "The first half, You we worship, frees us from what?", a: "Shirk", wrong: ["Hunger", "Debt", "Sleep"], why: "Worshipping Allah alone is the opposite of shirk." },
+        { q: "The first half, You we worship, frees us from what?", a: "Shirk", wrong: ["Fear", "Debt", "Sadness"], why: "Worshipping Allah alone is the opposite of shirk." },
         { q: "Ibadah joins love, humility and what?", a: "Fear", wrong: ["Wealth", "Pride", "Anger"], why: "That is its meaning in the religion." },
         { q: "And You we ask for help means we rely on our own strength.", tf: false, why: "It means all help and strength come from Allah." }
       ]
@@ -1308,7 +1308,7 @@ const MULK: DeepUnit = {
       difficulty: 3,
       questions: [
         { q: "What does fearing Allah unseen mean?", a: "Obeying Him when nobody sees", wrong: ["Hiding from people", "Never speaking", "Praying only at night"], why: "Only Allah sees him, and he still obeys." },
-        { q: "What is promised to them?", a: "Forgiveness and a great reward", wrong: ["Fame", "Riches", "Long life"], why: "Their sins are wiped out and their reward is big." },
+        { q: "What is promised to them?", a: "Forgiveness and a great reward", wrong: ["Riches", "Victory", "Long life"], why: "Their sins are wiped out and their reward is big." },
         { q: "Ibn Kathir compares this to whom, from the seven in Allah's shade?", a: "One who gives charity in secret", wrong: ["A strong king", "A famous scholar", "A rich trader"], why: "His left hand does not know what his right hand gave." }
       ]
     },
@@ -1935,7 +1935,7 @@ const SPEECH: DeepUnit = {
       difficulty: 4,
       questions: [
         { q: "'What is between his jaws' means what?", a: "The tongue", wrong: ["The teeth", "Food", "The breath"], why: "Guarding what we say." },
-        { q: "What does the Prophet ﷺ promise for guarding both?", a: "Jannah", wrong: ["Wealth", "Fame", "Long life"], why: "He guaranteed Paradise for it." },
+        { q: "What does the Prophet ﷺ promise for guarding both?", a: "Jannah", wrong: ["Wealth", "Honor", "Long life"], why: "He guaranteed Paradise for it." },
         { q: "Which companion narrated it?", a: "Sahl ibn Sa'd", wrong: ["Sa'd ibn Abi Waqqas", "Sa'id ibn Zayd", "Sa'd ibn Mu'adh"], why: "Sahl ibn Sa'd as-Sa'idi." }
       ]
     },
@@ -2011,7 +2011,7 @@ const PARENTS: DeepUnit = {
       difficulty: 4,
       questions: [
         { q: "Whom did the Prophet ﷺ warn about?", a: "One with old parents who misses Jannah", wrong: ["One who travels a lot", "One with no children", "One who is poor"], why: "Caring for them is a way to Jannah." },
-        { q: "Old parents are a chance to earn what?", a: "Jannah", wrong: ["Money", "Fame", "Rest"], why: "Serving them opens its door." },
+        { q: "Old parents are a chance to earn what?", a: "Jannah", wrong: ["Wealth", "Respect", "A long life"], why: "Serving them opens its door." },
         { q: "How many times did he say it?", a: "Three", wrong: ["Once", "Twice", "Seven"], why: "To show how serious it is." }
       ]
     },
@@ -2049,7 +2049,7 @@ const PARENTS: DeepUnit = {
       source: hadith("bukhari", "5986", "Anas ibn Malik", "Sahih", "The Prophet ﷺ said: whoever would like his provision to be increased and his life extended should keep good ties with his relatives."),
       difficulty: 3,
       questions: [
-        { q: "What does keeping family ties bring, in the hadith?", a: "More provision and longer life", wrong: ["Fame", "Good looks", "Nothing"], why: "Blessing in wealth and life." },
+        { q: "What does keeping family ties bring, in the hadith?", a: "More provision and longer life", wrong: ["Honor among people", "Many children", "Victory over enemies"], why: "Blessing in wealth and life." },
         { q: "Ties with whom?", a: "Relatives", wrong: ["Only friends", "Only neighbors", "Only teachers"], why: "Your kin, near and far." },
         { q: "Who narrated it?", a: "Anas ibn Malik", wrong: ["Ibn Umar", "Abu Sa'id", "Jabir bin Abdullah"], why: "Anas, the Prophet's ﷺ servant." }
       ]
@@ -2406,7 +2406,7 @@ const CHILDREN: DeepUnit = {
       difficulty: 3,
       questions: [
         { q: "What did the poor mother do with one date?", a: "Split it between her daughters", wrong: ["Ate it herself", "Sold it", "Kept it"], why: "She ate nothing herself." },
-        { q: "What will daughters raised with kindness be for their parent?", a: "A shield from the Fire", wrong: ["A burden", "A cost", "Nothing special"], why: "Daughters are a blessing." },
+        { q: "What will daughters raised with kindness be for their parent?", a: "A shield from the Fire", wrong: ["A burden", "A source of wealth", "A test only"], why: "Daughters are a blessing." },
         { q: "Who saw the mother and told the Prophet ﷺ?", a: "Aishah", wrong: ["Fatimah", "Hafsah", "Umm Salamah"], why: "The mother came to her door." }
       ]
     },
@@ -2862,7 +2862,7 @@ const FALAQ: DeepUnit = {
       difficulty: 2,
       questions: [
         { q: "What does an envier want?", a: "Your blessing to be gone", wrong: ["You to have more", "Nothing", "To help you"], why: "He loves that the blessing leave, says as-Sa'di." },
-        { q: "The evil eye is part of...?", a: "Envy", wrong: ["Kindness", "Sleep", "Weather"], why: "The eye only comes from an envier." },
+        { q: "The evil eye is part of...?", a: "Envy", wrong: ["Magic", "Kindness", "Bad luck"], why: "The eye only comes from an envier." },
         { tf: true, q: "We seek refuge in Allah from the envier.", why: "As-Sa'di on 113:5." }
       ]
     },
@@ -2901,7 +2901,7 @@ const IKHLAS: DeepUnit = {
       source: hadith("bukhari", "5013", "Abu Sa'id al-Khudri", "Sahih", "A man kept repeating Al-Ikhlas, and another thought it was too little; the Prophet ﷺ swore that it is equal to a third of the Quran."),
       difficulty: 1,
       questions: [
-        { q: "What is Al-Ikhlas equal to, says the Prophet ﷺ?", a: "A third of the Quran", wrong: ["Half of the Quran", "One ayah", "Nothing special"], why: "He swore by the One who holds his soul." },
+        { q: "What is Al-Ikhlas equal to, says the Prophet ﷺ?", a: "A third of the Quran", wrong: ["Half of the Quran", "One ayah", "A quarter of the Quran"], why: "He swore by the One who holds his soul." },
         { q: "What did the man in the hadith do with Al-Ikhlas?", a: "He recited it again and again", wrong: ["He never recited it", "He wrote it on a wall", "He sold it"], why: "Another man thought that was too little." },
         { q: "Al-Ikhlas is a short surah with a great reward.", tf: true, why: "Short, yet equal to a third of the Quran." }
       ]
@@ -2995,7 +2995,7 @@ const ASR: DeepUnit = {
       difficulty: 2,
       questions: [
         { q: "What does al-'asr mean, says Ibn Kathir?", a: "The time in which people act", wrong: ["The sea", "The sun", "A city"], why: "The time of people's good and evil deeds." },
-        { q: "What does Allah say people are in?", a: "Loss", wrong: ["Glory", "Sleep", "Safety"], why: "Verily, man is in loss." },
+        { q: "What does Allah say people are in?", a: "Loss", wrong: ["Glory", "Safety", "Gain"], why: "Verily, man is in loss." },
         { q: "Al-'Asr is a very short surah.", tf: true, why: "It has only three ayahs." }
       ]
     },
@@ -3035,7 +3035,7 @@ const ASR: DeepUnit = {
       source: saadi(103, 3, "As-Sa'di says the first of the four is faith in what Allah ordered us to believe, and faith cannot exist without knowledge, which it grows from.", "ولا يكون الإيمان بدون العلم"),
       difficulty: 2,
       questions: [
-        { q: "What does faith need, per as-Sa'di on 103:3?", a: "Knowledge", wrong: ["Wealth", "Fame", "Strength"], why: "There is no faith without knowledge." },
+        { q: "What does faith need, per as-Sa'di on 103:3?", a: "Knowledge", wrong: ["Wealth", "Strength", "Many friends"], why: "There is no faith without knowledge." },
         { q: "Which is the first of the four in Al-Asr?", a: "Faith", wrong: ["Patience", "Wealth", "Travel"], why: "Faith comes first." },
         { tf: true, q: "Learning about Islam helps our faith grow.", why: "As-Sa'di on 103:3." }
       ]

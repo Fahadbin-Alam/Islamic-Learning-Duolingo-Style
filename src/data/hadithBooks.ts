@@ -322,7 +322,7 @@ const PURITY: DeepUnit = {
       difficulty: 3,
       questions: [
         { q: "Which wudu did he ﷺ name?", a: "Full wudu, even when hard", wrong: ["Rushed wudu", "No wudu", "Wudu once a week"], why: "Sahih Muslim 251." },
-        { q: "What else wipes out sins in this hadith?", a: "Many steps to the masjid", wrong: ["Sleeping late", "Shopping", "Long games"], why: "Each step to the masjid counts." },
+        { q: "What else wipes out sins in this hadith?", a: "Many steps to the masjid", wrong: ["Sleeping early", "Walking in the market", "Eating with others"], why: "Each step to the masjid counts." },
         { q: "Waiting for the next prayer after praying is one of the three.", tf: true, why: "Waiting for the next prayer after a prayer." }
       ]
     },
@@ -658,7 +658,7 @@ const FOOD: DeepUnit = {
       difficulty: 1,
       questions: [
         { q: "Who invited the Prophet ﷺ to this meal?", a: "A tailor", wrong: ["A king", "A rich trader", "A general"], why: "He accepted a simple man's invitation." },
-        { q: "What did the Prophet ﷺ pick from the dish?", a: "Gourd", wrong: ["Gold", "Candy", "Pearls"], why: "Sahih al-Bukhari 5436." },
+        { q: "What did the Prophet ﷺ pick from the dish?", a: "Gourd", wrong: ["Dates", "Meat", "Bread"], why: "Sahih al-Bukhari 5436." },
         { q: "Anas loved gourd because the Prophet ﷺ liked it.", tf: true, why: "Since then I have loved gourd." }
       ]
     },
@@ -723,7 +723,7 @@ const FOOD: DeepUnit = {
       difficulty: 2,
       questions: [
         { q: "What did he ﷺ tell Abu Humayd about the milk?", a: "Cover it", wrong: ["Spill it", "Sell it", "Hide it in sand"], why: "Sahih al-Bukhari 5605." },
-        { q: "With what, at the very least?", a: "A stick across it", wrong: ["Gold", "A rock", "Nothing"], why: "Even by placing a stick across it." },
+        { q: "With what, at the very least?", a: "A stick across it", wrong: ["Nothing at all", "Pouring water on it", "A coin inside it"], why: "Even by placing a stick across it." },
         { q: "Covering food and drink is a sunnah.", tf: true, why: "He asked: will you not cover it?" }
       ]
     }
@@ -774,7 +774,7 @@ const DUA: DeepUnit = {
       difficulty: 3,
       questions: [
         { q: "A hard time comes. What did he ﷺ forbid?", a: "Wishing for death", wrong: ["Making dua", "Being patient", "Asking for help"], why: "Sahih al-Bukhari 6351." },
-        { q: "What does the dua ask Allah for?", a: "Life while it is better for me", wrong: ["Money only", "Fame", "Long holidays"], why: "Keep me alive while life is better." },
+        { q: "What does the dua ask Allah for?", a: "Life while it is better for me", wrong: ["Wealth only", "A long life always", "Many children"], why: "Keep me alive while life is better." },
         { q: "Feeling very sad? Talk to Allah and to a trusted adult.", tf: true, why: "Ask Allah for what is best, and get help." }
       ]
     },
@@ -864,7 +864,7 @@ const DUA: DeepUnit = {
       source: hadith("muslim", "2721a", "Abdullah ibn Mas'ud", "Sahih", "The Prophet ﷺ used to pray: O Allah, I ask You for guidance, taqwa, chastity and freedom from need.", "I beg of Thee the right guidance, safeguard against evils, chastity and freedom from want"),
       difficulty: 2,
       questions: [
-        { q: "What does this dua ask for first?", a: "Guidance", wrong: ["Gold", "A palace", "Fame"], why: "Sahih Muslim 2721." },
+        { q: "What does this dua ask for first?", a: "Guidance", wrong: ["A long life", "Victory", "Honor"], why: "Sahih Muslim 2721." },
         { q: "Al-ghina here means...?", a: "Not needing people", wrong: ["Singing", "Being loud", "Travel"], why: "Freedom from want." },
         { q: "Taqwa is one of the four things asked for.", tf: true, why: "Al-huda, at-tuqa, al-'afaf, al-ghina." }
       ]
@@ -1330,7 +1330,7 @@ const TRADE: DeepUnit = {
       difficulty: 1,
       questions: [
         { q: "What kind of work did the companions do?", a: "Work with their hands", wrong: ["No work at all", "Only trading gold", "Only writing"], why: "They used to practice manual labor." },
-        { q: "What were they told to do after sweating?", a: "Take a bath", wrong: ["Sleep", "Buy perfume only", "Stay home"], why: "They were advised to take a bath." },
+        { q: "What were they told to do after sweating?", a: "Take a bath", wrong: ["Rest at home", "Buy perfume only", "Change clothes only"], why: "They were advised to take a bath." },
         { q: "Working hard with your hands is a shameful thing.", tf: false, why: "The companions did it. Sahih al-Bukhari 2071." }
       ]
     },
@@ -1523,7 +1523,7 @@ const MEDICINE: DeepUnit = {
       source: hadith("bukhari", "5690", "Aishah", "Sahih", "Aishah used to recommend talbina and said: the sick person dislikes it, yet it is good for him.", "It is disliked (by the patient) although it is beneficial"),
       difficulty: 2,
       questions: [
-        { q: "What food did Aishah recommend for the sick?", a: "Talbina", wrong: ["Sweets", "Fried meat", "Ice cream"], why: "Aishah used to recommend at-Talbina." },
+        { q: "What food did Aishah recommend for the sick?", a: "Talbina", wrong: ["Dates", "Meat broth", "Cold water"], why: "Aishah used to recommend at-Talbina." },
         { q: "What did she say about its taste?", a: "Disliked, but beneficial", wrong: ["Very tasty", "Harmful", "Too sweet"], why: "It is disliked although it is beneficial." },
         { q: "Some good medicine does not taste nice.", tf: true, why: "Sahih al-Bukhari 5690." }
       ]
@@ -1756,7 +1756,7 @@ const COMPANIONS: DeepUnit = {
       source: hadith("muslim", "2456", "Anas ibn Malik", "Sahih", "The Prophet ﷺ said: I entered Paradise and heard footsteps. I asked who it was; they said: Ghumaysa bint Milhan, the mother of Anas.", "She is Ghumaisa, daughter of Milhan"),
       difficulty: 2,
       questions: [
-        { q: "What did he ﷺ hear in Jannah?", a: "Footsteps", wrong: ["Thunder", "A bell", "Singing birds"], why: "I heard the noise of steps." },
+        { q: "What did he ﷺ hear in Jannah?", a: "Footsteps", wrong: ["Thunder", "A bell", "Flowing water"], why: "I heard the noise of steps." },
         { q: "Whose footsteps were they?", a: "Ghumaysa, Anas's mother", wrong: ["Khadijah", "Bilal's", "Hafsah"], why: "She is Ghumaisa, daughter of Milhan." },
         { q: "Ghumaysa and Umm Sulaym are the same woman.", tf: true, why: "Both names are for the mother of Anas." }
       ]
@@ -2094,7 +2094,7 @@ const FASTING: DeepUnit = {
       difficulty: 1,
       questions: [
         { q: "With whom did Sahl eat suhur?", a: "His family", wrong: ["Alone", "Strangers", "The army"], why: "I used to take my Suhur meals with my family." },
-        { q: "What did he hurry to after suhur?", a: "The Fajr prayer", wrong: ["Sleep", "The market", "Breakfast"], why: "Then hurry up for the Fajr prayer." },
+        { q: "What did he hurry to after suhur?", a: "The Fajr prayer", wrong: ["Rest", "The market", "His home"], why: "Then hurry up for the Fajr prayer." },
         { q: "Suhur was eaten close to Fajr time.", tf: true, why: "He hurried from suhur to Fajr. Sahih al-Bukhari 1920." }
       ]
     },
@@ -2687,7 +2687,7 @@ const FUNERALS: DeepUnit = {
       source: hadith("bukhari", "1248", "Anas ibn Malik", "Sahih", "The Prophet ﷺ said: a Muslim whose three children die before puberty will be given Paradise by Allah, out of His mercy for them.", "will be granted Paradise by Allah due to his mercy for them"),
       difficulty: 2,
       questions: [
-        { q: "What does Allah give such a parent?", a: "Paradise", wrong: ["Wealth", "Fame", "Long life"], why: "He will be granted Paradise by Allah." },
+        { q: "What does Allah give such a parent?", a: "Paradise", wrong: ["Wealth", "Honor", "Long life"], why: "He will be granted Paradise by Allah." },
         { q: "Why is it given?", a: "Allah's mercy for the children", wrong: ["The parent's money", "Luck", "The doctor"], why: "Due to His mercy for them." },
         { q: "Losing a child is never forgotten by Allah.", tf: true, why: "Sahih al-Bukhari 1248." }
       ]
@@ -2818,7 +2818,7 @@ const FUNERALS: DeepUnit = {
       difficulty: 2,
       questions: [
         { q: "What do we say at a graveyard?", a: "Peace be upon you", wrong: ["Nothing", "Good morning", "Help us"], why: "Peace be upon you, the inhabitants of the city." },
-        { q: "What do we ask Allah for?", a: "Safety for us and them", wrong: ["Riches", "Fame", "A long trip"], why: "I beg of Allah peace for us and for you." },
+        { q: "What do we ask Allah for?", a: "Safety for us and them", wrong: ["Riches", "Rain", "A long life"], why: "I beg of Allah peace for us and for you." },
         { q: "The dua reminds us we will die too.", tf: true, why: "God willing we shall join you. Sahih Muslim 975." }
       ]
     }
@@ -3050,7 +3050,7 @@ const OATHS: DeepUnit = {
       difficulty: 2,
       questions: [
         { q: "What should one say after swearing by an idol?", a: "La ilaha illallah", wrong: ["Nothing", "Another oath", "A poem"], why: "He should say: None has the right to be worshipped but Allah." },
-        { q: "What should one do after inviting a friend to gamble?", a: "Give something in charity", wrong: ["Gamble once", "Run away", "Sleep"], why: "Whoever says to his friend, come, let me gamble with you, should give something in charity." },
+        { q: "What should one do after inviting a friend to gamble?", a: "Give something in charity", wrong: ["Fast for a day", "Pray two rak'ahs", "Say nothing"], why: "Whoever says to his friend, come, let me gamble with you, should give something in charity." },
         { q: "A wrong word can be followed by a good one to fix it.", tf: true, why: "Sahih al-Bukhari 6650." }
       ]
     },

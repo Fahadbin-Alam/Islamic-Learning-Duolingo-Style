@@ -62,7 +62,7 @@ const REWARD: DeepUnit = {
       difficulty: 1,
       questions: [
         { q: "Which are the two cool prayers?", a: "Fajr and Asr", wrong: ["Dhuhr and Isha", "Maghrib and Isha", "Eid and Jumu'ah"], why: "The cool times of morning and afternoon." },
-        { q: "What is promised for guarding them?", a: "Jannah", wrong: ["A prize", "Fame", "Money"], why: "Sahih al-Bukhari 574." },
+        { q: "What is promised for guarding them?", a: "Jannah", wrong: ["Wealth", "Honor", "Long life"], why: "Sahih al-Bukhari 574." },
         { q: "Fajr is easy to miss, so its reward is great.", tf: true, why: "It is one of the two cool prayers." }
       ]
     },
@@ -115,7 +115,7 @@ const REWARD: DeepUnit = {
       difficulty: 2,
       questions: [
         { q: "What does salah keep us away from, says 29:45?", a: "Shameful and bad deeds", wrong: ["Friends", "Food", "Work"], why: "Prayer keeps one away from immorality." },
-        { q: "What does the ayah call greater?", a: "The remembrance of Allah", wrong: ["Wealth", "Sleep", "Games"], why: "The remembrance of Allah is greater." },
+        { q: "What does the ayah call greater?", a: "The remembrance of Allah", wrong: ["Wealth", "Charity", "Fasting"], why: "The remembrance of Allah is greater." },
         { q: "Praying well should change how we act.", tf: true, why: "It keeps us from wrongdoing." }
       ]
     }
@@ -139,7 +139,7 @@ const EXTRA: DeepUnit = {
       source: hadith("muslim", "728", "Umm Habibah", "Sahih", "Whoever prays twelve rak'ahs in a day and night, a house will be built for him in Paradise. Umm Habibah said: I never left them since I heard it."),
       difficulty: 1,
       questions: [
-        { q: "Twelve extra rak'ahs a day bring what?", a: "A house in Jannah", wrong: ["A new bike", "Nothing", "Fame"], why: "Sahih Muslim 728." },
+        { q: "Twelve extra rak'ahs a day bring what?", a: "A house in Jannah", wrong: ["Wealth", "A long life", "Honor"], why: "Sahih Muslim 728." },
         { q: "What did Umm Habibah do after hearing it?", a: "Never left them", wrong: ["Forgot it", "Did it once", "Told no one"], why: "I never left them since I heard it." },
         { q: "Extra prayers are on top of the five.", tf: true, why: "They are sunnah, not the obligatory five." }
       ]
@@ -178,7 +178,7 @@ const EXTRA: DeepUnit = {
       source: hadith("muslim", "720", "Abu Dharr", "Sahih", "Every morning charity is due on every joint of yours. Every tasbih, tahmid, tahlil and takbir is charity; and two rak'ahs prayed at duha are enough for all of it."),
       difficulty: 2,
       questions: [
-        { q: "What covers the charity due on every joint?", a: "Two rak'ahs of duha", wrong: ["A nap", "One sip of water", "A loud shout"], why: "Sahih Muslim 720." },
+        { q: "What covers the charity due on every joint?", a: "Two rak'ahs of duha", wrong: ["One sip of water", "Fasting a day", "Washing your hands"], why: "Sahih Muslim 720." },
         { q: "When is duha prayed?", a: "In the mid-morning", wrong: ["At midnight", "After Maghrib", "Before Fajr"], why: "After sunrise, before Dhuhr." },
         { q: "Saying Subhanallah counts as charity.", tf: true, why: "Every tasbih is charity." }
       ]
@@ -231,7 +231,7 @@ const JUMUAH: DeepUnit = {
       difficulty: 1,
       questions: [
         { q: "What should we leave when Jumu'ah is called?", a: "Buying and selling", wrong: ["The masjid", "Our wudu", "Our family"], why: "Quran 62:9: leave trade." },
-        { q: "Where do we hurry to?", a: "The remembrance of Allah", wrong: ["The market", "A game", "Home to sleep"], why: "Hurry to the remembrance of Allah." },
+        { q: "Where do we hurry to?", a: "The remembrance of Allah", wrong: ["The market", "Our homes", "Our work"], why: "Hurry to the remembrance of Allah." },
         { q: "Surah Al-Jumu'ah is named after Friday.", tf: true, why: "Jumu'ah means Friday, the day of gathering." }
       ]
     },
@@ -257,7 +257,7 @@ const JUMUAH: DeepUnit = {
       difficulty: 2,
       questions: [
         { q: "Your friend talks in the khutbah. What do you do?", a: "Stay quiet and listen", wrong: ["Tell him 'shh!' loudly", "Talk back", "Leave"], why: "Saying 'be quiet' is idle talk too." },
-        { q: "What should we do in the khutbah?", a: "Listen quietly", wrong: ["Chat", "Play games", "Sleep"], why: "Sahih al-Bukhari 934." },
+        { q: "What should we do in the khutbah?", a: "Listen quietly", wrong: ["Chat quietly", "Read the Quran", "Make dua aloud"], why: "Sahih al-Bukhari 934." },
         { q: "Talking in the khutbah is fine if it's short.", tf: false, why: "Even 'be quiet' counts as idle talk." }
       ]
     },

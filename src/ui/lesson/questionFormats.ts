@@ -169,8 +169,9 @@ export function canCheck(challenge: Pick<Challenge, "choices" | "correctChoiceId
  * questions are a mix of tiles, a missing word in the answer, and true-or-false, steady per question; asked again later (recall), the
  * mix leans away from plain tiles, so the learner meets the fact in other words than when they learned it.
  */
-export function questionFormat(challenge: Pick<Challenge, "id" | "type" | "prompt" | "choices" | "correctChoiceId">, context: FormatContext = {}): QuestionFormat {
-  if (!questionVariety() || isTrueFalse(challenge)) return "choose";
+export function questionFormat(challenge: Pick<Challenge, "id" | "type" | "prompt" | "choices" | "correctChoiceId" | "listen">, context: FormatContext = {}): QuestionFormat {
+  // A listening question is heard, then its meaning picked from the tiles.
+  if (!questionVariety() || isTrueFalse(challenge) || challenge.listen) return "choose";
   if (canBlank(challenge)) return "blank";
   const english = !context.language || context.language === "en";
   const roll = formatSeed(`${challenge.id}|${context.recall ? "recall" : "learn"}`) % 100;
@@ -235,11 +236,11 @@ export function canMatch(challenge: Pick<Challenge, "prompt" | "choices" | "corr
  * Up to `max` questions that make a matching round: each with its own answer, no two with the same answer.
  * Fewer than 3: no round.
  */
-export function matchPicks(challenges: Pick<Challenge, "prompt" | "choices" | "correctChoiceId" | "type">[], max = 4): number[] {
+export function matchPicks(challenges: Pick<Challenge, "prompt" | "choices" | "correctChoiceId" | "type" | "listen">[], max = 4): number[] {
   const picks: number[] = [];
   const answers = new Set<string>();
   challenges.forEach((challenge, index) => {
-    if (picks.length >= max || !canMatch(challenge)) return;
+    if (picks.length >= max || challenge.listen || !canMatch(challenge)) return;
     const answer = answerOf(challenge).toLowerCase();
     if (answers.has(answer)) return;
     answers.add(answer);

@@ -458,7 +458,7 @@ const GRAVE: DeepUnit = {
       questions: [
         { q: "What stays with you in the grave?", a: "Your deeds", wrong: ["Your phone", "Your money", "Your friends"], why: "Bukhari 6514." },
         { q: "Which two go back home?", a: "Family and wealth", wrong: ["Deeds and prayers", "Angels and books", "Nothing goes back"], why: "Two return, one stays." },
-        { q: "So what should you collect most?", a: "Good deeds", wrong: ["Toys", "Followers", "Clothes"], why: "Only they come with you." }
+        { q: "So what should you collect most?", a: "Good deeds", wrong: ["Wealth", "Followers", "Fine clothes"], why: "Only they come with you." }
       ]
     },
     {
@@ -471,7 +471,7 @@ const GRAVE: DeepUnit = {
       difficulty: 3,
       questions: [
         { q: "What is the barzakh?", a: "The barrier between death and resurrection", wrong: ["A river in Jannah", "A city in Iraq", "A kind of prayer"], why: "Quran 23:100." },
-        { q: "What does the one who wasted his life beg for?", a: "To be sent back to do good", wrong: ["Money", "Sleep", "Food"], why: "\"My Lord, send me back.\"" },
+        { q: "What does the one who wasted his life beg for?", a: "To be sent back to do good", wrong: ["To see his family", "To be given more wealth", "To sleep in peace"], why: "\"My Lord, send me back.\"" },
         { q: "Can anyone come back from death to fix their deeds?", a: "No", wrong: ["Yes, once", "Yes, if rich", "Only on Friday"], why: "\"No! It is only a word he says.\"" }
       ]
     },
@@ -483,7 +483,7 @@ const GRAVE: DeepUnit = {
       source: hadith("bukhari", "1338", "Anas ibn Malik", "Sahih", "When a person is laid in his grave and his companions leave, he hears their footsteps; two angels come, sit him up and ask: what did you say about this man, Muhammad?"),
       difficulty: 3,
       questions: [
-        { q: "What does the dead person hear as people leave?", a: "Their footsteps", wrong: ["Music", "Nothing at all", "Thunder"], why: "Bukhari 1338." },
+        { q: "What does the dead person hear as people leave?", a: "Their footsteps", wrong: ["The angels' wings", "The Quran recited", "His family's voices"], why: "Bukhari 1338." },
         { q: "How many angels come to question him?", a: "Two", wrong: ["One", "Seven", "None"], why: "Two angels sit him up." },
         { q: "What does the believer see from his grave?", a: "His place in Jannah", wrong: ["His old house", "His school", "Nothing"], why: "And the place in the Fire he was saved from." }
       ]
@@ -777,7 +777,7 @@ const RECKONING: DeepUnit = {
       difficulty: 3,
       questions: [
         { q: "What is the first deed judged?", a: "The prayer", wrong: ["Fasting", "Hajj", "Your grades"], why: "Tirmidhi 413." },
-        { q: "What fills the gaps in your fard prayers?", a: "Extra (sunnah) prayers", wrong: ["Money", "Sleep", "Nothing can"], why: "Allah says: see if he has voluntary prayers." },
+        { q: "What fills the gaps in your fard prayers?", a: "Extra (sunnah) prayers", wrong: ["Praying faster next time", "Making dua later", "Fasting the next day"], why: "Allah says: see if he has voluntary prayers." },
         { q: "If your prayer is good, the rest goes well.", tf: true, why: "If it is sound he succeeds." }
       ]
     },
@@ -1107,7 +1107,7 @@ const JANNAH: DeepUnit = {
       difficulty: 2,
       questions: [
         { q: "How wide is Jannah, in 3:133?", a: "As wide as the heavens and earth", wrong: ["As big as a city", "A small garden", "As big as Makkah"], why: "Quran 3:133." },
-        { q: "What does Allah tell us to race toward?", a: "Forgiveness and Jannah", wrong: ["Money", "Fame", "Games"], why: "Hasten to forgiveness." },
+        { q: "What does Allah tell us to race toward?", a: "Forgiveness and Jannah", wrong: ["Wealth and children", "Praise from people", "A long, easy life"], why: "Hasten to forgiveness." },
         { q: "Jannah is prepared for whom?", a: "The righteous, mindful of Allah", wrong: ["Everyone no matter what", "Only kings", "Only Arabs"], why: "Quran 3:133." }
       ]
     },
@@ -1424,7 +1424,7 @@ const READY: DeepUnit = {
       questions: [
         { q: "How should we live in this world?", a: "Like a traveler", wrong: ["Like we stay forever", "Like a king", "Like it's all that matters"], why: "Bukhari 6416." },
         { q: "What did Ibn Umar say to use your health for?", a: "Getting ready for sickness", wrong: ["Only playing", "Nothing", "Showing off"], why: "Take from your health for your sickness." },
-        { q: "A traveler packs what he needs for the road. What is ours?", a: "Good deeds", wrong: ["Toys", "Clothes", "Phones"], why: "The best provision is taqwa (2:197)." }
+        { q: "A traveler packs what he needs for the road. What is ours?", a: "Good deeds", wrong: ["Wealth", "Our family name", "Many friends"], why: "The best provision is taqwa (2:197)." }
       ]
     },
     {
@@ -1449,7 +1449,7 @@ const READY: DeepUnit = {
       difficulty: 4,
       questions: [
         { q: "Deeds are judged by their...", a: "Endings", wrong: ["Beginnings", "Size", "Audience"], why: "Bukhari 6607." },
-        { q: "What should you ask Allah for?", a: "A good ending", wrong: ["Fame", "A long nap", "Nothing"], why: "Stay steady till the end." },
+        { q: "What should you ask Allah for?", a: "A good ending", wrong: ["A long life", "Wealth and children", "An easy life"], why: "Stay steady till the end." },
         { q: "One good year means you can stop forever.", tf: false, why: "Keep going until you meet Allah." }
       ]
     },
@@ -1475,7 +1475,7 @@ const READY: DeepUnit = {
       difficulty: 3,
       questions: [
         { q: "Whoever loves to meet Allah...", a: "Allah loves to meet him", wrong: ["Will never die", "Gets rich", "Nothing happens"], why: "Bukhari 6507." },
-        { q: "What does the believer hear when death comes?", a: "Good news of Allah's pleasure", wrong: ["Bad news", "Nothing", "Music"], why: "So he loves what is ahead." },
+        { q: "What does the believer hear when death comes?", a: "Good news of Allah's pleasure", wrong: ["Bad news", "Only silence", "A warning to wait"], why: "So he loves what is ahead." },
         { q: "Disliking the pain of death means you don't love to meet Allah.", tf: false, why: "Aishah asked; he explained it is about the good news." }
       ]
     },
@@ -1515,7 +1515,7 @@ const READY: DeepUnit = {
       source: quran(83, 26, "Its seal is musk; so for this let the competitors compete."),
       difficulty: 3,
       questions: [
-        { q: "What should people compete for, in 83:26?", a: "The joys of Jannah", wrong: ["Likes online", "Money", "Fame"], why: "For this let the competitors compete." },
+        { q: "What should people compete for, in 83:26?", a: "The joys of Jannah", wrong: ["Wealth of this world", "Praise from people", "Power over others"], why: "For this let the competitors compete." },
         { q: "What is the drink of Jannah sealed with?", a: "Musk", wrong: ["Wax", "Glue", "Metal"], why: "Quran 83:26." },
         { q: "Your streak in this app can be a race for good.", tf: true, why: "Learning your deen is a good deed." }
       ]

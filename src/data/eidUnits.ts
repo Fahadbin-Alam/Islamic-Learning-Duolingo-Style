@@ -265,7 +265,7 @@ const LAST_TEN: DeepUnit = {
       difficulty: 1,
       questions: [
         { q: "Who asked what to say on Laylat al-Qadr?", a: "Aishah", wrong: ["Abu Bakr", "Bilal", "Fatimah"], why: "Aishah asked the Prophet ﷺ what she should say." },
-        { q: "What does the du'a ask Allah for?", a: "To pardon us", wrong: ["Riches", "Fame", "A long journey"], why: "You love pardon, so pardon me." },
+        { q: "What does the du'a ask Allah for?", a: "To pardon us", wrong: ["Riches", "A long journey", "Victory"], why: "You love pardon, so pardon me." },
         { q: "The du'a says Allah loves to pardon.", tf: true, why: "O Allah, You are Pardoning and You love pardon." }
       ]
     }

@@ -227,7 +227,7 @@ const KNOWLEDGE: DeepUnit = {
       source: hadith("bukhari", "71", "Mu'awiyah", "Sahih", "If Allah wants good for a person, He gives him understanding of the religion. I only distribute; Allah is the One who gives."),
       difficulty: 2,
       questions: [
-        { q: "What does Allah give someone He wants good for?", a: "Understanding of the religion", wrong: ["Only money", "A big house", "Fame"], why: "Sahih al-Bukhari 71." },
+        { q: "What does Allah give someone He wants good for?", a: "Understanding of the religion", wrong: ["Only money", "A big house", "Many children"], why: "Sahih al-Bukhari 71." },
         { q: "He ﷺ said: I distribute, but who gives?", a: "Allah", wrong: ["The people", "Kings", "Traders"], why: "Allah is the One who gives." },
         { q: "Learning your deen is a sign of good.", tf: true, why: "Allah gives it to whom He wants good for." }
       ]

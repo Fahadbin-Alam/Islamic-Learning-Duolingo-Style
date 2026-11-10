@@ -21,7 +21,7 @@ const TAWHID: DeepUnit = {
       difficulty: 1,
       questions: [
         { q: "What is Allah's right on His servants?", a: "Worship Him, join no partner", wrong: ["Give gold", "Build masjids only", "Fast every day"], why: "Sahih al-Bukhari 2856." },
-        { q: "What is the servants' right on Allah, as promised?", a: "Not to punish those without shirk", wrong: ["Wealth", "Long life", "Fame"], why: "Whoever joins nothing with Him." },
+        { q: "What is the servants' right on Allah, as promised?", a: "Not to punish those without shirk", wrong: ["Wealth for all of them", "A long life", "Victory in every battle"], why: "Whoever joins nothing with Him." },
         { q: "Who was riding with him ﷺ when he taught this?", a: "Mu'adh ibn Jabal", wrong: ["Abu Jahl", "Heraclius", "Waraqah"], why: "Riding behind him on a donkey." }
       ]
     },
@@ -151,7 +151,7 @@ const ANGELS: DeepUnit = {
       source: quran(82, 11, "Over you are guardians, noble and writing; they know whatever you do."),
       difficulty: 1,
       questions: [
-        { q: "What do the noble angels do, as Quran 82:11 says?", a: "Write down our deeds", wrong: ["Cook our food", "Build houses", "Sleep"], why: "Noble and writing." },
+        { q: "What do the noble angels do, as Quran 82:11 says?", a: "Write down our deeds", wrong: ["Guard the gates of Jannah", "Carry the Throne", "Blow the Trumpet"], why: "Noble and writing." },
         { q: "What do they know?", a: "Whatever we do", wrong: ["Only big deeds", "Nothing", "Only words"], why: "They know whatever you do." },
         { q: "Knowing angels write helps us choose good.", tf: true, why: "Every deed is in our record." }
       ]
@@ -412,7 +412,7 @@ const NAMES: DeepUnit = {
       difficulty: 1,
       questions: [
         { q: "How many names of Allah are in the hadith?", a: "Ninety-nine", wrong: ["Ten", "Seven", "One thousand"], why: "One hundred minus one." },
-        { q: "What is the reward for knowing them?", a: "Jannah", wrong: ["Gold", "Fame", "Long life"], why: "Sahih al-Bukhari 2736." },
+        { q: "What is the reward for knowing them?", a: "Jannah", wrong: ["Long life", "Wealth", "Honor among people"], why: "Sahih al-Bukhari 2736." },
         { q: "Learning Allah's names is a great deed.", tf: true, why: "It leads to Jannah." }
       ]
     },
@@ -491,7 +491,7 @@ const LIVED: DeepUnit = {
       difficulty: 1,
       questions: [
         { q: "What is the highest branch of iman?", a: "La ilaha illallah", wrong: ["Giving a gift", "Smiling", "Eating well"], why: "Sahih Muslim 35b." },
-        { q: "What is the lowest branch?", a: "Removing harm from the road", wrong: ["Sleeping", "Shopping", "Talking"], why: "Even a small good deed is faith." },
+        { q: "What is the lowest branch?", a: "Removing harm from the road", wrong: ["Giving charity", "Saying salam", "Praying at night"], why: "Even a small good deed is faith." },
         { q: "Modesty (haya) is part of faith.", tf: true, why: "Haya is a branch of iman." }
       ]
     },
@@ -503,7 +503,7 @@ const LIVED: DeepUnit = {
       source: hadith("bukhari", "16", "Anas ibn Malik", "Sahih", "Whoever has three things tastes the sweetness of faith: Allah and His Messenger are dearer to him than all else; he loves a person only for Allah; and he hates to return to disbelief as he would hate to be thrown into fire."),
       difficulty: 1,
       questions: [
-        { q: "Who should be dearest to a believer?", a: "Allah and His Messenger ﷺ", wrong: ["Money", "Fame", "Games"], why: "Sahih al-Bukhari 16." },
+        { q: "Who should be dearest to a believer?", a: "Allah and His Messenger ﷺ", wrong: ["One's parents", "One's children", "One's own self"], why: "Sahih al-Bukhari 16." },
         { q: "How should a believer love people?", a: "For Allah's sake", wrong: ["For their money", "For fame", "Only if they are famous"], why: "That is the second of the three." },
         { q: "Faith has a sweetness you can taste.", tf: true, why: "With these three things." }
       ]

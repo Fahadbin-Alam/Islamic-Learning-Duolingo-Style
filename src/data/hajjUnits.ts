@@ -47,7 +47,7 @@ const UMRAH: DeepUnit = {
       source: hadith("bukhari", "1782", "Ibn Abbas", "Sahih", "He ﷺ asked an Ansari woman what kept her from Hajj with them. She said her family had only one camel to spare. He said: make Umrah when Ramadan comes, for Umrah in Ramadan is like a Hajj."),
       difficulty: 1,
       questions: [
-        { q: "An Umrah in Ramadan is like what?", a: "A Hajj", wrong: ["Nothing special", "A fast", "A small charity"], why: "Sahih al-Bukhari 1782." },
+        { q: "An Umrah in Ramadan is like what?", a: "A Hajj", wrong: ["An Umrah only", "A fast", "A small charity"], why: "Sahih al-Bukhari 1782." },
         { q: "Why had the woman missed Hajj?", a: "Her family lacked a camel", wrong: ["She was lazy", "She forgot", "It rained"], why: "Their one spare camel was needed." },
         { q: "Umrah in Ramadan replaces the duty of Hajj.", tf: false, why: "It is like Hajj in reward, but the duty stays." }
       ]
@@ -60,7 +60,7 @@ const UMRAH: DeepUnit = {
       source: hadith("bukhari", "1520", "Aishah", "Sahih", "Aishah said: we see jihad as the best deed. The Prophet ﷺ said: the best jihad for you women is an accepted Hajj."),
       difficulty: 2,
       questions: [
-        { q: "What did he ﷺ call the best striving for women?", a: "An accepted Hajj", wrong: ["Staying home always", "Shopping", "Nothing"], why: "Sahih al-Bukhari 1520." },
+        { q: "What did he ﷺ call the best striving for women?", a: "An accepted Hajj", wrong: ["Fighting in battle", "Fasting every day", "Giving all her wealth"], why: "Sahih al-Bukhari 1520." },
         { q: "Who asked him ﷺ about it?", a: "Aishah", wrong: ["Abu Jahl", "Heraclius", "Abu Lahab"], why: "The mother of the believers." },
         { q: "Hajj takes real effort and patience.", tf: true, why: "So he ﷺ called it striving." }
       ]

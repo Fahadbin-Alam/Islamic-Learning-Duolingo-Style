@@ -35,7 +35,7 @@ const REWARD: DeepUnit = {
       source: hadith("bukhari", "1894", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: fasting is a shield. The fasting person should not behave foolishly, and if someone fights or insults him, he should say twice: I am fasting."),
       difficulty: 1,
       questions: [
-        { q: "What did the Prophet ﷺ call fasting?", a: "A shield", wrong: ["A burden", "A punishment", "A game"], why: "Sahih al-Bukhari 1894." },
+        { q: "What did the Prophet ﷺ call fasting?", a: "A shield", wrong: ["A burden", "A punishment", "A trade"], why: "Sahih al-Bukhari 1894." },
         { q: "Someone insults you while fasting. What do you say?", a: "I am fasting", wrong: ["Insult them back", "Break your fast", "Say nothing ever again"], why: "He ﷺ said to say it twice." },
         { q: "A fasting person should stay calm and avoid fights.", tf: true, why: "Fasting shields you from foolish words." }
       ]
@@ -61,7 +61,7 @@ const REWARD: DeepUnit = {
       source: hadith("bukhari", "38", "Abu Hurairah", "Sahih", "Whoever fasts Ramadan out of faith and hoping for Allah's reward, his past sins will be forgiven."),
       difficulty: 1,
       questions: [
-        { q: "Fasting Ramadan with faith and hope brings what?", a: "Past sins forgiven", wrong: ["A new house", "No more tests", "Fame"], why: "Sahih al-Bukhari 38." },
+        { q: "Fasting Ramadan with faith and hope brings what?", a: "Past sins forgiven", wrong: ["A new house", "No more tests", "Wealth"], why: "Sahih al-Bukhari 38." },
         { q: "Which two things must go with the fast?", a: "Faith and hoping for reward", wrong: ["Fame and praise", "Sleep and rest", "Shopping and gifts"], why: "Out of faith and hoping for reward." },
         { q: "Fasting only to look good gets the same promise.", tf: false, why: "It must be with faith, hoping for Allah's reward." }
       ]
@@ -461,7 +461,7 @@ const LAST_TEN: DeepUnit = {
       source: hadith("tirmidhi", "3513", "Aishah", "Sahih", "Aishah asked what to say if she knew the Night of Qadr. He ﷺ said: say, O Allah, You are the Pardoner, You love to pardon, so pardon me."),
       difficulty: 1,
       questions: [
-        { q: "What should we ask for on Laylat al-Qadr?", a: "Allah's pardon", wrong: ["Fame", "Gold", "A fast car"], why: "Jami at-Tirmidhi 3513." },
+        { q: "What should we ask for on Laylat al-Qadr?", a: "Allah's pardon", wrong: ["Wealth", "Victory", "A long life"], why: "Jami at-Tirmidhi 3513." },
         { q: "Who asked him ﷺ what to say that night?", a: "Aishah", wrong: ["Umar", "Bilal", "Ali"], why: "She asked, and he taught her this du'a." },
         { q: "Allah loves to pardon.", tf: true, why: "You love to pardon, says the du'a." }
       ]

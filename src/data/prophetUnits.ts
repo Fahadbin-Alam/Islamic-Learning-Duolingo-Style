@@ -109,7 +109,7 @@ const ADAM = unit("prophet-adam", "prophets-unit-adam", "Adam", [
     difficulty: 3,
     questions: [
       { q: "Where did Adam live after Jannah?", a: "On the earth", wrong: ["In the sky", "On the moon", "Under the sea"], why: "Quran 2:36." },
-      { q: "What did Allah promise to send to people on earth?", a: "Guidance", wrong: ["Gold", "Kings", "Nothing"], why: "Quran 2:38." },
+      { q: "What did Allah promise to send to people on earth?", a: "Guidance", wrong: ["Kings", "Wealth", "Armies"], why: "Quran 2:38." },
       { q: "Who will have no fear and no grief?", a: "Whoever follows Allah's guidance", wrong: ["Whoever is rich", "Whoever is strong", "Everyone"], why: "Quran 2:38." }
     ]
   },
@@ -197,7 +197,7 @@ const NUH = unit("prophet-nuh", "prophets-unit-nuh", "Nuh", [
     difficulty: 3,
     questions: [
       { q: "What did Nuh tell his people to ask Allah for?", a: "Forgiveness", wrong: ["Gold", "A new king", "Revenge"], why: "Quran 71:10." },
-      { q: "Which is a blessing Nuh promised for istighfar?", a: "Abundant rain", wrong: ["A long sleep", "Fame", "Swords"], why: "Quran 71:11." },
+      { q: "Which is a blessing Nuh promised for istighfar?", a: "Abundant rain", wrong: ["A long life", "Victory in war", "Kingship"], why: "Quran 71:11." },
       { q: "Asking forgiveness can bring good in this life too.", tf: true, why: "Rain, wealth, children, gardens and rivers (Quran 71:11-12)." }
     ]
   },
@@ -512,7 +512,7 @@ const IBRAHIM = unit("prophet-ibrahim", "prophets-unit-ibrahim", "Ibrahim", [
     difficulty: 4,
     questions: [
       { q: "What did the son say?", a: "Do as you are commanded", wrong: ["Run away", "Never", "Ask someone else"], why: "Quran 37:102." },
-      { q: "What did Allah give in his son's place?", a: "A great sacrifice", wrong: ["Nothing", "Gold", "A new house"], why: "Quran 37:107." },
+      { q: "What did Allah give in his son's place?", a: "A great sacrifice", wrong: ["Another son", "Gold", "A new house"], why: "Quran 37:107." },
       { q: "Muslims remember this test at Eid al-Adha.", tf: true, why: "The sacrifice of Eid follows Ibrahim's way." }
     ]
   },
@@ -959,7 +959,7 @@ const AYYUB = unit("prophet-ayyub", "prophets-unit-ayyub", "Ayyub", [
     source: quran(21, 83, "Ayyub called to his Lord: hardship has touched me, and You are the Most Merciful of the merciful."),
     difficulty: 1,
     questions: [
-      { q: "What did Ayyub say had touched him?", a: "Hardship", wrong: ["Wealth", "Fame", "Laziness"], why: "Quran 21:83." },
+      { q: "What did Ayyub say had touched him?", a: "Hardship", wrong: ["Wealth", "Pride", "Laziness"], why: "Quran 21:83." },
       { q: "What name of Allah did Ayyub call on?", a: "Most Merciful of the merciful", wrong: ["The Avenger", "The King only", "None"], why: "Quran 21:83." },
       { q: "Ayyub turned to Allah in his hardship.", tf: true, why: "He called to his Lord." }
     ]
@@ -1243,7 +1243,7 @@ const MUSA = unit("prophet-musa", "prophets-unit-musa", "Musa and Harun", [
     source: quran(26, 62, "Musa said: no! My Lord is with me; He will guide me."),
     difficulty: 4,
     questions: [
-      { q: "What did Musa's people fear at the sea?", a: "Being caught", wrong: ["Rain", "Hunger", "Sleep"], why: "We will surely be overtaken (Quran 26:61)." },
+      { q: "What did Musa's people fear at the sea?", a: "Being caught", wrong: ["Rain", "Hunger", "The waves"], why: "We will surely be overtaken (Quran 26:61)." },
       { q: "What did Musa strike the sea with?", a: "His staff", wrong: ["His hand", "A sword", "A stone"], why: "Quran 26:63." },
       { q: "What did each part of the split sea look like?", a: "A great mountain", wrong: ["A small stream", "A cloud", "A bridge"], why: "Quran 26:63." }
     ]
@@ -1327,7 +1327,7 @@ const MUSA = unit("prophet-musa", "prophets-unit-musa", "Musa and Harun", [
     difficulty: 5,
     questions: [
       { q: "Who made the calf, as Surah Ta-Ha names him?", a: "As-Samiri", wrong: ["Harun", "Qarun", "Pharaoh"], why: "Quran 20:85-88." },
-      { q: "What sound did the calf make?", a: "A lowing sound", wrong: ["Music", "Words", "None"], why: "Quran 20:88." },
+      { q: "What sound did the calf make?", a: "A lowing sound", wrong: ["Music", "Words", "No sound at all"], why: "Quran 20:88." },
       { q: "A calf that cannot speak or help is not a god.", tf: true, why: "It could not reply to them, nor harm or help (Quran 20:89)." }
     ]
   },
@@ -1688,7 +1688,7 @@ const ZAKARIYYA = unit("prophet-zakariyya", "prophets-unit-zakariyya", "Zakariyy
     difficulty: 1,
     questions: [
       { q: "Who looked after Maryam?", a: "Zakariyya", wrong: ["Musa", "Yahya", "Dawud"], why: "Quran 3:37." },
-      { q: "What did Zakariyya find with Maryam?", a: "Food from Allah", wrong: ["Gold", "Books", "Nothing"], why: "Quran 3:37." },
+      { q: "What did Zakariyya find with Maryam?", a: "Food from Allah", wrong: ["Gold", "Books", "An angel"], why: "Quran 3:37." },
       { q: "What was Zakariyya's work, the Prophet ﷺ said?", a: "A carpenter", wrong: ["A king", "A sailor", "A merchant"], why: "Sahih Muslim 2379." }
     ]
   },
@@ -1729,7 +1729,7 @@ const ZAKARIYYA = unit("prophet-zakariyya", "prophets-unit-zakariyya", "Zakariyy
     source: quran(21, 90, "We answered him and gave him Yahya and made his wife able to bear a child. They used to hurry to good deeds and call on Us in hope and fear, and they were humble before Us."),
     difficulty: 4,
     questions: [
-      { q: "What did Zakariyya's family hurry to?", a: "Good deeds", wrong: ["The market", "Wars", "Games"], why: "Quran 21:90." },
+      { q: "What did Zakariyya's family hurry to?", a: "Good deeds", wrong: ["The market", "War", "Building houses"], why: "Quran 21:90." },
       { q: "How did they call on Allah?", a: "In hope and fear", wrong: ["Proudly", "Rarely", "Only in joy"], why: "Quran 21:90." },
       { q: "What did Allah do for Zakariyya's wife?", a: "Made her able to have a child", wrong: ["Made her a queen", "Nothing", "Sent her away"], why: "Quran 21:90." }
     ]
