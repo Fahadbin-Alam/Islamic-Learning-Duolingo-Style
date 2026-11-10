@@ -456,15 +456,47 @@ export type LinkedKid = {
   completedNodeIds: string[];
   nodeStars: Record<string, number>;
   lastLearningAt: string | null;
+  /** Homework this account gave the child (older servers leave it out). */
+  homework?: FamilyHomework[];
 };
 
 export type LinkedParent = { id: number; name: string; avatarInitials: string };
 
-export type FamilyLinks = { kids: LinkedKid[]; parents: LinkedParent[] };
+/**
+ * One unit a linked parent or teacher asked a learner to finish, maybe by a day. Done once every circle in
+ * `nodeIds` is finished; the counts are the server's, from the learner's last sync.
+ */
+export type FamilyHomework = {
+  id: number;
+  topicId: string;
+  unitId: string;
+  nodeIds: string[];
+  /** Local day it is due, YYYY-MM-DD. */
+  dueDate: string | null;
+  doneCount: number;
+  total: number;
+  done: boolean;
+  setBy: LinkedParent;
+  createdAt: string | null;
+};
 
-export async function fetchFamilyLinks(today: string) {
-  const body = await backendRequest<FamilyLinks>(`/api/family?today=${encodeURIComponent(today)}`, { headers: authHeaders() });
-  return { kids: body.kids ?? [], parents: body.parents ?? [] };
+export type FamilyLinks = { kids: LinkedKid[]; parents: LinkedParent[]; homework: FamilyHomework[] };
+
+export async function fetchFamilyLinks(today: string): Promise<FamilyLinks> {
+  const body = await backendRequest<Partial<FamilyLinks>>(`/api/family?today=${encodeURIComponent(today)}`, { headers: authHeaders() });
+  return { kids: body.kids ?? [], parents: body.parents ?? [], homework: body.homework ?? [] };
+}
+
+export async function giveFamilyHomework(childId: number, task: { topicId: string; unitId: string; nodeIds: string[]; dueDate?: string }) {
+  return backendRequest<FamilyHomework>(`/api/family/kids/${childId}/homework`, {
+    method: "POST",
+    headers: authHeaders(),
+    body: JSON.stringify({ ...task, dueDate: task.dueDate ?? null })
+  });
+}
+
+export async function removeFamilyHomework(homeworkId: number) {
+  await backendRequest(`/api/family/homework/${homeworkId}`, { method: "DELETE", headers: authHeaders() });
 }
 
 export async function makeFamilyLinkCode() {

@@ -43,6 +43,7 @@ import {
   type FamilySnapshot
 } from "../services/familyCode";
 import { FamilySheet } from "../ui/screens";
+import { homeworkDueLine, sortHomework, type HomeworkView } from "../ui/screens/HomeworkParts";
 import { makeUser } from "./testUtils";
 
 const SNAPSHOT: FamilySnapshot = {
@@ -285,6 +286,96 @@ describe("Family sheet: Kids mode and live links", () => {
     await act(async () => fireEvent.press(screen.getByTestId("family-kid-live-12-remove")));
     await act(async () => fireEvent.press(screen.getByTestId("family-kid-live-12-remove-yes")));
     expect(links.onRemoveKid).toHaveBeenCalledWith(12);
+  });
+});
+
+describe("Family sheet: homework from a parent or teacher", () => {
+  const HOMEWORK_TOPICS = [
+    { topicId: "prayer", title: "Prayer", accent: "#2FA8FF", units: [
+      { id: "wudu", title: "Wudu step by step", nodeIds: ["w1", "w2", "w3"] },
+      { id: "salah", title: "How to pray", nodeIds: ["p1", "p2"] }
+    ] },
+    { topicId: "manners", title: "Manners", accent: "#FF8A1F", units: [{ id: "salam", title: "Saying salam", nodeIds: ["s1"] }] }
+  ];
+  const view = (overrides: Partial<HomeworkView> = {}): HomeworkView => ({
+    id: 1, topicId: "prayer", unitId: "wudu", title: "Wudu step by step", topicTitle: "Prayer", accent: "#2FA8FF",
+    doneCount: 1, total: 3, done: false, dueDate: "2026-10-30", setByName: "Ustadha Amina", ...overrides
+  });
+  function sheet(live: Partial<NonNullable<React.ComponentProps<typeof FamilySheet>["live"]>>, initialTab: "report" | "kids" = "kids") {
+    return (
+      <FamilySheet
+        visible
+        onClose={jest.fn()}
+        report={SNAPSHOT}
+        onShareReport={jest.fn(() => "MUSLIMO-1-CODE")}
+        topics={TOPICS}
+        kids={[]}
+        onAddKid={jest.fn(() => "added" as const)}
+        onRemoveKid={jest.fn()}
+        today="2026-10-28"
+        kidsMode={false}
+        onKidsModeChange={jest.fn()}
+        initialTab={initialTab}
+        live={{
+          signedIn: true, kids: [], parents: [], onMakeCode: jest.fn(async () => ({ code: "ABC234" })), onLinkKid: jest.fn(async () => undefined),
+          onRemoveKid: jest.fn(), onRemoveParent: jest.fn(), onSignIn: jest.fn(), ...live
+        }}
+      />
+    );
+  }
+
+  it("says when homework is due, late or done", () => {
+    expect(homeworkDueLine({ done: false, dueDate: "2026-10-28" }, "2026-10-28")).toBe("Due today");
+    expect(homeworkDueLine({ done: false, dueDate: "2026-10-29" }, "2026-10-28")).toBe("Due tomorrow");
+    expect(homeworkDueLine({ done: false, dueDate: "2026-11-04" }, "2026-10-28")).toBe("Due in 7 days");
+    expect(homeworkDueLine({ done: false, dueDate: "2026-10-27" }, "2026-10-28")).toBe("1 day late");
+    expect(homeworkDueLine({ done: false, dueDate: "2026-10-25" }, "2026-10-28")).toBe("3 days late");
+    expect(homeworkDueLine({ done: true, dueDate: "2026-10-25" }, "2026-10-28")).toBe("Done!");
+    expect(homeworkDueLine({ done: false, dueDate: null }, "2026-10-28")).toBe("No due date");
+    const sorted = sortHomework([view({ id: 1, done: true }), view({ id: 2, dueDate: null }), view({ id: 3, dueDate: "2026-10-29" })]);
+    expect(sorted.map((entry) => entry.id)).toEqual([3, 2, 1]);
+  });
+
+  it("lets a grown-up see a learner's homework and give a new unit with a due day", async () => {
+    const onGiveHomework = jest.fn(async () => undefined as string | undefined);
+    const onRemoveHomework = jest.fn();
+    const kid = { nickname: "Yusuf", snapshot: { ...SNAPSHOT, id: "live-12" }, addedAt: "" };
+    await render(sheet({
+      kids: [kid],
+      homeworkTopics: HOMEWORK_TOPICS,
+      kidHomework: { "live-12": { views: [view(), view({ id: 2, unitId: "salam", title: "Saying salam", doneCount: 1, total: 1, done: true })], finishedNodeIds: ["w1", "s1"] } },
+      onGiveHomework,
+      onRemoveHomework
+    }));
+    // The closed card already says how much is left.
+    expect(screen.getByTestId("family-kid-live-12-homework-open")).toHaveTextContent("Homework: 1 to do");
+    await act(async () => fireEvent.press(screen.getByTestId("family-kid-live-12-open")));
+    expect(screen.getByTestId("family-kid-live-12-homework-summary")).toHaveTextContent("1/2 done");
+    expect(screen.getByTestId("family-kid-live-12-homework-1")).toHaveTextContent(/Wudu step by step.*1\/3 lessons.*Due in 2 days/);
+    expect(screen.getByTestId("family-kid-live-12-homework-2-due")).toHaveTextContent("Done!");
+
+    await act(async () => fireEvent.press(screen.getByTestId("family-kid-live-12-give-open")));
+    expect(screen.getByTestId("family-kid-live-12-give-go").props.accessibilityState?.disabled).toBe(true);
+    await act(async () => fireEvent.press(screen.getByTestId("family-kid-live-12-give-topic-prayer")));
+    // A unit that is already their homework can't be picked twice.
+    expect(screen.getByTestId("family-kid-live-12-give-unit-wudu")).toHaveTextContent(/Already homework/);
+    await act(async () => fireEvent.press(screen.getByTestId("family-kid-live-12-give-unit-salah")));
+    await act(async () => fireEvent.press(screen.getByTestId("family-kid-live-12-give-due-3")));
+    await act(async () => fireEvent.press(screen.getByTestId("family-kid-live-12-give-go")));
+    expect(onGiveHomework).toHaveBeenCalledWith(12, { topicId: "prayer", unitId: "salah", nodeIds: ["p1", "p2"], dueDate: "2026-10-31" });
+    expect(screen.getByTestId("family-kid-live-12-homework-given")).toHaveTextContent("Homework given!");
+
+    await act(async () => fireEvent.press(screen.getByTestId("family-kid-live-12-homework-1-remove")));
+    await act(async () => fireEvent.press(screen.getByTestId("family-kid-live-12-homework-1-remove-yes")));
+    expect(onRemoveHomework).toHaveBeenCalledWith(1);
+  });
+
+  it("shows a learner their homework and who gave it, and opens it", async () => {
+    const onOpenHomework = jest.fn();
+    await render(sheet({ myHomework: [view()], onOpenHomework }, "report"));
+    expect(screen.getByTestId("family-my-homework")).toHaveTextContent(/From Ustadha Amina/);
+    await act(async () => fireEvent.press(screen.getByTestId("family-my-homework-1-open")));
+    expect(onOpenHomework).toHaveBeenCalledWith(expect.objectContaining({ unitId: "wudu" }));
   });
 });
 
