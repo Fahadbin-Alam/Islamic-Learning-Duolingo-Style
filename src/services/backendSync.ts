@@ -381,7 +381,14 @@ export type CrewMember = {
   friendStreak?: FriendStreak;
   /** Not agreed yet: the server sends no learning stats, and for someone you added, only the email you typed. */
   pending?: boolean;
+  /** Lessons finished (older servers leave it out). */
+  lessonsDone?: number;
+  /** What they have open now; older servers leave it out. */
+  learningNow?: LearningNow | null;
 };
+
+/** A learner's last topic and the circle START sits on there, named in the app (see learning_now in friends.py). */
+export type LearningNow = { topicId: string; nodeId: string | null };
 
 export type CrewPayload = {
   me: CrewMember;
@@ -456,6 +463,7 @@ export type LinkedKid = {
   completedNodeIds: string[];
   nodeStars: Record<string, number>;
   lastLearningAt: string | null;
+  learningNow?: LearningNow | null;
 };
 
 export type LinkedParent = { id: number; name: string; avatarInitials: string };

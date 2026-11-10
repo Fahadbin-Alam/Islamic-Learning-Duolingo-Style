@@ -50,6 +50,16 @@ def league_tier(user: User) -> int:
     return tier if isinstance(tier, int) and not isinstance(tier, bool) and 0 <= tier <= LEAGUE_TOP_TIER else 0
 
 
+def learning_now(user: User) -> Optional[Dict[str, Any]]:
+    """What the learner has open: their last topic and the circle START sits on there (the app names them). Only
+    sent to people they agreed to share with (friends who added each other back, linked grown-ups)."""
+    topic_id = user.last_topic_id
+    if not topic_id:
+        return None
+    node_id = (user.path_focus_json or {}).get(topic_id)
+    return {"topicId": topic_id, "nodeId": node_id if isinstance(node_id, str) else None}
+
+
 def member_payload(user: User, today: date, relation: str) -> Dict[str, Any]:
     return {
         "id": user.id,
@@ -61,6 +71,8 @@ def member_payload(user: User, today: date, relation: str) -> Dict[str, Any]:
         "streakDays": live_streak(user, today),
         "lastLearningAt": user.last_learning_at.isoformat() if user.last_learning_at else None,
         "league": league_tier(user),
+        "lessonsDone": len(user.completed_lesson_ids_json or []),
+        "learningNow": learning_now(user),
     }
 
 

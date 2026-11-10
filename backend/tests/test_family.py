@@ -16,7 +16,7 @@ def code_for(client, headers):
 def test_parent_links_with_the_childs_code_and_sees_live_progress(client):
     _, kid = register(client, "Yusuf")
     sync(client, kid, totalXp=90, streakDays=3, lastStreakDate="2026-11-02", dailyXp={"date": "2026-11-02", "xp": 25},
-         completedLessonIds=["a", "b"], completedNodeIds=["n1"], nodeStars={"n1": 2})
+         completedLessonIds=["a", "b"], completedNodeIds=["n1"], nodeStars={"n1": 2}, lastTopicId="manners", pathFocusIds={"manners": "manners-salam"})
     _, parent = register(client, "Mum")
 
     code = code_for(client, kid)
@@ -32,6 +32,7 @@ def test_parent_links_with_the_childs_code_and_sees_live_progress(client):
     assert body["xpByDay"]["2026-11-02"] == 25
     assert body["completedNodeIds"] == ["n1"]
     assert body["nodeStars"] == {"n1": 2}
+    assert body["learningNow"] == {"topicId": "manners", "nodeId": "manners-salam"}
     assert "email" not in body
 
     family = client.get("/api/family?today=2026-11-02", headers=parent).json()
