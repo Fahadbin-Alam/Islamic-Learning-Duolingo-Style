@@ -136,6 +136,7 @@ def test_one_sided_add_shows_nothing_until_they_add_back(client):
     assert crew["pending"][0]["totalXp"] == 0
     assert crew["pending"][0]["streakDays"] == 0
     assert crew["pending"][0]["lastLearningAt"] is None
+    assert "learningNow" not in crew["pending"][0]
 
     # The other side sees who asked and can say yes.
     their_crew = client.get("/api/friends", headers=friend_headers).json()
@@ -160,3 +161,19 @@ def test_declining_a_request_removes_it(client):
     assert client.get("/api/friends", headers=friend_headers).json()["requests"] == []
     assert client.get("/api/friends", headers=headers).json()["pending"] == []
     assert client.post(f"/api/friends/requests/{request_id}/accept", headers=friend_headers).status_code == 404
+
+
+def test_friends_see_what_each_other_is_learning_now(client):
+    friend_email, friend_headers = register(client, "Hafsa")
+    sync(client, friend_headers, lastTopicId="prayer", pathFocusIds={"prayer": "prayer-wudu-wash-face", "manners": "manners-salam"},
+         completedLessonIds=["a", "b", "c"])
+    _, headers = register(client, "Khalid")
+    me_id = client.get("/api/friends", headers=headers).json()["me"]["id"]
+    client.post("/api/friends", headers=headers, json={"email": friend_email})
+    assert client.post(f"/api/friends/requests/{me_id}/accept", headers=friend_headers).status_code == 201
+
+    hafsa = client.get("/api/friends", headers=headers).json()["friends"][0]
+    assert hafsa["learningNow"] == {"topicId": "prayer", "nodeId": "prayer-wudu-wash-face"}
+    assert hafsa["lessonsDone"] == 3
+    # A learner who has opened nothing yet has nothing to show.
+    assert client.get("/api/friends", headers=friend_headers).json()["friends"][0]["learningNow"] is None

@@ -381,7 +381,14 @@ export type CrewMember = {
   friendStreak?: FriendStreak;
   /** Not agreed yet: the server sends no learning stats, and for someone you added, only the email you typed. */
   pending?: boolean;
+  /** Lessons finished (older servers leave it out). */
+  lessonsDone?: number;
+  /** What they have open now; older servers leave it out. */
+  learningNow?: LearningNow | null;
 };
+
+/** A learner's last topic and the circle START sits on there, named in the app (see learning_now in friends.py). */
+export type LearningNow = { topicId: string; nodeId: string | null };
 
 export type CrewPayload = {
   me: CrewMember;
@@ -456,47 +463,16 @@ export type LinkedKid = {
   completedNodeIds: string[];
   nodeStars: Record<string, number>;
   lastLearningAt: string | null;
-  /** Homework this account gave the child (older servers leave it out). */
-  homework?: FamilyHomework[];
+  learningNow?: LearningNow | null;
 };
 
 export type LinkedParent = { id: number; name: string; avatarInitials: string };
 
-/**
- * One unit a linked parent or teacher asked a learner to finish, maybe by a day. Done once every circle in
- * `nodeIds` is finished; the counts are the server's, from the learner's last sync.
- */
-export type FamilyHomework = {
-  id: number;
-  topicId: string;
-  unitId: string;
-  nodeIds: string[];
-  /** Local day it is due, YYYY-MM-DD. */
-  dueDate: string | null;
-  doneCount: number;
-  total: number;
-  done: boolean;
-  setBy: LinkedParent;
-  createdAt: string | null;
-};
+export type FamilyLinks = { kids: LinkedKid[]; parents: LinkedParent[] };
 
-export type FamilyLinks = { kids: LinkedKid[]; parents: LinkedParent[]; homework: FamilyHomework[] };
-
-export async function fetchFamilyLinks(today: string): Promise<FamilyLinks> {
-  const body = await backendRequest<Partial<FamilyLinks>>(`/api/family?today=${encodeURIComponent(today)}`, { headers: authHeaders() });
-  return { kids: body.kids ?? [], parents: body.parents ?? [], homework: body.homework ?? [] };
-}
-
-export async function giveFamilyHomework(childId: number, task: { topicId: string; unitId: string; nodeIds: string[]; dueDate?: string }) {
-  return backendRequest<FamilyHomework>(`/api/family/kids/${childId}/homework`, {
-    method: "POST",
-    headers: authHeaders(),
-    body: JSON.stringify({ ...task, dueDate: task.dueDate ?? null })
-  });
-}
-
-export async function removeFamilyHomework(homeworkId: number) {
-  await backendRequest(`/api/family/homework/${homeworkId}`, { method: "DELETE", headers: authHeaders() });
+export async function fetchFamilyLinks(today: string) {
+  const body = await backendRequest<FamilyLinks>(`/api/family?today=${encodeURIComponent(today)}`, { headers: authHeaders() });
+  return { kids: body.kids ?? [], parents: body.parents ?? [] };
 }
 
 export async function makeFamilyLinkCode() {

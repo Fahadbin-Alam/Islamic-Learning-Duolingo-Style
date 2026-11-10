@@ -16,7 +16,7 @@ def code_for(client, headers):
 def test_parent_links_with_the_childs_code_and_sees_live_progress(client):
     _, kid = register(client, "Yusuf")
     sync(client, kid, totalXp=90, streakDays=3, lastStreakDate="2026-11-02", dailyXp={"date": "2026-11-02", "xp": 25},
-         completedLessonIds=["a", "b"], completedNodeIds=["n1"], nodeStars={"n1": 2})
+         completedLessonIds=["a", "b"], completedNodeIds=["n1"], nodeStars={"n1": 2}, lastTopicId="manners", pathFocusIds={"manners": "manners-salam"})
     _, parent = register(client, "Mum")
 
     code = code_for(client, kid)
@@ -32,6 +32,7 @@ def test_parent_links_with_the_childs_code_and_sees_live_progress(client):
     assert body["xpByDay"]["2026-11-02"] == 25
     assert body["completedNodeIds"] == ["n1"]
     assert body["nodeStars"] == {"n1": 2}
+    assert body["learningNow"] == {"topicId": "manners", "nodeId": "manners-salam"}
     assert "email" not in body
 
     family = client.get("/api/family?today=2026-11-02", headers=parent).json()
@@ -100,76 +101,3 @@ def test_deleting_the_childs_account_removes_the_link(client):
 def test_family_needs_an_account(client):
     assert client.get("/api/family").status_code == 401
     assert client.post("/api/family/code").status_code == 401
-
-
-def link(client, parent, kid):
-    response = client.post("/api/family/kids", headers=parent, json={"code": code_for(client, kid)})
-    assert response.status_code == 201, response.text
-    return response.json()["id"]
-
-
-def test_a_linked_grown_up_gives_homework_and_sees_when_it_is_done(client):
-    _, kid = register(client, "Aisha")
-    _, teacher = register(client, "Amina")
-    kid_id = link(client, teacher, kid)
-
-    given = client.post(
-        f"/api/family/kids/{kid_id}/homework",
-        headers=teacher,
-        json={"topicId": "prayer", "unitId": "unit-wudu", "nodeIds": ["w1", "w2", "w2", "w3"], "dueDate": "2026-11-14"},
-    )
-    assert given.status_code == 201, given.text
-    body = given.json()
-    assert body["nodeIds"] == ["w1", "w2", "w3"]
-    assert body["doneCount"] == 0 and body["total"] == 3 and body["done"] is False
-    assert body["setBy"]["name"] == "Amina"
-
-    # The learner sees it, with who gave it.
-    mine = client.get("/api/family", headers=kid).json()["homework"]
-    assert [(entry["unitId"], entry["dueDate"], entry["setBy"]["name"]) for entry in mine] == [("unit-wudu", "2026-11-14", "Amina")]
-
-    # Two of three circles: not done yet. All three: done.
-    sync(client, kid, completedNodeIds=["w1", "w2"])
-    homework = client.get("/api/family", headers=teacher).json()["kids"][0]["homework"]
-    assert (homework[0]["doneCount"], homework[0]["done"]) == (2, False)
-    sync(client, kid, completedNodeIds=["w1", "w2", "w3", "other"])
-    homework = client.get("/api/family", headers=teacher).json()["kids"][0]["homework"]
-    assert (homework[0]["doneCount"], homework[0]["done"]) == (3, True)
-
-
-def test_only_the_grown_up_who_follows_can_give_or_take_back_homework(client):
-    _, kid = register(client, "Bilal")
-    _, parent = register(client, "AbuBilal")
-    _, stranger = register(client, "Stranger2")
-    kid_id = link(client, parent, kid)
-    task = {"topicId": "manners", "unitId": "unit-salam", "nodeIds": ["s1"]}
-
-    assert client.post(f"/api/family/kids/{kid_id}/homework", headers=stranger, json=task).status_code == 404
-    homework_id = client.post(f"/api/family/kids/{kid_id}/homework", headers=parent, json=task).json()["id"]
-    # The same unit twice, a bad date, or no lessons are refused.
-    assert client.post(f"/api/family/kids/{kid_id}/homework", headers=parent, json=task).status_code == 409
-    assert client.post(f"/api/family/kids/{kid_id}/homework", headers=parent, json={**task, "unitId": "u2", "dueDate": "Friday"}).status_code == 400
-    assert client.post(f"/api/family/kids/{kid_id}/homework", headers=parent, json={**task, "unitId": "u3", "nodeIds": []}).status_code == 422
-
-    # Neither a stranger nor the learner can delete it; the grown-up who gave it can.
-    assert client.delete(f"/api/family/homework/{homework_id}", headers=stranger).status_code == 404
-    assert client.delete(f"/api/family/homework/{homework_id}", headers=kid).status_code == 404
-    assert client.delete(f"/api/family/homework/{homework_id}", headers=parent).status_code == 200
-    assert client.get("/api/family", headers=kid).json()["homework"] == []
-
-
-def test_unlinking_takes_that_grown_ups_homework_away(client):
-    _, kid = register(client, "Safiyyah")
-    _, parent = register(client, "Mama")
-    _, teacher = register(client, "Ustadh")
-    kid_id = link(client, parent, kid)
-    link(client, teacher, kid)
-    client.post(f"/api/family/kids/{kid_id}/homework", headers=parent, json={"topicId": "duas", "unitId": "a", "nodeIds": ["d1"]})
-    client.post(f"/api/family/kids/{kid_id}/homework", headers=teacher, json={"topicId": "duas", "unitId": "b", "nodeIds": ["d2"]})
-
-    teacher_id = next(entry["id"] for entry in client.get("/api/family", headers=kid).json()["parents"] if entry["name"] == "Ustadh")
-    assert client.delete(f"/api/family/parents/{teacher_id}", headers=kid).status_code == 200
-    assert [entry["unitId"] for entry in client.get("/api/family", headers=kid).json()["homework"]] == ["a"]
-
-    assert client.delete(f"/api/family/kids/{kid_id}", headers=parent).status_code == 200
-    assert client.get("/api/family", headers=kid).json()["homework"] == []

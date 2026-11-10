@@ -22,7 +22,7 @@ import { Sheet } from "../Sheet";
 import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, radii, space, text } from "../theme";
 import { formatNumber } from "./FormattedCount";
-import { GiveHomework, HomeworkRow, sortHomework, type HomeworkTopic, type HomeworkView } from "./HomeworkParts";
+import { LearningNowCard, LearningNowLine } from "./LearningNow";
 import { MascotSays, SegmentButton, SheetTitle, TextField, Toggle, useBackToClose } from "./sheetParts";
 import { t } from "../../i18n";
 
@@ -70,17 +70,6 @@ export type FamilyLive = {
   onRemoveKid: (id: number) => void;
   onRemoveParent: (id: number) => void;
   onSignIn: () => void;
-  /** Topics and their units, for giving homework. */
-  homeworkTopics?: HomeworkTopic[];
-  /** By live kid id (the snapshot id): the homework this account gave them, and the circles they finished. */
-  kidHomework?: Record<string, { views: HomeworkView[]; finishedNodeIds: string[] }>;
-  /** Homework the linked grown-ups gave this account. */
-  myHomework?: HomeworkView[];
-  /** Gives a live kid homework; resolves to an error line, or nothing when it worked. */
-  onGiveHomework?: (kidId: number, task: { topicId: string; unitId: string; nodeIds: string[]; dueDate?: string }) => Promise<string | undefined>;
-  onRemoveHomework?: (id: number) => void;
-  /** The learner starts their homework: the sheet closes on that unit. */
-  onOpenHomework?: (view: HomeworkView) => void;
 };
 
 const ADD_ERRORS: Record<string, string> = {
@@ -196,95 +185,10 @@ export function ProgressReport({ snapshot, today, topics, testID }: { snapshot: 
   );
 }
 
-function KidHomework({ kid, live, today }: { kid: FamilyKid; live: FamilyLive; today: string }) {
-  const [giving, setGiving] = useState(false);
-  const [given, setGiven] = useState(false);
-  const id = kid.snapshot.id;
-  const entry = live.kidHomework?.[id];
-  const views = sortHomework(entry?.views ?? []);
-  const kidId = Number(id.slice(LIVE_KID_PREFIX.length));
-  const open = views.filter((view) => !view.done).length;
-
-  return (
-    <View style={styles.card} testID={`family-kid-${id}-homework`}>
-      <View style={styles.cardHead}>
-        <Text style={styles.cardTitle} numberOfLines={1}>
-          {t("Homework")}
-        </Text>
-        {views.length ? (
-          <Text style={styles.topicCount} numberOfLines={1} testID={`family-kid-${id}-homework-summary`}>
-            {t("{done}/{total} done", { done: views.length - open, total: views.length })}
-          </Text>
-        ) : null}
-      </View>
-      {views.length === 0 && !giving ? <Text style={styles.cardLine}>{t("No homework yet. Pick a unit for them to finish.")}</Text> : null}
-      {given ? (
-        <Text style={styles.added} accessibilityLiveRegion="polite" testID={`family-kid-${id}-homework-given`}>
-          {t("Homework given!")}
-        </Text>
-      ) : null}
-      {views.map((view) => (
-        <HomeworkRow
-          key={view.id}
-          view={view}
-          today={today}
-          onRemove={live.onRemoveHomework ? () => live.onRemoveHomework?.(view.id) : undefined}
-          testID={`family-kid-${id}-homework-${view.id}`}
-        />
-      ))}
-      {giving && live.homeworkTopics && live.onGiveHomework ? (
-        <GiveHomework
-          topics={live.homeworkTopics}
-          today={today}
-          finishedNodeIds={entry?.finishedNodeIds ?? []}
-          givenUnitIds={views.map((view) => view.unitId)}
-          onGive={async (task) => {
-            const failed = await live.onGiveHomework?.(kidId, task);
-            if (!failed) {
-              setGiving(false);
-              setGiven(true);
-            }
-            return failed;
-          }}
-          onCancel={() => setGiving(false)}
-          testID={`family-kid-${id}-give`}
-        />
-      ) : live.onGiveHomework ? (
-        <GameButton
-          label={t("Give homework")}
-          icon="bookOpen"
-          variant="secondary"
-          fullWidth
-          onPress={() => {
-            setGiving(true);
-            setGiven(false);
-          }}
-          testID={`family-kid-${id}-give-open`}
-        />
-      ) : null}
-    </View>
-  );
-}
-
-function KidRow({
-  kid,
-  index,
-  today,
-  topics,
-  onRemove,
-  live: liveLinks
-}: {
-  kid: FamilyKid;
-  index: number;
-  today: string;
-  topics: FamilyTopic[];
-  onRemove: () => void;
-  live?: FamilyLive;
-}) {
+function KidRow({ kid, index, today, topics, onRemove }: { kid: FamilyKid; index: number; today: string; topics: FamilyTopic[]; onRemove: () => void }) {
   const live = kid.snapshot.id.startsWith(LIVE_KID_PREFIX);
   const [open, setOpen] = useState(false);
   const [confirm, setConfirm] = useState(false);
-  const openHomework = (liveLinks?.kidHomework?.[kid.snapshot.id]?.views ?? []).filter((view) => !view.done).length;
   const name = kid.nickname || t("Child {count}", { count: index + 1 });
   const id = kid.snapshot.id;
 
@@ -310,11 +214,7 @@ function KidRow({
               {updatedLine(kid.snapshot.date, today)}
             </Text>
           )}
-          {openHomework > 0 ? (
-            <Text style={styles.kidSub} numberOfLines={1} testID={`family-kid-${id}-homework-open`}>
-              {t("Homework: {count} to do", { count: openHomework })}
-            </Text>
-          ) : null}
+          {kid.learningNow ? <LearningNowLine label={kid.learningNow} testID={`family-kid-${id}-learning`} /> : null}
         </View>
         <View style={styles.kidScore}>
           <Icon name="flame" size={18} color={streakOnDay(kid.snapshot, today) > 0 ? undefined : colors.lockedLip} />
@@ -326,7 +226,7 @@ function KidRow({
       </Tappable>
       {open ? (
         <PopIn from="up" style={styles.kidBody}>
-          {live && liveLinks ? <KidHomework kid={kid} live={liveLinks} today={today} /> : null}
+          {kid.learningNow ? <LearningNowCard label={kid.learningNow} testID={`family-kid-${id}-learning-card`} /> : null}
           <ProgressReport snapshot={kid.snapshot} today={today} topics={topics} testID={`family-kid-${id}-report`} />
           {confirm ? (
             <View style={styles.confirmRow}>
@@ -454,21 +354,6 @@ export function FamilySheet({
       <ScrollView style={styles.scrollArea} contentContainerStyle={styles.stack} keyboardShouldPersistTaps="handled" testID="family-scroll">
         {tab === "report" ? (
           <>
-            {live?.myHomework?.length ? (
-              <View style={styles.card} testID="family-my-homework">
-                <Text style={styles.cardTitle}>{t("My homework")}</Text>
-                {sortHomework(live.myHomework).map((view) => (
-                  <HomeworkRow
-                    key={view.id}
-                    view={view}
-                    today={today}
-                    showGiver
-                    onOpen={!view.done && live.onOpenHomework ? () => live.onOpenHomework?.(view) : undefined}
-                    testID={`family-my-homework-${view.id}`}
-                  />
-                ))}
-              </View>
-            ) : null}
             <View style={styles.card} testID="family-kids-mode">
               <Toggle label={t("Kids mode")} icon="family" value={kidsMode} onToggle={() => onKidsModeChange(!kidsMode)} testID="family-kids-mode-toggle" />
               <Text style={styles.cardLine}>
@@ -483,7 +368,7 @@ export function FamilySheet({
                 <Text style={styles.cardTitle}>{t("Link a parent or teacher")}</Text>
                 {live.signedIn ? (
                   <>
-                    <Text style={styles.cardLine}>{t("A parent or teacher signed in on their own phone sees your progress live and can give homework. Get a code and read it to them.")}</Text>
+                    <Text style={styles.cardLine}>{t("A parent or teacher signed in on their own phone sees your progress live. Get a code and read it to them.")}</Text>
                     {linkCode ? (
                       <View style={styles.codeBox} testID="family-link-code">
                         <Text style={styles.codeLabel}>{t("Your code (works once, for 24 hours)")}</Text>
@@ -569,7 +454,6 @@ export function FamilySheet({
                 today={today}
                 topics={topics}
                 onRemove={() => live?.onRemoveKid(Number(kid.snapshot.id.slice(LIVE_KID_PREFIX.length)))}
-                live={live}
               />
             ))}
             {kids.map((kid, index) => (

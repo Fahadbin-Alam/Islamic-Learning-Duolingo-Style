@@ -122,12 +122,9 @@ import {
   linkFamilyKid,
   unlinkFamilyKid,
   unlinkFamilyParent,
-  giveFamilyHomework,
-  removeFamilyHomework,
-  type FamilyHomework,
-  type FamilyLinks
+  type FamilyLinks,
+  type LearningNow
 } from "./services/backendSync";
-import { HomeworkBanner, sortHomework, type HomeworkTopic, type HomeworkView } from "./ui/screens/HomeworkParts";
 import { isKidsMode, isKidsTopic, kidsLearner, readKidsModeChoice, saveKidsModeChoice, type KidsModeChoice } from "./services/kidsMode";
 import {
   clearAccountProfile,
@@ -257,7 +254,7 @@ import {
 import { getQuizScore, recordQuizScore, unitsToGoOver } from "./services/quizzes";
 import { STORIES, storyGroupFor, type StoryGroup } from "./data/stories";
 import { recordStoryRead } from "./services/stories";
-import { addFamilyKid, buildFamilySnapshot, encodeFamilyCode, LIVE_KID_PREFIX, removeFamilyKid, snapshotFromLinkedKid, type FamilyKid } from "./services/familyCode";
+import { addFamilyKid, buildFamilySnapshot, encodeFamilyCode, removeFamilyKid, snapshotFromLinkedKid, type FamilyKid, type LearningLabel } from "./services/familyCode";
 import { getFamilyId, loadFamilyKids, peekFamilyId, saveFamilyKids } from "./services/familyStorage";
 import { shareApp } from "./services/shareApp";
 import { shareCertificateCard, shareRamadanCard } from "./services/shareCard";
@@ -1487,7 +1484,7 @@ export default function TopicApp() {
     });
   }, [familyToday, pickerTopics, state.user, userStars]);
   // Live family links between accounts (needs the server and a signed-in account).
-  const [familyLinks, setFamilyLinks] = useState<FamilyLinks>({ kids: [], parents: [], homework: [] });
+  const [familyLinks, setFamilyLinks] = useState<FamilyLinks>({ kids: [], parents: [] });
   const [familyOffline, setFamilyOffline] = useState(false);
   const familySignedIn = Boolean(state.user?.hasAccount && getSessionToken());
   const loadFamilyLinks = async () => {
@@ -1504,58 +1501,18 @@ export default function TopicApp() {
     setFamilyVisible(true);
     void loadFamilyLinks();
   };
-  // Homework from a linked parent or teacher shows on the Learn path, so it is asked for once signed in, and
-  // again on coming back to the path (at most every few minutes; the done counts are worked out here anyway).
-  const familyLoadedAt = useRef(0);
-  useEffect(() => {
-    if (!familySignedIn || tabForScreen(state.screen) !== "learn" || Date.now() - familyLoadedAt.current < 5 * 60_000) return;
-    familyLoadedAt.current = Date.now();
-    void loadFamilyLinks();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [familySignedIn, state.screen]);
-  // Every topic and its units, for a grown-up picking homework.
-  const homeworkTopics = useMemo<HomeworkTopic[]>(
-    () =>
-      localizedSections.map((section) => ({
-        topicId: section.topicId,
-        title: section.title,
-        accent: section.accentColor,
-        units: section.branches
-          .map((branch) => ({ id: branch.id, title: branch.title, nodeIds: section.nodes.filter((node) => node.branchId === branch.id).map((node) => node.id) }))
-          .filter((unit) => unit.nodeIds.length > 0)
-      })),
-    [localizedSections]
-  );
-  // A homework as the screens show it, named in this phone's language; `finished` counts done circles when given.
-  const homeworkView = (entry: FamilyHomework, finished?: Set<string>): HomeworkView => {
-    const section = localizedSections.find((item) => item.topicId === entry.topicId);
-    const unit = section?.branches.find((branch) => branch.id === entry.unitId);
-    const doneCount = finished ? entry.nodeIds.filter((id) => finished.has(id)).length : entry.doneCount;
-    const total = entry.nodeIds.length || entry.total;
-    return {
-      id: entry.id,
-      topicId: entry.topicId,
-      unitId: entry.unitId,
-      title: unit?.title ?? t("Homework"),
-      topicTitle: section?.title ?? "",
-      accent: section?.accentColor ?? colors.gem,
-      doneCount,
-      total,
-      done: total > 0 && doneCount >= total,
-      dueDate: entry.dueDate,
-      setByName: entry.setBy.name
-    };
-  };
-  // The learner's own homework, counted from this phone's finished circles so it moves on as soon as a lesson ends.
-  const myHomework = useMemo(() => {
-    const finished = new Set(completedNodeIds ?? []);
-    return familyLinks.homework.map((entry) => homeworkView(entry, finished));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [completedNodeIds, familyLinks.homework, localizedSections]);
-  const nextHomework = useMemo(() => sortHomework(myHomework).filter((view) => !view.done), [myHomework]);
-  const openHomework = (view: HomeworkView) => {
-    setFamilyVisible(false);
-    dispatch({ type: "select_topic", topicId: view.topicId as TopicId, unitId: view.unitId });
+  // What a friend or linked learner has open, named in this phone's language: the unit of the circle START sits
+  // on in their last topic (with how far through it they are, when their finished circles are known), else the topic.
+  const describeLearning = (now: LearningNow | null | undefined, finished?: string[]): LearningLabel | undefined => {
+    if (!now) return undefined;
+    const section = localizedSections.find((item) => item.topicId === now.topicId);
+    if (!section) return undefined;
+    const node = now.nodeId ? section.nodes.find((item) => item.id === now.nodeId) : undefined;
+    const branch = node ? section.branches.find((item) => item.id === node.branchId) : undefined;
+    if (!branch) return { unit: section.title, topic: section.title };
+    const unitNodes = section.nodes.filter((item) => item.branchId === branch.id);
+    const done = finished ? unitNodes.filter((item) => finished.includes(item.id)).length : undefined;
+    return { unit: branch.title, topic: section.title, done, total: finished ? unitNodes.length : undefined };
   };
   // A linked child's live numbers as the same report a pasted code shows, with stars and topics counted here.
   const liveFamilyKids = useMemo<FamilyKid[]>(
@@ -1566,7 +1523,12 @@ export default function TopicApp() {
           localizedSections.map((section) => [section.topicId, section.nodes.filter((node) => completed.has(node.id)).length])
         );
         const stars = getTotalStars({ completedNodeIds: kid.completedNodeIds, nodeStars: kid.nodeStars });
-        return { nickname: kid.name, addedAt: "", snapshot: snapshotFromLinkedKid(kid, familyToday, stars, topicsDone) };
+        return {
+          nickname: kid.name,
+          addedAt: "",
+          learningNow: describeLearning(kid.learningNow, kid.completedNodeIds),
+          snapshot: snapshotFromLinkedKid(kid, familyToday, stars, topicsDone)
+        };
       }),
     [familyLinks.kids, familyToday, localizedSections]
   );
@@ -1600,41 +1562,9 @@ export default function TopicApp() {
           void unlinkFamilyKid(id).catch(() => void loadFamilyLinks());
         },
         onRemoveParent: (id: number) => {
-          setFamilyLinks((links) => ({
-            ...links,
-            parents: links.parents.filter((parent) => parent.id !== id),
-            homework: links.homework.filter((entry) => entry.setBy.id !== id)
-          }));
+          setFamilyLinks((links) => ({ ...links, parents: links.parents.filter((parent) => parent.id !== id) }));
           void unlinkFamilyParent(id).catch(() => void loadFamilyLinks());
         },
-        homeworkTopics,
-        kidHomework: Object.fromEntries(
-          familyLinks.kids.map((kid) => [
-            `${LIVE_KID_PREFIX}${kid.id}`,
-            { views: (kid.homework ?? []).map((entry) => homeworkView(entry, new Set(kid.completedNodeIds))), finishedNodeIds: kid.completedNodeIds }
-          ])
-        ),
-        myHomework,
-        onGiveHomework: async (kidId: number, task: { topicId: string; unitId: string; nodeIds: string[]; dueDate?: string }) => {
-          try {
-            const entry = await giveFamilyHomework(kidId, task);
-            setFamilyLinks((links) => ({
-              ...links,
-              kids: links.kids.map((kid) => (kid.id === kidId ? { ...kid, homework: [...(kid.homework ?? []), entry] } : kid))
-            }));
-            return undefined;
-          } catch (error) {
-            return familyErrorLine(error);
-          }
-        },
-        onRemoveHomework: (id: number) => {
-          setFamilyLinks((links) => ({
-            ...links,
-            kids: links.kids.map((kid) => ({ ...kid, homework: (kid.homework ?? []).filter((entry) => entry.id !== id) }))
-          }));
-          void removeFamilyHomework(id).catch(() => void loadFamilyLinks());
-        },
-        onOpenHomework: openHomework,
         onSignIn: () => {
           setFamilyVisible(false);
           openCrewAccount();
@@ -3835,12 +3765,8 @@ export default function TopicApp() {
                 </Tappable>
               ) : selectedSection.topicId === "duas" ? (
                 <AdhkarBanner accent={selectedSection.accentColor} now={adhkarTimeFor(new Date())} doneToday={adhkarDone} onOpen={(time) => openAdhkar(time)} />
-              ) : nextHomework.length || ramadanBanner || storyBanner || pathReviewDue > 0 ? (
+              ) : ramadanBanner || storyBanner || pathReviewDue > 0 ? (
                 <>
-                  {/* Homework from a linked parent or teacher comes first: one tap opens its unit. */}
-                  {nextHomework.length ? (
-                    <HomeworkBanner view={nextHomework[0]} today={familyToday} more={nextHomework.length - 1} onOpen={() => openHomework(nextHomework[0])} />
-                  ) : null}
                   {ramadanBanner}
                   {/* Missed questions due again (spaced review): one tap starts a Review of them. */}
                   {pathReviewDue > 0 ? <ReviewBanner count={pathReviewDue} onOpen={startReviewDeck} /> : null}
@@ -4137,6 +4063,7 @@ export default function TopicApp() {
             invite={invite}
             onRedeemInvite={(code) => void redeemInvite(code)}
             onCreateAccount={openCrewAccount}
+            describeLearning={(member) => describeLearning(member.learningNow)}
             league={crewLeagueUser?.league}
             ranks={{
               rankings,

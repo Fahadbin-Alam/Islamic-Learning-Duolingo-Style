@@ -166,26 +166,6 @@ class FamilyLinkCode(Base):
     child: Mapped["User"] = relationship(foreign_keys=[child_id])
 
 
-class FamilyHomework(Base):
-    """A unit a linked grown-up (parent or teacher) asks a learner to finish, maybe by a date. Only a grown-up with
-    a FamilyLink to the learner can set it. Whether it is done is worked out from the learner's finished circles."""
-
-    __tablename__ = "family_homework"
-
-    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
-    setter_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
-    learner_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
-    topic_id: Mapped[str] = mapped_column(String(40), nullable=False)
-    unit_id: Mapped[str] = mapped_column(String(120), nullable=False)
-    node_ids_json: Mapped[list] = mapped_column(JSON, default=list, nullable=False)
-    # Local calendar day (YYYY-MM-DD) it is due, or none.
-    due_date: Mapped[Optional[str]] = mapped_column(String(10), nullable=True)
-    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
-
-    setter: Mapped["User"] = relationship(foreign_keys=[setter_id])
-    learner: Mapped["User"] = relationship(foreign_keys=[learner_id])
-
-
 class Invite(Base):
     """A new learner typing a friend's invite code. Each learner can use one code, once; the friend who invited
     them collects their reward the next time their app asks (see backend/app/api/routes/invites.py)."""
