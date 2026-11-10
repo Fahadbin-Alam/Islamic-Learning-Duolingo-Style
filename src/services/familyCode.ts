@@ -48,8 +48,13 @@ export type FamilySnapshot = {
   topicsDone: Partial<Record<TopicId, number>>;
 };
 
+/** "Wudu · Prayer", with how far through that unit they are when it is known. */
+export type LearningLabel = { unit: string; topic: string; done?: number; total?: number };
+
 export type FamilyKid = {
   nickname: string;
+  /** Live kids only: what they are learning now, named in this phone's language. */
+  learningNow?: LearningLabel;
   snapshot: FamilySnapshot;
   addedAt: string;
 };

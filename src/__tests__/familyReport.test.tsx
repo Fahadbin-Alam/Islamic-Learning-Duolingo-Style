@@ -267,7 +267,7 @@ describe("Family sheet: Kids mode and live links", () => {
 
   it("links a child with their code, shows an error, and lists live kids", async () => {
     const onLinkKid = jest.fn(async (code: string) => (code === "BAD" ? "That code didn't work. Ask for a new one." : undefined));
-    const liveKid = { nickname: "Yusuf", snapshot: { ...SNAPSHOT, id: "live-12", date: "2026-10-28" }, addedAt: "" };
+    const liveKid = { nickname: "Yusuf", snapshot: { ...SNAPSHOT, id: "live-12", date: "2026-10-28" }, addedAt: "", learningNow: { unit: "Wudu", topic: "Prayer", done: 3, total: 22 } };
     const links = live({ onLinkKid, kids: [liveKid] });
     await render(<FamilySheet {...props({ initialTab: "kids", live: links })} />);
     expect(screen.getByTestId("family-kid-live-12")).toHaveTextContent(/Live · Learned yesterday/);
@@ -281,7 +281,9 @@ describe("Family sheet: Kids mode and live links", () => {
     await act(async () => fireEvent.press(screen.getByTestId("family-link-kid-go")));
     expect(screen.getByTestId("family-added")).toHaveTextContent("Linked!");
 
+    expect(screen.getByTestId("family-kid-live-12-learning")).toHaveTextContent("Learning: Wudu · Prayer");
     await act(async () => fireEvent.press(screen.getByTestId("family-kid-live-12-open")));
+    expect(screen.getByTestId("family-kid-live-12-learning-card-unit")).toHaveTextContent("3 of 22 lessons in this unit");
     await act(async () => fireEvent.press(screen.getByTestId("family-kid-live-12-remove")));
     await act(async () => fireEvent.press(screen.getByTestId("family-kid-live-12-remove-yes")));
     expect(links.onRemoveKid).toHaveBeenCalledWith(12);

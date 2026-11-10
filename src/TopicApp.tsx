@@ -122,7 +122,8 @@ import {
   linkFamilyKid,
   unlinkFamilyKid,
   unlinkFamilyParent,
-  type FamilyLinks
+  type FamilyLinks,
+  type LearningNow
 } from "./services/backendSync";
 import { isKidsMode, isKidsTopic, kidsLearner, readKidsModeChoice, saveKidsModeChoice, type KidsModeChoice } from "./services/kidsMode";
 import {
@@ -260,7 +261,7 @@ import {
 import { getQuizScore, recordQuizScore, unitsToGoOver } from "./services/quizzes";
 import { STORIES, storyGroupFor, type StoryGroup } from "./data/stories";
 import { recordStoryRead } from "./services/stories";
-import { addFamilyKid, buildFamilySnapshot, encodeFamilyCode, removeFamilyKid, snapshotFromLinkedKid, type FamilyKid } from "./services/familyCode";
+import { addFamilyKid, buildFamilySnapshot, encodeFamilyCode, removeFamilyKid, snapshotFromLinkedKid, type FamilyKid, type LearningLabel } from "./services/familyCode";
 import { getFamilyId, loadFamilyKids, peekFamilyId, saveFamilyKids } from "./services/familyStorage";
 import { shareApp } from "./services/shareApp";
 import { shareCertificateCard, shareRamadanCard } from "./services/shareCard";
@@ -1539,6 +1540,19 @@ export default function TopicApp() {
     setFamilyVisible(true);
     void loadFamilyLinks();
   };
+  // What a friend or linked learner has open, named in this phone's language: the unit of the circle START sits
+  // on in their last topic (with how far through it they are, when their finished circles are known), else the topic.
+  const describeLearning = (now: LearningNow | null | undefined, finished?: string[]): LearningLabel | undefined => {
+    if (!now) return undefined;
+    const section = localizedSections.find((item) => item.topicId === now.topicId);
+    if (!section) return undefined;
+    const node = now.nodeId ? section.nodes.find((item) => item.id === now.nodeId) : undefined;
+    const branch = node ? section.branches.find((item) => item.id === node.branchId) : undefined;
+    if (!branch) return { unit: section.title, topic: section.title };
+    const unitNodes = section.nodes.filter((item) => item.branchId === branch.id);
+    const done = finished ? unitNodes.filter((item) => finished.includes(item.id)).length : undefined;
+    return { unit: branch.title, topic: section.title, done, total: finished ? unitNodes.length : undefined };
+  };
   // A linked child's live numbers as the same report a pasted code shows, with stars and topics counted here.
   const liveFamilyKids = useMemo<FamilyKid[]>(
     () =>
@@ -1548,7 +1562,12 @@ export default function TopicApp() {
           localizedSections.map((section) => [section.topicId, section.nodes.filter((node) => completed.has(node.id)).length])
         );
         const stars = getTotalStars({ completedNodeIds: kid.completedNodeIds, nodeStars: kid.nodeStars });
-        return { nickname: kid.name, addedAt: "", snapshot: snapshotFromLinkedKid(kid, familyToday, stars, topicsDone) };
+        return {
+          nickname: kid.name,
+          addedAt: "",
+          learningNow: describeLearning(kid.learningNow, kid.completedNodeIds),
+          snapshot: snapshotFromLinkedKid(kid, familyToday, stars, topicsDone)
+        };
       }),
     [familyLinks.kids, familyToday, localizedSections]
   );
@@ -1595,7 +1614,7 @@ export default function TopicApp() {
   const shareFamilyReport = () => {
     if (!familyReport) return undefined;
     const code = encodeFamilyCode({ ...familyReport, id: getFamilyId() });
-    const message = t("My Muslimo progress. To follow along, open Muslimo, then Me, Family, My kids, and paste this: {code}", { code });
+    const message = t("My Muslimo progress. To follow along, open Muslimo, then Me, Family, My learners, and paste this: {code}", { code });
     void Share.share({ message }).catch(() => undefined);
     return code;
   };
@@ -4200,6 +4219,7 @@ export default function TopicApp() {
             invite={invite}
             onRedeemInvite={(code) => void redeemInvite(code)}
             onCreateAccount={openCrewAccount}
+            describeLearning={(member) => describeLearning(member.learningNow)}
             league={crewLeagueUser?.league}
             ranks={{
               rankings,

@@ -29,7 +29,7 @@ function battle(id: number, extra: Partial<FriendBattle> = {}): FriendBattle {
 const me = member(1, "Amina", "you", 300);
 const yusuf = member(2, "Yusuf Khan", "friend", 500);
 
-function renderCrew(battles: FriendBattle[], friends: CrewMember[] = [yusuf]) {
+function renderCrew(battles: FriendBattle[], friends: CrewMember[] = [yusuf], describeLearning?: React.ComponentProps<typeof CrewView>["describeLearning"]) {
   const handlers = {
     onChangeInviteEmail: jest.fn(),
     onChangeInviteRelation: jest.fn(),
@@ -45,7 +45,7 @@ function renderCrew(battles: FriendBattle[], friends: CrewMember[] = [yusuf]) {
     onShareApp: jest.fn()
   };
   return render(
-    <CrewView user={makeUser({ hasAccount: true })} crew={{ status: "ready", payload: { me, friends } }} inviteEmail="" inviteRelation="friend" battles={battles} {...handlers} />
+    <CrewView user={makeUser({ hasAccount: true })} crew={{ status: "ready", payload: { me, friends } }} inviteEmail="" inviteRelation="friend" battles={battles} describeLearning={describeLearning} {...handlers} />
   ).then(() => handlers);
 }
 
@@ -159,6 +159,16 @@ describe("friend streaks on the Friends page", () => {
     await fireEvent.press(screen.getByTestId("friend-streak-2"));
     expect(screen.getByTestId("crew-friend-sheet-streak")).toHaveTextContent(/5 day friend streak/);
     expect(screen.getByTestId("crew-friend-sheet-streak")).toHaveTextContent(/Best: 9/);
+  });
+
+  it("shows what a friend is learning now on their row and card", async () => {
+    const learning = { ...yusuf, lessonsDone: 41, learningNow: { topicId: "prayer", nodeId: "prayer-wudu-wash-face" } };
+    const describe = jest.fn((member: CrewMember) => (member.learningNow ? { unit: "Wudu", topic: "Prayer" } : undefined));
+    await renderCrew([], [learning], describe);
+    expect(screen.getByTestId("crew-learning-2")).toHaveTextContent("Learning: Wudu · Prayer");
+    await fireEvent.press(screen.getByTestId("crew-row-2"));
+    expect(screen.getByTestId("crew-friend-learning-what")).toHaveTextContent("Wudu · Prayer");
+    expect(screen.getByTestId("crew-friend-learning-lessons")).toHaveTextContent("41 lessons done in all");
   });
 
   it("hides the list when the server sends no friend streaks", async () => {
