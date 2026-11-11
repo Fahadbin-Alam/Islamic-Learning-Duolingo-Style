@@ -260,6 +260,12 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "sahabi-abdullah-ibn-masud": { ar: "عبد الله بن مسعود", translit: "Abdullah ibn Mas'ud", meaning: "Quran reciter" },
   "sahabi-anas-ibn-malik": { ar: "أنس بن مالك", translit: "Anas ibn Malik", meaning: "The Prophet's ﷺ servant" },
   "sahabi-muhajirun": { ar: "المهاجرون", translit: "Al-Muhajirun", meaning: "The emigrants" },
+  "sahabi-khubayb-ibn-adi": { ar: "خبيب وعاصم", translit: "Khubayb wa 'Asim", meaning: "Khubayb and Asim" },
+  "sahabi-usayd-ibn-hudayr": { ar: "أسيد بن حضير", translit: "Usayd ibn Hudayr", meaning: "The reciter the angels came to hear" },
+  "sahabi-thabit-ibn-qays": { ar: "ثابت بن قيس", translit: "Thabit ibn Qays", meaning: "The speaker of the Ansar" },
+  "sahabi-al-miqdad": { ar: "المقداد بن الأسود", translit: "Al-Miqdad ibn al-Aswad", meaning: "A rider of Badr" },
+  "sahabi-hakim-ibn-hizam": { ar: "حكيم بن حزام", translit: "Hakim ibn Hizam", meaning: "The generous man of Quraysh" },
+  "sahabi-said-ibn-zayd": { ar: "سعيد بن زيد", translit: "Sa'id ibn Zayd", meaning: "One of the ten promised Jannah" },
   "sahabi-jafar-ibn-abi-talib": { ar: "جعفر بن أبي طالب", translit: "Ja'far ibn Abi Talib", meaning: "The one with two wings" },
   "sahabi-abu-hurairah": { ar: "أبو هريرة", translit: "Abu Hurairah", meaning: "Keeper of the hadith" },
   "sahabi-kab-ibn-malik": { ar: "كعب بن مالك", translit: "Ka'b ibn Malik", meaning: "One of the three forgiven" },
@@ -817,7 +823,7 @@ const IMPORTED_UNIT_ARABIC: Partial<Record<TopicId, ArabicTerm>> = {
 // The vowelled form of every unit banner word, for a learn card that borrows it. Each one, without its
 // vowel marks, is exactly the banner's spelling (the tests check this).
 const LEARN_FORMS = [
-  "الْمُهَاجِرُونَ", "أَبُو حَنِيفَةَ", "مَالِكُ بْنُ أَنَسٍ", "الشَّافِعِيُّ", "أَحْمَدُ بْنُ حَنْبَلٍ", "ابْنُ تَيْمِيَّةَ", "ابْنُ بَازٍ", "الْأَلْبَانِيُّ",
+  "الْمُهَاجِرُونَ", "خُبَيْبٌ وَعَاصِمٌ", "أُسَيْدُ بْنُ حُضَيْرٍ", "ثَابِتُ بْنُ قَيْسٍ", "الْمِقْدَادُ بْنُ الْأَسْوَدِ", "حَكِيمُ بْنُ حِزَامٍ", "سَعِيدُ بْنُ زَيْدٍ", "أَبُو حَنِيفَةَ", "مَالِكُ بْنُ أَنَسٍ", "الشَّافِعِيُّ", "أَحْمَدُ بْنُ حَنْبَلٍ", "ابْنُ تَيْمِيَّةَ", "ابْنُ بَازٍ", "الْأَلْبَانِيُّ",
   "عِلْمُ عُمَرَ", "عِلْمُ عَائِشَةَ", "ابْنُ مَسْعُودٍ", "ابْنُ عَبَّاسٍ", "ابْنُ عُمَرَ",
   "عَلْقَمَةُ بْنُ وَقَّاصٍ", "عُرْوَةُ بْنُ الزُّبَيْرِ", "نَافِعٌ", "عَطَاءُ بْنُ أَبِي رَبَاحٍ", "عَلْقَمَةُ بْنُ قَيْسٍ", "مُحَمَّدُ بْنُ إِبْرَاهِيمَ التَّيْمِيُّ", "ابْنُ شِهَابٍ الزُّهْرِيُّ", "إِبْرَاهِيمُ النَّخَعِيُّ", "يَحْيَى بْنُ سَعِيدٍ الْأَنْصَارِيُّ", "حَمَّادُ بْنُ أَبِي سُلَيْمَانَ",
   "سُفْيَانُ بْنُ عُيَيْنَةَ", "يَحْيَى بْنُ يَحْيَى", "أَبُو يُوسُفَ", "مُحَمَّدُ بْنُ الْحَسَنِ الشَّيْبَانِيُّ", "الْحُمَيْدِيُّ", "الْبُخَارِيُّ", "ابْنُ الْقَيِّمِ", "الذَّهَبِيُّ", "مُسْلِمُ بْنُ الْحَجَّاجِ", "أَبُو دَاوُدَ", "التِّرْمِذِيُّ",
