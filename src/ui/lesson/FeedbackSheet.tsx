@@ -548,40 +548,44 @@ export function FeedbackSheet({
         <Animated.View style={[styles.badge, { backgroundColor: correct ? colors.green : colors.heart, transform: [{ scale: badgeScale }, { rotate: badgeRotate }] }]}>
           <Icon name={correct ? "check" : "close"} size={26} color={colors.white} />
         </Animated.View>
-        <Text style={[correct ? styles.praise : styles.wrongTitle, { color: ink }]} accessibilityRole="header">
-          {withHonorifics(heading)}
-        </Text>
-        {!correct && onListen ? (
-          <Tappable
-            onPress={onListen}
-            style={[styles.listen, { borderColor: ink, backgroundColor: listening ? ink : withAlpha(colors.white, 0.6) }]}
-            accessibilityRole="button"
-            accessibilityLabel={listening ? t("Stop") : t("Hear why")}
-            accessibilityState={{ selected: listening }}
-            hitSlop={8}
-            testID="feedback-listen"
-          >
-            <Icon name="speaker" size={18} color={listening ? colors.white : ink} />
-          </Tappable>
-        ) : null}
-        {source?.label ? (
-          <Animated.View style={[styles.sourceSlot, { transform: [{ scale: sourceScale }] }]}>
+        {/* The words beside the badge. When the source's name does not fit beside the title (a small phone, Bigger
+            text), it goes under the title, whole: never squeezed to a letter or two. */}
+        <View style={styles.headWords}>
+          <Text style={[correct ? styles.praise : styles.wrongTitle, { color: ink }]} accessibilityRole="header">
+            {withHonorifics(heading)}
+          </Text>
+          {!correct && onListen ? (
             <Tappable
-              onPress={source.onOpen}
-              disabled={!source.onOpen}
-              style={[styles.sourceChip, { backgroundColor: source.onOpen ? ink : withAlpha(colors.white, 0.6), borderColor: ink }]}
-              accessibilityRole={source.onOpen ? "link" : "text"}
-              accessibilityLabel={t("Open source {name}", { name: source.label })}
-              hitSlop={10}
-              testID="feedback-source"
+              onPress={onListen}
+              style={[styles.listen, { borderColor: ink, backgroundColor: listening ? ink : withAlpha(colors.white, 0.6) }]}
+              accessibilityRole="button"
+              accessibilityLabel={listening ? t("Stop") : t("Hear why")}
+              accessibilityState={{ selected: listening }}
+              hitSlop={8}
+              testID="feedback-listen"
             >
-              <Text style={[styles.sourceText, { color: source.onOpen ? colors.white : ink }]} numberOfLines={1}>
-                {source.label}
-              </Text>
-              {source.onOpen ? <Icon name="chevronRight" size={16} color={colors.white} /> : null}
+              <Icon name="speaker" size={18} color={listening ? colors.white : ink} />
             </Tappable>
-          </Animated.View>
-        ) : null}
+          ) : null}
+          {source?.label ? (
+            <Animated.View style={[styles.sourceSlot, { transform: [{ scale: sourceScale }] }]}>
+              <Tappable
+                onPress={source.onOpen}
+                disabled={!source.onOpen}
+                style={[styles.sourceChip, { backgroundColor: source.onOpen ? ink : withAlpha(colors.white, 0.6), borderColor: ink }]}
+                accessibilityRole={source.onOpen ? "link" : "text"}
+                accessibilityLabel={t("Open source {name}", { name: source.label })}
+                hitSlop={10}
+                testID="feedback-source"
+              >
+                <Text style={[styles.sourceText, { color: source.onOpen ? colors.white : ink }]} numberOfLines={1}>
+                  {source.label}
+                </Text>
+                {source.onOpen ? <Icon name="chevronRight" size={16} color={colors.white} /> : null}
+              </Tappable>
+            </Animated.View>
+          ) : null}
+        </View>
       </View>
     ),
     // The language is read by t() inside.
@@ -829,7 +833,19 @@ export function FeedbackSheet({
 const styles = textScaled(StyleSheet.create({
   headRow: {
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "flex-start"
+  },
+  // The title, the speaker and the source chip, on one line when they fit; the chip goes under the title when not.
+  // Its first line sits in the middle of the badge's height (a line is as tall as the chip, 34; the badge 40).
+  headWords: {
+    flex: 1,
+    minWidth: 0,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    columnGap: space.sm,
+    rowGap: space.xs,
+    paddingTop: 3
   },
   // As tall as the source chip, so the heading row keeps its height.
   listen: {
@@ -838,13 +854,11 @@ const styles = textScaled(StyleSheet.create({
     borderRadius: 17,
     borderWidth: 2,
     alignItems: "center",
-    justifyContent: "center",
-    marginStart: space.sm
+    justifyContent: "center"
   },
   sourceSlot: {
     flexShrink: 1,
-    maxWidth: "50%",
-    marginStart: space.sm
+    maxWidth: "100%"
   },
   // A filled button with an arrow (no book icon: the label needs the room), so it reads as something to tap. No taller than the badge beside it, so the
   // heading row keeps its height.
@@ -872,16 +886,19 @@ const styles = textScaled(StyleSheet.create({
     justifyContent: "center",
     marginEnd: space.md
   },
+  // The title fills its line, so the chip beside it sits at the far end.
   praise: {
-    flex: 1,
+    flexGrow: 1,
     flexShrink: 1,
+    maxWidth: "100%",
     fontFamily: fonts.displayHeavy,
     fontSize: 28,
     lineHeight: 34
   },
   wrongTitle: {
-    flex: 1,
+    flexGrow: 1,
     flexShrink: 1,
+    maxWidth: "100%",
     fontFamily: fonts.displayHeavy,
     fontSize: 22,
     lineHeight: 28

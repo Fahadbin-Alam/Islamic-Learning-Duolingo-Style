@@ -11,6 +11,8 @@ import type { SupportedLanguage } from "../types";
 
 const SPEECH_CODE: Record<SupportedLanguage, string> = { en: "en", bn: "bn", ur: "ur", ar: "ar" };
 const voices = new Map<SupportedLanguage, Promise<string | null>>();
+/** Voices found already, so a speaker shows from a screen's first frame (no button popping in beside CHECK). */
+const foundVoices = new Map<SupportedLanguage, string>();
 
 async function listVoices(): Promise<Speech.Voice[]> {
   let timer: ReturnType<typeof setTimeout> | undefined;
@@ -24,6 +26,11 @@ async function listVoices(): Promise<Speech.Voice[]> {
   } finally {
     clearTimeout(timer);
   }
+}
+
+/** The voice findTeacherVoice found for this language before, at once: "" for English, undefined when not known yet. */
+export function knownTeacherVoice(language: SupportedLanguage): string | undefined {
+  return language === "en" ? "" : foundVoices.get(language);
 }
 
 /** "" for the phone's own default voice (English), a voice id, or null when the phone cannot say this language. */
@@ -46,7 +53,9 @@ export function findTeacherVoice(language: SupportedLanguage): Promise<string | 
     voices.set(language, lookup);
     // "None" is asked again next time: the speech engine may still be starting, or a voice may be installed.
     void lookup.then((id) => {
-      if (id === null && voices.get(language) === lookup) {
+      if (id !== null) {
+        foundVoices.set(language, id);
+      } else if (voices.get(language) === lookup) {
         voices.delete(language);
       }
     });
@@ -123,4 +132,5 @@ export function stopTeacher() {
 /** Tests only. */
 export function resetTeacherVoiceForTests() {
   voices.clear();
+  foundVoices.clear();
 }

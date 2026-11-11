@@ -27,6 +27,7 @@ import { isCredit, splitLessonFacts } from "./lessonNotes";
 import { highlightPieces, plainSummary, saidInSummary, type LearnPageKind, type TeachLesson } from "./lessonPages";
 import { Teacher, talkTime, type TeacherLook } from "./Teacher";
 import { readAloudText, useReadAloud } from "./useReadAloud";
+import { ReadAloudButton } from "./ReadAloudButton";
 import { textScaled } from "../textScale";
 
 export type LearnCardProps = {
@@ -856,29 +857,6 @@ function quizLine(count?: number, testPass?: number) {
       : t("Get them right to move on.");
 }
 
-/**
- * The speaker next to CONTINUE: the teacher reads the page out. While it reads, the button fills and shows a stop
- * square; a tap stops it.
- */
-function ReadAloudButton({ reading, onPress }: { reading: boolean; onPress: () => void }) {
-  return (
-    <Tappable
-      onPress={onPress}
-      style={styles.readButton}
-      pressScale={0.92}
-      accessibilityRole="button"
-      accessibilityLabel={reading ? t("Stop") : t("Read it to me")}
-      accessibilityState={{ selected: reading }}
-      testID="learn-read-aloud"
-    >
-      <View style={[styles.readLip, reading ? styles.readLipOn : null]} />
-      <View style={[styles.readFace, reading ? styles.readFaceOn : null]}>
-        {reading ? <View style={styles.readStop} testID="learn-read-aloud-stop" /> : <Icon name="speaker" size={26} color={colors.gem} />}
-      </View>
-    </Tappable>
-  );
-}
-
 /** Quiz time: the circle's quiz is next. */
 function QuizPage({
   count,
@@ -913,8 +891,6 @@ function QuizPage({
 const SPEAKER = 44;
 const SPEAKER_SMALL = 38;
 
-const READ_BUTTON = 54;
-
 const styles = textScaled(StyleSheet.create({
   barRow: {
     flexDirection: "row",
@@ -924,42 +900,6 @@ const styles = textScaled(StyleSheet.create({
   barContinue: {
     flex: 1,
     minWidth: 0
-  },
-  readButton: {
-    width: READ_BUTTON,
-    height: READ_BUTTON + lip.button
-  },
-  readLip: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    top: lip.button,
-    height: READ_BUTTON,
-    borderRadius: radii.button,
-    backgroundColor: colors.lineLip
-  },
-  readLipOn: {
-    backgroundColor: colors.gemLip
-  },
-  readFace: {
-    width: READ_BUTTON,
-    height: READ_BUTTON,
-    borderRadius: radii.button,
-    borderWidth: 2,
-    borderColor: colors.line,
-    backgroundColor: colors.white,
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  readFaceOn: {
-    borderColor: colors.gem,
-    backgroundColor: colors.gem
-  },
-  readStop: {
-    width: 16,
-    height: 16,
-    borderRadius: 3,
-    backgroundColor: colors.white
   },
   writeWrap: {
     alignSelf: "stretch",

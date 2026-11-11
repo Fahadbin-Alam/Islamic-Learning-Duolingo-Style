@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getActiveLanguage } from "../../i18n";
 import { stopAyah, subscribeAyahPlayback } from "../../services/ayahPlayer";
-import { findTeacherVoice, fitForVoice, speakable, speakTeacher, stopTeacher } from "../../services/teacherVoice";
+import { findTeacherVoice, fitForVoice, knownTeacherVoice, speakable, speakTeacher, stopTeacher } from "../../services/teacherVoice";
 
 /**
  * About how long a page takes to say, on the long side: the mouth moves this long at most, and the voice's own "done"
@@ -30,10 +30,11 @@ export function readAloudText(parts: (string | undefined | false)[]) {
  * Returns `onRead` (undefined when there is nothing to read or no voice), whether it is `reading`, and `talkMs` for
  * the teacher's mouth: undefined until the learner first taps (the page's own talking stays), then the voice's length
  * while it reads and 0 once it stops, so the mouth closes with the voice.
+ * `stop` ends the reading (nothing happens when it is not reading).
  */
 export function useReadAloud(text: string) {
   const language = getActiveLanguage();
-  const [voice, setVoice] = useState<string | null>(null);
+  const [voice, setVoice] = useState<string | null>(() => knownTeacherVoice(language) ?? null);
   const [talkMs, setTalkMs] = useState<number | undefined>(undefined);
   const turn = useRef(0);
 
@@ -98,5 +99,5 @@ export function useReadAloud(text: string) {
     });
   }, [language, reading, spoken, stop, voice]);
 
-  return { onRead: voice !== null && spoken ? onRead : undefined, reading, talkMs };
+  return { onRead: voice !== null && spoken ? onRead : undefined, reading, talkMs, stop };
 }

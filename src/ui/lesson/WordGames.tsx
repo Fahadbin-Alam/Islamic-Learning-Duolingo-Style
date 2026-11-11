@@ -10,6 +10,8 @@ import { useReduceMotion } from "../motion";
 import { haptic, playUi } from "../sound";
 import { colors, darken, fonts, lighten, radii, space, topicPalette } from "../theme";
 import { ExerciseView, QuestionBubble, useLessonCompact, type ExerciseChoice, type ExerciseResult, type ExerciseViewProps } from "./ExerciseView";
+import { QuestionTalkContext, questionAloudText, useQuestionAloud } from "./questionAloud";
+import { WithReadAloud } from "./ReadAloudButton";
 import { CORRECT_TEXT, FeedbackSheet, WRONG_TEXT } from "./FeedbackSheet";
 import { useMistakeVoice } from "./useMistakeVoice";
 import { LessonBottomBar } from "./LessonHeader";
@@ -184,12 +186,15 @@ export function GameFrame({
   bottomInset,
   onCheck,
   onContinue,
+  aloud,
   testID
 }: {
   children: React.ReactNode;
   ready: boolean;
   result?: ExerciseResult;
   prompt: string;
+  /** What the teacher says when the learner taps the speaker by CHECK (see questionAloudText). None: no speaker. */
+  aloud?: string;
   praiseSeed?: string;
   playSound?: boolean;
   continueSound?: GameSoundEvent | false;
@@ -205,6 +210,9 @@ export function GameFrame({
   const shown = lastResult.current;
   const why = shown ? (getActiveLanguage() === "en" ? shortWhy({ explanation: shown.why, prompt, correctLabel: shown.correctLabel }) : shown.why) : undefined;
   const voice = useMistakeVoice(checked, Boolean(shown?.correct), shown && !shown.correct ? shown.correctLabel : undefined, shown?.why);
+  const reader = useQuestionAloud(aloud ?? "", checked);
+  // The asking teacher's mouth moves with whichever voice is talking: the question's before CHECK, the sheet's after.
+  const talkMs = checked ? voice.talkMs : reader.talkMs ?? 0;
   const scroller = useRef<ScrollView>(null);
   const scrolled = useRef(0);
   const [rootHeight, setRootHeight] = useState(0);
@@ -241,10 +249,14 @@ export function GameFrame({
         onScroll={onScroll}
         scrollEventThrottle={32}
       >
-        <GameRoomContext.Provider value={room}>{children}</GameRoomContext.Provider>
+        <QuestionTalkContext.Provider value={talkMs}>
+          <GameRoomContext.Provider value={room}>{children}</GameRoomContext.Provider>
+        </QuestionTalkContext.Provider>
       </ScrollView>
       <LessonBottomBar bottomInset={bottomInset}>
-        <GameButton label={t("Check")} fullWidth sound={false} disabled={!ready || checked} onPress={onCheck} testID="exercise-check" />
+        <WithReadAloud onRead={reader.onRead} reading={reader.reading} testID="question-read-aloud">
+          <GameButton label={t("Check")} fullWidth sound={false} disabled={!ready || checked} onPress={onCheck} testID="exercise-check" />
+        </WithReadAloud>
       </LessonBottomBar>
       <FeedbackSheet
         visible={checked}
@@ -292,7 +304,20 @@ export function GapGame({ prompt, choices, correctChoiceId, question, testID, se
   const gapTone: TileTone = !result ? "picked" : placed?.id === correctChoiceId ? "correct" : "wrong";
   const palette = topicPalette(accent);
   return (
-    <GameFrame ready={Boolean(placed)} result={result} prompt={question ?? prompt} praiseSeed={praiseSeed} playSound={playSound} continueSound={continueSound} bottomInset={bottomInset} onCheck={onCheck} onContinue={onContinue} testID={testID ?? "gap-game"}>
+    <GameFrame
+      ready={Boolean(placed)}
+      result={result}
+      prompt={question ?? prompt}
+      // Read out: the question (when there is one), the sentence with a pause for its gap, then the words as they show.
+      aloud={questionAloudText([question, prompt, ...tiles.map((choice) => choice.label)])}
+      praiseSeed={praiseSeed}
+      playSound={playSound}
+      continueSound={continueSound}
+      bottomInset={bottomInset}
+      onCheck={onCheck}
+      onContinue={onContinue}
+      testID={testID ?? "gap-game"}
+    >
       <GameCue label={t("Fill in the gap")} review={review} attempt={attempt} accent={accent} />
       <QuestionBubble prompt={question ?? t("Drag the right word into the gap!")} mascotVariant={mascotVariant} accent={accent} mood={mood} hideMascot={compact} pick={selectedChoiceId} />
       <PopIn from="up" delay={80}>

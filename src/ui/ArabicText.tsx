@@ -24,6 +24,11 @@ export function isArabicOnly(text: string | null | undefined): boolean {
   return hasArabic(text) && !LATIN_LETTER_PATTERN.test(text as string);
 }
 
+/** True for text written in the Quran's own (Uthmani) spelling, with its pause and annotation marks. */
+export function hasQuranMarks(text: string | null | undefined): boolean {
+  return typeof text === "string" && QURANIC_MARKS.test(text);
+}
+
 /** True for Quran text (Uthmani marks) or a long Arabic paragraph: both read best in the Naskh face. */
 export function isQuranText(text: string | null | undefined): boolean {
   return typeof text === "string" && (QURANIC_MARKS.test(text) || text.trim().length > 60);

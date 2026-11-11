@@ -19,6 +19,7 @@ import { QuestionBubble, useLessonCompact, type ExerciseChoice, type ExerciseRes
 import { CORRECT_TEXT, WRONG_TEXT } from "./FeedbackSheet";
 import { PANEL_GAP, mapLevelFor, mapPlanFor, mapSizes, mapViewFor, placeLabels, zoneBox, type LabelBox, type PlacedLabel } from "./mapQuestions";
 import { GameCue, GameFrame, useGameRoom } from "./WordGames";
+import { questionAloudText } from "./questionAloud";
 
 /**
  * A place question asked on a map (see mapQuestions.ts): each answer stands at its real place, drawn the way the
@@ -79,12 +80,14 @@ function closeTitle(placeIds: string[]) {
 }
 
 export function MapGame(props: MapGameProps) {
-  const { prompt, selectedChoiceId, result, onCheck, onContinue, praiseSeed, playSound, continueSound, bottomInset } = props;
+  const { prompt, choices, selectedChoiceId, result, onCheck, onContinue, praiseSeed, playSound, continueSound, bottomInset } = props;
   return (
     <GameFrame
       ready={Boolean(selectedChoiceId)}
       result={result}
       prompt={prompt}
+      // Read out: the question, then the places to tap.
+      aloud={questionAloudText([prompt, ...choices.map((choice) => choice.label)])}
       praiseSeed={praiseSeed}
       playSound={playSound}
       continueSound={continueSound}

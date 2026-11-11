@@ -13,6 +13,8 @@ import { LessonBottomBar } from "./LessonHeader";
 import { noBreakHyphens } from "./lessonText";
 import { useScrollMore } from "./ScrollHint";
 import { sheetRoom, type LayoutBox } from "./sheetFit";
+import { questionAloudText, useQuestionAloud } from "./questionAloud";
+import { WithReadAloud } from "./ReadAloudButton";
 import { t } from "../../i18n";
 import { textScaled } from "../textScale";
 
@@ -327,6 +329,8 @@ export function OrderGame({
   const toneAt = (id: string, index: number): ChipTone =>
     checked === null ? "placed" : correctOrderIds[index] === id ? "correct" : "wrong";
   const mood: MascotMood = checked === null ? "think" : checked ? "cheer" : "sad";
+  // The speaker by CHECK: the teacher reads the task, then the steps as the bank shows them.
+  const reader = useQuestionAloud(questionAloudText([prompt, ...bank.map((option) => option.label)]), checked !== null);
   // A miss lists the right order at once (one numbered column), so nobody has to guess it.
   const correctList = sheet.correct ? undefined : correctOrderIds.map((id) => byId.get(id)?.label ?? id);
   const missedRows = sheet.correct ? undefined : sheet.missed;
@@ -343,7 +347,7 @@ export function OrderGame({
             onLayout={(event) => setPromptBox({ y: Math.round(event.nativeEvent.layout.y), height: Math.round(event.nativeEvent.layout.height) })}
             testID="order-prompt"
           >
-            <QuestionBubble prompt={prompt} mascotVariant={mascotVariant} accent={accent} mood={mood} hideMascot={compact} />
+            <QuestionBubble prompt={prompt} mascotVariant={mascotVariant} accent={accent} mood={mood} hideMascot={compact} talkMs={reader.talkMs ?? 0} />
           </View>
 
           <Animated.View
@@ -402,8 +406,10 @@ export function OrderGame({
 
       <View onLayout={(event) => setBarHeight(Math.round(event.nativeEvent.layout.height))}>
         <LessonBottomBar bottomInset={bottomInset} scrollHint={{ visible: more && checked === null, onPress: scrollDown }}>
-          {/* The result sound plays when the sheet opens, so CHECK itself stays quiet. */}
-          <GameButton label={t("Check")} fullWidth sound={false} disabled={!ready || checked !== null} onPress={check} testID="order-check" />
+          <WithReadAloud onRead={reader.onRead} reading={reader.reading} testID="question-read-aloud">
+            {/* The result sound plays when the sheet opens, so CHECK itself stays quiet. */}
+            <GameButton label={t("Check")} fullWidth sound={false} disabled={!ready || checked !== null} onPress={check} testID="order-check" />
+          </WithReadAloud>
         </LessonBottomBar>
       </View>
 
