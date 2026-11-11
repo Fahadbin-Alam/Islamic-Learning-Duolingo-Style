@@ -1,12 +1,14 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { SvgXml } from "react-native-svg";
-import { surahHasDrawing, surahPictureXml } from "../../data/surahPictures";
+import { surahHasDrawing, surahPictureXml, surahScene } from "../../data/surahPictures";
 import { t } from "../../i18n";
 import { ArabicText, withHonorifics } from "../ArabicText";
 import { PopIn } from "../PopIn";
 import { colors, fonts, radii, space, topicPalette } from "../theme";
 import { noBreakHyphens } from "./lessonText";
+import { LiveFrame } from "./LivePicture";
+import { sceneLife } from "./pictureLife";
 
 const SHOWN_PARTS = 5;
 
@@ -19,7 +21,10 @@ export function SurahCover({ surah, meaning, arabicName, short }: { surah: numbe
   return (
     <PopIn style={[styles.wrap, short ? styles.wrapShort : null]}>
       <View style={[styles.picture, short ? styles.pictureShort : null]} testID="surah-cover" accessible accessibilityRole="image" accessibilityLabel={meaning ? t(meaning) : undefined}>
-        <SvgXml xml={surahPictureXml(surah)} width="100%" height="100%" preserveAspectRatio="xMidYMid slice" />
+        {/* The picture lives: the camera drifts and birds, clouds or waves move to match its sky. */}
+        <LiveFrame aspect={16 / 9} life={sceneLife(drawn ? surahScene(surah) : undefined)}>
+          <SvgXml xml={surahPictureXml(surah)} width="100%" height="100%" preserveAspectRatio="xMidYMid slice" />
+        </LiveFrame>
         {!drawn && arabicName ? (
           <View style={styles.lettersBox} pointerEvents="none">
             <ArabicText size={short ? 30 : 38} weight="bold" color={colors.ink} testID="surah-cover-arabic">

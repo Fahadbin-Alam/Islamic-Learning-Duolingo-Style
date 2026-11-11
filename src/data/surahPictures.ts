@@ -635,3 +635,9 @@ export const SURAH_PICTURE_SIZE = { width: W, height: H };
 export function surahParts(surah: number): string[] {
   return ALL_SURAH_MEANINGS.find((each) => each.surah === surah)?.passages.map((passage) => passage.title) ?? [];
 }
+
+/** The kind of sky a surah's picture has (day, night, dawn, dusk, sea), so it can be given matching life; undefined for a letters card. */
+export function surahScene(surah: number): Scene | undefined {
+  const name = SURAH_MOTIF[surah];
+  return name ? M[name]?.scene : undefined;
+}
