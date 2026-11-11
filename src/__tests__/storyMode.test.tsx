@@ -25,6 +25,7 @@ jest.mock("../services/islamicNotifications", () => ({
 }));
 
 import React from "react";
+import { ScrollView } from "react-native";
 import { act, fireEvent, render, screen } from "@testing-library/react-native";
 import TopicApp from "../TopicApp";
 import { PRACTICE_XP_PER_CORRECT_ANSWER } from "../api/islamicLearningApi";
@@ -34,7 +35,7 @@ import { SEERAH_UNITS } from "../data/seerahUnits";
 import { MAX_SCENES, partSizes, sceneAnswers, STORIES } from "../data/stories";
 import { getStoredItem, removeStoredItem, setStoredItem } from "../services/appStorage";
 import { recordStoryRead, STORY_FIRST_READ_XP, storyXp } from "../services/stories";
-import { storySteps } from "../ui/screens";
+import { StorySheet, storySteps } from "../ui/screens";
 import type { UserProfile } from "../types";
 import { makeUser } from "./testUtils";
 
@@ -157,5 +158,66 @@ describe("Story mode (screens)", () => {
     await press("story-shelf-sahaba");
     expect(screen.getByTestId("story-list-sahaba")).toBeTruthy();
     await press("story-sheet-close");
+  });
+});
+
+describe("Story mode on a small phone", () => {
+  // React's act waits on microtasks, so those stay real.
+  beforeEach(() => jest.useFakeTimers({ doNotFake: ["nextTick", "setImmediate", "queueMicrotask"] }));
+  afterEach(() => jest.useRealTimers());
+
+  it("brings each new step into sight from its top, so a long scene is read from its heading and picture", async () => {
+    const story = STORIES.find((item) => item.group === "seerah")!;
+    const steps = storySteps(story);
+    expect(steps.slice(0, 3).map((step) => step.kind)).toEqual(["scene", "scene", "question"]);
+    const scrollTo = jest.spyOn(ScrollView.prototype as unknown as { scrollTo: (options: object) => void }, "scrollTo");
+    scrollTo.mockClear();
+    const scrolls = () => scrollTo.mock.calls.map(([options]) => options as { y: number; animated?: boolean }).filter((options) => options.animated);
+    const settle = () =>
+      act(async () => {
+        jest.advanceTimersByTime(120);
+      });
+    const layout = async (testID: string, y: number, height: number) => {
+      await fireEvent(screen.getByTestId(testID), "layout", { nativeEvent: { layout: { x: 0, y, width: 288, height } } });
+    };
+    const contentHeight = async (height: number) => {
+      await fireEvent(screen.getByTestId("story-scroll"), "contentSizeChange", 288, height);
+    };
+    try {
+      await render(
+        <StorySheet visible onClose={jest.fn()} stories={STORIES} readIds={new Set()} storyId={story.id} language="en" mascotVariant="girl" accent="#21B573" onFinish={() => 0} />
+      );
+      // The page's window is 300 tall. The first scene (520) starts at the top.
+      await layout("story-scroll", 0, 300);
+      await layout("story-step-0", 0, 520);
+      await contentHeight(520);
+      await settle();
+      expect(scrolls()).toEqual([]);
+
+      // The next scene is taller than the window: it comes into sight from its top, not from its end.
+      await press("story-continue");
+      await layout("story-step-1", 536, 640);
+      await contentHeight(1200);
+      await settle();
+      expect(scrolls().pop()).toEqual({ y: 528, animated: true });
+
+      // A short step: the page goes to its end, the scene before it still in sight above it.
+      await press("story-continue");
+      await layout("story-step-2", 1192, 260);
+      await contentHeight(1476);
+      await settle();
+      expect(scrolls().pop()).toEqual({ y: 1176, animated: true });
+
+      // The right answer: the page goes to its end, where the answer's why is.
+      const step = steps[2];
+      if (step.kind !== "question") throw new Error("the third step is a question");
+      await press(`story-choice-${step.question.id}-${step.question.correctChoiceId}`);
+      expect(screen.getByTestId(`story-why-${step.question.id}`)).toBeTruthy();
+      await contentHeight(1560);
+      await settle();
+      expect(scrolls().pop()).toEqual({ y: 1260, animated: true });
+    } finally {
+      scrollTo.mockRestore();
+    }
   });
 });
