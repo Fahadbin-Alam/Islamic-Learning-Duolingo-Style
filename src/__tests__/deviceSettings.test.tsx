@@ -113,3 +113,37 @@ describe("this phone's settings", () => {
     }
   });
 });
+
+describe("smooth on slower phones", () => {
+  const { looksLikeSlowPhone, framesLookSlow, setLiteMotionForTests } = jest.requireActual("../ui/liteMotion") as typeof import("../ui/liteMotion");
+
+  afterEach(() => setLiteMotionForTests(false));
+
+  it("counts old or low-resolution Androids as slow, never iPhones", () => {
+    expect(looksLikeSlowPhone("android", 26, 2.75)).toBe(true);
+    expect(looksLikeSlowPhone("android", 33, 1.5)).toBe(true);
+    expect(looksLikeSlowPhone("android", 33, 2.75)).toBe(false);
+    expect(looksLikeSlowPhone("ios", "15.0", 1)).toBe(false);
+  });
+
+  it("reads a slow frame rate from the middle frame, so one hiccup does not count", () => {
+    expect(framesLookSlow(Array.from({ length: 60 }, () => 16.7))).toBe(false);
+    expect(framesLookSlow([...Array.from({ length: 50 }, () => 16.7), ...Array.from({ length: 10 }, () => 200)])).toBe(false);
+    expect(framesLookSlow(Array.from({ length: 60 }, () => 33))).toBe(true);
+    expect(framesLookSlow([40, 40])).toBe(false);
+  });
+
+  it("a picture on a slow phone keeps only its first two moving things", async () => {
+    const { LiveFrame } = jest.requireActual("../ui/lesson/LivePicture") as typeof import("../ui/lesson/LivePicture");
+    // Four clouds: each draws one view, so the count is the number of moving things kept.
+    const life = [0.15, 0.17, 0.19, 0.21].map((y) => ({ kind: "cloud" as const, y }));
+    setLiteMotionForTests(true);
+    await render(
+      <LiveFrame aspect={4 / 3} life={life}>
+        <Text>picture</Text>
+      </LiveFrame>
+    );
+    await fireEvent(screen.getByTestId("live-frame"), "layout", { nativeEvent: { layout: { width: 320, height: 240 } } });
+    expect(screen.getByTestId("picture-life").children).toHaveLength(2);
+  });
+});

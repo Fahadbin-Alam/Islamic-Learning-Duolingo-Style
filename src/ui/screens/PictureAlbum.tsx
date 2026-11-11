@@ -13,6 +13,8 @@ import { formatNumber } from "./FormattedCount";
 import { useBackToClose } from "./sheetParts";
 
 const COLUMNS = 3;
+/** A caption under a picture: its margin and two lines. */
+const CAPTION_HEIGHT = 4 + 2 * 16;
 
 /** Every picture the album can hold, in the app's own order. */
 export const ALBUM_PICTURES: LessonPicture[] = LESSON_PICTURE_IDS.map((id) => getLessonPicture(id)).filter((picture): picture is LessonPicture => Boolean(picture));
@@ -26,12 +28,21 @@ export function PictureAlbumSheet({ visible, onClose, topGap = 40, bottomInset =
   const found = useAlbum();
   const { width } = useWindowDimensions();
   const [open, setOpen] = useState<LessonPicture | null>(null);
+  // Only the rows on screen move: a full album is dozens of living pictures, too many to run at once on a phone.
+  const [view, setView] = useState({ top: 0, height: 0 });
   const foundSet = new Set(found);
   const count = ALBUM_PICTURES.filter((picture) => foundSet.has(picture.id)).length;
   // Found first (newest last, as an album fills), then the ones still to find.
   const shown = [...ALBUM_PICTURES.filter((picture) => foundSet.has(picture.id)).sort((a, b) => found.indexOf(a.id) - found.indexOf(b.id)), ...ALBUM_PICTURES.filter((picture) => !foundSet.has(picture.id))];
   const inner = Math.min(560, (width || 390) - 2 * space.lg);
   const size = Math.floor((inner - (COLUMNS - 1) * space.sm) / COLUMNS);
+  const rowHeight = size + CAPTION_HEIGHT + space.sm;
+  const onScreen = (index: number) => {
+    // Before the list knows its height, the first rows count as shown.
+    const bottom = view.top + (view.height || 3 * rowHeight);
+    const top = Math.floor(index / COLUMNS) * rowHeight;
+    return top + rowHeight > view.top - rowHeight / 2 && top < bottom + rowHeight / 2;
+  };
   return (
     <Sheet visible={visible} onClose={onClose} bottomInset={0} style={[styles.sheet, { top: topGap, paddingBottom: 0 }]} testID="album-sheet">
       <View style={styles.header}>
@@ -46,12 +57,24 @@ export function PictureAlbumSheet({ visible, onClose, topGap = 40, bottomInset =
         {t("{count} of {total} found", { count: formatNumber(count), total: formatNumber(ALBUM_PICTURES.length) })}
       </Text>
       <ProgressBar progress={ALBUM_PICTURES.length ? count / ALBUM_PICTURES.length : 0} />
-      <ScrollView style={styles.scroll} contentContainerStyle={[styles.grid, { paddingBottom: 32 + bottomInset }]} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={styles.scroll}
+        onLayout={(event) => {
+          const height = event.nativeEvent.layout.height;
+          setView((was) => (was.height === height ? was : { ...was, height }));
+        }}
+        onScroll={(event) => {
+          const top = Math.max(0, event.nativeEvent.contentOffset.y);
+          // A new row every so often is enough: the half-row margin covers the rest.
+          setView((was) => (Math.abs(was.top - top) < rowHeight / 3 ? was : { ...was, top }));
+        }}
+        scrollEventThrottle={64}
+        contentContainerStyle={[styles.grid, { paddingBottom: 32 + bottomInset }]} showsVerticalScrollIndicator={false}>
         {!count ? <Text style={styles.empty}>{t("Finish lessons to collect the pictures of the places and things they teach.")}</Text> : null}
-        {shown.map((picture) =>
+        {shown.map((picture, index) =>
           foundSet.has(picture.id) ? (
             <Tappable key={picture.id} onPress={() => setOpen(picture)} accessibilityLabel={t(picture.caption)} accessibilityHint={t("Shows the photo bigger")} style={{ width: size }} pressScale={0.95} testID="album-found">
-              <AlbumThumb picture={picture} size={size} />
+              <AlbumThumb picture={picture} size={size} still={!onScreen(index)} />
               <Text style={styles.caption} numberOfLines={2}>
                 {t(picture.caption)}
               </Text>

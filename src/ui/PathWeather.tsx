@@ -2,6 +2,7 @@ import React, { memo, useEffect, useRef, useState } from "react";
 import { Animated, Easing, Pressable, StyleSheet, View } from "react-native";
 import Svg, { Circle, Defs, Ellipse, G, LinearGradient, Path, Rect, Stop } from "react-native-svg";
 import { useReduceMotion } from "./Camel";
+import { useLiteMotion } from "./liteMotion";
 import type { GameSoundEvent } from "../services/gameSoundLibrary";
 import { sampleCurve, smoothKeys } from "./motion";
 import { Drop, Floater, Heart, Sparkle, Word, shake, useCycle, useOneShot } from "./reactions";
@@ -564,7 +565,9 @@ export function skyShrink(height: number) {
 
 export const PathWeather = memo(function PathWeather({ weather, world = "desert", width, height, animated = false, meteor = animated, window: span }: PathWeatherProps) {
   const reduceMotion = useReduceMotion();
-  const moving = animated && !reduceMotion;
+  // A slow phone (lite motion) keeps the drifting clouds but leaves out the extras near the learner.
+  const lite = useLiteMotion();
+  const moving = animated && !reduceMotion && !lite;
   // Clouds and the place's strip always move (cheap loops on the native driver); the rest only near the learner.
   const drifting = !reduceMotion;
   const sky = SKIES[weather];
