@@ -174,6 +174,15 @@ export function AlbumThumb({ picture, size, testID, still }: { picture: LessonPi
   );
 }
 
+/** A wide living picture with no caption, for a card that is dragged about (the swipe sprint's): nothing to tap. */
+export function CardPicture({ picture, height, testID }: { picture: LessonPicture; height: number; testID?: string }) {
+  return (
+    <View style={[styles.cardPicture, { height }]} testID={testID} accessible accessibilityRole="image" accessibilityLabel={t(picture.caption)}>
+      <LiveImage picture={picture} />
+    </View>
+  );
+}
+
 /** A square photo the size of the mascot, next to a question that names the place. Tapping it shows it large. */
 export function QuestionPhoto({ picture, size }: { picture: LessonPicture; size: number }) {
   const [open, setOpen] = useState(false);
@@ -195,6 +204,12 @@ export function QuestionPhoto({ picture, size }: { picture: LessonPicture; size:
 }
 
 const styles = StyleSheet.create({
+  cardPicture: {
+    alignSelf: "stretch",
+    borderRadius: 14,
+    overflow: "hidden",
+    backgroundColor: colors.mist
+  },
   photoWrap: {
     alignSelf: "stretch",
     marginTop: space.lg,

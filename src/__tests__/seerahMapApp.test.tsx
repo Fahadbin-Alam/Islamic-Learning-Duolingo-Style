@@ -25,7 +25,7 @@ jest.mock("../services/islamicNotifications", () => ({
 }));
 
 import React from "react";
-import { act, fireEvent, render, screen } from "@testing-library/react-native";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react-native";
 import TopicApp from "../TopicApp";
 import { learningApi } from "../api/islamicLearningApi";
 import { removeStoredItem, setStoredItem } from "../services/appStorage";
@@ -79,7 +79,8 @@ describe("the Seerah maps in the app", () => {
     expect(await screen.findByTestId("life-map-sheet", undefined, SLOW)).toBeTruthy();
     expect(screen.getByTestId("life-map-title")).toHaveTextContent("Seerah: the early years");
     await press("life-map-close");
-    expect(screen.queryByTestId("life-map-title")).toBeNull();
+    // The sheet leaves once its slide-away ends, on a timer: a fast machine is done with the press before that.
+    await waitFor(() => expect(screen.queryByTestId("life-map-title")).toBeNull(), SLOW);
   });
 
   it("leaves other paths without it", async () => {

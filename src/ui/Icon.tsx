@@ -65,7 +65,8 @@ export type IconName =
   | "date"
   | "quill"
   | "rose"
-  | "gift";
+  | "gift"
+  | "stopwatch";
 
 export type IconProps = {
   name: IconName;
@@ -643,6 +644,19 @@ const ICONS: Record<IconName, Drawer> = {
       <Rect x={10.6} y={7.4} width={2.8} height={14} {...t.d(C.gold)} />
       <Path d="M12 7.4c-1.6-3.6-5.4-4.4-5.8-2.4-.4 1.8 2.8 2.6 5.8 2.4zM12 7.4c1.6-3.6 5.4-4.4 5.8-2.4.4 1.8-2.8 2.6-5.8 2.4z" {...t.f(C.gold)} />
       <Shine t={t} d="M4.8 12.2h1.2v6.4H4.8z" />
+    </G>
+  ),
+  // A stopwatch with its button on top: the swipe sprint's minute.
+  stopwatch: (t) => (
+    <G>
+      <Rect x={10} y={1.6} width={4} height={2.8} rx={1} {...t.f(C.grayDeep)} />
+      <Path d="M17.8 5.4 19.6 3.6" strokeWidth={2.2} strokeLinecap="round" {...t.s(C.grayDeep)} />
+      <Circle cx={12} cy={13.4} r={8.8} {...t.f(C.gem)} />
+      <Circle cx={12} cy={13.4} r={6.8} {...t.d("#FFFFFF")} />
+      <Path d="M12 13.4V8.4" strokeWidth={2} strokeLinecap="round" {...t.ds(C.heart)} />
+      <Path d="M12 13.4l3.2 2.1" strokeWidth={2} strokeLinecap="round" {...t.ds(C.ink)} />
+      <Circle cx={12} cy={13.4} r={1.3} {...t.d(C.ink)} />
+      <Shine t={t} d="M6.4 9.6c.9-1.6 2.3-2.8 4-3.4l.3.8c-1.5.6-2.7 1.6-3.5 3z" />
     </G>
   ),
   moon: (t) => (

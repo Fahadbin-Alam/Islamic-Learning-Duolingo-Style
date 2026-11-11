@@ -270,6 +270,8 @@ import { biggestFirst, buildCertificates, certificateProgress, earnedCertificate
 import { CertificatePop, CertificatesSheet } from "./ui/screens/Certificates";
 import { ALBUM_PICTURES, PictureAlbumSheet } from "./ui/screens/PictureAlbum";
 import { SayItSheet } from "./ui/screens/SayItSheet";
+import { SprintSheet, type SprintFinish } from "./ui/screens/SprintSheet";
+import { canSprint, sprintCards, useSprintRecord } from "./services/swipeSprint";
 import { addToAlbum, albumPictureIds, useAlbum } from "./services/pictureAlbum";
 import { setsFinishedBy, type AlbumSet } from "./data/albumSets";
 import { isUpdateAvailable, openStore } from "./services/appUpdate";
@@ -1334,6 +1336,9 @@ export default function TopicApp() {
   const [certificatesSheetVisible, setCertificatesSheetVisible] = useState(false);
   const [albumVisible, setAlbumVisible] = useState(false);
   const [sayItVisible, setSayItVisible] = useState(false);
+  // The swipe sprint in Practice, and the best one on this phone for its row.
+  const [sprintVisible, setSprintVisible] = useState(false);
+  const sprintBest = useSprintRecord().best;
   const albumFound = useAlbum();
   const certificatesBefore = useRef<{ userId?: number; ids?: Set<string> }>({});
   useEffect(() => {
@@ -1406,6 +1411,17 @@ export default function TopicApp() {
     dispatch({ type: "apply_user_latest", update: (latest) => withExperienceDefaults(recordStoryRead(latest, storyId, firstTryRight).user) });
     return record.xp;
   };
+  // A sprint played to the end pays its practice XP, which keeps the streak as practice does. Nothing for no XP.
+  const finishSprint = ({ xp }: SprintFinish) => {
+    if (!state.user || xp <= 0) return;
+    const now = new Date();
+    dispatch({
+      type: "apply_user_latest",
+      update: (latest) => withExperienceDefaults({ ...keepStreak(addXp(latest, xp, now), now), lastLearningAt: now.toISOString() })
+    });
+  };
+  const completedLessonIds = state.user?.completedLessonIds;
+  const sprintReady = useMemo(() => Boolean(completedLessonIds && canSprint({ completedLessonIds })), [completedLessonIds]);
   const pickerTopics = useMemo<TopicPickerTopic[]>(() => {
     const completed = new Set(state.user?.completedNodeIds ?? []);
     const topics = localizedSections.map((section) => ({
@@ -1724,7 +1740,9 @@ export default function TopicApp() {
     selectedSection.topicId === "foundation";
   const otherSheetOpen =
     Boolean(outOfHearts?.open || rewardCelebration || testOutResult?.open) ||
-    topicPickerVisible || settingsModalVisible || languageModalVisible || prayerModalVisible || noticeOpen || familyVisible;
+    topicPickerVisible || settingsModalVisible || languageModalVisible || prayerModalVisible || noticeOpen || familyVisible ||
+    // Practice's own sheets too: nothing pops up over a story, a quiz list or a sprint against the clock.
+    quizSheetVisible || Boolean(storyShelf) || lifeMapOpen || albumVisible || sayItVisible || sprintVisible;
 
   useEffect(() => {
     const busy = state.screen.startsWith("lesson_") || state.screen === "assessment";
@@ -4228,6 +4246,8 @@ export default function TopicApp() {
             onOpenQuizzes={() => setQuizSheetVisible(true)}
             onOpenStories={() => setStoryShelf(storyGroupFor(selectedSection.topicId) ?? "seerah")}
             onOpenSayIt={() => setSayItVisible(true)}
+            onOpenSprint={sprintReady ? () => setSprintVisible(true) : undefined}
+            sprintBest={sprintBest}
             quizBest={getQuizScore(state.user, { kind: "topic", topicId: selectedSection.topicId })?.best}
             onGoFoundation={() => openTopicScreen("foundation")}
           />
@@ -4387,6 +4407,16 @@ export default function TopicApp() {
             mascotVariant={selectedSection.mascot}
             accent={selectedSection.accentColor}
             soundOn={state.user?.soundEffectsEnabled !== false}
+          />
+        )}
+        {!inLesson && state.user && (
+          <SprintSheet
+            visible={sprintVisible}
+            onClose={() => setSprintVisible(false)}
+            makeCards={() => (state.user ? sprintCards(state.user, { language: currentLanguage, seed: Date.now() }) : [])}
+            onFinish={finishSprint}
+            mascotVariant={selectedSection.mascot}
+            accent={selectedSection.accentColor}
           />
         )}
         {!inLesson && (

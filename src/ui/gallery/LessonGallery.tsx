@@ -1,5 +1,5 @@
 import { Teacher, teacherFor } from "../lesson/Teacher";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import { getLessonArabic, NODE_ARABIC } from "../../data/arabicTerms";
 import { COURSE, LESSONS_BY_ID } from "../../data/course";
@@ -11,6 +11,8 @@ import { ALBUM_SETS } from "../../data/albumSets";
 import { addToAlbum } from "../../services/pictureAlbum";
 import { PictureAlbumSheet } from "../screens/PictureAlbum";
 import { SayItSheet } from "../screens/SayItSheet";
+import { SprintSheet } from "../screens/SprintSheet";
+import { recordSprint, sprintCards, sprintRecord } from "../../services/swipeSprint";
 import { markWordSaid } from "../../services/saidWords";
 import { surahNumberForTitle, surahParts } from "../../data/surahPictures";
 import { localizeLessonContent } from "../../services/contentLocalization";
@@ -330,6 +332,26 @@ function SayItDemo() {
   return <SayItSheet visible onClose={noop} mascotVariant="girl" accent={FOUNDATION_ACCENT} soundOn={false} />;
 }
 
+/**
+ * The swipe sprint after forty lessons, with a best of 12 kept: #gallery-lesson-sprint (?lang=bn, ur or ar). Each
+ * game is six cards, the first with a living picture when one has it, so it can be played to its end in a few taps.
+ */
+function SprintDemo() {
+  const query = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("lang") : null;
+  const language = (["en", "bn", "ur", "ar"].includes(query ?? "") ? query : "en") as SupportedLanguage;
+  setActiveLanguage(language);
+  useState(() => (sprintRecord().best < 12 ? recordSprint(12) : false));
+  const lessonIds = allLessons.slice(0, 40).map((lesson) => lesson.id);
+  const game = useRef(0);
+  const makeCards = () => {
+    game.current += 1;
+    const cards = sprintCards({ completedLessonIds: lessonIds }, { language, seed: 7 + game.current });
+    const pictured = cards.find((card) => card.pictureId);
+    return (pictured ? [pictured, ...cards.filter((card) => card !== pictured)] : cards).slice(0, 6);
+  };
+  return <SprintSheet visible onClose={noop} makeCards={makeCards} mascotVariant="girl" accent={FOUNDATION_ACCENT} />;
+}
+
 /** Every lesson picture, living (birds, clouds, rain, ants...), and a few surah covers: #gallery-lesson-pictures. */
 function PictureWall() {
   const pictures = LESSON_PICTURE_IDS.map((id) => getLessonPicture(id)).filter((picture) => picture !== undefined);
@@ -573,6 +595,7 @@ const STATES: State[] = [
   },
   { id: "album", render: () => <AlbumDemo /> },
   { id: "say-it", render: () => <SayItDemo /> },
+  { id: "sprint", render: () => <SprintDemo /> },
   {
     id: "match",
     render: () => (
