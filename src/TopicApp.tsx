@@ -4194,6 +4194,8 @@ export default function TopicApp() {
             stars={lessonCompleteSummary.stars}
             streakDays={lessonCompleteSummary.streakDays}
             streakExtended={lessonCompleteSummary.streakExtended}
+            // The day's first lesson: the streak moment comes before the next lesson or the path.
+            streakMoment={{ today: localDateKey(), frozenDays: state.user.frozenDays }}
             goal={{ xpToday: getXpToday(state.user), goalXp: state.user.dailyGoalXp }}
             unlockedTitle={lessonCompleteSummary.unlockedTitle}
             gemsReward={lessonCompleteSummary.gemsReward}

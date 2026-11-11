@@ -984,5 +984,19 @@
   "+{count} seconds!": "+{count} سیکنڈ!",
   "True or false?": "درست یا غلط؟",
   "Right or not? Swipe fast for one minute": "درست یا نہیں؟ ایک منٹ تک تیزی سے سوائپ کریں",
-  "Read it to me": "مجھے پڑھ کر سنائیں"
+  "Read it to me": "مجھے پڑھ کر سنائیں",
+  "Mon": "پیر",
+  "Tue": "منگل",
+  "Wed": "بدھ",
+  "Thu": "جمعرات",
+  "Fri": "جمعہ",
+  "Sat": "ہفتہ",
+  "Sun": "اتوار",
+  "You started a streak! Come back tomorrow to keep it going.": "آپ نے اسٹریک شروع کر دی! اسے جاری رکھنے کے لیے کل واپس آئیں۔",
+  "A whole week in a row! MashaAllah!": "لگاتار پورا ایک ہفتہ! ماشاءاللہ!",
+  "A whole month in a row! MashaAllah!": "لگاتار پورا ایک مہینہ! ماشاءاللہ!",
+  "A whole year in a row! MashaAllah!": "لگاتار پورا ایک سال! ماشاءاللہ!",
+  "{count} days in a row! MashaAllah!": "لگاتار {count} دن! ماشاءاللہ!",
+  "Come back tomorrow to make it {count}!": "کل واپس آ کر اسے {count} بنائیں!",
+  "The deeds Allah loves most are done regularly, even if small.": "اللہ کو سب سے پسندیدہ عمل وہ ہے جو پابندی سے کیا جائے، چاہے تھوڑا ہو۔"
 }

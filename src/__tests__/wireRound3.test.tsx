@@ -47,7 +47,7 @@ import {
 } from "../services/foundationAssessment";
 import type { Challenge, FoundationAssessmentState, UserProfile } from "../types";
 import { finishLessonRight, questionOnScreen, toQuestion } from "./lessonDriver";
-import { makeUser } from "./testUtils";
+import { leaveComplete, makeUser } from "./testUtils";
 
 const PROFILE_KEY = "sira-path-user-profile";
 const TODAY_HEARTS = (unlimited: boolean) => ({ current: 5, max: 5, unlimited, lastRefillDate: localToday() });
@@ -276,7 +276,7 @@ describe("path circles and lesson cards", () => {
     expect(savedUser().nodeStars?.[node.id]).toBe(2);
 
     // A finished circle pays nothing again, so its button says just PRACTICE.
-    await press("complete-back");
+    await leaveComplete("complete-back");
     await press(`path-node-${node.id}`);
     expect(screen.getByTestId("node-card-start")).toHaveTextContent(/^practice$/i);
   });

@@ -36,7 +36,7 @@ import { certificateShareMessage } from "../services/shareApp";
 import { CertificateCard, CertificatesSheet, certificateDate } from "../ui/screens/Certificates";
 import type { LearningNodeView, UserProfile } from "../types";
 import { finishLessonRight } from "./lessonDriver";
-import { makeUser } from "./testUtils";
+import { leaveComplete, makeUser } from "./testUtils";
 
 // Fahad picked certificates: finishing a big unit (Juz Amma, the Seerah) gives a card to share, which brings in new users.
 
@@ -178,7 +178,7 @@ describe("earning one in the app", () => {
     expect(await screen.findByTestId("lesson-complete")).toBeTruthy();
     // Not over the Lesson complete screen.
     expect(screen.queryByTestId("certificate-pop")).toBeNull();
-    await press("complete-continue");
+    await leaveComplete("complete-continue");
 
     expect(await screen.findByTestId("certificate-pop")).toBeTruthy();
     expect(screen.getByTestId("certificate-earned")).toBeTruthy();

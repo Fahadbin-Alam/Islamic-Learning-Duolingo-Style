@@ -12,6 +12,9 @@ import { addToAlbum } from "../../services/pictureAlbum";
 import { PictureAlbumSheet } from "../screens/PictureAlbum";
 import { SayItSheet } from "../screens/SayItSheet";
 import { SprintSheet } from "../screens/SprintSheet";
+import { StreakMoment } from "../lesson/StreakMoment";
+import { localDateKey } from "../../api/islamicLearningApi";
+import { shiftDateKey } from "../../services/familyCode";
 import { recordSprint, sprintCards, sprintRecord } from "../../services/swipeSprint";
 import { markWordSaid } from "../../services/saidWords";
 import { surahNumberForTitle, surahParts } from "../../data/surahPictures";
@@ -332,6 +335,24 @@ function SayItDemo() {
   return <SayItSheet visible onClose={noop} mascotVariant="girl" accent={FOUNDATION_ACCENT} soundOn={false} />;
 }
 
+/** The streak moment for a streak of `days` (?lang=bn, ur or ar), today in this week, with a freeze some days ago. */
+function StreakDemo({ days, frozenDaysAgo, variant = "girl" }: { days: number; frozenDaysAgo?: number; variant?: string }) {
+  const query = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("lang") : null;
+  setActiveLanguage((["en", "bn", "ur", "ar"].includes(query ?? "") ? query : "en") as SupportedLanguage);
+  const today = localDateKey();
+  return (
+    <StreakMoment
+      days={days}
+      today={today}
+      frozenDays={frozenDaysAgo ? [shiftDateKey(today, -frozenDaysAgo)] : undefined}
+      mascotVariant={variant}
+      accent={variant === "boy" ? PRAYER_ACCENT : FOUNDATION_ACCENT}
+      playSounds={false}
+      onContinue={noop}
+    />
+  );
+}
+
 /**
  * The swipe sprint after forty lessons, with a best of 12 kept: #gallery-lesson-sprint (?lang=bn, ur or ar). Each
  * game is six cards, the first with a living picture when one has it, so it can be played to its end in a few taps.
@@ -646,6 +667,29 @@ const STATES: State[] = [
         nextTitle="Next"
         mascotVariant="boy"
         accent={PRAYER_ACCENT}
+        playSounds={false}
+        onContinue={noop}
+        onBackToPath={noop}
+      />
+    )
+  },
+  // The streak moment after the day's first lesson: a plain day (with a freeze two days ago), a first streak, a week.
+  { id: "streak", render: () => <StreakDemo days={5} frozenDaysAgo={2} /> },
+  { id: "streak-first", render: () => <StreakDemo days={1} variant="boy" /> },
+  { id: "streak-week", render: () => <StreakDemo days={7} /> },
+  {
+    id: "complete-streak",
+    render: () => (
+      <LessonComplete
+        title={salam.title}
+        xp={salam.xpReward}
+        stars={3}
+        streakDays={5}
+        streakExtended
+        streakMoment={{ today: localDateKey() }}
+        nextTitle="Next"
+        mascotVariant="girl"
+        accent={FOUNDATION_ACCENT}
         playSounds={false}
         onContinue={noop}
         onBackToPath={noop}
