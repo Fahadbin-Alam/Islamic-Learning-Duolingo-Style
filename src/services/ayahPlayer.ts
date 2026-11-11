@@ -17,6 +17,8 @@ export type AyahPlayback = {
 
 /** A recitation that has not started this long after Listen is shown as "could not load". */
 export const AYAH_LOAD_TIMEOUT_MS = 12000;
+/** How often the player reports where it is. */
+const AYAH_STATUS_INTERVAL_MS = 100;
 
 // Loaded on the first Listen, so screens that never play an ayah do not start the audio module.
 const expoAudio = () => require("expo-audio") as typeof import("expo-audio");
@@ -98,7 +100,9 @@ export function playAyah(url: string, { once = false }: { once?: boolean } = {})
     void setAudioModeAsync({ playsInSilentMode: true, interruptionMode: "mixWithOthers" }).catch(() => undefined);
     const source = saved ?? url;
     if (!player) {
-      player = createAudioPlayer(source);
+      // Status every 100 ms, not the default 500: the web player only reports "playing" on such an update, and the
+      // first word of an ayah (often under half a second) should light up while it is recited (RecitedAyah).
+      player = createAudioPlayer(source, { updateInterval: AYAH_STATUS_INTERVAL_MS });
       statusSubscription = player.addListener("playbackStatusUpdate", onStatus);
     } else if (state.url !== url) {
       player.pause();
@@ -136,6 +140,22 @@ export function stopAyah(url?: string) {
   }
   if (state.status !== "idle") {
     setState({ status: "idle" });
+  }
+}
+
+/**
+ * How far into the ayah the recitation is, in seconds, while `url` is the one playing (Repeat starts it again from
+ * 0); undefined otherwise. For lighting up its words as they are recited (ayahWords.ts).
+ */
+export function ayahPosition(url: string): number | undefined {
+  if (!player || state.url !== url || state.status !== "playing") {
+    return undefined;
+  }
+  try {
+    const seconds = player.currentTime;
+    return Number.isFinite(seconds) ? seconds : undefined;
+  } catch {
+    return undefined;
   }
 }
 
