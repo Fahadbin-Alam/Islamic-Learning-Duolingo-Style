@@ -9,8 +9,9 @@ import { hasArabic } from "../ArabicText";
 //   blank   drag (or tap) the right word into the sentence's gap
 //   fill    the answer with its key word missing: tap the missing word from a few choices
 //   check   true or false: "Is this the answer?" with one choice shown
+//   map     every answer a place: tap the right one where it is, on a map of the land (mapQuestions)
 
-export type QuestionFormat = "choose" | "blank" | "fill" | "check";
+export type QuestionFormat = "choose" | "blank" | "fill" | "check" | "map";
 
 /**
  * Whether questions are asked in more than one way (and quiz circles open with a matching round). Always on in
@@ -27,6 +28,8 @@ export type FormatContext = {
   language?: string;
   /** Every answer has its own picture (choicePictures): asked as picture cards, the most fun way to pick a place. */
   pictures?: boolean;
+  /** Every answer is a place on the map (mapPlacesFor): asked on the map, or (with pictures too) half the time. */
+  map?: boolean;
 };
 
 const BLANK = /_{2,}/;
@@ -174,10 +177,13 @@ export function canCheck(challenge: Pick<Challenge, "choices" | "correctChoiceId
 export function questionFormat(challenge: Pick<Challenge, "id" | "type" | "prompt" | "choices" | "correctChoiceId" | "listen">, context: FormatContext = {}): QuestionFormat {
   // A listening question is heard, then its meaning picked from the tiles.
   if (!questionVariety() || isTrueFalse(challenge) || challenge.listen) return "choose";
+  const roll = formatSeed(`${challenge.id}|${context.recall ? "recall" : "learn"}`) % 100;
+  // Places are found on the map; places with their own photos are picture cards the other half of the time, so the
+  // same question taught one way is often asked the other way later.
+  if (context.map && (!context.pictures || roll % 2 === 0)) return "map";
   if (context.pictures) return "choose";
   if (canBlank(challenge)) return "blank";
   const english = !context.language || context.language === "en";
-  const roll = formatSeed(`${challenge.id}|${context.recall ? "recall" : "learn"}`) % 100;
   // Tiles whose right answer is far longer than every wrong one give it away by its length alone ("Faith, good
   // deeds, truth, and patience" beside "Being famous"). Such a question is asked another way: one answer to judge
   // true or false, or a missing word, where the length shows nothing.

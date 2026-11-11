@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Animated, PanResponder, ScrollView, StyleSheet, Text, View } from "react-native";
+import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { Animated, PanResponder, ScrollView, StyleSheet, Text, View, type LayoutChangeEvent, type NativeScrollEvent, type NativeSyntheticEvent } from "react-native";
 import type { GameSoundEvent } from "../../services/gameSoundLibrary";
 import { withHonorifics } from "../ArabicText";
 import { GameButton } from "../GameButton";
@@ -140,7 +140,7 @@ function WordTile({
 }
 
 /** The small label over a game ("Fill in the gap", "True or false?"), with the review / try-again cues. */
-function GameCue({ label, review, attempt, accent }: { label: string; review?: boolean | "missed"; attempt?: number; accent: string }) {
+export function GameCue({ label, review, attempt, accent }: { label: string; review?: boolean | "missed"; attempt?: number; accent: string }) {
   return (
     <View style={styles.cueRow} testID="game-cue">
       <View style={[styles.cue, { backgroundColor: lighten(accent, 0.85) }]}>
@@ -160,8 +160,20 @@ function GameCue({ label, review, attempt, accent }: { label: string; review?: b
   );
 }
 
+/**
+ * What a game knows of the room it is drawn in: how tall the scrolling part is (a map fills what is left of it), and a
+ * way to keep a point in sight once the answer sheet comes up over the bottom of it (the right place on a map).
+ */
+export type GameRoom = { height: number; reveal: (contentY: number) => void };
+
+const GameRoomContext = createContext<GameRoom>({ height: 0, reveal: () => undefined });
+
+export function useGameRoom() {
+  return useContext(GameRoomContext);
+}
+
 /** The frame every game shares: a scrolling body, CHECK at the bottom, the answer sheet over it. */
-function GameFrame({
+export function GameFrame({
   children,
   ready,
   result,
@@ -193,10 +205,43 @@ function GameFrame({
   const shown = lastResult.current;
   const why = shown ? (getActiveLanguage() === "en" ? shortWhy({ explanation: shown.why, prompt, correctLabel: shown.correctLabel }) : shown.why) : undefined;
   const voice = useMistakeVoice(checked, Boolean(shown?.correct), shown && !shown.correct ? shown.correctLabel : undefined, shown?.why);
+  const scroller = useRef<ScrollView>(null);
+  const scrolled = useRef(0);
+  const [rootHeight, setRootHeight] = useState(0);
+  const [viewHeight, setViewHeight] = useState(0);
+  const revealAt = useRef<number | undefined>(undefined);
+  const room = useMemo<GameRoom>(() => ({ height: viewHeight, reveal: (contentY) => (revealAt.current = contentY) }), [viewHeight]);
+  // Once the answer sheet is up, the point the game asked to keep in sight scrolls up above it if the sheet covers it.
+  useEffect(() => {
+    if (!checked) {
+      revealAt.current = undefined;
+      return undefined;
+    }
+    const target = revealAt.current;
+    if (target === undefined || !sheetHeight || !viewHeight) return undefined;
+    const timer = setTimeout(() => {
+      const shownBottom = scrolled.current + Math.min(viewHeight, (rootHeight || viewHeight) - sheetHeight);
+      const want = target + space.md;
+      if (want > shownBottom) scroller.current?.scrollTo?.({ y: scrolled.current + want - shownBottom, animated: true });
+    }, 60);
+    return () => clearTimeout(timer);
+  }, [checked, rootHeight, sheetHeight, viewHeight]);
+  const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    scrolled.current = event.nativeEvent.contentOffset.y;
+  };
+  const onRoot = (event: LayoutChangeEvent) => setRootHeight(Math.round(event.nativeEvent.layout.height));
+  const onView = (event: LayoutChangeEvent) => setViewHeight(Math.round(event.nativeEvent.layout.height));
   return (
-    <View style={styles.root} testID={testID}>
-      <ScrollView style={styles.scroll} contentContainerStyle={[styles.content, { paddingBottom: checked && sheetHeight ? sheetHeight : space.xxl }]}>
-        {children}
+    <View style={styles.root} testID={testID} onLayout={onRoot}>
+      <ScrollView
+        ref={scroller}
+        style={styles.scroll}
+        contentContainerStyle={[styles.content, { paddingBottom: checked && sheetHeight ? sheetHeight : space.xxl }]}
+        onLayout={onView}
+        onScroll={onScroll}
+        scrollEventThrottle={32}
+      >
+        <GameRoomContext.Provider value={room}>{children}</GameRoomContext.Provider>
       </ScrollView>
       <LessonBottomBar bottomInset={bottomInset}>
         <GameButton label={t("Check")} fullWidth sound={false} disabled={!ready || checked} onPress={onCheck} testID="exercise-check" />

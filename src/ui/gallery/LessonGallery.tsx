@@ -6,6 +6,8 @@ import { COURSE, LESSONS_BY_ID } from "../../data/course";
 import { choicePictures, getLessonPicture, LESSON_PICTURE_IDS, pictureForLesson, pictureForPage, pictureForQuestion } from "../../data/lessonPictures";
 import { LessonPhoto } from "../lesson/LessonPhoto";
 import { MatchGame } from "../lesson/WordGames";
+import { MapGame } from "../lesson/MapGame";
+import { mapPlacesFor } from "../lesson/mapQuestions";
 import { SurahCover } from "../lesson/SurahCover";
 import { ALBUM_SETS } from "../../data/albumSets";
 import { addToAlbum } from "../../services/pictureAlbum";
@@ -354,6 +356,47 @@ function StreakDemo({ days, frozenDaysAgo, variant = "girl" }: { days: number; f
 }
 
 /**
+ * A place question asked on the map, from a real lesson (?lang=bn, ur or ar): the first one whose prompt has `ask`.
+ * `pick`: an answer already picked; `check`: and checked (the answer sheet up).
+ */
+function MapDemo({ lessonId, ask, pick, check }: { lessonId: string; ask: string; pick?: "right" | "wrong"; check?: boolean }) {
+  const query = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("lang") : null;
+  const language = (["en", "bn", "ur", "ar"].includes(query ?? "") ? query : "en") as SupportedLanguage;
+  setActiveLanguage(language);
+  const english = LESSONS_BY_ID[lessonId];
+  const index = Math.max(0, english.challenges.findIndex((challenge) => challenge.prompt.includes(ask)));
+  const challenge = localizeLessonContent(english, language).challenges[index];
+  const places = mapPlacesFor(english.challenges[index]) ?? {};
+  const wrongId = challenge.choices.find((choice) => choice.id !== challenge.correctChoiceId)?.id;
+  const [selected, setSelected] = useState<string | undefined>(pick === "right" ? challenge.correctChoiceId : pick === "wrong" ? wrongId : undefined);
+  const [checked, setChecked] = useState(Boolean(check));
+  const correctLabel = challenge.choices.find((choice) => choice.id === challenge.correctChoiceId)?.label ?? "";
+  const correct = selected === challenge.correctChoiceId;
+  return (
+    <LessonScreen progress={0.45} hearts={FULL_HEARTS} onClose={noop}>
+      <MapGame
+        prompt={challenge.prompt}
+        choices={challenge.choices}
+        places={places}
+        correctChoiceId={challenge.correctChoiceId}
+        selectedChoiceId={selected}
+        result={checked ? { correct, correctLabel, why: shortWhy({ explanation: challenge.explanation, prompt: challenge.prompt, correctLabel }) } : undefined}
+        mascotVariant="girl"
+        accent={accentOf(english)}
+        praiseSeed={challenge.id}
+        playSound={false}
+        onSelect={setSelected}
+        onCheck={() => setChecked(true)}
+        onContinue={() => {
+          setChecked(false);
+          setSelected(undefined);
+        }}
+      />
+    </LessonScreen>
+  );
+}
+
+/**
  * The swipe sprint after forty lessons, with a best of 12 kept: #gallery-lesson-sprint (?lang=bn, ur or ar). Each
  * game is six cards, the first with a living picture when one has it, so it can be played to its end in a few taps.
  */
@@ -617,6 +660,15 @@ const STATES: State[] = [
   { id: "album", render: () => <AlbumDemo /> },
   { id: "say-it", render: () => <SayItDemo /> },
   { id: "sprint", render: () => <SprintDemo /> },
+  // Place questions on the map: one map; a close-up of Makkah's hills under the Hijaz; Jerusalem far to the north.
+  { id: "map", render: () => <MapDemo lessonId="lesson-deep-hamzah-martyr" ask="Hamzah martyred" /> },
+  { id: "map-picked", render: () => <MapDemo lessonId="lesson-deep-hamzah-martyr" ask="Hamzah martyred" pick="right" /> },
+  { id: "map-right", render: () => <MapDemo lessonId="lesson-deep-hamzah-martyr" ask="Hamzah martyred" pick="right" check /> },
+  { id: "map-closeup", render: () => <MapDemo lessonId="lesson-deep-abubakr-cave-of-thawr" ask="which cave" /> },
+  { id: "map-closeup-wrong", render: () => <MapDemo lessonId="lesson-deep-abubakr-cave-of-thawr" ask="which cave" pick="wrong" check /> },
+  { id: "map-arabia", render: () => <MapDemo lessonId="lesson-deep-najm1-the-first-sajdah-surah" ask="recite An-Najm" /> },
+  { id: "map-quba", render: () => <MapDemo lessonId="lesson-deep-hajj-masjids-three" ask="Jerusalem" /> },
+  { id: "map-hajj", render: () => <MapDemo lessonId="lesson-deep-book-hajj-labbayk-as-the-camel-rose" ask="talbiyah" pick="wrong" check /> },
   {
     id: "match",
     render: () => (

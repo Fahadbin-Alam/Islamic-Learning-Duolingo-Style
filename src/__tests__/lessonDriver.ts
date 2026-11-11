@@ -3,7 +3,7 @@ import type { Challenge } from "../types";
 import { checkCandidate, fillPiece } from "../ui/lesson/questionFormats";
 
 // Drives a lesson in the app's tests: learn pages and questions in turn, a quiz circle's matching round, and every
-// way a question can be asked (tiles, a gap to fill, a missing word in the answer, true or false).
+// way a question can be asked (tiles, a gap to fill, a missing word in the answer, true or false, a place on the map).
 
 async function press(testID: string) {
   await act(async () => {
@@ -19,7 +19,7 @@ export async function toQuestion() {
 }
 
 function onGame() {
-  return Boolean(screen.queryByTestId("gap-game") || screen.queryByTestId("fill-game") || screen.queryByTestId("match-game"));
+  return Boolean(screen.queryByTestId("gap-game") || screen.queryByTestId("fill-game") || screen.queryByTestId("match-game") || screen.queryByTestId("map-game"));
 }
 
 function promptShown(challenge: Challenge) {
