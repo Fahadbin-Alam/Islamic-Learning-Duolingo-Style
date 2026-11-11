@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Animated, ScrollView, StyleSheet, Text, View } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import { getTopicArabic } from "../../data/arabicTerms";
-import type { UiStrings } from "../../i18n";
+import { t as uiText, type UiStrings } from "../../i18n";
 import { translateStudyText } from "../../services/contentLocalization";
 import { getLearnerLevel } from "../../services/foundationAssessment";
 import { calendarDaysUntil, nextDueAt } from "../../services/reviewDeck";
@@ -15,6 +15,7 @@ import { PopIn, useShake } from "../PopIn";
 import { SpeechBubble } from "../SpeechBubble";
 import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, radii, text, topicPalette } from "../theme";
+import { formatNumber } from "./FormattedCount";
 
 export type PracticeHubProps = {
   user: UserProfile;
@@ -37,6 +38,10 @@ export type PracticeHubProps = {
   onOpenStories?: () => void;
   /** SAY IT OUT LOUD: everyday Islamic words to say aloud with the teacher (practice only). */
   onOpenSayIt?: () => void;
+  /** SWIPE SPRINT: a minute of quick right-or-not cards from finished lessons. Left out until there are enough. */
+  onOpenSprint?: () => void;
+  /** The most right in one sprint on this phone; unset or 0 until one is played. */
+  sprintBest?: number;
   /** MY LESSONS: practice questions from lessons already done. Left out until there are enough of them. */
   onStartLessonPractice?: () => void;
   /** Tabs replace back buttons; kept so the old call site still type-checks. */
@@ -185,6 +190,8 @@ export function PracticeHub({
   onOpenQuizzes,
   onOpenStories,
   onOpenSayIt,
+  onOpenSprint,
+  sprintBest = 0,
   quizBest,
   mascotVariant = "hijabi",
   // The mascot's own default, so it matches the other screens when no accent is passed.
@@ -319,6 +326,37 @@ export function PracticeHub({
               {quizBest !== undefined ? (
                 <View style={styles.quizPill} testID="practice-quiz-best">
                   <Text style={styles.quizPillText}>{`${quizBest}%`}</Text>
+                </View>
+              ) : null}
+              <Icon name="chevronRight" size={24} color={colors.lineLip} />
+            </View>
+          </Tappable>
+        </PopIn>
+      ) : null}
+
+      {onOpenSprint ? (
+        <PopIn delay={218} from="up">
+          <Tappable
+            onPress={onOpenSprint}
+            style={[styles.basicsRow, styles.quizRow, styles.sprintRow]}
+            testID="practice-sprint"
+            accessibilityLabel={sprintBest > 0 ? `${t("Swipe sprint")}, ${uiText("Best: {count}", { count: formatNumber(sprintBest) })}` : t("Swipe sprint")}
+          >
+            <View style={[styles.basicsIcon, styles.quizIcon]}>
+              <Icon name="stopwatch" size={30} />
+            </View>
+            <View style={styles.quizText}>
+              <Text style={styles.basicsTitle} numberOfLines={1}>
+                {t("Swipe sprint")}
+              </Text>
+              <Text style={[styles.quizLine, styles.sprintLine]} numberOfLines={2}>
+                {t("Right or not? Swipe fast for one minute")}
+              </Text>
+            </View>
+            <View style={[styles.rowEnd, styles.quizEnd]}>
+              {sprintBest > 0 ? (
+                <View style={styles.quizPill} testID="practice-sprint-best">
+                  <Text style={[styles.quizPillText, styles.sprintPillText]}>{formatNumber(sprintBest)}</Text>
                 </View>
               ) : null}
               <Icon name="chevronRight" size={24} color={colors.lineLip} />
@@ -628,6 +666,17 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     color: darken(colors.goldLip, 0.45),
     textAlign: "center"
+  },
+  sprintRow: {
+    borderColor: lighten(colors.gem, 0.6),
+    borderBottomColor: colors.gemLip,
+    backgroundColor: lighten(colors.gem, 0.88)
+  },
+  sprintLine: {
+    color: darken(colors.gemLip, 0.35)
+  },
+  sprintPillText: {
+    color: darken(colors.gemLip, 0.3)
   },
   quizPill: {
     paddingHorizontal: 10,

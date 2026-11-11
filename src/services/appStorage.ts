@@ -35,7 +35,8 @@ const STORAGE_KEYS = [
   "sira-path-picture-album",
   "sira-path-device-settings",
   "sira-path-said-words",
-  "sira-path-family-weeks"
+  "sira-path-family-weeks",
+  "sira-path-sprint-best"
 ] as const;
 
 type StorageKey = (typeof STORAGE_KEYS)[number];

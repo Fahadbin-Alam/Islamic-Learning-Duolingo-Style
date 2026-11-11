@@ -972,5 +972,16 @@
   "Every day someone in your family learns, a lantern lights up.": "পরিবারের কেউ যেদিন শেখে, সেদিন একটি লণ্ঠন জ্বলে ওঠে।",
   "+{count} more": "আরও {count} জন",
   "Weeks lit together: {count}": "একসাথে জ্বালানো সপ্তাহ: {count}",
-  "{name}, learned today": "{name}, আজ শিখেছে"
+  "{name}, learned today": "{name}, আজ শিখেছে",
+  "Swipe sprint": "দ্রুত সোয়াইপ",
+  "60 seconds. How many can you get right?": "৬০ সেকেন্ড। কয়টা ঠিক করতে পারবে?",
+  "Swipe the card to the tick if the answer is right, or to the cross if it is not.": "উত্তর ঠিক হলে কার্ডটি টিক চিহ্নের দিকে সোয়াইপ করো, ঠিক না হলে ক্রস চিহ্নের দিকে।",
+  "Not right": "ঠিক নয়",
+  "Right": "ঠিক",
+  "You answered every card!": "তুমি সব কার্ডের উত্তর দিয়েছ!",
+  "To remember": "মনে রাখার জন্য",
+  "{count} seconds left": "আর {count} সেকেন্ড বাকি",
+  "+{count} seconds!": "+{count} সেকেন্ড!",
+  "True or false?": "সত্য না মিথ্যা?",
+  "Right or not? Swipe fast for one minute": "ঠিক না ভুল? এক মিনিট দ্রুত সোয়াইপ করো"
 }

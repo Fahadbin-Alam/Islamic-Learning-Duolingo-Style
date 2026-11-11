@@ -972,5 +972,16 @@
   "Every day someone in your family learns, a lantern lights up.": "في كل يوم يتعلّم فيه أحد من عائلتك، يُضاء فانوس.",
   "+{count} more": "و{count} آخرون",
   "Weeks lit together: {count}": "أسابيع أضأناها معًا: {count}",
-  "{name}, learned today": "{name}، تعلّم اليوم"
+  "{name}, learned today": "{name}، تعلّم اليوم",
+  "Swipe sprint": "سباق السحب",
+  "60 seconds. How many can you get right?": "60 ثانية. كم إجابة صحيحة تستطيع؟",
+  "Swipe the card to the tick if the answer is right, or to the cross if it is not.": "اسحب البطاقة نحو علامة الصح إن كانت الإجابة صحيحة، أو نحو علامة الخطأ إن لم تكن.",
+  "Not right": "غير صحيح",
+  "Right": "صحيح",
+  "You answered every card!": "أجبت عن كل البطاقات!",
+  "To remember": "للتذكّر",
+  "{count} seconds left": "الوقت المتبقي: {count} ثانية",
+  "+{count} seconds!": "+{count} ثوانٍ!",
+  "True or false?": "صح أم خطأ؟",
+  "Right or not? Swipe fast for one minute": "صحيح أم لا؟ اسحب بسرعة لمدة دقيقة"
 }
