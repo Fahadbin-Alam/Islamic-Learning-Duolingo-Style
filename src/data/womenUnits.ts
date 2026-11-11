@@ -888,6 +888,58 @@ const QURAN_WOMEN: DeepUnit = {
       ]
     },
     {
+      slug: "umm-khalid-dress",
+      title: "Umm Khalid's new dress",
+      line: "He ﷺ dressed little Umm Khalid and prayed for her long life.",
+      facts: ["She was so small that she was carried to him.", "He called the dress sanah: beautiful, in the language of Abyssinia.", "He put it on her with his own hands."],
+      source: hadith("bukhari", "5823", "Umm Khalid bint Khalid", "Sahih", "Some clothes were brought to the Prophet ﷺ, among them a small black cloak. He asked for little Umm Khalid, dressed her in it with his own hands, and said: may you live long enough to wear it out and mend it many times. Looking at its patterns, he said: Umm Khalid, this is sanah, which means beautiful in the Abyssinian language.", "May you live so long that your dress will wear out and you will mend it many times"),
+      difficulty: 2,
+      questions: [
+        { q: "Whom did he ﷺ choose to wear the black cloak?", a: "Little Umm Khalid", wrong: ["A rich trader", "A tall soldier", "A visiting king"], why: "Fetch Um Khalid for me. I was brought carried, as I was a small girl." },
+        { q: "What does 'sanah' mean?", a: "Beautiful", wrong: ["Too big", "Very old", "Costly"], why: "Sanah is an Ethiopian word meaning beautiful." },
+        { q: "He ﷺ made du'a that Umm Khalid would live long.", tf: true, why: "May you live so long that your dress will wear out and you will mend it many times." }
+      ]
+    },
+    {
+      slug: "zaynab-two-rewards",
+      title: "Zaynab's two rewards",
+      line: "Zaynab gave charity to her own family and got two rewards.",
+      facts: ["She was the wife of Abdullah ibn Mas'ud.", "She looked after her husband and orphans in her care.", "One reward for family ties, one for the charity."],
+      source: hadith("bukhari", "1466", "Zaynab, wife of Ibn Mas'ud", "Sahih", "Zaynab, the wife of Abdullah ibn Mas'ud, asked Bilal to ask whether her charity could go to her husband and the orphans in her care. He ﷺ asked: which Zaynab? Bilal said: the wife of Abdullah. He said: yes, and she will have two rewards, one for family ties and one for the charity.", "and she will receive a double reward"),
+      difficulty: 3,
+      questions: [
+        { q: "How many rewards did he ﷺ say Zaynab would get?", a: "Two", wrong: ["One", "Ten", "None"], why: "She will receive a double reward: one for helping relatives, and the other for the charity." },
+        { q: "What did he ﷺ ask when Bilal said her name?", a: "Which Zaynab?", wrong: ["Where is she?", "Is she rich?", "Is she from Makkah?"], why: "The Prophet ﷺ asked: Which Zainab? Bilal said: The wife of Abdullah." },
+        { q: "Giving to your own needy family can bring a double reward.", tf: true, why: "One reward for helping relatives, and the other for giving charity." }
+      ]
+    },
+    {
+      slug: "umm-zufar-patience",
+      title: "Umm Zufar chose patience",
+      line: "Umm Zufar chose patience, and he ﷺ promised her Jannah.",
+      facts: ["Ibn Abbas called her a woman of the people of Jannah.", "She had an illness that made her fall and become uncovered.", "He ﷺ made du'a that she would stay covered."],
+      source: hadith("bukhari", "5652", "Ibn Abbas", "Sahih", "Ibn Abbas said: shall I show you a woman of the people of Paradise? This woman came to the Prophet ﷺ and said: I have fits of an illness and my body becomes uncovered, so make du'a for me. He said: if you wish, be patient and you will have Paradise; and if you wish, I will ask Allah to cure you. She said: I will be patient, but make du'a that I do not become uncovered. So he made du'a for her.", "Shall I show you a woman of the people of Paradise"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Umm Zufar choose?", a: "To be patient, for Jannah", wrong: ["To be cured at once", "To keep it a secret", "To ask someone else"], why: "If you wish, be patient and you will have Paradise. She said: I will remain patient." },
+        { q: "What did she still ask him ﷺ to make du'a for?", a: "That she would stay covered", wrong: ["That she would be rich", "That she would travel", "That she would be famous"], why: "Please invoke Allah for me that I may not become uncovered. So he invoked Allah for her." },
+        { q: "Patience with an illness can be rewarded with Jannah.", tf: true, why: "If you wish, be patient and you will have Paradise." }
+      ]
+    },
+    {
+      slug: "umm-al-fadl-milk",
+      title: "Umm al-Fadl's bowl of milk",
+      line: "Unsure if he ﷺ was fasting, Umm al-Fadl sent him milk.",
+      facts: ["It was the day of Arafah, at Hajj.", "Some said he was fasting, and some said he was not.", "He drank it on his camel, and the question was settled."],
+      source: hadith("bukhari", "1661", "Umm al-Fadl bint al-Harith", "Sahih", "On the day of Arafah, people with Umm al-Fadl differed over whether the Prophet ﷺ was fasting. She sent him a bowl of milk while he was on his camel, and he drank it.", "So I sent a bowl full of milk to him while he was riding his camel"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the people differ over on the day of Arafah?", a: "Whether he ﷺ was fasting", wrong: ["Where to camp", "Who would lead the prayer", "How long Hajj lasts"], why: "Some said that he was fasting while others said that he was not fasting." },
+        { q: "How did Umm al-Fadl find out?", a: "She sent him a bowl of milk", wrong: ["She shouted the question", "She waited a week", "She asked a stranger"], why: "So I sent a bowl full of milk to him while he was riding his camel, and he drank that milk." },
+        { q: "A question can be settled wisely, without a quarrel.", tf: true, why: "She sent the milk, he drank it, and everyone saw." }
+      ]
+    },
+    {
       slug: "umm-haram-sea",
       title: "Umm Haram sails the sea",
       line: "Umm Haram was among the first Muslims to sail for Allah.",
