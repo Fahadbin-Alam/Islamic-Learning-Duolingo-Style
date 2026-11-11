@@ -147,3 +147,26 @@ describe("smooth on slower phones", () => {
     expect(screen.getByTestId("picture-life").children).toHaveLength(2);
   });
 });
+
+describe("a teacher you can tap", () => {
+  it("each tap plays the next friendly reaction and shows a kind word", async () => {
+    const { Teacher, TEACHER_TAPS } = jest.requireActual("../ui/lesson/Teacher") as typeof import("../ui/lesson/Teacher");
+    const { playGameSound } = jest.requireMock("../services/gameAudio") as { playGameSound: jest.Mock };
+    await render(<Teacher variant="girl" accent="#21B573" size={80} />);
+    await fireEvent.press(screen.getByTestId("lesson-teacher"));
+    expect(screen.getByTestId("teacher-word", { includeHiddenElements: true })).toHaveTextContent(TEACHER_TAPS[0].line);
+    expect(playGameSound).toHaveBeenLastCalledWith(TEACHER_TAPS[0].sound, expect.anything());
+    await fireEvent.press(screen.getByTestId("lesson-teacher"));
+    expect(screen.getByTestId("teacher-word", { includeHiddenElements: true })).toHaveTextContent(TEACHER_TAPS[1].line);
+    // Never cross or crying in a lesson.
+    expect(TEACHER_TAPS.map((tap) => tap.mood)).not.toEqual(expect.arrayContaining(["mad"]));
+    expect(TEACHER_TAPS.some((tap) => tap.mood === "cry" || tap.mood === "mad" || tap.mood === "sad")).toBe(false);
+  });
+
+  it("the camel teacher can be tapped too", async () => {
+    const { Teacher } = jest.requireActual("../ui/lesson/Teacher") as typeof import("../ui/lesson/Teacher");
+    await render(<Teacher look={{ character: "camel", outfit: "reader" }} variant="girl" accent="#21B573" size={80} />);
+    await fireEvent.press(screen.getByTestId("lesson-teacher"));
+    expect(screen.getByTestId("teacher-word", { includeHiddenElements: true })).toBeTruthy();
+  });
+});

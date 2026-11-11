@@ -18,6 +18,7 @@ const TABLE_FILES = {
   "src/ui/screens/FamilySheet.tsx": ["ADD_ERRORS"],
   "src/ui/lesson/FeedbackSheet.tsx": ["PRAISE_WORDS", "WRONG_TITLE"],
   "src/ui/lesson/QuizComplete.tsx": ["HEADLINES"],
+  "src/ui/lesson/Teacher.tsx": ["TEACHER_TAPS"],
   "src/ui/screens/AdhkarBanner.tsx": ["NOW_LINES"],
   "src/components/FoundationLearning.tsx": ["QUIT_TITLES", "QUIT_LINE", "HEADLINES", "SKILL_LOOK"],
   "src/i18n.ts": ["UI_STRINGS", "TOPIC_COPY"],
@@ -26,7 +27,7 @@ const TABLE_FILES = {
 };
 // Lesson states read aloud with t(node.status) in LearnPath.
 const DYNAMIC_STRINGS = ["available", "completed", "current", "locked"];
-const SKIP_TABLE_KEYS = new Set(["key", "icon", "id", "testID"]);
+const SKIP_TABLE_KEYS = new Set(["key", "icon", "id", "testID", "mood", "sound", "move"]);
 
 function walk(dir, out = []) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {

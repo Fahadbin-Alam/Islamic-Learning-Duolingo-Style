@@ -70,6 +70,7 @@ import {
   type RowSpan
 } from "./sheetFit";
 import { scaleFont, textScaled } from "../textScale";
+import { TapToPlay } from "./Teacher";
 
 // Arabic letters only: honorific signs like ﷺ (U+FDF0-U+FDFF) stay part of the English line.
 const AR = "؀-ۿݐ-ݿࢠ-ࣿﭐ-﴿ﵐ-﷎ﹰ-﻿";
@@ -255,7 +256,9 @@ export const QuestionBubble = memo(function QuestionBubble({ prompt, mascotVaria
   const banner = Boolean(picture);
   const row = (
     <View style={[styles.questionRow, compact ? styles.questionRowCompact : null]}>
-      {picture && !banner ? <QuestionPhoto picture={picture} size={mascotSize} /> : <Mascot variant={mascotVariant} mood={mood} accent={accent} size={mascotSize} act={act} talkMs={talkMs} />}
+      {picture && !banner ? <QuestionPhoto picture={picture} size={mascotSize} /> : (
+        <TapToPlay testID="question-mascot">{(tapMood) => <Mascot variant={mascotVariant} mood={tapMood ?? mood} accent={accent} size={mascotSize} act={act} talkMs={talkMs} />}</TapToPlay>
+      )}
       <PopIn from="up" delay={60} style={styles.bubbleWrap}>
         <SpeechBubble>
           <PromptText size={promptSize}>{prompt}</PromptText>
