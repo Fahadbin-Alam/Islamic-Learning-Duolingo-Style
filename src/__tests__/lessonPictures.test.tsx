@@ -166,10 +166,13 @@ describe("photo on the learn card", () => {
     expect(pictureForText("As well as this, be kind.")).toBeUndefined();
   });
 
-  test("tapping the photo shows it big, and Close hides it", async () => {
+  test("tapping the photo plays with it (sparkles, its sound); the magnifier shows it big, and Close hides it", async () => {
     await render(<LearnCard {...base} picture={picture} />);
     expect(screen.queryByTestId("photo-sheet-image")).toBeNull();
-    await fireEvent.press(screen.getByTestId("lesson-photo"));
+    await fireEvent.press(screen.getByTestId("lesson-photo"), { nativeEvent: { locationX: 40, locationY: 30 } });
+    expect(screen.getByTestId("picture-poke")).toBeTruthy();
+    expect(screen.queryByTestId("photo-sheet-image")).toBeNull();
+    await fireEvent.press(screen.getByTestId("lesson-photo-open"));
     expect(screen.getByTestId("photo-sheet-image")).toBeTruthy();
     expect(screen.getByTestId("photo-sheet-credit")).toBeTruthy();
     await fireEvent.press(screen.getByTestId("photo-sheet-close"));
@@ -182,7 +185,7 @@ describe("photo on the learn card", () => {
     expect(photoSheetSize(4 / 3, 1280, 600).height).toBeLessThanOrEqual(372);
     expect(photoSheetSize(4 / 3, 1280, 900).width).toBe(600);
     await render(<LearnCard {...base} picture={picture} />);
-    await fireEvent.press(screen.getByTestId("lesson-photo"));
+    await fireEvent.press(screen.getByTestId("lesson-photo-open"));
     const image = screen.getByTestId("photo-sheet-image");
     expect(image.props.resizeMode).toBe("contain");
     // Its frame (where the picture's life moves too) has the picture's own shape.

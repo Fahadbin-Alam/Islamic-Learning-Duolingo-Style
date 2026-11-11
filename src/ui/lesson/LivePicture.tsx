@@ -14,7 +14,24 @@ import type { Life } from "./pictureLife";
  * shows (cover: cut to fill the box, as the lesson pages show it), so a halo sits on the sun whatever the box's shape.
  * `cheer`: change it (a count) to make the picture give a happy little bounce and gleam, as when a question is right.
  */
-export function LiveFrame({ aspect, life, children, still, calm, cheer }: { aspect: number; life?: Life[]; children: ReactNode; still?: boolean; calm?: boolean; cheer?: number | string }) {
+export function LiveFrame({
+  aspect,
+  life,
+  children,
+  still,
+  calm,
+  cheer,
+  poke
+}: {
+  aspect: number;
+  life?: Life[];
+  children: ReactNode;
+  still?: boolean;
+  calm?: boolean;
+  cheer?: number | string;
+  /** A tap on the picture (where, in the box): a burst of sparkles flies up from it and the picture bounces. */
+  poke?: Poke;
+}) {
   const reduceMotion = useReduceMotion();
   const [box, setBox] = useState<{ width: number; height: number } | null>(null);
   // Nothing runs until the picture is on screen and knows its size.
@@ -24,6 +41,15 @@ export function LiveFrame({ aspect, life, children, still, calm, cheer }: { aspe
   const pop = useRef(new Animated.Value(1)).current;
   const gleam = useRef(new Animated.Value(0)).current;
   const lastCheer = useRef(cheer);
+
+  // A tap: the same little bounce as a cheer, and the sparkles (PokeBurst) from the finger.
+  useEffect(() => {
+    if (!poke || reduceMotion) return undefined;
+    pop.setValue(0.96);
+    const run = Animated.spring(pop, { toValue: 1, friction: 3, tension: 200, useNativeDriver: true });
+    run.start();
+    return () => run.stop();
+  }, [poke, reduceMotion, pop]);
 
   useEffect(() => {
     if (cheer === lastCheer.current) return;
@@ -73,7 +99,54 @@ export function LiveFrame({ aspect, life, children, still, calm, cheer }: { aspe
           ) : null}
         </Animated.View>
         {box && cheer !== undefined && !reduceMotion ? <Sweep t={gleam} width={box.width} height={box.height} strength={0.55} /> : null}
+        {poke && !reduceMotion ? <PokeBurst key={poke.key} x={poke.x} y={poke.y} /> : null}
       </Animated.View>
+    </View>
+  );
+}
+
+export type Poke = { key: number; x: number; y: number };
+
+const BURST_COLORS = ["#FFC21A", "#FFFFFF", "#FF82AB", "#7FE0FF", "#9BE15D"];
+
+/** Sparkles bursting up and out from where the picture was tapped, then fading. */
+function PokeBurst({ x, y }: { x: number; y: number }) {
+  const t = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    const run = Animated.timing(t, { toValue: 1, duration: 900, easing: Easing.out(Easing.quad), useNativeDriver: true });
+    run.start();
+    return () => run.stop();
+  }, [t]);
+  return (
+    <View pointerEvents="none" style={StyleSheet.absoluteFill} testID="picture-poke">
+      {Array.from({ length: 7 }, (_, index) => {
+        const angle = -Math.PI / 2 + ((index - 3) / 3) * (Math.PI * 0.6);
+        const reach = 34 + (index % 3) * 10;
+        const size = 10 + (index % 3) * 3;
+        return (
+          <Animated.View
+            key={index}
+            style={[
+              styles.abs,
+              {
+                left: x - size / 2,
+                top: y - size / 2,
+                opacity: t.interpolate({ inputRange: [0, 0.1, 0.7, 1], outputRange: [0, 1, 1, 0] }),
+                transform: [
+                  { translateX: t.interpolate({ inputRange: [0, 1], outputRange: [0, Math.cos(angle) * reach] }) },
+                  { translateY: t.interpolate({ inputRange: [0, 1], outputRange: [0, Math.sin(angle) * reach] }) },
+                  { scale: t.interpolate({ inputRange: [0, 0.25, 1], outputRange: [0.3, 1.2, 0.8] }) },
+                  { rotate: t.interpolate({ inputRange: [0, 1], outputRange: ["0deg", `${index % 2 ? 90 : -90}deg`] }) }
+                ]
+              }
+            ]}
+          >
+            <Svg width={size} height={size} viewBox="0 0 20 20">
+              <Path d="M10 0L12.4 7.6L20 10L12.4 12.4L10 20L7.6 12.4L0 10L7.6 7.6Z" fill={BURST_COLORS[index % BURST_COLORS.length]} />
+            </Svg>
+          </Animated.View>
+        );
+      })}
     </View>
   );
 }

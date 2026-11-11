@@ -5,6 +5,7 @@ import { getLessonArabic, NODE_ARABIC } from "../../data/arabicTerms";
 import { COURSE, LESSONS_BY_ID } from "../../data/course";
 import { choicePictures, getLessonPicture, LESSON_PICTURE_IDS, pictureForLesson, pictureForPage, pictureForQuestion } from "../../data/lessonPictures";
 import { LessonPhoto } from "../lesson/LessonPhoto";
+import { MatchGame } from "../lesson/WordGames";
 import { SurahCover } from "../lesson/SurahCover";
 import { addToAlbum } from "../../services/pictureAlbum";
 import { PictureAlbumSheet } from "../screens/PictureAlbum";
@@ -560,6 +561,24 @@ const STATES: State[] = [
     )
   },
   { id: "album", render: () => <AlbumDemo /> },
+  {
+    id: "match",
+    render: () => (
+      <LessonScreen progress={0.5} hearts={FULL_HEARTS} onClose={noop}>
+        <MatchGame
+          pairs={[
+            { index: 0, left: "Where do pilgrims stand on the 9th?", right: "Arafah" },
+            { index: 1, left: "Where do pilgrims spend the night after Arafah?", right: "Muzdalifah" },
+            { index: 2, left: "Where are the pebbles thrown?", right: "Mina" }
+          ]}
+          mascotVariant="girl"
+          accent={FOUNDATION_ACCENT}
+          playSound={false}
+          onDone={noop}
+        />
+      </LessonScreen>
+    )
+  },
   {
     id: "complete-goal",
     render: () => (

@@ -116,3 +116,16 @@ export function sceneLife(scene: "day" | "night" | "dawn" | "dusk" | "sea" | und
       return [{ kind: "shine" }];
   }
 }
+
+/** The sound a tap on the picture makes, from what lives on it: birds chirp, water splashes, a camel grumbles. */
+export function pokeSound(id: string): "chirp" | "splash" | "baa" | "camel" | "sizzle" | "sparkle" {
+  if (id === "sheep") return "baa";
+  // The Ka'bah only glints, as on the path.
+  if (id === "kaaba") return "sparkle";
+  const kinds = new Set((PICTURE_LIFE[id] ?? []).map((life) => life.kind));
+  if (kinds.has("caravan")) return "camel";
+  if (kinds.has("embers")) return "sizzle";
+  if (kinds.has("rain") || kinds.has("waves") || kinds.has("drops") || kinds.has("bubbles")) return "splash";
+  if (kinds.has("birds")) return "chirp";
+  return "sparkle";
+}

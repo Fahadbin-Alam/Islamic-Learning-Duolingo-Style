@@ -6,6 +6,8 @@ import { GameButton } from "../GameButton";
 import type { MascotMood } from "../Mascot";
 import { PopIn, useShake } from "../PopIn";
 import { Tappable } from "../Tappable";
+import { useReduceMotion } from "../motion";
+import { playUi } from "../sound";
 import { colors, darken, fonts, lighten, radii, space, topicPalette } from "../theme";
 import { ExerciseView, QuestionBubble, useLessonCompact, type ExerciseChoice, type ExerciseResult, type ExerciseViewProps } from "./ExerciseView";
 import { CORRECT_TEXT, FeedbackSheet, WRONG_TEXT } from "./FeedbackSheet";
@@ -366,6 +368,13 @@ export function MatchGame({ pairs, mascotVariant, accent, onDone, onMiss, playSo
   const { style: shakeStyle, shake } = useShake(8);
   const done = matched.length === pairs.length;
   const palette = topicPalette(accent);
+  // Each pair matched: the teacher jumps for joy for a moment and a "sparkle" plays (the last one gets the sheet).
+  const [joy, setJoy] = useState(0);
+  useEffect(() => {
+    if (!joy) return undefined;
+    const timer = setTimeout(() => setJoy(0), 700);
+    return () => clearTimeout(timer);
+  }, [joy]);
 
   useEffect(() => {
     if (!wrong) return undefined;
@@ -377,6 +386,8 @@ export function MatchGame({ pairs, mascotVariant, accent, onDone, onMiss, playSo
     if (q === undefined || a === undefined) return;
     if (q === a) {
       setMatched((list) => [...list, q]);
+      setJoy((count) => count + 1);
+      if (playSound && matched.length + 1 < pairs.length) playUi("sparkle");
     } else {
       setWrong({ question: q, answer: a });
       setMisses((count) => count + 1);
@@ -401,15 +412,15 @@ export function MatchGame({ pairs, mascotVariant, accent, onDone, onMiss, playSo
     <View style={styles.root} testID="match-game">
       <ScrollView style={styles.scroll} contentContainerStyle={[styles.content, { paddingBottom: space.xxxl * 3 }]}>
         <GameCue label={t("Match the pairs")} accent={accent} />
-        <QuestionBubble prompt={t("Tap a question, then its answer!")} mascotVariant={mascotVariant} accent={accent} mood={done ? "cheer" : "think"} hideMascot={compact} />
+        <QuestionBubble prompt={t("Tap a question, then its answer!")} mascotVariant={mascotVariant} accent={accent} mood={done || joy ? "cheer" : "think"} hideMascot={compact} />
         <Animated.View style={[styles.matchList, shakeStyle]}>
           {pairs.map((pair) => {
             const isMatched = matched.includes(pair.index);
             const isPicked = question === pair.index;
             const isWrong = wrong?.question === pair.index;
             return (
+              <MatchPop key={pair.index} matched={isMatched}>
               <Tappable
-                key={pair.index}
                 onPress={() => pickQuestion(pair.index)}
                 disabled={isMatched}
                 pressScale={0.97}
@@ -423,8 +434,13 @@ export function MatchGame({ pairs, mascotVariant, accent, onDone, onMiss, playSo
                 ]}
               >
                 <Text style={styles.matchQuestion}>{withHonorifics(noBreakHyphens(pair.left))}</Text>
-                {isMatched ? <Text style={styles.matchAnswer}>{withHonorifics(pair.right)}</Text> : null}
+                {isMatched ? (
+                  <PopIn from="up" distance={8}>
+                    <Text style={styles.matchAnswer}>{withHonorifics(pair.right)}</Text>
+                  </PopIn>
+                ) : null}
               </Tappable>
+              </MatchPop>
             );
           })}
         </Animated.View>
@@ -451,6 +467,23 @@ export function MatchGame({ pairs, mascotVariant, accent, onDone, onMiss, playSo
       />
     </View>
   );
+}
+
+/** A card that just got its answer gives a happy little bounce. */
+function MatchPop({ matched, children }: { matched: boolean; children: React.ReactNode }) {
+  const reduceMotion = useReduceMotion();
+  const scale = useRef(new Animated.Value(1)).current;
+  const was = useRef(matched);
+  useEffect(() => {
+    if (matched === was.current) return undefined;
+    was.current = matched;
+    if (!matched || reduceMotion) return undefined;
+    scale.setValue(0.94);
+    const run = Animated.spring(scale, { toValue: 1, friction: 3, tension: 200, useNativeDriver: true });
+    run.start();
+    return () => run.stop();
+  }, [matched, reduceMotion, scale]);
+  return <Animated.View style={{ transform: [{ scale }] }}>{children}</Animated.View>;
 }
 
 const TILE_LIP = 4;
