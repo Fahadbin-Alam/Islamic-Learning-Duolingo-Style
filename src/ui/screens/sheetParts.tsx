@@ -128,9 +128,15 @@ export function LinkRow({ label, value, icon, onPress, testID }: { label: string
   );
 }
 
-/** Web ignores adjustsFontSizeToFit: a longer label starts a size smaller and may wrap to two lines. */
-function segmentSize(label: string) {
-  return label.length > 8 ? styles.segmentTextLong : null;
+// Urdu and Arabic letters are wider in the display font: "بہت مشکل" is wider than "Standard".
+const ARABIC_SCRIPT = /[\u0600-\u06FF]/;
+
+/**
+ * Web ignores adjustsFontSizeToFit: a longer label starts a size smaller and may wrap to two lines. At the big
+ * size, two lines of Urdu or Arabic touch the chip's edges, so their labels start smaller a letter sooner.
+ */
+export function segmentSize(label: string) {
+  return label.length > (ARABIC_SCRIPT.test(label) ? 7 : 8) ? styles.segmentTextLong : null;
 }
 
 export function SegmentButton({ label, active, onPress, testID, icon }: { label: string; active: boolean; onPress: () => void; testID: string; icon?: IconName }) {

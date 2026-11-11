@@ -1,11 +1,14 @@
 import React from "react";
+import { StyleSheet } from "react-native";
 import { fireEvent, render, screen } from "@testing-library/react-native";
 import { learningApi, lessonAtLevel } from "../api/islamicLearningApi";
 import { autoChallengeLevel, challengeLevel, mixAgeFor } from "../data/challengeLevel";
 import { COURSE, LESSONS_BY_ID, STARTER_USER } from "../data/course";
 import { ALL_HARD_QUESTIONS, HARD_QUESTIONS } from "../data/hardQuestions";
+import { setActiveLanguage } from "../i18n";
 import { questionSource } from "../services/questionSource";
 import { SettingsSheet } from "../ui/screens";
+import { segmentSize } from "../ui/screens/sheetParts";
 import type { Lesson, TopicId, UserProfile } from "../types";
 
 jest.mock("../services/gameAudio", () => ({
@@ -194,5 +197,25 @@ describe("Settings", () => {
     await render(<SettingsSheet {...props} difficulty="really_hard" onSelectDifficulty={jest.fn()} />);
     expect(screen.getByText("The toughest questions. Good luck!")).toBeTruthy();
     expect(screen.getByTestId("settings-difficulty-really-hard").props.accessibilityState).toMatchObject({ selected: true });
+  });
+
+  // The bug hunt: on a small phone "بہت مشکل" and "صعب جدًا" wrapped at the big size and touched the chip's edges.
+  it("starts Urdu and Arabic Really hard a size smaller, so it fits its chip", async () => {
+    const fontSize = (label: string) => StyleSheet.flatten(screen.getByText(label).props.style).fontSize;
+    for (const [language, reallyHard, hard] of [
+      ["ur", "بہت مشکل", "مشکل"],
+      ["ar", "صعب جدًا", "صعب"]
+    ] as const) {
+      setActiveLanguage(language);
+      const view = await render(<SettingsSheet {...props} difficulty="auto" onSelectDifficulty={jest.fn()} />);
+      expect(fontSize(reallyHard)).toBe(14);
+      expect(fontSize(hard)).toBe(16);
+      await view.unmount();
+    }
+    setActiveLanguage("en");
+    // English keeps its own measure: eight letters still fit at the big size.
+    expect(segmentSize("Standard")).toBeNull();
+    expect(segmentSize("Really hard")).not.toBeNull();
+    expect(segmentSize("خودکار")).toBeNull();
   });
 });

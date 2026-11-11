@@ -30,12 +30,20 @@ jest.mock("../services/ayahPlayer", () => ({
 }));
 
 import React from "react";
-import { act, fireEvent, render, screen } from "@testing-library/react-native";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react-native";
 import TopicApp from "../TopicApp";
+import { learningApi } from "../api/islamicLearningApi";
 import { localDayNumber } from "../data/dailyCard";
-import { getStoredItem, setStoredItem } from "../services/appStorage";
+import { getStoredItem, removeStoredItem, setStoredItem } from "../services/appStorage";
 import { playAyah } from "../services/ayahPlayer";
+import type { LearningNodeView } from "../types";
 import { makeUser } from "./testUtils";
+
+async function press(testID: string) {
+  await act(async () => {
+    fireEvent.press(screen.getByTestId(testID));
+  });
+}
 
 describe("ayah and hadith of the day on opening the app", () => {
   beforeEach(() => {
@@ -63,6 +71,33 @@ describe("ayah and hadith of the day on opening the app", () => {
     await act(async () => {
       fireEvent.press(screen.getByTestId("daily-close"));
     });
+  });
+
+  // The bug hunt: the top bar leaves during a lesson, and coming back it opened the card again, after every lesson.
+  it("does not open again when the learner comes back from a lesson", async () => {
+    setStoredItem("sira-path-daily-seen", "0");
+    removeStoredItem("sira-path-daily-shown");
+    await open();
+    expect(screen.getByTestId("daily-hadith")).toBeTruthy();
+    await press("daily-close");
+    await waitFor(() => expect(screen.queryByTestId("daily-hadith")).toBeNull());
+
+    const user = makeUser({ preferredLanguage: "en" });
+    const node = learningApi.getPathNodes(user).find((item) => item.topicId === "foundation" && item.status === "current") as LearningNodeView;
+    for (let round = 0; round < 2; round += 1) {
+      await press(`path-node-${node.id}`);
+      await press("node-card-start");
+      await screen.findByTestId("lesson-close");
+      await press("lesson-close");
+      await press("quit-end");
+      await screen.findByTestId("learn-path-foundation");
+      await act(async () => {
+        await new Promise((resolve) => setTimeout(resolve, 1300));
+      });
+      expect(screen.queryByTestId("daily-hadith")).toBeNull();
+    }
+    // Shown once today, so it can still come back once on an open four hours later.
+    expect(JSON.parse(getStoredItem("sira-path-daily-shown") ?? "{}").count).toBe(1);
   });
 
   it("stays shut once today's card was seen", async () => {

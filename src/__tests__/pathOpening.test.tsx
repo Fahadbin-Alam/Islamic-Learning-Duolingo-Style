@@ -34,8 +34,8 @@ function unitsAt(at: number): PathUnit[] {
   ];
 }
 
-async function showPath(at: number, topicId = "foundation") {
-  return render(
+function path(at: number, topicId = "foundation", covered = false) {
+  return (
     <LearnPath
       accent={foundation.accentColor}
       topicId={topicId}
@@ -44,8 +44,13 @@ async function showPath(at: number, topicId = "foundation") {
       xpForNode={(node) => node.xpReward}
       onStartNode={jest.fn()}
       onClaimChest={jest.fn()}
+      covered={covered}
     />
   );
+}
+
+async function showPath(at: number, topicId = "foundation", covered = false) {
+  return render(path(at, topicId, covered));
 }
 
 async function wait(ms: number) {
@@ -106,6 +111,33 @@ describe("the next circle opening on the path", () => {
     expect(screen.queryByTestId("path-node-shut", ALL)).toBeNull();
     await wait(1000);
     expect(screen.queryByTestId("path-node-opened", ALL)).toBeNull();
+  });
+
+  // The bug hunt: back from the first lesson, today's ayah and hadith came up over the path and hid the opening.
+  it("waits shut while a sheet is over the path, and opens once the path shows again", async () => {
+    const first = await showPath(0);
+    await first.unmount();
+
+    const view = await showPath(1, "foundation", true);
+    await wait(3000);
+    expect(screen.getByTestId("path-node-shut", ALL)).toBeTruthy();
+    expect(playGameSound).not.toHaveBeenCalledWith("unlock", expect.anything());
+
+    // The sheet goes away: the moment plays as it would have.
+    await view.rerender(path(1));
+    expect(screen.getByTestId("path-node-shut", ALL)).toBeTruthy();
+    await wait(700);
+    expect(screen.getByTestId("path-node-opened", ALL)).toBeTruthy();
+    expect(playGameSound).toHaveBeenCalledWith("unlock", expect.anything());
+
+    // A sheet coming up after it opened does not shut it again; it finishes once the path is back.
+    await view.rerender(path(1, "foundation", true));
+    await wait(3000);
+    expect(screen.queryByTestId("path-node-shut", ALL)).toBeNull();
+    await view.rerender(path(1));
+    await wait(1900);
+    expect(screen.queryByTestId("path-node-opened", ALL)).toBeNull();
+    expect((playGameSound as jest.Mock).mock.calls.filter(([sound]) => sound === "unlock")).toHaveLength(1);
   });
 
   it("opens on the same path when a finished lesson moves START while it is on screen", async () => {

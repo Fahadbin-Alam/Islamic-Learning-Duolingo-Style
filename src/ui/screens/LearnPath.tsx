@@ -152,6 +152,11 @@ export type LearnPathProps = {
   onRevealed?: () => void;
   /** Extra bottom padding under the end-of-topic trophy. Default 32. */
   bottomPadding?: number;
+  /**
+   * A sheet is over the path (today's ayah and hadith, the plans, a reward...). A circle that has just opened stays
+   * shut under it and pops open once the path shows again, so the learner sees it.
+   */
+  covered?: boolean;
 };
 
 // ---------- geometry ----------
@@ -358,17 +363,18 @@ function ProgressRing({
   );
 }
 
-function StartTag({ color, delay = 0 }: { color: string; delay?: number }) {
+function StartTag({ color, delay = 0, hold = false }: { color: string; delay?: number; hold?: boolean }) {
   const bounce = useLoop((value) => pingPong(value, 520));
   const translateY = bounce.interpolate({
     inputRange: [0, 1],
     outputRange: [0, -6],
   });
-  // On a circle that is just opening, START drops in once it has opened.
+  // On a circle that is just opening, START drops in once it has opened (held while a sheet covers the path).
   const enter = useRef(new Animated.Value(delay ? 0 : 1)).current;
   useLayoutEffect(() => {
     if (!delay) return undefined;
     enter.setValue(0);
+    if (hold) return undefined;
     const run = Animated.sequence([
       Animated.delay(delay),
       Animated.spring(enter, {
@@ -383,7 +389,7 @@ function StartTag({ color, delay = 0 }: { color: string; delay?: number }) {
       run.stop();
       enter.setValue(1);
     };
-  }, [delay, enter]);
+  }, [delay, enter, hold]);
   return (
     <Animated.View
       style={[
@@ -443,13 +449,22 @@ export function resetPathOpeningsForTests() {
   startSeen.clear();
 }
 
-/** The circle that just opened: shut for a moment, then it pops open (a bounce, a chime and sparkles). */
-function useOpening(opening: boolean) {
+/**
+ * The circle that just opened: shut for a moment, then it pops open (a bounce, a chime and sparkles). While held (a
+ * sheet over the path) it stays shut; the moment starts when the path shows.
+ */
+function useOpening(opening: boolean, held: boolean) {
   const still = useReduceMotion();
   const pop = useRef(new Animated.Value(1)).current;
   const [opened, setOpened] = useState(false);
   useEffect(() => {
-    if (!opening) return undefined;
+    if (opening || !opened) return;
+    pop.stopAnimation();
+    pop.setValue(1);
+    setOpened(false);
+  }, [opened, opening, pop]);
+  useEffect(() => {
+    if (!opening || held || opened) return undefined;
     const timer = setTimeout(
       () => {
         setOpened(true);
@@ -465,13 +480,8 @@ function useOpening(opening: boolean) {
       },
       still ? 250 : OPEN_DELAY,
     );
-    return () => {
-      clearTimeout(timer);
-      pop.stopAnimation();
-      pop.setValue(1);
-      setOpened(false);
-    };
-  }, [opening, pop, still]);
+    return () => clearTimeout(timer);
+  }, [held, opened, opening, pop, still]);
   return { shut: opening && !opened, burst: opening && opened && !still, pop };
 }
 
@@ -666,6 +676,7 @@ const PathNode = memo(function PathNode({
   progress,
   showIcon = true,
   opening = false,
+  held = false,
   onPress,
 }: {
   rowKey: string;
@@ -679,9 +690,11 @@ const PathNode = memo(function PathNode({
   showIcon?: boolean;
   /** The finished lesson just opened this circle: it shows shut for a moment, then pops open with sparkles. */
   opening?: boolean;
+  /** A sheet is over the path: an opening circle waits, shut. */
+  held?: boolean;
   onPress: (rowKey: string) => void;
 }) {
-  const { shut, burst, pop } = useOpening(opening);
+  const { shut, burst, pop } = useOpening(opening, held);
   const look = nodeLook(
     shut ? { ...node, status: "locked" } : node,
     color,
@@ -1660,6 +1673,7 @@ export function LearnPath({
   reveal,
   onRevealed,
   bottomPadding = 32,
+  covered = false,
 }: LearnPathProps) {
   const scrollRef = useRef<ScrollView>(null);
   const [width, setWidth] = useState(390);
@@ -1930,10 +1944,10 @@ export function LearnPath({
     if (finished) setOpening(key);
   }, [layout.currentKey, topicId, units]);
   useEffect(() => {
-    if (!opening) return undefined;
+    if (!opening || covered) return undefined;
     const done = setTimeout(() => setOpening(undefined), OPEN_DELAY + OPEN_MS);
     return () => clearTimeout(done);
-  }, [opening]);
+  }, [covered, opening]);
 
   const findRow = useCallback(
     (key: string | undefined) => {
@@ -2567,6 +2581,7 @@ export function LearnPath({
                                       ? OPEN_DELAY + 150
                                       : 0
                                   }
+                                  hold={covered && row.key === opening}
                                 />
                               </View>
                             ) : null}
@@ -2590,6 +2605,7 @@ export function LearnPath({
                                   progress={row.item.progress}
                                   showIcon={unitLive}
                                   opening={row.key === opening}
+                                  held={covered && row.key === opening}
                                   onPress={onNodePress}
                                 />
                               </View>
