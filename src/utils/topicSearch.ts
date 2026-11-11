@@ -69,8 +69,14 @@ function skeleton(folded: string): string {
     .join(" ");
 }
 
-function namesOf(english: string, translate: (language: SupportedLanguage) => string, arabic?: ArabicTerm, extra: (string | undefined)[] = []) {
-  const names = new Set<string>([english, ...LANGUAGES.map(translate), ...extra.filter((name): name is string => Boolean(name))]);
+function namesOf(
+  english: string,
+  languages: readonly SupportedLanguage[],
+  translate: (language: SupportedLanguage) => string,
+  arabic?: ArabicTerm,
+  extra: (string | undefined)[] = []
+) {
+  const names = new Set<string>([english, ...languages.map(translate), ...extra.filter((name): name is string => Boolean(name))]);
   if (arabic) {
     names.add(arabic.ar);
     if (arabic.translit) names.add(arabic.translit);
@@ -80,8 +86,8 @@ function namesOf(english: string, translate: (language: SupportedLanguage) => st
   return { keys, compact, skeletons: [...new Set(keys.map(skeleton).filter(Boolean))] };
 }
 
-/** One index per course; build it once. */
-export function buildTopicSearchIndex(sections: readonly LearningSection[]): Entry[] {
+/** One index per course, with names in these languages (all of them unless told); build it once. */
+export function buildTopicSearchIndex(sections: readonly LearningSection[], languages: readonly SupportedLanguage[] = LANGUAGES): Entry[] {
   const entries: Entry[] = [];
 
   for (const section of sections) {
@@ -92,7 +98,7 @@ export function buildTopicSearchIndex(sections: readonly LearningSection[]): Ent
       topicId,
       title: topicTitle,
       rank: entries.length,
-      ...namesOf(topicTitle, (language) => getTopicCopy(topicId, language).title, getTopicArabic(topicId))
+      ...namesOf(topicTitle, languages, (language) => getTopicCopy(topicId, language).title, getTopicArabic(topicId))
     });
 
     for (const branch of section.branches) {
@@ -105,7 +111,7 @@ export function buildTopicSearchIndex(sections: readonly LearningSection[]): Ent
         nodeId: nodes[0].id,
         title: branch.title,
         rank: entries.length,
-        ...namesOf(branch.title, (language) => t(branch.title, undefined, language), getBranchArabic(branch.id), [branch.surahName])
+        ...namesOf(branch.title, languages, (language) => t(branch.title, undefined, language), getBranchArabic(branch.id), [branch.surahName])
       });
 
       for (const node of nodes) {
@@ -119,7 +125,7 @@ export function buildTopicSearchIndex(sections: readonly LearningSection[]): Ent
           title: node.title,
           unitTitle: branch.title,
           rank: entries.length,
-          ...namesOf(node.title, (language) => t(node.title, undefined, language), getNodeArabic(node.id))
+          ...namesOf(node.title, languages, (language) => t(node.title, undefined, language), getNodeArabic(node.id))
         });
       }
     }
@@ -164,4 +170,51 @@ export function searchTopics(index: readonly Entry[], text: string, limit = 40):
   }
   found.sort((a, b) => a.score - b.score || KIND_RANK[a.entry.kind] - KIND_RANK[b.entry.kind] || a.entry.rank - b.entry.rank);
   return found.slice(0, limit).map(({ entry: { keys: _keys, compact: _compact, skeletons: _skeletons, rank: _rank, ...hit } }) => hit);
+}
+
+/** Letters only some of the app's languages are written in: a search typed in them can only be in those languages. */
+const SCRIPT_OF: Partial<Record<SupportedLanguage, RegExp>> = {
+  bn: /[\u0980-\u09FF]/,
+  ar: /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]/,
+  ur: /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]/
+};
+
+/**
+ * The languages a search could be typed in: English, the learner's own, and any whose letters are in it (a language
+ * with no letters of its own listed here is always one). "হুসাইন" adds Bengali; "حسين" adds Arabic and Urdu.
+ */
+export function searchLanguages(text: string, learnerLanguage: SupportedLanguage): SupportedLanguage[] {
+  return LANGUAGES.filter((language) => {
+    if (language === "en" || language === learnerLanguage) return true;
+    const script = SCRIPT_OF[language];
+    return script ? script.test(text) : true;
+  });
+}
+
+/**
+ * The topic picker's search, finding names in every language the app speaks while loading as little as it can: each
+ * language's text is over 140,000 lines. Its index starts with English and the learner's language, and takes in
+ * another language the first time something is typed in that language's letters.
+ */
+export function createCourseSearch(sections: readonly LearningSection[]) {
+  let languages: SupportedLanguage[] = [];
+  let index: Entry[] = [];
+  const indexFor = (wanted: readonly SupportedLanguage[]) => {
+    if (wanted.every((language) => languages.includes(language))) return index;
+    languages = LANGUAGES.filter((language) => languages.includes(language) || wanted.includes(language));
+    index = buildTopicSearchIndex(sections, languages);
+    return index;
+  };
+  return {
+    /** Builds the index for the learner's language ahead of the first letter. */
+    prepare(learnerLanguage: SupportedLanguage) {
+      indexFor(searchLanguages("", learnerLanguage));
+    },
+    search(text: string, learnerLanguage: SupportedLanguage, limit?: number): TopicSearchHit[] {
+      if (!foldSearchText(text)) return [];
+      return searchTopics(indexFor(searchLanguages(text, learnerLanguage)), text, limit);
+    },
+    /** The languages whose names are in the index now. */
+    languages: () => [...languages]
+  };
 }

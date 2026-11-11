@@ -1,5 +1,5 @@
 import { COURSE } from "../data/course";
-import { buildTopicSearchIndex, foldSearchText, searchTopics } from "../utils/topicSearch";
+import { buildTopicSearchIndex, createCourseSearch, foldSearchText, searchLanguages, searchTopics } from "../utils/topicSearch";
 
 const index = buildTopicSearchIndex(COURSE.sections);
 const first = (query: string) => searchTopics(index, query)[0];
@@ -47,3 +47,30 @@ test("tells Al-Hasan and Al-Husayn apart", () => {
   expect(first("Hassan")).toMatchObject({ title: "Al-Hasan ibn Ali" });
   expect(first("Zainab")?.title).toMatch(/Zaynab/);
 });
+
+describe("the app's search", () => {
+  it("looks in English and the learner's language, and in another only when the search is in its letters", () => {
+    expect(searchLanguages("husayn", "en")).toEqual(["en"]);
+    expect(searchLanguages("husayn", "bn")).toEqual(["en", "bn"]);
+    expect(searchLanguages("হুসাইন", "en")).toEqual(["en", "bn"]);
+    expect(searchLanguages("حسين", "en")).toEqual(["en", "ar", "ur"]);
+    expect(searchLanguages("حسين", "ur")).toEqual(["en", "ar", "ur"]);
+  });
+
+  it("builds its index for the learner first and grows it for a search in other letters, with the same hits", () => {
+    const search = createCourseSearch(COURSE.sections);
+    expect(search.languages()).toEqual([]);
+    search.prepare("en");
+    expect(search.languages()).toEqual(["en"]);
+    expect(search.search("hussain", "en")[0]).toMatchObject({ title: "Al-Husayn ibn Ali" });
+    expect(search.languages()).toEqual(["en"]);
+    expect(search.search("হুসাইন", "en")[0]).toMatchObject({ title: "Al-Husayn ibn Ali" });
+    expect(search.languages()).toEqual(["en", "bn"]);
+    expect(search.search("  - ", "en")).toEqual([]);
+    for (const query of ["Al Husayn", "fatiha", "hijrah", "Omar", "prayer", "حسين"]) {
+      expect(search.search(query, "en")).toEqual(searchTopics(index, query));
+    }
+    expect(search.languages()).toEqual(["en", "ar", "bn", "ur"]);
+  });
+});
+

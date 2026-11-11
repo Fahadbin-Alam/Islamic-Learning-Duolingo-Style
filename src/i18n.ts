@@ -1,4 +1,4 @@
-import { getCatalog } from "./translations";
+import { translationOf } from "./translations";
 import type { SupportedLanguage, TopicId } from "./types";
 
 export interface LanguageOption {
@@ -230,7 +230,7 @@ type TranslationValues = Record<string, string | number>;
 // Translates an English string through the language's catalog. Strings without a translation stay in
 // English. Placeholders like {count} are filled from values after translating.
 export function t(text: string, values?: TranslationValues, language: SupportedLanguage = activeLanguage) {
-  const template = language === DEFAULT_LANGUAGE ? text : getCatalog(language)[text] ?? text;
+  const template = language === DEFAULT_LANGUAGE ? text : translationOf(language, text) ?? text;
 
   if (!values) {
     return template;
@@ -240,7 +240,7 @@ export function t(text: string, values?: TranslationValues, language: SupportedL
 }
 
 export function hasTranslation(text: string, language: SupportedLanguage) {
-  return language === DEFAULT_LANGUAGE || text in getCatalog(language);
+  return language === DEFAULT_LANGUAGE || translationOf(language, text) !== undefined;
 }
 
 export function getUiStrings(language: SupportedLanguage = activeLanguage) {

@@ -46,6 +46,8 @@ export type TopicPickerProps = {
   onSelect: (topicId: string, unitId?: string, nodeId?: string) => void;
   /** Finds topics, units and lessons for the search field (searchTopics). Without it there is no search field. */
   search?: (query: string) => TopicSearchHit[];
+  /** Called when the search field is touched, so the search can get ready before the first letter. */
+  prepareSearch?: () => void;
   /** Gap above the sheet. Default 40. */
   topGap?: number;
   /** Bottom safe-area inset; tiles scroll to the screen edge and clear it. Default 0. */
@@ -224,7 +226,7 @@ function UnitList({
 }
 
 /** Full-height sheet with a search field and a grid of topic worlds; while the field has text, its hits replace the grid. */
-export function TopicPicker({ visible, onClose, topics, activeTopicId, activeUnitId, onSelect, search, topGap = 40, bottomInset = 0 }: TopicPickerProps) {
+export function TopicPicker({ visible, onClose, topics, activeTopicId, activeUnitId, onSelect, search, prepareSearch, topGap = 40, bottomInset = 0 }: TopicPickerProps) {
   const [gridWidth, setGridWidth] = useState(0);
   const [query, setQuery] = useState("");
   const [focused, setFocused] = useState(false);
@@ -266,7 +268,10 @@ export function TopicPicker({ visible, onClose, topics, activeTopicId, activeUni
           <TextInput
             value={query}
             onChangeText={setQuery}
-            onFocus={() => setFocused(true)}
+            onFocus={() => {
+              setFocused(true);
+              prepareSearch?.();
+            }}
             onBlur={() => setFocused(false)}
             placeholder={t("Search topics and people")}
             placeholderTextColor={colors.inkSoft}
