@@ -213,12 +213,12 @@ describe("Hadith topic", () => {
   const hadith = () => section("hadith");
   const lessonsOf = (branchId: string) => hadith().nodes.filter((node) => node.branchId === branchId).map((node) => lessonOf(node.id)!);
 
-  it("is a child's path: Hadith for kids, three units of short sayings, then Safe with Allah, and no unit waits behind a gate", () => {
+  it("is a child's path: Hadith for kids, units of short sayings and stories, then Safe with Allah, and no unit waits behind a gate", () => {
     const branches = hadith().branches;
-    expect(branches.map((branch) => branch.title)).toEqual(["Hadith for kids", "Words that please Allah", "Small deeds, big rewards", "Kindness at home", "Safe with Allah"]);
+    expect(branches.map((branch) => branch.title)).toEqual(["Hadith for kids", "Words that please Allah", "Small deeds, big rewards", "Kindness at home", "Stories the Prophet ﷺ told", "Allah says: hadith qudsi", "Allah forgives", "Safe with Allah"]);
     expect(branches.some((branch) => branch.gated)).toBe(false);
     // Unit ids stay those of the imported units, so saved progress still counts.
-    expect(branches.map((branch) => branch.id)).toEqual([HADITH_BASICS_BRANCH_ID, "hadith-dhikr", "hadith-small-deeds", "hadith-kindness", "notes-hadith-hadith-from-your-notes-1"]);
+    expect(branches.map((branch) => branch.id)).toEqual([HADITH_BASICS_BRANCH_ID, "hadith-dhikr", "hadith-small-deeds", "hadith-kindness", "hadith-stories", "hadith-qudsi", "hadith-forgives", "notes-hadith-hadith-from-your-notes-1"]);
   });
 
   it("teaches the hadith about marriage only as the last unit of the Marriage topic, in order", () => {

@@ -13,6 +13,7 @@ import { FASTING_UNITS } from "./fastingUnits";
 import { ZAKAT_UNITS } from "./zakatUnits";
 import { HADITH_UNITS } from "./hadithUnits";
 import { KIDS_HADITH_UNITS } from "./kidsHadithUnits";
+import { HADITH_STORY_UNITS } from "./hadithStoryUnits";
 import { EID_UNITS } from "./eidUnits";
 import { INTRO_UNITS } from "./introUnits";
 import { HADITH_BOOK_UNITS, SAHIHAYN_SECTION } from "./hadithBooks";
@@ -3072,7 +3073,7 @@ const ASR: DeepUnit = {
 
 const SURAH_DEEP_UNITS: readonly DeepUnit[] = [NAS, FALAQ, IKHLAS, ASR, ...BAQARAH_UNITS, ...SURAH_DEPTH_UNITS, ...INTRO_UNITS];
 
-export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, ...SAHABA_UNITS, MUHAJIRUN, FATIHAH, MULK, NAS, FALAQ, IKHLAS, ASR, SPEECH, PARENTS, NEIGHBORS, ANGER, ...MANNERS_UNITS, SPOUSES, CHILDREN, ...MARRIAGE_UNITS, ...WOMEN_UNITS, ...LIFE_UNITS, ...EID_UNITS, ...SCHOLAR_UNITS, ...AKHIRAH_UNITS, ...DUA_UNITS, ...PROPHET_UNITS, ...SEERAH_UNITS, ...AQIDAH_UNITS, ...FASTING_UNITS, ...ZAKAT_UNITS, ...HADITH_UNITS, ...KIDS_HADITH_UNITS, ...HADITH_BOOK_UNITS, ...PRAYER_UNITS, ...HAJJ_UNITS, ...BAQARAH_UNITS, ...SURAH_DEPTH_UNITS];
+export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, ...SAHABA_UNITS, MUHAJIRUN, FATIHAH, MULK, NAS, FALAQ, IKHLAS, ASR, SPEECH, PARENTS, NEIGHBORS, ANGER, ...MANNERS_UNITS, SPOUSES, CHILDREN, ...MARRIAGE_UNITS, ...WOMEN_UNITS, ...LIFE_UNITS, ...EID_UNITS, ...SCHOLAR_UNITS, ...AKHIRAH_UNITS, ...DUA_UNITS, ...PROPHET_UNITS, ...SEERAH_UNITS, ...AQIDAH_UNITS, ...FASTING_UNITS, ...ZAKAT_UNITS, ...HADITH_UNITS, ...KIDS_HADITH_UNITS, ...HADITH_STORY_UNITS, ...HADITH_BOOK_UNITS, ...PRAYER_UNITS, ...HAJJ_UNITS, ...BAQARAH_UNITS, ...SURAH_DEPTH_UNITS];
 
 // The hand-written answer comes first, so the four choices turn by a stable hash of the question id.
 function turn<T>(id: string, items: T[]): T[] {
