@@ -25,6 +25,7 @@ import { JourneyMap } from "../ui/journey/JourneyMap";
 import { LIFE_STOPS, LifeMapSheet } from "../ui/journey/LifeMap";
 import { evenPoints, fitView, kmBetween, pixels, roundKm, smoothLine } from "../ui/journey/mapGeometry";
 import { terrainSvg } from "../ui/journey/mapTerrain";
+import { setLiteMotionForTests } from "../ui/liteMotion";
 import type { Lesson } from "../types";
 
 const lesson = (unitKey: string, slug: string) => LESSONS_BY_ID[`lesson-deep-${unitKey}-${slug}`] as Lesson;
@@ -209,6 +210,26 @@ describe("the maps on screen", () => {
     const { scene } = journeyForLesson(lesson("seerah-isra", "night-journey"))!;
     await render(<JourneyMap scene={scene} width={360} height={270} still />);
     expect(screen.getByText("About 1,200 km apart")).toBeTruthy();
+  });
+
+  test("a slow phone keeps the map's touches but with fewer moving pieces", async () => {
+    const { scene } = journeyForLesson(lesson("seerah-badr", "calm"))!;
+    const pieces = async () => {
+      const shown = await render(<JourneyMap scene={scene} width={360} height={270} lessonSlug="calm" />);
+      const count = screen.getByTestId("map-rain").children.length;
+      await shown.unmount();
+      return count;
+    };
+    try {
+      setLiteMotionForTests(false);
+      const full = await pieces();
+      setLiteMotionForTests(true);
+      const lite = await pieces();
+      expect(lite).toBeGreaterThan(1);
+      expect(lite).toBeLessThan(full);
+    } finally {
+      setLiteMotionForTests(undefined);
+    }
   });
 
   test("tapping the map draws the road again", async () => {

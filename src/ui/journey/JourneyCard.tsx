@@ -10,6 +10,7 @@ import { PopIn } from "../PopIn";
 import { Tappable } from "../Tappable";
 import { colors, fonts, radii, space } from "../theme";
 import { bigPhotoMaxHeight } from "../lesson/LessonPhoto";
+import { textScaled } from "../textScale";
 import { JourneyMap } from "./JourneyMap";
 import { LifeBar, LifeLine } from "./LifeBar";
 
@@ -83,7 +84,8 @@ export function JourneyCard({ journey, short, delay = 380, onOpenSource }: { jou
   );
 }
 
-const styles = StyleSheet.create({
+// The caption grows with "Bigger text" in Settings, like the rest of the lesson page.
+const styles = textScaled(StyleSheet.create({
   wrap: { alignSelf: "stretch", width: "100%", marginTop: space.sm, marginBottom: space.xs },
   wrapShort: { marginTop: space.xs },
   frame: {
@@ -113,4 +115,4 @@ const styles = StyleSheet.create({
   sourcesLead: { fontFamily: fonts.bodyBold, fontSize: 12, lineHeight: 17, color: colors.inkSoft },
   sourceTap: { maxWidth: "100%" },
   sourceText: { fontFamily: fonts.bodyHeavy, fontSize: 12, lineHeight: 17, color: "#1683D1", textDecorationLine: "underline" }
-});
+}));

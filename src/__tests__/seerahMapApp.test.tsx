@@ -33,6 +33,9 @@ import type { UserProfile } from "../types";
 import { makeUser } from "./testUtils";
 
 const PROFILE_KEY = "sira-path-user-profile";
+// The app's first draw can take a few seconds when many test files run at once.
+const SLOW = { timeout: 10000 };
+jest.setTimeout(60000);
 
 async function press(testID: string) {
   await act(async () => {
@@ -58,10 +61,10 @@ describe("the Seerah maps in the app", () => {
     const { user, nodeId } = learnerAt("lesson-deep-seerah-hijrah-quba");
     setStoredItem(PROFILE_KEY, JSON.stringify(user));
     await render(<TopicApp />);
-    await screen.findByTestId("learn-path-prophets");
+    await screen.findByTestId("learn-path-prophets", undefined, SLOW);
     await press(`path-node-${nodeId}`);
     await press("node-card-start");
-    expect(await screen.findByTestId("learn-card")).toBeTruthy();
+    expect(await screen.findByTestId("learn-card", undefined, SLOW)).toBeTruthy();
     expect(screen.getByTestId("journey-map")).toBeTruthy();
     expect(screen.queryByTestId("lesson-photo")).toBeNull();
     expect(screen.getByTestId("journey-life-on-madinah")).toBeTruthy();
@@ -70,10 +73,10 @@ describe("the Seerah maps in the app", () => {
   it("puts the map of his life ﷺ on the Prophets path only, and opens and closes it", async () => {
     setStoredItem(PROFILE_KEY, JSON.stringify(makeUser({ lastTopicId: "prophets" })));
     await render(<TopicApp />);
-    await screen.findByTestId("learn-path-prophets");
+    await screen.findByTestId("learn-path-prophets", undefined, SLOW);
     expect(screen.queryByTestId("life-map-sheet")).toBeNull();
     await press("life-map-banner");
-    expect(screen.getByTestId("life-map-sheet")).toBeTruthy();
+    expect(await screen.findByTestId("life-map-sheet", undefined, SLOW)).toBeTruthy();
     expect(screen.getByTestId("life-map-title")).toHaveTextContent("Seerah: the early years");
     await press("life-map-close");
     expect(screen.queryByTestId("life-map-title")).toBeNull();
@@ -82,7 +85,7 @@ describe("the Seerah maps in the app", () => {
   it("leaves other paths without it", async () => {
     setStoredItem(PROFILE_KEY, JSON.stringify(makeUser({ lastTopicId: "sahabah" })));
     await render(<TopicApp />);
-    await screen.findByTestId("learn-path-sahabah");
+    await screen.findByTestId("learn-path-sahabah", undefined, SLOW);
     expect(screen.queryByTestId("life-map-banner")).toBeNull();
   });
 });

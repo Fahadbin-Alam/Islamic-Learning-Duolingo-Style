@@ -6,6 +6,7 @@ import type { LatLon } from "../../data/seerahMapGeo";
 import { t } from "../../i18n";
 import { colors, fonts } from "../theme";
 import { besideLine, distance, evenPoints, fitView, kmBetween, lineLength, pixels, pointAlong, roundKm, smoothLine, type Pt } from "./mapGeometry";
+import { useLiteMotion } from "../liteMotion";
 import { MapTouch, Night } from "./mapEffects";
 import { seaShown, terrainSvg } from "./mapTerrain";
 
@@ -169,6 +170,8 @@ function pillBox(at: Pt, text: string, width: number, height: number) {
 }
 
 export function JourneyMap({ scene, width, height, lessonSlug, focus, still = false, play = 0, delay = 0, onDrawn }: JourneyMapProps) {
+  // A slow phone keeps the touches but with fewer moving pieces.
+  const lite = useLiteMotion();
   const view = useMemo(() => fitView(scene.box, width / height), [scene.box, width, height]);
   const map = useMemo(() => pixels(view, width), [view, width]);
   const places = useMemo(() => scene.places.map((id) => ({ place: MAP_PLACES[id], at: map.of(MAP_PLACES[id].at) })), [scene.places, map]);
@@ -223,7 +226,7 @@ export function JourneyMap({ scene, width, height, lessonSlug, focus, still = fa
           const from = typeof effect.at === "string" ? reaches(effect.at) : 0;
           return (
             <Animated.View key={`${effect.kind}-${index}`} style={[StyleSheet.absoluteFill, { opacity: appear(progress, from, 0.05) }]} pointerEvents="none">
-              <MapTouch kind={effect.kind} at={point} still={still} color={night ? "#FFE58A" : ROAD_LOOK.his.color} />
+              <MapTouch kind={effect.kind} at={point} still={still} lite={lite} color={night ? "#FFE58A" : ROAD_LOOK.his.color} />
               {effect.label ? (
                 <View style={[styles.abs, labelBox({ x: point.x, y: point.y + 4 }, "bottom", t(effect.label), width, height).style]}>
                   <Text style={styles.campLabel} numberOfLines={2}>

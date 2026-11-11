@@ -10,7 +10,8 @@ import type { Pt } from "./mapGeometry";
  * at Qarn ath-Tha'alib, the night of the Isra, the call and the news going out (rings), the way up from Al-Aqsa (a
  * column of light), and the tents of the camps. Only weather, light and things: never anyone.
  *
- * Every one runs on the native driver from one looping value; with reduce motion it stands still.
+ * Every one runs on the native driver from one looping value; with reduce motion (or Calm mode) it stands still, and on
+ * a slow phone (lite motion) it keeps fewer drops, streaks, flames, rings and sparks.
  */
 
 /** A value that runs from 0 to 1 again and again, `ms` each time, while the effect is shown. */
@@ -26,6 +27,9 @@ function useLoop(ms: number, still: boolean) {
   return value;
 }
 
+/** On a slow phone a touch keeps only every other piece. */
+const fewer = <T,>(items: T[], lite: boolean) => (lite ? items.filter((_, index) => index % 2 === 0) : items);
+
 /** The loop moved on by `shift` (0 to 1), so several drops or rings run out of step. */
 const phase = (value: Animated.Value, shift: number) => Animated.modulo(Animated.add(value, shift), 1);
 
@@ -36,11 +40,11 @@ const STREAK = `<svg xmlns="http://www.w3.org/2000/svg" width="46" height="12" v
 const TENT = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="14" viewBox="0 0 18 14"><path d="M1 13L9 1l8 12Z" fill="#F4ECDC" stroke="#8C7558" stroke-width="1.2" stroke-linejoin="round"/><path d="M9 1v12" stroke="#8C7558" stroke-width="1"/><path d="M7 13l2-5 2 5Z" fill="#6B5640"/></svg>`;
 const SPARK = `<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"><path d="M5 0l1.2 3.8L10 5 6.2 6.2 5 10 3.8 6.2 0 5l3.8-1.2Z" fill="#FFF3B0"/></svg>`;
 
-function Rain({ at, still }: { at: Pt; still: boolean }) {
+function Rain({ at, still, lite }: { at: Pt; still: boolean; lite: boolean }) {
   const loop = useLoop(900, still);
-  const drops = [-20, -12, -5, 2, 9, 16, 23, -16, 5, 19];
+  const drops = fewer([-20, -12, -5, 2, 9, 16, 23, -16, 5, 19], lite);
   return (
-    <View pointerEvents="none" style={[styles.abs, { left: at.x - 30, top: at.y - 44, width: 60, height: 56 }]}>
+    <View pointerEvents="none" style={[styles.abs, { left: at.x - 30, top: at.y - 44, width: 60, height: 56 }]} testID="map-rain">
       {drops.map((dx, index) => {
         const value = phase(loop, (index * 0.37) % 1);
         return (
@@ -64,11 +68,11 @@ function Rain({ at, still }: { at: Pt; still: boolean }) {
   );
 }
 
-function Wind({ at, still }: { at: Pt; still: boolean }) {
+function Wind({ at, still, lite }: { at: Pt; still: boolean; lite: boolean }) {
   const loop = useLoop(1500, still);
-  const rows = [-18, -4, 10, 22];
+  const rows = fewer([-18, -4, 10, 22], lite);
   return (
-    <View pointerEvents="none" style={[styles.abs, { left: at.x - 70, top: at.y - 30, width: 140, height: 60 }]}>
+    <View pointerEvents="none" style={[styles.abs, { left: at.x - 70, top: at.y - 30, width: 140, height: 60 }]} testID="map-wind">
       {rows.map((dy, index) => {
         const value = phase(loop, index * 0.27);
         return (
@@ -92,9 +96,9 @@ function Wind({ at, still }: { at: Pt; still: boolean }) {
   );
 }
 
-function Fires({ at, still }: { at: Pt; still: boolean }) {
+function Fires({ at, still, lite }: { at: Pt; still: boolean; lite: boolean }) {
   const loop = useLoop(700, still);
-  const spots = [
+  const spots = fewer([
     [-22, 6],
     [-12, -10],
     [-2, 12],
@@ -104,9 +108,9 @@ function Fires({ at, still }: { at: Pt; still: boolean }) {
     [-28, -6],
     [12, 18],
     [-14, 20]
-  ];
+  ], lite);
   return (
-    <View pointerEvents="none" style={[styles.abs, { left: at.x - 36, top: at.y - 30, width: 72, height: 60 }]}>
+    <View pointerEvents="none" style={[styles.abs, { left: at.x - 36, top: at.y - 30, width: 72, height: 60 }]} testID="map-fires">
       {spots.map(([dx, dy], index) => {
         const value = phase(loop, (index * 0.41) % 1);
         return (
@@ -131,11 +135,11 @@ function Fires({ at, still }: { at: Pt; still: boolean }) {
   );
 }
 
-function Ripple({ at, still, color }: { at: Pt; still: boolean; color: string }) {
+function Ripple({ at, still, lite, color }: { at: Pt; still: boolean; lite: boolean; color: string }) {
   const loop = useLoop(2400, still);
   return (
-    <View pointerEvents="none" style={[styles.abs, { left: at.x - 40, top: at.y - 40, width: 80, height: 80 }]}>
-      {[0, 1 / 3, 2 / 3].map((shift) => {
+    <View pointerEvents="none" style={[styles.abs, { left: at.x - 40, top: at.y - 40, width: 80, height: 80 }]} testID="map-ripple">
+      {(lite ? [0, 1 / 2] : [0, 1 / 3, 2 / 3]).map((shift) => {
         const value = phase(loop, shift);
         return (
           <Animated.View
@@ -158,7 +162,7 @@ function Ripple({ at, still, color }: { at: Pt; still: boolean; color: string })
 function Cloud({ at, still }: { at: Pt; still: boolean }) {
   const loop = useLoop(3200, still);
   return (
-    <View pointerEvents="none" style={[styles.abs, { left: at.x - 30, top: at.y - 36, width: 60, height: 50 }]}>
+    <View pointerEvents="none" style={[styles.abs, { left: at.x - 30, top: at.y - 36, width: 60, height: 50 }]} testID="map-cloud">
       <View style={styles.shade} />
       <Animated.View style={[styles.abs, { left: 3, top: 0, transform: [{ translateX: loop.interpolate({ inputRange: [0, 0.5, 1], outputRange: [-3, 3, -3] }) }] }]}>
         <SvgXml xml={CLOUD} width={54} height={30} />
@@ -167,12 +171,12 @@ function Cloud({ at, still }: { at: Pt; still: boolean }) {
   );
 }
 
-function Rise({ at, still }: { at: Pt; still: boolean }) {
+function Rise({ at, still, lite }: { at: Pt; still: boolean; lite: boolean }) {
   const loop = useLoop(2200, still);
   return (
-    <View pointerEvents="none" style={[styles.abs, { left: at.x - 16, top: at.y - 70, width: 32, height: 68 }]}>
+    <View pointerEvents="none" style={[styles.abs, { left: at.x - 16, top: at.y - 70, width: 32, height: 68 }]} testID="map-rise">
       <View style={styles.beam} />
-      {[0, 0.2, 0.4, 0.6, 0.8].map((shift, index) => {
+      {fewer([0, 0.2, 0.4, 0.6, 0.8], lite).map((shift, index) => {
         const value = phase(loop, shift);
         return (
           <Animated.View
@@ -203,7 +207,7 @@ function Tents({ at }: { at: Pt }) {
     [-2, 8]
   ];
   return (
-    <View pointerEvents="none" style={[styles.abs, { left: at.x - 22, top: at.y - 16, width: 44, height: 32 }]}>
+    <View pointerEvents="none" style={[styles.abs, { left: at.x - 22, top: at.y - 16, width: 44, height: 32 }]} testID="map-tents">
       {spots.map(([dx, dy], index) => (
         <View key={index} style={[styles.abs, { left: 22 + dx - 9, top: 16 + dy - 7 }]}>
           <SvgXml xml={TENT} width={18} height={14} />
@@ -225,21 +229,21 @@ export function Night({ still }: { still: boolean }) {
   return <Animated.View pointerEvents="none" style={[StyleSheet.absoluteFill, styles.night, { opacity: shown }]} />;
 }
 
-/** One effect at its point (the night is drawn by Night). */
-export function MapTouch({ kind, at, still, color }: { kind: MapEffect["kind"]; at: Pt; still: boolean; color: string }) {
+/** One effect at its point (the night is drawn by Night). `lite`: a slow phone, so fewer moving pieces. */
+export function MapTouch({ kind, at, still, lite = false, color }: { kind: MapEffect["kind"]; at: Pt; still: boolean; lite?: boolean; color: string }) {
   switch (kind) {
     case "rain":
-      return <Rain at={at} still={still} />;
+      return <Rain at={at} still={still} lite={lite} />;
     case "wind":
-      return <Wind at={at} still={still} />;
+      return <Wind at={at} still={still} lite={lite} />;
     case "fires":
-      return <Fires at={at} still={still} />;
+      return <Fires at={at} still={still} lite={lite} />;
     case "ripple":
-      return <Ripple at={at} still={still} color={color} />;
+      return <Ripple at={at} still={still} lite={lite} color={color} />;
     case "cloud":
       return <Cloud at={at} still={still} />;
     case "rise":
-      return <Rise at={at} still={still} />;
+      return <Rise at={at} still={still} lite={lite} />;
     case "tents":
       return <Tents at={at} />;
     default:
