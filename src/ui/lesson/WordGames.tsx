@@ -17,6 +17,8 @@ import { noBreakHyphens, shortWhy } from "./lessonText";
 import { CHECK_FALSE, CHECK_TRUE, WRONG_BUILD, formatSeed, type FillPiece, type MatchPair } from "./questionFormats";
 import { getActiveLanguage, t } from "../../i18n";
 import { textScaled } from "../textScale";
+import { choicePictures, type LessonPicture } from "../../data/lessonPictures";
+import { AlbumThumb } from "./LessonPhoto";
 
 // The Duolingo-style games a question can be asked as (see questionFormats): fill the gap, the answer with its
 // key word missing, true or false on one choice, and a matching round. Each one reports the answer as a choice id, so the
@@ -66,9 +68,12 @@ function WordTile({
   onPress,
   onDrop,
   disabled,
+  picture,
   testID
 }: {
   label: string;
+  /** A place's small living picture beside the word (the matching game, when every answer is a place). */
+  picture?: LessonPicture;
   tone: TileTone;
   accent: string;
   onPress?: () => void;
@@ -111,7 +116,8 @@ function WordTile({
   if (tone === "used") {
     return (
       <View style={styles.tileOuter} accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
-        <View style={styles.well}>
+        <View style={[styles.well, picture ? styles.tileRow : null]}>
+          {picture ? <View style={{ width: TILE_PICTURE, height: TILE_PICTURE }} /> : null}
           <Text style={[styles.tileText, styles.hiddenText]}>{label}</Text>
         </View>
       </View>
@@ -124,8 +130,9 @@ function WordTile({
     >
       <Tappable onPress={onPress} disabled={disabled} pressScale={0.94} accessibilityLabel={label} testID={testID} style={styles.tilePress}>
         <View pointerEvents="none" style={[styles.tileLip, { backgroundColor: look.lip }]} />
-        <View style={[styles.tileFace, { backgroundColor: look.bg, borderColor: look.border }]}>
-          <Text style={[styles.tileText, { color: look.ink }]}>{withHonorifics(noBreakHyphens(label))}</Text>
+        <View style={[styles.tileFace, picture ? styles.tileRow : null, { backgroundColor: look.bg, borderColor: look.border }]}>
+          {picture ? <AlbumThumb picture={picture} size={TILE_PICTURE} testID={testID ? `${testID}-picture` : undefined} /> : null}
+          <Text style={[styles.tileText, picture ? styles.tileTextBeside : null, { color: look.ink }]}>{withHonorifics(noBreakHyphens(label))}</Text>
         </View>
       </Tappable>
     </Animated.View>
@@ -369,6 +376,8 @@ export function MatchGame({ pairs, mascotVariant, accent, onDone, onMiss, playSo
   const { style: shakeStyle, shake } = useShake(8);
   const done = matched.length === pairs.length;
   const palette = topicPalette(accent);
+  // Every answer a different place with a picture: each answer tile shows its place, moving.
+  const pictures = useMemo(() => choicePictures(pairs.map((pair) => ({ id: String(pair.index), label: pair.right }))), [pairs]);
   // Each pair matched: the teacher jumps for joy for a moment and a "sparkle" plays (the last one gets the sheet).
   const [joy, setJoy] = useState(0);
   useEffect(() => {
@@ -438,8 +447,9 @@ export function MatchGame({ pairs, mascotVariant, accent, onDone, onMiss, playSo
               >
                 <Text style={styles.matchQuestion}>{withHonorifics(noBreakHyphens(pair.left))}</Text>
                 {isMatched ? (
-                  <PopIn from="up" distance={8}>
-                    <Text style={styles.matchAnswer}>{withHonorifics(pair.right)}</Text>
+                  <PopIn from="up" distance={8} style={pictures ? styles.matchAnswerRow : undefined}>
+                    {pictures ? <AlbumThumb picture={pictures[String(pair.index)]} size={MATCHED_PICTURE} testID="match-answer-picture" /> : null}
+                    <Text style={[styles.matchAnswer, pictures ? styles.matchAnswerBeside : null]}>{withHonorifics(pair.right)}</Text>
                   </PopIn>
                 ) : null}
               </Tappable>
@@ -452,6 +462,7 @@ export function MatchGame({ pairs, mascotVariant, accent, onDone, onMiss, playSo
             <WordTile
               key={pair.index}
               label={pair.right}
+              picture={pictures?.[String(pair.index)]}
               tone={matched.includes(pair.index) ? "used" : wrong?.answer === pair.index ? "wrong" : answer === pair.index ? "picked" : "idle"}
               accent={accent}
               onPress={() => pickAnswer(pair.index)}
@@ -490,6 +501,9 @@ function MatchPop({ matched, children }: { matched: boolean; children: React.Rea
 }
 
 const TILE_LIP = 4;
+/** A place's picture on an answer tile, and beside a matched answer. */
+const TILE_PICTURE = 40;
+const MATCHED_PICTURE = 28;
 
 const styles = textScaled(StyleSheet.create({
   root: { flex: 1, position: "relative", backgroundColor: colors.snow },
@@ -524,6 +538,8 @@ const styles = textScaled(StyleSheet.create({
   tileLip: { position: "absolute", left: 0, right: 0, top: TILE_LIP, bottom: 0, borderRadius: 14 },
   tileFace: { borderWidth: 2, borderRadius: 14, paddingHorizontal: 14, paddingVertical: 8, minHeight: 46, justifyContent: "center", maxWidth: "100%" },
   tileText: { fontFamily: fonts.bodyHeavy, fontSize: 17, lineHeight: 22 },
+  tileRow: { flexDirection: "row", alignItems: "center", gap: 8, paddingLeft: 6 },
+  tileTextBeside: { flexShrink: 1 },
   hiddenText: { color: "transparent" },
   well: {
     borderRadius: 14,
@@ -549,5 +565,7 @@ const styles = textScaled(StyleSheet.create({
   matchCardDone: { borderColor: lighten(colors.green, 0.2), backgroundColor: colors.correctBg },
   matchCardWrong: { borderColor: lighten(colors.heart, 0.2), backgroundColor: colors.wrongBg },
   matchQuestion: { fontFamily: fonts.bodyBold, fontSize: 16, lineHeight: 22, color: colors.ink },
-  matchAnswer: { marginTop: 4, fontFamily: fonts.bodyHeavy, fontSize: 16, lineHeight: 21, color: CORRECT_TEXT }
+  matchAnswer: { marginTop: 4, fontFamily: fonts.bodyHeavy, fontSize: 16, lineHeight: 21, color: CORRECT_TEXT },
+  matchAnswerRow: { flexDirection: "row", alignItems: "center", gap: 8, marginTop: 4 },
+  matchAnswerBeside: { marginTop: 0, flexShrink: 1 }
 }));

@@ -170,3 +170,31 @@ describe("a teacher you can tap", () => {
     expect(screen.getByTestId("teacher-word", { includeHiddenElements: true })).toBeTruthy();
   });
 });
+
+describe("pictures in the matching game", () => {
+  const pairs = [
+    { index: 0, left: "Where do pilgrims stand on the 9th?", right: "Arafah" },
+    { index: 1, left: "Where do pilgrims spend the night after Arafah?", right: "Muzdalifah" },
+    { index: 2, left: "Where are the pebbles thrown?", right: "Mina" }
+  ];
+
+  it("each answer that is a place shows its picture, and keeps it once matched", async () => {
+    const { MatchGame } = jest.requireActual("../ui/lesson/WordGames") as typeof import("../ui/lesson/WordGames");
+    await render(<MatchGame pairs={pairs} mascotVariant="girl" accent="#21B573" onDone={jest.fn()} playSound={false} />);
+    for (const pair of pairs) expect(screen.getByTestId(`match-answer-${pair.index}-picture`, { includeHiddenElements: true })).toBeTruthy();
+    await fireEvent.press(screen.getByTestId("match-question-0"));
+    await fireEvent.press(screen.getByTestId("match-answer-0"));
+    expect(screen.getAllByTestId("match-answer-picture", { includeHiddenElements: true })).toHaveLength(1);
+  });
+
+  it("answers that are not all places stay words only", async () => {
+    const { MatchGame } = jest.requireActual("../ui/lesson/WordGames") as typeof import("../ui/lesson/WordGames");
+    const words = [
+      { index: 0, left: "Sabr", right: "Patience" },
+      { index: 1, left: "Shukr", right: "Thankfulness" },
+      { index: 2, left: "Ikhlas", right: "Sincerity" }
+    ];
+    await render(<MatchGame pairs={words} mascotVariant="girl" accent="#21B573" onDone={jest.fn()} playSound={false} />);
+    expect(screen.queryByTestId("match-answer-0-picture", { includeHiddenElements: true })).toBeNull();
+  });
+});
