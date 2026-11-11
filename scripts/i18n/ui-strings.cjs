@@ -11,6 +11,7 @@ const TABLE_FILES = {
   "src/ui/screens/SettingsSheet.tsx": ["ROLES", "DIFFICULTIES", "WORLD_LINES"],
   "src/ui/pathWorlds.tsx": ["WORLD_LABELS"],
   "src/ui/screens/BackgroundSheet.tsx": ["OPTIONS"],
+  "src/ui/screens/AgeSheet.tsx": ["OPTIONS"],
   "src/ui/screens/ScholarTree.tsx": ["GENERATION_LABEL"],
   "src/services/prayerTimes.ts": ["PRAYER_LABELS"],
   "src/ui/screens/ShopView.tsx": ["BENEFITS"],

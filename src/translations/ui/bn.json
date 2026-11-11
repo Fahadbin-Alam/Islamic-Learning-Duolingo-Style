@@ -890,5 +890,9 @@
   "New picture for your album!": "তোমার অ্যালবামে নতুন ছবি!",
   "Not found yet": "এখনো পাওয়া যায়নি",
   "Picture album": "ছবির অ্যালবাম",
-  "{count} new pictures for your album!": "তোমার অ্যালবামে {count}টি নতুন ছবি!"
+  "{count} new pictures for your album!": "তোমার অ্যালবামে {count}টি নতুন ছবি!",
+  "9 or under": "9 বা তার কম",
+  "10 to 12": "10 থেকে 12",
+  "13 to 17": "13 থেকে 17",
+  "18 or older": "18 বা তার বেশি"
 }

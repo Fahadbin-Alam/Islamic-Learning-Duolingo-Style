@@ -76,14 +76,19 @@ export function PhotoSheet({ picture, visible, onClose }: { picture: LessonPictu
   return (
     <Sheet visible={visible} onClose={onClose} testID="photo-sheet">
       <View style={styles.sheetBody}>
-        <Image
-          source={picture.image}
-          style={[styles.sheetImage, size]}
-          resizeMode="contain"
-          accessible
-          accessibilityLabel={t(picture.caption)}
-          testID="photo-sheet-image"
-        />
+        {/* Big, the picture lives too: its own life, without the camera drift (the whole picture stays in view). */}
+        <View style={[styles.sheetImage, size, styles.sheetLive]} testID="photo-sheet-frame">
+          <LiveFrame aspect={photoAspect(picture)} life={PICTURE_LIFE[picture.id]} calm>
+            <Image
+              source={picture.image}
+              style={styles.photoImage}
+              resizeMode="contain"
+              accessible
+              accessibilityLabel={t(picture.caption)}
+              testID="photo-sheet-image"
+            />
+          </LiveFrame>
+        </View>
         <Text style={styles.sheetCaption}>{t(picture.caption)}</Text>
         <PhotoCredit picture={picture} testID="photo-sheet-credit" />
         <Tappable onPress={onClose} style={styles.closeButton} accessibilityLabel={t("Close")} testID="photo-sheet-close">
@@ -288,6 +293,9 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     borderRadius: radii.lg,
     backgroundColor: colors.mist
+  },
+  sheetLive: {
+    overflow: "hidden"
   },
   sheetCaption: {
     marginTop: space.md,

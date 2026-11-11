@@ -890,5 +890,9 @@
   "New picture for your album!": "صورة جديدة لألبومك!",
   "Not found yet": "لم تُكتشف بعد",
   "Picture album": "ألبوم الصور",
-  "{count} new pictures for your album!": "{count} صور جديدة لألبومك!"
+  "{count} new pictures for your album!": "{count} صور جديدة لألبومك!",
+  "9 or under": "9 أو أقل",
+  "10 to 12": "من 10 إلى 12",
+  "13 to 17": "من 13 إلى 17",
+  "18 or older": "18 أو أكثر"
 }

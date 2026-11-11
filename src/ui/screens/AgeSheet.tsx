@@ -45,11 +45,11 @@ export function AgeSheet({ visible, onSave }: AgeSheetProps) {
                 style={[styles.tile, active && styles.tileActive]}
                 accessibilityRole="radio"
                 accessibilityState={{ selected: active }}
-                accessibilityLabel={option.spoken}
+                accessibilityLabel={t(option.spoken)}
                 testID={`age-${option.id}`}
               >
                 <Text style={[styles.label, active && styles.labelActive]} numberOfLines={1} adjustsFontSizeToFit>
-                  {option.label}
+                  {t(option.label)}
                 </Text>
               </Tappable>
             );
