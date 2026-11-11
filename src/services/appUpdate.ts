@@ -7,7 +7,7 @@ import { APP_STORE_URL, PLAY_STORE_URL } from "./shareApp";
  * no server yet, so this small file is how a phone learns an update exists. Raise a number only after that
  * build is live in its store, or the banner sends people to a store page with nothing new on it.
  */
-export const LATEST_BUILD_URL = "https://fahadbin-alam.github.io/Islamic-Learning-Duolingo-Style/app-version.json";
+export const LATEST_BUILD_URL = "https://fahadbin-alam.github.io/Muslimo/app-version.json";
 /** Apple's public lookup for the App Store version (empty until the iPhone app is live). */
 export const APP_STORE_LOOKUP_URL = "https://itunes.apple.com/lookup?id=6828072104";
 

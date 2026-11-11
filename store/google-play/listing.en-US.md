@@ -62,8 +62,8 @@ Muslimo is a learning tool, not a fatwa service. For rulings that affect you, pl
 | Category | Education |
 | Tags (up to 5) | Education, Religion, Language & reference, Quiz, Brain games (pick the closest Google offers) |
 | Contact email | Your support email (same as `SUPPORT_EMAIL` in `site/site.config.json`) |
-| Website | https://fahadbin-alam.github.io/Islamic-Learning-Duolingo-Style/ |
-| Privacy policy | https://fahadbin-alam.github.io/Islamic-Learning-Duolingo-Style/privacy.html |
+| Website | https://fahadbin-alam.github.io/Muslimo/ |
+| Privacy policy | https://fahadbin-alam.github.io/Muslimo/privacy.html |
 
 ## Graphics
 
