@@ -46,7 +46,7 @@ import {
 import { clearActiveAssessment } from "../services/localProgress";
 import type { Challenge, LearningNodeView, UserProfile } from "../types";
 import { PlanOfferSheet } from "../ui/screens/PlanOfferSheet";
-import { makeUser } from "./testUtils";
+import { leaveComplete, makeUser } from "./testUtils";
 
 const PROFILE_KEY = "sira-path-user-profile";
 const OFFER_AT_KEY = "sira-path-plan-offer-at";
@@ -235,7 +235,7 @@ describe("the plans after a few lessons", () => {
       await practiceRun(user, run);
       expect(screen.queryByTestId("plan-offer-sheet")).toBeNull();
       // Back to the path (NEXT LESSON would start a lesson from the path, not another practice run).
-      await press(screen.queryByTestId("complete-back") ? "complete-back" : "complete-continue");
+      await leaveComplete(screen.queryByTestId("complete-back") ? "complete-back" : "complete-continue");
       if (run < LESSONS_BETWEEN_PLAN_OFFERS - 1) expect(screen.queryByTestId("plan-offer-sheet")).toBeNull();
     }
 

@@ -25,7 +25,9 @@ const TABLE_FILES = {
   // Read even though data/ is not walked: the album sets' names.
   "src/data/albumSets.ts": ["SET_TITLES"],
   // The "Say it out loud" words' meanings and when to say them.
-  "src/data/sayWords.ts": ["SAY_WORD_TEXT"]
+  "src/data/sayWords.ts": ["SAY_WORD_TEXT"],
+  // The streak moment's weekday names and lines.
+  "src/services/streakWeek.ts": ["WEEKDAY_NAMES", "STREAK_LINES"]
 };
 // Lesson states read aloud with t(node.status) in LearnPath.
 const DYNAMIC_STRINGS = ["available", "completed", "current", "locked"];

@@ -984,5 +984,21 @@
   "+{count} seconds!": "+{count} সেকেন্ড!",
   "True or false?": "সত্য না মিথ্যা?",
   "Right or not? Swipe fast for one minute": "ঠিক না ভুল? এক মিনিট দ্রুত সোয়াইপ করো",
-  "Read it to me": "আমাকে পড়ে শোনাও"
+  "Read it to me": "আমাকে পড়ে শোনাও",
+  "Mon": "সোম",
+  "Tue": "মঙ্গল",
+  "Wed": "বুধ",
+  "Thu": "বৃহঃ",
+  "Fri": "শুক্র",
+  "Sat": "শনি",
+  "Sun": "রবি",
+  "You started a streak! Come back tomorrow to keep it going.": "তুমি স্ট্রিক শুরু করেছ! এটা চালিয়ে যেতে কাল আবার এসো।",
+  "A whole week in a row! MashaAllah!": "টানা পুরো এক সপ্তাহ! মাশাআল্লাহ!",
+  "A whole month in a row! MashaAllah!": "টানা পুরো এক মাস! মাশাআল্লাহ!",
+  "A whole year in a row! MashaAllah!": "টানা পুরো এক বছর! মাশাআল্লাহ!",
+  "{count} days in a row! MashaAllah!": "টানা {count} দিন! মাশাআল্লাহ!",
+  "Come back tomorrow to make it {count}!": "কাল আবার এসে এটাকে {count} করো!",
+  "The deeds Allah loves most are done regularly, even if small.": "আল্লাহর কাছে সবচেয়ে প্রিয় আমল হলো যা নিয়মিত করা হয়, যদিও তা ছোট।",
+  "Tap it on the map": "মানচিত্রে চাপো",
+  "Near Makkah": "মক্কার কাছে"
 }

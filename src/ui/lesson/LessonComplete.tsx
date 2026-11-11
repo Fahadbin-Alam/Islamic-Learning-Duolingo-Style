@@ -15,6 +15,7 @@ import { AlbumThumb } from "./LessonPhoto";
 import { colors, darken, fonts, lighten, radii, space } from "../theme";
 import { LessonBottomBar } from "./LessonHeader";
 import { useScrollMore } from "./ScrollHint";
+import { StreakMoment } from "./StreakMoment";
 import { t } from "../../i18n";
 
 export type LessonCompleteProps = {
@@ -28,6 +29,11 @@ export type LessonCompleteProps = {
   streakExtended?: boolean;
   /** Today's XP against the daily goal. Shown instead of the streak while the streak is still 0. */
   goal?: { xpToday: number; goalXp: number };
+  /**
+   * The day's first lesson grew the streak: CONTINUE and BACK TO PATH open the streak moment first (StreakMoment),
+   * whose CONTINUE then goes on as they would have. `today` is the local YYYY-MM-DD.
+   */
+  streakMoment?: { today: string; frozenDays?: readonly string[] };
   unlockedTitle?: string;
   gemsReward?: number;
   /** No mistakes: a gold "Perfect lesson!" ribbon, its own fanfare, and the teacher jumps for joy again and again. */
@@ -129,8 +135,39 @@ function StarRow({ stars }: { stars: number }) {
   );
 }
 
+/**
+ * End of a lesson: the celebration card, and after it, on the day's first lesson, the streak moment. The learner's
+ * choice on the card (the next lesson, or back to the path) waits for the moment's CONTINUE.
+ */
+export function LessonComplete(props: LessonCompleteProps) {
+  const [after, setAfter] = useState<"next" | "back" | undefined>(undefined);
+  const { streakMoment, streakExtended, streakDays, onContinue, onBackToPath } = props;
+  const moment = streakMoment && streakExtended && streakDays > 0 ? streakMoment : undefined;
+  if (moment && after) {
+    return (
+      <StreakMoment
+        days={streakDays}
+        today={moment.today}
+        frozenDays={moment.frozenDays}
+        mascotVariant={props.mascotVariant}
+        accent={props.accent}
+        playSounds={props.playSounds}
+        bottomInset={props.bottomInset}
+        onContinue={after === "back" && onBackToPath ? onBackToPath : onContinue}
+      />
+    );
+  }
+  return (
+    <LessonCompleteCard
+      {...props}
+      onContinue={moment ? () => setAfter("next") : onContinue}
+      onBackToPath={onBackToPath && moment ? () => setAfter("back") : onBackToPath}
+    />
+  );
+}
+
 /** End-of-lesson celebration: confetti, cheering mascot, three counting stat cards, CONTINUE. */
-export function LessonComplete({
+function LessonCompleteCard({
   headline = t("Lesson complete!"),
   title,
   xp,

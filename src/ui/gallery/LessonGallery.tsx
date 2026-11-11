@@ -6,12 +6,17 @@ import { COURSE, LESSONS_BY_ID } from "../../data/course";
 import { choicePictures, getLessonPicture, LESSON_PICTURE_IDS, pictureForLesson, pictureForPage, pictureForQuestion } from "../../data/lessonPictures";
 import { LessonPhoto } from "../lesson/LessonPhoto";
 import { MatchGame } from "../lesson/WordGames";
+import { MapGame } from "../lesson/MapGame";
+import { mapPlacesFor } from "../lesson/mapQuestions";
 import { SurahCover } from "../lesson/SurahCover";
 import { ALBUM_SETS } from "../../data/albumSets";
 import { addToAlbum } from "../../services/pictureAlbum";
 import { PictureAlbumSheet } from "../screens/PictureAlbum";
 import { SayItSheet } from "../screens/SayItSheet";
 import { SprintSheet } from "../screens/SprintSheet";
+import { StreakMoment } from "../lesson/StreakMoment";
+import { localDateKey } from "../../api/islamicLearningApi";
+import { shiftDateKey } from "../../services/familyCode";
 import { recordSprint, sprintCards, sprintRecord } from "../../services/swipeSprint";
 import { markWordSaid } from "../../services/saidWords";
 import { surahNumberForTitle, surahParts } from "../../data/surahPictures";
@@ -332,6 +337,65 @@ function SayItDemo() {
   return <SayItSheet visible onClose={noop} mascotVariant="girl" accent={FOUNDATION_ACCENT} soundOn={false} />;
 }
 
+/** The streak moment for a streak of `days` (?lang=bn, ur or ar), today in this week, with a freeze some days ago. */
+function StreakDemo({ days, frozenDaysAgo, variant = "girl" }: { days: number; frozenDaysAgo?: number; variant?: string }) {
+  const query = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("lang") : null;
+  setActiveLanguage((["en", "bn", "ur", "ar"].includes(query ?? "") ? query : "en") as SupportedLanguage);
+  const today = localDateKey();
+  return (
+    <StreakMoment
+      days={days}
+      today={today}
+      frozenDays={frozenDaysAgo ? [shiftDateKey(today, -frozenDaysAgo)] : undefined}
+      mascotVariant={variant}
+      accent={variant === "boy" ? PRAYER_ACCENT : FOUNDATION_ACCENT}
+      playSounds={false}
+      onContinue={noop}
+    />
+  );
+}
+
+/**
+ * A place question asked on the map, from a real lesson (?lang=bn, ur or ar): the first one whose prompt has `ask`.
+ * `pick`: an answer already picked; `check`: and checked (the answer sheet up).
+ */
+function MapDemo({ lessonId, ask, pick, check }: { lessonId: string; ask: string; pick?: "right" | "wrong"; check?: boolean }) {
+  const query = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("lang") : null;
+  const language = (["en", "bn", "ur", "ar"].includes(query ?? "") ? query : "en") as SupportedLanguage;
+  setActiveLanguage(language);
+  const english = LESSONS_BY_ID[lessonId];
+  const index = Math.max(0, english.challenges.findIndex((challenge) => challenge.prompt.includes(ask)));
+  const challenge = localizeLessonContent(english, language).challenges[index];
+  const places = mapPlacesFor(english.challenges[index]) ?? {};
+  const wrongId = challenge.choices.find((choice) => choice.id !== challenge.correctChoiceId)?.id;
+  const [selected, setSelected] = useState<string | undefined>(pick === "right" ? challenge.correctChoiceId : pick === "wrong" ? wrongId : undefined);
+  const [checked, setChecked] = useState(Boolean(check));
+  const correctLabel = challenge.choices.find((choice) => choice.id === challenge.correctChoiceId)?.label ?? "";
+  const correct = selected === challenge.correctChoiceId;
+  return (
+    <LessonScreen progress={0.45} hearts={FULL_HEARTS} onClose={noop}>
+      <MapGame
+        prompt={challenge.prompt}
+        choices={challenge.choices}
+        places={places}
+        correctChoiceId={challenge.correctChoiceId}
+        selectedChoiceId={selected}
+        result={checked ? { correct, correctLabel, why: shortWhy({ explanation: challenge.explanation, prompt: challenge.prompt, correctLabel }) } : undefined}
+        mascotVariant="girl"
+        accent={accentOf(english)}
+        praiseSeed={challenge.id}
+        playSound={false}
+        onSelect={setSelected}
+        onCheck={() => setChecked(true)}
+        onContinue={() => {
+          setChecked(false);
+          setSelected(undefined);
+        }}
+      />
+    </LessonScreen>
+  );
+}
+
 /**
  * The swipe sprint after forty lessons, with a best of 12 kept: #gallery-lesson-sprint (?lang=bn, ur or ar). Each
  * game is six cards, the first with a living picture when one has it, so it can be played to its end in a few taps.
@@ -596,6 +660,15 @@ const STATES: State[] = [
   { id: "album", render: () => <AlbumDemo /> },
   { id: "say-it", render: () => <SayItDemo /> },
   { id: "sprint", render: () => <SprintDemo /> },
+  // Place questions on the map: one map; a close-up of Makkah's hills under the Hijaz; Jerusalem far to the north.
+  { id: "map", render: () => <MapDemo lessonId="lesson-deep-hamzah-martyr" ask="Hamzah martyred" /> },
+  { id: "map-picked", render: () => <MapDemo lessonId="lesson-deep-hamzah-martyr" ask="Hamzah martyred" pick="right" /> },
+  { id: "map-right", render: () => <MapDemo lessonId="lesson-deep-hamzah-martyr" ask="Hamzah martyred" pick="right" check /> },
+  { id: "map-closeup", render: () => <MapDemo lessonId="lesson-deep-abubakr-cave-of-thawr" ask="which cave" /> },
+  { id: "map-closeup-wrong", render: () => <MapDemo lessonId="lesson-deep-abubakr-cave-of-thawr" ask="which cave" pick="wrong" check /> },
+  { id: "map-arabia", render: () => <MapDemo lessonId="lesson-deep-najm1-the-first-sajdah-surah" ask="recite An-Najm" /> },
+  { id: "map-quba", render: () => <MapDemo lessonId="lesson-deep-hajj-masjids-three" ask="Jerusalem" /> },
+  { id: "map-hajj", render: () => <MapDemo lessonId="lesson-deep-book-hajj-labbayk-as-the-camel-rose" ask="talbiyah" pick="wrong" check /> },
   {
     id: "match",
     render: () => (
@@ -646,6 +719,29 @@ const STATES: State[] = [
         nextTitle="Next"
         mascotVariant="boy"
         accent={PRAYER_ACCENT}
+        playSounds={false}
+        onContinue={noop}
+        onBackToPath={noop}
+      />
+    )
+  },
+  // The streak moment after the day's first lesson: a plain day (with a freeze two days ago), a first streak, a week.
+  { id: "streak", render: () => <StreakDemo days={5} frozenDaysAgo={2} /> },
+  { id: "streak-first", render: () => <StreakDemo days={1} variant="boy" /> },
+  { id: "streak-week", render: () => <StreakDemo days={7} /> },
+  {
+    id: "complete-streak",
+    render: () => (
+      <LessonComplete
+        title={salam.title}
+        xp={salam.xpReward}
+        stars={3}
+        streakDays={5}
+        streakExtended
+        streakMoment={{ today: localDateKey() }}
+        nextTitle="Next"
+        mascotVariant="girl"
+        accent={FOUNDATION_ACCENT}
         playSounds={false}
         onContinue={noop}
         onBackToPath={noop}

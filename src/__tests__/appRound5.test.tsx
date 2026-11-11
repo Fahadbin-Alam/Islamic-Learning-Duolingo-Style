@@ -46,7 +46,7 @@ import type { Challenge, FoundationAssessmentState, FoundationQuestion, Learning
 import { isPlayablePractice } from "../ui/lesson";
 import { LearnPath, RefillSheet, type PathUnit } from "../ui/screens";
 import { finishLessonRight, toQuestion } from "./lessonDriver";
-import { makeUser } from "./testUtils";
+import { leaveComplete, makeUser } from "./testUtils";
 
 type Answer = string | string[] | Record<string, string>;
 
@@ -123,7 +123,7 @@ describe("the path's START after a jump ahead (V8)", () => {
       await answer(challenge, true);
     }
     expect(await screen.findByText("You jumped ahead!")).toBeTruthy();
-    await press("complete-back");
+    await leaveComplete("complete-back");
     await screen.findByTestId("learn-path-quran_tafseer");
     expect(nodeLabel(target)).toMatch(/, start$/);
     // Saved with the learner, for this topic.

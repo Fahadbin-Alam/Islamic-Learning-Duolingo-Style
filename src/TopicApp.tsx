@@ -197,6 +197,8 @@ import { answerLessonStep, isLastLessonStep, startLessonQueue, type FlowStep } f
 import { buildLessonFlow, flowProgress, isLearnStep, isMatchStep, isQuestionStep, isRecallLesson, teachText, highlightWords, lessonExplain, lessonSummary } from "./ui/lesson/lessonPages";
 import { checkAnswerId, checkCandidate, fillPiece, questionFormat } from "./ui/lesson/questionFormats";
 import { CheckGame, FillGame, GapGame, MatchGame } from "./ui/lesson/WordGames";
+import { MapGame } from "./ui/lesson/MapGame";
+import { mapPlacesFor } from "./ui/lesson/mapQuestions";
 import * as Speech from "expo-speech";
 import { findArabicVoice, recitationForArabic } from "./services/arabicVoice";
 import { playAyah, stopAyah } from "./services/ayahPlayer";
@@ -3820,6 +3822,8 @@ export default function TopicApp() {
   const questionPicture = pictureChallenge ? pictureForQuestion(pictureChallenge.prompt) : undefined;
   // Every answer a place with its own picture (Arafah, Mina, Muzdalifah): picture cards. Not for a listening question.
   const answerPictures = pictureChallenge && !pictureChallenge.listen && pictureChallenge.type === "multiple_choice" ? choicePictures(pictureChallenge.choices) : undefined;
+  // Every answer a place on the map (Badr, Uhud, Khaybar; Hira and Thawr): the learner can find it where it is.
+  const answerPlaces = pictureChallenge && !pictureChallenge.listen && pictureChallenge.type === "multiple_choice" ? mapPlacesFor(pictureChallenge) : undefined;
   const inTest = isTestSession(lessonSession);
   const testPassingScore = inTest && lesson ? lessonSession?.passingScore ?? testOutPassingScore(lesson.challenges.length) : 0;
   // The pages of the lesson: what the source says (when it is about this lesson), the words its questions ask
@@ -3835,7 +3839,9 @@ export default function TopicApp() {
   const questionRecall = Boolean(
     challenge && (challenge.isReview || (lesson && isRecallLesson(lesson)) || (lessonSession?.mode && lessonSession.mode !== "standard"))
   );
-  const questionFormatNow = challenge ? questionFormat(challenge, { recall: questionRecall, language: currentLanguage, pictures: Boolean(answerPictures) }) : "choose";
+  const questionFormatNow = challenge
+    ? questionFormat(challenge, { recall: questionRecall, language: currentLanguage, pictures: Boolean(answerPictures), map: Boolean(answerPlaces) })
+    : "choose";
   const checkShown = challenge && questionFormatNow === "check" ? checkCandidate(challenge) : undefined;
   const fillNow = challenge && questionFormatNow === "fill" ? fillPiece(challenge) : undefined;
   // The match round's pairs: each question and its answer.
@@ -4088,7 +4094,17 @@ export default function TopicApp() {
             {inTest ? (
               <TestStrip passingScore={testPassingScore} total={lesson?.challenges.length ?? 0} accent={lessonAccent} quiz={lessonSession?.mode === "quiz"} />
             ) : null}
-{questionFormatNow === "blank" ? (
+{questionFormatNow === "map" && answerPlaces ? (
+              <MapGame
+                key={`${challenge.id}-map-${lessonStep.attempt}`}
+                prompt={challenge.prompt}
+                choices={challenge.choices}
+                places={answerPlaces}
+                correctChoiceId={challenge.correctChoiceId}
+                {...questionShared}
+                onSelect={(choiceId) => dispatch({ type: "select_choice", choiceId })}
+              />
+            ) : questionFormatNow === "blank" ? (
               <GapGame
                 key={`${challenge.id}-gap-${lessonStep.attempt}`}
                 prompt={challenge.prompt}
@@ -4194,6 +4210,8 @@ export default function TopicApp() {
             stars={lessonCompleteSummary.stars}
             streakDays={lessonCompleteSummary.streakDays}
             streakExtended={lessonCompleteSummary.streakExtended}
+            // The day's first lesson: the streak moment comes before the next lesson or the path.
+            streakMoment={{ today: localDateKey(), frozenDays: state.user.frozenDays }}
             goal={{ xpToday: getXpToday(state.user), goalXp: state.user.dailyGoalXp }}
             unlockedTitle={lessonCompleteSummary.unlockedTitle}
             gemsReward={lessonCompleteSummary.gemsReward}

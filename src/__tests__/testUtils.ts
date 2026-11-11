@@ -1,4 +1,4 @@
-import { fireEvent, screen } from "@testing-library/react-native";
+import { act, fireEvent, screen } from "@testing-library/react-native";
 import { SHOP_ITEMS, STARTER_USER } from "../data/course";
 import type { ShopItem, UserProfile } from "../types";
 
@@ -53,4 +53,19 @@ export async function scrollPathTo(topicId: string, unitId: string) {
     if (view.props.testID === `path-unit-${unitId}`) targetY = index * 1000;
   }
   await fireEvent(scroll, "scroll", { nativeEvent: { contentOffset: { x: 0, y: targetY }, contentSize: { width: 390, height: units.length * 1000 }, layoutMeasurement: { width: 390, height: 800 } } });
+}
+
+/**
+ * Leaves the lesson's complete screen as the learner does: its button, then, after the day's first lesson, the
+ * streak moment's CONTINUE (src/ui/lesson/StreakMoment.tsx).
+ */
+export async function leaveComplete(testID: "complete-continue" | "complete-back") {
+  await act(async () => {
+    fireEvent.press(screen.getByTestId(testID));
+  });
+  if (screen.queryByTestId("streak-moment")) {
+    await act(async () => {
+      fireEvent.press(screen.getByTestId("streak-moment-continue"));
+    });
+  }
 }

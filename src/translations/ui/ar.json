@@ -984,5 +984,21 @@
   "+{count} seconds!": "+{count} ثوانٍ!",
   "True or false?": "صح أم خطأ؟",
   "Right or not? Swipe fast for one minute": "صحيح أم لا؟ اسحب بسرعة لمدة دقيقة",
-  "Read it to me": "اقرأها لي"
+  "Read it to me": "اقرأها لي",
+  "Mon": "اثنين",
+  "Tue": "ثلاثاء",
+  "Wed": "أربعاء",
+  "Thu": "خميس",
+  "Fri": "جمعة",
+  "Sat": "سبت",
+  "Sun": "أحد",
+  "You started a streak! Come back tomorrow to keep it going.": "بدأت سلسلتك! عُد غدًا لتواصلها.",
+  "A whole week in a row! MashaAllah!": "أسبوع كامل متتالٍ! ما شاء الله!",
+  "A whole month in a row! MashaAllah!": "شهر كامل متتالٍ! ما شاء الله!",
+  "A whole year in a row! MashaAllah!": "سنة كاملة متتالية! ما شاء الله!",
+  "{count} days in a row! MashaAllah!": "الأيام المتتالية: {count}! ما شاء الله!",
+  "Come back tomorrow to make it {count}!": "عُد غدًا لتجعلها {count}!",
+  "The deeds Allah loves most are done regularly, even if small.": "أحب الأعمال إلى الله أدومها وإن قلّ.",
+  "Tap it on the map": "اضغط عليه في الخريطة",
+  "Near Makkah": "قرب مكة"
 }

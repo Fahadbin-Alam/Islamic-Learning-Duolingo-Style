@@ -201,9 +201,23 @@ function StoryPlayer({
   const [result, setResult] = useState<{ xp: number; right: number; asked: number }>();
   const scroll = useRef<ScrollView>(null);
   const look = teacherFor(story.topicId);
+  // Where each shown step starts in the page, and how tall the page and its window are.
+  const tops = useRef<number[]>([]);
+  const room = useRef({ view: 0, content: 0 });
+  const lastShown = useRef(shown);
 
+  // A new step comes into sight from its top, so a scene taller than a small phone's screen is read from its heading
+  // and picture, not from its end. An answer takes the page to its end, where the answer's why is. The first step
+  // starts at the top.
   useEffect(() => {
-    const timer = setTimeout(() => scroll.current?.scrollToEnd({ animated: true }), 80);
+    const newStep = shown !== lastShown.current;
+    lastShown.current = shown;
+    if (!newStep && !Object.keys(solved).length) return undefined;
+    const timer = setTimeout(() => {
+      const end = Math.max(0, room.current.content - room.current.view);
+      const top = tops.current[shown - 1];
+      scroll.current?.scrollTo({ y: newStep && top !== undefined ? Math.min(end, Math.max(0, top - 8)) : end, animated: true });
+    }, 80);
     return () => clearTimeout(timer);
   }, [shown, solved]);
 
@@ -265,21 +279,30 @@ function StoryPlayer({
   return (
     <View style={styles.player} testID={`story-player-${story.id}`}>
       <ProgressBar progress={shown / (steps.length + 1)} color={topicPalette(accent).main} height={12} style={styles.progress} />
-      <ScrollView ref={scroll} style={styles.scroll} contentContainerStyle={styles.playerContent} showsVerticalScrollIndicator={false}>
-        {steps.slice(0, shown).map((step, index) =>
-          step.kind === "scene" ? (
-            <SceneView key={`scene-${step.index}`} scene={step.scene} language={language} accent={accent} mascotVariant={mascotVariant} look={look} talk={index === shown - 1} />
-          ) : (
-            <QuestionView
-              key={`question-${step.question.id}`}
-              question={step.question}
-              language={language}
-              tried={tried[step.question.id] ?? []}
-              solved={Boolean(solved[step.question.id])}
-              onPick={(choiceId) => pick(step.question, choiceId)}
-            />
-          )
-        )}
+      <ScrollView
+        ref={scroll}
+        style={styles.scroll}
+        contentContainerStyle={styles.playerContent}
+        showsVerticalScrollIndicator={false}
+        onLayout={(event) => (room.current.view = event.nativeEvent.layout.height)}
+        onContentSizeChange={(_, height) => (room.current.content = height)}
+        testID="story-scroll"
+      >
+        {steps.slice(0, shown).map((step, index) => (
+          <View key={step.kind === "scene" ? `scene-${step.index}` : `question-${step.question.id}`} onLayout={(event) => (tops.current[index] = event.nativeEvent.layout.y)} testID={`story-step-${index}`}>
+            {step.kind === "scene" ? (
+              <SceneView scene={step.scene} language={language} accent={accent} mascotVariant={mascotVariant} look={look} talk={index === shown - 1} />
+            ) : (
+              <QuestionView
+                question={step.question}
+                language={language}
+                tried={tried[step.question.id] ?? []}
+                solved={Boolean(solved[step.question.id])}
+                onPick={(choiceId) => pick(step.question, choiceId)}
+              />
+            )}
+          </View>
+        ))}
       </ScrollView>
       <View style={[styles.footer, { paddingBottom: 12 + bottomInset }]}>
         <GameButton

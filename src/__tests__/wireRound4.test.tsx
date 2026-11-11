@@ -42,7 +42,7 @@ import { clearActiveAssessment, clearPracticeResult } from "../services/localPro
 import { testOutGoalLine } from "../ui/screens";
 import type { Challenge, LearningNode, UserProfile } from "../types";
 import { finishLessonRight, toQuestion } from "./lessonDriver";
-import { makeUser, scrollPathTo } from "./testUtils";
+import { leaveComplete, makeUser, scrollPathTo } from "./testUtils";
 
 const PROFILE_KEY = "sira-path-user-profile";
 const TODAY_HEARTS = (unlimited: boolean) => ({ current: 5, max: 5, unlimited, lastRefillDate: localToday() });
@@ -135,7 +135,7 @@ describe("after a test-out in a later unit", () => {
     expect(screen.getByText(titleText(`Unlocked: ${target.title}`))).toBeTruthy();
 
     // BACK TO PATH: START sits on the circle the jump opened, not on unit 1's first circle.
-    await press("complete-back");
+    await leaveComplete("complete-back");
     await screen.findByTestId("learn-path-quran_tafseer");
     expect(nodeLabel(target)).toMatch(/, start$/);
     expect(nodeLabel(quranUnits[0][0])).not.toMatch(/, start$/);
@@ -155,7 +155,7 @@ describe("after a test-out in a later unit", () => {
     expect(savedUser().totalXp - afterJump.totalXp).toBeLessThanOrEqual(key.challenges.length * PRACTICE_XP_PER_CORRECT_ANSWER);
     const next = learningApi.getPathNodes(savedUser()).find((node) => node.id === quranUnits[SHORT + 1][0].id)!;
     expect(next.status).toBe("available");
-    await press("complete-continue");
+    await leaveComplete("complete-continue");
     expect(await screen.findByTestId("learn-card")).toHaveTextContent(titleText(next.title));
   });
 
@@ -175,7 +175,7 @@ describe("after a test-out in a later unit", () => {
       await answer(challenge, true);
     }
     expect(screen.getByTestId("complete-continue")).toHaveTextContent(/next lesson/i);
-    await press("complete-continue");
+    await leaveComplete("complete-continue");
     expect(await screen.findByTestId("learn-card")).toHaveTextContent(titleText(target.title));
   });
 });
