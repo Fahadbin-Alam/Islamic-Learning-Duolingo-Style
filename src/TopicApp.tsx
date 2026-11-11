@@ -268,6 +268,7 @@ import { shareCertificateCard, shareRamadanCard } from "./services/shareCard";
 import { biggestFirst, buildCertificates, certificateProgress, earnedCertificateIds, recordCertificates, type CertificateProgress } from "./services/certificates";
 import { CertificatePop, CertificatesSheet } from "./ui/screens/Certificates";
 import { ALBUM_PICTURES, PictureAlbumSheet } from "./ui/screens/PictureAlbum";
+import { SayItSheet } from "./ui/screens/SayItSheet";
 import { addToAlbum, albumPictureIds, useAlbum } from "./services/pictureAlbum";
 import { setsFinishedBy, type AlbumSet } from "./data/albumSets";
 import { isUpdateAvailable, openStore } from "./services/appUpdate";
@@ -1327,6 +1328,7 @@ export default function TopicApp() {
   const [shownCertificate, setShownCertificate] = useState<CertificateProgress | undefined>(undefined);
   const [certificatesSheetVisible, setCertificatesSheetVisible] = useState(false);
   const [albumVisible, setAlbumVisible] = useState(false);
+  const [sayItVisible, setSayItVisible] = useState(false);
   const albumFound = useAlbum();
   const certificatesBefore = useRef<{ userId?: number; ids?: Set<string> }>({});
   useEffect(() => {
@@ -4182,6 +4184,7 @@ export default function TopicApp() {
             onStartLessonPractice={canPracticeLessons(state.user) ? startLessonPractice : undefined}
             onOpenQuizzes={() => setQuizSheetVisible(true)}
             onOpenStories={() => setStoryShelf(storyGroupFor(selectedSection.topicId) ?? "seerah")}
+            onOpenSayIt={() => setSayItVisible(true)}
             quizBest={getQuizScore(state.user, { kind: "topic", topicId: selectedSection.topicId })?.best}
             onGoFoundation={() => openTopicScreen("foundation")}
           />
@@ -4332,6 +4335,15 @@ export default function TopicApp() {
           />
         )}
         {!inLesson && <PictureAlbumSheet visible={albumVisible} onClose={() => setAlbumVisible(false)} />}
+        {!inLesson && (
+          <SayItSheet
+            visible={sayItVisible}
+            onClose={() => setSayItVisible(false)}
+            mascotVariant={selectedSection.mascot}
+            accent={selectedSection.accentColor}
+            soundOn={state.user?.soundEffectsEnabled !== false}
+          />
+        )}
         {!inLesson && (
           <CertificatesSheet
             visible={certificatesSheetVisible}

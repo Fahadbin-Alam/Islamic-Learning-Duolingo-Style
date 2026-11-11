@@ -35,6 +35,8 @@ export type PracticeHubProps = {
   quizBest?: number;
   /** STORIES: the Seerah and the Companions told as stories (story mode). */
   onOpenStories?: () => void;
+  /** SAY IT OUT LOUD: everyday Islamic words to say aloud with the teacher (practice only). */
+  onOpenSayIt?: () => void;
   /** MY LESSONS: practice questions from lessons already done. Left out until there are enough of them. */
   onStartLessonPractice?: () => void;
   /** Tabs replace back buttons; kept so the old call site still type-checks. */
@@ -182,6 +184,7 @@ export function PracticeHub({
   onStartLessonPractice,
   onOpenQuizzes,
   onOpenStories,
+  onOpenSayIt,
   quizBest,
   mascotVariant = "hijabi",
   // The mascot's own default, so it matches the other screens when no accent is passed.
@@ -336,6 +339,27 @@ export function PracticeHub({
               </Text>
               <Text style={styles.quizLine} numberOfLines={2}>
                 {t("The Seerah and the Sahabah, told as stories")}
+              </Text>
+            </View>
+            <View style={[styles.rowEnd, styles.quizEnd]}>
+              <Icon name="chevronRight" size={24} color={colors.lineLip} />
+            </View>
+          </Tappable>
+        </PopIn>
+      ) : null}
+
+      {onOpenSayIt ? (
+        <PopIn delay={226} from="up">
+          <Tappable onPress={onOpenSayIt} style={[styles.basicsRow, styles.quizRow]} testID="practice-say-it" accessibilityLabel={t("Say it out loud")}>
+            <View style={[styles.basicsIcon, { backgroundColor: lighten(colors.green, 0.85) }]}>
+              <Icon name="speech" size={30} />
+            </View>
+            <View style={styles.quizText}>
+              <Text style={styles.basicsTitle} numberOfLines={1}>
+                {t("Say it out loud")}
+              </Text>
+              <Text style={styles.quizLine} numberOfLines={2}>
+                {t("Bismillah, Alhamdulillah, In sha Allah and more")}
               </Text>
             </View>
             <View style={[styles.rowEnd, styles.quizEnd]}>
