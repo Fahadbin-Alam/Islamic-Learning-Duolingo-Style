@@ -13,8 +13,9 @@ import { LessonBottomBar } from "./LessonHeader";
 import { noBreakHyphens } from "./lessonText";
 import { useScrollMore } from "./ScrollHint";
 import { sheetRoom, type LayoutBox } from "./sheetFit";
-import { questionAloudText, useQuestionAloud } from "./questionAloud";
+import { answerPart, QUESTION_PART, useQuestionAloud } from "./questionAloud";
 import { WithReadAloud } from "./ReadAloudButton";
+import { ReadingContext, ReadRing } from "./ReadGlow";
 import { t } from "../../i18n";
 import { textScaled } from "../textScale";
 
@@ -89,6 +90,7 @@ function Chip({
   hidden,
   small,
   fill,
+  readPart,
   testID
 }: {
   label: string;
@@ -104,6 +106,8 @@ function Chip({
   small?: boolean;
   /** Short phones: the placed chip fills its half of a two-column grid. */
   fill?: boolean;
+  /** The step glows while the teacher says it (see ReadRing), in the bank or in the answer. */
+  readPart?: string;
   testID?: string;
 }) {
   const pop = useRef(new Animated.Value(0.6)).current;
@@ -136,6 +140,7 @@ function Chip({
 
   return (
     <Animated.View style={[styles.chipOuter, fill ? styles.chipOuterFill : null, { transform: [{ scale: pop }] }]}>
+      {readPart ? <ReadRing part={readPart} radius={14} /> : null}
       <Tappable onPress={onPress} disabled={disabled} pressScale={0.94} accessibilityLabel={label} testID={testID} style={styles.chipPress}>
         <View pointerEvents="none" style={[styles.chipLip, { backgroundColor: look.lip }]} />
         <View style={[styles.chipFace, small ? styles.faceSmall : null, fill ? styles.faceFill : null, { backgroundColor: look.bg, borderColor: look.border }]}>
@@ -329,8 +334,8 @@ export function OrderGame({
   const toneAt = (id: string, index: number): ChipTone =>
     checked === null ? "placed" : correctOrderIds[index] === id ? "correct" : "wrong";
   const mood: MascotMood = checked === null ? "think" : checked ? "cheer" : "sad";
-  // The speaker by CHECK: the teacher reads the task, then the steps as the bank shows them.
-  const reader = useQuestionAloud(questionAloudText([prompt, ...bank.map((option) => option.label)]), checked !== null);
+  // The speaker by CHECK: the teacher reads the task, then the steps as the bank shows them, each glowing as it is said.
+  const reader = useQuestionAloud([{ key: QUESTION_PART, text: prompt }, ...bank.map((option) => ({ key: answerPart(option.id), text: option.label }))], checked !== null);
   // A miss lists the right order at once (one numbered column), so nobody has to guess it.
   const correctList = sheet.correct ? undefined : correctOrderIds.map((id) => byId.get(id)?.label ?? id);
   const missedRows = sheet.correct ? undefined : sheet.missed;
@@ -339,7 +344,7 @@ export function OrderGame({
   const grid = compact;
   const bankOptions = grid ? bank.filter((option) => !placed.includes(option.id)) : bank;
 
-  return (
+  const page = (
     <View style={styles.root} testID={testID} onLayout={(event) => setRootHeight(Math.round(event.nativeEvent.layout.height))}>
       <View style={styles.scrollBox}>
         <ScrollView ref={scrollRef} style={styles.scroll} contentContainerStyle={[styles.content, { paddingBottom: extraBottom }]} {...scrollProps}>
@@ -376,6 +381,7 @@ export function OrderGame({
                     accent={accent}
                     onPress={() => remove(id)}
                     disabled={checked !== null}
+                    readPart={answerPart(id)}
                     testID={`order-placed-${id}`}
                   />
                 </FadeUnderSheet>
@@ -396,6 +402,7 @@ export function OrderGame({
                   hidden={placed.includes(option.id)}
                   onPress={() => add(option.id)}
                   disabled={checked !== null}
+                  readPart={answerPart(option.id)}
                   testID={`order-bank-${option.id}`}
                 />
               ))}
@@ -428,6 +435,8 @@ export function OrderGame({
       />
     </View>
   );
+  // The part the teacher is reading glows: the task in its bubble, then each step as it is said.
+  return <ReadingContext.Provider value={reader.lit}>{page}</ReadingContext.Provider>;
 }
 
 const CHIP_LIP = 4;

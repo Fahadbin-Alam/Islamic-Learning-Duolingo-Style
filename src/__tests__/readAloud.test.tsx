@@ -57,12 +57,27 @@ const BASE: LearnCardProps = {
   onContinue: () => undefined
 };
 
-const lastSpeech = () => speak.mock.calls[speak.mock.calls.length - 1] as [string, Speech.SpeechOptions];
+// The teacher says a page part by part, each its own sentence: these are the parts of the last tap.
+let readFrom = 0;
+const partsSaid = () => speak.mock.calls.slice(readFrom) as [string, Speech.SpeechOptions][];
+/** All the last tap said, part after part, and the last part's options (its "done" ends the reading). */
+const lastSpeech = () => {
+  const parts = partsSaid();
+  return [parts.map((part) => part[0]).join(" "), parts[parts.length - 1][1]] as [string, Speech.SpeechOptions];
+};
 const talk = () => screen.getAllByTestId("teacher-talk", ALL)[0].props.children as string;
 
 async function tapRead() {
+  readFrom = speak.mock.calls.length;
   await act(async () => {
     fireEvent.press(screen.getByTestId("learn-read-aloud"));
+  });
+}
+
+/** The voice starts saying part `index` of the last tap. */
+async function startPart(index: number) {
+  await act(async () => {
+    partsSaid()[index][1].onStart?.();
   });
 }
 
@@ -118,7 +133,12 @@ describe("the teacher reads the lesson page aloud", () => {
     expect(talk()).not.toBe("0");
 
     await tapRead();
-    expect(speak).toHaveBeenCalledTimes(1);
+    // Each part is its own sentence: the explanation, then each point.
+    expect(partsSaid().map((part) => part[0])).toEqual([
+      "The Prophet peace be upon him was in the cave when the first ayahs came down.",
+      "Place: the cave of Hira.",
+      "The first word was Read."
+    ]);
     const [text, options] = lastSpeech();
     expect(text).toContain("The Prophet peace be upon him was in the cave when the first ayahs came down.");
     expect(text).toContain("the cave of Hira");
@@ -146,6 +166,7 @@ describe("the teacher reads the lesson page aloud", () => {
     const view = await render(<LearnCard {...BASE} page="facts" />);
     await screen.findByTestId("learn-read-aloud");
     await tapRead();
+    const stopped = lastSpeech();
     stop.mockClear();
     await tapRead();
     expect(stop).toHaveBeenCalled();
@@ -153,12 +174,12 @@ describe("the teacher reads the lesson page aloud", () => {
     expect(screen.queryByTestId("learn-read-aloud-stop", ALL)).toBeNull();
     // The stopped voice's own "stopped" news comes late: it does not start the mouth again.
     await act(async () => {
-      lastSpeech()[1].onStopped?.();
+      stopped[1].onStopped?.();
     });
     expect(talk()).toBe("0");
 
     await tapRead();
-    expect(speak).toHaveBeenCalledTimes(2);
+    expect(partsSaid().length).toBeGreaterThan(0);
     stop.mockClear();
     await view.unmount();
     expect(stop).toHaveBeenCalled();
@@ -209,6 +230,51 @@ describe("the teacher reads the lesson page aloud", () => {
     await screen.findByTestId("learn-read-aloud");
     await tapRead();
     expect(lastSpeech()[0]).toBe("Quiz time! 4 questions from your last lessons, in new ways.");
+  });
+
+  it("lights up each part while it is said, so a child can follow along", async () => {
+    const arabic = { ar: "اقْرَأْ", translit: "Iqra", meaning: "Read" };
+    await render(<LearnCard {...BASE} page="start" arabic={arabic} quote={{ text: "Read in the name of your Lord.", reference: "Quran 96:1" }} />);
+    await screen.findByTestId("learn-read-aloud");
+    // Nothing glows before the teacher reads.
+    expect(screen.queryAllByTestId(/^read-glow-/, ALL)).toHaveLength(0);
+    await tapRead();
+    // The voice has not started yet: nothing glows.
+    expect(screen.queryAllByTestId(/^read-glow-/, ALL)).toHaveLength(0);
+    const glowing = () => screen.queryAllByTestId(/^read-glow-/, ALL).map((glow) => glow.props.testID as string);
+    await startPart(0);
+    expect(glowing()).toEqual(["read-glow-title"]);
+    await startPart(1);
+    expect(glowing()).toEqual(["read-glow-word"]);
+    await startPart(2);
+    expect(glowing()).toEqual(["read-glow-line"]);
+    await startPart(3);
+    expect(glowing()).toEqual(["read-glow-quote"]);
+    // The voice is done: nothing glows any more.
+    await act(async () => {
+      lastSpeech()[1].onDone?.();
+    });
+    expect(glowing()).toEqual([]);
+  });
+
+  it("lights each point of What you learn in turn, and stops glowing when stopped", async () => {
+    await render(<LearnCard {...BASE} page="facts" />);
+    await screen.findByTestId("learn-read-aloud");
+    await tapRead();
+    const glowing = () => screen.queryAllByTestId(/^read-glow-/, ALL).map((glow) => glow.props.testID as string);
+    await startPart(0);
+    expect(glowing()).toEqual(["read-glow-explain"]);
+    await startPart(1);
+    expect(glowing()).toEqual(["read-glow-point-0"]);
+    await startPart(2);
+    expect(glowing()).toEqual(["read-glow-point-1"]);
+    await tapRead();
+    expect(glowing()).toEqual([]);
+    // A part the stopped voice "starts" late lights nothing.
+    await act(async () => {
+      (speak.mock.calls[speak.mock.calls.length - 1] as [string, Speech.SpeechOptions])[1].onStart?.();
+    });
+    expect(glowing()).toEqual([]);
   });
 
   it("is hidden when the phone has no voice for the language, and reads in it when it has one", async () => {

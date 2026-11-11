@@ -57,7 +57,7 @@ import { challengeLevel, HARDER_OFFER_AFTER, nextLevel, TOP_LEVEL } from "./data
 import { cleanReviewCards } from "./services/reviewDeck";
 import { ReviewBanner } from "./ui/screens/ReviewBanner";
 import { COURSE, LESSONS_BY_ID, SHOP_ITEMS } from "./data/course";
-import { buildTopicSearchIndex, searchTopics } from "./utils/topicSearch";
+import { createCourseSearch } from "./utils/topicSearch";
 import { dailyAutoDue, localDayNumber, markDailyShown, parseDailyShown } from "./data/dailyCard";
 import {
   DEFAULT_LANGUAGE,
@@ -1492,12 +1492,18 @@ export default function TopicApp() {
       }));
   }, [kidsMode, lessonAge, localizedSections, quizSheetVisible, season, state.user]);
 
-  // Names in every language are in the index, so it is built once.
-  const searchIndex = useMemo(() => buildTopicSearchIndex(COURSE.sections), []);
+  // The search finds names in every language ("হুসাইন" finds Al-Husayn whatever language the app is in), but each
+  // language's text is a lot of memory on a small phone: its index is built when the search field is first touched,
+  // with English and the learner's language, and takes in another language only when something is typed in its letters.
+  const courseSearch = useMemo(() => createCourseSearch(COURSE.sections), []);
   const searchCourse = useCallback(
-    (query: string) => searchTopics(searchIndex, query).filter((hit) => !kidsMode || isKidsTopic(hit.topicId)),
-    [kidsMode, searchIndex]
+    (query: string) => courseSearch.search(query, currentLanguage).filter((hit) => !kidsMode || isKidsTopic(hit.topicId)),
+    [courseSearch, currentLanguage, kidsMode]
   );
+  // A moment after the field is touched, so the keyboard is on its way before the index is built.
+  const prepareSearch = useCallback(() => {
+    setTimeout(() => courseSearch.prepare(currentLanguage), 60);
+  }, [courseSearch, currentLanguage]);
   // Kids mode leaves out grown-up topics: from the picker, and the path moves off one that was open.
   const shownPickerTopics = useMemo(
     () => (kidsMode ? pickerTopics.filter((topic) => isKidsTopic(topic.topicId as TopicId)) : pickerTopics),
@@ -4405,6 +4411,7 @@ export default function TopicApp() {
             topics={shownPickerTopics}
             activeTopicId={selectedSection.topicId}
             search={searchCourse}
+            prepareSearch={prepareSearch}
             activeUnitId={pathUnitId}
             onSelect={(topicId, unitId, nodeId) => {
               // A search hit opens the whole topic at its circle; a sub-topic row opens that sub-topic on its own.
