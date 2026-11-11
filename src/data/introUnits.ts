@@ -67,6 +67,23 @@ const FRESH_START: DeepUnit = {
       ]
     },
     {
+      slug: "mercy-is-wide",
+      title: "Allah's mercy is wide",
+      line: "He ﷺ told a Bedouin: do not narrow Allah's wide mercy.",
+      facts: [
+        "A Bedouin prayed: O Allah, have mercy on me and Muhammad only.",
+        "After the prayer, the Prophet ﷺ said: you have narrowed something vast.",
+        "He meant Allah's mercy, which is wide enough for everyone."
+      ],
+      source: hadith("bukhari", "6010", "Abu Hurairah", "Sahih", "A Bedouin prayed aloud: O Allah, have mercy on me and on Muhammad, and on no one else with us. When the Prophet ﷺ finished the prayer, he said to him: you have narrowed something very vast, meaning Allah's mercy.", "Bestow Your Mercy on me and Muhammad only and do not bestow it on anybody else along with us"),
+      difficulty: 1,
+      questions: [
+        { q: "What did the Bedouin ask for in his du'a?", a: "Mercy for him and the Prophet ﷺ only", wrong: ["Rain for his camels", "Gold for his tribe", "A long life"], why: "O Allah, bestow Your mercy on me and Muhammad only." },
+        { q: "What did he ﷺ tell the Bedouin after the prayer?", a: "You narrowed something vast", wrong: ["Pray it again", "Make your du'a longer", "Say it louder"], why: "You have limited a very vast thing, meaning Allah's mercy." },
+        { q: "Allah's mercy is wide enough for everyone.", tf: true, why: "He called Allah's mercy a very vast thing." }
+      ]
+    },
+    {
       slug: "everyone-makes-mistakes",
       title: "Everyone makes mistakes",
       line: "Every child of Adam sins; the best ones repent to Allah.",
@@ -101,6 +118,23 @@ const FRESH_START: DeepUnit = {
       ]
     },
     {
+      slug: "kabah-left-as-it-was",
+      title: "Gentle with people new to Islam",
+      line: "He ﷺ did not rebuild the Ka'bah, as Quraysh were new to Islam.",
+      facts: [
+        "Quraysh had rebuilt the Ka'bah smaller than Ibrahim's foundations.",
+        "Aishah asked: why not rebuild it on Ibrahim's foundations?",
+        "He ﷺ left it, so hearts new to Islam would not be troubled."
+      ],
+      source: hadith("bukhari", "1583", "Aishah", "Sahih", "The Prophet ﷺ said to Aishah: when your people rebuilt the Ka'bah, they made it smaller than the foundations Ibrahim laid. She asked: why not rebuild it on Ibrahim's foundations? He said: were it not that your people have only just left the days of ignorance, I would have done it.", "Were it not for the fact that your people are close to the Pre-Islamic Period of ignorance"),
+      difficulty: 2,
+      questions: [
+        { q: "Whose foundations did the Ka'bah not fully stand on?", a: "Ibrahim's", wrong: ["Nuh's", "Sulayman's", "Musa's"], why: "They decreased it from its original foundation laid by Abraham." },
+        { q: "Why did he ﷺ not rebuild the Ka'bah?", a: "His people were new to Islam", wrong: ["There was no stone", "It was too far away", "Aishah did not want it"], why: "Your people are close to the Pre-Islamic Period of ignorance." },
+        { q: "Being gentle with people new to Islam is part of his ﷺ way.", tf: true, why: "He said: were it not that your people are new to Islam, I would have done so." }
+      ]
+    },
+    {
       slug: "what-comes-first",
       title: "What comes first",
       line: "The Prophet ﷺ sent Mu'adh to Yemen with an order to teach.",
@@ -115,6 +149,40 @@ const FRESH_START: DeepUnit = {
         { q: "Where did the Prophet ﷺ send Mu'adh?", a: "To Yemen", wrong: ["To Egypt", "To Persia", "To Syria"], why: "The Prophet ﷺ sent Mu'adh to Yemen." },
         { q: "What did Mu'adh teach first?", a: "The shahadah", wrong: ["Zakat", "Hajj", "Fasting"], why: "First invite them to testify that none is worshipped but Allah." },
         { q: "What came right after the shahadah?", a: "The five daily prayers", wrong: ["Zakat", "Hajj", "Learning Arabic"], why: "Then teach them the five prayers every day and night." }
+      ]
+    },
+    {
+      slug: "dimam-asks",
+      title: "Ask until you are sure",
+      line: "Dimam asked the Prophet ﷺ hard questions, then believed.",
+      facts: [
+        "He came on a camel and asked: which of you is Muhammad?",
+        "He asked by Allah about the prayers, the fast and zakat.",
+        "Then he said: I believe in all you were sent with; my people sent me."
+      ],
+      source: hadith("bukhari", "63", "Anas ibn Malik", "Sahih", "A man rode into the masjid and said: I will ask you hard questions, so do not be angry. The Prophet ﷺ said: ask whatever you want. He asked, by Allah, whether Allah had sent him to all people and had ordered five prayers, the fast of Ramadan and zakat, and each time he ﷺ said: by Allah, yes. The man said: I believe in all you have brought; I am Dimam ibn Tha'labah.", "I have believed in all that with which you have been sent"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Dimam ask before his questions?", a: "Not to be angry with him", wrong: ["Some water to drink", "A place to rest", "A gift for his people"], why: "He said: I will be hard in questioning, so do not get angry." },
+        { q: "What did the Prophet ﷺ answer him?", a: "Ask whatever you want", wrong: ["Come back tomorrow", "Ask someone else", "Ask only one thing"], why: "He ﷺ also said: I am here to answer your questions." },
+        { q: "A person may ask even hard questions about Islam.", tf: true, why: "Dimam said he would be hard in questioning, and the Prophet ﷺ said: Ask whatever you want." }
+      ]
+    },
+    {
+      slug: "thumamah",
+      title: "From most disliked to most loved",
+      line: "Freed with kindness, Thumamah chose Islam on his own.",
+      facts: [
+        "For three days the Prophet ﷺ asked him: what do you say, Thumamah?",
+        "Then he ﷺ set him free, and Thumamah came back a Muslim.",
+        "He said: your face is now the most beloved face to me."
+      ],
+      source: hadith("bukhari", "4372", "Abu Hurairah", "Sahih", "Thumamah ibn Uthal was brought to the masjid and tied to a pillar. For three days the Prophet ﷺ asked him what he had to say, then said: set Thumamah free. He went out, came back into the masjid and testified that none is worshipped but Allah and that Muhammad is His Messenger. He said: by Allah, no face on earth was more disliked by me than yours, and now yours is the most beloved face to me.", "but now your face has become the most beloved face to me"),
+      difficulty: 2,
+      questions: [
+        { q: "What did the Prophet ﷺ say on the third day?", a: "Set Thumamah free", wrong: ["Send him to Makkah", "Keep him for a year", "Make him pay gold"], why: "The Prophet ﷺ said: Release Thumama." },
+        { q: "How did Thumamah feel about the Prophet ﷺ after Islam?", a: "He loved him most of all", wrong: ["He still disliked him", "He did not care", "He was afraid of him"], why: "Now your face has become the most beloved face to me." },
+        { q: "Kindness can open a person's heart to Islam.", tf: true, why: "He was set free, then came back on his own and said the shahadah." }
       ]
     }
   ]
