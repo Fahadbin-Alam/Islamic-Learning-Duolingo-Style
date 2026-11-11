@@ -1,5 +1,6 @@
 import { translateStudyText } from "../../services/contentLocalization";
 import type { Challenge, Lesson, SupportedLanguage } from "../../types";
+import { correctLabel, teachLesson, type TeachLesson } from "./lessonPages";
 import { getLessonLine } from "./lessonSteps";
 import { shortWhy } from "./lessonText";
 
@@ -23,4 +24,31 @@ export function englishWhy(challenge: Pick<Challenge, "explanation" | "easierExp
 export function localizedWhy(challenge: Pick<Challenge, "explanation" | "easierExplanation" | "prompt" | "choices" | "correctChoiceId">, language: SupportedLanguage) {
   const why = englishWhy(challenge);
   return why && translateStudyText(why, language);
+}
+
+/**
+ * The Good to know page in the learner's language. Its shape (a sentence, or a flash card) is chosen from the English
+ * question, since the rules read English words; then each part is translated. A sentence with no translation yet is
+ * left out (an English sentence never shows in another language): the page shows the translated flash card instead.
+ */
+export function localizedTeach(english: Pick<Challenge, "prompt" | "choices" | "correctChoiceId" | "explanation" | "type">, language: SupportedLanguage): TeachLesson {
+  const teach = teachLesson(english);
+  if (language === "en") return teach;
+  const prompt = english.prompt.trim();
+  const answer = correctLabel(english).trim();
+  const answerShown = translateStudyText(answer, language);
+  const promptShown = translateStudyText(prompt, language);
+  const filled = /_{2,}/.test(prompt) ? prompt.replace(/_{2,}/, answer) : undefined;
+  const lines = teach.lines.flatMap((line) => {
+    const text = line.trim();
+    if (filled && text === filled) return promptShown !== prompt && /_{2,}/.test(promptShown) ? [promptShown.replace(/_{2,}/, answerShown)] : [];
+    const shown = translateStudyText(text, language);
+    return shown.trim() !== text ? [shown] : [];
+  });
+  const card = teach.card ?? (lines.length ? undefined : { question: prompt, answer });
+  return {
+    lines,
+    card: card && { ...card, question: translateStudyText(card.question, language), answer: translateStudyText(card.answer, language) },
+    answer: teach.answer && answerShown
+  };
 }
