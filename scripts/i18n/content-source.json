@@ -27821,6 +27821,14 @@
   },
   {
     "kind": "course",
+    "text": "Manners of gatherings"
+  },
+  {
+    "kind": "course",
+    "text": "Room for everyone, your seat when you come back, keeping a secret, correcting kindly, thanking helpers, and closing a sitting."
+  },
+  {
+    "kind": "course",
     "text": "Hadith for a good heart"
   },
   {
@@ -28278,6 +28286,30 @@
   {
     "kind": "course",
     "text": "The nearest door first"
+  },
+  {
+    "kind": "course",
+    "text": "Room for everyone"
+  },
+  {
+    "kind": "course",
+    "text": "Your seat when you come back"
+  },
+  {
+    "kind": "course",
+    "text": "Keeping what you are told"
+  },
+  {
+    "kind": "course",
+    "text": "Correcting without names"
+  },
+  {
+    "kind": "course",
+    "text": "Thanking those who help you"
+  },
+  {
+    "kind": "course",
+    "text": "Closing a sitting"
   },
   {
     "kind": "course",
@@ -36161,6 +36193,14 @@
   },
   {
     "kind": "course",
+    "text": "This world and the next"
+  },
+  {
+    "kind": "course",
+    "text": "Safe and fed is plenty, greed that harms faith, life that passes fast, the best of people, the tongue, and asking Allah."
+  },
+  {
+    "kind": "course",
     "text": "A pillar of faith"
   },
   {
@@ -36514,6 +36554,30 @@
   {
     "kind": "course",
     "text": "A bow's length of Jannah"
+  },
+  {
+    "kind": "course",
+    "text": "As if you had the whole world"
+  },
+  {
+    "kind": "course",
+    "text": "Like two wolves among sheep"
+  },
+  {
+    "kind": "course",
+    "text": "Life passes quickly"
+  },
+  {
+    "kind": "course",
+    "text": "The best of people"
+  },
+  {
+    "kind": "course",
+    "text": "The body speaks to the tongue"
+  },
+  {
+    "kind": "course",
+    "text": "Bring your need to Allah"
   },
   {
     "kind": "course",
@@ -76137,6 +76201,370 @@
   },
   {
     "kind": "lesson",
+    "text": "The best places to sit are the ones with the most room."
+  },
+  {
+    "kind": "lesson",
+    "text": "Khayrul-majalisi awsa'uha"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 4820"
+  },
+  {
+    "kind": "question",
+    "text": "Which places to sit did he ﷺ call the best?"
+  },
+  {
+    "kind": "question",
+    "text": "Those with the best view"
+  },
+  {
+    "kind": "question",
+    "text": "Those with the most room"
+  },
+  {
+    "kind": "question",
+    "text": "Those nearest the door"
+  },
+  {
+    "kind": "question",
+    "text": "Those with soft cushions"
+  },
+  {
+    "kind": "question",
+    "text": "The best places to sit are those which provide most room."
+  },
+  {
+    "kind": "question",
+    "text": "A friend arrives and the circle is tight. What fits the Sunnah?"
+  },
+  {
+    "kind": "question",
+    "text": "Pretend you did not see"
+  },
+  {
+    "kind": "question",
+    "text": "Tell him to stand"
+  },
+  {
+    "kind": "question",
+    "text": "Make space for him"
+  },
+  {
+    "kind": "question",
+    "text": "Spread out your things"
+  },
+  {
+    "kind": "question",
+    "text": "The best sittings are the roomy ones, so make space."
+  },
+  {
+    "kind": "question",
+    "text": "A crowded, tight sitting is the best kind."
+  },
+  {
+    "kind": "lesson",
+    "text": "If you get up and come back, your seat is still yours."
+  },
+  {
+    "kind": "lesson",
+    "text": "A boy got up, then came back"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 4853"
+  },
+  {
+    "kind": "question",
+    "text": "Who has the most right to a seat he left and came back to?"
+  },
+  {
+    "kind": "question",
+    "text": "The last one to arrive"
+  },
+  {
+    "kind": "question",
+    "text": "The one who sat there first"
+  },
+  {
+    "kind": "question",
+    "text": "Whoever sits there next"
+  },
+  {
+    "kind": "question",
+    "text": "The oldest person there"
+  },
+  {
+    "kind": "question",
+    "text": "If anyone gets up and comes back to it, he has most right to it."
+  },
+  {
+    "kind": "question",
+    "text": "In the story, who got up and then came back?"
+  },
+  {
+    "kind": "question",
+    "text": "A young boy"
+  },
+  {
+    "kind": "question",
+    "text": "An old man"
+  },
+  {
+    "kind": "question",
+    "text": "A teacher"
+  },
+  {
+    "kind": "question",
+    "text": "A guest"
+  },
+  {
+    "kind": "question",
+    "text": "A boy sitting with them got up, then returned to his place."
+  },
+  {
+    "kind": "question",
+    "text": "If someone steps out for a moment, you may keep his seat."
+  },
+  {
+    "kind": "question",
+    "text": "If he comes back to his seat, he has most right to it."
+  },
+  {
+    "kind": "lesson",
+    "text": "When someone tells you something and leaves, it is a trust."
+  },
+  {
+    "kind": "lesson",
+    "text": "An amanah: something to keep safe"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 4868"
+  },
+  {
+    "kind": "question",
+    "text": "What is it, when someone tells you something and then leaves?"
+  },
+  {
+    "kind": "question",
+    "text": "A joke to retell"
+  },
+  {
+    "kind": "question",
+    "text": "News to spread"
+  },
+  {
+    "kind": "question",
+    "text": "When a man tells something and then departs, it is a trust."
+  },
+  {
+    "kind": "question",
+    "text": "What should you do with a trust?"
+  },
+  {
+    "kind": "question",
+    "text": "Forget it on purpose"
+  },
+  {
+    "kind": "question",
+    "text": "Keep it safe"
+  },
+  {
+    "kind": "question",
+    "text": "An amanah is kept safe, not spread to others."
+  },
+  {
+    "kind": "question",
+    "text": "Sharing what a friend told you is fine once he has left."
+  },
+  {
+    "kind": "question",
+    "text": "What he told you before he left is a trust."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ corrected mistakes without naming the person."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ma balu aqwamin: what is wrong with people"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 4788"
+  },
+  {
+    "kind": "question",
+    "text": "What would he ﷺ say when he heard of someone's mistake?"
+  },
+  {
+    "kind": "question",
+    "text": "What is the matter with people"
+  },
+  {
+    "kind": "question",
+    "text": "Tell me his name"
+  },
+  {
+    "kind": "question",
+    "text": "Bring that man to me"
+  },
+  {
+    "kind": "question",
+    "text": "Who said such a thing"
+  },
+  {
+    "kind": "question",
+    "text": "He did not name the man, but spoke of people in general."
+  },
+  {
+    "kind": "question",
+    "text": "Who told how he ﷺ corrected people?"
+  },
+  {
+    "kind": "question",
+    "text": "Aishah described how he ﷺ spoke when told about a man."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ named people in front of others to correct them."
+  },
+  {
+    "kind": "question",
+    "text": "He spoke of what people say, without naming anyone."
+  },
+  {
+    "kind": "lesson",
+    "text": "Pray for those who help you, and speak well of them."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Muhajirun and the Ansar"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 4812"
+  },
+  {
+    "kind": "question",
+    "text": "Who feared the Ansar had taken all the reward?"
+  },
+  {
+    "kind": "question",
+    "text": "The Quraysh"
+  },
+  {
+    "kind": "question",
+    "text": "The Bedouins"
+  },
+  {
+    "kind": "question",
+    "text": "The people of Ta'if"
+  },
+  {
+    "kind": "question",
+    "text": "The Muhajirun came from Makkah, and the Ansar of Madinah took them in."
+  },
+  {
+    "kind": "question",
+    "text": "How could the Muhajirun share in that reward?"
+  },
+  {
+    "kind": "question",
+    "text": "Pay them back in gold"
+  },
+  {
+    "kind": "question",
+    "text": "Leave Madinah"
+  },
+  {
+    "kind": "question",
+    "text": "Work twice as hard"
+  },
+  {
+    "kind": "question",
+    "text": "Pray for the Ansar and praise them"
+  },
+  {
+    "kind": "question",
+    "text": "So long as you pray to Allah for them and praise them."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ said the Ansar had taken all the reward."
+  },
+  {
+    "kind": "question",
+    "text": "They had not taken all the reward while you pray for them and praise them."
+  },
+  {
+    "kind": "lesson",
+    "text": "Before you get up, say: Subhanaka Allahumma wa bihamdika."
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 3433"
+  },
+  {
+    "kind": "question",
+    "text": "When do we say Subhanaka Allahumma wa bihamdika, in Tirmidhi 3433?"
+  },
+  {
+    "kind": "question",
+    "text": "When it rains"
+  },
+  {
+    "kind": "question",
+    "text": "When we sneeze"
+  },
+  {
+    "kind": "question",
+    "text": "Before getting up from a sitting"
+  },
+  {
+    "kind": "question",
+    "text": "Before eating"
+  },
+  {
+    "kind": "question",
+    "text": "Said before rising, it brings forgiveness for the idle talk of that sitting."
+  },
+  {
+    "kind": "question",
+    "text": "What does saying it before rising bring?"
+  },
+  {
+    "kind": "question",
+    "text": "Forgiveness for that sitting"
+  },
+  {
+    "kind": "question",
+    "text": "A new friend"
+  },
+  {
+    "kind": "question",
+    "text": "A longer sitting"
+  },
+  {
+    "kind": "question",
+    "text": "Whatever occurred in that sitting would be forgiven to him."
+  },
+  {
+    "kind": "question",
+    "text": "The words end with: astaghfiruka wa atubu ilayk."
+  },
+  {
+    "kind": "question",
+    "text": "I seek Your forgiveness, and I repent to You."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about the manners of gatherings!"
+  },
+  {
+    "kind": "lesson",
     "text": "If the heart is good, the whole body is good."
   },
   {
@@ -77886,10 +78314,6 @@
   {
     "kind": "question",
     "text": "Sleep all day"
-  },
-  {
-    "kind": "question",
-    "text": "Leave Madinah"
   },
   {
     "kind": "question",
@@ -88649,10 +89073,6 @@
   },
   {
     "kind": "question",
-    "text": "A teacher"
-  },
-  {
-    "kind": "question",
     "text": "A guard"
   },
   {
@@ -92797,10 +93217,6 @@
   },
   {
     "kind": "question",
-    "text": "Before eating"
-  },
-  {
-    "kind": "question",
     "text": "The Prophet ﷺ taught it for bedtime."
   },
   {
@@ -96026,10 +96442,6 @@
   {
     "kind": "question",
     "text": "The army of Rome"
-  },
-  {
-    "kind": "question",
-    "text": "The Quraysh"
   },
   {
     "kind": "question",
@@ -104525,10 +104937,6 @@
   },
   {
     "kind": "question",
-    "text": "A guest"
-  },
-  {
-    "kind": "question",
     "text": "A witness or intercessor"
   },
   {
@@ -106830,14 +107238,6 @@
   {
     "kind": "question",
     "text": "Who sat on the Prophet's ﷺ right?"
-  },
-  {
-    "kind": "question",
-    "text": "A young boy"
-  },
-  {
-    "kind": "question",
-    "text": "An old man"
   },
   {
     "kind": "question",
@@ -126054,10 +126454,6 @@
   {
     "kind": "question",
     "text": "People new to Islam"
-  },
-  {
-    "kind": "question",
-    "text": "The people of Ta'if"
   },
   {
     "kind": "question",
@@ -147105,10 +147501,6 @@
   },
   {
     "kind": "question",
-    "text": "When it rains"
-  },
-  {
-    "kind": "question",
     "text": "When children learn"
   },
   {
@@ -153046,6 +153438,382 @@
   {
     "kind": "lesson",
     "text": "The last test: everything about light on that Day!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Safe, healthy, with food for today: the world is yours."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Ubaidullah ibn Mihsan, a Companion"
+  },
+  {
+    "kind": "lesson",
+    "text": "Safety, health and food for the day"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 2346"
+  },
+  {
+    "kind": "question",
+    "text": "Which three things make it as if you had the world?"
+  },
+  {
+    "kind": "question",
+    "text": "Fame, power and praise"
+  },
+  {
+    "kind": "question",
+    "text": "A palace, horses and guards"
+  },
+  {
+    "kind": "question",
+    "text": "Secured in his dwelling, healthy in his body, having his food for the day."
+  },
+  {
+    "kind": "question",
+    "text": "Waking up safe, healthy and fed is like what, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "Having nothing at all"
+  },
+  {
+    "kind": "question",
+    "text": "Needing much more"
+  },
+  {
+    "kind": "question",
+    "text": "Being still poor"
+  },
+  {
+    "kind": "question",
+    "text": "Having the whole world"
+  },
+  {
+    "kind": "question",
+    "text": "As if the world has been gathered for him, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Being safe and healthy today is a great blessing."
+  },
+  {
+    "kind": "question",
+    "text": "Waking safe, healthy and fed is as if the world were gathered for you."
+  },
+  {
+    "kind": "lesson",
+    "text": "Greed for money and fame harms faith as wolves harm sheep."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Ka'b ibn Malik"
+  },
+  {
+    "kind": "lesson",
+    "text": "Two wolves loose among sheep"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 2376"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ compare greed for wealth and honor to?"
+  },
+  {
+    "kind": "question",
+    "text": "A lamp at night"
+  },
+  {
+    "kind": "question",
+    "text": "A tree in winter"
+  },
+  {
+    "kind": "question",
+    "text": "Two wolves among sheep"
+  },
+  {
+    "kind": "question",
+    "text": "A river in the desert"
+  },
+  {
+    "kind": "question",
+    "text": "Two wolves free among sheep are no more destructive to them."
+  },
+  {
+    "kind": "question",
+    "text": "What does that greed harm, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "A person's religion"
+  },
+  {
+    "kind": "question",
+    "text": "Only his clothes"
+  },
+  {
+    "kind": "question",
+    "text": "Only his sheep"
+  },
+  {
+    "kind": "question",
+    "text": "A man's desire for wealth and honor is that harmful to his religion."
+  },
+  {
+    "kind": "question",
+    "text": "Chasing more money and fame can hurt your faith."
+  },
+  {
+    "kind": "question",
+    "text": "Two wolves loose among sheep do no more harm than that greed."
+  },
+  {
+    "kind": "lesson",
+    "text": "Seeing a hut being fixed, he ﷺ said life is even shorter."
+  },
+  {
+    "kind": "lesson",
+    "text": "The hut had grown weak"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 2335"
+  },
+  {
+    "kind": "question",
+    "text": "What was being repaired when he ﷺ passed by?"
+  },
+  {
+    "kind": "question",
+    "text": "A hut"
+  },
+  {
+    "kind": "question",
+    "text": "Their hut had grown weak, so they were repairing it."
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ say passes faster than a hut grows weak?"
+  },
+  {
+    "kind": "question",
+    "text": "Life"
+  },
+  {
+    "kind": "question",
+    "text": "I do not think but that the matter of life is more fleeting than that."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ reminded them that life is short."
+  },
+  {
+    "kind": "question",
+    "text": "He said the matter of life is more fleeting than a weak hut."
+  },
+  {
+    "kind": "lesson",
+    "text": "The best person lives long and does good deeds."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abdullah ibn Busr"
+  },
+  {
+    "kind": "lesson",
+    "text": "A Bedouin asked the question"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 2329"
+  },
+  {
+    "kind": "question",
+    "text": "Who asked him ﷺ about the best of people?"
+  },
+  {
+    "kind": "question",
+    "text": "A shepherd"
+  },
+  {
+    "kind": "question",
+    "text": "A Bedouin"
+  },
+  {
+    "kind": "question",
+    "text": "Abdullah ibn Busr narrated that a Bedouin said: O Messenger of Allah."
+  },
+  {
+    "kind": "question",
+    "text": "Who is the best of people, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "One whose life is long and deeds are good"
+  },
+  {
+    "kind": "question",
+    "text": "One with the most gold"
+  },
+  {
+    "kind": "question",
+    "text": "One with the most land"
+  },
+  {
+    "kind": "question",
+    "text": "One who is most famous"
+  },
+  {
+    "kind": "question",
+    "text": "Abdullah ibn Busr heard him ﷺ give the Bedouin that answer."
+  },
+  {
+    "kind": "question",
+    "text": "A long life filled with good deeds is the best."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ said the best is he whose life is long and his deeds are good."
+  },
+  {
+    "kind": "lesson",
+    "text": "Each morning the body asks the tongue to fear Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "If the tongue is straight, so is the body"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 2407"
+  },
+  {
+    "kind": "question",
+    "text": "What do the body parts ask the tongue each morning?"
+  },
+  {
+    "kind": "question",
+    "text": "To speak louder"
+  },
+  {
+    "kind": "question",
+    "text": "To eat more sweets"
+  },
+  {
+    "kind": "question",
+    "text": "To sleep late"
+  },
+  {
+    "kind": "question",
+    "text": "To fear Allah for them"
+  },
+  {
+    "kind": "question",
+    "text": "Fear Allah regarding us, we are only part of you."
+  },
+  {
+    "kind": "question",
+    "text": "If the tongue is straight, what happens to the body?"
+  },
+  {
+    "kind": "question",
+    "text": "The body is straight too"
+  },
+  {
+    "kind": "question",
+    "text": "The body becomes crooked"
+  },
+  {
+    "kind": "question",
+    "text": "The body gets tired"
+  },
+  {
+    "kind": "question",
+    "text": "Nothing changes at all"
+  },
+  {
+    "kind": "question",
+    "text": "If you are straight we are straight, the body parts say."
+  },
+  {
+    "kind": "question",
+    "text": "What we say can lead the whole body to good or bad."
+  },
+  {
+    "kind": "question",
+    "text": "If you are crooked we are crooked, the body parts tell the tongue."
+  },
+  {
+    "kind": "lesson",
+    "text": "Bring your need to Allah, and He will send provision."
+  },
+  {
+    "kind": "lesson",
+    "text": "Sooner or later, Allah provides"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 2326"
+  },
+  {
+    "kind": "question",
+    "text": "To whom should you bring your need, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "To people, not to Allah"
+  },
+  {
+    "kind": "question",
+    "text": "To no one at all"
+  },
+  {
+    "kind": "question",
+    "text": "To the richest man"
+  },
+  {
+    "kind": "question",
+    "text": "To Allah, not to people"
+  },
+  {
+    "kind": "question",
+    "text": "Whoever beseeches the people for it, his destitution shall not end."
+  },
+  {
+    "kind": "question",
+    "text": "When will Allah send provision to the one who asks Him?"
+  },
+  {
+    "kind": "question",
+    "text": "Sooner or later"
+  },
+  {
+    "kind": "question",
+    "text": "Only in old age"
+  },
+  {
+    "kind": "question",
+    "text": "Only once he stops asking"
+  },
+  {
+    "kind": "question",
+    "text": "Whoever beseeches Allah for it, Allah will send provisions to him."
+  },
+  {
+    "kind": "question",
+    "text": "Taking your need only to people always ends it."
+  },
+  {
+    "kind": "question",
+    "text": "His destitution shall not end, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about this world and the next!"
   },
   {
     "kind": "lesson",
@@ -164726,10 +165494,6 @@
   {
     "kind": "lesson",
     "text": "After his repentance from Tabuk"
-  },
-  {
-    "kind": "lesson",
-    "text": "Told by Ka'b ibn Malik"
   },
   {
     "kind": "source",
@@ -180018,10 +180782,6 @@
   {
     "kind": "question",
     "text": "Who are allies of each other, in Al-Anfal?"
-  },
-  {
-    "kind": "question",
-    "text": "The Muhajirun and the Ansar"
   },
   {
     "kind": "question",
@@ -200818,10 +201578,6 @@
   {
     "kind": "question",
     "text": "A devil as companion"
-  },
-  {
-    "kind": "question",
-    "text": "A new friend"
   },
   {
     "kind": "question",
@@ -225681,10 +226437,6 @@
   },
   {
     "kind": "question",
-    "text": "Life"
-  },
-  {
-    "kind": "question",
     "text": "Fil-qisasi hayah."
   },
   {
@@ -232270,10 +233022,6 @@
   {
     "kind": "question",
     "text": "Before death comes"
-  },
-  {
-    "kind": "question",
-    "text": "Only in old age"
   },
   {
     "kind": "question",
@@ -305970,10 +306718,6 @@
   {
     "kind": "question",
     "text": "What was Zakariyya's work, in the hadith?"
-  },
-  {
-    "kind": "question",
-    "text": "A shepherd"
   },
   {
     "kind": "question",
@@ -380938,10 +381682,6 @@
   {
     "kind": "lesson",
     "text": "Elected by Allah"
-  },
-  {
-    "kind": "lesson",
-    "text": "The best of people"
   },
   {
     "kind": "source",
@@ -482985,10 +483725,6 @@
   },
   {
     "kind": "question",
-    "text": "Only his clothes"
-  },
-  {
-    "kind": "question",
     "text": "He is straight within himself while his path is straight as well."
   },
   {
@@ -523126,10 +523862,6 @@
   {
     "kind": "question",
     "text": "An animal born whole"
-  },
-  {
-    "kind": "question",
-    "text": "A tree in winter"
   },
   {
     "kind": "question",
