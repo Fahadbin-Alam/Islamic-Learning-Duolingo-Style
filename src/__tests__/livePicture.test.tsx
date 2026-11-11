@@ -1,7 +1,14 @@
+jest.mock("../services/gameAudio", () => ({
+  playGameSound: jest.fn(),
+  primeGameAudio: jest.fn(() => true)
+}));
+
 import React from "react";
 import { Text } from "react-native";
 import { fireEvent, render, screen } from "@testing-library/react-native";
-import { LESSON_PICTURE_IDS } from "../data/lessonPictures";
+import { choicePictures, LESSON_PICTURE_IDS } from "../data/lessonPictures";
+import { ExerciseView } from "../ui/lesson";
+import { questionFormat } from "../ui/lesson/questionFormats";
 import { surahScene } from "../data/surahPictures";
 import { coverRect, LiveFrame } from "../ui/lesson/LivePicture";
 import { PICTURE_LIFE, sceneLife, type Life } from "../ui/lesson/pictureLife";
@@ -42,7 +49,7 @@ describe("living lesson pictures", () => {
     expect(coverRect(400, 100, 16 / 9)).toEqual({ left: 0, top: -62.5, width: 400, height: 225 });
   });
 
-  test("once it knows its size the picture comes alive; still, it shows just the picture", async () => {
+  test("once it knows its size the picture comes alive", async () => {
     const layout = { nativeEvent: { layout: { width: 320, height: 180 } } };
     await render(
       <LiveFrame aspect={16 / 9} life={PICTURE_LIFE.ark}>
@@ -53,8 +60,10 @@ describe("living lesson pictures", () => {
     expect(screen.queryByTestId("picture-life")).toBeNull();
     await fireEvent(screen.getByTestId("live-frame"), "layout", layout);
     expect(screen.getByTestId("picture-life")).toBeTruthy();
-    screen.unmount();
+  });
 
+  test("still, it shows just the picture", async () => {
+    const layout = { nativeEvent: { layout: { width: 320, height: 180 } } };
     await render(
       <LiveFrame aspect={16 / 9} life={PICTURE_LIFE.ark} still>
         <Text>picture</Text>
@@ -63,5 +72,49 @@ describe("living lesson pictures", () => {
     await fireEvent(screen.getByTestId("live-frame"), "layout", layout);
     expect(screen.getByText("picture")).toBeTruthy();
     expect(screen.queryByTestId("picture-life")).toBeNull();
+  });
+});
+
+describe("picture answers", () => {
+  const places = [
+    { id: "a", label: "Mina" },
+    { id: "b", label: "Arafah" },
+    { id: "c", label: "Muzdalifah" }
+  ];
+
+  test("every answer a place with its own picture gives picture cards; one plain answer, or two alike, gives none", () => {
+    expect(Object.fromEntries(Object.entries(choicePictures(places) ?? {}).map(([id, picture]) => [id, picture.id]))).toEqual({ a: "mina", b: "arafah", c: "muzdalifah" });
+    expect(choicePictures([...places.slice(0, 2), { id: "c", label: "Back home" }])).toBeUndefined();
+    expect(choicePictures([{ id: "a", label: "Makkah" }, { id: "b", label: "Mecca" }, { id: "c", label: "Taif" }])).toBeUndefined();
+    expect(choicePictures(places.slice(0, 2))).toBeUndefined();
+  });
+
+  test("a picture-answer question is asked with its tiles, not as a gap or true-or-false", () => {
+    const challenge = { id: "q1", type: "multiple_choice" as const, prompt: "Pilgrims stand at ____ on the 9th.", choices: places, correctChoiceId: "b" };
+    const variety = (globalThis as { __QUESTION_VARIETY__?: boolean }).__QUESTION_VARIETY__;
+    (globalThis as { __QUESTION_VARIETY__?: boolean }).__QUESTION_VARIETY__ = true;
+    try {
+      expect(questionFormat(challenge)).toBe("blank");
+      expect(questionFormat(challenge, { pictures: true })).toBe("choose");
+    } finally {
+      (globalThis as { __QUESTION_VARIETY__?: boolean }).__QUESTION_VARIETY__ = variety;
+    }
+  });
+
+  test("each answer tile shows its place", async () => {
+    await render(
+      <ExerciseView
+        kind="multiple_choice"
+        prompt="After Arafah, pilgrims spend the night at ____."
+        choices={places}
+        choicePictures={choicePictures(places)}
+        mascotVariant="boy"
+        accent="#21B573"
+        onSelect={jest.fn()}
+        onCheck={jest.fn()}
+        onContinue={jest.fn()}
+      />
+    );
+    for (const choice of places) expect(screen.getByTestId(`choice-${choice.id}-picture`, { includeHiddenElements: true })).toBeTruthy();
   });
 });

@@ -415,6 +415,8 @@ export type ExerciseViewProps = {
   defaultWhyOpen?: boolean;
   /** A photo of the place the prompt names, shown in the mascot's place (see QuestionBubble). */
   picture?: LessonPicture;
+  /** A picture for each answer (all places, see choicePictures): each tile shows its place, moving, like a picture card. */
+  choicePictures?: Record<string, LessonPicture>;
   /** A listening question: a big speaker under the prompt plays the Arabic; tap again to stop. */
   listen?: { onPlay: () => void; playing: boolean };
   bottomInset?: number;
@@ -562,6 +564,7 @@ export function ExerciseView({
   continueSound,
   defaultWhyOpen,
   picture,
+  choicePictures,
   listen,
   bottomInset,
   testID = "exercise-view"
@@ -1331,6 +1334,7 @@ export function ExerciseView({
                       delay={80 + index * 60}
                       distance={entryRise(choice.id)}
                       label={choice.label}
+                      picture={choicePictures?.[choice.id]}
                       compact={compact}
                       tight={look.tight}
                       long={longChoices}

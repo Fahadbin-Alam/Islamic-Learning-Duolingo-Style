@@ -185,7 +185,8 @@ describe("photo on the learn card", () => {
     await fireEvent.press(screen.getByTestId("lesson-photo"));
     const image = screen.getByTestId("photo-sheet-image");
     expect(image.props.resizeMode).toBe("contain");
-    const style = Object.assign({}, ...[image.props.style].flat(5).filter(Boolean));
+    // Its frame (where the picture's life moves too) has the picture's own shape.
+    const style = Object.assign({}, ...[screen.getByTestId("photo-sheet-frame").props.style].flat(5).filter(Boolean));
     expect(style.width / style.height).toBeCloseTo(photoAspect(picture), 1);
   });
 
