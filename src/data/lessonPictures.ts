@@ -154,6 +154,24 @@ export function pictureForQuestion(prompt: string): LessonPicture | undefined {
   return place ? getLessonPicture(place.id) : undefined;
 }
 
+/**
+ * Picture answers: when every answer of a question is a place with its own picture (Makkah, Madinah, Ta'if; Arafah,
+ * Mina, Muzdalifah; Hira, Thawr, Uhud), each answer tile shows its place, like a picture card. Only when each answer
+ * gets a different picture, so no two tiles look alike and none gives the answer away. Read from the English answers.
+ */
+export function choicePictures(choices: { id: string; label: string }[] | undefined): Record<string, LessonPicture> | undefined {
+  if (!choices || choices.length < 3) return undefined;
+  const pictures: Record<string, LessonPicture> = {};
+  const seen = new Set<string>();
+  for (const choice of choices) {
+    const picture = pictureForQuestion(choice.label);
+    if (!picture || seen.has(picture.id)) return undefined;
+    seen.add(picture.id);
+    pictures[choice.id] = picture;
+  }
+  return pictures;
+}
+
 /** Pictures that fit a whole topic, for a page that names nothing with a picture of its own. */
 const TOPIC_PICTURES: Record<string, string[]> = {
   quran_tafseer: ["quran", "manuscript", "night", "sunrise"],

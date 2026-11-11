@@ -278,7 +278,7 @@ import { SCHOLAR_TREE, type ScholarYears } from "./data/scholarUnits";
 import { didRamadanToday, ramadanDoneDayNumbers, ramadanSeason, ramadanStreak } from "./data/ramadanCalendar";
 import { RAMADAN_TOPIC } from "./data/ramadanDays";
 import { teacherFor } from "./ui/lesson/Teacher";
-import { flowPictures, pictureForLesson, pictureForQuestion, pictureForText } from "./data/lessonPictures";
+import { flowPictures, pictureForLesson, choicePictures, pictureForQuestion, pictureForText } from "./data/lessonPictures";
 import { surahNumberForTitle, surahParts } from "./data/surahPictures";
 import { BACKGROUND_KEY, INTRO_TOPIC, introStartFor, isLearnerBackground, type LearnerBackground } from "./data/introToIslam";
 import type {
@@ -3719,6 +3719,8 @@ export default function TopicApp() {
   const pagePicture = learnStep && learnStep.page !== "start" ? stepPicture : undefined;
   const pictureChallenge = englishChallenge ?? challenge;
   const questionPicture = pictureChallenge ? pictureForQuestion(pictureChallenge.prompt) : undefined;
+  // Every answer a place with its own picture (Arafah, Mina, Muzdalifah): picture cards. Not for a listening question.
+  const answerPictures = pictureChallenge && !pictureChallenge.listen && pictureChallenge.type === "multiple_choice" ? choicePictures(pictureChallenge.choices) : undefined;
   const inTest = isTestSession(lessonSession);
   const testPassingScore = inTest && lesson ? lessonSession?.passingScore ?? testOutPassingScore(lesson.challenges.length) : 0;
   // The pages of the lesson: what the source says (when it is about this lesson), the words its questions ask
@@ -3733,7 +3735,7 @@ export default function TopicApp() {
   const questionRecall = Boolean(
     challenge && (challenge.isReview || (lesson && isRecallLesson(lesson)) || (lessonSession?.mode && lessonSession.mode !== "standard"))
   );
-  const questionFormatNow = challenge ? questionFormat(challenge, { recall: questionRecall, language: currentLanguage }) : "choose";
+  const questionFormatNow = challenge ? questionFormat(challenge, { recall: questionRecall, language: currentLanguage, pictures: Boolean(answerPictures) }) : "choose";
   const checkShown = challenge && questionFormatNow === "check" ? checkCandidate(challenge) : undefined;
   const fillNow = challenge && questionFormatNow === "fill" ? fillPiece(challenge) : undefined;
   // The match round's pairs: each question and its answer.
@@ -4047,7 +4049,9 @@ export default function TopicApp() {
                 mascotVariant={lessonMascot}
                 accent={lessonAccent}
                 praiseSeed={challenge.id}
-                picture={questionPicture}
+                // Picture answers are enough pictures: the prompt's place does not show over them too.
+                picture={answerPictures ? undefined : questionPicture}
+                choicePictures={answerPictures}
                 playSound={false}
                 continueSound={continueEndsLesson || continueOpensRefill ? false : undefined}
                 onSelect={(choiceId) => dispatch({ type: "select_choice", choiceId })}

@@ -25,6 +25,8 @@ export type FormatContext = {
   recall?: boolean;
   /** The learner's language: missing-word answers are made only from English answers, which split on spaces cleanly. */
   language?: string;
+  /** Every answer has its own picture (choicePictures): asked as picture cards, the most fun way to pick a place. */
+  pictures?: boolean;
 };
 
 const BLANK = /_{2,}/;
@@ -172,6 +174,7 @@ export function canCheck(challenge: Pick<Challenge, "choices" | "correctChoiceId
 export function questionFormat(challenge: Pick<Challenge, "id" | "type" | "prompt" | "choices" | "correctChoiceId" | "listen">, context: FormatContext = {}): QuestionFormat {
   // A listening question is heard, then its meaning picked from the tiles.
   if (!questionVariety() || isTrueFalse(challenge) || challenge.listen) return "choose";
+  if (context.pictures) return "choose";
   if (canBlank(challenge)) return "blank";
   const english = !context.language || context.language === "en";
   const roll = formatSeed(`${challenge.id}|${context.recall ? "recall" : "learn"}`) % 100;

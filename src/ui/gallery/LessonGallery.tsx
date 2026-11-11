@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import { getLessonArabic, NODE_ARABIC } from "../../data/arabicTerms";
 import { COURSE, LESSONS_BY_ID } from "../../data/course";
-import { getLessonPicture, LESSON_PICTURE_IDS, pictureForLesson, pictureForPage, pictureForQuestion } from "../../data/lessonPictures";
+import { choicePictures, getLessonPicture, LESSON_PICTURE_IDS, pictureForLesson, pictureForPage, pictureForQuestion } from "../../data/lessonPictures";
 import { LessonPhoto } from "../lesson/LessonPhoto";
 import { SurahCover } from "../lesson/SurahCover";
 import { surahNumberForTitle, surahParts } from "../../data/surahPictures";
@@ -59,6 +59,11 @@ const surahMeaningLesson = (LESSONS_BY_ID["lesson-surah-meaning-2-254-257"] ?? a
 // Lessons and a question that name a place with a photo (Makkah, the Ka'bah, Uhud...).
 const photoLesson = allLessons.find((lesson) => lesson.title === "The Ka'bah") ?? allLessons.find((lesson) => pictureForLesson(lesson)) ?? salam;
 const photoArabicLesson = allLessons.find((lesson) => pictureForLesson(lesson) && getLessonArabic(lesson.nodeId, lesson.branchId)) ?? photoLesson;
+// Every answer a place with its own picture: picture cards (Arafah, Mina, Muzdalifah...).
+const pictureAnswersQuestion =
+  allChallenges.find((challenge) => challenge.prompt.startsWith("After Arafah") && choicePictures(challenge.choices)) ??
+  allChallenges.find((challenge) => choicePictures(challenge.choices)) ??
+  salam.challenges[0];
 const photoQuestion = allChallenges.find((challenge) => pictureForQuestion(challenge.prompt)?.id === "uhud") ?? salam.challenges[0];
 const eidLesson = (LESSONS_BY_ID["lesson-deep-eid-two-days"] ?? salam) as Lesson;
 const factsLesson = allLessons.find((lesson) => (lesson.learnFacts?.length ?? 0) >= 3) ?? allLessons.find((lesson) => lesson.learnFacts?.length) ?? salam;
@@ -262,7 +267,8 @@ function ExerciseDemo({
         mascotVariant="girl"
         accent={accent}
         praiseSeed={challenge.id}
-        picture={pictureForQuestion(challenge.prompt)}
+        picture={choicePictures(challenge.choices) ? undefined : pictureForQuestion(challenge.prompt)}
+        choicePictures={choicePictures(challenge.choices)}
         defaultWhyOpen={whyOpen}
         onSelect={setSelected}
         onCheck={() => {
@@ -390,6 +396,7 @@ const STATES: State[] = [
   { id: "learn-eid", render: () => <LearnDemo lesson={eidLesson} accent={accentOf(eidLesson)} mascot="girl" isNewWord={false} /> },
   { id: "learn-photo", render: () => <LearnDemo lesson={photoLesson} accent={accentOf(photoLesson)} isNewWord={false} /> },
   { id: "learn-photo-arabic", render: () => <LearnDemo lesson={photoArabicLesson} accent={accentOf(photoArabicLesson)} /> },
+  { id: "mc-pictures", render: () => <ExerciseDemo challenge={pictureAnswersQuestion} progress={0.5} /> },
   { id: "mc-photo", render: () => <ExerciseDemo challenge={photoQuestion} progress={0.3} /> },
   { id: "mc", render: () => <ExerciseDemo challenge={salam.challenges[0]} progress={0.25} /> },
   { id: "mc-selected", render: () => <ExerciseDemo challenge={salam.challenges[0]} initialSelected="a" progress={0.25} /> },
