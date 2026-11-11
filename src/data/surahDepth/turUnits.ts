@@ -198,7 +198,7 @@ const TUR_ONE: DeepUnit = {
       questions: [
         { q: "What happens to the mountains, in 52:10?", a: "They move away", wrong: ["They grow taller", "They turn to gold", "They stay firm"], why: "And Tasir the mountains Sayr." },
         { q: "What do they become, per Ibn Kathir?", a: "Dust blown by the wind", wrong: ["Rivers", "Trees", "Ice"], why: "Will fade away and become scattered particles of dust blown away by the wind." },
-        { tf: true, q: "The mountains stay in place on that Day.", why: "No. Will fade away and become scattered particles of dust blown away by the wind." }
+        { tf: false, q: "The mountains stay in place on that Day.", why: "No. Will fade away and become scattered particles of dust blown away by the wind." }
       ]
     },
     {
@@ -407,7 +407,7 @@ const TUR_TWO: DeepUnit = {
       questions: [
         { q: "What is every person a pledge for?", a: "What they earned", wrong: ["Their parents' deeds", "Their tribe", "Their wealth"], why: "Every person is a pledge for that which he has earned." },
         { q: "Does Allah punish anyone for others' mistakes?", a: "No, never", wrong: ["Yes, always", "Only parents", "Only children"], why: "He does not punish anyone for the mistakes of others." },
-        { tf: true, q: "A parent's sins are added to a child's record.", why: "No. No sin committed by others shall ever be added to one's load, even if committed by his or her parents or offspring." }
+        { tf: false, q: "A parent's sins are added to a child's record.", why: "No. No sin committed by others shall ever be added to one's load, even if committed by his or her parents or offspring." }
       ]
     },
     {
@@ -658,7 +658,7 @@ const TUR_THREE: DeepUnit = {
       questions: [
         { q: "What does 52:37 ask about treasures?", a: "Are they theirs?", wrong: ["Are they buried?", "Are they gold?", "Are they lost?"], why: "Or are with them the treasures of your Lord?" },
         { q: "Who is the only King, per Ibn Kathir?", a: "Allah", wrong: ["Quraysh", "Caesar", "Kisra"], why: "Allah the Exalted and Most Honored is the Only King and Owner of the existence." },
-        { tf: true, q: "The idolators held the keys to Allah's treasures.", why: "No. Do they hold the keys to His treasures in their hands? Never." }
+        { tf: false, q: "The idolators held the keys to Allah's treasures.", why: "No. Do they hold the keys to His treasures in their hands? Never." }
       ]
     },
     {
@@ -714,7 +714,7 @@ const TUR_THREE: DeepUnit = {
       questions: [
         { q: "What does 52:41 ask if they have?", a: "The Unseen", wrong: ["A treasure", "A fortress", "An army"], why: "Or that the Unseen is with them, and they write it down?" },
         { q: "Who knows the Unseen, per Ibn Kathir?", a: "Only Allah", wrong: ["Soothsayers", "Poets", "Stargazers"], why: "None in the heavens or earth knows the Unseen except Allah." },
-        { tf: true, q: "A soothsayer can truly know the Unseen.", why: "No. None in the heavens or earth knows the Unseen except Allah." }
+        { tf: false, q: "A soothsayer can truly know the Unseen.", why: "No. None in the heavens or earth knows the Unseen except Allah." }
       ]
     },
     {
@@ -784,7 +784,7 @@ const TUR_THREE: DeepUnit = {
       questions: [
         { q: "What will not avail them, in 52:46?", a: "Their plotting", wrong: ["Their prayers", "Their charity", "Their fasting"], why: "The Day when their plotting shall not avail them at all." },
         { q: "Will anyone help them, in 52:46?", a: "No", wrong: ["Their idols", "Their tribe", "Their wealth"], why: "Nor will they be helped." },
-        { tf: true, q: "Their plots will help them a little on that Day.", why: "No. Their deceit and plots they planned in this life shall not help them in the least." }
+        { tf: false, q: "Their plots will help them a little on that Day.", why: "No. Their deceit and plots they planned in this life shall not help them in the least." }
       ]
     },
     {

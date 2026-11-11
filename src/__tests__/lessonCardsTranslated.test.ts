@@ -21,25 +21,23 @@ describe.each(["bn", "ur", "ar"] as const)("lesson cards in %s", (language) => {
     let pages = 0;
     let sentences = 0;
     const english: string[] = [];
+    const dropped: string[] = [];
     for (const lesson of lessons) {
       for (const step of buildLessonFlow(lesson)) {
         if (step.kind !== "learn" || step.page !== "teach" || step.index === undefined) continue;
         const shown = localizedTeach(lesson.challenges[step.index], language);
         pages += 1;
         if (shown.lines.length) sentences += 1;
+        else if (teachLesson(lesson.challenges[step.index]).lines.length) dropped.push(`${lesson.id}#${step.index}`);
         expect(shown.lines.length || shown.card).toBeTruthy();
         const words = [...shown.lines, shown.card?.question ?? "", shown.card?.answer ?? ""];
         if (words.some((text) => ENGLISH.test(text))) english.push(`${lesson.id}: ${words.join(" | ")}`);
       }
     }
     expect(english.slice(0, 5)).toEqual([]);
-    // Most pages keep the sentence the English page shows (before, every translated sentence was dropped).
-    const englishSentences = lessons.reduce(
-      (count, lesson) =>
-        count + buildLessonFlow(lesson).filter((step) => step.kind === "learn" && step.page === "teach" && step.index !== undefined && teachLesson(lesson.challenges[step.index!]).lines.length).length,
-      0
-    );
-    expect(sentences / englishSentences).toBeGreaterThan(0.75);
+    // Every page keeps the sentence the English page shows: a new Good to know sentence needs its translation.
+    expect(dropped.slice(0, 5)).toEqual([]);
+    expect(sentences).toBeGreaterThan(1000);
     expect(pages).toBeGreaterThan(1000);
   });
 });

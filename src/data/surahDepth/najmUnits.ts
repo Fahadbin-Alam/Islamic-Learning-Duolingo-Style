@@ -100,7 +100,7 @@ const NAJM_ONE: DeepUnit = {
       questions: [
         { q: "From what does he ﷺ not speak, in 53:3?", a: "Desire", wrong: ["Knowledge", "Truth", "Revelation"], why: "Nor does he speak of desire." },
         { q: "Whose wish shapes his message, per Ibn Kathir?", a: "Not his own", wrong: ["His own", "His tribe", "The kings"], why: "Nothing the Prophet ﷺ utters is of his own desire or wish." },
-        { tf: true, q: "53:3 means he ﷺ spoke from personal wishes.", why: "No. Nothing the Prophet ﷺ utters is of his own desire or wish." }
+        { tf: false, q: "53:3 means he ﷺ spoke from personal wishes.", why: "No. Nothing the Prophet ﷺ utters is of his own desire or wish." }
       ]
     },
     {
@@ -505,7 +505,7 @@ const NAJM_TWO: DeepUnit = {
       questions: [
         { q: "Whose intercession avails nothing, in 53:26?", a: "Angels without Allah's leave", wrong: ["Allah's", "No one's", "The believers'"], why: "Many angels in the heavens, whose intercession will avail nothing, except after Allah has given leave." },
         { q: "Which ayah does Ibn Kathir link to 53:26?", a: "2:255", wrong: ["1:1", "112:1", "114:1"], why: "Who is he that can intercede with Him except with His permission? 2:255." },
-        { tf: true, q: "Idols can intercede without Allah's permission.", why: "No. How can you, O ignorant ones, hope for Allah to grant you the intercession of the idols without having His permission?" }
+        { tf: false, q: "Idols can intercede without Allah's permission.", why: "No. How can you, O ignorant ones, hope for Allah to grant you the intercession of the idols without having His permission?" }
       ]
     },
     {
@@ -1050,7 +1050,7 @@ const NAJM_THREE: DeepUnit = {
       questions: [
         { q: "Who can avert it, in 53:58?", a: "None besides Allah", wrong: ["The angels", "The kings", "The scholars"], why: "None besides Allah can avert it." },
         { q: "Who knows when it will come?", a: "Only Allah", wrong: ["Astrologers", "Soothsayers", "Everyone"], why: "Nor does anyone know when it will come, except Him." },
-        { tf: true, q: "We can know the exact date of the Hour.", why: "No. Nor does anyone know when it will come, except Him." }
+        { tf: false, q: "We can know the exact date of the Hour.", why: "No. Nor does anyone know when it will come, except Him." }
       ]
     },
     {
