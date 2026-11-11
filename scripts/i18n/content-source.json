@@ -465,6 +465,54 @@
   },
   {
     "kind": "course",
+    "text": "Wudu like the Prophet ﷺ"
+  },
+  {
+    "kind": "course",
+    "text": "How he ﷺ washed for salah, and the light wudu leaves on the believers."
+  },
+  {
+    "kind": "arabic",
+    "text": "The Prophet's wudu"
+  },
+  {
+    "kind": "course",
+    "text": "The reward of the adhan"
+  },
+  {
+    "kind": "course",
+    "text": "How the adhan began with Bilal, what to say when you hear it, and its reward."
+  },
+  {
+    "kind": "arabic",
+    "text": "The virtue of the adhan"
+  },
+  {
+    "kind": "course",
+    "text": "The night prayer"
+  },
+  {
+    "kind": "course",
+    "text": "Tahajjud: how the Prophet ﷺ prayed at night, and why he did it."
+  },
+  {
+    "kind": "arabic",
+    "text": "Standing in prayer at night"
+  },
+  {
+    "kind": "course",
+    "text": "Salah made easy"
+  },
+  {
+    "kind": "course",
+    "text": "Praying when you are ill or travelling: Allah never asks more than you can do."
+  },
+  {
+    "kind": "arabic",
+    "text": "Prayer made easy"
+  },
+  {
+    "kind": "course",
     "text": "What wudu is"
   },
   {
@@ -985,6 +1033,90 @@
   },
   {
     "kind": "course",
+    "text": "The four parts of wudu"
+  },
+  {
+    "kind": "course",
+    "text": "Uthman shows the way"
+  },
+  {
+    "kind": "course",
+    "text": "Once is enough too"
+  },
+  {
+    "kind": "course",
+    "text": "One handful at a time"
+  },
+  {
+    "kind": "course",
+    "text": "Shining on Judgment Day"
+  },
+  {
+    "kind": "course",
+    "text": "Eight gates open"
+  },
+  {
+    "kind": "course",
+    "text": "Bilal calls the first adhan"
+  },
+  {
+    "kind": "course",
+    "text": "Repeat after the caller"
+  },
+  {
+    "kind": "course",
+    "text": "The du'a after the adhan"
+  },
+  {
+    "kind": "course",
+    "text": "Every creature is a witness"
+  },
+  {
+    "kind": "course",
+    "text": "They would draw lots"
+  },
+  {
+    "kind": "course",
+    "text": "Pray in the night"
+  },
+  {
+    "kind": "course",
+    "text": "A thankful servant"
+  },
+  {
+    "kind": "course",
+    "text": "Long and beautiful"
+  },
+  {
+    "kind": "course",
+    "text": "The prayer of Dawud"
+  },
+  {
+    "kind": "course",
+    "text": "They leave their beds"
+  },
+  {
+    "kind": "course",
+    "text": "Only what you can bear"
+  },
+  {
+    "kind": "course",
+    "text": "Stand, sit or lie down"
+  },
+  {
+    "kind": "course",
+    "text": "Two rak'ahs on a journey"
+  },
+  {
+    "kind": "course",
+    "text": "Praying on his camel"
+  },
+  {
+    "kind": "course",
+    "text": "The same reward"
+  },
+  {
+    "kind": "course",
     "text": "Aqidah and Iman"
   },
   {
@@ -1046,6 +1178,30 @@
   {
     "kind": "arabic",
     "text": "Faith and deeds"
+  },
+  {
+    "kind": "course",
+    "text": "Names of Allah: His mercy"
+  },
+  {
+    "kind": "course",
+    "text": "Ar-Rahman, Al-Wadud, At-Tawwab, Al-Mujib and more: names that fill the heart with hope."
+  },
+  {
+    "kind": "arabic",
+    "text": "Names of mercy"
+  },
+  {
+    "kind": "course",
+    "text": "Names of Allah: His greatness"
+  },
+  {
+    "kind": "course",
+    "text": "Al-Hayy, Al-Quddus, Al-Khaliq, Al-Latif, Al-Wakil and Al-Hafiz: names that show His power."
+  },
+  {
+    "kind": "arabic",
+    "text": "Names of greatness"
   },
   {
     "kind": "course",
@@ -1302,6 +1458,54 @@
   {
     "kind": "course",
     "text": "The strong believer"
+  },
+  {
+    "kind": "course",
+    "text": "Ar-Rahman, Ar-Rahim"
+  },
+  {
+    "kind": "course",
+    "text": "Al-Ghafur, Al-Wadud"
+  },
+  {
+    "kind": "course",
+    "text": "At-Tawwab"
+  },
+  {
+    "kind": "course",
+    "text": "Al-Qarib, Al-Mujib"
+  },
+  {
+    "kind": "course",
+    "text": "Al-Wahhab"
+  },
+  {
+    "kind": "course",
+    "text": "Ash-Shakur"
+  },
+  {
+    "kind": "course",
+    "text": "Al-Hayy, Al-Qayyum"
+  },
+  {
+    "kind": "course",
+    "text": "Al-Malik, Al-Quddus, As-Salam"
+  },
+  {
+    "kind": "course",
+    "text": "Al-Khaliq, Al-Bari, Al-Musawwir"
+  },
+  {
+    "kind": "course",
+    "text": "Al-Latif, Al-Khabir"
+  },
+  {
+    "kind": "course",
+    "text": "Al-Wakil"
+  },
+  {
+    "kind": "course",
+    "text": "Al-Hafiz"
   },
   {
     "kind": "course",
@@ -8602,10 +8806,6 @@
   {
     "kind": "course",
     "text": "Fajr is witnessed"
-  },
-  {
-    "kind": "course",
-    "text": "The night prayer"
   },
   {
     "kind": "course",
@@ -17454,10 +17654,6 @@
   {
     "kind": "course",
     "text": "Dearer than the world"
-  },
-  {
-    "kind": "course",
-    "text": "A thankful servant"
   },
   {
     "kind": "course",
@@ -37734,10 +37930,6 @@
   {
     "kind": "arabic",
     "text": "The religion is easy"
-  },
-  {
-    "kind": "course",
-    "text": "Only what you can bear"
   },
   {
     "kind": "arabic",
@@ -60953,6 +61145,1322 @@
   },
   {
     "kind": "lesson",
+    "text": "Wash the face, the arms, wipe the head, wash the feet."
+  },
+  {
+    "kind": "lesson",
+    "text": "Arms up to the elbows"
+  },
+  {
+    "kind": "lesson",
+    "text": "Feet up to the ankles"
+  },
+  {
+    "kind": "question",
+    "text": "When does Quran 5:6 tell us to make wudu?"
+  },
+  {
+    "kind": "question",
+    "text": "When we rise for prayer"
+  },
+  {
+    "kind": "question",
+    "text": "Only on Friday"
+  },
+  {
+    "kind": "question",
+    "text": "Only after eating"
+  },
+  {
+    "kind": "question",
+    "text": "When you rise for prayer, wash your faces."
+  },
+  {
+    "kind": "question",
+    "text": "Up to the elbows"
+  },
+  {
+    "kind": "question",
+    "text": "Your arms up to the elbows."
+  },
+  {
+    "kind": "question",
+    "text": "What is done to the head in wudu?"
+  },
+  {
+    "kind": "question",
+    "text": "It is covered"
+  },
+  {
+    "kind": "question",
+    "text": "It is skipped"
+  },
+  {
+    "kind": "question",
+    "text": "It is shaved"
+  },
+  {
+    "kind": "question",
+    "text": "Wipe your heads."
+  },
+  {
+    "kind": "question",
+    "text": "In wudu the feet are washed up to the ankles."
+  },
+  {
+    "kind": "lesson",
+    "text": "Uthman washed each part three times, as he ﷺ did."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Humran"
+  },
+  {
+    "kind": "lesson",
+    "text": "Then two rak'ahs with focus"
+  },
+  {
+    "kind": "question",
+    "text": "What did Uthman wash first?"
+  },
+  {
+    "kind": "question",
+    "text": "His back"
+  },
+  {
+    "kind": "question",
+    "text": "His hands"
+  },
+  {
+    "kind": "question",
+    "text": "His feet"
+  },
+  {
+    "kind": "question",
+    "text": "His head"
+  },
+  {
+    "kind": "question",
+    "text": "He poured water over his hands and washed them thrice."
+  },
+  {
+    "kind": "question",
+    "text": "How many times did Uthman wash his face?"
+  },
+  {
+    "kind": "question",
+    "text": "Ten times"
+  },
+  {
+    "kind": "question",
+    "text": "Not at all"
+  },
+  {
+    "kind": "question",
+    "text": "Seven times"
+  },
+  {
+    "kind": "question",
+    "text": "He washed his face and forearms thrice."
+  },
+  {
+    "kind": "question",
+    "text": "What is forgiven for wudu like his, then two focused rak'ahs?"
+  },
+  {
+    "kind": "question",
+    "text": "Only the next prayer"
+  },
+  {
+    "kind": "question",
+    "text": "Only debts"
+  },
+  {
+    "kind": "question",
+    "text": "Past sins"
+  },
+  {
+    "kind": "question",
+    "text": "Uthman learned this wudu by watching the Prophet ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "He said: I saw the Prophet ﷺ make wudu like this."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ sometimes washed each part only once."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Ibn Abbas"
+  },
+  {
+    "kind": "lesson",
+    "text": "Twice each, told by Abdullah bin Zaid"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 157"
+  },
+  {
+    "kind": "question",
+    "text": "How many times did he ﷺ wash each part in Bukhari 157?"
+  },
+  {
+    "kind": "question",
+    "text": "Only once"
+  },
+  {
+    "kind": "question",
+    "text": "Five times"
+  },
+  {
+    "kind": "question",
+    "text": "Washing the body parts only once."
+  },
+  {
+    "kind": "question",
+    "text": "Who told us about the wudu with each part washed once?"
+  },
+  {
+    "kind": "question",
+    "text": "Jabir"
+  },
+  {
+    "kind": "question",
+    "text": "Anas"
+  },
+  {
+    "kind": "question",
+    "text": "Narrated by Ibn Abbas."
+  },
+  {
+    "kind": "question",
+    "text": "Wudu with each part washed once is still a correct wudu."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ did it himself, so it is from the sunnah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Abbas used one handful of water for each part."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Ata bin Yasar"
+  },
+  {
+    "kind": "lesson",
+    "text": "Right side first"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 140"
+  },
+  {
+    "kind": "question",
+    "text": "Which arm did Ibn Abbas wash first?"
+  },
+  {
+    "kind": "question",
+    "text": "His left forearm"
+  },
+  {
+    "kind": "question",
+    "text": "Neither arm"
+  },
+  {
+    "kind": "question",
+    "text": "Both at the end"
+  },
+  {
+    "kind": "question",
+    "text": "His right forearm"
+  },
+  {
+    "kind": "question",
+    "text": "He washed his right forearm, then his left."
+  },
+  {
+    "kind": "question",
+    "text": "How much water did he take for each part?"
+  },
+  {
+    "kind": "question",
+    "text": "A handful"
+  },
+  {
+    "kind": "question",
+    "text": "A full bucket"
+  },
+  {
+    "kind": "question",
+    "text": "A whole river"
+  },
+  {
+    "kind": "question",
+    "text": "He ladled out a handful of water."
+  },
+  {
+    "kind": "question",
+    "text": "Wudu needs only a little water, not a lot."
+  },
+  {
+    "kind": "question",
+    "text": "A handful for each part was enough."
+  },
+  {
+    "kind": "lesson",
+    "text": "Wudu will make the believers' faces and limbs shine."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abu Hurairah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Ghurr al-Muhajjalun"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 136"
+  },
+  {
+    "kind": "question",
+    "text": "What will shine on the believers on Judgment Day?"
+  },
+  {
+    "kind": "question",
+    "text": "Their faces and limbs"
+  },
+  {
+    "kind": "question",
+    "text": "Their shoes"
+  },
+  {
+    "kind": "question",
+    "text": "Their houses"
+  },
+  {
+    "kind": "question",
+    "text": "Their money"
+  },
+  {
+    "kind": "question",
+    "text": "From the trace of ablution."
+  },
+  {
+    "kind": "question",
+    "text": "What leaves that shining trace?"
+  },
+  {
+    "kind": "question",
+    "text": "Sunlight"
+  },
+  {
+    "kind": "question",
+    "text": "Perfume"
+  },
+  {
+    "kind": "question",
+    "text": "From the traces of wudu."
+  },
+  {
+    "kind": "question",
+    "text": "Making wudu often adds to the believer's light."
+  },
+  {
+    "kind": "question",
+    "text": "Whoever can increase his radiance should do so."
+  },
+  {
+    "kind": "lesson",
+    "text": "Say the shahadah after wudu, and eight gates of Jannah open."
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 55"
+  },
+  {
+    "kind": "question",
+    "text": "How many gates of Jannah open for him?"
+  },
+  {
+    "kind": "question",
+    "text": "One gate"
+  },
+  {
+    "kind": "question",
+    "text": "Three gates"
+  },
+  {
+    "kind": "question",
+    "text": "Twenty gates"
+  },
+  {
+    "kind": "question",
+    "text": "Then eight gates of Paradise are opened for him."
+  },
+  {
+    "kind": "question",
+    "text": "What does he say after wudu?"
+  },
+  {
+    "kind": "question",
+    "text": "The shahadah and a du'a"
+  },
+  {
+    "kind": "question",
+    "text": "A poem"
+  },
+  {
+    "kind": "question",
+    "text": "A joke"
+  },
+  {
+    "kind": "question",
+    "text": "I testify that none has the right to be worshipped but Allah."
+  },
+  {
+    "kind": "question",
+    "text": "In the du'a we ask Allah to make us among those who purify themselves."
+  },
+  {
+    "kind": "question",
+    "text": "Which gate may he enter?"
+  },
+  {
+    "kind": "question",
+    "text": "No gate"
+  },
+  {
+    "kind": "question",
+    "text": "Only a small gate"
+  },
+  {
+    "kind": "question",
+    "text": "Whichever gate he wishes"
+  },
+  {
+    "kind": "question",
+    "text": "Only the last gate"
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about wudu like the Prophet ﷺ!"
+  },
+  {
+    "kind": "lesson",
+    "text": "In Madinah, Bilal was told to stand and call the adhan."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Ibn Umar"
+  },
+  {
+    "kind": "lesson",
+    "text": "Umar said: let a man call"
+  },
+  {
+    "kind": "question",
+    "text": "Who was told to call the first adhan?"
+  },
+  {
+    "kind": "question",
+    "text": "He ordered Bilal to get up and pronounce the adhan."
+  },
+  {
+    "kind": "question",
+    "text": "Who first said a man should call people to prayer?"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Dharr"
+  },
+  {
+    "kind": "question",
+    "text": "Umar was the first to suggest that a man should call."
+  },
+  {
+    "kind": "question",
+    "text": "Before the adhan, people had to guess the prayer time."
+  },
+  {
+    "kind": "question",
+    "text": "They used to guess the time for it."
+  },
+  {
+    "kind": "question",
+    "text": "The Muslims chose a bell like a church bell."
+  },
+  {
+    "kind": "question",
+    "text": "They chose a human voice calling the adhan."
+  },
+  {
+    "kind": "lesson",
+    "text": "When you hear the adhan, say what the caller says."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abu Sa'id al-Khudri"
+  },
+  {
+    "kind": "question",
+    "text": "What should you do when you hear the adhan?"
+  },
+  {
+    "kind": "question",
+    "text": "Keep talking"
+  },
+  {
+    "kind": "question",
+    "text": "Turn up music"
+  },
+  {
+    "kind": "question",
+    "text": "Say what the caller says"
+  },
+  {
+    "kind": "question",
+    "text": "Say what the mu'adhdhin is saying."
+  },
+  {
+    "kind": "question",
+    "text": "Who is the mu'adhdhin?"
+  },
+  {
+    "kind": "question",
+    "text": "The one who calls the adhan"
+  },
+  {
+    "kind": "question",
+    "text": "The one who sells food"
+  },
+  {
+    "kind": "question",
+    "text": "The one who sleeps"
+  },
+  {
+    "kind": "question",
+    "text": "The one who drives"
+  },
+  {
+    "kind": "question",
+    "text": "Mu'adhdhin means the caller of the adhan."
+  },
+  {
+    "kind": "question",
+    "text": "Repeating the adhan is a way to share its reward."
+  },
+  {
+    "kind": "question",
+    "text": "We take part by saying the same words."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ask Allah for al-wasilah for him ﷺ after the adhan."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Jabir"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allahumma Rabba hadhihi-d-da'wati-t-tammah"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 614"
+  },
+  {
+    "kind": "question",
+    "text": "What does the du'a ask for him ﷺ?"
+  },
+  {
+    "kind": "question",
+    "text": "A big palace on earth"
+  },
+  {
+    "kind": "question",
+    "text": "A long holiday"
+  },
+  {
+    "kind": "question",
+    "text": "Al-wasilah and the praised station"
+  },
+  {
+    "kind": "question",
+    "text": "Gold and silver"
+  },
+  {
+    "kind": "question",
+    "text": "Give Muhammad al-wasilah and raise him to the praised station."
+  },
+  {
+    "kind": "question",
+    "text": "What does the one who says it receive?"
+  },
+  {
+    "kind": "question",
+    "text": "Only praise from people"
+  },
+  {
+    "kind": "question",
+    "text": "His ﷺ intercession"
+  },
+  {
+    "kind": "question",
+    "text": "A new car"
+  },
+  {
+    "kind": "question",
+    "text": "My intercession for him will be allowed."
+  },
+  {
+    "kind": "question",
+    "text": "We say the du'a when the adhan is finished."
+  },
+  {
+    "kind": "question",
+    "text": "After listening to the adhan."
+  },
+  {
+    "kind": "lesson",
+    "text": "Everyone who hears your adhan will be a witness for you."
+  },
+  {
+    "kind": "lesson",
+    "text": "Even out with the sheep"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 609"
+  },
+  {
+    "kind": "question",
+    "text": "Where might a shepherd call the adhan?"
+  },
+  {
+    "kind": "question",
+    "text": "Only in a palace"
+  },
+  {
+    "kind": "question",
+    "text": "Under the sea"
+  },
+  {
+    "kind": "question",
+    "text": "Never alone"
+  },
+  {
+    "kind": "question",
+    "text": "Out with his sheep"
+  },
+  {
+    "kind": "question",
+    "text": "When you are with your sheep or in the wilderness."
+  },
+  {
+    "kind": "question",
+    "text": "Who will be a witness for the caller?"
+  },
+  {
+    "kind": "question",
+    "text": "Only his family"
+  },
+  {
+    "kind": "question",
+    "text": "Only kings"
+  },
+  {
+    "kind": "question",
+    "text": "Every creature that hears it"
+  },
+  {
+    "kind": "question",
+    "text": "A human being, a jinn or any other creature."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Sa'id said to raise your voice with the adhan."
+  },
+  {
+    "kind": "question",
+    "text": "Raise your voice in doing so."
+  },
+  {
+    "kind": "lesson",
+    "text": "If people knew the adhan's reward, they would draw lots."
+  },
+  {
+    "kind": "lesson",
+    "text": "And for the first row"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 615"
+  },
+  {
+    "kind": "question",
+    "text": "Which row has a great reward?"
+  },
+  {
+    "kind": "question",
+    "text": "The last row"
+  },
+  {
+    "kind": "question",
+    "text": "No row at all"
+  },
+  {
+    "kind": "question",
+    "text": "Outside the masjid"
+  },
+  {
+    "kind": "question",
+    "text": "The first row"
+  },
+  {
+    "kind": "question",
+    "text": "Standing in the first row."
+  },
+  {
+    "kind": "question",
+    "text": "What would people do to win the adhan?"
+  },
+  {
+    "kind": "question",
+    "text": "Draw lots"
+  },
+  {
+    "kind": "question",
+    "text": "Stay home"
+  },
+  {
+    "kind": "question",
+    "text": "Sleep in"
+  },
+  {
+    "kind": "question",
+    "text": "They would draw lots."
+  },
+  {
+    "kind": "question",
+    "text": "For Isha and Fajr together, people would come even crawling."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about the reward of the adhan!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Pray tahajjud at night, as an extra gift for yourself."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 17:79"
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-maqam al-mahmud"
+  },
+  {
+    "kind": "question",
+    "text": "When is tahajjud prayed?"
+  },
+  {
+    "kind": "question",
+    "text": "During breakfast"
+  },
+  {
+    "kind": "question",
+    "text": "In part of the night"
+  },
+  {
+    "kind": "question",
+    "text": "At sunset only"
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah promise in Quran 17:79?"
+  },
+  {
+    "kind": "question",
+    "text": "A big army"
+  },
+  {
+    "kind": "question",
+    "text": "Fame on earth"
+  },
+  {
+    "kind": "question",
+    "text": "A praised station"
+  },
+  {
+    "kind": "question",
+    "text": "A new house"
+  },
+  {
+    "kind": "question",
+    "text": "Your Lord may raise you to a praised station."
+  },
+  {
+    "kind": "question",
+    "text": "Tahajjud is an extra prayer, beyond the five."
+  },
+  {
+    "kind": "question",
+    "text": "As something extra for you."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ prayed till his feet swelled, to thank Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Al-Mughirah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Should I not be thankful?"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1130"
+  },
+  {
+    "kind": "question",
+    "text": "Why did he ﷺ pray so long at night?"
+  },
+  {
+    "kind": "question",
+    "text": "To be seen"
+  },
+  {
+    "kind": "question",
+    "text": "To win a prize"
+  },
+  {
+    "kind": "question",
+    "text": "He had no bed"
+  },
+  {
+    "kind": "question",
+    "text": "To be a thankful servant"
+  },
+  {
+    "kind": "question",
+    "text": "What happened to his feet from standing long?"
+  },
+  {
+    "kind": "question",
+    "text": "They swelled"
+  },
+  {
+    "kind": "question",
+    "text": "They froze"
+  },
+  {
+    "kind": "question",
+    "text": "They got shoes"
+  },
+  {
+    "kind": "question",
+    "text": "He prayed till both his feet swelled."
+  },
+  {
+    "kind": "question",
+    "text": "Night prayer is a way to thank Allah."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ called it being a thankful servant."
+  },
+  {
+    "kind": "lesson",
+    "text": "His night prayer was long and beautiful, eleven rak'ahs."
+  },
+  {
+    "kind": "lesson",
+    "text": "My heart stays awake"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1147"
+  },
+  {
+    "kind": "question",
+    "text": "How many rak'ahs did he ﷺ pray at night?"
+  },
+  {
+    "kind": "question",
+    "text": "Two"
+  },
+  {
+    "kind": "question",
+    "text": "Forty"
+  },
+  {
+    "kind": "question",
+    "text": "One hundred"
+  },
+  {
+    "kind": "question",
+    "text": "Eleven"
+  },
+  {
+    "kind": "question",
+    "text": "He never exceeded eleven rak'at."
+  },
+  {
+    "kind": "question",
+    "text": "How did Aishah describe those rak'ahs?"
+  },
+  {
+    "kind": "question",
+    "text": "Loud and fast"
+  },
+  {
+    "kind": "question",
+    "text": "Boring"
+  },
+  {
+    "kind": "question",
+    "text": "Beautiful and long"
+  },
+  {
+    "kind": "question",
+    "text": "Short and rushed"
+  },
+  {
+    "kind": "question",
+    "text": "Do not ask me about their beauty and length."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ said: my eyes sleep but my heart stays awake."
+  },
+  {
+    "kind": "question",
+    "text": "My eyes sleep but my heart remains awake."
+  },
+  {
+    "kind": "lesson",
+    "text": "The prayer Allah loves most is the prayer of Dawud."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abdullah ibn Amr"
+  },
+  {
+    "kind": "lesson",
+    "text": "Slept half, prayed a third"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1131"
+  },
+  {
+    "kind": "question",
+    "text": "Whose night prayer does Allah love most?"
+  },
+  {
+    "kind": "question",
+    "text": "Prophet Sulayman"
+  },
+  {
+    "kind": "question",
+    "text": "Prophet Musa"
+  },
+  {
+    "kind": "question",
+    "text": "Prophet Yunus"
+  },
+  {
+    "kind": "question",
+    "text": "Prophet Dawud"
+  },
+  {
+    "kind": "question",
+    "text": "The most beloved prayer to Allah is that of David."
+  },
+  {
+    "kind": "question",
+    "text": "How much of the night did Dawud pray?"
+  },
+  {
+    "kind": "question",
+    "text": "A third"
+  },
+  {
+    "kind": "question",
+    "text": "Dawud also slept part of the night."
+  },
+  {
+    "kind": "question",
+    "text": "He slept half the night, then prayed, then slept again."
+  },
+  {
+    "kind": "lesson",
+    "text": "Believers leave their beds to call on Allah at night."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 32:16"
+  },
+  {
+    "kind": "lesson",
+    "text": "In fear and in hope"
+  },
+  {
+    "kind": "question",
+    "text": "What do the believers leave at night?"
+  },
+  {
+    "kind": "question",
+    "text": "Their families"
+  },
+  {
+    "kind": "question",
+    "text": "Their beds"
+  },
+  {
+    "kind": "question",
+    "text": "Their prayers"
+  },
+  {
+    "kind": "question",
+    "text": "Their faith"
+  },
+  {
+    "kind": "question",
+    "text": "Their sides leave their beds."
+  },
+  {
+    "kind": "question",
+    "text": "How do they call on their Lord?"
+  },
+  {
+    "kind": "question",
+    "text": "In fear and hope"
+  },
+  {
+    "kind": "question",
+    "text": "In anger"
+  },
+  {
+    "kind": "question",
+    "text": "In boredom"
+  },
+  {
+    "kind": "question",
+    "text": "In pride"
+  },
+  {
+    "kind": "question",
+    "text": "They call upon their Lord in fear and hope."
+  },
+  {
+    "kind": "question",
+    "text": "Quran 32:16 also praises spending from what Allah gave."
+  },
+  {
+    "kind": "question",
+    "text": "They spend from what We have given them."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about the night prayer!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah asks no soul for more than it can bear."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:286"
+  },
+  {
+    "kind": "question",
+    "text": "Does Allah ask for more than we can bear?"
+  },
+  {
+    "kind": "question",
+    "text": "Only on Mondays"
+  },
+  {
+    "kind": "question",
+    "text": "Only for kids"
+  },
+  {
+    "kind": "question",
+    "text": "Allah does not burden a soul beyond what it can bear."
+  },
+  {
+    "kind": "question",
+    "text": "Which surah ends with Quran 2:286?"
+  },
+  {
+    "kind": "question",
+    "text": "An-Nas"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Baqarah"
+  },
+  {
+    "kind": "question",
+    "text": "It is the last ayah of Surah Al-Baqarah."
+  },
+  {
+    "kind": "question",
+    "text": "Islam's rules fit what a person is able to do."
+  },
+  {
+    "kind": "question",
+    "text": "No soul is burdened beyond what it can bear."
+  },
+  {
+    "kind": "lesson",
+    "text": "Pray standing; if you can't, sitting; else on your side."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Imran ibn Husayn"
+  },
+  {
+    "kind": "lesson",
+    "text": "He was ill"
+  },
+  {
+    "kind": "question",
+    "text": "How should a sick person pray who cannot stand?"
+  },
+  {
+    "kind": "question",
+    "text": "Sitting down"
+  },
+  {
+    "kind": "question",
+    "text": "Only next year"
+  },
+  {
+    "kind": "question",
+    "text": "If you can't, pray while sitting."
+  },
+  {
+    "kind": "question",
+    "text": "And if he cannot even sit?"
+  },
+  {
+    "kind": "question",
+    "text": "Lying on his side"
+  },
+  {
+    "kind": "question",
+    "text": "Skip it forever"
+  },
+  {
+    "kind": "question",
+    "text": "Standing anyway"
+  },
+  {
+    "kind": "question",
+    "text": "Ask someone to pray for him"
+  },
+  {
+    "kind": "question",
+    "text": "Then pray lying on your side."
+  },
+  {
+    "kind": "question",
+    "text": "A sick person still prays in the way he is able."
+  },
+  {
+    "kind": "question",
+    "text": "Standing, then sitting, then lying down."
+  },
+  {
+    "kind": "lesson",
+    "text": "On a journey, four-rak'ah prayers are shortened to two."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 4:101"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1090"
+  },
+  {
+    "kind": "question",
+    "text": "How many rak'ahs is Dhuhr on a journey?"
+  },
+  {
+    "kind": "question",
+    "text": "None"
+  },
+  {
+    "kind": "question",
+    "text": "Six"
+  },
+  {
+    "kind": "question",
+    "text": "Ten"
+  },
+  {
+    "kind": "question",
+    "text": "The prayer in a journey was kept as it was: two."
+  },
+  {
+    "kind": "question",
+    "text": "Who told us how the travel prayer began?"
+  },
+  {
+    "kind": "question",
+    "text": "Narrated by Aishah."
+  },
+  {
+    "kind": "question",
+    "text": "Shortening on a journey is a gift that makes travel easier."
+  },
+  {
+    "kind": "question",
+    "text": "Allah made the journey prayer lighter."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ prayed extra prayers riding, facing his camel's way."
+  },
+  {
+    "kind": "lesson",
+    "text": "Only the extra prayers"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1094"
+  },
+  {
+    "kind": "question",
+    "text": "Which prayers did he ﷺ pray while riding?"
+  },
+  {
+    "kind": "question",
+    "text": "The voluntary prayers"
+  },
+  {
+    "kind": "question",
+    "text": "Only Jumu'ah"
+  },
+  {
+    "kind": "question",
+    "text": "Only Eid"
+  },
+  {
+    "kind": "question",
+    "text": "He used to offer the nawafil while riding."
+  },
+  {
+    "kind": "question",
+    "text": "Which way did he face when riding?"
+  },
+  {
+    "kind": "question",
+    "text": "Always backwards"
+  },
+  {
+    "kind": "question",
+    "text": "Up at the sky"
+  },
+  {
+    "kind": "question",
+    "text": "He shut his eyes only"
+  },
+  {
+    "kind": "question",
+    "text": "The way he was travelling"
+  },
+  {
+    "kind": "question",
+    "text": "Facing a direction other than that of the qiblah."
+  },
+  {
+    "kind": "question",
+    "text": "Travelling did not stop him ﷺ from extra prayers."
+  },
+  {
+    "kind": "question",
+    "text": "He prayed them even while riding."
+  },
+  {
+    "kind": "lesson",
+    "text": "When you are ill or travel, your usual deeds are still written."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah is generous"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 2996"
+  },
+  {
+    "kind": "question",
+    "text": "What does the sick person get for deeds he used to do?"
+  },
+  {
+    "kind": "question",
+    "text": "No reward"
+  },
+  {
+    "kind": "question",
+    "text": "Half a reward"
+  },
+  {
+    "kind": "question",
+    "text": "A punishment"
+  },
+  {
+    "kind": "question",
+    "text": "He will get reward similar to that he gets at home."
+  },
+  {
+    "kind": "question",
+    "text": "Who else keeps that reward?"
+  },
+  {
+    "kind": "question",
+    "text": "The one who stops praying"
+  },
+  {
+    "kind": "question",
+    "text": "The lazy one"
+  },
+  {
+    "kind": "question",
+    "text": "The traveller"
+  },
+  {
+    "kind": "question",
+    "text": "When a slave falls ill or travels."
+  },
+  {
+    "kind": "question",
+    "text": "Allah still writes the good habits of someone who becomes ill."
+  },
+  {
+    "kind": "question",
+    "text": "Reward similar to good deeds practiced in good health."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about salah made easy!"
+  },
+  {
+    "kind": "lesson",
     "text": "Allah's right on His servants: worship Him and join no partner."
   },
   {
@@ -61445,14 +62953,6 @@
   },
   {
     "kind": "question",
-    "text": "Two"
-  },
-  {
-    "kind": "question",
-    "text": "Six"
-  },
-  {
-    "kind": "question",
     "text": "Sixty"
   },
   {
@@ -61845,10 +63345,6 @@
   },
   {
     "kind": "question",
-    "text": "None"
-  },
-  {
-    "kind": "question",
     "text": "No, only some"
   },
   {
@@ -61906,10 +63402,6 @@
   {
     "kind": "question",
     "text": "A calendar"
-  },
-  {
-    "kind": "question",
-    "text": "A poem"
   },
   {
     "kind": "question",
@@ -62006,10 +63498,6 @@
   {
     "kind": "question",
     "text": "Only Makkah"
-  },
-  {
-    "kind": "question",
-    "text": "Only his family"
   },
   {
     "kind": "question",
@@ -62238,10 +63726,6 @@
   {
     "kind": "question",
     "text": "How many things does the angel write?"
-  },
-  {
-    "kind": "question",
-    "text": "Ten"
   },
   {
     "kind": "question",
@@ -62554,10 +64038,6 @@
   {
     "kind": "question",
     "text": "With a joke"
-  },
-  {
-    "kind": "question",
-    "text": "In anger"
   },
   {
     "kind": "question",
@@ -62949,10 +64429,6 @@
   },
   {
     "kind": "question",
-    "text": "The lazy one"
-  },
-  {
-    "kind": "question",
     "text": "What should you do with what benefits you?"
   },
   {
@@ -62978,6 +64454,702 @@
   {
     "kind": "lesson",
     "text": "The last test: everything about living faith!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah is the Most Merciful, the Especially Merciful."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 1:3"
+  },
+  {
+    "kind": "lesson",
+    "text": "Said in every rak'ah"
+  },
+  {
+    "kind": "question",
+    "text": "What do Ar-Rahman and Ar-Rahim tell us about Allah?"
+  },
+  {
+    "kind": "question",
+    "text": "He is full of mercy"
+  },
+  {
+    "kind": "question",
+    "text": "He is far away"
+  },
+  {
+    "kind": "question",
+    "text": "He forgets us"
+  },
+  {
+    "kind": "question",
+    "text": "He is tired"
+  },
+  {
+    "kind": "question",
+    "text": "The Most Merciful, the Especially Merciful."
+  },
+  {
+    "kind": "question",
+    "text": "In which surah do we say these names in every rak'ah?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Kahf"
+  },
+  {
+    "kind": "question",
+    "text": "Yasin"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Mulk"
+  },
+  {
+    "kind": "question",
+    "text": "Quran 1:3 is in Al-Fatihah."
+  },
+  {
+    "kind": "question",
+    "text": "Ar-Rahman and Ar-Rahim both come from the word for mercy."
+  },
+  {
+    "kind": "question",
+    "text": "Rahmah means mercy."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah is the Forgiving, the Loving."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 85:14"
+  },
+  {
+    "kind": "question",
+    "text": "What does Al-Wadud mean?"
+  },
+  {
+    "kind": "question",
+    "text": "The Loving"
+  },
+  {
+    "kind": "question",
+    "text": "The Angry"
+  },
+  {
+    "kind": "question",
+    "text": "The Sleeping"
+  },
+  {
+    "kind": "question",
+    "text": "The Hungry"
+  },
+  {
+    "kind": "question",
+    "text": "And He is the Forgiving, the Loving."
+  },
+  {
+    "kind": "question",
+    "text": "Which name of Allah in Quran 85:14 means the Forgiving?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Khaliq"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Hayy"
+  },
+  {
+    "kind": "question",
+    "text": "Allah loves those who obey Him and turn back to Him."
+  },
+  {
+    "kind": "question",
+    "text": "He is Al-Wadud, the Loving."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah accepted Adam's repentance, for He is At-Tawwab."
+  },
+  {
+    "kind": "lesson",
+    "text": "He keeps accepting repentance"
+  },
+  {
+    "kind": "question",
+    "text": "Whose repentance does Quran 2:37 tell of?"
+  },
+  {
+    "kind": "question",
+    "text": "Fir'awn's"
+  },
+  {
+    "kind": "question",
+    "text": "Qarun's"
+  },
+  {
+    "kind": "question",
+    "text": "Haman's"
+  },
+  {
+    "kind": "question",
+    "text": "Adam's"
+  },
+  {
+    "kind": "question",
+    "text": "Then Adam received words from his Lord."
+  },
+  {
+    "kind": "question",
+    "text": "What does At-Tawwab mean?"
+  },
+  {
+    "kind": "question",
+    "text": "The One who accepts repentance"
+  },
+  {
+    "kind": "question",
+    "text": "The One who never forgives"
+  },
+  {
+    "kind": "question",
+    "text": "The One who sleeps"
+  },
+  {
+    "kind": "question",
+    "text": "The One who forgets"
+  },
+  {
+    "kind": "question",
+    "text": "Indeed, He is the Accepting of repentance."
+  },
+  {
+    "kind": "question",
+    "text": "After a mistake, we can always turn back to Allah."
+  },
+  {
+    "kind": "question",
+    "text": "He keeps accepting repentance, again and again."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah is near, and He answers the one who calls Him."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:186"
+  },
+  {
+    "kind": "lesson",
+    "text": "In the ayat of fasting"
+  },
+  {
+    "kind": "question",
+    "text": "How close is Allah to the one who calls Him?"
+  },
+  {
+    "kind": "question",
+    "text": "He is near"
+  },
+  {
+    "kind": "question",
+    "text": "Very far away"
+  },
+  {
+    "kind": "question",
+    "text": "He cannot hear"
+  },
+  {
+    "kind": "question",
+    "text": "Only near on Eid"
+  },
+  {
+    "kind": "question",
+    "text": "And when My servants ask you about Me, I am near."
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah do when we make du'a?"
+  },
+  {
+    "kind": "question",
+    "text": "He forgets it"
+  },
+  {
+    "kind": "question",
+    "text": "He answers the call"
+  },
+  {
+    "kind": "question",
+    "text": "He ignores it"
+  },
+  {
+    "kind": "question",
+    "text": "He laughs at it"
+  },
+  {
+    "kind": "question",
+    "text": "I answer the call of the caller when he calls upon Me."
+  },
+  {
+    "kind": "question",
+    "text": "We need someone in between to talk to Allah."
+  },
+  {
+    "kind": "question",
+    "text": "Allah says: I am near."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah is the Giver who gives freely, without limit."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 3:8"
+  },
+  {
+    "kind": "lesson",
+    "text": "A du'a for a steady heart"
+  },
+  {
+    "kind": "question",
+    "text": "What does Al-Wahhab mean?"
+  },
+  {
+    "kind": "question",
+    "text": "The Judge only"
+  },
+  {
+    "kind": "question",
+    "text": "The One who waits"
+  },
+  {
+    "kind": "question",
+    "text": "The Bestower who gives freely"
+  },
+  {
+    "kind": "question",
+    "text": "The One who takes back"
+  },
+  {
+    "kind": "question",
+    "text": "Indeed, You are the Bestower."
+  },
+  {
+    "kind": "question",
+    "text": "What does the du'a in Quran 3:8 ask for first?"
+  },
+  {
+    "kind": "question",
+    "text": "A long trip"
+  },
+  {
+    "kind": "question",
+    "text": "That our hearts stay guided"
+  },
+  {
+    "kind": "question",
+    "text": "Money and fame"
+  },
+  {
+    "kind": "question",
+    "text": "Do not let our hearts turn away after You have guided us."
+  },
+  {
+    "kind": "question",
+    "text": "In the same du'a we ask Allah for mercy from Himself."
+  },
+  {
+    "kind": "question",
+    "text": "And grant us mercy from Yourself."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah rewards even a small good deed many times over."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 35:34"
+  },
+  {
+    "kind": "lesson",
+    "text": "Said by the people of Jannah"
+  },
+  {
+    "kind": "question",
+    "text": "Who says the words of Quran 35:34?"
+  },
+  {
+    "kind": "question",
+    "text": "The jinn of the desert"
+  },
+  {
+    "kind": "question",
+    "text": "The people of Jannah"
+  },
+  {
+    "kind": "question",
+    "text": "The people at the market"
+  },
+  {
+    "kind": "question",
+    "text": "The angels of the sea"
+  },
+  {
+    "kind": "question",
+    "text": "They praise Allah who removed all sorrow from them."
+  },
+  {
+    "kind": "question",
+    "text": "What does Ash-Shakur mean?"
+  },
+  {
+    "kind": "question",
+    "text": "The Careless"
+  },
+  {
+    "kind": "question",
+    "text": "The Stingy"
+  },
+  {
+    "kind": "question",
+    "text": "The Appreciative"
+  },
+  {
+    "kind": "question",
+    "text": "The Forgetful"
+  },
+  {
+    "kind": "question",
+    "text": "Indeed, our Lord is Forgiving and Appreciative."
+  },
+  {
+    "kind": "question",
+    "text": "In Jannah, all sorrow is taken away."
+  },
+  {
+    "kind": "question",
+    "text": "Who has removed all sorrow from us."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about names of Allah: His mercy!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah is the Ever-Living, who keeps all things going."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:255"
+  },
+  {
+    "kind": "question",
+    "text": "What does Al-Hayy mean?"
+  },
+  {
+    "kind": "question",
+    "text": "The Tired"
+  },
+  {
+    "kind": "question",
+    "text": "The Young"
+  },
+  {
+    "kind": "question",
+    "text": "The Ever-Living, the Sustainer of all."
+  },
+  {
+    "kind": "question",
+    "text": "Which famous ayah has these two names?"
+  },
+  {
+    "kind": "question",
+    "text": "The last ayah of An-Nas"
+  },
+  {
+    "kind": "question",
+    "text": "The first ayah of Al-Kawthar"
+  },
+  {
+    "kind": "question",
+    "text": "The last ayah of Al-Asr"
+  },
+  {
+    "kind": "question",
+    "text": "Quran 2:255 is Ayat al-Kursi."
+  },
+  {
+    "kind": "question",
+    "text": "Allah never gets sleepy and never sleeps."
+  },
+  {
+    "kind": "question",
+    "text": "Neither drowsiness nor sleep overtakes Him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah is the King, the Most Pure, the Source of Peace."
+  },
+  {
+    "kind": "question",
+    "text": "What does Al-Malik mean?"
+  },
+  {
+    "kind": "question",
+    "text": "The Guest"
+  },
+  {
+    "kind": "question",
+    "text": "The Servant"
+  },
+  {
+    "kind": "question",
+    "text": "The Traveller"
+  },
+  {
+    "kind": "question",
+    "text": "The King, the Pure, the Source of Peace."
+  },
+  {
+    "kind": "question",
+    "text": "Which name means the Most Pure?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Quddus"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Quddus is the Pure, free of every fault."
+  },
+  {
+    "kind": "question",
+    "text": "As-Salam means Allah is the Source of Peace."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah creates, brings to be, and gives each thing its shape."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 59:24"
+  },
+  {
+    "kind": "lesson",
+    "text": "To Him belong the best names"
+  },
+  {
+    "kind": "question",
+    "text": "What does Al-Khaliq mean?"
+  },
+  {
+    "kind": "question",
+    "text": "The Borrower"
+  },
+  {
+    "kind": "question",
+    "text": "The Copier"
+  },
+  {
+    "kind": "question",
+    "text": "The Creator"
+  },
+  {
+    "kind": "question",
+    "text": "The Destroyer"
+  },
+  {
+    "kind": "question",
+    "text": "He is Allah, the Creator."
+  },
+  {
+    "kind": "question",
+    "text": "Which name means the One who gives each thing its shape?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Musawwir"
+  },
+  {
+    "kind": "question",
+    "text": "As-Salam"
+  },
+  {
+    "kind": "question",
+    "text": "The Fashioner, who gives form."
+  },
+  {
+    "kind": "question",
+    "text": "Everything in the heavens and earth glorifies Allah."
+  },
+  {
+    "kind": "question",
+    "text": "Whatever is in the heavens and earth glorifies Him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah knows the smallest, hidden things, and is All-Aware."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 67:14"
+  },
+  {
+    "kind": "question",
+    "text": "Who knows best what He created?"
+  },
+  {
+    "kind": "question",
+    "text": "Only the stars"
+  },
+  {
+    "kind": "question",
+    "text": "Only the people"
+  },
+  {
+    "kind": "question",
+    "text": "Allah, the Creator"
+  },
+  {
+    "kind": "question",
+    "text": "What does Al-Khabir mean?"
+  },
+  {
+    "kind": "question",
+    "text": "The Unaware"
+  },
+  {
+    "kind": "question",
+    "text": "The Distant"
+  },
+  {
+    "kind": "question",
+    "text": "The All-Aware"
+  },
+  {
+    "kind": "question",
+    "text": "And He is the Subtle, the All-Aware."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Latif means His kindness and knowledge reach even hidden things."
+  },
+  {
+    "kind": "question",
+    "text": "He is the Subtle."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah is enough for us; we trust our affairs to Him."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 3:173"
+  },
+  {
+    "kind": "lesson",
+    "text": "Hasbunallahu wa ni'mal wakil"
+  },
+  {
+    "kind": "question",
+    "text": "What did the believers say when told an army had gathered?"
+  },
+  {
+    "kind": "question",
+    "text": "We give up"
+  },
+  {
+    "kind": "question",
+    "text": "Let us run away"
+  },
+  {
+    "kind": "question",
+    "text": "We are alone"
+  },
+  {
+    "kind": "question",
+    "text": "What does Al-Wakil mean?"
+  },
+  {
+    "kind": "question",
+    "text": "The One who is weak"
+  },
+  {
+    "kind": "question",
+    "text": "The One who is far"
+  },
+  {
+    "kind": "question",
+    "text": "The One we trust with our affairs"
+  },
+  {
+    "kind": "question",
+    "text": "He is the best Disposer of affairs."
+  },
+  {
+    "kind": "question",
+    "text": "The threat made their faith grow stronger."
+  },
+  {
+    "kind": "question",
+    "text": "But it increased them in faith."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah is the best Guardian, the Most Merciful of all."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 12:64"
+  },
+  {
+    "kind": "lesson",
+    "text": "Said by Prophet Ya'qub"
+  },
+  {
+    "kind": "question",
+    "text": "Who said that Allah is the best Guardian?"
+  },
+  {
+    "kind": "question",
+    "text": "Prophet Ya'qub"
+  },
+  {
+    "kind": "question",
+    "text": "Prophet Nuh"
+  },
+  {
+    "kind": "question",
+    "text": "He said it when his sons asked to take Binyamin."
+  },
+  {
+    "kind": "question",
+    "text": "What does Al-Hafiz mean?"
+  },
+  {
+    "kind": "question",
+    "text": "The Weak"
+  },
+  {
+    "kind": "question",
+    "text": "The Guardian who protects"
+  },
+  {
+    "kind": "question",
+    "text": "Allah is the best Guardian."
+  },
+  {
+    "kind": "question",
+    "text": "Ya'qub trusted Allah to protect his son."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about names of Allah: His greatness!"
   },
   {
     "kind": "lesson",
@@ -63166,10 +65338,6 @@
   {
     "kind": "question",
     "text": "Ya-Sin"
-  },
-  {
-    "kind": "question",
-    "text": "Al-Baqarah"
   },
   {
     "kind": "question",
@@ -63616,10 +65784,6 @@
     "text": "Ar-Rahman: only for Allah"
   },
   {
-    "kind": "source",
-    "text": "Quran 1:3"
-  },
-  {
     "kind": "question",
     "text": "Ar-Rahman and Ar-Rahim come from which word?"
   },
@@ -63798,10 +65962,6 @@
   {
     "kind": "question",
     "text": "Who is equal on the Day of Recompense?"
-  },
-  {
-    "kind": "question",
-    "text": "Only kings"
   },
   {
     "kind": "question",
@@ -64385,10 +66545,6 @@
   },
   {
     "kind": "question",
-    "text": "A new house"
-  },
-  {
-    "kind": "question",
     "text": "Riches"
   },
   {
@@ -64426,10 +66582,6 @@
   {
     "kind": "question",
     "text": "Thirty"
-  },
-  {
-    "kind": "question",
-    "text": "Forty"
   },
   {
     "kind": "question",
@@ -64920,14 +67072,6 @@
     "text": "Does the Creator not know?"
   },
   {
-    "kind": "lesson",
-    "text": "Al-Latif, Al-Khabir"
-  },
-  {
-    "kind": "source",
-    "text": "Quran 67:14"
-  },
-  {
     "kind": "source",
     "text": "Tafsir Ibn Kathir 67:13"
   },
@@ -64982,10 +67126,6 @@
   {
     "kind": "question",
     "text": "Al-Khabir means what?"
-  },
-  {
-    "kind": "question",
-    "text": "The All-Aware"
   },
   {
     "kind": "question",
@@ -65182,10 +67322,6 @@
   {
     "kind": "question",
     "text": "The believer"
-  },
-  {
-    "kind": "question",
-    "text": "The traveller"
   },
   {
     "kind": "question",
@@ -65408,10 +67544,6 @@
     "text": "Which companion reported this?"
   },
   {
-    "kind": "question",
-    "text": "Anas"
-  },
-  {
     "kind": "lesson",
     "text": "A good word is charity, like helping someone onto their ride."
   },
@@ -65538,10 +67670,6 @@
   {
     "kind": "question",
     "text": "Salman"
-  },
-  {
-    "kind": "question",
-    "text": "Abu Dharr"
   },
   {
     "kind": "question",
@@ -65682,10 +67810,6 @@
   {
     "kind": "question",
     "text": "If what you said is not true, it is what?"
-  },
-  {
-    "kind": "question",
-    "text": "A joke"
   },
   {
     "kind": "question",
@@ -66334,10 +68458,6 @@
   {
     "kind": "question",
     "text": "What did he answer?"
-  },
-  {
-    "kind": "question",
-    "text": "Only once"
   },
   {
     "kind": "question",
@@ -68729,10 +70849,6 @@
   },
   {
     "kind": "question",
-    "text": "Only on Friday"
-  },
-  {
-    "kind": "question",
     "text": "How much pride keeps a person from Jannah?"
   },
   {
@@ -69965,10 +72081,6 @@
   },
   {
     "kind": "question",
-    "text": "His head"
-  },
-  {
-    "kind": "question",
     "text": "The sky"
   },
   {
@@ -70720,10 +72832,6 @@
     "text": "Which ayah tells believing women to lower their gaze?"
   },
   {
-    "kind": "source",
-    "text": "Quran 2:255"
-  },
-  {
     "kind": "question",
     "text": "Quran 24:31 comes right after the ayah for men."
   },
@@ -71126,10 +73234,6 @@
   {
     "kind": "question",
     "text": "What did the Prophet ﷺ call fasting?"
-  },
-  {
-    "kind": "question",
-    "text": "A punishment"
   },
   {
     "kind": "question",
@@ -71781,10 +73885,6 @@
   },
   {
     "kind": "question",
-    "text": "Half a reward"
-  },
-  {
-    "kind": "question",
     "text": "Only thanks"
   },
   {
@@ -72001,15 +74101,7 @@
   },
   {
     "kind": "lesson",
-    "text": "Prophet Dawud"
-  },
-  {
-    "kind": "lesson",
     "text": "Every other day"
-  },
-  {
-    "kind": "source",
-    "text": "Sahih al-Bukhari 1131"
   },
   {
     "kind": "question",
@@ -72701,10 +74793,6 @@
   },
   {
     "kind": "question",
-    "text": "A long trip"
-  },
-  {
-    "kind": "question",
     "text": "He ﷺ stayed in the masjid in the last ten days."
   },
   {
@@ -73389,10 +75477,6 @@
   },
   {
     "kind": "question",
-    "text": "Perfume"
-  },
-  {
-    "kind": "question",
     "text": "A sa' of everyday food"
   },
   {
@@ -74070,10 +76154,6 @@
   {
     "kind": "question",
     "text": "No, it is good too"
-  },
-  {
-    "kind": "question",
-    "text": "Only for kids"
   },
   {
     "kind": "question",
@@ -77549,10 +79629,6 @@
   },
   {
     "kind": "question",
-    "text": "Eleven"
-  },
-  {
-    "kind": "question",
     "text": "Eleven women sat and talked about their husbands."
   },
   {
@@ -80132,10 +82208,6 @@
     "text": "Abu Bakr quoted Quran 40:28."
   },
   {
-    "kind": "lesson",
-    "text": "Told by Abdullah ibn Amr"
-  },
-  {
     "kind": "question",
     "text": "Who choked the Prophet ﷺ with a cloth?"
   },
@@ -80390,10 +82462,6 @@
   {
     "kind": "question",
     "text": "Why did Abu Bakr not go to Madinah with the others?"
-  },
-  {
-    "kind": "question",
-    "text": "He was ill"
   },
   {
     "kind": "question",
@@ -80709,10 +82777,6 @@
   },
   {
     "kind": "question",
-    "text": "Al-Kahf"
-  },
-  {
-    "kind": "question",
     "text": "Al-Anfal"
   },
   {
@@ -80869,10 +82933,6 @@
   },
   {
     "kind": "question",
-    "text": "A third"
-  },
-  {
-    "kind": "question",
     "text": "Umar hoped to beat Abu Bakr that day."
   },
   {
@@ -80934,10 +82994,6 @@
   {
     "kind": "lesson",
     "text": "The Prophet ﷺ begged Allah"
-  },
-  {
-    "kind": "lesson",
-    "text": "Told by Ibn Abbas"
   },
   {
     "kind": "source",
@@ -81002,10 +83058,6 @@
   {
     "kind": "question",
     "text": "Who reported this moment at Badr?"
-  },
-  {
-    "kind": "question",
-    "text": "Jabir"
   },
   {
     "kind": "question",
@@ -81290,10 +83342,6 @@
   {
     "kind": "question",
     "text": "Al-Firdaws"
-  },
-  {
-    "kind": "question",
-    "text": "As-Salam"
   },
   {
     "kind": "question",
@@ -82718,10 +84766,6 @@
   {
     "kind": "lesson",
     "text": "Allah put the truth on Umar's tongue and in his heart."
-  },
-  {
-    "kind": "lesson",
-    "text": "Told by Ibn Umar"
   },
   {
     "kind": "lesson",
@@ -84269,10 +86313,6 @@
   },
   {
     "kind": "question",
-    "text": "Money and fame"
-  },
-  {
-    "kind": "question",
     "text": "Speed and strength"
   },
   {
@@ -85213,10 +87253,6 @@
   },
   {
     "kind": "question",
-    "text": "How many times did Uthman wash his face?"
-  },
-  {
-    "kind": "question",
     "text": "He washed hands, face, arms and feet three times."
   },
   {
@@ -86058,10 +88094,6 @@
   {
     "kind": "question",
     "text": "How did Ali tell the people of Iraq to judge?"
-  },
-  {
-    "kind": "question",
-    "text": "Not at all"
   },
   {
     "kind": "question",
@@ -88377,14 +90409,6 @@
   },
   {
     "kind": "question",
-    "text": "Yasin"
-  },
-  {
-    "kind": "question",
-    "text": "Al-Mulk"
-  },
-  {
-    "kind": "question",
     "text": "He reached ayah 41 of An-Nisa."
   },
   {
@@ -89621,10 +91645,6 @@
   },
   {
     "kind": "question",
-    "text": "His hands"
-  },
-  {
-    "kind": "question",
     "text": "A scroll"
   },
   {
@@ -89926,10 +91946,6 @@
   {
     "kind": "question",
     "text": "How many she-camels did Ka'b own before Tabuk?"
-  },
-  {
-    "kind": "question",
-    "text": "One hundred"
   },
   {
     "kind": "question",
@@ -92093,10 +94109,6 @@
   },
   {
     "kind": "question",
-    "text": "An-Nas"
-  },
-  {
-    "kind": "question",
     "text": "Musa's journey with Al-Khidr is in Surah Al-Kahf."
   },
   {
@@ -92893,10 +94905,6 @@
   },
   {
     "kind": "question",
-    "text": "Gold and silver"
-  },
-  {
-    "kind": "question",
     "text": "A long life only"
   },
   {
@@ -92926,10 +94934,6 @@
   {
     "kind": "question",
     "text": "How many times should you ask to enter?"
-  },
-  {
-    "kind": "question",
-    "text": "Ten times"
   },
   {
     "kind": "question",
@@ -93042,10 +95046,6 @@
   {
     "kind": "question",
     "text": "What did Jabir's father leave behind?"
-  },
-  {
-    "kind": "question",
-    "text": "A big army"
   },
   {
     "kind": "question",
@@ -98273,10 +100273,6 @@
   },
   {
     "kind": "question",
-    "text": "His feet"
-  },
-  {
-    "kind": "question",
     "text": "His tongue"
   },
   {
@@ -102249,10 +104245,6 @@
   },
   {
     "kind": "question",
-    "text": "If you can't, pray while sitting."
-  },
-  {
-    "kind": "question",
     "text": "If you cannot sit, how do you pray?"
   },
   {
@@ -102446,10 +104438,6 @@
   {
     "kind": "question",
     "text": "What will some later people fail to keep?"
-  },
-  {
-    "kind": "question",
-    "text": "Their houses"
   },
   {
     "kind": "question",
@@ -103077,14 +105065,6 @@
   },
   {
     "kind": "question",
-    "text": "They froze"
-  },
-  {
-    "kind": "question",
-    "text": "They swelled"
-  },
-  {
-    "kind": "question",
     "text": "His feet used to become swollen."
   },
   {
@@ -103093,19 +105073,7 @@
   },
   {
     "kind": "question",
-    "text": "To be a thankful servant"
-  },
-  {
-    "kind": "question",
-    "text": "To be seen"
-  },
-  {
-    "kind": "question",
     "text": "Out of fear of people"
-  },
-  {
-    "kind": "question",
-    "text": "To win a prize"
   },
   {
     "kind": "question",
@@ -103505,10 +105473,6 @@
   },
   {
     "kind": "question",
-    "text": "Prophet Nuh"
-  },
-  {
-    "kind": "question",
     "text": "An angel of rain"
   },
   {
@@ -103574,10 +105538,6 @@
   {
     "kind": "question",
     "text": "What did the Muhajirun leave behind in Makkah?"
-  },
-  {
-    "kind": "question",
-    "text": "Their prayers"
   },
   {
     "kind": "question",
@@ -103650,10 +105610,6 @@
   {
     "kind": "question",
     "text": "Nothing yet"
-  },
-  {
-    "kind": "question",
-    "text": "A big palace on earth"
   },
   {
     "kind": "question",
@@ -106109,10 +108065,6 @@
   },
   {
     "kind": "question",
-    "text": "Under the sea"
-  },
-  {
-    "kind": "question",
     "text": "On the earth"
   },
   {
@@ -107898,10 +109850,6 @@
   {
     "kind": "question",
     "text": "When was Lut told to leave?"
-  },
-  {
-    "kind": "question",
-    "text": "In part of the night"
   },
   {
     "kind": "question",
@@ -111669,10 +113617,6 @@
   },
   {
     "kind": "question",
-    "text": "Qarun's"
-  },
-  {
-    "kind": "question",
     "text": "Dawud ate from the work of his hands."
   },
   {
@@ -111698,10 +113642,6 @@
   {
     "kind": "question",
     "text": "Every day"
-  },
-  {
-    "kind": "question",
-    "text": "How much of the night did Dawud pray?"
   },
   {
     "kind": "question",
@@ -115762,10 +117702,6 @@
   {
     "kind": "question",
     "text": "Talut's"
-  },
-  {
-    "kind": "question",
-    "text": "Fir'awn's"
   },
   {
     "kind": "question",
@@ -123529,10 +125465,6 @@
   },
   {
     "kind": "question",
-    "text": "Seven times"
-  },
-  {
-    "kind": "question",
     "text": "Yet they outweighed her whole morning."
   },
   {
@@ -124698,10 +126630,6 @@
   {
     "kind": "question",
     "text": "How many times did he ﷺ say: your mother?"
-  },
-  {
-    "kind": "question",
-    "text": "Five times"
   },
   {
     "kind": "question",
@@ -133853,10 +135781,6 @@
   },
   {
     "kind": "question",
-    "text": "Stay home"
-  },
-  {
-    "kind": "question",
     "text": "Knowledge was worth the journey."
   },
   {
@@ -138026,10 +139950,6 @@
   {
     "kind": "question",
     "text": "When should witr be prayed, by this advice?"
-  },
-  {
-    "kind": "question",
-    "text": "At sunset only"
   },
   {
     "kind": "question",
@@ -142433,10 +144353,6 @@
   },
   {
     "kind": "question",
-    "text": "Their money"
-  },
-  {
-    "kind": "question",
     "text": "Their light"
   },
   {
@@ -143766,10 +145682,6 @@
   {
     "kind": "question",
     "text": "Which prayers did he link to this?"
-  },
-  {
-    "kind": "question",
-    "text": "Only Jumu'ah"
   },
   {
     "kind": "question",
@@ -145125,10 +147037,6 @@
   },
   {
     "kind": "question",
-    "text": "Only Eid"
-  },
-  {
-    "kind": "question",
     "text": "Only Friday"
   },
   {
@@ -145662,10 +147570,6 @@
   {
     "kind": "question",
     "text": "Good wudu plus a humble prayer wipe out...?"
-  },
-  {
-    "kind": "question",
-    "text": "Past sins"
   },
   {
     "kind": "question",
@@ -147090,10 +148994,6 @@
   {
     "kind": "lesson",
     "text": "Don't bother people"
-  },
-  {
-    "kind": "lesson",
-    "text": "Told by Jabir"
   },
   {
     "kind": "source",
@@ -152220,10 +154120,6 @@
     "text": "At least once a week"
   },
   {
-    "kind": "lesson",
-    "text": "Told by Abu Hurairah"
-  },
-  {
     "kind": "source",
     "text": "Sahih al-Bukhari 898"
   },
@@ -154042,10 +155938,6 @@
   {
     "kind": "question",
     "text": "The imam and the people"
-  },
-  {
-    "kind": "question",
-    "text": "Only the people"
   },
   {
     "kind": "question",
@@ -157293,10 +159185,6 @@
   },
   {
     "kind": "question",
-    "text": "No reward"
-  },
-  {
-    "kind": "question",
     "text": "A warning"
   },
   {
@@ -157578,10 +159466,6 @@
   {
     "kind": "question",
     "text": "His left side"
-  },
-  {
-    "kind": "question",
-    "text": "His back"
   },
   {
     "kind": "question",
@@ -159352,10 +161236,6 @@
     "text": "His intercession for you"
   },
   {
-    "kind": "source",
-    "text": "Sahih al-Bukhari 614"
-  },
-  {
     "kind": "question",
     "text": "What does the Prophet ﷺ promise the one who says this dua?"
   },
@@ -159682,10 +161562,6 @@
   {
     "kind": "lesson",
     "text": "Our Lord, do not let our hearts swerve after You guided us."
-  },
-  {
-    "kind": "source",
-    "text": "Quran 3:8"
   },
   {
     "kind": "lesson",
@@ -160526,10 +162402,6 @@
   {
     "kind": "question",
     "text": "Only what you can see"
-  },
-  {
-    "kind": "question",
-    "text": "Only the stars"
   },
   {
     "kind": "question",
@@ -161874,10 +163746,6 @@
   {
     "kind": "question",
     "text": "Which messenger answered their dua?"
-  },
-  {
-    "kind": "question",
-    "text": "Prophet Musa"
   },
   {
     "kind": "question",
@@ -165385,10 +167253,6 @@
   },
   {
     "kind": "source",
-    "text": "Quran 3:173"
-  },
-  {
-    "kind": "source",
     "text": "Quran 3:172-189"
   },
   {
@@ -166094,10 +167958,6 @@
   {
     "kind": "lesson",
     "text": "Prayer has set times"
-  },
-  {
-    "kind": "source",
-    "text": "Quran 4:101"
   },
   {
     "kind": "source",
@@ -171773,10 +173633,6 @@
   },
   {
     "kind": "question",
-    "text": "He is far away"
-  },
-  {
-    "kind": "question",
     "text": "He never hears"
   },
   {
@@ -172906,10 +174762,6 @@
   {
     "kind": "question",
     "text": "Yusuf's shirt over his face"
-  },
-  {
-    "kind": "question",
-    "text": "Sunlight"
   },
   {
     "kind": "question",
@@ -178629,10 +180481,6 @@
   },
   {
     "kind": "question",
-    "text": "A long holiday"
-  },
-  {
-    "kind": "question",
     "text": "Ayah 2: how do they listen to each new reminder?"
   },
   {
@@ -180038,10 +181886,6 @@
   {
     "kind": "question",
     "text": "Idle talk"
-  },
-  {
-    "kind": "question",
-    "text": "Their families"
   },
   {
     "kind": "lesson",
@@ -182474,10 +184318,6 @@
   {
     "kind": "question",
     "text": "Whose family did Allah save, in Ash-Shu'ara?"
-  },
-  {
-    "kind": "question",
-    "text": "Haman's"
   },
   {
     "kind": "question",
@@ -185317,10 +187157,6 @@
   },
   {
     "kind": "source",
-    "text": "Quran 32:16"
-  },
-  {
-    "kind": "source",
     "text": "Quran 32:12-22"
   },
   {
@@ -185362,10 +187198,6 @@
   {
     "kind": "question",
     "text": "Their homes forever"
-  },
-  {
-    "kind": "question",
-    "text": "Their beds"
   },
   {
     "kind": "question",
@@ -186590,10 +188422,6 @@
   {
     "kind": "question",
     "text": "Ayah 39: what does Allah do with what we spend in charity?"
-  },
-  {
-    "kind": "question",
-    "text": "He forgets it"
   },
   {
     "kind": "question",
@@ -196004,10 +197832,6 @@
     "text": "A mountain would humble at the Quran"
   },
   {
-    "kind": "lesson",
-    "text": "Al-Khaliq, Al-Bari, Al-Musawwir"
-  },
-  {
     "kind": "source",
     "text": "Quran 59:22"
   },
@@ -198870,10 +200694,6 @@
   {
     "kind": "question",
     "text": "Wonderful"
-  },
-  {
-    "kind": "question",
-    "text": "Boring"
   },
   {
     "kind": "question",
@@ -206785,10 +208605,6 @@
   },
   {
     "kind": "question",
-    "text": "He ignores it"
-  },
-  {
-    "kind": "question",
     "text": "Ever accepting of it"
   },
   {
@@ -208262,10 +210078,6 @@
   {
     "kind": "question",
     "text": "What does As-Samad mean, per as-Sa'di?"
-  },
-  {
-    "kind": "question",
-    "text": "The One who sleeps"
   },
   {
     "kind": "question",
@@ -215292,10 +217104,6 @@
     "text": "Your God is One God; none is worshipped but Him, the Merciful."
   },
   {
-    "kind": "lesson",
-    "text": "Ar-Rahman, Ar-Rahim"
-  },
-  {
     "kind": "source",
     "text": "Quran 2:163"
   },
@@ -215321,15 +217129,7 @@
   },
   {
     "kind": "question",
-    "text": "Al-Ghafur, Al-Wadud"
-  },
-  {
-    "kind": "question",
     "text": "As-Sami', Al-Basir"
-  },
-  {
-    "kind": "question",
-    "text": "The Most Merciful, the Especially Merciful."
   },
   {
     "kind": "question",
@@ -216138,10 +217938,6 @@
   {
     "kind": "lesson",
     "text": "Respond to Him"
-  },
-  {
-    "kind": "source",
-    "text": "Quran 2:186"
   },
   {
     "kind": "source",
@@ -217877,10 +219673,6 @@
   },
   {
     "kind": "question",
-    "text": "Al-Hayy, Al-Qayyum"
-  },
-  {
-    "kind": "question",
     "text": "The Ever-Living, the Sustainer."
   },
   {
@@ -218468,10 +220260,6 @@
     "text": "Don't fear giving"
   },
   {
-    "kind": "lesson",
-    "text": "Allah is generous"
-  },
-  {
     "kind": "source",
     "text": "Tafsir Ibn Kathir 2:268"
   },
@@ -219017,10 +220805,6 @@
   },
   {
     "kind": "question",
-    "text": "We give up"
-  },
-  {
-    "kind": "question",
     "text": "It's too hard"
   },
   {
@@ -219090,10 +220874,6 @@
   {
     "kind": "lesson",
     "text": "Pardon, forgive, mercy"
-  },
-  {
-    "kind": "source",
-    "text": "Quran 2:286"
   },
   {
     "kind": "source",
@@ -231393,10 +233173,6 @@
   },
   {
     "kind": "question",
-    "text": "Up to the elbows"
-  },
-  {
-    "kind": "question",
     "text": "Wa aydiyakum ilal-marafiq."
   },
   {
@@ -235942,10 +237718,6 @@
   {
     "kind": "question",
     "text": "What does Al-Qahir mean, per Ibn Kathir?"
-  },
-  {
-    "kind": "question",
-    "text": "The One who forgets"
   },
   {
     "kind": "question",
@@ -247178,10 +248950,6 @@
   {
     "kind": "question",
     "text": "Their fear of people"
-  },
-  {
-    "kind": "question",
-    "text": "Their faith"
   },
   {
     "kind": "question",
@@ -267561,10 +269329,6 @@
   },
   {
     "kind": "source",
-    "text": "Quran 12:64"
-  },
-  {
-    "kind": "source",
     "text": "Tafsir Ibn Kathir 12:63"
   },
   {
@@ -275529,10 +277293,6 @@
   },
   {
     "kind": "question",
-    "text": "The Distant"
-  },
-  {
-    "kind": "question",
     "text": "The Silent"
   },
   {
@@ -276993,10 +278753,6 @@
   },
   {
     "kind": "question",
-    "text": "The Guest"
-  },
-  {
-    "kind": "question",
     "text": "And We are the Inheritors."
   },
   {
@@ -277838,10 +279594,6 @@
   {
     "kind": "question",
     "text": "How does Allah describe Himself, in 15:49?"
-  },
-  {
-    "kind": "question",
-    "text": "The Tired"
   },
   {
     "kind": "question",
@@ -281853,10 +283605,6 @@
   },
   {
     "kind": "question",
-    "text": "He is tired"
-  },
-  {
-    "kind": "question",
     "text": "He is hungry"
   },
   {
@@ -284490,10 +286238,6 @@
   {
     "kind": "question",
     "text": "Fair and moderate"
-  },
-  {
-    "kind": "question",
-    "text": "Loud and fast"
   },
   {
     "kind": "question",
@@ -290522,10 +292266,6 @@
   {
     "kind": "lesson",
     "text": "Maqam Mahmud is intercession"
-  },
-  {
-    "kind": "source",
-    "text": "Quran 17:79"
   },
   {
     "kind": "question",
@@ -306553,10 +308293,6 @@
   },
   {
     "kind": "question",
-    "text": "Adam's"
-  },
-  {
-    "kind": "question",
     "text": "We have already mentioned that they are from the progeny of Adam."
   },
   {
@@ -313794,10 +315530,6 @@
   {
     "kind": "question",
     "text": "The One Who accepts repentance"
-  },
-  {
-    "kind": "question",
-    "text": "The Creator"
   },
   {
     "kind": "question",
@@ -339121,10 +340853,6 @@
   },
   {
     "kind": "question",
-    "text": "In pride"
-  },
-  {
-    "kind": "question",
     "text": "He turns away in pride, as if he heard them not."
   },
   {
@@ -341870,14 +343598,6 @@
   {
     "kind": "question",
     "text": "How do they call on Allah, in 32:16?"
-  },
-  {
-    "kind": "question",
-    "text": "In boredom"
-  },
-  {
-    "kind": "question",
-    "text": "In fear and hope"
   },
   {
     "kind": "question",
@@ -352538,10 +354258,6 @@
   {
     "kind": "lesson",
     "text": "He forgives and values deeds"
-  },
-  {
-    "kind": "source",
-    "text": "Quran 35:34"
   },
   {
     "kind": "source",
@@ -404637,10 +406353,6 @@
   },
   {
     "kind": "question",
-    "text": "The same reward"
-  },
-  {
-    "kind": "question",
     "text": "Random places"
   },
   {
@@ -433405,19 +435117,11 @@
   },
   {
     "kind": "lesson",
-    "text": "Al-Ghurr al-Muhajjalun"
-  },
-  {
-    "kind": "lesson",
     "text": "Keep making wudu well"
   },
   {
     "kind": "source",
     "text": "Quran 55:42"
-  },
-  {
-    "kind": "source",
-    "text": "Sahih al-Bukhari 136"
   },
   {
     "kind": "question",
@@ -433434,10 +435138,6 @@
   {
     "kind": "question",
     "text": "The traces of wudu"
-  },
-  {
-    "kind": "question",
-    "text": "From the trace of ablution."
   },
   {
     "kind": "question",
@@ -439421,10 +441121,6 @@
   },
   {
     "kind": "question",
-    "text": "Allah, the Creator"
-  },
-  {
-    "kind": "question",
     "text": "What answer does the question expect?"
   },
   {
@@ -443046,10 +444742,6 @@
   {
     "kind": "question",
     "text": "He is only in Makkah"
-  },
-  {
-    "kind": "question",
-    "text": "He forgets us"
   },
   {
     "kind": "question",
@@ -449957,10 +451649,6 @@
   },
   {
     "kind": "question",
-    "text": "Sitting down"
-  },
-  {
-    "kind": "question",
     "text": "Forbade that a man should be made to get up from his seat so that another might sit on it."
   },
   {
@@ -455597,10 +457285,6 @@
   },
   {
     "kind": "question",
-    "text": "What does Al-Malik mean?"
-  },
-  {
-    "kind": "question",
     "text": "The Farmer"
   },
   {
@@ -455797,10 +457481,6 @@
   },
   {
     "kind": "question",
-    "text": "The Forgetful"
-  },
-  {
-    "kind": "question",
     "text": "The Sleeper"
   },
   {
@@ -455922,10 +457602,6 @@
   {
     "kind": "lesson",
     "text": "Bari: invents and brings to be"
-  },
-  {
-    "kind": "source",
-    "text": "Quran 59:24"
   },
   {
     "kind": "source",
@@ -472913,10 +474589,6 @@
   },
   {
     "kind": "question",
-    "text": "What does Al-Khabir mean?"
-  },
-  {
-    "kind": "question",
     "text": "All-Rich"
   },
   {
@@ -477845,10 +479517,6 @@
   },
   {
     "kind": "question",
-    "text": "Prophet Yunus"
-  },
-  {
-    "kind": "question",
     "text": "Meaning, Dhun-Nun, who was Yunus bin Matta."
   },
   {
@@ -482285,10 +483953,6 @@
   },
   {
     "kind": "question",
-    "text": "Their shoes"
-  },
-  {
-    "kind": "question",
     "text": "Its obligatory parts"
   },
   {
@@ -482454,10 +484118,6 @@
   {
     "kind": "question",
     "text": "Nothing for others"
-  },
-  {
-    "kind": "question",
-    "text": "Only debts"
   },
   {
     "kind": "question",
@@ -487118,10 +488778,6 @@
   {
     "kind": "lesson",
     "text": "Worship is thanks to Allah"
-  },
-  {
-    "kind": "source",
-    "text": "Sahih al-Bukhari 1130"
   },
   {
     "kind": "question",
@@ -492286,10 +493942,6 @@
   {
     "kind": "question",
     "text": "Sell themselves"
-  },
-  {
-    "kind": "question",
-    "text": "Sleep in"
   },
   {
     "kind": "question",
@@ -506281,10 +507933,6 @@
   },
   {
     "kind": "source",
-    "text": "Quran 85:14"
-  },
-  {
-    "kind": "source",
     "text": "Tafsir Ibn Kathir 85:14"
   },
   {
@@ -506306,14 +507954,6 @@
   {
     "kind": "question",
     "text": "What does Al-Wadud mean, per Ibn Abbas?"
-  },
-  {
-    "kind": "question",
-    "text": "The Angry"
-  },
-  {
-    "kind": "question",
-    "text": "The Loving"
   },
   {
     "kind": "question",
@@ -515106,10 +516746,6 @@
   {
     "kind": "question",
     "text": "What is Al-Husna that he denies?"
-  },
-  {
-    "kind": "question",
-    "text": "A new car"
   },
   {
     "kind": "question",
@@ -528397,10 +530033,6 @@
   },
   {
     "kind": "question",
-    "text": "What does At-Tawwab mean?"
-  },
-  {
-    "kind": "question",
     "text": "The One Who sleeps"
   },
   {
@@ -530094,10 +531726,6 @@
   {
     "kind": "question",
     "text": "What they can bear"
-  },
-  {
-    "kind": "question",
-    "text": "No soul is burdened beyond what it can bear."
   },
   {
     "kind": "lesson",

@@ -9,6 +9,7 @@ import { SURAH_DEPTH_UNITS } from "./surahDepth";
 import { SEERAH_UNITS } from "./seerahUnits";
 import { PROPHET_UNITS } from "./prophetUnits";
 import { AQIDAH_UNITS } from "./aqidahUnits";
+import { AQIDAH_NAMES_UNITS } from "./aqidahNamesUnits";
 import { FASTING_UNITS } from "./fastingUnits";
 import { ZAKAT_UNITS } from "./zakatUnits";
 import { HADITH_UNITS } from "./hadithUnits";
@@ -19,6 +20,7 @@ import { EID_UNITS } from "./eidUnits";
 import { INTRO_UNITS } from "./introUnits";
 import { HADITH_BOOK_UNITS, SAHIHAYN_SECTION } from "./hadithBooks";
 import { PRAYER_UNITS } from "./prayerUnits";
+import { PRAYER_MORE_UNITS } from "./prayerMoreUnits";
 import { HAJJ_UNITS } from "./hajjUnits";
 import { SAHABA_UNITS } from "./sahabaUnits";
 import { MANNERS_UNITS } from "./mannersUnits";
@@ -3074,7 +3076,7 @@ const ASR: DeepUnit = {
 
 const SURAH_DEEP_UNITS: readonly DeepUnit[] = [NAS, FALAQ, IKHLAS, ASR, ...BAQARAH_UNITS, ...SURAH_DEPTH_UNITS, ...INTRO_UNITS];
 
-export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, ...SAHABA_UNITS, MUHAJIRUN, ...SAHABA_MORE_UNITS, FATIHAH, MULK, NAS, FALAQ, IKHLAS, ASR, SPEECH, PARENTS, NEIGHBORS, ANGER, ...MANNERS_UNITS, SPOUSES, CHILDREN, ...MARRIAGE_UNITS, ...WOMEN_UNITS, ...LIFE_UNITS, ...EID_UNITS, ...SCHOLAR_UNITS, ...AKHIRAH_UNITS, ...DUA_UNITS, ...PROPHET_UNITS, ...SEERAH_UNITS, ...AQIDAH_UNITS, ...FASTING_UNITS, ...ZAKAT_UNITS, ...HADITH_UNITS, ...KIDS_HADITH_UNITS, ...HADITH_STORY_UNITS, ...HADITH_BOOK_UNITS, ...PRAYER_UNITS, ...HAJJ_UNITS, ...BAQARAH_UNITS, ...SURAH_DEPTH_UNITS];
+export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, ...SAHABA_UNITS, MUHAJIRUN, ...SAHABA_MORE_UNITS, FATIHAH, MULK, NAS, FALAQ, IKHLAS, ASR, SPEECH, PARENTS, NEIGHBORS, ANGER, ...MANNERS_UNITS, SPOUSES, CHILDREN, ...MARRIAGE_UNITS, ...WOMEN_UNITS, ...LIFE_UNITS, ...EID_UNITS, ...SCHOLAR_UNITS, ...AKHIRAH_UNITS, ...DUA_UNITS, ...PROPHET_UNITS, ...SEERAH_UNITS, ...AQIDAH_UNITS, ...AQIDAH_NAMES_UNITS, ...FASTING_UNITS, ...ZAKAT_UNITS, ...HADITH_UNITS, ...KIDS_HADITH_UNITS, ...HADITH_STORY_UNITS, ...HADITH_BOOK_UNITS, ...PRAYER_UNITS, ...PRAYER_MORE_UNITS, ...HAJJ_UNITS, ...BAQARAH_UNITS, ...SURAH_DEPTH_UNITS];
 
 // The hand-written answer comes first, so the four choices turn by a stable hash of the question id.
 function turn<T>(id: string, items: T[]): T[] {
