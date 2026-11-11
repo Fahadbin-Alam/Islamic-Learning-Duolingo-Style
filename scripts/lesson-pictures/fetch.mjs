@@ -12,7 +12,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..")
 const places = JSON.parse(fs.readFileSync(path.join(ROOT, "scripts/lesson-pictures/places.json"), "utf8"));
 const OUT = path.join(ROOT, "assets/pictures");
 const CREDITS = path.join(ROOT, "src/data/lessonPictureCredits.json");
-const UA = { "User-Agent": "MuslimoLessonPictures/1.0 (https://github.com/Fahadbin-Alam/muslimo)" };
+const UA = { "User-Agent": "MuslimoLessonPictures/1.0 (https://github.com/Fahadbin-Alam/Muslimo)" };
 const FREE = /^(public domain|pd\b|cc0|cc[- ]by(-sa)?[- ]\d)/i;
 const NOT_FREE = /\b(nc|nd|fair use|non-?free)\b/i;
 

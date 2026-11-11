@@ -22,10 +22,10 @@ The pages in `site/` replace the draft in `docs/privacy-policy.md`.
 
 | Page | URL |
 | --- | --- |
-| Support (both stores) | https://fahadbin-alam.github.io/muslimo/ |
-| Privacy policy (both stores, and in the app) | https://fahadbin-alam.github.io/muslimo/privacy.html |
-| Terms of use (App Store description, and in the app) | https://fahadbin-alam.github.io/muslimo/terms.html |
-| Account deletion (Google Play Data safety) | https://fahadbin-alam.github.io/muslimo/delete-account.html |
+| Support (both stores) | https://fahadbin-alam.github.io/Muslimo/ |
+| Privacy policy (both stores, and in the app) | https://fahadbin-alam.github.io/Muslimo/privacy.html |
+| Terms of use (App Store description, and in the app) | https://fahadbin-alam.github.io/Muslimo/terms.html |
+| Account deletion (Google Play Data safety) | https://fahadbin-alam.github.io/Muslimo/delete-account.html |
 
 If you later buy a domain (for example `muslimo.app`), point it at GitHub Pages under Settings → Pages → Custom domain and update these URLs in the files above and in the app's environment.
 
@@ -66,7 +66,7 @@ The app is for ages 6 to 30, so both stores are answered as an all-ages app with
 5. **Apple EU trader status:** App Store Connect asks whether you are a trader under the EU Digital Services Act. Selling subscriptions usually makes you one, which shows your address, phone and email on the EU App Store. Answer it, or remove EU countries from availability until you are ready.
 6. **Paste the listings and answer the forms** from the files in this folder. Recheck `google-play/data-safety.md` and `app-store/privacy-labels.md` if any SDK is added.
 7. **Graphics:** upload the files in [graphics](graphics). Its README maps each one to its store slot.
-8. **AdMob `app-ads.txt`:** AdMob looks for it at the root of the developer website's domain. `fahadbin-alam.github.io/muslimo/` is not a root, so put `app-ads.txt` in the `Fahadbin-Alam.github.io` repository (its files are kept in [`user-site/`](../user-site)) and use `https://fahadbin-alam.github.io` as the developer website in both stores.
+8. **AdMob `app-ads.txt`:** AdMob looks for it at the root of the developer website's domain. `fahadbin-alam.github.io/Muslimo/` is not a root, so put `app-ads.txt` in the `Fahadbin-Alam.github.io` repository (its files are kept in [`user-site/`](../user-site)) and use `https://fahadbin-alam.github.io` as the developer website in both stores.
 9. **Lesson sources:** confirm that any Quran translation or hadith text quoted word for word in lessons is either paraphrased or from a translation whose licence allows use in an app, so you can answer "Yes" to Apple's content rights question.
 
 The privacy policy and terms are a solid, plain-language starting point written to match what the code does, not legal advice. If the app starts earning real money, a one-time review by a lawyer is worth it.

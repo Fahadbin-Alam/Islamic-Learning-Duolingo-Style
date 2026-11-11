@@ -9,7 +9,7 @@ redirect a project site after a rename. Store listings, Play's Data safety form 
 the rename still open `https://fahadbin-alam.github.io/Islamic-Learning-Duolingo-Style/...`, so this site keeps
 those links alive:
 
-- `Islamic-Learning-Duolingo-Style/*.html` send the reader on to the same page under `/muslimo/`.
+- `Islamic-Learning-Duolingo-Style/*.html` send the reader on to the same page under `/Muslimo/`.
 - `Islamic-Learning-Duolingo-Style/app-version.json` is a real copy, not a redirect, because old builds fetch it
   for the "update available" banner. Every app that reads this old address is a pre-rename build, so once the
   first post-rename builds are live in both stores, set this copy to those build numbers once and leave it.

@@ -130,7 +130,7 @@ export function isRealAdUnitId(value: string) {
 }
 
 // Defaults are the pages GitHub Pages publishes from site/; Apple wants both links on the paywall.
-const LEGAL_SITE = "https://fahadbin-alam.github.io/muslimo";
+const LEGAL_SITE = "https://fahadbin-alam.github.io/Muslimo";
 
 export const legalLinks = {
   terms: clean(env.termsUrl) || `${LEGAL_SITE}/terms.html`,
