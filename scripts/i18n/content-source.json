@@ -581,6 +581,18 @@
   },
   {
     "kind": "course",
+    "text": "Calm and focus in prayer"
+  },
+  {
+    "kind": "course",
+    "text": "Eyes off the sky, resting when drowsy, a settled back, a long calm standing, tears in prayer, and waiting for the sujud."
+  },
+  {
+    "kind": "arabic",
+    "text": "Calm in the prayer"
+  },
+  {
+    "kind": "course",
     "text": "What wudu is"
   },
   {
@@ -1254,6 +1266,30 @@
   {
     "kind": "course",
     "text": "Forgive me all my sins"
+  },
+  {
+    "kind": "course",
+    "text": "Eyes off the sky"
+  },
+  {
+    "kind": "course",
+    "text": "Too drowsy to pray"
+  },
+  {
+    "kind": "course",
+    "text": "Let your back settle"
+  },
+  {
+    "kind": "course",
+    "text": "A long, calm standing"
+  },
+  {
+    "kind": "course",
+    "text": "Tears in his prayer"
+  },
+  {
+    "kind": "course",
+    "text": "Waiting for the sujud"
   },
   {
     "kind": "course",
@@ -31393,6 +31429,18 @@
   },
   {
     "kind": "course",
+    "text": "Praised by name"
+  },
+  {
+    "kind": "course",
+    "text": "Seven excellent men, Abu Bakr the Atiq, a du'a for Umar, Talhah at Uhud, Al-Bara ibn Malik, and whom to follow."
+  },
+  {
+    "kind": "arabic",
+    "text": "What an excellent man"
+  },
+  {
+    "kind": "course",
     "text": "Ibn Umar and more"
   },
   {
@@ -33106,6 +33154,26 @@
   {
     "kind": "course",
     "text": "A span of land"
+  },
+  {
+    "kind": "course",
+    "text": "Called Atiq"
+  },
+  {
+    "kind": "course",
+    "text": "A du'a for Umar"
+  },
+  {
+    "kind": "course",
+    "text": "Talhah at the rock"
+  },
+  {
+    "kind": "course",
+    "text": "Dusty, yet answered"
+  },
+  {
+    "kind": "course",
+    "text": "Whom to follow"
   },
   {
     "kind": "course",
@@ -39836,6 +39904,18 @@
     "text": "The ease of Islam"
   },
   {
+    "kind": "course",
+    "text": "Growing in your new faith"
+  },
+  {
+    "kind": "course",
+    "text": "A stranger who came to learn, faith before the Quran, new people Allah plants, one of us, a glad and sad heart, and passing it on."
+  },
+  {
+    "kind": "arabic",
+    "text": "Faith that grows"
+  },
+  {
     "kind": "arabic",
     "text": "Say: He is Allah, the One"
   },
@@ -40110,6 +40190,30 @@
   {
     "kind": "course",
     "text": "A Lord who forgives"
+  },
+  {
+    "kind": "course",
+    "text": "A stranger asks"
+  },
+  {
+    "kind": "course",
+    "text": "Faith, then the Quran"
+  },
+  {
+    "kind": "course",
+    "text": "Allah keeps planting"
+  },
+  {
+    "kind": "course",
+    "text": "You are one of us"
+  },
+  {
+    "kind": "course",
+    "text": "A glad and sad heart"
+  },
+  {
+    "kind": "course",
+    "text": "Pass it on as you heard it"
   },
   {
     "kind": "lesson",
@@ -67437,6 +67541,446 @@
   },
   {
     "kind": "lesson",
+    "text": "He ﷺ warned people not to look up at the sky in prayer."
+  },
+  {
+    "kind": "lesson",
+    "text": "His words grew stern as he spoke"
+  },
+  {
+    "kind": "lesson",
+    "text": "They should stop, he ﷺ said"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 750"
+  },
+  {
+    "kind": "question",
+    "text": "Where did he ﷺ warn people not to look in prayer?"
+  },
+  {
+    "kind": "question",
+    "text": "Down at the floor"
+  },
+  {
+    "kind": "question",
+    "text": "Toward the qiblah"
+  },
+  {
+    "kind": "question",
+    "text": "Straight ahead"
+  },
+  {
+    "kind": "question",
+    "text": "What is wrong with those who look towards the sky during the prayer, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "How did his ﷺ words sound as he warned them?"
+  },
+  {
+    "kind": "question",
+    "text": "Like a whisper"
+  },
+  {
+    "kind": "question",
+    "text": "Like a song"
+  },
+  {
+    "kind": "question",
+    "text": "Stern"
+  },
+  {
+    "kind": "question",
+    "text": "Joking"
+  },
+  {
+    "kind": "question",
+    "text": "His talk grew stern while delivering this speech, Anas said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ said their eyesight could be taken away."
+  },
+  {
+    "kind": "question",
+    "text": "They should stop, otherwise their eyesight would be taken away, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "If you feel drowsy while praying, sleep until it passes."
+  },
+  {
+    "kind": "lesson",
+    "text": "A drowsy person may not know what he asks"
+  },
+  {
+    "kind": "lesson",
+    "text": "He may ask for something bad by mistake"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 212"
+  },
+  {
+    "kind": "question",
+    "text": "What should a drowsy person do, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "Pray much faster"
+  },
+  {
+    "kind": "question",
+    "text": "Keep praying anyway"
+  },
+  {
+    "kind": "question",
+    "text": "Pray twice as long"
+  },
+  {
+    "kind": "question",
+    "text": "Sleep until it passes"
+  },
+  {
+    "kind": "question",
+    "text": "He should go to bed till his slumber is over, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Why is praying while drowsy a problem?"
+  },
+  {
+    "kind": "question",
+    "text": "He may not know what he asks"
+  },
+  {
+    "kind": "question",
+    "text": "It makes the prayer short"
+  },
+  {
+    "kind": "question",
+    "text": "It wakes up the house"
+  },
+  {
+    "kind": "question",
+    "text": "It is too cold at night"
+  },
+  {
+    "kind": "question",
+    "text": "One does not know whether one is asking for forgiveness or for a bad thing."
+  },
+  {
+    "kind": "question",
+    "text": "A drowsy person always knows what he is asking for."
+  },
+  {
+    "kind": "question",
+    "text": "Praying while drowsy, one does not know what one is asking for."
+  },
+  {
+    "kind": "lesson",
+    "text": "Let your back settle and rest in ruku' and sujud."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Ali ibn Shayban, of a delegation"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ saw a man from the corner of his eye"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ spoke after the prayer"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Ibn Majah 871"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ see the man doing wrong?"
+  },
+  {
+    "kind": "question",
+    "text": "Reciting too loudly"
+  },
+  {
+    "kind": "question",
+    "text": "Standing too far back"
+  },
+  {
+    "kind": "question",
+    "text": "Not settling his back"
+  },
+  {
+    "kind": "question",
+    "text": "Praying too slowly"
+  },
+  {
+    "kind": "question",
+    "text": "He was not settling his spine when he bowed and prostrated."
+  },
+  {
+    "kind": "question",
+    "text": "How did he ﷺ see the man during the prayer?"
+  },
+  {
+    "kind": "question",
+    "text": "Someone told him"
+  },
+  {
+    "kind": "question",
+    "text": "From the corner of his eye"
+  },
+  {
+    "kind": "question",
+    "text": "By turning fully around"
+  },
+  {
+    "kind": "question",
+    "text": "In a dream"
+  },
+  {
+    "kind": "question",
+    "text": "He glanced out of the corner of his eye at a man, Ali ibn Shayban said."
+  },
+  {
+    "kind": "question",
+    "text": "A prayer with rushed ruku' and sujud is still fine."
+  },
+  {
+    "kind": "question",
+    "text": "No prayer for one who does not settle his spine in ruku' and sujud, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Anas stood long after ruku', as he saw the Prophet ﷺ pray."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Thabit, from Anas"
+  },
+  {
+    "kind": "lesson",
+    "text": "Some thought he had forgotten"
+  },
+  {
+    "kind": "lesson",
+    "text": "He also sat long between the two sujud"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 821"
+  },
+  {
+    "kind": "question",
+    "text": "What did people think when Anas stood so long after ruku'?"
+  },
+  {
+    "kind": "question",
+    "text": "That he had forgotten"
+  },
+  {
+    "kind": "question",
+    "text": "That he was tired"
+  },
+  {
+    "kind": "question",
+    "text": "That he was ill"
+  },
+  {
+    "kind": "question",
+    "text": "That he was lost"
+  },
+  {
+    "kind": "question",
+    "text": "One would think that he had forgotten the prostrations, Thabit said."
+  },
+  {
+    "kind": "question",
+    "text": "Where else did Anas pause for a long time?"
+  },
+  {
+    "kind": "question",
+    "text": "At the masjid door"
+  },
+  {
+    "kind": "question",
+    "text": "Between the two sujud"
+  },
+  {
+    "kind": "question",
+    "text": "Before the first takbir"
+  },
+  {
+    "kind": "question",
+    "text": "He used to sit in-between the prostrations so long, Thabit said."
+  },
+  {
+    "kind": "question",
+    "text": "Anas prayed the way he had seen the Prophet ﷺ pray."
+  },
+  {
+    "kind": "question",
+    "text": "I will make you offer the prayer as I have seen the Prophet ﷺ do it, Anas said."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ wept in prayer; his chest sounded like boiling water."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abdullah ibn ash-Shikhkhir"
+  },
+  {
+    "kind": "lesson",
+    "text": "His son Mutarrif passed it on"
+  },
+  {
+    "kind": "lesson",
+    "text": "The sound came from weeping"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan an-Nasa'i 1214"
+  },
+  {
+    "kind": "question",
+    "text": "What did his ﷺ chest sound like as he prayed?"
+  },
+  {
+    "kind": "question",
+    "text": "A beating drum"
+  },
+  {
+    "kind": "question",
+    "text": "Birds singing"
+  },
+  {
+    "kind": "question",
+    "text": "Water boiling"
+  },
+  {
+    "kind": "question",
+    "text": "Wind in the trees"
+  },
+  {
+    "kind": "question",
+    "text": "A sound was coming from his chest like the sound of water boiling."
+  },
+  {
+    "kind": "question",
+    "text": "Why did that sound come from his ﷺ chest?"
+  },
+  {
+    "kind": "question",
+    "text": "He was out of breath"
+  },
+  {
+    "kind": "question",
+    "text": "He was reciting loudly"
+  },
+  {
+    "kind": "question",
+    "text": "He was coughing"
+  },
+  {
+    "kind": "question",
+    "text": "He was weeping"
+  },
+  {
+    "kind": "question",
+    "text": "Like the sound of water boiling, meaning he was weeping."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ was moved to tears in his prayer."
+  },
+  {
+    "kind": "question",
+    "text": "A sound came from his chest like water boiling, meaning he was weeping."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Companions stayed standing until he ﷺ went into sujud."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Al-Bara ibn Azib"
+  },
+  {
+    "kind": "lesson",
+    "text": "The one who heard him said: he was no liar"
+  },
+  {
+    "kind": "lesson",
+    "text": "They did not go down before him ﷺ"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 747"
+  },
+  {
+    "kind": "question",
+    "text": "What did they do when he ﷺ rose from ruku'?"
+  },
+  {
+    "kind": "question",
+    "text": "Sat down right away"
+  },
+  {
+    "kind": "question",
+    "text": "Left the row"
+  },
+  {
+    "kind": "question",
+    "text": "Stayed standing"
+  },
+  {
+    "kind": "question",
+    "text": "Went down first"
+  },
+  {
+    "kind": "question",
+    "text": "We used to remain standing till we saw him prostrating, Al-Bara said."
+  },
+  {
+    "kind": "question",
+    "text": "Until when did they stay standing?"
+  },
+  {
+    "kind": "question",
+    "text": "Until the adhan"
+  },
+  {
+    "kind": "question",
+    "text": "Until the sun rose"
+  },
+  {
+    "kind": "question",
+    "text": "Until he spoke to them"
+  },
+  {
+    "kind": "question",
+    "text": "Until they saw him in sujud"
+  },
+  {
+    "kind": "question",
+    "text": "We used to remain standing till we saw him prostrating."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Bara said they waited until he ﷺ went into sujud."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about calm and focus in prayer!"
+  },
+  {
+    "kind": "lesson",
     "text": "Allah's right on His servants: worship Him and join no partner."
   },
   {
@@ -91025,10 +91569,6 @@
   },
   {
     "kind": "question",
-    "text": "Birds singing"
-  },
-  {
-    "kind": "question",
     "text": "Shouting and camels being beaten"
   },
   {
@@ -95954,10 +96494,6 @@
   {
     "kind": "question",
     "text": "One quick look"
-  },
-  {
-    "kind": "question",
-    "text": "Until the adhan"
   },
   {
     "kind": "question",
@@ -114613,10 +115149,6 @@
   },
   {
     "kind": "question",
-    "text": "Someone told him"
-  },
-  {
-    "kind": "question",
     "text": "He guessed"
   },
   {
@@ -123837,6 +124369,350 @@
   },
   {
     "kind": "lesson",
+    "text": "He ﷺ praised seven Companions by name: what an excellent man!"
+  },
+  {
+    "kind": "lesson",
+    "text": "First named: Abu Bakr, then Umar"
+  },
+  {
+    "kind": "lesson",
+    "text": "Two of them were named Mu'adh"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 3795"
+  },
+  {
+    "kind": "question",
+    "text": "Whom did he ﷺ name first as an excellent man?"
+  },
+  {
+    "kind": "question",
+    "text": "What an excellent man is Abu Bakr, he ﷺ said first."
+  },
+  {
+    "kind": "question",
+    "text": "How many men named Mu'adh are in his ﷺ list?"
+  },
+  {
+    "kind": "question",
+    "text": "Two men"
+  },
+  {
+    "kind": "question",
+    "text": "One man"
+  },
+  {
+    "kind": "question",
+    "text": "Three men"
+  },
+  {
+    "kind": "question",
+    "text": "Four men"
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ named Mu'adh ibn Jabal and Mu'adh, the son of Amr ibn al-Jamuh."
+  },
+  {
+    "kind": "question",
+    "text": "Usaid ibn Hudair was among the men he ﷺ praised."
+  },
+  {
+    "kind": "question",
+    "text": "What an excellent man is Usaid ibn Hudair, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ told Abu Bakr: you are Allah's Atiq from the Fire."
+  },
+  {
+    "kind": "lesson",
+    "text": "Atiq: one set free"
+  },
+  {
+    "kind": "lesson",
+    "text": "From that day he was called Atiq"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 3679"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ call Abu Bakr?"
+  },
+  {
+    "kind": "question",
+    "text": "Allah's Atiq from the Fire"
+  },
+  {
+    "kind": "question",
+    "text": "The best of poets"
+  },
+  {
+    "kind": "question",
+    "text": "You are Allah's Atiq from the Fire, he ﷺ said to Abu Bakr."
+  },
+  {
+    "kind": "question",
+    "text": "What does Atiq mean in his ﷺ words?"
+  },
+  {
+    "kind": "question",
+    "text": "One who sings"
+  },
+  {
+    "kind": "question",
+    "text": "One who writes"
+  },
+  {
+    "kind": "question",
+    "text": "One set free"
+  },
+  {
+    "kind": "question",
+    "text": "Atiq from the Fire: one Allah has set free from it."
+  },
+  {
+    "kind": "question",
+    "text": "After that day, people called Abu Bakr Atiq."
+  },
+  {
+    "kind": "question",
+    "text": "From that day on he was called Atiq, Aishah said."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ asked Allah to honor Islam through Umar or Abu Jahl."
+  },
+  {
+    "kind": "lesson",
+    "text": "Whichever of the two Allah loved more"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah loved Umar more"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 3681"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ ask Allah to honor through one of two men?"
+  },
+  {
+    "kind": "question",
+    "text": "Honor Islam through the most dear of these two men to You."
+  },
+  {
+    "kind": "question",
+    "text": "Who was named with Umar in the du'a?"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Jahl ibn Hisham"
+  },
+  {
+    "kind": "question",
+    "text": "Through Abu Jahl or through Umar ibn al-Khattab, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Of the two men, Umar was the dearer to Allah."
+  },
+  {
+    "kind": "question",
+    "text": "And the most dear of them to Him was Umar, Ibn Umar said."
+  },
+  {
+    "kind": "lesson",
+    "text": "At Uhud, Talhah crouched to lift him ﷺ onto a rock."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Az-Zubayr"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ wore two coats of armor"
+  },
+  {
+    "kind": "lesson",
+    "text": "Paradise is due for Talhah, he ﷺ said"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 3738"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ wear at Uhud?"
+  },
+  {
+    "kind": "question",
+    "text": "A silk robe"
+  },
+  {
+    "kind": "question",
+    "text": "Only a turban"
+  },
+  {
+    "kind": "question",
+    "text": "Two coats of armor"
+  },
+  {
+    "kind": "question",
+    "text": "On the Day of Uhud, he ﷺ wore two coats of mail, Az-Zubayr said."
+  },
+  {
+    "kind": "question",
+    "text": "How did Talhah help him ﷺ onto the rock?"
+  },
+  {
+    "kind": "question",
+    "text": "He brought a rope"
+  },
+  {
+    "kind": "question",
+    "text": "He led a camel there"
+  },
+  {
+    "kind": "question",
+    "text": "He crouched and lifted him"
+  },
+  {
+    "kind": "question",
+    "text": "He built a ladder"
+  },
+  {
+    "kind": "question",
+    "text": "Talhah squatted under him, lifting the Prophet ﷺ upon it."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ said Paradise is due for Talhah."
+  },
+  {
+    "kind": "question",
+    "text": "Paradise is obligatory for Talhah, he ﷺ said after it."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ named Al-Bara ibn Malik among the humble Allah answers."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Anas ibn Malik, his brother"
+  },
+  {
+    "kind": "lesson",
+    "text": "Messy hair and only two cloths"
+  },
+  {
+    "kind": "lesson",
+    "text": "No one paid them any mind"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 3854"
+  },
+  {
+    "kind": "question",
+    "text": "Whom did he ﷺ name among these humble people?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Bara ibn Malik"
+  },
+  {
+    "kind": "question",
+    "text": "Among them is Al-Bara ibn Malik, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "What happens when such a humble person swears by Allah?"
+  },
+  {
+    "kind": "question",
+    "text": "Allah fulfils it"
+  },
+  {
+    "kind": "question",
+    "text": "People laugh at him"
+  },
+  {
+    "kind": "question",
+    "text": "He must pay money"
+  },
+  {
+    "kind": "question",
+    "text": "He must swear again"
+  },
+  {
+    "kind": "question",
+    "text": "If he swears by Allah then He shall fulfill it, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "No one paid much mind to these dusty, humble people."
+  },
+  {
+    "kind": "question",
+    "text": "Whom no one pays any mind to, he ﷺ said, yet Allah fulfils their oath."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ said: after me, follow Abu Bakr and Umar."
+  },
+  {
+    "kind": "lesson",
+    "text": "Act on the guidance of Ammar"
+  },
+  {
+    "kind": "lesson",
+    "text": "Hold fast to the advice of Ibn Mas'ud"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 3805"
+  },
+  {
+    "kind": "question",
+    "text": "Which two did he ﷺ say to follow after him?"
+  },
+  {
+    "kind": "question",
+    "text": "Take as examples the two after me, Abu Bakr and Umar, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Whose guidance did he ﷺ tell them to act on?"
+  },
+  {
+    "kind": "question",
+    "text": "Abdullah ibn Ubayy"
+  },
+  {
+    "kind": "question",
+    "text": "Act upon the guidance of Ammar, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ told them to hold fast to Ibn Mas'ud's advice."
+  },
+  {
+    "kind": "question",
+    "text": "Hold fast to the advice of Ibn Mas'ud, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about the Companions he ﷺ praised!"
+  },
+  {
+    "kind": "lesson",
     "text": "Allah told the angels He would place a successor on earth."
   },
   {
@@ -132366,10 +133242,6 @@
   {
     "kind": "question",
     "text": "Written on stone"
-  },
-  {
-    "kind": "question",
-    "text": "In a dream"
   },
   {
     "kind": "question",
@@ -172762,10 +173634,6 @@
   {
     "kind": "question",
     "text": "Which garment did he ﷺ love most?"
-  },
-  {
-    "kind": "question",
-    "text": "A silk robe"
   },
   {
     "kind": "question",
@@ -269821,10 +270689,6 @@
   },
   {
     "kind": "question",
-    "text": "That he was tired"
-  },
-  {
-    "kind": "question",
     "text": "That he conveyed the message"
   },
   {
@@ -286962,10 +287826,6 @@
   {
     "kind": "question",
     "text": "I will worship Allah, the One Who causes you to die."
-  },
-  {
-    "kind": "question",
-    "text": "One who sings"
   },
   {
     "kind": "question",
@@ -406489,10 +407349,6 @@
   },
   {
     "kind": "question",
-    "text": "One man"
-  },
-  {
-    "kind": "question",
     "text": "All of creation, whether animate or inanimate, will speak words of praise to Allah."
   },
   {
@@ -437674,10 +438530,6 @@
   {
     "kind": "question",
     "text": "What did Mikraz call him, per Ibn Kathir?"
-  },
-  {
-    "kind": "question",
-    "text": "Stern"
   },
   {
     "kind": "question",
@@ -481014,10 +481866,6 @@
   {
     "kind": "question",
     "text": "Who led the hypocrites, per Ibn Kathir?"
-  },
-  {
-    "kind": "question",
-    "text": "Abdullah ibn Ubayy"
   },
   {
     "kind": "question",
@@ -558606,6 +559454,370 @@
   {
     "kind": "lesson",
     "text": "The last test: everything about the easy way of Islam!"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ paused his khutbah to teach a stranger about Islam."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abu Rifa'ah"
+  },
+  {
+    "kind": "lesson",
+    "text": "A chair was brought for him ﷺ"
+  },
+  {
+    "kind": "lesson",
+    "text": "Then he went back and finished the khutbah"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan an-Nasa'i 5377"
+  },
+  {
+    "kind": "question",
+    "text": "What was he ﷺ doing when the stranger came?"
+  },
+  {
+    "kind": "question",
+    "text": "Giving a khutbah"
+  },
+  {
+    "kind": "question",
+    "text": "Writing a letter"
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ was delivering a khutbah when Abu Rifa'ah came to him."
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ do for the man who did not know his religion?"
+  },
+  {
+    "kind": "question",
+    "text": "Stopped and taught him"
+  },
+  {
+    "kind": "question",
+    "text": "Gave him a new name"
+  },
+  {
+    "kind": "question",
+    "text": "Asked about his tribe"
+  },
+  {
+    "kind": "question",
+    "text": "He stopped his khutbah, turned to me, and taught me what Allah had taught him."
+  },
+  {
+    "kind": "question",
+    "text": "After teaching him, he ﷺ finished his khutbah."
+  },
+  {
+    "kind": "question",
+    "text": "Then he went and completed his khutbah, Abu Rifa'ah said."
+  },
+  {
+    "kind": "lesson",
+    "text": "The young Companions learned faith before the Quran."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Jundub ibn Abdullah"
+  },
+  {
+    "kind": "lesson",
+    "text": "They were strong young men"
+  },
+  {
+    "kind": "lesson",
+    "text": "Then the Quran made their faith grow"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Ibn Majah 61"
+  },
+  {
+    "kind": "question",
+    "text": "What did the young Companions learn before the Quran?"
+  },
+  {
+    "kind": "question",
+    "text": "We learned faith before we learned the Quran, Jundub said."
+  },
+  {
+    "kind": "question",
+    "text": "What did learning the Quran do to their faith?"
+  },
+  {
+    "kind": "question",
+    "text": "Made it grow"
+  },
+  {
+    "kind": "question",
+    "text": "Made it weaker"
+  },
+  {
+    "kind": "question",
+    "text": "Then we learned the Quran and our faith increased thereby, Jundub said."
+  },
+  {
+    "kind": "question",
+    "text": "Jundub and his friends were strong young men then."
+  },
+  {
+    "kind": "question",
+    "text": "They were strong youths with the Prophet ﷺ, Jundub said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah keeps planting new people in this religion."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abu Inabah al-Khawlani"
+  },
+  {
+    "kind": "lesson",
+    "text": "He uses them in obeying Him"
+  },
+  {
+    "kind": "lesson",
+    "text": "New Muslims are part of it"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Ibn Majah 8"
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah keep doing in this religion, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "Making it smaller"
+  },
+  {
+    "kind": "question",
+    "text": "Bringing it to an end"
+  },
+  {
+    "kind": "question",
+    "text": "Planting new people"
+  },
+  {
+    "kind": "question",
+    "text": "Closing its door"
+  },
+  {
+    "kind": "question",
+    "text": "Allah will continue to plant new people in this religion, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah use these new people for?"
+  },
+  {
+    "kind": "question",
+    "text": "Obeying Him"
+  },
+  {
+    "kind": "question",
+    "text": "Winning fame"
+  },
+  {
+    "kind": "question",
+    "text": "Allah will use them in His obedience, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "New people will keep coming into Islam."
+  },
+  {
+    "kind": "lesson",
+    "text": "Whoever prays like us and faces our qiblah is a Muslim."
+  },
+  {
+    "kind": "lesson",
+    "text": "Under the protection of Allah and His Messenger ﷺ"
+  },
+  {
+    "kind": "lesson",
+    "text": "Do not betray those Allah protects"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 391"
+  },
+  {
+    "kind": "question",
+    "text": "What is a person who prays like us and faces our qiblah?"
+  },
+  {
+    "kind": "question",
+    "text": "A Muslim"
+  },
+  {
+    "kind": "question",
+    "text": "Whoever prays like us and faces our Qibla is a Muslim, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Whose protection is such a Muslim under?"
+  },
+  {
+    "kind": "question",
+    "text": "Only his own tribe"
+  },
+  {
+    "kind": "question",
+    "text": "The king of his land"
+  },
+  {
+    "kind": "question",
+    "text": "He is under the protection of Allah and His Messenger ﷺ, so never betray him."
+  },
+  {
+    "kind": "question",
+    "text": "We may betray a Muslim who is under Allah's protection."
+  },
+  {
+    "kind": "question",
+    "text": "Do not betray Allah by betraying those who are in His protection."
+  },
+  {
+    "kind": "lesson",
+    "text": "Glad of good deeds, sad over bad ones: that is a believer."
+  },
+  {
+    "kind": "lesson",
+    "text": "Umar passed it on in a khutbah at al-Jabiyah"
+  },
+  {
+    "kind": "lesson",
+    "text": "He was passing on the Prophet's ﷺ words"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 2165"
+  },
+  {
+    "kind": "question",
+    "text": "How does a believer feel about his good deeds?"
+  },
+  {
+    "kind": "question",
+    "text": "Angry about them"
+  },
+  {
+    "kind": "question",
+    "text": "He feels nothing"
+  },
+  {
+    "kind": "question",
+    "text": "Glad of them"
+  },
+  {
+    "kind": "question",
+    "text": "Bored with them"
+  },
+  {
+    "kind": "question",
+    "text": "Whoever rejoices with his good deeds is the believer among you, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "How does a believer feel about his bad deeds?"
+  },
+  {
+    "kind": "question",
+    "text": "He forgets about them"
+  },
+  {
+    "kind": "question",
+    "text": "Sad over them"
+  },
+  {
+    "kind": "question",
+    "text": "Happy with them"
+  },
+  {
+    "kind": "question",
+    "text": "Proud of them"
+  },
+  {
+    "kind": "question",
+    "text": "And grieves over his evil deeds: that is the believer among you."
+  },
+  {
+    "kind": "question",
+    "text": "Feeling sad after a sin is a sign of faith."
+  },
+  {
+    "kind": "question",
+    "text": "Whoever grieves over his evil deeds, that is the believer among you, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ made du'a for whoever passes on his words as heard."
+  },
+  {
+    "kind": "lesson",
+    "text": "May Allah gladden him, he ﷺ said"
+  },
+  {
+    "kind": "lesson",
+    "text": "The listener may understand it even better"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 2657"
+  },
+  {
+    "kind": "question",
+    "text": "How should we pass on what we hear from him ﷺ?"
+  },
+  {
+    "kind": "question",
+    "text": "Just as we heard it"
+  },
+  {
+    "kind": "question",
+    "text": "With our own changes"
+  },
+  {
+    "kind": "question",
+    "text": "Only after a year"
+  },
+  {
+    "kind": "question",
+    "text": "So he conveys it as he heard it, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ ask Allah to give such a person?"
+  },
+  {
+    "kind": "question",
+    "text": "Gladness"
+  },
+  {
+    "kind": "question",
+    "text": "May Allah gladden a man who hears something from us and conveys it."
+  },
+  {
+    "kind": "question",
+    "text": "The one who hears it next may understand it better."
+  },
+  {
+    "kind": "question",
+    "text": "Perhaps the one it is conveyed to is more understanding than the one who heard it."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about growing in faith!"
   },
   {
     "kind": "question",
