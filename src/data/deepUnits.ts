@@ -19,6 +19,7 @@ import { AQIDAH_NAMES_UNITS } from "./aqidahNamesUnits";
 import { AQIDAH_FAITH_UNITS } from "./aqidahFaithUnits";
 import { AQIDAH_TRIALS_UNITS } from "./aqidahTrialsUnits";
 import { AQIDAH_SUNNAH_UNITS } from "./aqidahSunnahUnits";
+import { AQIDAH_NAMES_SUNNAH_UNITS } from "./aqidahNamesSunnahUnits";
 import { FASTING_UNITS } from "./fastingUnits";
 import { FASTING_MORE_UNITS } from "./fastingMoreUnits";
 import { FASTING_DAY_UNITS } from "./fastingDayUnits";
@@ -32,6 +33,8 @@ import { KIDS_HADITH_UNITS } from "./kidsHadithUnits";
 import { KIDS_ANIMALS_UNITS } from "./kidsAnimalsUnits";
 import { KIDS_MANNERS_UNITS } from "./kidsMannersUnits";
 import { KIDS_HELPING_UNITS } from "./kidsHelpingUnits";
+import { KIDS_NAMES_UNITS } from "./kidsNamesUnits";
+import { KIDS_KIND_WAYS_UNITS } from "./kidsKindWaysUnits";
 import { HADITH_STORY_UNITS } from "./hadithStoryUnits";
 import { SAHABA_MORE_UNITS } from "./sahabaMoreUnits";
 import { EID_UNITS } from "./eidUnits";
@@ -39,6 +42,8 @@ import { EID_MORE_UNITS } from "./eidMoreUnits";
 import { INTRO_UNITS } from "./introUnits";
 import { HADITH_BOOK_UNITS, SAHIHAYN_SECTION } from "./hadithBooks";
 import { HADITH_BOOK_MORE_UNITS } from "./hadithBooksMoreUnits";
+import { HADITH_BOOK_PROPHETS_UNITS } from "./hadithBookProphetsUnits";
+import { HADITH_BOOK_GIFTS_UNITS } from "./hadithBookGiftsUnits";
 import { PRAYER_UNITS } from "./prayerUnits";
 import { PRAYER_MORE_UNITS } from "./prayerMoreUnits";
 import { PRAYER_TOGETHER_UNITS } from "./prayerTogetherUnits";
@@ -51,6 +56,13 @@ import { MANNERS_UNITS } from "./mannersUnits";
 import { MANNERS_MORE_UNITS } from "./mannersMoreUnits";
 import { MANNERS_PEOPLE_UNITS } from "./mannersPeopleUnits";
 import { MANNERS_PEACE_UNITS } from "./mannersPeaceUnits";
+import { MANNERS_CHARACTER_UNITS } from "./mannersCharacterUnits";
+import { AKHIRAH_HOPE_UNITS } from "./akhirahHopeUnits";
+import { KIDS_TABLE_UNITS } from "./kidsTableUnits";
+import { PRAYER_TIMES_UNITS } from "./prayerTimesUnits";
+import { KIDS_SIGNS_UNITS } from "./kidsSignsUnits";
+import { DUA_REFUGE_UNITS } from "./duaRefugeUnits";
+import { ZAKAT_STORIES_UNITS } from "./zakatStoriesUnits";
 import { MANNERS_GATHERING_UNITS } from "./mannersGatheringUnits";
 import { MARRIAGE_UNITS } from "./marriageUnits";
 import { MARRIAGE_MORE_UNITS } from "./marriageMoreUnits";
@@ -3106,7 +3118,7 @@ const ASR: DeepUnit = {
 
 const SURAH_DEEP_UNITS: readonly DeepUnit[] = [NAS, FALAQ, IKHLAS, ASR, ...BAQARAH_UNITS, ...SURAH_DEPTH_UNITS, ...INTRO_UNITS];
 
-export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, ...SAHABA_UNITS, MUHAJIRUN, ...SAHABA_MORE_UNITS, FATIHAH, MULK, NAS, FALAQ, IKHLAS, ASR, SPEECH, PARENTS, NEIGHBORS, ANGER, ...MANNERS_UNITS, ...MANNERS_MORE_UNITS, ...MANNERS_GATHERING_UNITS, ...MANNERS_PEOPLE_UNITS, ...MANNERS_PEACE_UNITS, SPOUSES, CHILDREN, ...MARRIAGE_UNITS, ...MARRIAGE_MORE_UNITS, ...MARRIAGE_FAMILY_UNITS, ...WOMEN_UNITS, ...LIFE_UNITS, ...EID_UNITS, ...EID_MORE_UNITS, ...SCHOLAR_UNITS, ...AKHIRAH_UNITS, ...AKHIRAH_MORE_UNITS, ...AKHIRAH_WORLD_UNITS, ...DUA_UNITS, ...DUA_MORE_UNITS, ...DUA_SUNNAH_UNITS, ...DUA_WEATHER_UNITS, ...DUA_MOMENTS_UNITS, ...PROPHET_UNITS, ...SEERAH_UNITS, ...AQIDAH_UNITS, ...AQIDAH_NAMES_UNITS, ...AQIDAH_FAITH_UNITS, ...AQIDAH_TRIALS_UNITS, ...AQIDAH_SUNNAH_UNITS, ...FASTING_UNITS, ...FASTING_MORE_UNITS, ...FASTING_DAY_UNITS, ...ZAKAT_UNITS, ...ZAKAT_MORE_UNITS, ...ZAKAT_GIVING_UNITS, ...ZAKAT_WEALTH_UNITS, ...HADITH_UNITS, ...FOUNDATION_MORE_UNITS, ...KIDS_HADITH_UNITS, ...KIDS_ANIMALS_UNITS, ...KIDS_MANNERS_UNITS, ...KIDS_HELPING_UNITS, ...HADITH_STORY_UNITS, ...HADITH_BOOK_UNITS, ...HADITH_BOOK_MORE_UNITS, ...PRAYER_UNITS, ...PRAYER_MORE_UNITS, ...PRAYER_TOGETHER_UNITS, ...HAJJ_UNITS, ...HAJJ_MORE_UNITS, ...HAJJ_WAY_UNITS, ...HAJJ_MADINAH_UNITS, ...BAQARAH_UNITS, ...SURAH_DEPTH_UNITS];
+export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, ...SAHABA_UNITS, MUHAJIRUN, ...SAHABA_MORE_UNITS, FATIHAH, MULK, NAS, FALAQ, IKHLAS, ASR, SPEECH, PARENTS, NEIGHBORS, ANGER, ...MANNERS_UNITS, ...MANNERS_MORE_UNITS, ...MANNERS_GATHERING_UNITS, ...MANNERS_PEOPLE_UNITS, ...MANNERS_PEACE_UNITS, ...MANNERS_CHARACTER_UNITS, SPOUSES, CHILDREN, ...MARRIAGE_UNITS, ...MARRIAGE_MORE_UNITS, ...MARRIAGE_FAMILY_UNITS, ...WOMEN_UNITS, ...LIFE_UNITS, ...EID_UNITS, ...EID_MORE_UNITS, ...SCHOLAR_UNITS, ...AKHIRAH_UNITS, ...AKHIRAH_MORE_UNITS, ...AKHIRAH_WORLD_UNITS, ...AKHIRAH_HOPE_UNITS, ...DUA_UNITS, ...DUA_MORE_UNITS, ...DUA_SUNNAH_UNITS, ...DUA_WEATHER_UNITS, ...DUA_MOMENTS_UNITS, ...DUA_REFUGE_UNITS, ...PROPHET_UNITS, ...SEERAH_UNITS, ...AQIDAH_UNITS, ...AQIDAH_NAMES_UNITS, ...AQIDAH_FAITH_UNITS, ...AQIDAH_TRIALS_UNITS, ...AQIDAH_SUNNAH_UNITS, ...AQIDAH_NAMES_SUNNAH_UNITS, ...FASTING_UNITS, ...FASTING_MORE_UNITS, ...FASTING_DAY_UNITS, ...ZAKAT_UNITS, ...ZAKAT_MORE_UNITS, ...ZAKAT_GIVING_UNITS, ...ZAKAT_WEALTH_UNITS, ...ZAKAT_STORIES_UNITS, ...HADITH_UNITS, ...FOUNDATION_MORE_UNITS, ...KIDS_HADITH_UNITS, ...KIDS_ANIMALS_UNITS, ...KIDS_MANNERS_UNITS, ...KIDS_HELPING_UNITS, ...KIDS_NAMES_UNITS, ...KIDS_KIND_WAYS_UNITS, ...KIDS_TABLE_UNITS, ...KIDS_SIGNS_UNITS, ...HADITH_STORY_UNITS, ...HADITH_BOOK_UNITS, ...HADITH_BOOK_MORE_UNITS, ...HADITH_BOOK_PROPHETS_UNITS, ...HADITH_BOOK_GIFTS_UNITS, ...PRAYER_UNITS, ...PRAYER_MORE_UNITS, ...PRAYER_TOGETHER_UNITS, ...PRAYER_TIMES_UNITS, ...HAJJ_UNITS, ...HAJJ_MORE_UNITS, ...HAJJ_WAY_UNITS, ...HAJJ_MADINAH_UNITS, ...BAQARAH_UNITS, ...SURAH_DEPTH_UNITS];
 
 // The hand-written answer comes first, so the four choices turn by a stable hash of the question id.
 function turn<T>(id: string, items: T[]): T[] {
