@@ -59,6 +59,10 @@ describe("the Seerah on a map: its data", () => {
     const born = journeyForLesson(lesson("seerah-early", "monday"))!;
     expect([born.era, born.age]).toEqual(["before", 0]);
     expect(journeyForLesson(lesson("seerah-wada", "sixty-three"))!.age).toBe(LIFE_YEARS);
+    // No age where it is not certain: after the pause in revelation, or on a lesson the map has no entry for yet.
+    expect(journeyForLesson(lesson("seerah-wahy", "muddaththir"))!.age).toBeUndefined();
+    const unknown = journeyForLesson({ nodeId: "deep-seerah-wahy-some-new-lesson", branchId: "seerah-revelation" })!;
+    expect([unknown.scene.id, unknown.era, unknown.age]).toEqual(["revelation-hira", "makkah", undefined]);
   });
 
   test("every lesson named in a journey is a real lesson, and its place is on its map", () => {

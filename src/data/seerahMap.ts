@@ -211,7 +211,8 @@ const REVELATION: SeerahJourney = {
     iqra: { focus: "hira" },
     pen: { focus: "hira" },
     waraqah: { focus: "makkah" },
-    muddaththir: { focus: "makkah" }
+    // After the pause in revelation, whose length the scholars give differently: no age.
+    muddaththir: { focus: "makkah", age: undefined }
   }
 };
 
@@ -779,7 +780,8 @@ export function journeyForLesson(lesson: { nodeId: string; branchId?: string }):
     lessonSlug: slug,
     focus: own?.focus,
     era: own?.era ?? journey.era,
-    age: own && "age" in own ? own.age : journey.age
+    // A lesson the map does not know yet gets its unit's first map and era, but never an age it was not checked for.
+    age: own ? ("age" in own ? own.age : journey.age) : undefined
   };
 }
 
