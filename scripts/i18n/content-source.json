@@ -28709,6 +28709,18 @@
   },
   {
     "kind": "course",
+    "text": "Charity anyone can give"
+  },
+  {
+    "kind": "course",
+    "text": "Half a date, a kind word, food for your family: sadaqah is open to rich and poor alike."
+  },
+  {
+    "kind": "arabic",
+    "text": "Charity for everyone"
+  },
+  {
+    "kind": "course",
     "text": "What zakat is"
   },
   {
@@ -28878,6 +28890,26 @@
   {
     "kind": "course",
     "text": "Only for Allah"
+  },
+  {
+    "kind": "course",
+    "text": "A date as big as a mountain"
+  },
+  {
+    "kind": "course",
+    "text": "If you have nothing"
+  },
+  {
+    "kind": "course",
+    "text": "Spending on your family"
+  },
+  {
+    "kind": "course",
+    "text": "Don't hold it back"
+  },
+  {
+    "kind": "course",
+    "text": "Charity that never stops"
   },
   {
     "kind": "course",
@@ -78837,6 +78869,358 @@
   },
   {
     "kind": "lesson",
+    "text": "Allah grows one honest date of charity as big as a mountain."
+  },
+  {
+    "kind": "lesson",
+    "text": "Only from honest money"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1410"
+  },
+  {
+    "kind": "question",
+    "text": "How big can one date of charity grow?"
+  },
+  {
+    "kind": "question",
+    "text": "As big as a mountain"
+  },
+  {
+    "kind": "question",
+    "text": "As big as a seed"
+  },
+  {
+    "kind": "question",
+    "text": "It stays the same"
+  },
+  {
+    "kind": "question",
+    "text": "It disappears"
+  },
+  {
+    "kind": "question",
+    "text": "So much so that it becomes as big as a mountain."
+  },
+  {
+    "kind": "question",
+    "text": "What kind of money does Allah accept?"
+  },
+  {
+    "kind": "question",
+    "text": "Only gold coins"
+  },
+  {
+    "kind": "question",
+    "text": "Honestly earned money"
+  },
+  {
+    "kind": "question",
+    "text": "Stolen money"
+  },
+  {
+    "kind": "question",
+    "text": "Any money at all"
+  },
+  {
+    "kind": "question",
+    "text": "A small charity can carry a huge reward."
+  },
+  {
+    "kind": "question",
+    "text": "One date can grow as big as a mountain."
+  },
+  {
+    "kind": "lesson",
+    "text": "Protect yourself from the Fire, even with half a date."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Adi ibn Hatim"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1417"
+  },
+  {
+    "kind": "question",
+    "text": "What is the smallest charity named in Bukhari 1417?"
+  },
+  {
+    "kind": "question",
+    "text": "Half a date"
+  },
+  {
+    "kind": "question",
+    "text": "A bag of gold"
+  },
+  {
+    "kind": "question",
+    "text": "Even by giving half a date-fruit in charity."
+  },
+  {
+    "kind": "question",
+    "text": "Who narrated Bukhari 1417?"
+  },
+  {
+    "kind": "question",
+    "text": "Adi ibn Hatim"
+  },
+  {
+    "kind": "question",
+    "text": "Narrated Adi bin Hatim."
+  },
+  {
+    "kind": "question",
+    "text": "No charity is too small to give."
+  },
+  {
+    "kind": "question",
+    "text": "Even half a date counts."
+  },
+  {
+    "kind": "lesson",
+    "text": "No money? Work, help someone, say good, or hold back harm."
+  },
+  {
+    "kind": "lesson",
+    "text": "Every Muslim gives sadaqah"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 6022"
+  },
+  {
+    "kind": "question",
+    "text": "Who must give sadaqah?"
+  },
+  {
+    "kind": "question",
+    "text": "Only adults with jobs"
+  },
+  {
+    "kind": "question",
+    "text": "Every Muslim"
+  },
+  {
+    "kind": "question",
+    "text": "On every Muslim there is enjoined a Sadaqa."
+  },
+  {
+    "kind": "question",
+    "text": "What if someone has no money at all?"
+  },
+  {
+    "kind": "question",
+    "text": "Work with his hands and give"
+  },
+  {
+    "kind": "question",
+    "text": "He is excused from all good"
+  },
+  {
+    "kind": "question",
+    "text": "He should beg"
+  },
+  {
+    "kind": "question",
+    "text": "He should give up"
+  },
+  {
+    "kind": "question",
+    "text": "He should work with his hands so that he may benefit himself and give in charity."
+  },
+  {
+    "kind": "question",
+    "text": "Even holding back from harm counts as sadaqah."
+  },
+  {
+    "kind": "question",
+    "text": "Refrain from doing evil, for that will be considered as a Sadaqa."
+  },
+  {
+    "kind": "lesson",
+    "text": "Spending on your family for Allah's sake is sadaqah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abu Mas'ud al-Ansari"
+  },
+  {
+    "kind": "lesson",
+    "text": "Intention matters"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 5351"
+  },
+  {
+    "kind": "question",
+    "text": "When is spending on family a sadaqah?"
+  },
+  {
+    "kind": "question",
+    "text": "Only if others see"
+  },
+  {
+    "kind": "question",
+    "text": "When done hoping for Allah's reward"
+  },
+  {
+    "kind": "question",
+    "text": "Intending to receive Allah's reward."
+  },
+  {
+    "kind": "question",
+    "text": "Whom does Bukhari 5351 mention spending on?"
+  },
+  {
+    "kind": "question",
+    "text": "When a Muslim spends something on his family."
+  },
+  {
+    "kind": "question",
+    "text": "Buying food for your family can earn reward."
+  },
+  {
+    "kind": "question",
+    "text": "It is regarded as sadaqa for him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Do not hoard your money, or Allah will hold back blessings."
+  },
+  {
+    "kind": "lesson",
+    "text": "Said to Asma bint Abi Bakr"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1433"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ tell Asma not to do?"
+  },
+  {
+    "kind": "question",
+    "text": "Withhold her money"
+  },
+  {
+    "kind": "question",
+    "text": "Smile"
+  },
+  {
+    "kind": "question",
+    "text": "Help others"
+  },
+  {
+    "kind": "question",
+    "text": "Do not withhold your money."
+  },
+  {
+    "kind": "question",
+    "text": "What happens if we hoard what we have?"
+  },
+  {
+    "kind": "question",
+    "text": "We get richer forever"
+  },
+  {
+    "kind": "question",
+    "text": "Angels praise us"
+  },
+  {
+    "kind": "question",
+    "text": "Allah holds back blessings"
+  },
+  {
+    "kind": "question",
+    "text": "Allah would withhold His blessings from you."
+  },
+  {
+    "kind": "question",
+    "text": "Giving opens the door to more blessings."
+  },
+  {
+    "kind": "question",
+    "text": "Holding back closes it, giving opens it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Three deeds go on after death: lasting charity is one."
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 1376"
+  },
+  {
+    "kind": "lesson",
+    "text": "Also useful knowledge, a righteous child"
+  },
+  {
+    "kind": "question",
+    "text": "How many deeds keep going after death?"
+  },
+  {
+    "kind": "question",
+    "text": "His deeds are cut off except for three."
+  },
+  {
+    "kind": "question",
+    "text": "Which of these is one of the three?"
+  },
+  {
+    "kind": "question",
+    "text": "Fine clothes"
+  },
+  {
+    "kind": "question",
+    "text": "An ongoing charity"
+  },
+  {
+    "kind": "question",
+    "text": "A fast car"
+  },
+  {
+    "kind": "question",
+    "text": "Continuing charity."
+  },
+  {
+    "kind": "question",
+    "text": "A child's du'a for a parent keeps helping them."
+  },
+  {
+    "kind": "question",
+    "text": "A righteous son who supplicates for him."
+  },
+  {
+    "kind": "question",
+    "text": "What else lasts besides charity and a good child?"
+  },
+  {
+    "kind": "question",
+    "text": "Money in the bank"
+  },
+  {
+    "kind": "question",
+    "text": "Famous photos"
+  },
+  {
+    "kind": "question",
+    "text": "Nice furniture"
+  },
+  {
+    "kind": "question",
+    "text": "Knowledge that benefits others"
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about charity anyone can give!"
+  },
+  {
+    "kind": "lesson",
     "text": "Hajj is due once in a life, for those able."
   },
   {
@@ -80430,10 +80814,6 @@
   {
     "kind": "question",
     "text": "When done for Allah"
-  },
-  {
-    "kind": "question",
-    "text": "Only if others see"
   },
   {
     "kind": "question",
@@ -93449,10 +93829,6 @@
   },
   {
     "kind": "question",
-    "text": "A bag of gold"
-  },
-  {
-    "kind": "question",
     "text": "A loaf of bread"
   },
   {
@@ -105218,10 +105594,6 @@
   {
     "kind": "question",
     "text": "To whom did Jarir pledge sincerity?"
-  },
-  {
-    "kind": "question",
-    "text": "Every Muslim"
   },
   {
     "kind": "question",
@@ -128836,10 +129208,6 @@
     "text": "Sharing a snack with a friend can be your half date."
   },
   {
-    "kind": "source",
-    "text": "Sahih al-Bukhari 1417"
-  },
-  {
     "kind": "question",
     "text": "How small can a charity be?"
   },
@@ -128850,10 +129218,6 @@
   {
     "kind": "question",
     "text": "A whole sheep"
-  },
-  {
-    "kind": "question",
-    "text": "Even by giving half a date-fruit in charity."
   },
   {
     "kind": "question",
@@ -144345,10 +144709,6 @@
   },
   {
     "kind": "question",
-    "text": "Fine clothes"
-  },
-  {
-    "kind": "question",
     "text": "Only they come with you."
   },
   {
@@ -144722,10 +145082,6 @@
   {
     "kind": "lesson",
     "text": "A good child who prays for them"
-  },
-  {
-    "kind": "question",
-    "text": "How many deeds keep going after death?"
   },
   {
     "kind": "question",
@@ -145338,10 +145694,6 @@
   {
     "kind": "question",
     "text": "Further away"
-  },
-  {
-    "kind": "question",
-    "text": "It disappears"
   },
   {
     "kind": "question",
@@ -150110,10 +150462,6 @@
   {
     "kind": "lesson",
     "text": "Help the one in need"
-  },
-  {
-    "kind": "source",
-    "text": "Sahih al-Bukhari 6022"
   },
   {
     "kind": "question",
@@ -213945,10 +214293,6 @@
   },
   {
     "kind": "question",
-    "text": "Smile"
-  },
-  {
-    "kind": "question",
     "text": "Grieve"
   },
   {
@@ -258696,16 +259040,8 @@
     "text": "Quran 9:104"
   },
   {
-    "kind": "source",
-    "text": "Sahih al-Bukhari 1410"
-  },
-  {
     "kind": "question",
     "text": "How big can one date of charity grow, per the hadith?"
-  },
-  {
-    "kind": "question",
-    "text": "As big as a mountain"
   },
   {
     "kind": "question",
@@ -258730,10 +259066,6 @@
   {
     "kind": "question",
     "text": "From honest earnings"
-  },
-  {
-    "kind": "question",
-    "text": "Any money at all"
   },
   {
     "kind": "question",
@@ -341801,19 +342133,11 @@
   },
   {
     "kind": "question",
-    "text": "Honestly earned money"
-  },
-  {
-    "kind": "question",
     "text": "How big does it grow, in the hadith?"
   },
   {
     "kind": "question",
     "text": "Like a seed"
-  },
-  {
-    "kind": "question",
-    "text": "So much so that it becomes as big as a mountain."
   },
   {
     "kind": "lesson",
@@ -459445,10 +459769,6 @@
   },
   {
     "kind": "question",
-    "text": "Half a date"
-  },
-  {
-    "kind": "question",
     "text": "A whole camel"
   },
   {
@@ -472398,10 +472718,6 @@
   {
     "kind": "question",
     "text": "Whatever we spend, Allah replaces it."
-  },
-  {
-    "kind": "lesson",
-    "text": "Allah grows one honest date of charity as big as a mountain."
   },
   {
     "kind": "lesson",
@@ -486300,10 +486616,6 @@
     "text": "Do not hoard"
   },
   {
-    "kind": "source",
-    "text": "Sahih al-Bukhari 1433"
-  },
-  {
     "kind": "question",
     "text": "Spend on yourself only"
   },
@@ -494126,10 +494438,6 @@
   {
     "kind": "question",
     "text": "It drops"
-  },
-  {
-    "kind": "question",
-    "text": "It stays the same"
   },
   {
     "kind": "question",
@@ -528034,10 +528342,6 @@
   {
     "kind": "question",
     "text": "Out of his wealth three things are only his."
-  },
-  {
-    "kind": "question",
-    "text": "Which of these is one of the three?"
   },
   {
     "kind": "question",
