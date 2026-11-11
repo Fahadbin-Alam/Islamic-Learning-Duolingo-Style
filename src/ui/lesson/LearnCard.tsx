@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Animated, ScrollView, StyleSheet, Text, useWindowDimensions, View, type LayoutChangeEvent } from "react-native";
 import type { ArabicTerm } from "../../data/arabicTerms";
 import { ArabicText, isArabicOnly, isQuranText, withHonorifics } from "../ArabicText";
@@ -8,6 +8,7 @@ import { PopIn } from "../PopIn";
 import { SpeechBubble } from "../SpeechBubble";
 import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lip, radii, space, text, topicPalette } from "../theme";
+import { useReduceMotion } from "../motion";
 import { LessonBottomBar } from "./LessonHeader";
 import { looksSame, noBreakHyphens, normalizeText } from "./lessonText";
 import { useScrollMore } from "./ScrollHint";
@@ -112,6 +113,59 @@ const GOLD_INK = darken(colors.goldLip, 0.45);
  * nothing that keeps the learner waiting for the words (the old half-second wait read as lag).
  */
 const soon = (ms: number) => Math.round(ms * 0.35);
+
+/** How long the new Arabic word takes to write itself in. */
+const WRITE_MS = 950;
+
+/**
+ * The new word writes itself in, right to left as Arabic is written: a card-coloured cover slides off the word from
+ * its right edge, a little pen riding the edge of the ink. Shown at once when the phone asks for less motion.
+ */
+function WriteIn({ cover, ink, delay, children }: { cover: string; ink: string; delay: number; children: React.ReactNode }) {
+  const reduceMotion = useReduceMotion();
+  const [width, setWidth] = useState(0);
+  const [done, setDone] = useState(false);
+  const t = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    if (reduceMotion || !width) return undefined;
+    const run = Animated.timing(t, { toValue: 1, duration: WRITE_MS, delay, useNativeDriver: true });
+    run.start(({ finished }) => finished && setDone(true));
+    return () => run.stop();
+  }, [reduceMotion, width, delay, t]);
+  const writing = !reduceMotion && !done;
+  return (
+    <View style={styles.writeWrap} onLayout={(event) => setWidth(Math.round(event.nativeEvent.layout.width))}>
+      {children}
+      {writing ? (
+        <>
+          {/* Hidden until the width is known, so the word never shows unwritten-then-written. */}
+          <Animated.View
+            pointerEvents="none"
+            style={[StyleSheet.absoluteFill, { backgroundColor: cover, transform: [{ translateX: t.interpolate({ inputRange: [0, 1], outputRange: [0, -(width || 400) - 4] }) }] }]}
+            testID="learn-arabic-writing"
+          />
+          {width ? (
+            <Animated.View
+              pointerEvents="none"
+              style={[
+                styles.writePen,
+                {
+                  opacity: t.interpolate({ inputRange: [0, 0.05, 0.9, 1], outputRange: [0, 1, 1, 0] }),
+                  transform: [
+                    { translateX: t.interpolate({ inputRange: [0, 1], outputRange: [width - 10, -10] }) },
+                    { translateY: t.interpolate({ inputRange: [0, 0.2, 0.4, 0.6, 0.8, 1], outputRange: [0, -6, 2, -5, 1, -3] }) }
+                  ]
+                }
+              ]}
+            >
+              <Icon name="quill" size={26} color={ink} />
+            </Animated.View>
+          ) : null}
+        </>
+      ) : null}
+    </View>
+  );
+}
 
 /** A tafsir page on Quran.com that is only in Arabic (as-Sa'di, at-Tanweer). */
 const ARABIC_ONLY_TAFSIR = /\/tafsirs\/(?:ar-|arabic-)/;
@@ -309,14 +363,18 @@ export function LearnCard({
                     style={styles.arabicTap}
                     testID="learn-arabic-play"
                   >
+                    <WriteIn cover={palette.light} ink={palette.ink} delay={soon(300)}>
+                      <ArabicText size={arabicSize} weight="bold" quran={quranWord} color={palette.ink} style={styles.arabic} testID="learn-arabic">
+                        {arabic.ar}
+                      </ArabicText>
+                    </WriteIn>
+                  </Tappable>
+                ) : (
+                  <WriteIn cover={palette.light} ink={palette.ink} delay={soon(300)}>
                     <ArabicText size={arabicSize} weight="bold" quran={quranWord} color={palette.ink} style={styles.arabic} testID="learn-arabic">
                       {arabic.ar}
                     </ArabicText>
-                  </Tappable>
-                ) : (
-                  <ArabicText size={arabicSize} weight="bold" quran={quranWord} color={palette.ink} style={styles.arabic} testID="learn-arabic">
-                    {arabic.ar}
-                  </ArabicText>
+                  </WriteIn>
                 )}
                 {/* The speaker sits next to the transliteration, so the Arabic line keeps the full width. */}
                 <View style={styles.translitRow}>
@@ -779,6 +837,15 @@ const SPEAKER = 44;
 const SPEAKER_SMALL = 38;
 
 const styles = StyleSheet.create({
+  writeWrap: {
+    alignSelf: "stretch",
+    overflow: "hidden"
+  },
+  writePen: {
+    position: "absolute",
+    top: 0,
+    left: 0
+  },
   root: {
     flex: 1,
     backgroundColor: colors.snow
