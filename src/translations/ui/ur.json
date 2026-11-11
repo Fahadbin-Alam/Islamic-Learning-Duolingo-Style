@@ -563,7 +563,7 @@
   "Wearing": "لگا ہوا ہے",
   "Where to find a secret lesson": "خفیہ سبق کہاں ملے گا",
   "You reached the top arena!": "تم سب سے اونچے میدان تک پہنچ گئے!",
-  "{count} of {total} found": "{total} میں سے {count} ملے",
+  "{count} of {total} found": "{total} میں سے {count} مل گئیں",
   "{count} of {total} right": "{total} میں سے {count} درست",
   "{count} right": "{count} درست",
   "{count} trophies": "{count} ٹرافیاں",
@@ -885,5 +885,10 @@
   "You opened today's chest. New quests tomorrow!": "آپ نے آج کا صندوق کھول لیا۔ کل نئے کام!",
   "peace be upon him": "صلی اللہ علیہ وسلم",
   "{done} of {total} done": "{total} میں سے {done} مکمل",
-  "Remember": "یاد رکھیں"
+  "Remember": "یاد رکھیں",
+  "Finish lessons to collect the pictures of the places and things they teach.": "سبق مکمل کریں اور ان میں سکھائی گئی جگہوں اور چیزوں کی تصویریں جمع کریں۔",
+  "New picture for your album!": "آپ کے البم کے لیے نئی تصویر!",
+  "Not found yet": "ابھی نہیں ملی",
+  "Picture album": "تصویروں کا البم",
+  "{count} new pictures for your album!": "آپ کے البم کے لیے {count} نئی تصویریں!"
 }

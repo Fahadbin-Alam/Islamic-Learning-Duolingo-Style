@@ -158,6 +158,15 @@ export function QuestionBanner({ picture, cheer }: { picture: LessonPicture; che
   );
 }
 
+/** A small living picture for the album and the "new in your album" card: square, rounded, moving. */
+export function AlbumThumb({ picture, size, testID }: { picture: LessonPicture; size: number; testID?: string }) {
+  return (
+    <View style={[styles.thumb, { width: size, height: size }]} testID={testID} accessible accessibilityRole="image" accessibilityLabel={t(picture.caption)}>
+      <LiveImage picture={picture} />
+    </View>
+  );
+}
+
 /** A square photo the size of the mascot, next to a question that names the place. Tapping it shows it large. */
 export function QuestionPhoto({ picture, size }: { picture: LessonPicture; size: number }) {
   const [open, setOpen] = useState(false);

@@ -6,6 +6,8 @@ import { COURSE, LESSONS_BY_ID } from "../../data/course";
 import { choicePictures, getLessonPicture, LESSON_PICTURE_IDS, pictureForLesson, pictureForPage, pictureForQuestion } from "../../data/lessonPictures";
 import { LessonPhoto } from "../lesson/LessonPhoto";
 import { SurahCover } from "../lesson/SurahCover";
+import { addToAlbum } from "../../services/pictureAlbum";
+import { PictureAlbumSheet } from "../screens/PictureAlbum";
 import { surahNumberForTitle, surahParts } from "../../data/surahPictures";
 import { localizeLessonContent } from "../../services/contentLocalization";
 import { setActiveLanguage } from "../../i18n";
@@ -311,6 +313,12 @@ function QuitDemo() {
 
 type State = { id: string; render: () => React.ReactElement };
 
+/** The picture album with a few found: #gallery-lesson-album. */
+function AlbumDemo() {
+  addToAlbum(["kaaba", "ark", "arafah", "mina", "muzdalifah", "ants", "big-fish", "nile"]);
+  return <PictureAlbumSheet visible onClose={noop} />;
+}
+
 /** Every lesson picture, living (birds, clouds, rain, ants...), and a few surah covers: #gallery-lesson-pictures. */
 function PictureWall() {
   const pictures = LESSON_PICTURE_IDS.map((id) => getLessonPicture(id)).filter((picture) => picture !== undefined);
@@ -533,6 +541,25 @@ const STATES: State[] = [
       />
     )
   },
+  {
+    id: "complete-album",
+    render: () => (
+      <LessonComplete
+        title={salam.title}
+        xp={salam.xpReward + 10}
+        stars={3}
+        streakDays={12}
+        newPictures={["arafah", "mina", "muzdalifah"].map((id) => getLessonPicture(id)).filter((picture) => picture !== undefined)}
+        nextTitle="Next"
+        mascotVariant="girl"
+        accent={FOUNDATION_ACCENT}
+        playSounds={false}
+        onContinue={noop}
+        onBackToPath={noop}
+      />
+    )
+  },
+  { id: "album", render: () => <AlbumDemo /> },
   {
     id: "complete-goal",
     render: () => (

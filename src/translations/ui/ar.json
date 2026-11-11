@@ -563,7 +563,7 @@
   "Wearing": "مستخدَمة",
   "Where to find a secret lesson": "أين تجد درسًا سريًّا",
   "You reached the top arena!": "وصلت إلى أعلى ساحة!",
-  "{count} of {total} found": "وُجد {count} من {total}",
+  "{count} of {total} found": "وجدت {count} من {total}",
   "{count} of {total} right": "{count} من {total} صحيحة",
   "{count} right": "{count} صحيحة",
   "{count} trophies": "{count} كأس",
@@ -885,5 +885,10 @@
   "You opened today's chest. New quests tomorrow!": "فتحت صندوق اليوم. مهام جديدة غدًا!",
   "peace be upon him": "صلى الله عليه وسلم",
   "{done} of {total} done": "أُنجز {done} من {total}",
-  "Remember": "تذكّر"
+  "Remember": "تذكّر",
+  "Finish lessons to collect the pictures of the places and things they teach.": "أكمل الدروس لتجمع صور الأماكن والأشياء التي تعلّمها.",
+  "New picture for your album!": "صورة جديدة لألبومك!",
+  "Not found yet": "لم تُكتشف بعد",
+  "Picture album": "ألبوم الصور",
+  "{count} new pictures for your album!": "{count} صور جديدة لألبومك!"
 }

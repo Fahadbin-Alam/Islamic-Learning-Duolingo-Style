@@ -885,5 +885,10 @@
   "You opened today's chest. New quests tomorrow!": "আজকের সিন্দুক খুলেছ। কাল নতুন কাজ!",
   "peace be upon him": "সাল্লাল্লাহু আলাইহি ওয়া সাল্লাম",
   "{done} of {total} done": "{total}টির মধ্যে {done}টি শেষ",
-  "Remember": "মনে রাখো"
+  "Remember": "মনে রাখো",
+  "Finish lessons to collect the pictures of the places and things they teach.": "পাঠ শেষ করো, আর পাঠে শেখানো জায়গা ও জিনিসের ছবি জমাও।",
+  "New picture for your album!": "তোমার অ্যালবামে নতুন ছবি!",
+  "Not found yet": "এখনো পাওয়া যায়নি",
+  "Picture album": "ছবির অ্যালবাম",
+  "{count} new pictures for your album!": "তোমার অ্যালবামে {count}টি নতুন ছবি!"
 }
