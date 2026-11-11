@@ -18,6 +18,7 @@ import { Sheet } from "../Sheet";
 import { SpeechBubble } from "../SpeechBubble";
 import { StatChip } from "../StatChip";
 import { colors, fonts, text, topicPalette } from "../theme";
+import JourneyGallery from "./JourneyGallery";
 import LearnGallery from "./LearnGallery";
 import LessonGallery from "./LessonGallery";
 import MoreGallery from "./MoreGallery";
@@ -335,6 +336,9 @@ export default function Gallery() {
   }
   if (hash.startsWith("#gallery-more")) {
     return <MoreGallery />;
+  }
+  if (hash.startsWith("#gallery-journey")) {
+    return <JourneyGallery hash={hash} />;
   }
   return <KitGallery />;
 }

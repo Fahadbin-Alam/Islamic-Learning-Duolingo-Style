@@ -282,6 +282,8 @@ import { didRamadanToday, ramadanDoneDayNumbers, ramadanSeason, ramadanStreak } 
 import { RAMADAN_TOPIC } from "./data/ramadanDays";
 import { teacherFor } from "./ui/lesson/Teacher";
 import { flowPictures, getLessonPicture, pictureForLesson, choicePictures, pictureForQuestion, pictureForText, type LessonPicture } from "./data/lessonPictures";
+import { journeyForLesson } from "./data/seerahMap";
+import { LifeMapBanner, LifeMapSheet } from "./ui/journey/LifeMap";
 import { surahNumberForTitle, surahParts } from "./data/surahPictures";
 import { BACKGROUND_KEY, INTRO_TOPIC, introStartFor, isLearnerBackground, type LearnerBackground } from "./data/introToIslam";
 import type {
@@ -837,6 +839,8 @@ export default function TopicApp() {
   const [quizSheetVisible, setQuizSheetVisible] = useState(false);
   // Story mode: the shelf it opens on, while it is open.
   const [storyShelf, setStoryShelf] = useState<StoryGroup | undefined>(undefined);
+  // The map of his life ﷺ (src/ui/journey), opened from the Prophets path.
+  const [lifeMapOpen, setLifeMapOpen] = useState(false);
   // An opened chest: its gems land when the learner taps COLLECT.
   const [rewardCelebration, setRewardCelebration] = useState<{ stop: JourneyRewardStop } | undefined>(undefined);
   // Daily quests: the sheet, the chest's dates waiting in the reward pop, and the quests finished during this lesson.
@@ -3733,6 +3737,8 @@ export default function TopicApp() {
   // A surah's own lesson ("Surah Al-Baqarah") opens on a picture of what its name means, then lists its parts.
   const lessonSurahNumber = pictureLesson ? surahNumberForTitle(pictureLesson.title) : undefined;
   const lessonSurah = lessonSurahNumber ? { number: lessonSurahNumber, parts: surahParts(lessonSurahNumber) } : undefined;
+  // A Seerah lesson opens on its map: where it happened and the road that led there (its photo moves to the next page).
+  const lessonJourney = pictureLesson ? journeyForLesson(pictureLesson) : undefined;
   // Every page shows a big picture: what it teaches (the bridge, the ark, a market...), else the lesson's own, else
   // one that fits the topic, never the same one twice in a row (flowPictures).
   const learnQueue = state.lessonQueue.flatMap((step, index) => (isLearnStep(step) ? [{ step, index }] : []));
@@ -3744,7 +3750,7 @@ export default function TopicApp() {
           page: step.page,
           text: step.page === "teach" && step.index !== undefined && pictureLesson.challenges[step.index] ? teachText(pictureLesson.challenges[step.index]) : undefined
         })),
-        { startPicture: lessonPicture, cover: Boolean(lessonSurah) }
+        { startPicture: lessonPicture, cover: Boolean(lessonSurah) || Boolean(lessonJourney) }
       )
     : [];
   const shownPictureAt = learnQueue.findIndex(({ index }) => index === state.stepIndex);
@@ -3950,6 +3956,7 @@ export default function TopicApp() {
                   {/* Missed questions due again (spaced review): one tap starts a Review of them. */}
                   {pathReviewDue > 0 ? <ReviewBanner count={pathReviewDue} onOpen={startReviewDeck} /> : null}
                   {storyBanner}
+                  {selectedSection.topicId === "prophets" ? <LifeMapBanner accent={selectedSection.accentColor} onOpen={() => setLifeMapOpen(true)} /> : null}
                 </>
               )
             }
@@ -3987,6 +3994,7 @@ export default function TopicApp() {
             arabicRecitation={lessonRecitation ?? undefined}
             picture={lessonSurah ? lessonPicture : stepPicture ?? lessonPicture}
             pagePicture={pagePicture}
+            journey={lessonJourney}
             teacher={lessonTeacher}
             surah={lessonSurah}
             deeper={lesson.learnDeeper}
@@ -4331,6 +4339,7 @@ export default function TopicApp() {
             onFinish={finishStory}
           />
         )}
+        {!inLesson && <LifeMapSheet visible={lifeMapOpen} onClose={() => setLifeMapOpen(false)} accent={selectedSection.accentColor} />}
         {!inLesson && <PictureAlbumSheet visible={albumVisible} onClose={() => setAlbumVisible(false)} />}
         {!inLesson && (
           <CertificatesSheet
