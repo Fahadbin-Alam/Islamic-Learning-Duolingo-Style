@@ -7,6 +7,17 @@ import { PopIn } from "../PopIn";
 import { Sheet } from "../Sheet";
 import { Tappable } from "../Tappable";
 import { colors, fonts, radii, space } from "../theme";
+import { LiveFrame } from "./LivePicture";
+import { PICTURE_LIFE } from "./pictureLife";
+
+/** The picture, moving (see LivePicture): the slow camera drift and its own little life. */
+function LiveImage({ picture, testID, cheer }: { picture: LessonPicture; testID?: string; cheer?: number | string }) {
+  return (
+    <LiveFrame aspect={photoAspect(picture)} life={PICTURE_LIFE[picture.id]} cheer={cheer}>
+      <Image source={picture.image} style={styles.photoImage} resizeMode="cover" testID={testID} />
+    </LiveFrame>
+  );
+}
 
 const openPage = (url: string) => openWebPage(url);
 
@@ -109,7 +120,7 @@ export function LessonPhoto({ picture, short, delay = 200, big }: { picture: Les
         style={[styles.photo, short ? styles.photoShort : null, bigStyle]}
         testID="lesson-photo"
       >
-        <Image source={picture.image} style={styles.photoImage} resizeMode="cover" testID="lesson-photo-image" />
+        <LiveImage picture={picture} testID="lesson-photo-image" />
         <View style={styles.captionChip}>
           <Text style={[styles.captionText, short ? styles.captionTextShort : null, big && !short ? styles.captionTextBig : null]} numberOfLines={2}>
             {t(picture.caption)}
@@ -126,7 +137,7 @@ export function LessonPhoto({ picture, short, delay = 200, big }: { picture: Les
  * A wide picture over a question that names a place: the full width, up to about a quarter of the screen tall, so
  * it is big enough to see while the answers still fit. Tapping it shows it large.
  */
-export function QuestionBanner({ picture }: { picture: LessonPicture }) {
+export function QuestionBanner({ picture, cheer }: { picture: LessonPicture; cheer?: number | string }) {
   const [open, setOpen] = useState(false);
   const { height } = useWindowDimensions();
   const maxHeight = Math.round(Math.min(230, Math.max(110, (height || 800) * (height && height < 700 ? 0.21 : 0.26))));
@@ -140,7 +151,7 @@ export function QuestionBanner({ picture }: { picture: LessonPicture }) {
         style={[styles.banner, { maxHeight }]}
         testID="question-photo"
       >
-        <Image source={picture.image} style={styles.photoImage} resizeMode="cover" />
+        <LiveImage picture={picture} cheer={cheer} />
       </Tappable>
       <PhotoSheet picture={picture} visible={open} onClose={() => setOpen(false)} />
     </>
@@ -160,7 +171,7 @@ export function QuestionPhoto({ picture, size }: { picture: LessonPicture; size:
         style={[styles.thumb, { width: size, height: size }]}
         testID="question-photo"
       >
-        <Image source={picture.image} style={styles.photoImage} resizeMode="cover" />
+        <LiveImage picture={picture} />
       </Tappable>
       <PhotoSheet picture={picture} visible={open} onClose={() => setOpen(false)} />
     </>
