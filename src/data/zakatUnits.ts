@@ -35,7 +35,7 @@ const PILLAR: DeepUnit = {
       source: quran(2, 43, "And establish prayer and give zakat and bow with those who bow."),
       difficulty: 1,
       questions: [
-        { q: "In Quran 2:43, zakat is named right after what?", a: "Prayer", wrong: ["Hajj", "Trade", "Sleep"], why: "Establish prayer and give zakat." },
+        { q: "In Quran 2:43, zakat is named right after what?", a: "Prayer", wrong: ["Hajj", "Fasting", "Charity"], why: "Establish prayer and give zakat." },
         { q: "What else does the ayah tell us to do?", a: "Bow with those who bow", wrong: ["Travel far", "Stay alone", "Build a tower"], why: "Pray together with the believers." },
         { q: "The Quran often names prayer and zakat together.", tf: true, why: "Like in Quran 2:43." }
       ]
@@ -89,7 +89,7 @@ const PILLAR: DeepUnit = {
       difficulty: 2,
       questions: [
         { q: "What does charity do to sins?", a: "Puts them out like water on fire", wrong: ["Makes them bigger", "Hides them forever", "Nothing"], why: "Jami at-Tirmidhi 2616." },
-        { q: "What did he ﷺ call fasting in the same hadith?", a: "A shield", wrong: ["A burden", "A game", "A trade"], why: "Fasting is a shield." },
+        { q: "What did he ﷺ call fasting in the same hadith?", a: "A shield", wrong: ["A burden", "A trade", "A punishment"], why: "Fasting is a shield." },
         { q: "Night prayer is also among the doors of good.", tf: true, why: "A man's prayer in the depth of the night." }
       ]
     }
@@ -309,7 +309,7 @@ const SPEND: DeepUnit = {
       difficulty: 1,
       questions: [
         { q: "What spoils a charity, says 2:262?", a: "Reminders or hurt after it", wrong: ["Giving in secret", "Giving early", "Giving dates"], why: "Do not follow it with reminders or hurt." },
-        { q: "What do kind givers get?", a: "Reward, with no fear or grief", wrong: ["A medal", "Nothing", "Fame"], why: "Their reward is with their Lord." },
+        { q: "What do kind givers get?", a: "Reward, with no fear or grief", wrong: ["A medal", "Wealth", "Honor"], why: "Their reward is with their Lord." },
         { q: "Saying 'remember what I gave you' is good manners.", tf: false, why: "Reminders spoil charity." }
       ]
     },

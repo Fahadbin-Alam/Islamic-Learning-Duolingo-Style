@@ -443,7 +443,7 @@ describe("a lesson question taller than its room draws its tiles tight, so every
     }
   });
 
-  it("glides back up on CHECK after the learner scrolled past the prompt to reach the last tile", async () => {
+  it("glides back on CHECK only as far as shows the prompt whole, after the learner scrolled past its top to reach the last tile", async () => {
     const scrollTo$ = scrollSpy();
     const TILE = 70;
     try {
@@ -462,8 +462,11 @@ describe("a lesson question taller than its room draws its tiles tight, so every
       await rerender(<ExerciseView {...long} selectedChoiceId="d" correctChoiceId="b" result={checkedResult} />);
       scrollTo$.mockClear();
       await sheetHeight(150);
-      // Back to the top in a glide, as any scroll the question makes on CHECK, never a jump.
-      expect(scrollTo$).toHaveBeenCalledWith({ y: 0, animated: true });
+      // Left at 52 the room's top edge would cross the prompt's text: back to 38 (8 px of air above the prompt) in a
+      // glide, as any scroll the question makes on CHECK, never a jump; not on to the top, so the green tile moves
+      // down by no more than that.
+      expect(scrollTo$).toHaveBeenCalledWith({ y: 38, animated: true });
+      expect(scrollTo$).not.toHaveBeenCalledWith(expect.objectContaining({ y: 0 }));
       expect(scrollTo$).not.toHaveBeenCalledWith(expect.objectContaining({ animated: false }));
     } finally {
       scrollTo$.mockRestore();

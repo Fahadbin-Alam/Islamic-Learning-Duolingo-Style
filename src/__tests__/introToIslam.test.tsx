@@ -46,8 +46,8 @@ async function press(testID: string) {
 describe("New to Islam path", () => {
   const section = COURSE.sections.find((item) => item.topicId === "intro")!;
 
-  it("is a topic of four units, each opening on its own first lesson", () => {
-    expect(section.branches.map((branch) => branch.id)).toEqual(["intro-basics", "intro-prophets", "intro-together", "intro-first-steps"]);
+  it("is a topic of eight units (four short, four deep), each opening on its own first lesson", () => {
+    expect(section.branches.map((branch) => branch.id)).toEqual(["intro-basics", "intro-prophets", "intro-together", "intro-first-steps", "intro-fresh-start", "intro-quran-prophet", "intro-first-prayers", "intro-daily-life"]);
     const statuses = learningApi.getPathNodes(makeUser()).filter((node) => node.topicId === "intro");
     for (const branch of section.branches) {
       const unit = statuses.filter((node) => node.branchId === branch.id);
@@ -57,7 +57,8 @@ describe("New to Islam path", () => {
   });
 
   it("cites only the Quran and checked hadith, and gives every lesson its own Arabic", () => {
-    for (const node of section.nodes) {
+    // The four short units; the deep units (introUnits.ts) are checked with every other deep unit.
+    for (const node of INTRO.section.nodes) {
       const lesson = LESSONS_BY_ID[node.lessonIds[0]];
       expect(lesson.learnSource?.url).toMatch(/^https:\/\/(quran\.com\/\d+\/\d+(-\d+)?|sunnah\.com\/bukhari:\d+)$/);
       expect(lesson.challenges.length).toBe(2);
@@ -67,7 +68,7 @@ describe("New to Islam path", () => {
         expect(lesson.quote.text).toBe(quranAyahArabic(lesson.learnSource.reference ?? ""));
       }
     }
-    for (const branch of section.branches) expect(getBranchArabic(branch.id)).toBe(INTRO.branchArabic[branch.id]);
+    for (const branch of INTRO.section.branches) expect(getBranchArabic(branch.id)).toBe(INTRO.branchArabic[branch.id]);
   });
 
   it("starts each kind of learner in the unit that fits them", () => {

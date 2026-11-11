@@ -159,6 +159,28 @@ path nodes are 72 px circles with a 7 px lip; sheets radius 24 on top.
   and the sheet's "Correct answer" line names it. When the learner opens the Why line and the sheet grows,
   the question moves in that same frame, not after it; it glides as the sheet comes up or shrinks. The sheet's
   height is read before its first frame is drawn, so the question starts to move in the frame the sheet opens.
+  As the sheet opens its parts are read too, and the question hears its full and least heights from them
+  in the same pass: CHECK draws the question twice before the sheet's first frame, as it did before these
+  fit rules (three times where a hiding mascot lets the prompt wrap anew), so the sheet comes up about as
+  soon. Nothing is set again that has not changed, and a tile or the prompt is drawn again only when what
+  it shows changes. That holds in practice too (Level check, Daily, Review, My lessons, every game). There
+  a question answered with tiles, a matching game and a sorting game with every step placed keep their
+  parts as they are at CHECK, so the render CHECK draws already lays them out from what was read before it,
+  and the sheet's heights told before that frame place them in the next one: CHECK draws them twice, as
+  before these fit rules. The sheet gets its room only once it has told those heights: held in that first
+  render to the room the question has before it gives any, it would go slim for it, and the question, placed
+  for that slimmer sheet (a scroll the learner left taking up all the room folds leave), would step back the
+  other way once the sheet was full size again in the room the folds make. Practice opens a fresh sheet
+  for each CHECK, as lessons do (one kept from question to question opened with the last one's start, list
+  scroll and sizes: it showed for a frame and dropped away,
+  or kept a "more" arrow with nothing to scroll), and the heights told for the question before never place
+  this one (a taller one would hide the topic label for a render, which then fades back in). Only a typed answer turning into tiles, or the steps left to place going away, waits for
+  the read too. The later draws change only where the
+  question sits, which parts fade under the sheet's edge and the sheet's room. Each answer tile, sorting
+  slot and matching row, the prompt, the topic label, the bar with CHECK and the sheet's title, answer,
+  list of steps and button keep the same taps and layout reports from render to render (a tap does what
+  the latest render says), so none of them is drawn again for it; a tile that fades under the sheet's edge
+  draws only its fade.
   Where the picked tile may still fold, it waits for the sheet's least height too (also read before that frame),
   so it never starts towards a place it then leaves, nor hides the chips for a scroll it never makes.
   It springs up but never past its place, so on its way up its edge never crosses what it keeps clear.
@@ -168,9 +190,15 @@ path nodes are 72 px circles with a 7 px lip; sheets radius 24 on top.
   frame the sheet reaches its place): the green tile never moves in one frame, it glides up as the sheet
   rises, never behind its edge, and the prompt above it stays put. A question the learner left scrolled
   down (by hand or with the arrow) scrolls up with what folds above the green tile instead, in that
-  frame and as far as its scroll goes back towards where the question then sits (never past it, so it never
-  turns round on its way), so the green tile stays where it showed; only the rest of that room is left to
-  close. A tile whose text did not show whole in the room as CHECK was tapped (the green tile of a question
+  frame, so the green tile stays where it showed, and it goes no further back: it does not slide the green tile
+  down to show the prompt the learner scrolled away. It moves on only where the sheet needs it to (the
+  green tile then goes up, as far as that needs), or where the room's top edge would then cross a line
+  of the prompt or of a tile above the green one: to the nearer place either way where that edge falls
+  between two parts (`keptScrollY` in `sheetFit.ts`). Practice keeps its right answer the same way.
+  The tiles the sheet's edge would cut are found where the question sits (kept, and once the Why line is open
+  no less far than it was sent), not where the sheet alone would put it: the picked tile, a grey one under
+  the green tile or a right answer the learner missed stays whenever it sits wholly above the sheet there.
+  A tile whose text did not show whole in the room as CHECK was tapped (the green tile of a question
   too tall for its room, resting out of sight under the room's edge or over its top) is gone while it
   glides into sight with the question and fades in once it shows whole (or, where the question comes to rest
   with it still cut, once it has), so the room's edge never cuts its lines on the way; the sheet's "Correct

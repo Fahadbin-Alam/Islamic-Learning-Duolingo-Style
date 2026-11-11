@@ -83,16 +83,20 @@ describe("lesson photos", () => {
     if (has("kaaba")) expect(pictureForText("The Ka'bah in Makkah is the House of Allah.")?.id).toBe("kaaba");
     // Ka'b ibn Malik and Ubayy ibn Ka'b are Companions, not the Kaaba.
     expect(pictureForText("Ka'b ibn Malik told the truth.")).toBeUndefined();
-    expect(pictureForText("Ubayy ibn Ka'b recited well.")).toBeUndefined();
-    expect(pictureForText("Aminah was his mother.")).toBeUndefined();
-    expect(pictureForText("Be kind to your parents.")).toBeUndefined();
+    expect(pictureForText("Ubayy ibn Ka'b recited well.")?.id).not.toBe("kaaba");
+    // A question only shows a place it names: no picture for an everyday word.
+    expect(pictureForQuestion("Ubayy ibn Ka'b recited well.")).toBeUndefined();
+    expect(pictureForQuestion("Aminah was his mother.")).toBeUndefined();
+    expect(pictureForQuestion("Be kind to your parents.")).toBeUndefined();
+    // A lesson page may show an everyday thing it names: a home for parents, the Quran for reciting.
+    if (has("home")) expect(pictureForText("Be kind to your parents.")?.id).toBe("home");
   });
 
   test("a photo shows what the lesson is about, never just where a surah came down", () => {
     const lessons = Object.values(LESSONS_BY_ID);
     const baqarah = lessons.find((lesson) => lesson.title === "Surah Al-Baqarah")!;
     expect(baqarah.learnFacts).toContain("Revealed in Madinah");
-    expect(pictureForLesson(baqarah)).toBeUndefined();
+    expect(pictureForLesson(baqarah)?.id).not.toBe("madinah");
     expect(pictureForLesson({ title: "Help and victory", learnLine: "Allah's help came.", learnFacts: ["The victory: Makkah opened"] } as Parameters<typeof pictureForLesson>[0])).toBeUndefined();
     if (LESSON_PICTURE_IDS.includes("kaaba")) {
       expect(pictureForLesson(lessons.find((lesson) => lesson.title === "The new qiblah")!)?.id).toBe("kaaba");
@@ -103,6 +107,17 @@ describe("lesson photos", () => {
   test("a question shows a photo only for a place its own prompt names, never one from its answers", () => {
     expect(pictureForQuestion("Where did the first revelation come?")).toBeUndefined();
     if (LESSON_PICTURE_IDS.includes("uhud")) expect(pictureForQuestion("Which mountain is Uhud?")?.id).toBe("uhud");
+  });
+
+  test("a place always gives the same picture, so a question drawn again keeps its photo as it is", () => {
+    if (LESSON_PICTURE_IDS.includes("uhud")) {
+      const first = pictureForQuestion("Which mountain is Uhud?");
+      expect(pictureForQuestion("Which mountain is Uhud?")).toBe(first);
+      expect(getLessonPicture("uhud")).toBe(first);
+    }
+    for (const id of LESSON_PICTURE_IDS) {
+      expect(getLessonPicture(id)).toBe(getLessonPicture(id));
+    }
   });
 
   test("hundreds of lessons and questions get a photo", () => {
@@ -151,10 +166,13 @@ describe("photo on the learn card", () => {
     expect(pictureForText("As well as this, be kind.")).toBeUndefined();
   });
 
-  test("tapping the photo shows it big, and Close hides it", async () => {
+  test("tapping the photo plays with it (sparkles, its sound); the magnifier shows it big, and Close hides it", async () => {
     await render(<LearnCard {...base} picture={picture} />);
     expect(screen.queryByTestId("photo-sheet-image")).toBeNull();
-    await fireEvent.press(screen.getByTestId("lesson-photo"));
+    await fireEvent.press(screen.getByTestId("lesson-photo"), { nativeEvent: { locationX: 40, locationY: 30 } });
+    expect(screen.getByTestId("picture-poke")).toBeTruthy();
+    expect(screen.queryByTestId("photo-sheet-image")).toBeNull();
+    await fireEvent.press(screen.getByTestId("lesson-photo-open"));
     expect(screen.getByTestId("photo-sheet-image")).toBeTruthy();
     expect(screen.getByTestId("photo-sheet-credit")).toBeTruthy();
     await fireEvent.press(screen.getByTestId("photo-sheet-close"));
@@ -167,10 +185,11 @@ describe("photo on the learn card", () => {
     expect(photoSheetSize(4 / 3, 1280, 600).height).toBeLessThanOrEqual(372);
     expect(photoSheetSize(4 / 3, 1280, 900).width).toBe(600);
     await render(<LearnCard {...base} picture={picture} />);
-    await fireEvent.press(screen.getByTestId("lesson-photo"));
+    await fireEvent.press(screen.getByTestId("lesson-photo-open"));
     const image = screen.getByTestId("photo-sheet-image");
     expect(image.props.resizeMode).toBe("contain");
-    const style = Object.assign({}, ...[image.props.style].flat(5).filter(Boolean));
+    // Its frame (where the picture's life moves too) has the picture's own shape.
+    const style = Object.assign({}, ...[screen.getByTestId("photo-sheet-frame").props.style].flat(5).filter(Boolean));
     expect(style.width / style.height).toBeCloseTo(photoAspect(picture), 1);
   });
 
@@ -206,24 +225,50 @@ describe("photo next to a question", () => {
     onContinue: jest.fn()
   };
 
-  test("the photo takes the mascot's place, the same size", async () => {
+  test("the photo shows big over the question, the full width, and the mascot still asks it", async () => {
     await render(<ExerciseView {...question} picture={picture} />);
-    const thumb = screen.getByTestId("question-photo");
-    const style = Object.assign({}, ...[thumb.props.style].flat(5).filter(Boolean));
-    expect(style.width).toBe(96);
-    expect(style.height).toBe(96);
+    const banner = screen.getByTestId("question-photo");
+    const style = Object.assign({}, ...[banner.props.style].flat(5).filter(Boolean));
+    expect(style.width).toBe("100%");
+    expect(style.maxHeight).toBeGreaterThanOrEqual(110);
   });
 
-  test("on a 320px phone it is the small mascot's size", async () => {
+  test("on a 320px phone it is still the full width, a little shorter", async () => {
     await onSmallPhone(async () => {
       await render(<ExerciseView {...question} picture={picture} />);
       const style = Object.assign({}, ...[screen.getByTestId("question-photo").props.style].flat(5).filter(Boolean));
-      expect(style.width).toBeLessThanOrEqual(72);
+      expect(style.width).toBe("100%");
+      expect(style.maxHeight).toBeLessThanOrEqual(230);
     });
   });
 
   test("without a photo the question has no photo", async () => {
     await render(<ExerciseView {...question} />);
     expect(screen.queryByTestId("question-photo")).toBeNull();
+  });
+});
+
+describe("a picture on every lesson page", () => {
+  const { flowPictures, topicPictures } = require("../data/lessonPictures") as typeof import("../data/lessonPictures");
+  const lesson = { title: "What zakat is", learnLine: "Zakat means giving part of your wealth to people in need.", learnFacts: [] };
+
+  test("every page gets one, never the same one twice in a row, and a quiz page gets none", () => {
+    const pages = flowPictures(lesson, "zakat", [{ page: "start" }, { page: "facts" }, { page: "teach", text: "Zakat is due on savings." }, { page: "teach", text: "Give to the poor." }, { page: "quiz" }]);
+    expect(pages.slice(0, 4).every(Boolean)).toBe(true);
+    expect(pages[0]?.id).toBe("zakat");
+    for (let i = 1; i < 4; i += 1) expect(pages[i]?.id).not.toBe(pages[i - 1]?.id);
+    expect(pages[4]).toBeUndefined();
+  });
+
+  test("a page shows what it names first, and a surah's first page keeps its own cover", () => {
+    const pages = flowPictures({ title: "Noah", learnLine: "Nuh called his people.", learnFacts: [] }, "prophets", [{ page: "start" }, { page: "teach", text: "Nuh built the Ark." }], { cover: true });
+    expect(pages[0]).toBeUndefined();
+    expect(pages[1]?.id).toBe("ark");
+  });
+
+  test("every topic has pictures to fall back on", () => {
+    for (const topic of ["quran_tafseer", "sahabah", "prophets", "women_of_the_book", "manners", "prayer", "akhirah", "hajj", undefined]) {
+      expect(topicPictures(topic).length).toBeGreaterThan(1);
+    }
   });
 });

@@ -13,6 +13,8 @@ import { SpeechBubble } from "../SpeechBubble";
 import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, radii, text } from "../theme";
 import { formatNumber } from "./FormattedCount";
+import { LearningNowCard, LearningNowLine } from "./LearningNow";
+import type { LearningLabel } from "../../services/familyCode";
 import { useGrownUpGate } from "./GrownUpGate";
 import { LeagueBadge, LeagueCard } from "./LeagueView";
 import { TextField } from "./sheetParts";
@@ -73,6 +75,8 @@ export type CrewViewProps = {
   invite?: InviteInfo;
   /** A new learner types a friend's code: both get dates. */
   onRedeemInvite?: (code: string) => void;
+  /** Names what a friend is learning now (their unit and topic) in the app's language. */
+  describeLearning?: (member: CrewMember) => LearningLabel | undefined;
 };
 
 // Friend avatars take a topic world color, picked from their id.
@@ -135,7 +139,17 @@ function Avatar({ member, size = 40 }: { member: CrewMember; size?: number }) {
   );
 }
 
-function RaceRow({ entry, index, onOpen }: { entry: CrewMember; index: number; onOpen: (member: CrewMember) => void }) {
+function RaceRow({
+  entry,
+  index,
+  onOpen,
+  learning
+}: {
+  entry: CrewMember;
+  index: number;
+  onOpen: (member: CrewMember) => void;
+  learning?: LearningLabel;
+}) {
   const me = entry.relation === "you";
   const medal = index < 3 ? medalColor(index) : undefined;
   const content = (
@@ -155,6 +169,7 @@ function RaceRow({ entry, index, onOpen }: { entry: CrewMember; index: number; o
           </Text>
           {entry.league !== undefined ? <LeagueBadge tier={entry.league} size={14} testID={`crew-league-${entry.id}`} /> : null}
         </View>
+        {learning && !me ? <LearningNowLine label={learning} testID={`crew-learning-${entry.id}`} /> : null}
       </View>
       <View style={styles.score}>
         <Icon name="bolt" size={18} />
@@ -407,6 +422,7 @@ export function CrewView({
   onShareApp,
   invite,
   onRedeemInvite,
+  describeLearning,
   mascotVariant = "muslim_man",
   // The brand green like the Mascot's own default; the app passes the topic accent.
   accent = colors.green
@@ -570,7 +586,7 @@ export function CrewView({
 
         <View style={styles.race} testID="crew-race">
           {race.map((entry, index) => (
-            <RaceRow key={`${entry.relation}_${entry.id}`} entry={entry} index={index} onOpen={openFriend} />
+            <RaceRow key={`${entry.relation}_${entry.id}`} entry={entry} index={index} onOpen={openFriend} learning={describeLearning?.(entry)} />
           ))}
         </View>
         {onChallenge ? <Text style={styles.hint}>{t("Tap a friend to battle them.")}</Text> : null}
@@ -721,6 +737,7 @@ export function CrewView({
                 <Text style={styles.friendStatText}>{formatNumber(shownFriend.weeklyXp)}</Text>
               </View>
             </View>
+            <LearningNowCard label={describeLearning?.(shownFriend)} lessonsDone={shownFriend.lessonsDone} accent={avatarColor(shownFriend)} testID="crew-friend-learning" />
             {shownFriend.friendStreak ? (
               <View style={styles.sheetStreak} testID="crew-friend-sheet-streak">
                 <TwinFlame lit={shownFriend.friendStreak.days > 0} size={24} />

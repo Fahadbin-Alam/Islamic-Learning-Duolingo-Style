@@ -22,6 +22,7 @@ import { Sheet } from "../Sheet";
 import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, radii, space, text } from "../theme";
 import { formatNumber } from "./FormattedCount";
+import { LearningNowCard, LearningNowLine } from "./LearningNow";
 import { MascotSays, SegmentButton, SheetTitle, TextField, Toggle, useBackToClose } from "./sheetParts";
 import { t } from "../../i18n";
 
@@ -213,6 +214,7 @@ function KidRow({ kid, index, today, topics, onRemove }: { kid: FamilyKid; index
               {updatedLine(kid.snapshot.date, today)}
             </Text>
           )}
+          {kid.learningNow ? <LearningNowLine label={kid.learningNow} testID={`family-kid-${id}-learning`} /> : null}
         </View>
         <View style={styles.kidScore}>
           <Icon name="flame" size={18} color={streakOnDay(kid.snapshot, today) > 0 ? undefined : colors.lockedLip} />
@@ -224,6 +226,7 @@ function KidRow({ kid, index, today, topics, onRemove }: { kid: FamilyKid; index
       </Tappable>
       {open ? (
         <PopIn from="up" style={styles.kidBody}>
+          {kid.learningNow ? <LearningNowCard label={kid.learningNow} testID={`family-kid-${id}-learning-card`} /> : null}
           <ProgressReport snapshot={kid.snapshot} today={today} topics={topics} testID={`family-kid-${id}-report`} />
           {confirm ? (
             <View style={styles.confirmRow}>
@@ -346,7 +349,7 @@ export function FamilySheet({
       <SheetTitle title={t("Family")} onClose={onClose} closeTestID="family-close" />
       <View style={styles.segments}>
         <SegmentButton label={t("My progress")} icon="profile" active={tab === "report"} onPress={() => setTab("report")} testID="family-tab-report" />
-        <SegmentButton label={t("My kids")} icon="family" active={tab === "kids"} onPress={() => setTab("kids")} testID="family-tab-kids" />
+        <SegmentButton label={t("My learners")} icon="family" active={tab === "kids"} onPress={() => setTab("kids")} testID="family-tab-kids" />
       </View>
       <ScrollView style={styles.scrollArea} contentContainerStyle={styles.stack} keyboardShouldPersistTaps="handled" testID="family-scroll">
         {tab === "report" ? (
@@ -362,17 +365,17 @@ export function FamilySheet({
             <ProgressReport snapshot={report} today={today} topics={topics} testID="family-report" />
             {live ? (
               <View style={styles.card} testID="family-link-parent">
-                <Text style={styles.cardTitle}>{t("Link a parent")}</Text>
+                <Text style={styles.cardTitle}>{t("Link a parent or teacher")}</Text>
                 {live.signedIn ? (
                   <>
-                    <Text style={styles.cardLine}>{t("A parent signed in on their own phone sees your progress live. Get a code and read it to them.")}</Text>
+                    <Text style={styles.cardLine}>{t("A parent or teacher signed in on their own phone sees your progress live. Get a code and read it to them.")}</Text>
                     {linkCode ? (
                       <View style={styles.codeBox} testID="family-link-code">
                         <Text style={styles.codeLabel}>{t("Your code (works once, for 24 hours)")}</Text>
                         <Text style={styles.bigCode} selectable testID="family-link-code-text">
                           {linkCode}
                         </Text>
-                        <Text style={styles.codeLabel}>{t("On their phone: Me, Family, My kids, Link with a code.")}</Text>
+                        <Text style={styles.codeLabel}>{t("On their phone: Me, Family, My learners, Link with a code.")}</Text>
                       </View>
                     ) : null}
                     {codeError ? (
@@ -425,7 +428,7 @@ export function FamilySheet({
               </View>
             ) : null}
             <GameButton label={t("Send to a parent")} icon="family" fullWidth onPress={share} testID="family-share" />
-            <Text style={styles.hint}>{t("They paste it in Muslimo on their phone: Me, Family, My kids.")}</Text>
+            <Text style={styles.hint}>{t("They paste it in Muslimo on their phone: Me, Family, My learners.")}</Text>
             {sharedCode ? (
               <View style={styles.codeBox} testID="family-code">
                 <Text style={styles.codeLabel}>{t("Or copy this code")}</Text>
@@ -437,7 +440,7 @@ export function FamilySheet({
           </>
         ) : (
           <>
-            {kids.length + liveKids.length === 0 ? <MascotSays variant={mascotVariant} mood="wave" accent={accent} line={t("Follow your child's learning!")} /> : null}
+            {kids.length + liveKids.length === 0 ? <MascotSays variant={mascotVariant} mood="wave" accent={accent} line={t("Follow your child's or students' learning!")} /> : null}
             {added ? (
               <Text style={styles.added} accessibilityLiveRegion="polite" testID="family-added">
                 {added}
@@ -462,7 +465,7 @@ export function FamilySheet({
                 <Text style={styles.cardTitle}>{t("Link with a code")}</Text>
                 {live.signedIn ? (
                   <>
-                    <Text style={styles.cardLine}>{t("On your child's phone: Me, Family, Get a code. Type it here to see their progress live.")}</Text>
+                    <Text style={styles.cardLine}>{t("On your child's or student's phone: Me, Family, Get a code. Type it here to see their progress live.")}</Text>
                     <TextField
                       value={kidCode}
                       onChangeText={(value) => {

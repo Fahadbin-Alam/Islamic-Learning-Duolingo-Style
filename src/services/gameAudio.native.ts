@@ -36,7 +36,14 @@ const SOUND_FILES: Record<GameSoundEvent, { full: number; reduced: number }> = {
   meteor: { full: require("../../assets/sounds/meteor.wav"), reduced: require("../../assets/sounds/meteor_reduced.wav") },
   giant: { full: require("../../assets/sounds/giant.wav"), reduced: require("../../assets/sounds/giant_reduced.wav") },
   hello: { full: require("../../assets/sounds/hello.wav"), reduced: require("../../assets/sounds/hello_reduced.wav") },
-  yawn: { full: require("../../assets/sounds/yawn.wav"), reduced: require("../../assets/sounds/yawn_reduced.wav") }
+  yawn: { full: require("../../assets/sounds/yawn.wav"), reduced: require("../../assets/sounds/yawn_reduced.wav") },
+  combo_2: { full: require("../../assets/sounds/combo_2.wav"), reduced: require("../../assets/sounds/combo_2_reduced.wav") },
+  combo_3: { full: require("../../assets/sounds/combo_3.wav"), reduced: require("../../assets/sounds/combo_3_reduced.wav") },
+  combo_4: { full: require("../../assets/sounds/combo_4.wav"), reduced: require("../../assets/sounds/combo_4_reduced.wav") },
+  combo_5: { full: require("../../assets/sounds/combo_5.wav"), reduced: require("../../assets/sounds/combo_5_reduced.wav") },
+  combo_6: { full: require("../../assets/sounds/combo_6.wav"), reduced: require("../../assets/sounds/combo_6_reduced.wav") },
+  perfect: { full: require("../../assets/sounds/perfect.wav"), reduced: require("../../assets/sounds/perfect_reduced.wav") },
+  quest: { full: require("../../assets/sounds/quest.wav"), reduced: require("../../assets/sounds/quest_reduced.wav") },
 };
 
 const players = new Map<string, AudioPlayer>();

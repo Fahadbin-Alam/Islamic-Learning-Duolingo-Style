@@ -57,7 +57,7 @@ export interface IslamicLearningApi {
 // Topics whose units each stand alone (a surah, a companion, a prophet, a woman of the Book, a narration, a scholar),
 // so a learner can start with Al-Ikhlas or Abu Bakr. Every other topic is a skill taught in order. New to Islam is one
 // too: a Christian starts on the prophets and a new Muslim on the first steps.
-export const LIBRARY_TOPICS: ReadonlySet<TopicId> = new Set<TopicId>(["quran_tafseer", "sahabah", "prophets", "women_of_the_book", "hadith", "scholars", "eid", "akhirah", "sahihayn", "intro"]);
+export const LIBRARY_TOPICS: ReadonlySet<TopicId> = new Set<TopicId>(["quran_tafseer", "sahabah", "prophets", "women_of_the_book", "hadith", "scholars", "eid", "akhirah", "sahihayn", "duas", "intro"]);
 
 export const learningApi: IslamicLearningApi = {
   async getUser() {
@@ -350,17 +350,18 @@ export function isOutOfHearts(user: UserProfile) {
   return !user.hearts.unlimited && user.hearts.current <= 0;
 }
 
-// A brand-new learner's first lessons cost no hearts, so nobody runs out before they know the game.
-export const WARM_UP_LESSONS = 3;
+// Kept for callers that still ask: every learner now pays hearts from the first lesson.
+export const WARM_UP_LESSONS = 0;
 
-export function isWarmUpLearner(user: UserProfile) {
-  return (user.completedLessonIds?.length ?? 0) < WARM_UP_LESSONS;
+export function isWarmUpLearner(_user: UserProfile) {
+  return false;
 }
 
-// A wrong answer costs a heart, except in a test-out (pass the session): its misses only count against
-// the pass mark, so one failed jump cannot use up a child's hearts. The warm-up lessons cost none either.
+// Every wrong answer costs a heart: in a lesson (the very first ones too), a quiz circle, a unit test and a test-out.
+// Only the Practice tab is free (MY LESSONS, the Review deck of questions missed before, and its quizzes), so a
+// learner with no hearts can still practise.
 export function loseHeart(user: UserProfile, session?: LessonSession) {
-  if (user.hearts.unlimited || isTestOutSession(session) || isHeartFree(session) || isWarmUpLearner(user)) {
+  if (user.hearts.unlimited || isHeartFree(session)) {
     return user;
   }
 
@@ -544,7 +545,7 @@ export function isQuizSession(session: LessonSession | undefined) {
   return session?.mode === "quiz";
 }
 
-// Practice of lessons already done and quizzes cost no hearts, and can be played with none left.
+// The Practice tab (lessons already done, the Review deck and its quizzes) costs no hearts, and can be played with none left.
 export function isHeartFree(session: LessonSession | undefined) {
   return isLessonPractice(session) || isQuizSession(session);
 }

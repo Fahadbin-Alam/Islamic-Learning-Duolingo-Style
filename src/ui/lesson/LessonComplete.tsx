@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Animated, Easing, ScrollView, StyleSheet, Text, useWindowDimensions, View } from "react-native";
 import { withHonorifics } from "../ArabicText";
 import { Confetti } from "../Confetti";
@@ -8,6 +8,9 @@ import { Icon, type IconName } from "../Icon";
 import { Mascot } from "../Mascot";
 import { PopIn } from "../PopIn";
 import { playUi } from "../sound";
+import type { LessonRecapItem } from "./lessonRecap";
+import type { LessonPicture } from "../../data/lessonPictures";
+import { AlbumThumb } from "./LessonPhoto";
 import { colors, darken, fonts, lighten, radii, space } from "../theme";
 import { LessonBottomBar } from "./LessonHeader";
 import { useScrollMore } from "./ScrollHint";
@@ -26,6 +29,17 @@ export type LessonCompleteProps = {
   goal?: { xpToday: number; goalXp: number };
   unlockedTitle?: string;
   gemsReward?: number;
+  /** No mistakes: a gold "Perfect lesson!" ribbon, its own fanfare, and the teacher jumps for joy again and again. */
+  perfect?: boolean;
+  /** Share right on the first try (0..100) and the longest run in a row, for the recap line. */
+  accuracy?: number;
+  bestInARow?: number;
+  /** A few questions of the lesson with their answers, to read once more. */
+  recap?: LessonRecapItem[];
+  /** Today's quests this lesson finished, already worded ("Get 5 right in a row"). */
+  questsDone?: string[];
+  /** Pictures this lesson put in the learner's picture album for the first time: they pop in, moving. */
+  newPictures?: LessonPicture[];
   mascotVariant: string;
   accent: string;
   /** When set, the main button reads NEXT LESSON. */
@@ -42,6 +56,8 @@ export type LessonCompleteProps = {
 };
 
 const COUNT_DURATION = 900;
+/** New album pictures shown on the card at most (the album has them all). */
+const ALBUM_SHOWN = 3;
 const MAX_STARS = 3;
 
 // Numbers a step darker than the card fills so they read on white (all at least 4:1).
@@ -119,6 +135,12 @@ export function LessonComplete({
   goal,
   unlockedTitle,
   gemsReward,
+  perfect,
+  accuracy,
+  bestInARow,
+  recap,
+  questsDone,
+  newPictures,
   mascotVariant,
   accent,
   nextTitle,
@@ -154,11 +176,21 @@ export function LessonComplete({
       return undefined;
     }
     playUi("lesson_complete");
+    // A perfect lesson's fanfare comes as its ribbon pops in, before the streak and XP sounds.
+    const perfectTimer = perfect ? setTimeout(() => playUi("perfect"), CARD_DELAY - 120) : undefined;
     // Spread out so no two sounds land together: the fanfare, then the streak card, then the XP count.
     const streakTimer = streakExtended ? setTimeout(() => playUi("streak"), CARD_DELAY + 2 * CARD_STAGGER + 120) : undefined;
     // Nothing to count up on a replay, so no XP sound either.
     const xpTimer = xp > 0 ? setTimeout(() => playUi("xp"), CARD_DELAY + 2 * CARD_STAGGER + COUNT_DURATION + (streakExtended ? 420 : 120)) : undefined;
+    // A finished daily quest chimes last, as its pill pops in.
+    const questTimer = questsDone?.length ? setTimeout(() => playUi("quest"), CARD_DELAY + 4 * CARD_STAGGER + COUNT_DURATION + 600) : undefined;
     return () => {
+      if (questTimer) {
+        clearTimeout(questTimer);
+      }
+      if (perfectTimer) {
+        clearTimeout(perfectTimer);
+      }
       if (xpTimer) {
         clearTimeout(xpTimer);
       }
@@ -170,6 +202,17 @@ export function LessonComplete({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playSounds]);
 
+  // A perfect lesson: the teacher springs up for joy every couple of seconds, on top of its happy bounce.
+  const [cheers, setCheers] = useState(0);
+  useEffect(() => {
+    if (!perfect) return undefined;
+    setCheers(1);
+    const timer = setInterval(() => setCheers((count) => count + 1), 2200);
+    return () => clearInterval(timer);
+  }, [perfect]);
+  const recapItems = recap ?? [];
+  const showStats = accuracy !== undefined;
+
   const jump = bounce.interpolate({ inputRange: [0, 1], outputRange: [0, -18] });
   const squash = bounce.interpolate({ inputRange: [0, 1], outputRange: [1, 1.04] });
 
@@ -177,13 +220,22 @@ export function LessonComplete({
     <View style={styles.root} testID={testID}>
       <ScrollView ref={scrollRef} style={styles.scroll} contentContainerStyle={[styles.content, short ? styles.contentShort : null]} {...scrollProps}>
         <Animated.View style={{ transform: [{ translateY: jump }, { scale: squash }] }}>
-          <Mascot variant={mascotVariant} mood="cheer" accent={accent} size={mascotSize} />
+          <Mascot variant={mascotVariant} mood="cheer" accent={accent} size={mascotSize} act={cheers ? { kind: "celebrate", key: cheers } : undefined} />
         </Animated.View>
         <PopIn delay={120}>
           <Text style={[styles.headline, narrow ? styles.headlineNarrow : null]} accessibilityRole="header">
-            {headline}
+            {perfect ? t("Perfect lesson!") : headline}
           </Text>
         </PopIn>
+        {perfect ? (
+          <PopIn delay={CARD_DELAY - 120}>
+            <View style={styles.perfect} testID="perfect-ribbon">
+              <Icon name="star" size={18} />
+              <Text style={styles.perfectText}>{t("No mistakes!")}</Text>
+              <Icon name="star" size={18} />
+            </View>
+          </PopIn>
+        ) : null}
         <Text style={styles.lessonTitle}>{withHonorifics(title)}</Text>
 
         <View style={[styles.cards, short ? styles.cardsShort : null]}>
@@ -232,6 +284,69 @@ export function LessonComplete({
               </PopIn>
             ) : null}
           </View>
+        ) : null}
+
+        {questsDone?.length ? (
+          <PopIn delay={CARD_DELAY + 4 * CARD_STAGGER + COUNT_DURATION + 600} style={styles.quests}>
+            <View testID="complete-quests">
+              {questsDone.map((label) => (
+                <View key={label} style={styles.questPill} testID="complete-quest">
+                  <Icon name="trophy" size={18} />
+                  <Text style={styles.questPillText}>{t("Quest done: {quest}", { quest: label })}</Text>
+                </View>
+              ))}
+            </View>
+          </PopIn>
+        ) : null}
+        {newPictures?.length ? (
+          <PopIn delay={CARD_DELAY + 4 * CARD_STAGGER + COUNT_DURATION + 900} style={styles.album}>
+            <View testID="complete-album">
+              <View style={styles.albumHead}>
+                <Icon name="star8" size={18} />
+                <Text style={styles.albumTitle}>
+                  {newPictures.length === 1 ? t("New picture for your album!") : t("{count} new pictures for your album!", { count: newPictures.length })}
+                </Text>
+              </View>
+              <View style={styles.albumRow}>
+                {newPictures.slice(0, ALBUM_SHOWN).map((picture, index) => (
+                  <PopIn key={picture.id} delay={CARD_DELAY + 4 * CARD_STAGGER + COUNT_DURATION + 1100 + index * 180}>
+                    <AlbumThumb picture={picture} size={76} testID="complete-album-picture" />
+                  </PopIn>
+                ))}
+              </View>
+            </View>
+          </PopIn>
+        ) : null}
+                {showStats || recapItems.length ? (
+          <PopIn delay={CARD_DELAY + 5 * CARD_STAGGER} style={styles.recap}>
+            <View testID="lesson-recap">
+            {showStats ? (
+              <View style={styles.recapStats}>
+                <View style={styles.recapStat} testID="recap-accuracy">
+                  <Icon name="check" size={18} color={colors.green} />
+                  <Text style={styles.recapStatText}>{t("{count}% right", { count: accuracy ?? 0 })}</Text>
+                </View>
+                {bestInARow ? (
+                  <View style={styles.recapStat} testID="recap-best-run">
+                    <Icon name="flame" size={18} />
+                    <Text style={styles.recapStatText}>{t("Best run: {count} in a row", { count: bestInARow })}</Text>
+                  </View>
+                ) : null}
+              </View>
+            ) : null}
+            {recapItems.length ? (
+              <View style={styles.recapCard}>
+                <Text style={styles.recapTitle}>{t("Remember")}</Text>
+                {recapItems.map((item, index) => (
+                  <View key={`${index}-${item.question}`} style={[styles.recapRow, index > 0 ? styles.recapRowGap : null]} testID="recap-item">
+                    <Text style={styles.recapQuestion}>{withHonorifics(item.question)}</Text>
+                    <Text style={[styles.recapAnswer, item.missed ? styles.recapAnswerMissed : null]}>{withHonorifics(item.answer)}</Text>
+                  </View>
+                ))}
+              </View>
+            ) : null}
+            </View>
+          </PopIn>
         ) : null}
       </ScrollView>
 
@@ -407,5 +522,142 @@ const styles = StyleSheet.create({
   },
   ghost: {
     marginTop: space.xs
+  },
+  perfect: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    marginTop: space.sm,
+    paddingHorizontal: 14,
+    paddingVertical: 5,
+    borderRadius: radii.pill,
+    backgroundColor: lighten(colors.gold, 0.8),
+    borderWidth: 2,
+    borderColor: colors.gold
+  },
+  perfectText: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 16,
+    lineHeight: 21,
+    color: GOLD_LABEL
+  },
+  recap: {
+    alignSelf: "stretch",
+    marginTop: space.lg
+  },
+  recapStats: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    gap: space.sm
+  },
+  album: {
+    alignSelf: "stretch",
+    marginTop: space.sm,
+    paddingVertical: space.sm,
+    paddingHorizontal: space.md,
+    borderRadius: radii.lg,
+    borderWidth: 2,
+    borderColor: lighten(colors.gem, 0.55),
+    backgroundColor: lighten(colors.gem, 0.9)
+  },
+  albumHead: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: space.xs
+  },
+  albumTitle: {
+    flexShrink: 1,
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 15,
+    color: darken(colors.gem, 0.35),
+    textAlign: "center"
+  },
+  albumRow: {
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: space.sm,
+    marginTop: space.sm
+  },
+  quests: {
+    alignSelf: "stretch",
+    marginTop: space.sm,
+    gap: space.xs
+  },
+  questPill: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: space.xs,
+    alignSelf: "center",
+    maxWidth: "100%",
+    paddingVertical: 6,
+    paddingHorizontal: space.md,
+    borderRadius: radii.pill,
+    backgroundColor: lighten(colors.gold, 0.8),
+    borderWidth: 2,
+    borderColor: lighten(colors.gold, 0.4)
+  },
+  questPillText: {
+    flexShrink: 1,
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 14,
+    color: darken(colors.gold, 0.45)
+  },
+  recapStat: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 5,
+    borderRadius: radii.pill,
+    backgroundColor: colors.white,
+    borderWidth: 2,
+    borderColor: colors.line
+  },
+  recapStatText: {
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 15,
+    lineHeight: 20,
+    color: colors.ink
+  },
+  recapCard: {
+    marginTop: space.md,
+    padding: space.md,
+    borderRadius: radii.md,
+    backgroundColor: colors.white,
+    borderWidth: 2,
+    borderColor: colors.line
+  },
+  recapTitle: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 14,
+    lineHeight: 18,
+    letterSpacing: 0.6,
+    color: colors.inkSoft,
+    textTransform: "uppercase",
+    marginBottom: space.sm
+  },
+  recapRow: {},
+  recapRowGap: {
+    marginTop: space.sm,
+    paddingTop: space.sm,
+    borderTopWidth: StyleSheet.hairlineWidth * 2,
+    borderTopColor: colors.line
+  },
+  recapQuestion: {
+    fontFamily: fonts.body,
+    fontSize: 15,
+    lineHeight: 20,
+    color: colors.inkSoft
+  },
+  recapAnswer: {
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 16,
+    lineHeight: 22,
+    color: darken(colors.correctInk, 0.12)
+  },
+  recapAnswerMissed: {
+    color: darken(colors.flame, 0.35)
   }
 });

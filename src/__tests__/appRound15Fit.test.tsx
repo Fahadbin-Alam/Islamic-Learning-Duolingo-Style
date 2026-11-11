@@ -28,7 +28,7 @@ import { FOUNDATION_QUESTION_BANK } from "../data/foundationQuestionBank";
 import { createEmptyLearnerProfile, createFoundationAssessment, submitFoundationAssessmentAnswer } from "../services/foundationAssessment";
 import type { FoundationAssessmentState } from "../types";
 import { ChoiceTile } from "../ui/ChoiceTile";
-import { ExerciseView, FadeUnderSheet, FeedbackSheet, PromptText, QuestionBubble } from "../ui/lesson";
+import { ExerciseView, FadeUnderSheet, FeedbackSheet, PromptText, QuestionBubble, StackTile } from "../ui/lesson";
 import { WHY_LINE } from "../ui/lesson/FeedbackSheet";
 import { setActiveLanguage } from "../i18n";
 import { SCROLL_HINT_ROOM, ScrollHintGap } from "../ui/lesson/ScrollHint";
@@ -42,7 +42,10 @@ const ARROW_GROWTH = SCROLL_HINT_ROOM - 16;
 const layout = (height: number, y = 0, width = 288) => ({ nativeEvent: { layout: { x: 0, y, width, height } } });
 const flat = (style: unknown) => (StyleSheet.flatten(style as never) ?? {}) as Record<string, unknown>;
 
-/** Visits every element under `node` (the props of a view as it is about to be laid out). */
+/**
+ * Visits every element under `node` (the props of a view as it is about to be laid out). A column's tile is one element
+ * (StackTile: the fading view, its slide in and the tile, drawn from its props).
+ */
 function walk(node: React.ReactNode, visit: (element: React.ReactElement<Record<string, unknown>>) => void) {
   React.Children.forEach(node, (child) => {
     if (React.isValidElement<Record<string, unknown>>(child)) {
@@ -79,7 +82,7 @@ function looks(children: React.ReactNode) {
   let promptLine = 26;
   const gaps: number[] = [];
   walk(children, (element) => {
-    if (element.type === ChoiceTile) {
+    if (element.type === ChoiceTile || element.type === StackTile) {
       pad = element.props.tight ? 6 : 12;
       labelLine = element.props.smallText ? 20 : 23;
     }
@@ -89,11 +92,12 @@ function looks(children: React.ReactNode) {
     if (element.type === PromptText) {
       promptLine = (element.props.size as number) <= 17 ? 23 : 26;
     }
-    if (element.type === FadeUnderSheet && element.props.testID === undefined && element.props.style) {
+    const fading = element.type === FadeUnderSheet ? element.props.testID === undefined : element.type === StackTile && element.props.boxTestID === undefined;
+    if (fading && element.props.style) {
       gaps.push((flat(element.props.style).marginBottom as number | undefined) ?? 0);
     }
     // Practice's column of tiles: a gap between each two of the four.
-    const tiles = React.Children.toArray(element.props.children as React.ReactNode).filter((child) => React.isValidElement(child) && child.type === FadeUnderSheet);
+    const tiles = React.Children.toArray(element.props.children as React.ReactNode).filter((child) => React.isValidElement(child) && (child.type === FadeUnderSheet || child.type === StackTile));
     if (tiles.length === 4 && element.props.style && flat(element.props.style).gap !== undefined) {
       gaps.push(3 * (flat(element.props.style).gap as number));
     }

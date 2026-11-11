@@ -11,11 +11,13 @@ import { lessonForAge } from "../data/ageLevels";
 import { COURSE, LESSONS_BY_ID, STARTER_USER } from "../data/course";
 import { FOUNDATION_CATEGORY_META, FOUNDATION_PROGRESS_LABELS, FOUNDATION_QUESTION_BANK } from "../data/foundationQuestionBank";
 import { ALL_HARD_QUESTIONS } from "../data/hardQuestions";
+import { adhkarText } from "../data/adhkar";
 import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic } from "../data/arabicTerms";
 import { getFoundationWordBank } from "../services/foundationAssessment";
 import { getTopicCopy } from "../i18n";
 import { getCatalog } from "../translations";
 import { englishWhy } from "../ui/lesson/localizedLines";
+import { isRecallLesson, lessonExplain } from "../ui/lesson/lessonPages";
 import { getLessonLine, isPlayablePractice } from "../ui/lesson/lessonSteps";
 import { shortWhy } from "../ui/lesson/lessonText";
 import type { FoundationQuestion, Lesson } from "../types";
@@ -35,9 +37,13 @@ function addLesson(lesson: Lesson) {
   add("course", lesson.title);
   add("lesson", getLessonLine(lesson));
   lesson.learnFacts?.forEach((fact) => add("lesson", fact));
+  // The lesson told plainly, at the top of "What you learn" (lessonExplain).
+  if (!isRecallLesson(lesson)) add("lesson", lessonExplain(lesson));
   add("quote", lesson.quote?.text);
   add("source", lesson.quote?.reference);
   add("source", lesson.learnSource?.reference);
+  // A surah's own lesson teaches its story from its source's summary (surahIntros.ts), so it is shown translated.
+  if (/^lesson-notes-quran-tafseer-surahs-/.test(lesson.id)) add("lesson", lesson.learnSource?.summary);
   lesson.learnDeeper?.meaning.forEach((line) => add("lesson", line));
   add("lesson", lesson.learnDeeper?.story);
   add("lesson", lesson.learnDeeper?.takeaway);
@@ -112,6 +118,8 @@ async function buildSource() {
   Object.values(FOUNDATION_CATEGORY_META).forEach((meta) => Object.values(meta).forEach((value) => typeof value === "string" && add("course", value)));
   FOUNDATION_PROGRESS_LABELS.forEach((label) => add("course", label));
   FOUNDATION_QUESTION_BANK.forEach(addFoundation);
+  // The daily adhkar sheet: names, meanings, rewards and sources.
+  adhkarText().forEach((line) => add("lesson", line));
   return [...entries].map(([text, kind]) => ({ kind, text }));
 }
 

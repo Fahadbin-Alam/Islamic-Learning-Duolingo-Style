@@ -75,7 +75,7 @@ import {
 } from "./i18n";
 import { CHARITY, charityEnabled } from "./config/charity";
 import { localizeLessonContent } from "./services/contentLocalization";
-import { localizedLessonLine, localizedWhy } from "./ui/lesson/localizedLines";
+import { localizedLessonLine, localizedTeach, localizedWhy } from "./ui/lesson/localizedLines";
 import {
   clearLocalAuthAccount,
   createLocalAuthAccount,
@@ -110,7 +110,8 @@ import {
   redeemInviteCode,
   claimInviteRewards,
   type InviteInfo,
-  syncRemoteUser,
+  queueRemoteSync,
+  flushRemoteSync,
   hasPendingSync,
   pickStartingUser,
   wakeBackend,
@@ -121,7 +122,8 @@ import {
   linkFamilyKid,
   unlinkFamilyKid,
   unlinkFamilyParent,
-  type FamilyLinks
+  type FamilyLinks,
+  type LearningNow
 } from "./services/backendSync";
 import { isKidsMode, isKidsTopic, kidsLearner, readKidsModeChoice, saveKidsModeChoice, type KidsModeChoice } from "./services/kidsMode";
 import {
@@ -165,6 +167,9 @@ import {
   scheduleIslamicReminderChecks
 } from "./services/islamicNotifications";
 import { onPrayerNudgeOpened, requestPrayerNudgePermission, schedulePrayerNudges } from "./services/prayerNudges";
+import { onAdhkarReminderOpened, requestAdhkarReminderPermission, scheduleAdhkarReminders } from "./services/adhkarReminders";
+import { adhkarDoneToday, adhkarRemindersOn, markAdhkarDone, saveAdhkarReminders } from "./services/adhkarProgress";
+import { adhkarTimeFor, type AdhkarTime } from "./data/adhkar";
 import { loadPrayerNudgePrefs, savePrayerNudgePrefs } from "./services/prayerNudgePlan";
 import type { PrayerNudgePrefs } from "./services/prayerTimes";
 import { findPrayerCity } from "./data/prayerCities";
@@ -183,13 +188,20 @@ import {
   type FoundationPracticeResult
 } from "./services/foundationAssessment";
 import { playGameSound, primeGameAudio } from "./services/gameAudio";
+import { comboSound, type GameSoundEvent } from "./services/gameSoundLibrary";
+import { lessonRecap, PERFECT_LESSON_DATES, type LessonRecapItem } from "./ui/lesson/lessonRecap";
+import { claimQuestChest, recordQuestEvent, useQuestBoard, type Quest } from "./services/dailyQuests";
+import { QuestsBanner, QuestsSheet, questLabel } from "./ui/screens/DailyQuests";
 import { markLeagueResultSeen, settleLeague, unseenLeagueResult } from "./services/leagues";
 import { answerLessonStep, isLastLessonStep, startLessonQueue, type FlowStep } from "./services/lessonQueue";
-import { buildLessonFlow, flowProgress, isLearnStep, isMatchStep, isQuestionStep, isRecallLesson, teachLesson, highlightWords, lessonSummary } from "./ui/lesson/lessonPages";
+import { buildLessonFlow, flowProgress, isLearnStep, isMatchStep, isQuestionStep, isRecallLesson, teachText, highlightWords, lessonExplain, lessonSummary } from "./ui/lesson/lessonPages";
 import { checkAnswerId, checkCandidate, fillPiece, questionFormat } from "./ui/lesson/questionFormats";
 import { CheckGame, FillGame, GapGame, MatchGame } from "./ui/lesson/WordGames";
 import * as Speech from "expo-speech";
 import { findArabicVoice, recitationForArabic } from "./services/arabicVoice";
+import { playAyah, stopAyah } from "./services/ayahPlayer";
+import { useAyahPlayback } from "./ui/lesson/AyahListen";
+import { listenWhy, withListenQuestion } from "./ui/lesson/listenQuestion";
 import { colors, configureUiSound, darken, preloadUiSounds, fonts, Icon, lighten, Mascot, PopIn, radii, space, Tappable } from "./ui";
 import { PortalHost } from "./ui/Portal";
 import { applyBattle, buyIcon, rerollNickname, setUmmahJoined, wearIcon, type ProfileIconId } from "./services/ummah";
@@ -224,6 +236,8 @@ import {
   ProfileView,
   FamilySheet,
   RamadanBanner,
+  AdhkarBanner,
+  AdhkarSheet,
   RamadanDayPop,
   PlanOfferSheet,
   RefillSheet,
@@ -247,12 +261,14 @@ import {
 import { getQuizScore, recordQuizScore, unitsToGoOver } from "./services/quizzes";
 import { STORIES, storyGroupFor, type StoryGroup } from "./data/stories";
 import { recordStoryRead } from "./services/stories";
-import { addFamilyKid, buildFamilySnapshot, encodeFamilyCode, removeFamilyKid, snapshotFromLinkedKid, type FamilyKid } from "./services/familyCode";
+import { addFamilyKid, buildFamilySnapshot, encodeFamilyCode, removeFamilyKid, snapshotFromLinkedKid, type FamilyKid, type LearningLabel } from "./services/familyCode";
 import { getFamilyId, loadFamilyKids, peekFamilyId, saveFamilyKids } from "./services/familyStorage";
 import { shareApp } from "./services/shareApp";
 import { shareCertificateCard, shareRamadanCard } from "./services/shareCard";
 import { biggestFirst, buildCertificates, certificateProgress, earnedCertificateIds, recordCertificates, type CertificateProgress } from "./services/certificates";
 import { CertificatePop, CertificatesSheet } from "./ui/screens/Certificates";
+import { ALBUM_PICTURES, PictureAlbumSheet } from "./ui/screens/PictureAlbum";
+import { addToAlbum, useAlbum } from "./services/pictureAlbum";
 import { isUpdateAvailable, openStore } from "./services/appUpdate";
 import { attemptOrder, ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, HarderSheet, QuitSheet, QuizComplete, isPlayablePractice, lessonStars } from "./ui/lesson";
 import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic, isFirstUseOfWord } from "./data/arabicTerms";
@@ -264,7 +280,7 @@ import { SCHOLAR_TREE, type ScholarYears } from "./data/scholarUnits";
 import { didRamadanToday, ramadanDoneDayNumbers, ramadanSeason, ramadanStreak } from "./data/ramadanCalendar";
 import { RAMADAN_TOPIC } from "./data/ramadanDays";
 import { teacherFor } from "./ui/lesson/Teacher";
-import { pictureForLesson, pictureForPage, pictureForQuestion, pictureForText } from "./data/lessonPictures";
+import { flowPictures, getLessonPicture, pictureForLesson, choicePictures, pictureForQuestion, pictureForText, type LessonPicture } from "./data/lessonPictures";
 import { surahNumberForTitle, surahParts } from "./data/surahPictures";
 import { BACKGROUND_KEY, INTRO_TOPIC, introStartFor, isLearnerBackground, type LearnerBackground } from "./data/introToIslam";
 import type {
@@ -370,6 +386,17 @@ type LessonCelebration = {
   streakDays: number;
   streakExtended?: boolean;
   gemsReward?: number;
+  /** No question missed on its first try (a first finish): the bonus dates are in gemsReward. */
+  perfect?: boolean;
+  /** Share of questions right on their first try, 0..100. */
+  accuracy?: number;
+  bestInARow?: number;
+  /** What the lesson taught, again: a few of its questions with their answers, missed ones first. */
+  recap?: LessonRecapItem[];
+  /** Daily quests this lesson finished, in words. */
+  questsDone?: string[];
+  /** Pictures this lesson put in the picture album for the first time. */
+  newPictures?: LessonPicture[];
 };
 
 interface AppState {
@@ -407,6 +434,10 @@ interface AppState {
   sessionMissedLessonIds: string[];
   /** Questions right on the first try in a row, in a lesson: a few and it asks "Want it harder?". */
   rightInARow: number;
+  /** The longest run of first-try right answers in this lesson (the recap shows it). */
+  bestInARow: number;
+  /** Questions missed on their first try in this lesson, by id: the recap shows them first. */
+  missedChallengeIds: string[];
   /** The learner said no to "Want it harder?" in this lesson, so it does not ask again. */
   harderDeclined: boolean;
   loading: boolean;
@@ -431,7 +462,7 @@ type Action =
   | { type: "close_social" }
   | { type: "start_lesson"; session: LessonSession }
   | { type: "select_choice"; choiceId: string }
-  | { type: "answer"; correct: boolean; user: UserProfile; missedLessonId?: string; scored?: boolean; isTest?: boolean }
+  | { type: "answer"; correct: boolean; user: UserProfile; missedLessonId?: string; scored?: boolean; isTest?: boolean; challengeId?: string }
   | { type: "next_challenge" }
   | { type: "next_page" }
   | { type: "finish_lesson"; user: UserProfile; xpSummary: XpSummary[] }
@@ -456,6 +487,8 @@ const initialState: AppState = {
   sessionMistakes: 0,
   sessionMissedLessonIds: [],
   rightInARow: 0,
+  bestInARow: 0,
+  missedChallengeIds: [],
   harderDeclined: false,
   loading: true
 };
@@ -473,6 +506,8 @@ const NO_LESSON = {
   sessionMistakes: 0,
   sessionMissedLessonIds: [] as string[],
   rightInARow: 0,
+  bestInARow: 0,
+  missedChallengeIds: [] as string[],
   harderDeclined: false
 };
 
@@ -562,6 +597,11 @@ function reducer(state: AppState, action: Action): AppState {
         doneCount: step.done ? state.doneCount + 1 : state.doneCount,
         sessionCorrectCount: action.correct && scored ? state.sessionCorrectCount + 1 : state.sessionCorrectCount,
         rightInARow: action.correct && scored ? state.rightInARow + 1 : 0,
+        bestInARow: action.correct && scored ? Math.max(state.bestInARow, state.rightInARow + 1) : state.bestInARow,
+        missedChallengeIds:
+          action.correct || !scored || !action.challengeId || state.missedChallengeIds.includes(action.challengeId)
+            ? state.missedChallengeIds
+            : [...state.missedChallengeIds, action.challengeId],
         sessionMistakes: action.correct || !scored ? state.sessionMistakes : state.sessionMistakes + 1,
         sessionMissedLessonIds: action.correct || !scored || !action.missedLessonId || state.sessionMissedLessonIds.includes(action.missedLessonId)
           ? state.sessionMissedLessonIds
@@ -718,6 +758,10 @@ export default function TopicApp() {
   }, []);
   // Prayer-time lessons belong to this phone (its city and notifications), not to the account.
   const [prayerPrefs, setPrayerPrefs] = useState<PrayerNudgePrefs>(loadPrayerNudgePrefs);
+  // The daily adhkar sheet: which list it is open on (none when closed), the lists done today, and the reminders.
+  const [adhkarOpen, setAdhkarOpen] = useState<AdhkarTime | null>(null);
+  const [adhkarDone, setAdhkarDone] = useState<AdhkarTime[]>(() => adhkarDoneToday());
+  const [adhkarReminders, setAdhkarReminders] = useState(adhkarRemindersOn);
   const [prayerModalVisible, setPrayerModalVisible] = useState(false);
   const [prayerLessonDue, setPrayerLessonDue] = useState(false);
   const [accountPromptShown, setAccountPromptShown] = useState(false);
@@ -792,6 +836,16 @@ export default function TopicApp() {
   const [storyShelf, setStoryShelf] = useState<StoryGroup | undefined>(undefined);
   // An opened chest: its gems land when the learner taps COLLECT.
   const [rewardCelebration, setRewardCelebration] = useState<{ stop: JourneyRewardStop } | undefined>(undefined);
+  // Daily quests: the sheet, the chest's dates waiting in the reward pop, and the quests finished during this lesson.
+  const questBoardNow = useQuestBoard();
+  const [questsOpen, setQuestsOpen] = useState(false);
+  const [questChestDates, setQuestChestDates] = useState(0);
+  const questsDuringLesson = useRef<Quest[]>([]);
+  // A new lesson starts its own list, so a lesson left halfway does not show its quests on the next one's finish.
+  const sessionIdForQuests = state.activeSession?.id;
+  useEffect(() => {
+    questsDuringLesson.current = [];
+  }, [sessionIdForQuests]);
   const [topicPickerVisible, setTopicPickerVisible] = useState(false);
   // The circle a topic search hit asked the path to show; cleared once the path has scrolled to it.
   const [pathReveal, setPathReveal] = useState<string | undefined>(undefined);
@@ -956,7 +1010,7 @@ export default function TopicApp() {
     }
 
     saveUserProfile(state.user);
-    void syncRemoteUser(state.user).catch(() => undefined);
+    queueRemoteSync(state.user);
   }, [state.user]);
 
   // Progress made offline is sent once the phone is back online: on each return to the app, and every
@@ -967,11 +1021,18 @@ export default function TopicApp() {
     const retry = () => {
       const user = latestUserRef.current;
       if (user && hasPendingSync()) {
-        void syncRemoteUser(user).catch(() => undefined);
+        queueRemoteSync(user, { now: true });
       }
     };
     const timer = setInterval(retry, 60000);
-    const listener = PhoneAppState.addEventListener("change", (status) => status === "active" && retry());
+    const listener = PhoneAppState.addEventListener("change", (status) => {
+      if (status === "active") {
+        retry();
+      } else if (status === "background") {
+        // Leaving the app: send the waiting copy now instead of after the quiet seconds.
+        void flushRemoteSync();
+      }
+    });
     // And the moment the phone gets its internet back.
     const stopWatching = subscribeOnline((online) => online && retry());
     return () => {
@@ -1040,7 +1101,7 @@ export default function TopicApp() {
     preloadUiSounds();
   }, [soundPreferences]);
 
-  function playUiSound(event: "soft_ui" | "node_tap" | "correct" | "wrong" | "xp" | "unlock" | "lesson_complete" | "streak" | "reward_chest") {
+  function playUiSound(event: GameSoundEvent) {
     primeGameAudio(event === "soft_ui" && state.user?.soundEffectsEnabled === false
       ? { enabled: false, reduced: soundPreferences.reduced }
       : soundPreferences);
@@ -1083,6 +1144,27 @@ export default function TopicApp() {
 
   // Tapping a prayer nudge opens the tiny lesson it promised.
   useEffect(() => onPrayerNudgeOpened(() => setPrayerLessonDue(true)), []);
+
+  // The adhkar reminders follow the switch and the language; tapping one opens its list.
+  useEffect(() => {
+    void scheduleAdhkarReminders(adhkarReminders, currentLanguage);
+  }, [adhkarReminders, currentLanguage]);
+  useEffect(() => onAdhkarReminderOpened((time) => openAdhkar(time)), []);
+
+  function openAdhkar(time: AdhkarTime = adhkarTimeFor(new Date())) {
+    // A new day starts with nothing ticked.
+    setAdhkarDone(adhkarDoneToday());
+    setAdhkarOpen(time);
+  }
+
+  async function toggleAdhkarReminders() {
+    const on = !adhkarReminders;
+    if (on && !(await requestAdhkarReminderPermission())) {
+      return;
+    }
+    saveAdhkarReminders(on);
+    setAdhkarReminders(on);
+  }
 
   const pathNodes = useMemo(() => {
     return state.user ? learningApi.getPathNodes(state.user) : [];
@@ -1241,6 +1323,8 @@ export default function TopicApp() {
   const [certificateQueue, setCertificateQueue] = useState<string[]>([]);
   const [shownCertificate, setShownCertificate] = useState<CertificateProgress | undefined>(undefined);
   const [certificatesSheetVisible, setCertificatesSheetVisible] = useState(false);
+  const [albumVisible, setAlbumVisible] = useState(false);
+  const albumFound = useAlbum();
   const certificatesBefore = useRef<{ userId?: number; ids?: Set<string> }>({});
   useEffect(() => {
     const userId = state.user?.id;
@@ -1462,6 +1546,19 @@ export default function TopicApp() {
     setFamilyVisible(true);
     void loadFamilyLinks();
   };
+  // What a friend or linked learner has open, named in this phone's language: the unit of the circle START sits
+  // on in their last topic (with how far through it they are, when their finished circles are known), else the topic.
+  const describeLearning = (now: LearningNow | null | undefined, finished?: string[]): LearningLabel | undefined => {
+    if (!now) return undefined;
+    const section = localizedSections.find((item) => item.topicId === now.topicId);
+    if (!section) return undefined;
+    const node = now.nodeId ? section.nodes.find((item) => item.id === now.nodeId) : undefined;
+    const branch = node ? section.branches.find((item) => item.id === node.branchId) : undefined;
+    if (!branch) return { unit: section.title, topic: section.title };
+    const unitNodes = section.nodes.filter((item) => item.branchId === branch.id);
+    const done = finished ? unitNodes.filter((item) => finished.includes(item.id)).length : undefined;
+    return { unit: branch.title, topic: section.title, done, total: finished ? unitNodes.length : undefined };
+  };
   // A linked child's live numbers as the same report a pasted code shows, with stars and topics counted here.
   const liveFamilyKids = useMemo<FamilyKid[]>(
     () =>
@@ -1471,7 +1568,12 @@ export default function TopicApp() {
           localizedSections.map((section) => [section.topicId, section.nodes.filter((node) => completed.has(node.id)).length])
         );
         const stars = getTotalStars({ completedNodeIds: kid.completedNodeIds, nodeStars: kid.nodeStars });
-        return { nickname: kid.name, addedAt: "", snapshot: snapshotFromLinkedKid(kid, familyToday, stars, topicsDone) };
+        return {
+          nickname: kid.name,
+          addedAt: "",
+          learningNow: describeLearning(kid.learningNow, kid.completedNodeIds),
+          snapshot: snapshotFromLinkedKid(kid, familyToday, stars, topicsDone)
+        };
       }),
     [familyLinks.kids, familyToday, localizedSections]
   );
@@ -1518,7 +1620,7 @@ export default function TopicApp() {
   const shareFamilyReport = () => {
     if (!familyReport) return undefined;
     const code = encodeFamilyCode({ ...familyReport, id: getFamilyId() });
-    const message = t("My Muslimo progress. To follow along, open Muslimo, then Me, Family, My kids, and paste this: {code}", { code });
+    const message = t("My Muslimo progress. To follow along, open Muslimo, then Me, Family, My learners, and paste this: {code}", { code });
     void Share.share({ message }).catch(() => undefined);
     return code;
   };
@@ -1815,9 +1917,65 @@ export default function TopicApp() {
     // While online, this circle's Quran recitations and the next few circles' are saved for no internet.
     void saveLessonsAhead(node.id);
     // Kids mode builds the lesson at the easiest level; the saved profile keeps its own difficulty.
-    const session = await learningApi.getLessonSession(node.firstLessonId, kidsMode ? kidsLearner(activeUser) : activeUser, lessonAge);
+    const built = await learningApi.getLessonSession(node.firstLessonId, kidsMode ? kidsLearner(activeUser) : activeUser, lessonAge);
+    const session = withListening(built, node.id, activeUser);
     challengeStartedAtRef.current = Date.now();
     dispatch({ type: "start_lesson", session });
+  }
+
+  // A lesson whose learn card teaches a checked Arabic word asks one listening question, when it can be heard:
+  // the reciter (online) for an ayah, else the phone's Arabic voice. Never with sound effects off, nor in a test.
+  function withListening(session: LessonSession, nodeId: string, user: UserProfile): LessonSession {
+    if ((session.mode ?? "standard") !== "standard" || session.unitTest || user.soundEffectsEnabled === false) return session;
+    const lesson = session.lesson;
+    const term = getNodeArabic(nodeId);
+    if (!term) return session;
+    const recitation = recitationForArabic(term.ar, [lesson.quote?.reference, lesson.learnSource?.reference]);
+    if (!arabicVoiceId && !(recitation && online)) return session;
+    const withListen = withListenQuestion(lesson, nodeId, recitation);
+    return withListen === lesson ? session : { ...session, lesson: withListen };
+  }
+
+  const [listenSpeaking, setListenSpeaking] = useState(false);
+  const ayahNow = useAyahPlayback();
+  // A listening question's Arabic stops when the learner moves on.
+  const listenStep = state.lessonQueue[state.stepIndex];
+  const listenNow = isQuestionStep(listenStep) ? state.activeSession?.lesson.challenges[listenStep.index]?.listen : undefined;
+  useEffect(() => {
+    if (!listenNow) return undefined;
+    return () => {
+      if (listenNow.recitation) stopAyah(listenNow.recitation);
+      else {
+        void Speech.stop();
+        setListenSpeaking(false);
+      }
+    };
+  }, [listenNow]);
+  function playListen(listen: NonNullable<Challenge["listen"]>) {
+    if (listen.recitation) {
+      const active = ayahNow.url === listen.recitation && (ayahNow.status === "playing" || ayahNow.status === "loading");
+      if (active) stopAyah(listen.recitation);
+      else playAyah(listen.recitation);
+      return;
+    }
+    try {
+      void Speech.stop();
+      if (listenSpeaking) {
+        setListenSpeaking(false);
+        return;
+      }
+      if (!arabicVoiceId) return;
+      setListenSpeaking(true);
+      // A voice that fails without a word still lets the speaker go back to rest.
+      const fallback = setTimeout(() => setListenSpeaking(false), 6000);
+      const done = () => {
+        clearTimeout(fallback);
+        setListenSpeaking(false);
+      };
+      Speech.speak(listen.ar, { language: "ar", voice: arabicVoiceId, rate: 0.8, onDone: done, onStopped: done, onError: done });
+    } catch {
+      setListenSpeaking(false);
+    }
   }
 
   // LearnPath asks "Jump ahead?" first and calls this on START TEST. A "unit" plan (the banner key)
@@ -1976,24 +2134,45 @@ export default function TopicApp() {
       });
     }
 
-    if (!isRetry) {
+    if (!isRetry && !challenge.listen) {
       // A first-try miss goes in the Review deck; a right answer moves a due one on (services/reviewDeck).
+      // A listening question is made for its lesson only, so it never goes in the deck.
       nextUser = recordLessonAnswer(nextUser, state.activeSession, challenge, correct);
     }
 
-    playUiSound(correct ? "correct" : "wrong");
+    if (!isRetry) {
+      questsDuringLesson.current.push(...recordQuestEvent({ type: "answer", correct, inARow: correct ? state.rightInARow + 1 : 0 }));
+    }
+    // A run of right answers climbs: each one in a row plays a higher chime (services/gameSoundLibrary comboSound).
+    playUiSound(correct ? (isRetry ? "correct" : comboSound(state.rightInARow + 1)) : "wrong");
     dispatch({
       type: "answer",
       correct,
       user: nextUser,
       missedLessonId: correct ? undefined : challenge.sourceLessonId ?? state.activeSession.lesson.id,
       scored: !isRetry,
-      isTest: isTestSession(state.activeSession)
+      isTest: isTestSession(state.activeSession),
+      challengeId: challenge.id
     });
   }
 
   // A lesson is learn pages and questions in turn, the ordering game after the last page, then the circle's quiz:
   // CONTINUE on a page (or finishing the game) goes to the next step.
+  // A wrong pair in the matching round costs a heart, like a wrong answer.
+  function missInMatch() {
+    const session = state.activeSession;
+    dispatch({ type: "apply_user_latest", update: (user) => loseHeart(user, session) });
+  }
+
+  // The matching round is done: with no hearts left, the refill first, like after a wrong answer.
+  function continueFromMatch() {
+    if (state.user && isOutOfHearts(state.user) && !isHeartFree(state.activeSession)) {
+      openOutOfHearts(state.user, true);
+      return;
+    }
+    continueFromTeach();
+  }
+
   function continueFromTeach() {
     challengeStartedAtRef.current = Date.now();
     dispatch({ type: "next_page" });
@@ -2102,6 +2281,34 @@ export default function TopicApp() {
     }
   }
 
+  /** A finished lesson counts towards today's quests; returns, in words, every quest this lesson finished. */
+  function finishQuests(perfect: boolean, xp: number) {
+    const done = [...questsDuringLesson.current, ...recordQuestEvent({ type: "lesson", perfect, xp })];
+    questsDuringLesson.current = [];
+    return done.map(questLabel);
+  }
+
+  /**
+   * Puts the pictures this lesson showed in the picture album: its own, each page's, and those of its questions and
+   * picture answers. Returns the ones new to the album, for the lesson complete card.
+   */
+  function collectLessonPictures(): LessonPicture[] {
+    const questions = pictureLesson?.challenges ?? [];
+    const ids = [
+      lessonPicture?.id,
+      ...queuePictures.map((picture) => picture?.id),
+      ...questions.map((question) => pictureForQuestion(question.prompt)?.id),
+      ...questions.flatMap((question) => Object.values(choicePictures(question.choices) ?? {}).map((picture) => picture.id))
+    ];
+    try {
+      return addToAlbum(ids)
+        .map((id) => getLessonPicture(id))
+        .filter((picture): picture is LessonPicture => Boolean(picture));
+    } catch {
+      return [];
+    }
+  }
+
   async function continueLesson(user = state.user) {
     if (!user || !state.activeSession) {
       return;
@@ -2126,7 +2333,9 @@ export default function TopicApp() {
         lastLearningAt: new Date().toISOString()
       });
 
+      const practiceQuests = finishQuests(false, xp);
       setLessonCompleteSummary({
+        questsDone: practiceQuests,
         headline: t("Practice done!"),
         title: t(state.activeSession.reviewDeck ? "Review" : "My lessons"),
         xp,
@@ -2173,6 +2382,8 @@ export default function TopicApp() {
         gems: record.gems,
         goOver
       });
+      // A quiz counts toward today's quests too; its own summary sheet has no room for the pills.
+      finishQuests(false, xp);
       const xpSummary = await learningApi.getXpSummaries(nextUser);
       dispatch({ type: "finish_lesson", user: nextUser, xpSummary });
       maybeShowLessonBreakAd(nextUser);
@@ -2220,12 +2431,14 @@ export default function TopicApp() {
       // LessonComplete plays the finish, streak and XP sounds itself.
       setLessonCompleteSummary({
         headline: t("You jumped ahead!"),
-        title: state.activeSession.clusterTitle ?? state.activeSession.lesson.title,
+        // The lesson's title in the learner's language (the session keeps the English one).
+        title: getNodeTitle(state.activeSession.lesson.id, state.activeSession.clusterTitle ?? state.activeSession.lesson.title, currentLanguage),
         xp: nextUser.totalXp - user.totalXp,
         streakExtended: didExtendStreak(user, nextUser),
         stars: lessonStars(state.sessionMistakes),
         unlockedTitle: unlockedNode ? getNodeTitle(unlockedNode.id, unlockedNode.title, currentLanguage) : undefined,
-        streakDays: nextUser.streakDays
+        streakDays: nextUser.streakDays,
+        questsDone: finishQuests(false, nextUser.totalXp - user.totalXp)
       });
       const xpSummary = await learningApi.getXpSummaries(nextUser);
       dispatch({ type: "finish_lesson", user: nextUser, xpSummary });
@@ -2264,11 +2477,22 @@ export default function TopicApp() {
     const lessonBranchId = state.activeSession.lesson.branchId ?? findNodeById(state.activeSession.lesson.nodeId)?.branchId;
     const afterNodes = learningApi.getPathNodes(finishedUser);
     const unlockedNode = findUnlockedNode(beforeNodes, afterNodes, lessonBranchId);
-    const nextUser = withPathFocus(finishedUser, lessonBranchId, findFocusNode(afterNodes, unlockedNode, lessonBranchId)?.id);
+    const focusedUser = withPathFocus(finishedUser, lessonBranchId, findFocusNode(afterNodes, unlockedNode, lessonBranchId)?.id);
+    // A lesson finished for the first time with no mistakes pays a few bonus dates (a replay earns nothing, as XP).
+    const perfect = state.sessionMistakes === 0 && state.sessionCorrectCount > 0 && focusedUser.totalXp > user.totalXp;
+    const nextUser = perfect ? { ...focusedUser, gems: focusedUser.gems + PERFECT_LESSON_DATES } : focusedUser;
+    const asked = state.sessionCorrectCount + state.sessionMistakes;
 
     // LessonComplete plays the finish, streak and XP sounds itself, one after another.
     setLessonCompleteSummary({
-      title: state.activeSession.lesson.title,
+      title: getNodeTitle(state.activeSession.lesson.id, state.activeSession.lesson.title, currentLanguage),
+      perfect,
+      gemsReward: perfect ? PERFECT_LESSON_DATES : undefined,
+      accuracy: asked ? Math.round((state.sessionCorrectCount / asked) * 100) : undefined,
+      bestInARow: state.bestInARow,
+      questsDone: finishQuests(perfect, nextUser.totalXp - user.totalXp),
+      newPictures: collectLessonPictures(),
+      recap: lessonRecap(localizeLessonContent(state.activeSession.lesson, currentLanguage).challenges, state.missedChallengeIds),
       // A replayed lesson earns nothing, so show what was actually added.
       xp: nextUser.totalXp - user.totalXp,
       streakExtended: didExtendStreak(user, nextUser),
@@ -2285,6 +2509,22 @@ export default function TopicApp() {
   // The chest opens at once; its gems land when the learner taps COLLECT, so the top bar ticks up
   // as the pop closes. LearnPath plays the chest sound and answers taps on locked or opened chests.
   // Closing the app mid-pop leaves the chest ready to open again.
+  function openQuestChest() {
+    const dates = claimQuestChest();
+    setQuestsOpen(false);
+    if (dates > 0) {
+      setQuestChestDates(dates);
+    }
+  }
+
+  function collectQuestChest() {
+    const dates = questChestDates;
+    setQuestChestDates(0);
+    if (dates > 0) {
+      dispatch({ type: "apply_user_latest", update: (user) => withExperienceDefaults({ ...user, gems: user.gems + dates }) });
+    }
+  }
+
   function claimJourneyReward(stop: JourneyRewardStop) {
     if (!state.user || !stop.unlocked || stop.claimed || rewardCelebration) {
       return;
@@ -3488,33 +3728,43 @@ export default function TopicApp() {
   // A surah's own lesson ("Surah Al-Baqarah") opens on a picture of what its name means, then lists its parts.
   const lessonSurahNumber = pictureLesson ? surahNumberForTitle(pictureLesson.title) : undefined;
   const lessonSurah = lessonSurahNumber ? { number: lessonSurahNumber, parts: surahParts(lessonSurahNumber) } : undefined;
-  // A later page shows a picture of what it teaches (the bridge, the scales, the ark...), once per lesson.
-  const pageMatch =
-    pictureLesson && learnStep && learnStep.page !== "start" && learnStep.page !== "teach" && learnStep.page !== "quiz"
-      ? pictureForPage(
-          pictureLesson,
-          learnStep.page,
-          state.lessonQueue.slice(0, state.stepIndex).flatMap((step) => (isLearnStep(step) ? [step.page] : []))
-        )
-      : undefined;
-  const pagePicture = pageMatch && pageMatch.id !== lessonPicture?.id ? pageMatch : undefined;
+  // Every page shows a big picture: what it teaches (the bridge, the ark, a market...), else the lesson's own, else
+  // one that fits the topic, never the same one twice in a row (flowPictures).
+  const learnQueue = state.lessonQueue.flatMap((step, index) => (isLearnStep(step) ? [{ step, index }] : []));
+  const queuePictures = pictureLesson
+    ? flowPictures(
+        pictureLesson,
+        currentLessonSection.topicId,
+        learnQueue.map(({ step }) => ({
+          page: step.page,
+          text: step.page === "teach" && step.index !== undefined && pictureLesson.challenges[step.index] ? teachText(pictureLesson.challenges[step.index]) : undefined
+        })),
+        { startPicture: lessonPicture, cover: Boolean(lessonSurah) }
+      )
+    : [];
+  const shownPictureAt = learnQueue.findIndex(({ index }) => index === state.stepIndex);
+  const stepPicture = learnStep && shownPictureAt >= 0 ? queuePictures[shownPictureAt] : undefined;
+  const pagePicture = learnStep && learnStep.page !== "start" ? stepPicture : undefined;
   const pictureChallenge = englishChallenge ?? challenge;
   const questionPicture = pictureChallenge ? pictureForQuestion(pictureChallenge.prompt) : undefined;
+  // Every answer a place with its own picture (Arafah, Mina, Muzdalifah): picture cards. Not for a listening question.
+  const answerPictures = pictureChallenge && !pictureChallenge.listen && pictureChallenge.type === "multiple_choice" ? choicePictures(pictureChallenge.choices) : undefined;
   const inTest = isTestSession(lessonSession);
   const testPassingScore = inTest && lesson ? lessonSession?.passingScore ?? testOutPassingScore(lesson.challenges.length) : 0;
   // The pages of the lesson: what the source says (when it is about this lesson), the words its questions ask
   // for (highlighted), and a Good to know page's fact, all in the learner's language.
   const lessonSummaryShown = lesson && englishLesson && lessonSummary(englishLesson) ? lesson.learnSource?.summary : undefined;
   const lessonMarks = lesson ? highlightWords(lesson) : [];
-  const teachChallenge = learnStep?.page === "teach" && learnStep.index !== undefined ? lesson?.challenges[learnStep.index] : undefined;
-  const teachShown = teachChallenge ? teachLesson(teachChallenge) : undefined;
+  // Shaped from the English question (the rules read English words), then shown in the learner's language.
+  const teachChallenge = learnStep?.page === "teach" && learnStep.index !== undefined ? (englishLesson ?? lesson)?.challenges[learnStep.index] : undefined;
+  const teachShown = teachChallenge ? localizedTeach(teachChallenge, currentLanguage) : undefined;
   const quizQuestionCount = state.lessonQueue.filter((step) => isQuestionStep(step) && step.quiz && step.attempt === 0).length;
   // How this question is asked: tiles, a gap to fill, a word puzzle or true-or-false (questionFormats). Asked again
   // (a review, a quiz circle, a test or practice) it leans to another format than when it was taught.
   const questionRecall = Boolean(
     challenge && (challenge.isReview || (lesson && isRecallLesson(lesson)) || (lessonSession?.mode && lessonSession.mode !== "standard"))
   );
-  const questionFormatNow = challenge ? questionFormat(challenge, { recall: questionRecall, language: currentLanguage }) : "choose";
+  const questionFormatNow = challenge ? questionFormat(challenge, { recall: questionRecall, language: currentLanguage, pictures: Boolean(answerPictures) }) : "choose";
   const checkShown = challenge && questionFormatNow === "check" ? checkCandidate(challenge) : undefined;
   const fillNow = challenge && questionFormatNow === "fill" ? fillPiece(challenge) : undefined;
   // The match round's pairs: each question and its answer.
@@ -3588,6 +3838,9 @@ export default function TopicApp() {
       progress={lessonProgress}
       hearts={lessonHearts}
       onClose={() => setQuitLessonVisible(true)}
+      inARow={state.rightInARow}
+      // A new step slides in; the answer sheet opening on the same question does not.
+      stepKey={`${state.stepIndex}-${state.screen === "lesson_feedback" ? "lesson_question" : state.screen}`}
       overlay={
         <>
           {quitSheet}
@@ -3627,6 +3880,7 @@ export default function TopicApp() {
             onOpenShop={() => dispatch({ type: "open_shop" })}
             dailySeen={dailySeenDay === localDayNumber()}
             dailyOpenSignal={dailyOpenSignal}
+            onOpenAdhkar={() => openAdhkar()}
             onDailyOpened={() => {
               const today = localDayNumber();
               setDailySeenDay(today);
@@ -3681,14 +3935,18 @@ export default function TopicApp() {
                     {t("All of {topic}", { topic: selectedSection.title })}
                   </Text>
                 </Tappable>
-              ) : ramadanBanner || storyBanner || pathReviewDue > 0 ? (
+              ) : selectedSection.topicId === "duas" ? (
+                <AdhkarBanner accent={selectedSection.accentColor} now={adhkarTimeFor(new Date())} doneToday={adhkarDone} onOpen={(time) => openAdhkar(time)} />
+              ) : (
                 <>
+                  {/* Today's three quests and their chest. */}
+                  <QuestsBanner board={questBoardNow} onOpen={() => setQuestsOpen(true)} />
                   {ramadanBanner}
                   {/* Missed questions due again (spaced review): one tap starts a Review of them. */}
                   {pathReviewDue > 0 ? <ReviewBanner count={pathReviewDue} onOpen={startReviewDeck} /> : null}
                   {storyBanner}
                 </>
-              ) : undefined
+              )
             }
           />
         )}
@@ -3697,7 +3955,9 @@ export default function TopicApp() {
             // Each page comes in fresh, with its own entry.
             key={`${lesson.id}-${state.stepIndex}`}
             page={learnStep?.page}
+            explain={learnStep?.page === "facts" && englishLesson && lessonExplain(englishLesson) ? lesson.intro : undefined}
             summary={learnStep?.page === "facts" ? lessonSummaryShown : undefined}
+            englishSummary={learnStep?.page === "facts" && lessonSummaryShown ? englishLesson?.learnSource?.summary : undefined}
             marks={lessonMarks}
             teach={teachShown}
             quizCount={learnStep?.page === "quiz" ? quizQuestionCount || lesson.challenges.length : undefined}
@@ -3720,7 +3980,7 @@ export default function TopicApp() {
             learnSource={lesson.learnSource}
             onOpenSource={openWebPage}
             arabicRecitation={lessonRecitation ?? undefined}
-            picture={lessonPicture}
+            picture={lessonSurah ? lessonPicture : stepPicture ?? lessonPicture}
             pagePicture={pagePicture}
             teacher={lessonTeacher}
             surah={lessonSurah}
@@ -3731,7 +3991,7 @@ export default function TopicApp() {
           />
         )}
         {state.screen === "lesson_match" && matchPairs.length > 0 && lessonShell(
-          <MatchGame key={`${lesson?.id}-match-${state.stepIndex}`} pairs={matchPairs} mascotVariant={lessonMascot} accent={lessonAccent} onDone={continueFromTeach} />
+          <MatchGame key={`${lesson?.id}-match-${state.stepIndex}`} pairs={matchPairs} mascotVariant={lessonMascot} accent={lessonAccent} onMiss={missInMatch} onDone={continueFromMatch} />
         )}
         {state.screen === "lesson_practice" && currentPracticeActivity && lessonShell(
           <OrderGame
@@ -3799,16 +4059,28 @@ export default function TopicApp() {
                   ? {
                       correct: state.answerState === "correct",
                       correctLabel,
-                      why: localizedWhy(englishChallenge ?? challenge, currentLanguage),
+                      why: challenge.listen ? listenWhy(englishChallenge ?? challenge, currentLanguage) : localizedWhy(englishChallenge ?? challenge, currentLanguage),
                       source: feedbackSource(challenge, lesson)
                     }
                   : undefined}
+                listen={
+                  challenge.listen
+                    ? {
+                        onPlay: () => playListen(challenge.listen!),
+                        playing: challenge.listen.recitation
+                          ? ayahNow.url === challenge.listen.recitation && (ayahNow.status === "playing" || ayahNow.status === "loading")
+                          : listenSpeaking
+                      }
+                    : undefined
+                }
                 attempt={lessonStep.attempt}
                 review={challenge.missedBefore ? "missed" : challenge.isReview}
                 mascotVariant={lessonMascot}
                 accent={lessonAccent}
                 praiseSeed={challenge.id}
-                picture={questionPicture}
+                // Picture answers are enough pictures: the prompt's place does not show over them too.
+                picture={answerPictures ? undefined : questionPicture}
+                choicePictures={answerPictures}
                 playSound={false}
                 continueSound={continueEndsLesson || continueOpensRefill ? false : undefined}
                 onSelect={(choiceId) => dispatch({ type: "select_choice", choiceId })}
@@ -3847,6 +4119,12 @@ export default function TopicApp() {
             goal={{ xpToday: getXpToday(state.user), goalXp: state.user.dailyGoalXp }}
             unlockedTitle={lessonCompleteSummary.unlockedTitle}
             gemsReward={lessonCompleteSummary.gemsReward}
+            perfect={lessonCompleteSummary.perfect}
+            accuracy={lessonCompleteSummary.accuracy}
+            bestInARow={lessonCompleteSummary.bestInARow}
+            recap={lessonCompleteSummary.recap}
+            questsDone={lessonCompleteSummary.questsDone}
+            newPictures={lessonCompleteSummary.newPictures}
             mascotVariant={lessonMascot}
             accent={lessonAccent}
             nextTitle={nextLessonNode?.title}
@@ -3917,6 +4195,8 @@ export default function TopicApp() {
             onShareApp={() => void shareApp(invite?.code, invite?.rewardDates)}
             certificateCount={earnedCertificates.length}
             onOpenCertificates={() => setCertificatesSheetVisible(true)}
+            onOpenAlbum={() => setAlbumVisible(true)}
+            album={{ found: ALBUM_PICTURES.filter((picture) => albumFound.includes(picture.id)).length, total: ALBUM_PICTURES.length }}
             charity={charityEnabled() ? CHARITY : undefined}
             hasSavedAccount={hasSavedAccount}
             onCreateAccount={() => openAccountPanel()}
@@ -3977,6 +4257,7 @@ export default function TopicApp() {
             invite={invite}
             onRedeemInvite={(code) => void redeemInvite(code)}
             onCreateAccount={openCrewAccount}
+            describeLearning={(member) => describeLearning(member.learningNow)}
             league={crewLeagueUser?.league}
             ranks={{
               rankings,
@@ -4044,6 +4325,7 @@ export default function TopicApp() {
             onFinish={finishStory}
           />
         )}
+        {!inLesson && <PictureAlbumSheet visible={albumVisible} onClose={() => setAlbumVisible(false)} />}
         {!inLesson && (
           <CertificatesSheet
             visible={certificatesSheetVisible}
@@ -4134,6 +4416,15 @@ export default function TopicApp() {
             setSettingsModalVisible(false);
             setPrayerModalVisible(true);
           }}
+        />
+        <AdhkarSheet
+          visible={adhkarOpen !== null}
+          time={adhkarOpen ?? "morning"}
+          doneToday={adhkarDone}
+          onFinished={(time) => setAdhkarDone(markAdhkarDone(time))}
+          remindersOn={adhkarReminders}
+          onToggleReminders={() => void toggleAdhkarReminders()}
+          onClose={() => setAdhkarOpen(null)}
         />
         <PrayerSheet
           visible={prayerModalVisible}
@@ -4240,6 +4531,8 @@ export default function TopicApp() {
           gems={rewardCelebration?.stop.gemsReward ?? 0}
           onClose={collectJourneyReward}
         />
+        <RewardPop visible={questChestDates > 0 && !rewardCelebration} gems={questChestDates} onClose={collectQuestChest} />
+        <QuestsSheet visible={questsOpen && !inLesson} board={questBoardNow} onClaim={openQuestChest} onClose={() => setQuestsOpen(false)} />
         <AgeSheet
           visible={hasUser && !ageGroup}
           onSave={(group) => {

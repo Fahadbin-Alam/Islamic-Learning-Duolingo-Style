@@ -1,10 +1,16 @@
-import React, { useEffect, useRef } from "react";
-import { Animated, Pressable, StyleSheet, Text, View } from "react-native";
+import React, { memo, useEffect, useRef, useState } from "react";
+import { Animated, Easing, Image, Pressable, StyleSheet, Text, View } from "react-native";
+import type { LessonPicture } from "../data/lessonPictures";
 import { isRtlLanguage } from "../i18n";
 import { ArabicText, isArabicOnly, isQuranText, withHonorifics } from "./ArabicText";
 import { Icon, type IconName } from "./Icon";
+import { photoAspect } from "./lesson/LessonPhoto";
+import { LiveFrame } from "./lesson/LivePicture";
 import { noBreakHyphens } from "./lesson/lessonText";
+import { PICTURE_LIFE } from "./lesson/pictureLife";
 import { useShake } from "./PopIn";
+import { useReduceMotion } from "./motion";
+import { Sparkle } from "./reactions";
 import { haptic, playUi } from "./sound";
 import { colors, fonts, lighten, radii } from "./theme";
 
@@ -30,6 +36,8 @@ export type ChoiceTileProps = {
    * Arabic answer), for a set of tiles too tall for its screen even tight (see sheetFit's FIT_STEPS).
    */
   smallText?: boolean;
+  /** A picture of the answer (a place), shown moving at the tile's start, like a picture card. */
+  picture?: LessonPicture;
   testID?: string;
   accessibilityLabel?: string;
 };
@@ -95,13 +103,41 @@ const ARABIC_COMPACT = 22;
 const ARABIC = 24;
 
 /** Big answer tile. Pops when selected, shakes when wrong. Text always wraps. */
-export function ChoiceTile({ label, onPress, state = "idle", badge, icon, iconColor, layout = "row", compact, tight, long: longProp, smallText, testID, accessibilityLabel }: ChoiceTileProps) {
+export function ChoiceTile(props: ChoiceTileProps) {
+  return <TileFace {...props} rtl={isRtlLanguage()} />;
+}
+
+/**
+ * The tile itself, drawn again only when what it shows changes (its props, or the way the screen's lines run): a
+ * question drawn again while its answer sheet opens leaves its tiles as they are.
+ */
+const TileFace = memo(function TileFace({
+  label,
+  onPress,
+  state = "idle",
+  badge,
+  icon,
+  iconColor,
+  layout = "row",
+  compact,
+  tight,
+  long: longProp,
+  smallText,
+  picture,
+  testID,
+  accessibilityLabel,
+  rtl
+}: ChoiceTileProps & { rtl: boolean }) {
+  const start = rtl ? "right" : "left";
   const look = LOOKS[state];
   const interactive = state !== "disabled" && state !== "dimmed";
   const press = useRef(new Animated.Value(0)).current;
   const pop = useRef(new Animated.Value(1)).current;
   const { style: shakeStyle, shake } = useShake(7);
   const previous = useRef(state);
+  const reduceMotion = useReduceMotion();
+  // Counts the times this tile turned green: each one plays the sparkle burst and the shine once.
+  const [bursts, setBursts] = useState(0);
 
   useEffect(() => {
     const before = previous.current;
@@ -110,13 +146,16 @@ export function ChoiceTile({ label, onPress, state = "idle", badge, icon, iconCo
       return;
     }
     if (state === "selected" || state === "correct") {
-      pop.setValue(0.94);
-      Animated.spring(pop, { toValue: 1, friction: 4, tension: 220, useNativeDriver: true }).start();
+      pop.setValue(state === "correct" ? 0.9 : 0.94);
+      Animated.spring(pop, { toValue: 1, friction: state === "correct" ? 3 : 4, tension: 220, useNativeDriver: true }).start();
+    }
+    if (state === "correct" && before === "selected" && !reduceMotion) {
+      setBursts((count) => count + 1);
     }
     if (state === "wrong") {
       shake();
     }
-  }, [pop, shake, state]);
+  }, [pop, shake, state, reduceMotion]);
 
   const translateY = press.interpolate({ inputRange: [0, 1], outputRange: [0, LIP - 1] });
   const arabic = isArabicOnly(label);
@@ -129,6 +168,13 @@ export function ChoiceTile({ label, onPress, state = "idle", badge, icon, iconCo
       {badge && !square ? (
         <View style={[styles.badge, { borderColor: look.badgeBorder }]}>
           <Text style={[styles.badgeText, { color: look.badgeText }]}>{badge}</Text>
+        </View>
+      ) : null}
+      {picture && !square ? (
+        <View style={[styles.picture, compact || tight ? styles.pictureSmall : null, { borderColor: look.border }]} testID={testID ? `${testID}-picture` : undefined}>
+          <LiveFrame aspect={photoAspect(picture)} life={PICTURE_LIFE[picture.id]} cheer={bursts || undefined}>
+            <Image source={picture.image} style={styles.pictureImage} resizeMode="cover" />
+          </LiveFrame>
         </View>
       ) : null}
       {icon ? (
@@ -150,7 +196,7 @@ export function ChoiceTile({ label, onPress, state = "idle", badge, icon, iconCo
       ) : (
         // A row tile's text starts where the screen's lines start: on the left left to right, on the right right to left,
         // whatever its own script (a number or a Latin word keeps its own direction, so "start" alone would put it left).
-        <Text style={[styles.label, labelSize, square ? styles.squareLabel : styles.rowLabel, { color: look.text, textAlign: square ? "center" : lineStart() }]}>
+        <Text style={[styles.label, labelSize, square ? styles.squareLabel : styles.rowLabel, { color: look.text, textAlign: square ? "center" : start }]}>
           {withHonorifics(noBreakHyphens(label))}
         </Text>
       )}
@@ -195,13 +241,90 @@ export function ChoiceTile({ label, onPress, state = "idle", badge, icon, iconCo
               <Text style={[styles.badgeText, { color: look.badgeText }]}>{badge}</Text>
             </View>
           ) : null}
+          {bursts > 0 && state === "correct" ? <CorrectBurst key={bursts} /> : null}
         </Pressable>
       </Animated.View>
     </Animated.View>
   );
+});
+
+/** Where the sparkles start round the tile's edge (share of its width / height) and which way they fly. */
+const BURST = [
+  { x: 0.04, y: 0.1, dx: -1, dy: -1 },
+  { x: 0.3, y: 0, dx: -0.3, dy: -1 },
+  { x: 0.62, y: 0, dx: 0.3, dy: -1 },
+  { x: 0.96, y: 0.12, dx: 1, dy: -1 },
+  { x: 1, y: 0.62, dx: 1, dy: 0.2 },
+  { x: 0, y: 0.6, dx: -1, dy: 0.2 },
+  { x: 0.45, y: 1, dx: 0, dy: 0.6 }
+];
+const BURST_COLORS = ["#FFC21A", "#58CC02", "#FF82AB", "#1CB0F6"];
+
+/**
+ * A right answer's tile: sparkles burst off its edges and a shine sweeps across it, once, over the tile (it takes no
+ * room and lets taps through). Left out when the phone asks for less motion.
+ */
+function CorrectBurst() {
+  const t = useRef(new Animated.Value(0)).current;
+  const [box, setBox] = useState<{ width: number; height: number } | undefined>(undefined);
+  useEffect(() => {
+    const run = Animated.timing(t, { toValue: 1, duration: 760, easing: Easing.out(Easing.quad), useNativeDriver: true });
+    run.start();
+    return () => run.stop();
+  }, [t]);
+  const shineX = box ? t.interpolate({ inputRange: [0, 0.75, 1], outputRange: [-60, box.width + 60, box.width + 60] }) : 0;
+  return (
+    <View
+      pointerEvents="none"
+      style={[StyleSheet.absoluteFill, { bottom: LIP }]}
+      onLayout={(event) => setBox({ width: event.nativeEvent.layout.width, height: event.nativeEvent.layout.height })}
+      testID="correct-burst"
+    >
+      {box ? (
+        <>
+          <View style={[StyleSheet.absoluteFill, styles.shineClip]}>
+            <Animated.View style={[styles.shine, { height: box.height * 2, top: -box.height / 2, transform: [{ translateX: shineX }, { rotate: "18deg" }] }]} />
+          </View>
+          {BURST.map((spark, index) => {
+            const distance = 14 + (index % 3) * 6;
+            const opacity = t.interpolate({ inputRange: [0, 0.08, 0.6, 1], outputRange: [0, 1, 1, 0] });
+            const scale = t.interpolate({ inputRange: [0, 0.25, 1], outputRange: [0.2, 1.2, 0.6] });
+            return (
+              <Animated.View
+                key={index}
+                style={{
+                  position: "absolute",
+                  left: spark.x * box.width - 7,
+                  top: spark.y * box.height - 7,
+                  opacity,
+                  transform: [
+                    { translateX: t.interpolate({ inputRange: [0, 1], outputRange: [0, spark.dx * distance] }) },
+                    { translateY: t.interpolate({ inputRange: [0, 1], outputRange: [0, spark.dy * distance] }) },
+                    { scale }
+                  ]
+                }}
+              >
+                <Sparkle size={index % 2 ? 12 : 15} color={BURST_COLORS[index % BURST_COLORS.length]} />
+              </Animated.View>
+            );
+          })}
+        </>
+      ) : null}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
+  shineClip: {
+    borderRadius: radii.tile,
+    overflow: "hidden"
+  },
+  shine: {
+    position: "absolute",
+    left: 0,
+    width: 34,
+    backgroundColor: "rgba(255,255,255,0.55)"
+  },
   rowRoot: {
     alignSelf: "stretch",
     width: "100%"
@@ -254,6 +377,25 @@ const styles = StyleSheet.create({
   squareFaceCompact: {
     minHeight: 104,
     paddingVertical: 12
+  },
+  picture: {
+    width: 64,
+    height: 64,
+    borderRadius: 12,
+    borderWidth: 2,
+    overflow: "hidden",
+    marginEnd: 12,
+    backgroundColor: "#EEF3F0"
+  },
+  pictureSmall: {
+    width: 48,
+    height: 48,
+    borderRadius: 10,
+    marginEnd: 10
+  },
+  pictureImage: {
+    width: "100%",
+    height: "100%"
   },
   rowIcon: {
     marginEnd: 12

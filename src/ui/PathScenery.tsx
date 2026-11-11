@@ -12,6 +12,7 @@ import { useScene } from "./sceneMood";
 import { ShowScenery, WellBucket, hasShows } from "./sceneryShows";
 import { feedback, playUi } from "./sound";
 import { WorldDrawing, isWorldKind, type WorldKind } from "./worldArt";
+import { WalkingLegs, isLegged, useWalkClock } from "./walkingLegs";
 import { WORLD_ITEMS, type PathWorld } from "./pathWorlds";
 import { useSecretTap } from "./secretHadith";
 
@@ -61,6 +62,7 @@ const THEMES: Record<string, SceneryKind[]> = {
   fasting: ["dates", "palm", "well", "dunes", "tent", "oasis", "rocks", "bush"],
   ramadan: ["dates", "mosque", "palm", "well", "oasis", "tent", "dunes", "bush"],
   eid: ["sheep", "mosque", "palm", "flowers", "tent", "dates", "oasis", "bush"],
+  duas: ["mosque", "palm", "flowers", "well", "oasis", "bush", "dates", "sheep"],
   sahihayn: ["bookStand", "inkpot", "palm", "well", "flowers", "dates", "bush", "oasis"],
   akhirah: ["mountain", "rocks", "dunes", "oasis", "palm", "flowers", "well", "bush"],
   intro: ["palm", "flowers", "well", "mosque", "oasis", "kaaba", "bush", "sheep"],
@@ -110,8 +112,8 @@ const CREAM = "#FFF3D6";
 const PAGE = "#FFFFFF";
 const INK = "#1F2D27";
 
-function Drawing({ kind }: { kind: SceneryKind }) {
-  if (isWorldKind(kind)) return <WorldDrawing kind={kind} />;
+function Drawing({ kind, legless = false }: { kind: SceneryKind; legless?: boolean }) {
+  if (isWorldKind(kind)) return <WorldDrawing kind={kind} legless={legless} />;
   switch (kind) {
     case "palm":
       return (
@@ -224,8 +226,12 @@ function Drawing({ kind }: { kind: SceneryKind }) {
     case "sheep":
       return (
         <G>
-          <Rect x={20} y={42} width={5} height={14} rx={2.5} fill="#5A4A42" />
-          <Rect x={38} y={42} width={5} height={14} rx={2.5} fill="#5A4A42" />
+          {legless ? null : (
+            <>
+              <Rect x={20} y={42} width={5} height={14} rx={2.5} fill="#5A4A42" />
+              <Rect x={38} y={42} width={5} height={14} rx={2.5} fill="#5A4A42" />
+            </>
+          )}
           <Circle cx={22} cy={36} r={10} fill="#FFFFFF" />
           <Circle cx={32} cy={31} r={11} fill="#FFFFFF" />
           <Circle cx={42} cy={36} r={10} fill="#FFFFFF" />
@@ -661,6 +667,22 @@ const SceneryBody = memo(function SceneryBody({ kind, size = 64, animated = fals
   }, [sways, sway]);
   const rotate = sway.interpolate({ inputRange: [-1, 1], outputRange: ["-3deg", "3deg"] });
   const iconName = ICON_KINDS[kind];
+  // A sheep, goat or horse wandering its row walks on real swinging legs (walkingLegs.tsx).
+  const clock = useWalkClock();
+  const walks = Boolean(clock) && animated && !reduceMotion && isLegged(kind);
+  const art =
+    walks && isLegged(kind) ? (
+      <View style={{ width: size, height: size }} pointerEvents="none">
+        <WalkingLegs kind={kind} size={size} clock={clock} />
+        <Svg width={size} height={size} viewBox="0 0 64 64" style={StyleSheet.absoluteFill}>
+          <Drawing kind={kind} legless />
+        </Svg>
+      </View>
+    ) : (
+      <Svg width={size} height={size} viewBox="0 0 64 64">
+        <Drawing kind={kind} />
+      </Svg>
+    );
   const isWell = kind === "well";
   const splashes = isWell || kind === "oasis";
 
@@ -729,11 +751,7 @@ const SceneryBody = memo(function SceneryBody({ kind, size = 64, animated = fals
       <ShowScenery
         kind={kind}
         size={size}
-        art={
-          <Svg width={size} height={size} viewBox="0 0 64 64">
-            <Drawing kind={kind} />
-          </Svg>
-        }
+        art={art}
         sway={sways ? rotate : null}
         reduceMotion={reduceMotion}
         style={style}
@@ -746,13 +764,7 @@ const SceneryBody = memo(function SceneryBody({ kind, size = 64, animated = fals
 
   const picture = (
     <Animated.View style={{ width: size, height: size, transformOrigin: "bottom", transform: [...(sways ? [{ rotate }] : []), ...(isMountain ? mountainHop : hop)] }}>
-      {iconName ? (
-        <Icon name={iconName} size={size} />
-      ) : (
-        <Svg width={size} height={size} viewBox="0 0 64 64">
-          <Drawing kind={kind} />
-        </Svg>
-      )}
+      {iconName ? <Icon name={iconName} size={size} /> : art}
       {isWell ? (
         // Clipped from under the beam down to the water, so the bucket sinks out of sight.
         <View style={[styles.bucketClip, { top: (size * 21) / 64, height: (size * 18) / 64 }]}>

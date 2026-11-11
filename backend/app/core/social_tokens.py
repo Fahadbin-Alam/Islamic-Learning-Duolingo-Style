@@ -7,8 +7,9 @@ import urllib.request
 from dataclasses import dataclass
 from typing import Any, Callable, Dict, List, Optional
 
-from jose import jwt
-from jose.exceptions import JOSEError
+import jwt
+from jwt import PyJWK
+from jwt.exceptions import PyJWKError, PyJWTError
 
 from backend.app.core.config import settings
 
@@ -58,8 +59,19 @@ def _decode(token: str, keys_url: str, audiences: List[str], issuers: tuple) -> 
     try:
         header = jwt.get_unverified_header(token)
         key = _signing_key(keys_url, header.get("kid"))
-        claims = jwt.decode(token, key, algorithms=[key.get("alg", "RS256")], options={"verify_aud": False, "verify_at_hash": False})
-    except (JOSEError, KeyError, ValueError) as error:
+        # Only RSA signatures: a token can never pick a weaker algorithm (or "none") for itself.
+        algorithm = key.get("alg") or "RS256"
+        if algorithm not in ("RS256", "RS384", "RS512"):
+            raise SocialTokenError("The sign-in token is not valid.")
+        claims = jwt.decode(
+            token,
+            PyJWK(key, algorithm).key,
+            algorithms=[algorithm],
+            # A minute of slack for phones and servers whose clocks are slightly off.
+            leeway=60,
+            options={"verify_aud": False, "require": ["exp", "iss", "sub"]},
+        )
+    except (PyJWTError, PyJWKError, KeyError, ValueError, TypeError) as error:
         raise SocialTokenError("The sign-in token is not valid.") from error
     except OSError as error:
         raise SocialTokenError("Could not reach the sign-in provider.") from error

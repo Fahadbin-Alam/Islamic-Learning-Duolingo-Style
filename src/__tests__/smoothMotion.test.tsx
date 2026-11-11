@@ -30,12 +30,17 @@ describe("smooth motion", () => {
     expect(config.outputRange[50]).toBeCloseTo(1);
   });
 
-  it("draws the waving mascot in layers and the others in one picture", async () => {
+  it("draws the mascot in layers: the shadow stays down, the head and face turn on their own (3D look)", async () => {
     const { toJSON, rerender } = await render(<Mascot mood="wave" />);
     const count = () => JSON.stringify(toJSON()).split('"type":"RNSVGSvgView"').length - 1;
-    expect(count()).toBe(5);
+    // shadow, body, arm, head, face, blink lids, hand, front
+    expect(count()).toBe(8);
     await rerender(<Mascot mood="happy" />);
-    expect(count()).toBe(1);
+    // shadow, body, head, face, blink lids, front
+    expect(count()).toBe(6);
+    // Cheering eyes are already shut arcs, so there is nothing to blink.
+    await rerender(<Mascot mood="cheer" />);
+    expect(count()).toBe(5);
     expect(screen).toBeTruthy();
   });
 });

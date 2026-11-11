@@ -154,6 +154,79 @@ export async function syncRemoteUser(user: UserProfile) {
   removeStoredItem(PENDING_SYNC_KEY);
 }
 
+const SYNC_QUIET_MS = 4000;
+let queuedUser: UserProfile | null = null;
+let quietTimer: ReturnType<typeof setTimeout> | null = null;
+let sending = false;
+
+/**
+ * Saves the learner to the server a few seconds after the last change, one save at a time. A lesson changes the
+ * profile on every answer; sending each copy at once flooded the (free, often asleep) server, and replies arriving
+ * out of order could let an older copy of hearts or dates overwrite a newer one. Now only the newest copy is sent,
+ * and never while another save is still on its way.
+ */
+export function queueRemoteSync(user: UserProfile, options?: { now?: boolean }) {
+  if (!getSessionToken() || !user.hasAccount) {
+    return;
+  }
+  queuedUser = user;
+  // Marked straight away, so an app closed during the quiet seconds still knows the server is behind.
+  setStoredItem(PENDING_SYNC_KEY, "1");
+  if (quietTimer) {
+    clearTimeout(quietTimer);
+    quietTimer = null;
+  }
+  if (options?.now) {
+    void flushRemoteSync();
+    return;
+  }
+  quietTimer = setTimeout(() => {
+    quietTimer = null;
+    void flushRemoteSync();
+  }, SYNC_QUIET_MS);
+}
+
+function dropQueuedSync() {
+  queuedUser = null;
+  if (quietTimer) {
+    clearTimeout(quietTimer);
+    quietTimer = null;
+  }
+}
+
+/** Sends the newest queued copy now (for example when the app goes to the background). */
+export async function flushRemoteSync() {
+  if (quietTimer) {
+    clearTimeout(quietTimer);
+    quietTimer = null;
+  }
+  if (sending) {
+    // The save on its way picks up the newest copy when it finishes.
+    return;
+  }
+  sending = true;
+  try {
+    while (queuedUser) {
+      const user = queuedUser;
+      queuedUser = null;
+      try {
+        await syncRemoteUser(user);
+        if (queuedUser) {
+          // A newer copy came in while this one was on its way: the server is still behind until it is sent.
+          setStoredItem(PENDING_SYNC_KEY, "1");
+        }
+      } catch {
+        // Offline or the server is asleep: hasPendingSync() stays true and the retry timer tries again.
+        if (queuedUser === null) {
+          return;
+        }
+      }
+    }
+  } finally {
+    sending = false;
+  }
+}
+
 /** True while progress made on this phone (often offline) still has to reach the server. */
 export function hasPendingSync() {
   return getStoredItem(PENDING_SYNC_KEY) === "1";
@@ -308,7 +381,14 @@ export type CrewMember = {
   friendStreak?: FriendStreak;
   /** Not agreed yet: the server sends no learning stats, and for someone you added, only the email you typed. */
   pending?: boolean;
+  /** Lessons finished (older servers leave it out). */
+  lessonsDone?: number;
+  /** What they have open now; older servers leave it out. */
+  learningNow?: LearningNow | null;
 };
+
+/** A learner's last topic and the circle START sits on there, named in the app (see learning_now in friends.py). */
+export type LearningNow = { topicId: string; nodeId: string | null };
 
 export type CrewPayload = {
   me: CrewMember;
@@ -383,6 +463,7 @@ export type LinkedKid = {
   completedNodeIds: string[];
   nodeStars: Record<string, number>;
   lastLearningAt: string | null;
+  learningNow?: LearningNow | null;
 };
 
 export type LinkedParent = { id: number; name: string; avatarInitials: string };
@@ -493,10 +574,15 @@ export function getSessionToken() {
 }
 
 export function setSessionToken(token: string) {
+  if (getStoredItem(SESSION_KEY) !== token) {
+    // A copy waiting from the account that was signed in before must never be sent with the new log-in.
+    dropQueuedSync();
+  }
   setStoredItem(SESSION_KEY, token);
 }
 
 export function clearSessionToken() {
+  dropQueuedSync();
   removeStoredItem(SESSION_KEY);
   removeStoredItem(PENDING_SYNC_KEY);
 }

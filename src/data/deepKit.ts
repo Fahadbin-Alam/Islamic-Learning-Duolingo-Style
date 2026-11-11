@@ -1,5 +1,6 @@
 import type { DifficultyTier, LearningNode, Lesson, LessonSource, TopicId } from "../types";
 import { QURAN_AYAHS } from "./quranAyahs";
+import { shamelaUrl } from "./shamelaPages";
 
 // The building blocks of the deep units (deepUnits.ts and the files it gathers): a lesson card, its questions,
 // and the sources they come from.
@@ -86,6 +87,25 @@ export function saadi(surah: number, ayahNumber: number, summary: string, highli
     reference: `Tafsir as-Sa'di ${surah}:${ayahNumber}`,
     from: "Tafsir as-Sa'di (Arabic), on Quran.com",
     grade: "Tafsir",
+    summary,
+    highlight
+  };
+}
+
+/**
+ * Siyar A'lam an-Nubala by adh-Dhahabi (Arabic, on Shamela), by printed volume/page. `highlight` is his exact Arabic
+ * words on that page (add the page to shamelaPages.json so the link opens on it).
+ */
+export function siyar(volume: number, page: number, title: string, summary: string, highlight: string): LessonSource {
+  return {
+    id: `book_siyar_${volume}_${page}`,
+    site: "Shamela",
+    category: "biography",
+    title,
+    url: shamelaUrl(10906, volume, page),
+    reference: `Siyar A'lam an-Nubala ${volume}/${page}`,
+    from: "Siyar A'lam an-Nubala by adh-Dhahabi (Arabic, on Shamela)",
+    grade: "Biography",
     summary,
     highlight
   };

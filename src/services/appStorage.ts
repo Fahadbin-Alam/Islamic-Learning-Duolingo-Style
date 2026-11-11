@@ -28,7 +28,11 @@ const STORAGE_KEYS = [
   "sira-path-pending-sync",
   "sira-path-learner-background",
   "sira-path-path-world",
-  "sira-path-kids-mode"
+  "sira-path-adhkar-done",
+  "sira-path-adhkar-reminders",
+  "sira-path-kids-mode",
+  "sira-path-daily-quests",
+  "sira-path-picture-album"
 ] as const;
 
 type StorageKey = (typeof STORAGE_KEYS)[number];

@@ -8,8 +8,9 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status
 from pydantic import BaseModel
 from sqlalchemy import delete, or_, select
 
+from backend.app.core.rate_limit import check_rate
 from backend.app.api.deps import DbSession, current_user
-from backend.app.api.routes.friends import learner_today, live_streak
+from backend.app.api.routes.friends import learner_today, learning_now, live_streak
 from backend.app.models import FamilyLink, FamilyLinkCode, User
 from backend.app.service_layer import initials
 
@@ -20,8 +21,8 @@ router = APIRouter(tags=["family"])
 CODE_ALPHABET = "ABCDEFGHJKMNPQRSTUVWXYZ23456789"
 CODE_LENGTH = 6
 CODE_LIFETIME = timedelta(hours=24)
-# Same as MAX_FAMILY_KIDS in src/services/familyCode.ts.
-MAX_KIDS = 10
+# Enough for a teacher's class. (Pasted codes, with no account, keep MAX_FAMILY_KIDS in src/services/familyCode.ts.)
+MAX_KIDS = 40
 MAX_PARENTS = 4
 # Days of XP sent to a parent: enough for the week chart.
 KID_XP_DAYS = 14
@@ -56,6 +57,7 @@ def kid_payload(child: User, day: date) -> Dict[str, Any]:
         "completedNodeIds": list(child.completed_node_ids_json or []),
         "nodeStars": dict(child.node_stars_json or {}),
         "lastLearningAt": child.last_learning_at.isoformat() if child.last_learning_at else None,
+        "learningNow": learning_now(child),
     }
 
 
@@ -90,6 +92,8 @@ def family(db: DbSession, today: Optional[str] = Query(default=None), user: User
 
 @router.post("/family/kids", status_code=status.HTTP_201_CREATED)
 def link_kid(payload: LinkKidInput, db: DbSession, today: Optional[str] = Query(default=None), user: User = Depends(current_user)):
+    # A code is 6 letters; this keeps anyone from trying codes until one belongs to a child.
+    check_rate("family-code", str(user.id), 10, 15 * 60)
     entry = db.get(FamilyLinkCode, clean_code(payload.code))
     if not entry or as_aware(entry.expires_at) < datetime.now(timezone.utc):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="That code didn't work. Ask for a new one.")
@@ -99,7 +103,7 @@ def link_kid(payload: LinkKidInput, db: DbSession, today: Optional[str] = Query(
     if db.scalar(select(FamilyLink).where(FamilyLink.parent_id == user.id, FamilyLink.child_id == child.id)):
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="You already follow this child.")
     if len(db.scalars(select(FamilyLink.id).where(FamilyLink.parent_id == user.id)).all()) >= MAX_KIDS:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="You can follow up to 10 kids.")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="You can follow up to 40 learners.")
     if len(db.scalars(select(FamilyLink.id).where(FamilyLink.child_id == child.id)).all()) >= MAX_PARENTS:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="This child already has 4 grown-ups linked.")
     # A code works once.

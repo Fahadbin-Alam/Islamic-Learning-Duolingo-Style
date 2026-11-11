@@ -33,7 +33,17 @@ export type GameSoundEvent =
   | "meteor"
   | "giant"
   | "hello"
-  | "yawn";
+  | "yawn"
+  // Right answers in a row: the "correct" chime, a step higher each time (2 in a row .. 6+ in a row).
+  | "combo_2"
+  | "combo_3"
+  | "combo_4"
+  | "combo_5"
+  | "combo_6"
+  // A lesson with no mistakes: a bright little fanfare.
+  | "perfect"
+  // A daily quest done.
+  | "quest";
 
 export type SoundTone = {
   frequency: number;
@@ -47,6 +57,18 @@ export type SoundPreferences = {
   enabled?: boolean;
   reduced?: boolean;
 };
+
+const CORRECT: SoundTone[] = [
+  { frequency: 740, durationMs: 60, gain: 0.04, type: "triangle" },
+  { frequency: 980, durationMs: 70, delayMs: 44, gain: 0.04, type: "triangle" },
+  { frequency: 1240, durationMs: 90, delayMs: 92, gain: 0.032, type: "triangle" }
+];
+
+/** The same tones, `semitones` higher. */
+function raise(tones: SoundTone[], semitones: number): SoundTone[] {
+  const factor = Math.pow(2, semitones / 12);
+  return tones.map((tone) => ({ ...tone, frequency: Math.round(tone.frequency * factor) }));
+}
 
 export const SOUND_LIBRARY: Record<GameSoundEvent, SoundTone[]> = {
   node_tap: [
@@ -265,10 +287,34 @@ export const SOUND_LIBRARY: Record<GameSoundEvent, SoundTone[]> = {
     { frequency: 260, durationMs: 260, gain: 0.024, type: "sine" },
     { frequency: 330, durationMs: 300, delayMs: 220, gain: 0.024, type: "sine" },
     { frequency: 250, durationMs: 420, delayMs: 520, gain: 0.02, type: "sine" }
-  ]
+  ],
+  // Each step two semitones up from "correct", so a run climbs like a little scale.
+  combo_2: raise(CORRECT, 2),
+  combo_3: raise(CORRECT, 4),
+  combo_4: raise(CORRECT, 5),
+  combo_5: raise(CORRECT, 7),
+  combo_6: [...raise(CORRECT, 9), { frequency: 1980, durationMs: 120, delayMs: 150, gain: 0.024, type: "triangle" }],
+  perfect: [
+    { frequency: 784, durationMs: 80, gain: 0.034, type: "triangle" },
+    { frequency: 988, durationMs: 80, delayMs: 90, gain: 0.034, type: "triangle" },
+    { frequency: 1175, durationMs: 80, delayMs: 180, gain: 0.032, type: "triangle" },
+    { frequency: 1568, durationMs: 220, delayMs: 270, gain: 0.03, type: "triangle" },
+    { frequency: 1976, durationMs: 200, delayMs: 300, gain: 0.018, type: "sine" }
+  ],
+  quest: [
+    { frequency: 660, durationMs: 70, gain: 0.03, type: "triangle" },
+    { frequency: 990, durationMs: 90, delayMs: 70, gain: 0.03, type: "triangle" },
+    { frequency: 1320, durationMs: 160, delayMs: 150, gain: 0.026, type: "triangle" }
+  ],
 };
 
 export const GAME_SOUND_EVENTS = Object.keys(SOUND_LIBRARY) as GameSoundEvent[];
+
+/** The chime for the n-th right answer in a row: plain "correct" for the first, then higher notes, topping out at 6. */
+export function comboSound(inARow: number): GameSoundEvent {
+  if (inARow < 2) return "correct";
+  return `combo_${Math.min(6, inARow)}` as GameSoundEvent;
+}
 
 // Reduced mode plays the first half of each sequence, shorter and quieter.
 export function getSoundTones(event: GameSoundEvent, reduced: boolean): SoundTone[] {

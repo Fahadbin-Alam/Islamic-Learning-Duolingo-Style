@@ -33,6 +33,8 @@ export type AppTopBarProps = {
   onDailyOpened?: () => void;
   /** Opens today's ayah and hadith each time it goes up (a tap on the home-screen widget). */
   dailyOpenSignal?: number;
+  /** From today's card: opens the adhkar for this time of day. */
+  onOpenAdhkar?: () => void;
   /** Extra top padding (status bar). Default 0. */
   topInset?: number;
 };
@@ -53,22 +55,21 @@ export function AppTopBar({
   dailySeen = false,
   onDailyOpened,
   dailyOpenSignal = 0,
+  onOpenAdhkar,
   topInset = 0
 }: AppTopBarProps) {
   const palette = topicPalette(accent);
   const [streakOpen, setStreakOpen] = useState(false);
   const [dailyOpen, setDailyOpen] = useState(false);
-  // Opened by itself (the app opening for the first time today, or the widget): the ayah is recited too.
-  const [dailyAuto, setDailyAuto] = useState(false);
   // The book wears a red dot until today's card is opened.
   const dailyNew = !dailySeen;
-  const openDaily = (auto = false) => {
-    setDailyAuto(auto);
+  // Opened by itself (first open today, or the widget) it stays quiet: the recitation plays only when the learner taps Listen.
+  const openDaily = () => {
     setDailyOpen(true);
     onDailyOpened?.();
   };
   useEffect(() => {
-    if (dailyOpenSignal > 0) openDaily(true);
+    if (dailyOpenSignal > 0) openDaily();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dailyOpenSignal]);
   const heartLabel = hearts.unlimited ? t("Unlimited hearts") : t("{count} of {max} hearts", { count: hearts.current, max: hearts.max });
@@ -153,7 +154,7 @@ export function AppTopBar({
           )}
         </View>
       </View>
-      <DailySheet visible={dailyOpen} autoPlay={dailyAuto} onClose={() => setDailyOpen(false)} />
+      <DailySheet visible={dailyOpen} onClose={() => setDailyOpen(false)} onOpenAdhkar={onOpenAdhkar} />
       {onStreak ? null : (
         <StreakSheet
           visible={streakOpen}

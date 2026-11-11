@@ -3,8 +3,17 @@ import React, { useEffect, useState } from "react";
 import { Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import { getLessonArabic, NODE_ARABIC } from "../../data/arabicTerms";
 import { COURSE, LESSONS_BY_ID } from "../../data/course";
-import { pictureForLesson, pictureForQuestion } from "../../data/lessonPictures";
-import type { Challenge, Lesson } from "../../types";
+import { choicePictures, getLessonPicture, LESSON_PICTURE_IDS, pictureForLesson, pictureForPage, pictureForQuestion } from "../../data/lessonPictures";
+import { LessonPhoto } from "../lesson/LessonPhoto";
+import { MatchGame } from "../lesson/WordGames";
+import { SurahCover } from "../lesson/SurahCover";
+import { addToAlbum } from "../../services/pictureAlbum";
+import { PictureAlbumSheet } from "../screens/PictureAlbum";
+import { surahNumberForTitle, surahParts } from "../../data/surahPictures";
+import { localizeLessonContent } from "../../services/contentLocalization";
+import { setActiveLanguage } from "../../i18n";
+import { highlightWords, lessonSummary } from "../lesson/lessonPages";
+import type { Challenge, Lesson, SupportedLanguage } from "../../types";
 import { ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, QuitSheet, getLessonLine, shortWhy, type LessonHearts } from "../lesson";
 import { colors, fonts, space } from "../theme";
 
@@ -53,6 +62,11 @@ const surahMeaningLesson = (LESSONS_BY_ID["lesson-surah-meaning-2-254-257"] ?? a
 // Lessons and a question that name a place with a photo (Makkah, the Ka'bah, Uhud...).
 const photoLesson = allLessons.find((lesson) => lesson.title === "The Ka'bah") ?? allLessons.find((lesson) => pictureForLesson(lesson)) ?? salam;
 const photoArabicLesson = allLessons.find((lesson) => pictureForLesson(lesson) && getLessonArabic(lesson.nodeId, lesson.branchId)) ?? photoLesson;
+// Every answer a place with its own picture: picture cards (Arafah, Mina, Muzdalifah...).
+const pictureAnswersQuestion =
+  allChallenges.find((challenge) => challenge.prompt.startsWith("After Arafah") && choicePictures(challenge.choices)) ??
+  allChallenges.find((challenge) => choicePictures(challenge.choices)) ??
+  salam.challenges[0];
 const photoQuestion = allChallenges.find((challenge) => pictureForQuestion(challenge.prompt)?.id === "uhud") ?? salam.challenges[0];
 const eidLesson = (LESSONS_BY_ID["lesson-deep-eid-two-days"] ?? salam) as Lesson;
 const factsLesson = allLessons.find((lesson) => (lesson.learnFacts?.length ?? 0) >= 3) ?? allLessons.find((lesson) => lesson.learnFacts?.length) ?? salam;
@@ -97,6 +111,48 @@ function LearnDemo({ lesson, accent, mascot = "boy", isNewWord }: { lesson: Less
     </LessonScreen>
   );
 }
+
+/**
+ * A lesson's "What you learn" page as the app shows it: the teacher, the page's picture, the facts with what the
+ * source says, the surah's parts and the source. ?lang=bn (or ur, ar) shows it in that language.
+ */
+function FactsPageDemo({ lesson: english }: { lesson: Lesson }) {
+  const query = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("lang") : null;
+  const language = (["en", "bn", "ur", "ar"].includes(query ?? "") ? query : "en") as SupportedLanguage;
+  setActiveLanguage(language);
+  const lesson = localizeLessonContent(english, language);
+  const surahNumber = surahNumberForTitle(english.title);
+  const picture = pictureForLesson(english);
+  const pagePicture = pictureForPage(english, "facts", ["start"]);
+  const summaryShown = lessonSummary(english) ? lesson.learnSource?.summary : undefined;
+  return (
+    <LessonScreen progress={0.12} hearts={FULL_HEARTS} onClose={noop}>
+      <LearnCard
+        page="facts"
+        summary={summaryShown}
+        englishSummary={summaryShown ? english.learnSource?.summary : undefined}
+        marks={highlightWords(lesson)}
+        sourceHere
+        title={lesson.title}
+        line={getLessonLine(lesson)}
+        facts={lesson.learnFacts}
+        englishFacts={english.learnFacts}
+        quote={lesson.quote}
+        learnSource={lesson.learnSource}
+        picture={picture}
+        pagePicture={pagePicture && pagePicture.id !== picture?.id ? pagePicture : undefined}
+        surah={surahNumber ? { number: surahNumber, parts: surahParts(surahNumber) } : undefined}
+        teacher={teacherFor(COURSE.sections.find((section) => section.nodes.some((node) => node.id === english.nodeId))?.topicId)}
+        mascotVariant="boy"
+        accent={accentOf(english)}
+        onContinue={noop}
+        onOpenSource={noop}
+      />
+    </LessonScreen>
+  );
+}
+
+const baqarahLesson = (LESSONS_BY_ID["lesson-notes-quran-tafseer-surahs-1-10-surah-al-baqarah"] ?? salam) as Lesson;
 
 // The accent of the section that holds the lesson's circle. Not the id prefix: the marriage hadith keep
 // "lesson-notes-hadith-…" ids but sit in the Marriage topic.
@@ -214,7 +270,8 @@ function ExerciseDemo({
         mascotVariant="girl"
         accent={accent}
         praiseSeed={challenge.id}
-        picture={pictureForQuestion(challenge.prompt)}
+        picture={choicePictures(challenge.choices) ? undefined : pictureForQuestion(challenge.prompt)}
+        choicePictures={choicePictures(challenge.choices)}
         defaultWhyOpen={whyOpen}
         onSelect={setSelected}
         onCheck={() => {
@@ -257,7 +314,33 @@ function QuitDemo() {
 
 type State = { id: string; render: () => React.ReactElement };
 
+/** The picture album with a few found: #gallery-lesson-album. */
+function AlbumDemo() {
+  addToAlbum(["kaaba", "ark", "arafah", "mina", "muzdalifah", "ants", "big-fish", "nile"]);
+  return <PictureAlbumSheet visible onClose={noop} />;
+}
+
+/** Every lesson picture, living (birds, clouds, rain, ants...), and a few surah covers: #gallery-lesson-pictures. */
+function PictureWall() {
+  const pictures = LESSON_PICTURE_IDS.map((id) => getLessonPicture(id)).filter((picture) => picture !== undefined);
+  return (
+    <ScrollView contentContainerStyle={styles.wall}>
+      {[2, 71, 105, 112].map((surah) => (
+        <View key={`surah-${surah}`} style={styles.wallItem}>
+          <SurahCover surah={surah} meaning={`Surah ${surah}`} />
+        </View>
+      ))}
+      {pictures.map((picture) => (
+        <View key={picture.id} style={styles.wallItem}>
+          <LessonPhoto picture={picture} delay={0} />
+        </View>
+      ))}
+    </ScrollView>
+  );
+}
+
 const STATES: State[] = [
+  { id: "pictures", render: () => <PictureWall /> },
   {
     id: "learn",
     render: () => (
@@ -315,11 +398,14 @@ const STATES: State[] = [
   { id: "learn-ayah", render: () => <LearnDemo lesson={ayahLesson} accent={accentOf(ayahLesson)} isNewWord={false} /> },
   // A passage of a whole surah's meaning (surahMeanings): its line, facts and a long ayah to listen to.
   { id: "learn-surah-meaning", render: () => <LearnDemo lesson={surahMeaningLesson} accent={accentOf(surahMeaningLesson)} isNewWord={false} /> },
+  // A surah's "What you learn" page (the one Fahad found hard to read): facts the source repeats are shown once.
+  { id: "learn-surah-facts", render: () => <FactsPageDemo lesson={baqarahLesson} /> },
   { id: "learn-facts", render: () => <LearnDemo lesson={factsLesson} accent={accentOf(factsLesson)} mascot="girl" /> },
   // The facts as a short lesson, and who told it and the grade with the source at the end.
   { id: "learn-eid", render: () => <LearnDemo lesson={eidLesson} accent={accentOf(eidLesson)} mascot="girl" isNewWord={false} /> },
   { id: "learn-photo", render: () => <LearnDemo lesson={photoLesson} accent={accentOf(photoLesson)} isNewWord={false} /> },
   { id: "learn-photo-arabic", render: () => <LearnDemo lesson={photoArabicLesson} accent={accentOf(photoArabicLesson)} /> },
+  { id: "mc-pictures", render: () => <ExerciseDemo challenge={pictureAnswersQuestion} progress={0.5} /> },
   { id: "mc-photo", render: () => <ExerciseDemo challenge={photoQuestion} progress={0.3} /> },
   { id: "mc", render: () => <ExerciseDemo challenge={salam.challenges[0]} progress={0.25} /> },
   { id: "mc-selected", render: () => <ExerciseDemo challenge={salam.challenges[0]} initialSelected="a" progress={0.25} /> },
@@ -457,6 +543,43 @@ const STATES: State[] = [
     )
   },
   {
+    id: "complete-album",
+    render: () => (
+      <LessonComplete
+        title={salam.title}
+        xp={salam.xpReward + 10}
+        stars={3}
+        streakDays={12}
+        newPictures={["arafah", "mina", "muzdalifah"].map((id) => getLessonPicture(id)).filter((picture) => picture !== undefined)}
+        nextTitle="Next"
+        mascotVariant="girl"
+        accent={FOUNDATION_ACCENT}
+        playSounds={false}
+        onContinue={noop}
+        onBackToPath={noop}
+      />
+    )
+  },
+  { id: "album", render: () => <AlbumDemo /> },
+  {
+    id: "match",
+    render: () => (
+      <LessonScreen progress={0.5} hearts={FULL_HEARTS} onClose={noop}>
+        <MatchGame
+          pairs={[
+            { index: 0, left: "Where do pilgrims stand on the 9th?", right: "Arafah" },
+            { index: 1, left: "Where do pilgrims spend the night after Arafah?", right: "Muzdalifah" },
+            { index: 2, left: "Where are the pebbles thrown?", right: "Mina" }
+          ]}
+          mascotVariant="girl"
+          accent={FOUNDATION_ACCENT}
+          playSound={false}
+          onDone={noop}
+        />
+      </LessonScreen>
+    )
+  },
+  {
     id: "complete-goal",
     render: () => (
       <LessonComplete
@@ -561,6 +684,15 @@ export default function LessonGallery() {
 }
 
 const styles = StyleSheet.create({
+  wall: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    padding: space.sm
+  },
+  wallItem: {
+    width: 300,
+    padding: space.xs
+  },
   full: {
     flex: 1,
     backgroundColor: colors.snow

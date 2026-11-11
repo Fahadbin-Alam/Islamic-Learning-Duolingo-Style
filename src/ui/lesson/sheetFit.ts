@@ -46,6 +46,46 @@ export function sheetScrollY(layout: SheetFitLayout, sheetHeight: number, furthe
 }
 
 /**
+ * A part of a question above its green tile in the scroll content (the prompt, a tile that stays while the sheet is
+ * up): where its box starts and ends, and how far up from its bottom it holds no text (a prompt's margin, a tile's lip).
+ */
+export type PartSpan = { top: number; bottom: number; blank?: number };
+
+/** Air kept above a part of a question at the room's top edge when it rests scrolled (see questionStops). */
+const STOP_AIR = space.sm;
+
+/**
+ * Where a question the learner left scrolled down (by hand or with the arrow) sits while the sheet is up: where its
+ * green tile stays where it showed (`kept`: where the learner left the scroll, less the room that folded above the
+ * green tile), or further down where the sheet needs it to (`sheetY`, see sheetScrollY), never back up past that: the
+ * learner scrolled the prompt away, and the green tile does not slide down for it. Never so far that the green tile's
+ * own top goes over the room's top edge (`ceiling`). Where the room's top edge would then cross the text of a part
+ * above the green tile (`parts`: the prompt, a tile that stays; in order), it goes to the nearer place either way where
+ * the edge falls between two parts: up so the part shows whole (no further up than `sheetY`), or down so it is wholly
+ * over the edge. With no such place, or nothing kept, it goes to `sheetY`, as a question not scrolled does.
+ */
+export function keptScrollY(sheetY: number, kept: number | undefined, parts: PartSpan[], ceiling: number) {
+  const at = kept === undefined ? undefined : Math.round(Math.min(kept, ceiling));
+  if (at === undefined || at <= sheetY + AT_TARGET) {
+    return sheetY;
+  }
+  const crossed = (y: number) => parts.find((part) => y > part.top + AT_TARGET && y < part.bottom - (part.blank ?? 0) - AT_TARGET);
+  const cut = crossed(at);
+  if (!cut) {
+    return at;
+  }
+  const above = parts.slice(0, parts.indexOf(cut)).reduce((end, part) => Math.max(end, part.bottom), 0);
+  const up = Math.round(Math.max(above, cut.top - STOP_AIR, 0, sheetY));
+  const down = Math.round(cut.bottom);
+  const upOk = !crossed(up);
+  const downOk = down <= ceiling + AT_TARGET && !crossed(down);
+  if (upOk && (!downOk || at - up <= down - at)) {
+    return up;
+  }
+  return downOk ? down : sheetY;
+}
+
+/**
  * Whether a sheet `sheetHeight` tall reaches into the green tile's text, the question scrolled as far as it may go:
  * further into the tile than `textBottom`, its lip, border and padding (see tileTextBottom), by the very edge the green
  * tile is gone at once the sheet is up (not a pixel past it, nor rounded). So where this says no, the green tile stays
@@ -63,15 +103,17 @@ export function reachesText(layout: SheetFitLayout, sheetHeight: number, textBot
  * green tile never moves down under it.
  */
 export function usePickFold({ open, now, tryKey }: { open: boolean; now: boolean; tryKey: string }) {
-  const [held, setHeld] = useState<string | null>(null);
+  // Kept, not drawn: the render that first says so already folds the tile, and every later one reads this. A state
+  // here would draw the question once more, before the frame, for nothing.
+  const held = useRef<string | null>(null);
   useLayoutEffect(() => {
     if (!open) {
-      setHeld(null);
+      held.current = null;
     } else if (now) {
-      setHeld(tryKey);
+      held.current = tryKey;
     }
   }, [now, open, tryKey]);
-  return open && (now || held === tryKey);
+  return open && (now || held.current === tryKey);
 }
 
 /** Within this of a scroll's target counts as there. */
@@ -330,21 +372,31 @@ export function useQuestionScroll({ open, scrollRef, target, ready, settling, wh
       turnedBack.current = true;
     }
     offset.current = y;
-    beforePaint(() => {
-      setPast((value) => (value === isPast ? value : isPast));
-      if (!onItsWay) {
-        setSettled(goal);
-      }
-      if (arrived) {
-        setArrivals((count) => count + 1);
-      }
-    });
+    // Drawn again before this frame only for what changes: a scroll on its way to where it was sent changes nothing.
+    const passes = isPast !== past;
+    const settles = !onItsWay && settled !== goal;
+    if (passes || settles || arrived) {
+      beforePaint(() => {
+        if (passes) {
+          setPast(isPast);
+        }
+        if (settles) {
+          setSettled(goal);
+        }
+        if (arrived) {
+          setArrivals((count) => count + 1);
+        }
+      });
+    }
   };
   // Held at the place it sits (or goes to, when that is further down): the content's own length covers that place
   // again once it is there.
   const minHeight = open && viewport > 0 ? viewport + Math.max(offset.current, aim ?? 0) : undefined;
+  // Where the question goes for a place worked out as `target` is: once the Why line is open, never less far than it
+  // was sent (see whyFloor). What the sheet's top edge would cut is found there.
+  const goesTo = (place: number) => atLeast(place, whyFloor.current);
   // Scrolled past their top by a hand (or the arrow) before CHECK too: the scroll edge never cuts them at rest.
-  return { gone: past || (open && heading), onScroll, minHeight };
+  return { gone: past || (open && heading), onScroll, minHeight, goesTo };
 }
 
 /** Where a part sits on screen, or its lines of text do: from its top edge (its first line's) to its bottom (its last's). */
@@ -594,7 +646,7 @@ export function overRoom(roomHeight: number, bottom: number) {
 }
 
 /** A tile's lip: the room's edge may cut it (only the 3D edge under the tile's face goes) and the tile still counts as whole. */
-const TILE_LIP = 4;
+export const TILE_LIP = 4;
 
 /**
  * How far to move a question that is too tall for its room down, so that the room's bottom edge falls between two
@@ -605,9 +657,6 @@ export function wholeTilesDrop(tiles: RowSpan[], roomHeight: number) {
   const cut = tiles.find((tile) => tile.top < roomHeight && tile.bottom > roomHeight + TILE_LIP);
   return cut ? Math.ceil(roomHeight - cut.top) : 0;
 }
-
-/** Air kept above a part of a question at the room's top edge when it rests scrolled (see questionStops). */
-const STOP_AIR = space.sm;
 
 /**
  * Where a question too tall for its room even at the last step of its fit rests when the arrow scrolls it, so that
@@ -666,13 +715,18 @@ export function useStopsArrow({ key, stops, scrollRef }: { key: string; stops: Q
     const end = stops !== undefined && y >= stops.end - ROW_EDGE;
     setEndOf((before) => (end ? key : before === key ? undefined : before));
   };
-  const onPress = () => {
+  const press = () => {
     if (!stops) {
       return;
     }
     const y = offset.current.key === key ? offset.current.y : 0;
     scrollRef.current?.scrollTo?.({ y: atEnd ? 0 : nextRowStop(stops.stops, stops.rows, y, stops.viewport), animated: true });
   };
+  // The same function from render to render (it goes where the arrow points as last drawn), so the bar that holds the
+  // arrow is not drawn again for it.
+  const pressNow = useRef(press);
+  pressNow.current = press;
+  const onPress = useCallback(() => pressNow.current(), []);
   return { direction: (atEnd ? "up" : "down") as ScrollHintDirection, onScroll, onPress };
 }
 
@@ -943,20 +997,25 @@ export type SheetFitInput = {
  * that room is too small does the sheet go slim and, after that, let its Why text scroll.
  */
 export function useSheetFit({ open, fullHeight, room, layoutKey, squeezeMoves }: SheetFitInput) {
-  // The layout the question had when it was squeezed; undefined while not squeezed.
-  const [squeezedAt, setSqueezedAt] = useState<string | undefined>(undefined);
+  // The layout the question had when it was squeezed; undefined while not squeezed. Kept, not drawn: the render that
+  // first finds the sheet too tall already squeezes, and every later one reads this (a state would draw the question
+  // once more, before the frame, for nothing).
+  const squeezed = useRef<string | undefined>(undefined);
+  const squeezedAt = open ? squeezed.current : undefined;
   const [timedOut, setTimedOut] = useState(false);
   const tooTall = open && room !== undefined && fullHeight > 0 && fullHeight > room;
   // Before the frame is drawn, with the layout it was squeezed at: a view read at once in that same commit (the prompt
   // wrapped anew) then shows the question has settled before any frame does.
   useLayoutEffect(() => {
     if (!open) {
-      setSqueezedAt(undefined);
-      setTimedOut(false);
-    } else if (tooTall && squeezedAt === undefined) {
-      setSqueezedAt(layoutKey);
+      squeezed.current = undefined;
+      if (timedOut) {
+        setTimedOut(false);
+      }
+    } else if (tooTall && squeezed.current === undefined) {
+      squeezed.current = layoutKey;
     }
-  }, [layoutKey, open, squeezedAt, tooTall]);
+  }, [layoutKey, open, timedOut, tooTall]);
   const squeeze = open && (squeezedAt !== undefined || tooTall);
   const settling = squeeze && squeezeMoves && !timedOut && (squeezedAt === undefined || squeezedAt === layoutKey);
   useEffect(() => {

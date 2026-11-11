@@ -1,9 +1,10 @@
 import { buildExpandedContent, chainCourse, withoutGiveaways } from "./scalableCurriculum";
 import { applySourceHighlights } from "./sourceHighlights";
 import { mergeImportedNotes } from "./importedNotes";
-import { arrangeUnits, dropEmptyUnits } from "./unitPlans";
+import { arrangeUnits, dropEmptyUnits, orderDeepUnits } from "./unitPlans";
 import { LESSON_SOURCES, QUESTION_SOURCES } from "./questionSources";
-import { addDeepUnits, addSurahDeepUnits } from "./deepUnits";
+import { withSurahIntro } from "./surahIntros";
+import { addDeepUnits, addIntroDeepUnits, addSurahDeepUnits } from "./deepUnits";
 import { addSurahMeanings } from "./surahMeanings";
 import { RAMADAN } from "./ramadanDays";
 import { INTRO } from "./introToIslam";
@@ -881,7 +882,7 @@ const BASE_COURSE: LearningCourse = {
       id: "women-of-the-book",
       topicId: "women_of_the_book",
       title: "Great Women",
-      description: "Go in order through women honored in the Quran, then learn from the Mothers of the Believers and the strengths they brought to the Ummah.",
+      description: "Meet every Mother of the Believers, then the Women of Islam: the women of the Quran and the great women of the Prophet's ﷺ time.",
       badge: "Topic 7",
       focus: "Repentance, trust, courage, purity, loyalty, knowledge, and preserving revelation.",
       mascot: "hijabi",
@@ -3948,13 +3949,14 @@ function withLearnLines(lessons: Record<string, Lesson>): Record<string, Lesson>
 const scaledContent = buildExpandedContent(BASE_COURSE, withLearnLines(BASE_LESSONS_BY_ID));
 // Each person is taught in one unit (unitPlans.ts); then each unit opens after the one before it.
 // Deep units (deepUnits.ts) follow their unit's own circles, and then each surah's passages (surahMeanings).
-const chainedNotes = chainCourse(dropEmptyUnits(addSurahDeepUnits(addSurahMeanings(addDeepUnits(arrangeUnits(mergeImportedNotes(scaledContent.course, scaledContent.lessonsById, IMPORTED_NOTES)))))));
+const chainedNotes = chainCourse(dropEmptyUnits(addSurahDeepUnits(addSurahMeanings(orderDeepUnits(addDeepUnits(arrangeUnits(mergeImportedNotes(scaledContent.course, scaledContent.lessonsById, IMPORTED_NOTES))))))));
 // The 30-day Ramadan path (ramadanDays.ts) comes last in the topic list; its days are already chained in order. The
 // beginner path for people new to Islam (introToIslam.ts) follows it, and is put first for them in the topic picker.
-const chainedContent = {
+// The beginner topic's deep units (introUnits.ts) join it after its own four units, each opening on its own.
+const chainedContent = addIntroDeepUnits({
   course: { ...chainedNotes.course, sections: [...chainedNotes.course.sections, RAMADAN.section, INTRO.section] },
   lessonsById: { ...chainedNotes.lessonsById, ...RAMADAN.lessonsById, ...INTRO.lessonsById }
-};
+});
 // No question hands the learner the answer to a fill-in after it, in any lesson (reviews mix several lessons). A
 // lesson whose seed or note named no source for its fact gets the one checked for it, and a question whose fact is on
 // another page gets that page (questionSources.ts).
@@ -3963,7 +3965,9 @@ const withQuestionSource = (challenge: Challenge): Challenge =>
 const expandedContent = {
   ...chainedContent,
   lessonsById: Object.fromEntries(
-    Object.entries(chainedContent.lessonsById).map(([id, lesson]) => {
+    Object.entries(chainedContent.lessonsById).map(([id, rawLesson]) => {
+      // A surah's own lesson tells why it has its name (surahIntros.ts).
+      const lesson = withSurahIntro(rawLesson);
       const learnSource = lesson.learnSource ?? LESSON_SOURCES[id];
       const sources = learnSource ? [learnSource, ...lesson.sources.filter((source) => source.id !== learnSource.id && source.url !== learnSource.url)] : lesson.sources;
       return [id, { ...lesson, sources, ...(learnSource ? { learnSource } : {}), challenges: withoutGiveaways(lesson.challenges).map(withQuestionSource) }];

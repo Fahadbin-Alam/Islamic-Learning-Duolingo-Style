@@ -1,12 +1,14 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { SvgXml } from "react-native-svg";
-import { surahHasDrawing, surahPictureXml } from "../../data/surahPictures";
+import { surahHasDrawing, surahPictureXml, surahScene } from "../../data/surahPictures";
 import { t } from "../../i18n";
 import { ArabicText, withHonorifics } from "../ArabicText";
 import { PopIn } from "../PopIn";
 import { colors, fonts, radii, space, topicPalette } from "../theme";
 import { noBreakHyphens } from "./lessonText";
+import { LiveFrame } from "./LivePicture";
+import { sceneLife } from "./pictureLife";
 
 const SHOWN_PARTS = 5;
 
@@ -19,7 +21,10 @@ export function SurahCover({ surah, meaning, arabicName, short }: { surah: numbe
   return (
     <PopIn style={[styles.wrap, short ? styles.wrapShort : null]}>
       <View style={[styles.picture, short ? styles.pictureShort : null]} testID="surah-cover" accessible accessibilityRole="image" accessibilityLabel={meaning ? t(meaning) : undefined}>
-        <SvgXml xml={surahPictureXml(surah)} width="100%" height="100%" preserveAspectRatio="xMidYMid slice" />
+        {/* The picture lives: the camera drifts and birds, clouds or waves move to match its sky. */}
+        <LiveFrame aspect={16 / 9} life={sceneLife(drawn ? surahScene(surah) : undefined)}>
+          <SvgXml xml={surahPictureXml(surah)} width="100%" height="100%" preserveAspectRatio="xMidYMid slice" />
+        </LiveFrame>
         {!drawn && arabicName ? (
           <View style={styles.lettersBox} pointerEvents="none">
             <ArabicText size={short ? 30 : 38} weight="bold" color={colors.ink} testID="surah-cover-arabic">
@@ -41,13 +46,14 @@ export function SurahCover({ surah, meaning, arabicName, short }: { surah: numbe
 }
 
 /** "Inside this surah": the parts it is taught in, one per row, so the learner sees what is coming. */
-export function SurahParts({ parts, accent, short }: { parts: string[]; accent: string; short?: boolean }) {
+export function SurahParts({ parts, accent, short, inline }: { parts: string[]; accent: string; short?: boolean; inline?: boolean }) {
   if (!parts.length) return null;
   const palette = topicPalette(accent);
   const shown = parts.slice(0, SHOWN_PARTS);
   const more = parts.length - shown.length;
   return (
-    <PopIn delay={180} from="up" style={[styles.parts, short ? styles.partsShort : null, { borderColor: palette.soft }]}>
+    // Inline, it is the last part of the What you learn card, under a thin line, not a box of its own.
+    <PopIn delay={180} from="up" style={inline ? [styles.partsInline, { borderTopColor: palette.soft }] : [styles.parts, short ? styles.partsShort : null, { borderColor: palette.soft }]}>
       <View testID="surah-parts">
         <Text style={[styles.partsHead, { color: palette.ink }]} accessibilityRole="header">
           {t("Inside this surah")}
@@ -123,14 +129,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: space.md,
     paddingVertical: space.sm
   },
+  partsInline: {
+    alignSelf: "stretch",
+    marginTop: space.md,
+    paddingTop: space.sm,
+    borderTopWidth: 2
+  },
   partsShort: {
     marginTop: space.sm
   },
   partsHead: {
     fontFamily: fonts.displayHeavy,
-    fontSize: 15,
-    lineHeight: 20,
-    letterSpacing: 0.5,
+    fontSize: 18,
+    lineHeight: 24,
     marginBottom: 2
   },
   partRow: {
@@ -154,10 +165,10 @@ const styles = StyleSheet.create({
   },
   partMore: {
     fontFamily: fonts.bodyBold,
-    fontSize: 14,
-    lineHeight: 19,
+    fontSize: 15,
+    lineHeight: 21,
     color: colors.inkSoft,
-    marginTop: 2,
+    marginTop: 4,
     marginStart: 18
   }
 });

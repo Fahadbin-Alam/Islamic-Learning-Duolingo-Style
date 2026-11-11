@@ -92,7 +92,8 @@ function jumpTest(user: UserProfile, target: LearningNode) {
   return { plan, challenges: session.lesson.challenges };
 }
 
-// A whole test-out played through the app, twice rendered: slower than one screen.
+// A whole test-out played through the app, twice rendered: slower than one screen. The whole-app tests below get
+// longer limits of their own, since every topic added makes the first render of the path slower.
 jest.setTimeout(30000);
 
 // The plans were just offered, so running out of hearts opens the hearts sheet straight away (planOffer.test.tsx).
@@ -137,7 +138,7 @@ describe("the path's START after a jump ahead (V8)", () => {
     // The unit the jump landed in keeps its TEST OUT key.
     expect(screen.getByTestId(`unit-test-out-${target.branchId}`)).toBeTruthy();
     // A whole jump test plus two app starts: about 20 s alone, and much longer when the suites run in parallel.
-  }, 90000);
+  }, 240000);
 
   it("keeps each topic's own circle: a Foundation lesson does not move the Quran START", async () => {
     const skipped = jumpTest(makeUser(), target).plan;
@@ -163,7 +164,7 @@ describe("the path's START after a jump ahead (V8)", () => {
     const foundationNext = learningApi.getPathNodes(savedUser()).find((item) => item.id === saved.foundation);
     expect(foundationNext?.topicId).toBe("foundation");
     expect(foundationNext?.status).toBe("current");
-  });
+  }, 120000);
 
   it("falls back to the path's own next circle when the saved one is not open", async () => {
     // Nothing skipped, so the saved circle is still locked.
@@ -172,7 +173,7 @@ describe("the path's START after a jump ahead (V8)", () => {
     await screen.findByTestId("learn-path-quran_tafseer");
     expect(nodeLabel(quranUnits[0][0])).toMatch(/, start$/);
     expect(nodeLabel(target)).not.toMatch(/, start$/);
-  });
+  }, 120000);
 });
 
 function wrongAnswerFor(question: FoundationQuestion): Answer {

@@ -1,12 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Animated, Easing, Platform, StyleSheet, Text, View, type StyleProp, type ViewStyle } from "react-native";
 import { Icon } from "../Icon";
 import { useShake } from "../PopIn";
 import { ProgressBar } from "../ProgressBar";
 import { Tappable } from "../Tappable";
+import { GameButton } from "../GameButton";
 import { colors, darken, fonts, space } from "../theme";
+import { useReduceMotion } from "../motion";
 import { ScrollHintGap, type ScrollHintDirection } from "./ScrollHint";
-import { t } from "../../i18n";
+import { isRtlLanguage, t } from "../../i18n";
+
+const t_ = t;
 
 export type LessonHearts = { current: number; max: number; unlimited: boolean };
 
@@ -141,6 +145,47 @@ export function LessonBottomBar({ children, bottomInset = DEFAULT_BOTTOM_INSET, 
   );
 }
 
+export type LessonCheckBarProps = {
+  /** The CHECK button's label, in the app's language. */
+  label: string;
+  disabled: boolean;
+  onCheck: () => void;
+  testID: string;
+  bottomInset?: number;
+  /** The "more below" arrow riding on the bar's top edge (see LessonBottomBarProps' scrollHint). */
+  hintVisible: boolean;
+  hintHold?: boolean;
+  onHint: () => void;
+  hintDirection?: ScrollHintDirection;
+  hintStill?: boolean;
+  /** The app's language: the arrow's own label follows it. */
+  language: string;
+};
+
+/**
+ * The bar under a question: its CHECK button, and the "more below" arrow on its top edge. Drawn again only when what it
+ * shows changes: a question drawn again while its answer sheet opens leaves its bar as it is.
+ */
+export const LessonCheckBar = memo(function LessonCheckBar({
+  label,
+  disabled,
+  onCheck,
+  testID,
+  bottomInset,
+  hintVisible,
+  hintHold,
+  onHint,
+  hintDirection,
+  hintStill
+}: LessonCheckBarProps) {
+  return (
+    <LessonBottomBar bottomInset={bottomInset} scrollHint={{ visible: hintVisible, hold: hintHold, onPress: onHint, direction: hintDirection, still: hintStill }}>
+      {/* The correct / wrong sound follows right away, so CHECK itself stays quiet. */}
+      <GameButton label={label} fullWidth sound={false} disabled={disabled} onPress={onCheck} testID={testID} />
+    </LessonBottomBar>
+  );
+});
+
 export type LessonScreenProps = {
   progress: number;
   hearts: LessonHearts;
@@ -150,19 +195,107 @@ export type LessonScreenProps = {
   children?: React.ReactNode;
   /** Rendered last, over everything (e.g. <QuitSheet/>). */
   overlay?: React.ReactNode;
+  /** Answers right in a row: at 3, 5, 10 and every 5 after, a "right in a row!" badge pops under the bar. */
+  inARow?: number;
+  /** Which step this is: when it changes, the new step slides in from the side, like turning to the next card. */
+  stepKey?: string;
   testID?: string;
 };
 
+/** How far a new step slides in from, px. */
+const STEP_SLIDE = 56;
+
+/**
+ * Slides each new step in from the side (the reading side: from the right in English, the left in Arabic and Urdu)
+ * with a little spring, so moving on feels like the next card arriving, not the screen blinking. Set before the
+ * first paint of the new step, so it never shows in place first.
+ */
+function useStepSlide(stepKey: string | undefined) {
+  const reduceMotion = useReduceMotion();
+  const slide = useRef(new Animated.Value(1)).current;
+  const before = useRef(stepKey);
+  useLayoutEffect(() => {
+    if (stepKey === before.current) return undefined;
+    before.current = stepKey;
+    if (reduceMotion) return undefined;
+    slide.setValue(0);
+    const animation = Animated.spring(slide, { toValue: 1, friction: 9, tension: 80, useNativeDriver: true });
+    animation.start();
+    return () => animation.stop();
+  }, [stepKey, reduceMotion, slide]);
+  const from = isRtlLanguage() ? -STEP_SLIDE : STEP_SLIDE;
+  return {
+    opacity: slide.interpolate({ inputRange: [0, 0.5, 1], outputRange: [0, 1, 1], extrapolate: "clamp" }),
+    transform: [{ translateX: slide.interpolate({ inputRange: [0, 1], outputRange: [from, 0] }) }]
+  };
+}
+
 /** Full lesson screen: header on top, the step under it, an optional overlay sheet on top of all. */
-export function LessonScreen({ progress, hearts, onClose, topInset, children, overlay, testID }: LessonScreenProps) {
+export function LessonScreen({ progress, hearts, onClose, topInset, children, overlay, inARow = 0, stepKey, testID }: LessonScreenProps) {
+  const [headerHeight, setHeaderHeight] = useState(0);
+  const slideStyle = useStepSlide(stepKey);
   return (
     <View style={styles.screen} testID={testID}>
-      <LessonHeader progress={progress} hearts={hearts} onClose={onClose} topInset={topInset} />
-      <View style={styles.step}>{children}</View>
+      <View onLayout={(event) => setHeaderHeight(Math.round(event.nativeEvent.layout.height))}>
+        <LessonHeader progress={progress} hearts={hearts} onClose={onClose} topInset={topInset} />
+      </View>
+      <Animated.View style={[styles.step, slideStyle]}>{children}</Animated.View>
+      {headerHeight > 0 ? <ComboBadge inARow={inARow} top={headerHeight} /> : null}
       {overlay}
     </View>
   );
 }
+
+/** When a run of right answers gets a badge. */
+export function isComboMilestone(count: number) {
+  return count === 3 || count === 5 || (count >= 10 && count % 5 === 0);
+}
+
+const COMBO_MS = 1900;
+
+/**
+ * "5 right in a row!": a flame badge that pops in under the progress bar, wiggles, floats up a little and fades, the
+ * moment a run of right answers reaches a milestone. It sits over the screen (it takes no room), and nothing taps it.
+ */
+export const ComboBadge = memo(function ComboBadge({ inARow, top }: { inARow: number; top: number }) {
+  const reduceMotion = useReduceMotion();
+  const t = useRef(new Animated.Value(0)).current;
+  const [shown, setShown] = useState(0);
+  const before = useRef(inARow);
+  useEffect(() => {
+    const was = before.current;
+    before.current = inARow;
+    if (inARow <= was || !isComboMilestone(inARow)) return undefined;
+    setShown(inARow);
+    t.setValue(0);
+    const run = Animated.timing(t, { toValue: 1, duration: reduceMotion ? 1400 : COMBO_MS, easing: Easing.linear, useNativeDriver: true });
+    run.start();
+    const done = setTimeout(() => setShown(0), (reduceMotion ? 1400 : COMBO_MS) + 60);
+    return () => {
+      clearTimeout(done);
+      run.stop();
+    };
+  }, [inARow, reduceMotion, t]);
+  if (!shown) return null;
+  const opacity = t.interpolate({ inputRange: [0, 0.08, 0.8, 1], outputRange: [0, 1, 1, 0] });
+  const scale = reduceMotion ? 1 : t.interpolate({ inputRange: [0, 0.1, 0.18, 0.26, 1], outputRange: [0.4, 1.18, 0.94, 1, 1] });
+  const translateY = reduceMotion ? 0 : t.interpolate({ inputRange: [0, 0.7, 1], outputRange: [0, 0, -10] });
+  const wiggle = reduceMotion
+    ? "0deg"
+    : t.interpolate({ inputRange: [0, 0.2, 0.28, 0.36, 0.44, 0.52, 1], outputRange: ["0deg", "0deg", "-14deg", "12deg", "-8deg", "0deg", "0deg"] });
+  return (
+    <View pointerEvents="none" style={[styles.comboRow, { top: top - space.xs }]} testID="combo-badge">
+      <Animated.View style={[styles.combo, { opacity, transform: [{ translateY }, { scale }] }]}>
+        <Animated.View style={{ transform: [{ rotate: wiggle }] }}>
+          <Icon name="flame" size={20} />
+        </Animated.View>
+        <Text style={styles.comboText} numberOfLines={1}>
+          {t_("{count} right in a row!", { count: shown })}
+        </Text>
+      </Animated.View>
+    </View>
+  );
+});
 
 const styles = StyleSheet.create({
   root: {
@@ -236,5 +369,29 @@ const styles = StyleSheet.create({
     flex: 1,
     minHeight: 0,
     position: "relative"
+  },
+  comboRow: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    alignItems: "center"
+  },
+  combo: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    paddingHorizontal: 14,
+    paddingVertical: 6,
+    borderRadius: 999,
+    backgroundColor: "#FFF4E0",
+    borderWidth: 2,
+    borderColor: "#FFC46B"
+  },
+  comboText: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 15,
+    lineHeight: 20,
+    color: "#A84A00",
+    includeFontPadding: false
   }
 });

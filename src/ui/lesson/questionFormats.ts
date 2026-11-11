@@ -25,6 +25,8 @@ export type FormatContext = {
   recall?: boolean;
   /** The learner's language: missing-word answers are made only from English answers, which split on spaces cleanly. */
   language?: string;
+  /** Every answer has its own picture (choicePictures): asked as picture cards, the most fun way to pick a place. */
+  pictures?: boolean;
 };
 
 const BLANK = /_{2,}/;
@@ -57,6 +59,9 @@ const SMALL_WORDS = new Set(
 function coreOf(word: string) {
   return word.replace(/^[("'“‘[]+/, "").replace(/[)"'”’\],;:.!?]+$/, "");
 }
+
+/** Words that join the parts of a name ("Umar ibn al-Khattab"): never a wrong word to choose from. */
+const NAME_LINKS = new Set(["ibn", "bin", "bint", "abu", "abi", "umm", "banu", "bani"]);
 
 /** A word that can be the missing piece or a wrong choice for it: a real fact word, not "the" or "of". */
 function isKeyWord(core: string) {
@@ -104,25 +109,30 @@ export function fillPiece(challenge: Pick<Challenge, "choices" | "correctChoiceI
   if (at < 0) return undefined;
   const piece = coreOf(words[at]);
   const inAnswer = new Set(words.map((word) => coreOf(word).toLowerCase()));
-  // The case should give nothing away: when the missing word has a capital, every choice gets one. When it has
-  // none, a wrong word with a capital (a name, or just the start of its answer) is used only if needed.
+  // The case should give nothing away: when the missing word has a capital, every choice gets one. When it has none,
+  // a wrong word with a capital (a name, or just the start of its answer) is left out: "Listen ___" offering
+  // "carefully, quickly, Interrupt" gave the odd one out away by its capital. Name links ("ibn", "bint", "Abu") are
+  // never a choice either.
   const capital = /^[A-Z]/.test(piece);
-  const wrong: { word: string; capped: boolean }[] = [];
+  // A name piece like "as-Siddiq" sits among other names ("Umar", "al-Khattab"): capitals there are how names are spelled.
+  const nameLike = /^[a-z]{2}-[A-Z]/.test(piece);
+  const wrong: { word: string }[] = [];
   for (const choice of challenge.choices) {
     if (choice.id === challenge.correctChoiceId || hasArabic(choice.label)) continue;
     for (const word of choice.label.split(/\s+/)) {
       const core = coreOf(word);
       const key = core.toLowerCase();
       // A word one letter off the right one ("made" for "make") is a trick, not a fact: left out.
-      if (!isKeyWord(core) || inAnswer.has(key) || nearlySame(key, piece.toLowerCase()) || wrong.some((each) => each.word.toLowerCase() === key)) continue;
-      wrong.push({ word: capital ? core.charAt(0).toUpperCase() + core.slice(1) : core, capped: !capital && /^[A-Z]/.test(core) });
+      if (!isKeyWord(core) || NAME_LINKS.has(key) || inAnswer.has(key) || nearlySame(key, piece.toLowerCase()) || wrong.some((each) => each.word.toLowerCase() === key)) continue;
+      if (!capital && !nameLike && /^[A-Z]/.test(core)) continue;
+      wrong.push({ word: capital ? core.charAt(0).toUpperCase() + core.slice(1) : core });
     }
   }
   if (wrong.length < 2) return undefined;
   // Wrong words that look most like the right one (by length) make a fairer choice; steady per question.
   const seed = formatSeed(challenge.id);
   const picks = wrong
-    .map(({ word, capped }, index) => ({ word, order: (capped ? 100000 : 0) + Math.abs(word.length - piece.length) * 1000 + (formatSeed(`${seed}-${index}-${word}`) % 1000) }))
+    .map(({ word }, index) => ({ word, order: Math.abs(word.length - piece.length) * 1000 + (formatSeed(`${seed}-${index}-${word}`) % 1000) }))
     .sort((a, b) => a.order - b.order)
     .slice(0, 3)
     .map((each) => each.word);
@@ -161,16 +171,33 @@ export function canCheck(challenge: Pick<Challenge, "choices" | "correctChoiceId
  * questions are a mix of tiles, a missing word in the answer, and true-or-false, steady per question; asked again later (recall), the
  * mix leans away from plain tiles, so the learner meets the fact in other words than when they learned it.
  */
-export function questionFormat(challenge: Pick<Challenge, "id" | "type" | "prompt" | "choices" | "correctChoiceId">, context: FormatContext = {}): QuestionFormat {
-  if (!questionVariety() || isTrueFalse(challenge)) return "choose";
+export function questionFormat(challenge: Pick<Challenge, "id" | "type" | "prompt" | "choices" | "correctChoiceId" | "listen">, context: FormatContext = {}): QuestionFormat {
+  // A listening question is heard, then its meaning picked from the tiles.
+  if (!questionVariety() || isTrueFalse(challenge) || challenge.listen) return "choose";
+  if (context.pictures) return "choose";
   if (canBlank(challenge)) return "blank";
   const english = !context.language || context.language === "en";
   const roll = formatSeed(`${challenge.id}|${context.recall ? "recall" : "learn"}`) % 100;
+  // Tiles whose right answer is far longer than every wrong one give it away by its length alone ("Faith, good
+  // deeds, truth, and patience" beside "Being famous"). Such a question is asked another way: one answer to judge
+  // true or false, or a missing word, where the length shows nothing.
+  if (longAnswerGivesAway(challenge) && canCheck(challenge)) {
+    return english && canFill(challenge) && roll % 2 === 0 ? "fill" : "check";
+  }
   const fillShare = english && canFill(challenge) ? (context.recall ? 40 : 30) : 0;
   const checkShare = canCheck(challenge) ? (context.recall ? 35 : 20) : 0;
   if (roll < fillShare) return "fill";
   if (roll < fillShare + checkShare) return "check";
   return "choose";
+}
+
+/** The right answer is at least 1.8 times as long as the longest wrong one (and long enough for that to show). */
+export function longAnswerGivesAway(challenge: Pick<Challenge, "choices" | "correctChoiceId">) {
+  if (challenge.choices.length < 3) return false;
+  const right = challenge.choices.find((choice) => choice.id === challenge.correctChoiceId);
+  if (!right || right.label.length < 20) return false;
+  const longestWrong = Math.max(...challenge.choices.filter((choice) => choice !== right).map((choice) => choice.label.length));
+  return right.label.length >= longestWrong * 1.8;
 }
 
 export const CHECK_TRUE = "true";
@@ -212,11 +239,11 @@ export function canMatch(challenge: Pick<Challenge, "prompt" | "choices" | "corr
  * Up to `max` questions that make a matching round: each with its own answer, no two with the same answer.
  * Fewer than 3: no round.
  */
-export function matchPicks(challenges: Pick<Challenge, "prompt" | "choices" | "correctChoiceId" | "type">[], max = 4): number[] {
+export function matchPicks(challenges: Pick<Challenge, "prompt" | "choices" | "correctChoiceId" | "type" | "listen">[], max = 4): number[] {
   const picks: number[] = [];
   const answers = new Set<string>();
   challenges.forEach((challenge, index) => {
-    if (picks.length >= max || !canMatch(challenge)) return;
+    if (picks.length >= max || challenge.listen || !canMatch(challenge)) return;
     const answer = answerOf(challenge).toLowerCase();
     if (answers.has(answer)) return;
     answers.add(answer);

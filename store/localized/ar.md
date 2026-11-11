@@ -3,7 +3,7 @@
 Google Play: Play Console → Grow users → Store presence → Main store listing → Manage translations → Add your own translations → **Arabic – ar**, then paste each block.
 App Store: App Store Connect → your app → the language menu at the top right → add **Arabic**, then paste the App Store blocks.
 
-Screenshots can stay in English for now. Character limits were checked by `scripts/check-store-listings.mjs`.
+Screenshots: Google Play and App Store both let each language have its own. Use the Arabic ones in `store/graphics/localized/ar/` (same folder names as the English set: `google-play/phone`, `google-play/tablet`, `app-store/iphone-6.9`, `app-store/ipad-13`). In Play they go in the same "Manage translations" page, under Graphics. Character limits were checked by `scripts/check-store-listings.mjs`.
 
 ## Google Play
 
@@ -29,9 +29,10 @@ Muslimo: تعلّم الإسلام يوميًا
 ماذا ستتعلّم
 • الإيمان والسلام والأذكار اليومية وأساسيات يحتاجها كل مسلم
 • الوضوء خطوة بخطوة، ثم الصلاة من تكبيرة الإحرام إلى التسليم
-• القرآن والتفسير: سورة بعد سورة مع المعنى
+• القرآن والتفسير: كل سورة آية بعد آية، مع المعنى والأحاديث
 • قصص الأنبياء: من آدم عليه السلام إلى محمد ﷺ بالترتيب
-• الصحابة: الخلفاء الراشدون وغيرهم من الصحابة
+• السيرة والصحابة: حياة الخلفاء الراشدين وغيرهم من الصحابة، تُروى كالقصص
+• أحاديث صحيح البخاري وصحيح مسلم، كتابًا بعد كتاب
 • الآداب: الصدق والرحمة وبر الوالدين وغير ذلك
 • الصيام والزكاة والحج ويوم القيامة
 
@@ -39,10 +40,12 @@ Muslimo: تعلّم الإسلام يوميًا
 • دروس قصيرة تناسب الاستراحة أو ما بعد الصلاة
 • الأسئلة التي أخطأت فيها تعود حتى تحفظها
 • شرح سهل بعد كل إجابة
+• الدروس تعمل بدون إنترنت أيضًا
 
 حافظ على حماسك
 • سلسلة يومية ونقاط وتمر وصناديق مكافآت
 • منافسة أسبوعية مع العائلة والأصدقاء ومعارك أسئلة
+• سلسلة مشتركة مع صديقك
 • ادعُ صديقًا برمزك وتحصلان معًا على التمر
 • تذكيرات طريفة من الجمل (يمكن إيقافها في أي وقت)
 

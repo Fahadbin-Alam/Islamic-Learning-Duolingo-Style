@@ -485,7 +485,7 @@ const ABU_DHARR: DeepUnit = {
       difficulty: 4,
       questions: [
         { q: "What did Abu Dharr ask the Prophet ﷺ for?", a: "A post as a leader", wrong: ["Money", "A horse", "A wife"], why: "He asked to be appointed." },
-        { q: "What did the Prophet ﷺ call leadership?", a: "A trust", wrong: ["A prize", "A game", "A right for all"], why: "A trust that must be fulfilled." },
+        { q: "What did the Prophet ﷺ call leadership?", a: "A trust", wrong: ["A prize", "A right for all", "A reward"], why: "A trust that must be fulfilled." },
         { q: "Leadership brings regret on Judgment Day, except for whom?", a: "One who does it rightly", wrong: ["The richest", "The oldest", "No exception"], why: "Unless one fulfils its duties." }
       ]
     },
