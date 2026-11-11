@@ -70,8 +70,8 @@ Muslimo is free to download and the core lessons are free. Premium is an optiona
 • Manage or cancel your subscription in your App Store account settings after purchase.
 • Any unused part of a free trial ends when you buy a subscription.
 
-Terms of Use: https://fahadbin-alam.github.io/Islamic-Learning-Duolingo-Style/terms.html
-Privacy Policy: https://fahadbin-alam.github.io/Islamic-Learning-Duolingo-Style/privacy.html
+Terms of Use: https://fahadbin-alam.github.io/Muslimo/terms.html
+Privacy Policy: https://fahadbin-alam.github.io/Muslimo/privacy.html
 
 Muslimo is a learning tool, not a fatwa service. For rulings that affect you, please ask a qualified scholar. Found a mistake? Email us and we will review it, in sha Allah.
 ```
@@ -82,9 +82,9 @@ Muslimo is a learning tool, not a fatwa service. For rulings that affect you, pl
 | --- | --- |
 | Primary category | Education |
 | Secondary category | Reference |
-| Support URL | https://fahadbin-alam.github.io/Islamic-Learning-Duolingo-Style/ |
+| Support URL | https://fahadbin-alam.github.io/Muslimo/ |
 | Marketing URL | Optional; leave blank or use the support URL |
-| Privacy Policy URL | https://fahadbin-alam.github.io/Islamic-Learning-Duolingo-Style/privacy.html |
+| Privacy Policy URL | https://fahadbin-alam.github.io/Muslimo/privacy.html |
 | License agreement (EULA) | Keep Apple's standard EULA. Our Terms of Use add the App Store section Apple expects and are linked in the description |
 | Copyright | `2026 {your legal name}` |
 | Content rights | "Does your app contain, show, or access third-party content?" **Yes**: lessons quote Quran translations and hadith and link to Quran.com, Sunnah.com and YouTube. Then confirm you have the rights to use it, after checking the translation licences listed in `store/README.md` |

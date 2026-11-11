@@ -18,7 +18,7 @@ Migrations and the lesson catalog run on every start (`backend/scripts/bootstrap
    `muslimo` with the default Postgres version, region **AWS US East (N. Virginia)** (Render's Virginia region is next to it). Copy the
    connection string from **Connect** (it starts with `postgresql://` and ends with `?sslmode=require`).
 2. **Render**: sign up at https://dashboard.render.com/register with GitHub, and allow it to see
-   `Islamic-Learning-Duolingo-Style`. Then open https://dashboard.render.com/blueprint/new, pick the repository and
+   `Muslimo` (it was called `Islamic-Learning-Duolingo-Style` before November 2026). Then open https://dashboard.render.com/blueprint/new, pick the repository and
    fill in:
    - `SIRA_DATABASE_URL`: the Neon connection string
    - `SIRA_GOOGLE_CLIENT_IDS_RAW`: `251398047915-1kuj45lfr88j89cvc66cc0kiv48ngsi1.apps.googleusercontent.com,251398047915-90kuv5ki9vd5j4r2pacl16cadvvnbqgp.apps.googleusercontent.com` (the web and iOS Google client ids; both are public)

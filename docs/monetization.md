@@ -87,7 +87,7 @@ On Apple, put all four subscriptions in **one** subscription group, with the Pre
 
 ### 5. Store paperwork
 - Fill in Google Play **Data safety** and Apple **App Privacy** to say the app uses advertising ids and purchase history (AdMob and RevenueCat).
-- The paywall links to the privacy policy and terms. They default to the GitHub Pages copies (`https://fahadbin-alam.github.io/Islamic-Learning-Duolingo-Style/privacy.html` and `terms.html`); override with `EXPO_PUBLIC_PRIVACY_URL` / `EXPO_PUBLIC_TERMS_URL` if you host them elsewhere.
+- The paywall links to the privacy policy and terms. They default to the GitHub Pages copies (`https://fahadbin-alam.github.io/Muslimo/privacy.html` and `terms.html`); override with `EXPO_PUBLIC_PRIVACY_URL` / `EXPO_PUBLIC_TERMS_URL` if you host them elsewhere.
 
 ### Audience note
 - **Apple:** do not pick the **Kids** category. Kids-category apps cannot use third-party ad networks like AdMob. A normal category (Education) with ads is fine for all ages.

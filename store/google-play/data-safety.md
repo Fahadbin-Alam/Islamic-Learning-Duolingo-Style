@@ -19,7 +19,7 @@ No precise location, contacts, photos, files, microphone, camera, health, messag
 | --- | --- |
 | Does your app collect or share any of the required user data types? | **Yes** |
 | Is all of the user data collected by your app encrypted in transit? | **Yes** (the production API must be HTTPS; AdMob and RevenueCat use HTTPS) |
-| Do you provide a way for users to request that their data is deleted? | **Yes**. Deletion URL: `https://fahadbin-alam.github.io/Islamic-Learning-Duolingo-Style/delete-account.html` |
+| Do you provide a way for users to request that their data is deleted? | **Yes**. Deletion URL: `https://fahadbin-alam.github.io/Muslimo/delete-account.html` |
 | Account creation methods | **Username and password** (email + password). Also tick **OAuth** from the first build that has Google sign-in switched on (EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID set). Name and email are already declared, so nothing else changes |
 | Delete account URL (separate "Account deletion" field) | Same deletion URL as above |
 
@@ -55,7 +55,7 @@ Notes:
 
 | Declaration | Answer |
 | --- | --- |
-| Privacy policy | `https://fahadbin-alam.github.io/Islamic-Learning-Duolingo-Style/privacy.html` |
+| Privacy policy | `https://fahadbin-alam.github.io/Muslimo/privacy.html` |
 | Ads | **Yes, my app contains ads** |
 | App access | **All functionality is available without special access**. Premium can be tested with a Play license tester; no login is needed for core lessons |
 | Content rating | See `store/content-ratings.md` |
