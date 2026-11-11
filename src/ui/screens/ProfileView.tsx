@@ -31,6 +31,10 @@ export type ProfileViewProps = {
   onOpenCertificates?: () => void;
   /** How many certificates are earned, shown on the Certificates row. */
   certificateCount?: number;
+  /** Picture album row: the living pictures collected from lessons. */
+  onOpenAlbum?: () => void;
+  /** Pictures found and how many there are, shown on the album row ("12/52"). */
+  album?: { found: number; total: number };
   /** Give charity row: amounts, a QR code and a link to the charity's donation page. Opens after the grown-up gate. */
   charity?: CharityConfig;
   /** Crew and Shop are bottom tabs now; kept optional so the old call site still type-checks. */
@@ -179,6 +183,8 @@ export function ProfileView({
   onShareApp,
   onOpenCertificates,
   certificateCount = 0,
+  onOpenAlbum,
+  album,
   charity,
   onCreateAccount,
   hasSavedAccount = false,
@@ -286,6 +292,24 @@ export function ProfileView({
                 <View style={styles.countRow}>
                   <Text style={styles.countPill} testID="profile-certificates-count">
                     {formatNumber(certificateCount)}
+                  </Text>
+                  <Icon name="chevronRight" size={18} color={colors.lineLip} />
+                </View>
+              ) : undefined
+            }
+          />
+        ) : null}
+        {onOpenAlbum ? (
+          <MenuRow
+            icon="star8"
+            label={t("Picture album")}
+            onPress={onOpenAlbum}
+            testID="profile-album"
+            right={
+              album ? (
+                <View style={styles.countRow}>
+                  <Text style={styles.countPill} testID="profile-album-count">
+                    {`${formatNumber(album.found)}/${formatNumber(album.total)}`}
                   </Text>
                   <Icon name="chevronRight" size={18} color={colors.lineLip} />
                 </View>

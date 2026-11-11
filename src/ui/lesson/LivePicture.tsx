@@ -14,12 +14,13 @@ import type { Life } from "./pictureLife";
  * shows (cover: cut to fill the box, as the lesson pages show it), so a halo sits on the sun whatever the box's shape.
  * `cheer`: change it (a count) to make the picture give a happy little bounce and gleam, as when a question is right.
  */
-export function LiveFrame({ aspect, life, children, still, cheer }: { aspect: number; life?: Life[]; children: ReactNode; still?: boolean; cheer?: number | string }) {
+export function LiveFrame({ aspect, life, children, still, calm, cheer }: { aspect: number; life?: Life[]; children: ReactNode; still?: boolean; calm?: boolean; cheer?: number | string }) {
   const reduceMotion = useReduceMotion();
   const [box, setBox] = useState<{ width: number; height: number } | null>(null);
   // Nothing runs until the picture is on screen and knows its size.
   const moving = !still && !reduceMotion && box !== null;
-  const drift = useLoopClock(32000, moving);
+  // `calm`: the life moves but the camera holds still (a picture shown whole, with nothing to spare at its edges).
+  const drift = useLoopClock(32000, moving && !calm);
   const pop = useRef(new Animated.Value(1)).current;
   const gleam = useRef(new Animated.Value(0)).current;
   const lastCheer = useRef(cheer);
@@ -49,13 +50,13 @@ export function LiveFrame({ aspect, life, children, still, cheer }: { aspect: nu
   // Where the picture shows inside the box (cover): its own size and offset, so the life lines up with it.
   const frame = useMemo(() => (box ? coverRect(box.width, box.height, aspect) : null), [box, aspect]);
   const camera = useMemo(() => {
-    if (!moving || !frame) return { scale: 1, translateX: 0, translateY: 0 };
+    if (!moving || calm || !frame) return { scale: 1, translateX: 0, translateY: 0 };
     return {
       scale: drift.interpolate(sampleCurve(0, 1, 48, (x) => 1.04 - 0.04 * Math.cos(2 * Math.PI * x))),
       translateX: drift.interpolate(sampleCurve(0, 1, 48, (x) => frame.width * 0.016 * Math.sin(2 * Math.PI * x))),
       translateY: drift.interpolate(sampleCurve(0, 1, 48, (x) => frame.height * 0.01 * Math.sin(4 * Math.PI * x)))
     };
-  }, [moving, frame, drift]);
+  }, [moving, calm, frame, drift]);
   const { scale, translateX, translateY } = camera;
 
   return (

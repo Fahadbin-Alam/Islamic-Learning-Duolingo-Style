@@ -9,6 +9,8 @@ import { Mascot } from "../Mascot";
 import { PopIn } from "../PopIn";
 import { playUi } from "../sound";
 import type { LessonRecapItem } from "./lessonRecap";
+import type { LessonPicture } from "../../data/lessonPictures";
+import { AlbumThumb } from "./LessonPhoto";
 import { colors, darken, fonts, lighten, radii, space } from "../theme";
 import { LessonBottomBar } from "./LessonHeader";
 import { useScrollMore } from "./ScrollHint";
@@ -36,6 +38,8 @@ export type LessonCompleteProps = {
   recap?: LessonRecapItem[];
   /** Today's quests this lesson finished, already worded ("Get 5 right in a row"). */
   questsDone?: string[];
+  /** Pictures this lesson put in the learner's picture album for the first time: they pop in, moving. */
+  newPictures?: LessonPicture[];
   mascotVariant: string;
   accent: string;
   /** When set, the main button reads NEXT LESSON. */
@@ -52,6 +56,8 @@ export type LessonCompleteProps = {
 };
 
 const COUNT_DURATION = 900;
+/** New album pictures shown on the card at most (the album has them all). */
+const ALBUM_SHOWN = 3;
 const MAX_STARS = 3;
 
 // Numbers a step darker than the card fills so they read on white (all at least 4:1).
@@ -134,6 +140,7 @@ export function LessonComplete({
   bestInARow,
   recap,
   questsDone,
+  newPictures,
   mascotVariant,
   accent,
   nextTitle,
@@ -291,7 +298,26 @@ export function LessonComplete({
             </View>
           </PopIn>
         ) : null}
-        {showStats || recapItems.length ? (
+        {newPictures?.length ? (
+          <PopIn delay={CARD_DELAY + 4 * CARD_STAGGER + COUNT_DURATION + 900} style={styles.album}>
+            <View testID="complete-album">
+              <View style={styles.albumHead}>
+                <Icon name="star8" size={18} />
+                <Text style={styles.albumTitle}>
+                  {newPictures.length === 1 ? t("New picture for your album!") : t("{count} new pictures for your album!", { count: newPictures.length })}
+                </Text>
+              </View>
+              <View style={styles.albumRow}>
+                {newPictures.slice(0, ALBUM_SHOWN).map((picture, index) => (
+                  <PopIn key={picture.id} delay={CARD_DELAY + 4 * CARD_STAGGER + COUNT_DURATION + 1100 + index * 180}>
+                    <AlbumThumb picture={picture} size={76} testID="complete-album-picture" />
+                  </PopIn>
+                ))}
+              </View>
+            </View>
+          </PopIn>
+        ) : null}
+                {showStats || recapItems.length ? (
           <PopIn delay={CARD_DELAY + 5 * CARD_STAGGER} style={styles.recap}>
             <View testID="lesson-recap">
             {showStats ? (
@@ -524,6 +550,35 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
     gap: space.sm
+  },
+  album: {
+    alignSelf: "stretch",
+    marginTop: space.sm,
+    paddingVertical: space.sm,
+    paddingHorizontal: space.md,
+    borderRadius: radii.lg,
+    borderWidth: 2,
+    borderColor: lighten(colors.gem, 0.55),
+    backgroundColor: lighten(colors.gem, 0.9)
+  },
+  albumHead: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: space.xs
+  },
+  albumTitle: {
+    flexShrink: 1,
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 15,
+    color: darken(colors.gem, 0.35),
+    textAlign: "center"
+  },
+  albumRow: {
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: space.sm,
+    marginTop: space.sm
   },
   quests: {
     alignSelf: "stretch",

@@ -267,6 +267,8 @@ import { shareApp } from "./services/shareApp";
 import { shareCertificateCard, shareRamadanCard } from "./services/shareCard";
 import { biggestFirst, buildCertificates, certificateProgress, earnedCertificateIds, recordCertificates, type CertificateProgress } from "./services/certificates";
 import { CertificatePop, CertificatesSheet } from "./ui/screens/Certificates";
+import { ALBUM_PICTURES, PictureAlbumSheet } from "./ui/screens/PictureAlbum";
+import { addToAlbum, useAlbum } from "./services/pictureAlbum";
 import { isUpdateAvailable, openStore } from "./services/appUpdate";
 import { attemptOrder, ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, HarderSheet, QuitSheet, QuizComplete, isPlayablePractice, lessonStars } from "./ui/lesson";
 import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic, isFirstUseOfWord } from "./data/arabicTerms";
@@ -278,7 +280,7 @@ import { SCHOLAR_TREE, type ScholarYears } from "./data/scholarUnits";
 import { didRamadanToday, ramadanDoneDayNumbers, ramadanSeason, ramadanStreak } from "./data/ramadanCalendar";
 import { RAMADAN_TOPIC } from "./data/ramadanDays";
 import { teacherFor } from "./ui/lesson/Teacher";
-import { flowPictures, pictureForLesson, choicePictures, pictureForQuestion, pictureForText } from "./data/lessonPictures";
+import { flowPictures, getLessonPicture, pictureForLesson, choicePictures, pictureForQuestion, pictureForText, type LessonPicture } from "./data/lessonPictures";
 import { surahNumberForTitle, surahParts } from "./data/surahPictures";
 import { BACKGROUND_KEY, INTRO_TOPIC, introStartFor, isLearnerBackground, type LearnerBackground } from "./data/introToIslam";
 import type {
@@ -393,6 +395,8 @@ type LessonCelebration = {
   recap?: LessonRecapItem[];
   /** Daily quests this lesson finished, in words. */
   questsDone?: string[];
+  /** Pictures this lesson put in the picture album for the first time. */
+  newPictures?: LessonPicture[];
 };
 
 interface AppState {
@@ -1319,6 +1323,8 @@ export default function TopicApp() {
   const [certificateQueue, setCertificateQueue] = useState<string[]>([]);
   const [shownCertificate, setShownCertificate] = useState<CertificateProgress | undefined>(undefined);
   const [certificatesSheetVisible, setCertificatesSheetVisible] = useState(false);
+  const [albumVisible, setAlbumVisible] = useState(false);
+  const albumFound = useAlbum();
   const certificatesBefore = useRef<{ userId?: number; ids?: Set<string> }>({});
   useEffect(() => {
     const userId = state.user?.id;
@@ -2282,6 +2288,27 @@ export default function TopicApp() {
     return done.map(questLabel);
   }
 
+  /**
+   * Puts the pictures this lesson showed in the picture album: its own, each page's, and those of its questions and
+   * picture answers. Returns the ones new to the album, for the lesson complete card.
+   */
+  function collectLessonPictures(): LessonPicture[] {
+    const questions = pictureLesson?.challenges ?? [];
+    const ids = [
+      lessonPicture?.id,
+      ...queuePictures.map((picture) => picture?.id),
+      ...questions.map((question) => pictureForQuestion(question.prompt)?.id),
+      ...questions.flatMap((question) => Object.values(choicePictures(question.choices) ?? {}).map((picture) => picture.id))
+    ];
+    try {
+      return addToAlbum(ids)
+        .map((id) => getLessonPicture(id))
+        .filter((picture): picture is LessonPicture => Boolean(picture));
+    } catch {
+      return [];
+    }
+  }
+
   async function continueLesson(user = state.user) {
     if (!user || !state.activeSession) {
       return;
@@ -2464,6 +2491,7 @@ export default function TopicApp() {
       accuracy: asked ? Math.round((state.sessionCorrectCount / asked) * 100) : undefined,
       bestInARow: state.bestInARow,
       questsDone: finishQuests(perfect, nextUser.totalXp - user.totalXp),
+      newPictures: collectLessonPictures(),
       recap: lessonRecap(localizeLessonContent(state.activeSession.lesson, currentLanguage).challenges, state.missedChallengeIds),
       // A replayed lesson earns nothing, so show what was actually added.
       xp: nextUser.totalXp - user.totalXp,
@@ -4095,6 +4123,7 @@ export default function TopicApp() {
             bestInARow={lessonCompleteSummary.bestInARow}
             recap={lessonCompleteSummary.recap}
             questsDone={lessonCompleteSummary.questsDone}
+            newPictures={lessonCompleteSummary.newPictures}
             mascotVariant={lessonMascot}
             accent={lessonAccent}
             nextTitle={nextLessonNode?.title}
@@ -4165,6 +4194,8 @@ export default function TopicApp() {
             onShareApp={() => void shareApp(invite?.code, invite?.rewardDates)}
             certificateCount={earnedCertificates.length}
             onOpenCertificates={() => setCertificatesSheetVisible(true)}
+            onOpenAlbum={() => setAlbumVisible(true)}
+            album={{ found: ALBUM_PICTURES.filter((picture) => albumFound.includes(picture.id)).length, total: ALBUM_PICTURES.length }}
             charity={charityEnabled() ? CHARITY : undefined}
             hasSavedAccount={hasSavedAccount}
             onCreateAccount={() => openAccountPanel()}
@@ -4293,6 +4324,7 @@ export default function TopicApp() {
             onFinish={finishStory}
           />
         )}
+        {!inLesson && <PictureAlbumSheet visible={albumVisible} onClose={() => setAlbumVisible(false)} />}
         {!inLesson && (
           <CertificatesSheet
             visible={certificatesSheetVisible}
