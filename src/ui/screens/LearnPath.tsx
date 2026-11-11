@@ -2,6 +2,7 @@ import React, {
   memo,
   useCallback,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -357,15 +358,38 @@ function ProgressRing({
   );
 }
 
-function StartTag({ color }: { color: string }) {
+function StartTag({ color, delay = 0 }: { color: string; delay?: number }) {
   const bounce = useLoop((value) => pingPong(value, 520));
   const translateY = bounce.interpolate({
     inputRange: [0, 1],
     outputRange: [0, -6],
   });
+  // On a circle that is just opening, START drops in once it has opened.
+  const enter = useRef(new Animated.Value(delay ? 0 : 1)).current;
+  useLayoutEffect(() => {
+    if (!delay) return undefined;
+    enter.setValue(0);
+    const run = Animated.sequence([
+      Animated.delay(delay),
+      Animated.spring(enter, {
+        toValue: 1,
+        friction: 5,
+        tension: 180,
+        useNativeDriver: true,
+      }),
+    ]);
+    run.start();
+    return () => {
+      run.stop();
+      enter.setValue(1);
+    };
+  }, [delay, enter]);
   return (
     <Animated.View
-      style={[styles.tagWrap, { transform: [{ translateY }] }]}
+      style={[
+        styles.tagWrap,
+        { opacity: enter, transform: [{ translateY }, { scale: enter }] },
+      ]}
       pointerEvents="none"
     >
       <View style={styles.tag}>
@@ -399,6 +423,131 @@ function Sparkle({
     >
       <Icon name="sparkle" size={18} />
     </Animated.View>
+  );
+}
+
+// ---------- a circle opening ----------
+
+/** How long a circle that has just opened still shows shut (so the learner sees it open), then how long it sparkles. */
+const OPEN_DELAY = 700;
+const OPEN_MS = 1100;
+
+/**
+ * The circle each topic's path last showed as START, while the app is open. When a finished lesson moves START on to
+ * the next circle, that circle pops open with sparkles the next time the path shows.
+ */
+const startSeen = new Map<string, string>();
+
+/** Tests only. */
+export function resetPathOpeningsForTests() {
+  startSeen.clear();
+}
+
+/** The circle that just opened: shut for a moment, then it pops open (a bounce, a chime and sparkles). */
+function useOpening(opening: boolean) {
+  const still = useReduceMotion();
+  const pop = useRef(new Animated.Value(1)).current;
+  const [opened, setOpened] = useState(false);
+  useEffect(() => {
+    if (!opening) return undefined;
+    const timer = setTimeout(
+      () => {
+        setOpened(true);
+        feedback("unlock", "success");
+        if (still) return;
+        pop.setValue(0.55);
+        Animated.spring(pop, {
+          toValue: 1,
+          friction: 3.2,
+          tension: 160,
+          useNativeDriver: true,
+        }).start();
+      },
+      still ? 250 : OPEN_DELAY,
+    );
+    return () => {
+      clearTimeout(timer);
+      pop.stopAnimation();
+      pop.setValue(1);
+      setOpened(false);
+    };
+  }, [opening, pop, still]);
+  return { shut: opening && !opened, burst: opening && opened && !still, pop };
+}
+
+/** Sparkles and dots fly out of the circle as it opens, with a ring that grows and fades. */
+const BURST_ANGLES = [-90, -45, 0, 45, 90, 135, 180, 225];
+
+function OpenBurst({ color }: { color: string }) {
+  const go = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    const run = Animated.timing(go, {
+      toValue: 1,
+      duration: OPEN_MS - 150,
+      easing: Easing.out(Easing.cubic),
+      useNativeDriver: true,
+    });
+    run.start();
+    return () => run.stop();
+  }, [go]);
+  const ringScale = go.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0.9, 2.2],
+  });
+  const ringOpacity = go.interpolate({
+    inputRange: [0, 0.1, 0.55, 1],
+    outputRange: [0, 1, 0.6, 0],
+  });
+  return (
+    <View style={styles.burst} pointerEvents="none" testID="path-node-opened">
+      <Animated.View
+        style={[
+          styles.burstRing,
+          {
+            opacity: ringOpacity,
+            transform: [{ scale: ringScale }],
+          },
+        ]}
+      />
+      {BURST_ANGLES.map((angle, index) => {
+        const far = index % 2 ? 58 : 76;
+        const turn = (angle * Math.PI) / 180;
+        const translateX = go.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0, Math.cos(turn) * far],
+        });
+        const translateY = go.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0, Math.sin(turn) * far],
+        });
+        const scale = go.interpolate({
+          inputRange: [0, 0.3, 1],
+          outputRange: [0.3, 1.15, 0.6],
+        });
+        const opacity = go.interpolate({
+          inputRange: [0, 0.12, 0.7, 1],
+          outputRange: [0, 1, 1, 0],
+        });
+        return (
+          <Animated.View
+            key={angle}
+            style={[
+              styles.burstBit,
+              {
+                opacity,
+                transform: [{ translateX }, { translateY }, { scale }],
+              },
+            ]}
+          >
+            {index % 2 ? (
+              <View style={[styles.burstDot, { backgroundColor: color }]} />
+            ) : (
+              <Icon name="sparkle" size={22} />
+            )}
+          </Animated.View>
+        );
+      })}
+    </View>
   );
 }
 
@@ -516,6 +665,7 @@ const PathNode = memo(function PathNode({
   current,
   progress,
   showIcon = true,
+  opening = false,
   onPress,
 }: {
   rowKey: string;
@@ -527,9 +677,17 @@ const PathNode = memo(function PathNode({
   progress?: number;
   /** Far from the screen the circle skips its icon drawing; it comes back before it scrolls into view. */
   showIcon?: boolean;
+  /** The finished lesson just opened this circle: it shows shut for a moment, then pops open with sparkles. */
+  opening?: boolean;
   onPress: (rowKey: string) => void;
 }) {
-  const look = nodeLook(node, color, unitDone, premium);
+  const { shut, burst, pop } = useOpening(opening);
+  const look = nodeLook(
+    shut ? { ...node, status: "locked" } : node,
+    color,
+    unitDone,
+    premium,
+  );
   const press = useRef(new Animated.Value(0)).current;
   const translateY = press.interpolate({
     inputRange: [0, 1],
@@ -540,75 +698,79 @@ const PathNode = memo(function PathNode({
   return (
     <View style={styles.nodeBox}>
       <View style={styles.nodeGround} pointerEvents="none" />
-      {current ? <CurrentHalo color={color} /> : null}
-      {current ? (
+      {current && !shut ? <CurrentHalo color={color} /> : null}
+      {current && !shut ? (
         <ProgressRing
           color={color}
           track={lighten(color, 0.78)}
           progress={progress ?? 0}
         />
       ) : null}
-      <Pressable
-        onPress={() => {
-          feedback("node_tap", "medium");
-          onPress(rowKey);
-        }}
-        onPressIn={() =>
-          Animated.timing(press, {
-            toValue: 1,
-            duration: 60,
-            useNativeDriver: true,
-          }).start()
-        }
-        onPressOut={() =>
-          Animated.spring(press, {
-            toValue: 0,
-            friction: 5,
-            tension: 260,
-            useNativeDriver: true,
-          }).start()
-        }
-        accessibilityRole="button"
-        accessibilityLabel={`${node.title}, ${premium ? t("premium") : current ? t("start") : t(node.status)}`}
-        testID={`path-node-${node.id}`}
-        style={styles.nodeHit}
-      >
-        <View
-          style={[styles.nodeLip, { backgroundColor: look.lip }]}
-          pointerEvents="none"
-        />
-        <Animated.View
-          style={[
-            styles.nodeFace,
-            { backgroundColor: look.face, transform: [{ translateY }] },
-          ]}
-          pointerEvents="none"
+      {burst ? <OpenBurst color={color} /> : null}
+      <Animated.View style={{ transform: [{ scale: pop }] }}>
+        <Pressable
+          onPress={() => {
+            feedback("node_tap", "medium");
+            onPress(rowKey);
+          }}
+          onPressIn={() =>
+            Animated.timing(press, {
+              toValue: 1,
+              duration: 60,
+              useNativeDriver: true,
+            }).start()
+          }
+          onPressOut={() =>
+            Animated.spring(press, {
+              toValue: 0,
+              friction: 5,
+              tension: 260,
+              useNativeDriver: true,
+            }).start()
+          }
+          accessibilityRole="button"
+          accessibilityLabel={`${node.title}, ${premium ? t("premium") : current ? t("start") : t(node.status)}`}
+          testID={`path-node-${node.id}`}
+          style={styles.nodeHit}
         >
-          {/* A darker lower half and a light rim make the flat circle read as a round, pressable button. */}
           <View
-            style={[
-              styles.nodeShade,
-              { backgroundColor: withAlpha(look.lip, locked ? 0.18 : 0.22) },
-            ]}
+            style={[styles.nodeLip, { backgroundColor: look.lip }]}
+            pointerEvents="none"
           />
-          <View
+          <Animated.View
+            testID={shut ? "path-node-shut" : undefined}
             style={[
-              styles.nodeRim,
-              { borderColor: withAlpha(colors.white, locked ? 0.45 : 0.28) },
+              styles.nodeFace,
+              { backgroundColor: look.face, transform: [{ translateY }] },
             ]}
-          />
-          <View style={styles.nodeShine} />
-          <View style={styles.nodeShineDot} />
-          {showIcon ? (
-            <Icon
-              name={look.icon}
-              size={29}
-              color={look.iconColor}
-              detailColor={look.iconDetail}
+            pointerEvents="none"
+          >
+            {/* A darker lower half and a light rim make the flat circle read as a round, pressable button. */}
+            <View
+              style={[
+                styles.nodeShade,
+                { backgroundColor: withAlpha(look.lip, locked ? 0.18 : 0.22) },
+              ]}
             />
-          ) : null}
-        </Animated.View>
-      </Pressable>
+            <View
+              style={[
+                styles.nodeRim,
+                { borderColor: withAlpha(colors.white, locked ? 0.45 : 0.28) },
+              ]}
+            />
+            <View style={styles.nodeShine} />
+            <View style={styles.nodeShineDot} />
+            {showIcon ? (
+              <Icon
+                name={look.icon}
+                size={29}
+                color={look.iconColor}
+                detailColor={look.iconDetail}
+              />
+            ) : null}
+          </Animated.View>
+        </Pressable>
+      </Animated.View>
     </View>
   );
 });
@@ -1747,6 +1909,32 @@ export function LearnPath({
     lastCurrentKey.current = layout.currentKey;
   }
 
+  // A finished lesson moved START on: the circle it opened pops open with sparkles, once. Set before the first paint,
+  // so the circle never shows open before it opens.
+  const [opening, setOpening] = useState<string | undefined>(undefined);
+  const still = useReduceMotion();
+  useLayoutEffect(() => {
+    const key = layout.currentKey;
+    if (!key) return;
+    const before = startSeen.get(topicId);
+    startSeen.set(topicId, key);
+    if (!before || before === key) return;
+    const finished = units.some((unit) =>
+      unit.items.some(
+        (item) =>
+          item.kind === "node" &&
+          item.node.id === before &&
+          item.node.status === "completed",
+      ),
+    );
+    if (finished) setOpening(key);
+  }, [layout.currentKey, topicId, units]);
+  useEffect(() => {
+    if (!opening) return undefined;
+    const done = setTimeout(() => setOpening(undefined), OPEN_DELAY + OPEN_MS);
+    return () => clearTimeout(done);
+  }, [opening]);
+
   const findRow = useCallback(
     (key: string | undefined) => {
       if (!key) return undefined;
@@ -2372,7 +2560,14 @@ export function LearnPath({
                                 ]}
                                 pointerEvents="none"
                               >
-                                <StartTag color={color} />
+                                <StartTag
+                                  color={color}
+                                  delay={
+                                    row.key === opening && !still
+                                      ? OPEN_DELAY + 150
+                                      : 0
+                                  }
+                                />
                               </View>
                             ) : null}
                             {row.item.kind === "node" ? (
@@ -2394,6 +2589,7 @@ export function LearnPath({
                                   current={row.current}
                                   progress={row.item.progress}
                                   showIcon={unitLive}
+                                  opening={row.key === opening}
                                   onPress={onNodePress}
                                 />
                               </View>
@@ -2758,6 +2954,41 @@ const styles = StyleSheet.create({
   },
   sparkle: {
     position: "absolute",
+  },
+  /** The opening burst's centre: the middle of the circle's face. */
+  burst: {
+    position: "absolute",
+    left: RING / 2,
+    top: FACE_TOP + NODE / 2,
+    width: 0,
+    height: 0,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  burstRing: {
+    position: "absolute",
+    left: -NODE / 2,
+    top: -NODE / 2,
+    width: NODE,
+    height: NODE,
+    borderRadius: NODE / 2,
+    borderWidth: 5,
+    // Gold, like the sparkles: a faint ring in the circle's own color reads as grey on the sandy path.
+    borderColor: colors.gold,
+  },
+  burstBit: {
+    position: "absolute",
+    left: -11,
+    top: -11,
+    width: 22,
+    height: 22,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  burstDot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
   },
   sparkleA: {
     left: 2,

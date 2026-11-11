@@ -9,8 +9,8 @@ import { LearnPath, type PathItem, type PathUnit } from "../screens/LearnPath";
 import { TopicPicker } from "../screens/TopicPicker";
 import { colors } from "../theme";
 
-type State = "foundation" | "prayer" | "card" | "locked" | "library" | "chest" | "premium" | "done" | "topics" | "tabs";
-const STATES: State[] = ["foundation", "prayer", "card", "locked", "library", "chest", "premium", "done", "topics", "tabs"];
+type State = "foundation" | "prayer" | "card" | "locked" | "library" | "chest" | "premium" | "done" | "topics" | "tabs" | "opening";
+const STATES: State[] = ["foundation", "prayer", "card", "locked", "library", "chest", "premium", "done", "topics", "tabs", "opening"];
 
 function readState(): State {
   if (Platform.OS !== "web" || typeof window === "undefined") return "foundation";
@@ -80,12 +80,22 @@ function buildUnits(sec: LearningSection, doneCount: number, claimed: Set<string
 const TOPIC_DONE: Record<string, number> = { foundation: 4, prayer: 5, aqidah: 20, manners: 7 };
 
 function Screen({ state }: { state: State }) {
-  const topicId = state === "prayer" || state === "card" ? "prayer" : state === "library" ? "sahabah" : "foundation";
+  const topicId = state === "prayer" || state === "card" || state === "opening" ? "prayer" : state === "library" ? "sahabah" : "foundation";
   const sec = section(topicId);
   const [tab, setTab] = useState<TabKey>("learn");
   const [pickerOpen, setPickerOpen] = useState(state === "topics");
+  // "opening": a lesson is finished a moment after the path shows, so the next circle pops open.
+  const [finished, setFinished] = useState(false);
+  useEffect(() => {
+    if (state !== "opening") return undefined;
+    const timer = setTimeout(() => setFinished(true), 1500);
+    return () => clearTimeout(timer);
+  }, [state]);
 
   const { units, openId, focusId } = useMemo((): { units: PathUnit[]; openId?: string; focusId?: string } => {
+    if (state === "opening") {
+      return { units: buildUnits(sec, finished ? 6 : 5, new Set(["prayer-wudu-chest"]), 4, 99) };
+    }
     if (state === "prayer" || state === "card") {
       const built = buildUnits(sec, 5, new Set(["prayer-wudu-chest"]), 4, 99);
       const current = built.flatMap((unit) => unit.items).find((item) => item.kind === "node" && item.node.status === "current");
@@ -117,7 +127,7 @@ function Screen({ state }: { state: State }) {
     }
     const locked = built[1]?.items.filter((item) => item.kind === "node")[1];
     return { units: built, openId: state === "locked" && locked?.kind === "node" ? locked.node.id : undefined };
-  }, [sec, state]);
+  }, [finished, sec, state]);
 
   const topics = COURSE.sections.map((candidate) => ({
     topicId: candidate.topicId,
@@ -180,7 +190,10 @@ function TabsSheet() {
   );
 }
 
-/** Learn area gallery. States: #gallery-learn-foundation | prayer | card | locked | library | chest | premium | done | topics | tabs. */
+/**
+ * Learn area gallery. States: #gallery-learn-foundation | prayer | card | locked | library | chest | premium | done |
+ * topics | tabs | opening (a lesson finishes after 1.5 s and the next circle pops open).
+ */
 export default function LearnGallery() {
   const [state, setState] = useState<State>(readState);
 
