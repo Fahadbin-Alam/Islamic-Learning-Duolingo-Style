@@ -3,7 +3,9 @@ import React, { useEffect, useState } from "react";
 import { Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import { getLessonArabic, NODE_ARABIC } from "../../data/arabicTerms";
 import { COURSE, LESSONS_BY_ID } from "../../data/course";
-import { pictureForLesson, pictureForPage, pictureForQuestion } from "../../data/lessonPictures";
+import { getLessonPicture, LESSON_PICTURE_IDS, pictureForLesson, pictureForPage, pictureForQuestion } from "../../data/lessonPictures";
+import { LessonPhoto } from "../lesson/LessonPhoto";
+import { SurahCover } from "../lesson/SurahCover";
 import { surahNumberForTitle, surahParts } from "../../data/surahPictures";
 import { localizeLessonContent } from "../../services/contentLocalization";
 import { setActiveLanguage } from "../../i18n";
@@ -303,7 +305,27 @@ function QuitDemo() {
 
 type State = { id: string; render: () => React.ReactElement };
 
+/** Every lesson picture, living (birds, clouds, rain, ants...), and a few surah covers: #gallery-lesson-pictures. */
+function PictureWall() {
+  const pictures = LESSON_PICTURE_IDS.map((id) => getLessonPicture(id)).filter((picture) => picture !== undefined);
+  return (
+    <ScrollView contentContainerStyle={styles.wall}>
+      {[2, 71, 105, 112].map((surah) => (
+        <View key={`surah-${surah}`} style={styles.wallItem}>
+          <SurahCover surah={surah} meaning={`Surah ${surah}`} />
+        </View>
+      ))}
+      {pictures.map((picture) => (
+        <View key={picture.id} style={styles.wallItem}>
+          <LessonPhoto picture={picture} delay={0} />
+        </View>
+      ))}
+    </ScrollView>
+  );
+}
+
 const STATES: State[] = [
+  { id: "pictures", render: () => <PictureWall /> },
   {
     id: "learn",
     render: () => (
@@ -609,6 +631,15 @@ export default function LessonGallery() {
 }
 
 const styles = StyleSheet.create({
+  wall: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    padding: space.sm
+  },
+  wallItem: {
+    width: 300,
+    padding: space.xs
+  },
   full: {
     flex: 1,
     backgroundColor: colors.snow

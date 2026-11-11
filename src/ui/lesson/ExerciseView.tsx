@@ -262,7 +262,8 @@ export const QuestionBubble = memo(function QuestionBubble({ prompt, mascotVaria
   );
   return banner && picture ? (
     <View style={styles.bannerColumn}>
-      <QuestionBanner picture={picture} />
+      {/* A right answer makes the picture bounce and gleam with the mascot's jump. */}
+      <QuestionBanner picture={picture} cheer={act?.kind === "celebrate" ? act.key : undefined} />
       {row}
     </View>
   ) : (

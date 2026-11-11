@@ -3808,6 +3808,8 @@ export default function TopicApp() {
       hearts={lessonHearts}
       onClose={() => setQuitLessonVisible(true)}
       inARow={state.rightInARow}
+      // A new step slides in; the answer sheet opening on the same question does not.
+      stepKey={`${state.stepIndex}-${state.screen === "lesson_feedback" ? "lesson_question" : state.screen}`}
       overlay={
         <>
           {quitSheet}

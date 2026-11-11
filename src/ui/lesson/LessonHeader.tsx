@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Animated, Easing, Platform, StyleSheet, Text, View, type StyleProp, type ViewStyle } from "react-native";
 import { Icon } from "../Icon";
 import { useShake } from "../PopIn";
@@ -8,7 +8,7 @@ import { GameButton } from "../GameButton";
 import { colors, darken, fonts, space } from "../theme";
 import { useReduceMotion } from "../motion";
 import { ScrollHintGap, type ScrollHintDirection } from "./ScrollHint";
-import { t } from "../../i18n";
+import { isRtlLanguage, t } from "../../i18n";
 
 const t_ = t;
 
@@ -197,18 +197,49 @@ export type LessonScreenProps = {
   overlay?: React.ReactNode;
   /** Answers right in a row: at 3, 5, 10 and every 5 after, a "right in a row!" badge pops under the bar. */
   inARow?: number;
+  /** Which step this is: when it changes, the new step slides in from the side, like turning to the next card. */
+  stepKey?: string;
   testID?: string;
 };
 
+/** How far a new step slides in from, px. */
+const STEP_SLIDE = 56;
+
+/**
+ * Slides each new step in from the side (the reading side: from the right in English, the left in Arabic and Urdu)
+ * with a little spring, so moving on feels like the next card arriving, not the screen blinking. Set before the
+ * first paint of the new step, so it never shows in place first.
+ */
+function useStepSlide(stepKey: string | undefined) {
+  const reduceMotion = useReduceMotion();
+  const slide = useRef(new Animated.Value(1)).current;
+  const before = useRef(stepKey);
+  useLayoutEffect(() => {
+    if (stepKey === before.current) return undefined;
+    before.current = stepKey;
+    if (reduceMotion) return undefined;
+    slide.setValue(0);
+    const animation = Animated.spring(slide, { toValue: 1, friction: 9, tension: 80, useNativeDriver: true });
+    animation.start();
+    return () => animation.stop();
+  }, [stepKey, reduceMotion, slide]);
+  const from = isRtlLanguage() ? -STEP_SLIDE : STEP_SLIDE;
+  return {
+    opacity: slide.interpolate({ inputRange: [0, 0.5, 1], outputRange: [0, 1, 1], extrapolate: "clamp" }),
+    transform: [{ translateX: slide.interpolate({ inputRange: [0, 1], outputRange: [from, 0] }) }]
+  };
+}
+
 /** Full lesson screen: header on top, the step under it, an optional overlay sheet on top of all. */
-export function LessonScreen({ progress, hearts, onClose, topInset, children, overlay, inARow = 0, testID }: LessonScreenProps) {
+export function LessonScreen({ progress, hearts, onClose, topInset, children, overlay, inARow = 0, stepKey, testID }: LessonScreenProps) {
   const [headerHeight, setHeaderHeight] = useState(0);
+  const slideStyle = useStepSlide(stepKey);
   return (
     <View style={styles.screen} testID={testID}>
       <View onLayout={(event) => setHeaderHeight(Math.round(event.nativeEvent.layout.height))}>
         <LessonHeader progress={progress} hearts={hearts} onClose={onClose} topInset={topInset} />
       </View>
-      <View style={styles.step}>{children}</View>
+      <Animated.View style={[styles.step, slideStyle]}>{children}</Animated.View>
       {headerHeight > 0 ? <ComboBadge inARow={inARow} top={headerHeight} /> : null}
       {overlay}
     </View>
