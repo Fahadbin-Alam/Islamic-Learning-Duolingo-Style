@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import { getAyahPlayback, playAyah, setAyahRepeat, stopAyah, subscribeAyahPlayback } from "../../services/ayahPlayer";
 import { QURAN_AUDIO_SOURCE } from "../../services/quranAudio";
+import { AYAH_WORD_TIMES_CREDIT } from "../../services/ayahWords";
 import { useOnline } from "../../services/network";
 import { t } from "../../i18n";
 import { Icon } from "../Icon";
@@ -17,9 +18,10 @@ export function useAyahPlayback() {
 
 /**
  * Under an ayah: Listen (or Stop), a Repeat switch that keeps reciting it for memorizing, and who recites.
- * The recitation stops when the card leaves the screen.
+ * The recitation stops when the card leaves the screen. `timed`: the ayah's words light up as they are recited
+ * (RecitedAyah), so the line also credits the word timings.
  */
-export function AyahListen({ url, accent }: { url: string; accent: string }) {
+export function AyahListen({ url, accent, timed = false }: { url: string; accent: string; timed?: boolean }) {
   const playback = useAyahPlayback();
   const online = useOnline();
   const mine = playback.url === url;
@@ -66,7 +68,10 @@ export function AyahListen({ url, accent }: { url: string; accent: string }) {
           {online ? t("Could not load. Check your internet.") : t("No internet. This is not saved on your phone yet.")}
         </Text>
       ) : (
-        <Text style={styles.note}>{t("Recited by {name}", { name: QURAN_AUDIO_SOURCE.reciter })}</Text>
+        <Text style={styles.note} testID="ayah-listen-credit">
+          <Text>{t("Recited by {name}", { name: QURAN_AUDIO_SOURCE.reciter })}</Text>
+          {timed ? <Text>{` · ${t("Word timing: {credit}", { credit: AYAH_WORD_TIMES_CREDIT })}`}</Text> : null}
+        </Text>
       )}
     </View>
   );

@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { ScrollView, StyleSheet, Text, View, useWindowDimensions } from "react-native";
 import * as Speech from "expo-speech";
-import { ArabicText, withHonorifics } from "../ArabicText";
+import { withHonorifics } from "../ArabicText";
 import { GameButton } from "../GameButton";
 import { Icon } from "../Icon";
 import { PopIn } from "../PopIn";
@@ -19,6 +19,8 @@ import { playAyah, stopAyah } from "../../services/ayahPlayer";
 import { quranAudioUrl } from "../../services/quranAudio";
 import { openSource } from "../../services/sourceLink";
 import { useAyahPlayback } from "../lesson/AyahListen";
+import { RecitedAyah, type RecitedPart } from "../lesson/RecitedAyah";
+import { AYAH_WORD_TIMES_CREDIT } from "../../services/ayahWords";
 
 export type AdhkarSheetProps = {
   visible: boolean;
@@ -50,9 +52,17 @@ export function resetAdhkarCountsForTests() {
   counted = { day: 0, counts: {} };
 }
 
+/** The ayahs of a Quran dhikr with their recitations, in order; empty for one that is not from the Quran. */
+function recitedAyahs(dhikr: Dhikr): RecitedPart[] {
+  return (dhikr.ayahs ?? []).flatMap((key) => {
+    const url = quranAudioUrl(`Quran ${key}`);
+    return url ? [{ key, url }] : [];
+  });
+}
+
 /** The recitation of a Quran dhikr, ayah by ayah; empty for one that is not from the Quran. */
 function recitations(dhikr: Dhikr) {
-  return (dhikr.ayahs ?? []).map((key) => quranAudioUrl(`Quran ${key}`)).filter((url): url is string => Boolean(url));
+  return recitedAyahs(dhikr).map((ayah) => ayah.url);
 }
 
 /**
@@ -164,15 +174,19 @@ function DhikrCard({
           <Text style={[styles.timesText, done && styles.timesTextDone]}>{`×${formatNumber(dhikr.count)}`}</Text>
         </View>
       </View>
-      <ArabicText size={22} quran style={styles.arabic} testID={`adhkar-arabic-${dhikr.id}`}>
-        {dhikrArabic(dhikr)}
-      </ArabicText>
+      <RecitedAyah text={dhikrArabic(dhikr)} ayahs={recitedAyahs(dhikr)} size={22} quran style={styles.arabic} testID={`adhkar-arabic-${dhikr.id}`} />
       {showLatin ? <Text style={styles.translit}>{dhikr.translit}</Text> : null}
       {showLatin ? <Text style={styles.meaning}>{withHonorifics(t(dhikr.meaning))}</Text> : null}
       <Text style={styles.reward}>{withHonorifics(t(dhikr.reward))}</Text>
       <Tappable onPress={() => openSource(dhikr.source)} accessibilityLabel={t("Open source {name}", { name: reference })} hitSlop={6} testID={`adhkar-source-${dhikr.id}`}>
         <Text style={styles.source}>{`${reference} · ${t(dhikr.source.grade ?? "")}`}</Text>
       </Tappable>
+      {/* Every Quran dhikr fits its word timings (recitedAyah.test), so they stay unloaded until Listen. */}
+      {recitedAyahs(dhikr).length ? (
+        <Text style={styles.timing} testID={`adhkar-timing-${dhikr.id}`}>
+          {t("Word timing: {credit}", { credit: AYAH_WORD_TIMES_CREDIT })}
+        </Text>
+      ) : null}
       <View style={styles.actions}>
         {audio.canPlay(dhikr) ? (
           <Tappable
@@ -376,6 +390,11 @@ const styles = StyleSheet.create({
     ...text.tiny,
     color: darken(ADHKAR_COLOR, 0.2),
     textDecorationLine: "underline"
+  },
+  timing: {
+    ...text.tiny,
+    marginTop: 2,
+    color: colors.inkSoft
   },
   actions: {
     flexDirection: "row",

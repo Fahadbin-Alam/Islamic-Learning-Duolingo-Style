@@ -15,6 +15,7 @@ import { stopAyah } from "../../services/ayahPlayer";
 import { quranAudioUrl } from "../../services/quranAudio";
 import { openWebPage } from "../../services/network";
 import { AyahListen } from "../lesson/AyahListen";
+import { RecitedAyah } from "../lesson/RecitedAyah";
 
 export type DailySheetProps = {
   visible: boolean;
@@ -57,6 +58,8 @@ export function DailySheet({ visible, onClose, date, onOpenAdhkar }: DailySheetP
   const { height } = useWindowDimensions();
   const { ayah, hadith } = getDailyCard(getActiveLanguage(), date);
   const audio = quranAudioUrl(`Quran ${ayah.ref}`);
+  // Its words light up as the reciter says them.
+  const recited = audio ? [{ key: ayah.ref, url: audio }] : [];
   const close = () => {
     if (audio) stopAyah(audio);
     onClose();
@@ -72,14 +75,13 @@ export function DailySheet({ visible, onClose, date, onOpenAdhkar }: DailySheetP
         <PopIn key={visible ? "ayah-open" : "ayah"} delay={60} from="up">
           <View style={[styles.card, { borderColor: lighten(AYAH_COLOR, 0.6) }]} testID="daily-ayah">
             <CardLabel icon="quran" label={t("Ayah of the day")} color={AYAH_COLOR} />
-            <ArabicText size={24} quran style={styles.full} testID="daily-ayah-arabic">
-              {ayah.arabic}
-            </ArabicText>
+            <RecitedAyah text={ayah.arabic} ayahs={recited} size={24} quran style={styles.full} testID="daily-ayah-arabic" />
             {ayah.meaning ? <Line value={ayah.meaning} style={styles.meaning} testID="daily-ayah-meaning" /> : null}
             <Text style={styles.reference} testID="daily-ayah-ref">
               {t("Quran {ref}", { ref: ayah.ref })}
             </Text>
-            {audio && visible ? <AyahListen url={audio} accent={AYAH_COLOR} /> : null}
+            {/* Every ayah of the day fits its word timings (recitedAyah.test), so they stay unloaded until Listen. */}
+            {audio && visible ? <AyahListen url={audio} accent={AYAH_COLOR} timed /> : null}
           </View>
         </PopIn>
         <PopIn key={visible ? "hadith-open" : "hadith"} delay={160} from="up">
