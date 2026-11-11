@@ -69,6 +69,7 @@ import {
   type RoomRead,
   type RowSpan
 } from "./sheetFit";
+import { scaleFont, textScaled } from "../textScale";
 
 // Arabic letters only: honorific signs like ﷺ (U+FDF0-U+FDFF) stay part of the English line.
 const AR = "؀-ۿݐ-ݿࢠ-ࣿﭐ-﴿ﵐ-﷎ﹰ-﻿";
@@ -116,7 +117,9 @@ function ArabicBlock({ text, size, quran }: { text: string; size: number; quran:
  * reference a small caption. When the Arabic sits inside the sentence ("What does بِسْمِ اللَّهِ mean?")
  * it stays inline, so the English always reads as written. ﷺ is part of the English line.
  */
-export function PromptText({ children, size = 19 }: { children: string; size?: number }) {
+export function PromptText({ children, size: baseSize = 19 }: { children: string; size?: number }) {
+  // "Bigger text" in Settings grows the question too.
+  const size = scaleFont(baseSize);
   const lineStyle = [styles.prompt, { fontSize: size, lineHeight: Math.round(size * 1.35) }];
   if (isArabicOnly(children)) {
     const quran = isQuranText(children);
@@ -1391,7 +1394,7 @@ export function ExerciseView({
   );
 }
 
-const styles = StyleSheet.create({
+const styles = textScaled(StyleSheet.create({
   listenRow: {
     alignItems: "center",
     gap: 6,
@@ -1557,4 +1560,4 @@ const styles = StyleSheet.create({
   squareGap: {
     width: space.md
   }
-});
+}));

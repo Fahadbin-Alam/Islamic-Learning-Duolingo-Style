@@ -7,7 +7,7 @@ import type { MascotMood } from "../Mascot";
 import { PopIn, useShake } from "../PopIn";
 import { Tappable } from "../Tappable";
 import { useReduceMotion } from "../motion";
-import { playUi } from "../sound";
+import { haptic, playUi } from "../sound";
 import { colors, darken, fonts, lighten, radii, space, topicPalette } from "../theme";
 import { ExerciseView, QuestionBubble, useLessonCompact, type ExerciseChoice, type ExerciseResult, type ExerciseViewProps } from "./ExerciseView";
 import { CORRECT_TEXT, FeedbackSheet, WRONG_TEXT } from "./FeedbackSheet";
@@ -16,6 +16,7 @@ import { LessonBottomBar } from "./LessonHeader";
 import { noBreakHyphens, shortWhy } from "./lessonText";
 import { CHECK_FALSE, CHECK_TRUE, WRONG_BUILD, formatSeed, type FillPiece, type MatchPair } from "./questionFormats";
 import { getActiveLanguage, t } from "../../i18n";
+import { textScaled } from "../textScale";
 
 // The Duolingo-style games a question can be asked as (see questionFormats): fill the gap, the answer with its
 // key word missing, true or false on one choice, and a matching round. Each one reports the answer as a choice id, so the
@@ -388,7 +389,9 @@ export function MatchGame({ pairs, mascotVariant, accent, onDone, onMiss, playSo
       setMatched((list) => [...list, q]);
       setJoy((count) => count + 1);
       if (playSound && matched.length + 1 < pairs.length) playUi("sparkle");
+      haptic("success");
     } else {
+      haptic("error");
       setWrong({ question: q, answer: a });
       setMisses((count) => count + 1);
       shake();
@@ -488,7 +491,7 @@ function MatchPop({ matched, children }: { matched: boolean; children: React.Rea
 
 const TILE_LIP = 4;
 
-const styles = StyleSheet.create({
+const styles = textScaled(StyleSheet.create({
   root: { flex: 1, position: "relative", backgroundColor: colors.snow },
   scroll: { flex: 1 },
   content: { paddingHorizontal: space.lg, paddingTop: space.sm },
@@ -547,4 +550,4 @@ const styles = StyleSheet.create({
   matchCardWrong: { borderColor: lighten(colors.heart, 0.2), backgroundColor: colors.wrongBg },
   matchQuestion: { fontFamily: fonts.bodyBold, fontSize: 16, lineHeight: 22, color: colors.ink },
   matchAnswer: { marginTop: 4, fontFamily: fonts.bodyHeavy, fontSize: 16, lineHeight: 21, color: CORRECT_TEXT }
-});
+}));

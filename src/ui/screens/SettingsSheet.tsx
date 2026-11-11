@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import { GameButton } from "../GameButton";
 import { ScrollHintGap, useScrollMore } from "../lesson/ScrollHint";
 import { Sheet } from "../Sheet";
@@ -13,6 +13,7 @@ import { t } from "../../i18n";
 import type { DifficultyChoice } from "../../types";
 import { PATH_WORLD_CHOICES, setPathWorldChoice, usePathWorldChoice, type PathWorldChoice } from "../../services/pathWorldChoice";
 import { WORLD_LABELS } from "../pathWorlds";
+import { setDeviceSetting, useDeviceSettings } from "../../services/deviceSettings";
 
 // What each scenery pick shows on the Learn path.
 const WORLD_LINES: Record<PathWorldChoice, string> = {
@@ -108,6 +109,7 @@ export function SettingsSheet({
   const activeDifficulty = DIFFICULTIES.find((option) => option.id === difficulty) ?? DIFFICULTIES[0];
   const { ref, scrollProps, more, scrollDown } = useScrollMore();
   const world = usePathWorldChoice();
+  const device = useDeviceSettings();
 
   // The title and SAVE stay put; the rows scroll between them, with a bouncing arrow while some are hidden.
   return (
@@ -204,6 +206,19 @@ export function SettingsSheet({
                 <QuranOfflineRow />
               </>
             ) : null}
+          </View>
+
+          {/* This phone's own feel: changed at once, no Save needed. */}
+          <View style={styles.card} testID="settings-device">
+            {Platform.OS !== "web" ? (
+              <>
+                <Toggle label={t("Vibration")} icon="bolt" value={device.vibration} onToggle={() => setDeviceSetting("vibration", !device.vibration)} testID="settings-vibration" />
+                <View style={styles.divider} />
+              </>
+            ) : null}
+            <Toggle label={t("Bigger text")} icon="bookOpen" value={device.bigText} onToggle={() => setDeviceSetting("bigText", !device.bigText)} testID="settings-big-text" />
+            <View style={styles.divider} />
+            <Toggle label={t("Calm mode (less moving)")} icon="water" value={device.calm} onToggle={() => setDeviceSetting("calm", !device.calm)} testID="settings-calm" />
           </View>
 
           {!guest && onLogout ? <GameButton label={t("Log out")} variant="secondary" fullWidth onPress={onLogout} testID="settings-logout" /> : null}

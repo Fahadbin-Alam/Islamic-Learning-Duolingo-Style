@@ -12,6 +12,7 @@ import { noBreakHyphens } from "./lessonText";
 import { SCROLL_HINT_ROOM, ScrollHintGap } from "./ScrollHint";
 import { nearestRowStop, nextRowStop, wholeRows, type LayoutBox, type RowSpan } from "./sheetFit";
 import { getActiveLanguage, t } from "../../i18n";
+import { textScaled } from "../textScale";
 
 export const PRAISE_WORDS = ["Great job!", "Nice!", "Excellent!", "Amazing!", "You got it!", "MashaAllah!"] as const;
 
@@ -825,7 +826,7 @@ export function FeedbackSheet({
   );
 }
 
-const styles = StyleSheet.create({
+const styles = textScaled(StyleSheet.create({
   headRow: {
     flexDirection: "row",
     alignItems: "center"
@@ -987,4 +988,4 @@ const styles = StyleSheet.create({
     // text's line, every line of the Why text is the same height, so it can scroll in whole lines.
     lineHeight: Platform.OS === "web" ? 1 : undefined
   }
-});
+}));

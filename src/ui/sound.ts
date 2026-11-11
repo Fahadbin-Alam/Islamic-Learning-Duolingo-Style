@@ -2,6 +2,7 @@ import { Platform } from "react-native";
 import * as Haptics from "expo-haptics";
 import { playGameSound, preloadGameSounds, primeGameAudio } from "../services/gameAudio";
 import type { GameSoundEvent, SoundPreferences } from "../services/gameSoundLibrary";
+import { getDeviceSettings } from "../services/deviceSettings";
 
 export type HapticKind = "light" | "medium" | "heavy" | "success" | "error" | "warning";
 
@@ -49,7 +50,8 @@ export function playUi(event: GameSoundEvent = "soft_ui") {
 
 /** Haptic feedback on iOS and Android. No-op on web. Never throws. */
 export function haptic(kind: HapticKind = "light") {
-  if (Platform.OS === "web" || !hapticsEnabled) {
+  // "Vibration" in Settings turns every buzz off.
+  if (Platform.OS === "web" || !hapticsEnabled || !getDeviceSettings().vibration) {
     return;
   }
   try {
