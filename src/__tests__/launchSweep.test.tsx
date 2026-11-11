@@ -61,6 +61,10 @@ async function drawPages(english: Lesson, language: SupportedLanguage) {
     );
     await unmount();
   }
+  // React Native's test stand-in for the animation module is made of jest.fn()s, and each keeps the arguments of
+  // every call (every animated node of every page) until the test ends: on CI that ran out of memory. Nothing here
+  // checks those calls, so they are forgotten after each lesson.
+  jest.clearAllMocks();
 }
 
 afterAll(() => setActiveLanguage("en"));
