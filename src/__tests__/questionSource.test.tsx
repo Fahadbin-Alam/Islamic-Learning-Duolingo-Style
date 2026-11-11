@@ -1,4 +1,5 @@
 import React from "react";
+import { StyleSheet, type StyleProp, type TextStyle } from "react-native";
 import { fireEvent, render, screen } from "@testing-library/react-native";
 import { COURSE, LESSONS_BY_ID } from "../data/course";
 import { questionSource, shortReference } from "../services/questionSource";
@@ -52,6 +53,21 @@ describe("the answer sheet's source chip", () => {
   it("shows no chip for a question with no source", async () => {
     await render(<FeedbackSheet visible correct onContinue={jest.fn()} />);
     expect(screen.queryByTestId("feedback-source")).toBeNull();
+  });
+
+  it("keeps the source's name whole on a small phone: the chip goes under the title, never squeezed to a letter", async () => {
+    await render(<FeedbackSheet visible correct praiseSeed="seed" source={{ label: "Muslim 1218a", onOpen: jest.fn() }} onContinue={jest.fn()} />);
+    const flat = (node: { props: { style?: unknown } }) => (StyleSheet.flatten(node.props.style as StyleProp<TextStyle>) ?? {}) as TextStyle;
+    // The title and the chip share a line that wraps; the title fills its line (the chip sits at the far end).
+    const words = screen.getByTestId("feedback-head").queryAll((node) => flat(node).flexWrap === "wrap");
+    expect(words).toHaveLength(1);
+    const title = screen.getByRole("header");
+    expect(flat(title).flexGrow).toBe(1);
+    expect(flat(title).flex).toBeUndefined();
+    // The chip may be as wide as the line (no half-row cap that cut "Muslim 1218a" to "M...").
+    const slots = words[0].queryAll((node) => flat(node).maxWidth !== undefined && node.queryAll((inner) => inner.props.testID === "feedback-source").length > 0);
+    expect(slots.map((node) => flat(node).maxWidth)).toEqual(["100%"]);
+    expect(screen.getByTestId("feedback-source")).toHaveTextContent("Muslim 1218a");
   });
 
 });

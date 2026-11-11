@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getActiveLanguage } from "../../i18n";
-import { findTeacherVoice, mistakeExplanation, speakingMs, speakTeacher, stopTeacher } from "../../services/teacherVoice";
+import { findTeacherVoice, knownTeacherVoice, mistakeExplanation, speakingMs, speakTeacher, stopTeacher } from "../../services/teacherVoice";
 
 /**
  * The speaker on a wrong answer's sheet: tap it and the teacher says the right answer and why, its mouth moving
@@ -11,7 +11,7 @@ import { findTeacherVoice, mistakeExplanation, speakingMs, speakTeacher, stopTea
  */
 export function useMistakeVoice(open: boolean, correct: boolean, correctLabel?: string, why?: string) {
   const language = getActiveLanguage();
-  const [voice, setVoice] = useState<string | null>(null);
+  const [voice, setVoice] = useState<string | null>(() => knownTeacherVoice(language) ?? null);
   const [talkMs, setTalkMs] = useState(0);
   const turn = useRef(0);
 

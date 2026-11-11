@@ -8,6 +8,7 @@ import { GameButton } from "../GameButton";
 import { colors, darken, fonts, space } from "../theme";
 import { useReduceMotion } from "../motion";
 import { ScrollHintGap, type ScrollHintDirection } from "./ScrollHint";
+import { WithReadAloud } from "./ReadAloudButton";
 import { isRtlLanguage, t } from "../../i18n";
 
 const t_ = t;
@@ -160,11 +161,15 @@ export type LessonCheckBarProps = {
   hintStill?: boolean;
   /** The app's language: the arrow's own label follows it. */
   language: string;
+  /** The teacher reads the question aloud: a speaker before CHECK (none when undefined: no voice, nothing to read). */
+  onRead?: () => void;
+  reading?: boolean;
 };
 
 /**
- * The bar under a question: its CHECK button, and the "more below" arrow on its top edge. Drawn again only when what it
- * shows changes: a question drawn again while its answer sheet opens leaves its bar as it is.
+ * The bar under a question: its CHECK button (with the speaker before it, when the question can be read aloud), and
+ * the "more below" arrow on its top edge. Drawn again only when what it shows changes: a question drawn again while
+ * its answer sheet opens leaves its bar as it is.
  */
 export const LessonCheckBar = memo(function LessonCheckBar({
   label,
@@ -176,12 +181,16 @@ export const LessonCheckBar = memo(function LessonCheckBar({
   hintHold,
   onHint,
   hintDirection,
-  hintStill
+  hintStill,
+  onRead,
+  reading = false
 }: LessonCheckBarProps) {
   return (
     <LessonBottomBar bottomInset={bottomInset} scrollHint={{ visible: hintVisible, hold: hintHold, onPress: onHint, direction: hintDirection, still: hintStill }}>
-      {/* The correct / wrong sound follows right away, so CHECK itself stays quiet. */}
-      <GameButton label={label} fullWidth sound={false} disabled={disabled} onPress={onCheck} testID={testID} />
+      <WithReadAloud onRead={onRead} reading={reading} testID="question-read-aloud">
+        {/* The correct / wrong sound follows right away, so CHECK itself stays quiet. */}
+        <GameButton label={label} fullWidth sound={false} disabled={disabled} onPress={onCheck} testID={testID} />
+      </WithReadAloud>
     </LessonBottomBar>
   );
 });

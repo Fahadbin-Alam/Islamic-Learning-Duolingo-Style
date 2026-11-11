@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import React, { memo, useCallback, useContext, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import {
   Animated,
   Easing,
@@ -25,6 +25,7 @@ import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, radii, space } from "../theme";
 import { FeedbackSheet, type FeedbackSource } from "./FeedbackSheet";
 import { useMistakeVoice } from "./useMistakeVoice";
+import { QuestionTalkContext, questionAloudText, useQuestionAloud } from "./questionAloud";
 import { BAR_GAP, LessonCheckBar } from "./LessonHeader";
 import { noBreakHyphens, shortWhy } from "./lessonText";
 import { EVERY_FRAME, SCROLL_HINT_SLACK, scrollHintGrowth, useScrollMore } from "./ScrollHint";
@@ -204,7 +205,10 @@ export type QuestionBubbleProps = {
   picture?: LessonPicture;
   /** The answer picked so far: the mascot leans in to look each time it changes. */
   pick?: string;
-  /** The teacher is reading out a wrong answer's why: its mouth moves for this long (ms). */
+  /**
+   * The teacher is reading out the question, or a wrong answer's why: its mouth moves for this long (ms). Left out, it
+   * follows the voice of the game's frame (see QuestionTalkContext).
+   */
   talkMs?: number;
 };
 
@@ -235,8 +239,11 @@ export function useAnswerAct(mood: MascotMood, pick?: string): MascotAct | undef
  * Mascot next to a speech bubble holding the question. Very long prompts drop the mascot and use the full width. Drawn
  * again only when what it shows changes: a question drawn again while its answer sheet opens leaves it as it is.
  */
-export const QuestionBubble = memo(function QuestionBubble({ prompt, mascotVariant, accent, mood = "think", hideMascot, still, small, smallGaps, picture, pick, talkMs = 0 }: QuestionBubbleProps) {
+export const QuestionBubble = memo(function QuestionBubble({ prompt, mascotVariant, accent, mood = "think", hideMascot, still, small, smallGaps, picture, pick, talkMs }: QuestionBubbleProps) {
   const { compact, narrow } = useLessonCompact();
+  // A game's frame holds the voice (the speaker by CHECK, the answer sheet's): the mouth moves with it.
+  const frameTalk = useContext(QuestionTalkContext);
+  const talk = talkMs ?? frameTalk ?? 0;
   const act = useAnswerAct(mood, pick);
   const long = prompt.length > LONG_PROMPT;
   const promptSize = (long || compact ? 17 : narrow ? 18 : 19) - (small ? SMALL_PROMPT_STEP : 0);
@@ -257,7 +264,7 @@ export const QuestionBubble = memo(function QuestionBubble({ prompt, mascotVaria
   const row = (
     <View style={[styles.questionRow, compact ? styles.questionRowCompact : null]}>
       {picture && !banner ? <QuestionPhoto picture={picture} size={mascotSize} /> : (
-        <TapToPlay testID="question-mascot">{(tapMood) => <Mascot variant={mascotVariant} mood={tapMood ?? mood} accent={accent} size={mascotSize} act={act} talkMs={talkMs} />}</TapToPlay>
+        <TapToPlay testID="question-mascot">{(tapMood) => <Mascot variant={mascotVariant} mood={tapMood ?? mood} accent={accent} size={mascotSize} act={act} talkMs={talk} />}</TapToPlay>
       )}
       <PopIn from="up" delay={60} style={styles.bubbleWrap}>
         <SpeechBubble>
@@ -1059,6 +1066,9 @@ export function ExerciseView({
   // "Correct answer: ..." always names the answer, even though the green tile shows it too.
   const sheetLabel = shown && !shown.correct ? shown.correctLabel : undefined;
   const voice = useMistakeVoice(checked, Boolean(shown?.correct), sheetLabel, shown?.why);
+  // The speaker by CHECK: the teacher reads the question, then its answers in the order they show (true or false: the
+  // question alone, its two buttons say the rest). A listening question has its own speaker, for the word.
+  const aloud = useQuestionAloud(listen ? "" : questionAloudText([prompt, ...(kind === "true_false" ? [] : shownChoices.map((choice) => choice.label))]), checked);
   const mood: MascotMood = result ? (result.correct ? "cheer" : "sad") : "think";
   // The mascot also hides while a squeezed question gives the feedback sheet its room.
   const hideMascot = mascotAway || fit.squeeze;
@@ -1284,7 +1294,7 @@ export function ExerciseView({
                 accent={accent}
                 mood={mood}
                 pick={selectedChoiceId}
-                talkMs={voice.talkMs}
+                talkMs={checked ? voice.talkMs : aloud.talkMs ?? 0}
                 hideMascot={hideMascot}
                 still={fit.squeeze && !mascotAway}
                 small={look.smallPrompt}
@@ -1370,6 +1380,8 @@ export function ExerciseView({
           hintDirection={tall ? stopsArrow.direction : undefined}
           hintStill={tall}
           language={language}
+          onRead={aloud.onRead}
+          reading={aloud.reading}
         />
       </View>
 
