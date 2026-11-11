@@ -897,5 +897,17 @@
   "18 or older": "18 أو أكثر",
   "Vibration": "الاهتزاز",
   "Bigger text": "نص أكبر",
-  "Calm mode (less moving)": "الوضع الهادئ (حركة أقل)"
+  "Calm mode (less moving)": "الوضع الهادئ (حركة أقل)",
+  "All": "الكل",
+  "Set complete!": "اكتملت المجموعة!",
+  "Set complete: {set}!": "اكتملت المجموعة: {set}!",
+  "{set}: set complete": "{set}: اكتملت المجموعة",
+  "{set}: {count} of {total} found": "{set}: وُجد {count} من {total}",
+  "Makkah and the Hajj": "مكة والحج",
+  "The Prophet's journey ﷺ": "رحلة النبي ﷺ",
+  "Stories of the prophets": "قصص الأنبياء",
+  "Blessed lands": "الأراضي المباركة",
+  "The Last Day": "اليوم الآخر",
+  "Worship": "العبادة",
+  "Life long ago": "الحياة قديمًا"
 }

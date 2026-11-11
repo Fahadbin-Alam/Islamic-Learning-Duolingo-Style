@@ -897,5 +897,17 @@
   "18 or older": "18 বা তার বেশি",
   "Vibration": "কম্পন",
   "Bigger text": "বড় লেখা",
-  "Calm mode (less moving)": "শান্ত মোড (কম নড়াচড়া)"
+  "Calm mode (less moving)": "শান্ত মোড (কম নড়াচড়া)",
+  "All": "সব",
+  "Set complete!": "সেট সম্পূর্ণ!",
+  "Set complete: {set}!": "সেট সম্পূর্ণ: {set}!",
+  "{set}: set complete": "{set}: সেট সম্পূর্ণ",
+  "{set}: {count} of {total} found": "{set}: {total}টির মধ্যে {count}টি পাওয়া গেছে",
+  "Makkah and the Hajj": "মক্কা ও হজ",
+  "The Prophet's journey ﷺ": "নবী ﷺ-এর পথচলা",
+  "Stories of the prophets": "নবীদের কাহিনি",
+  "Blessed lands": "বরকতময় ভূমি",
+  "The Last Day": "শেষ দিবস",
+  "Worship": "ইবাদত",
+  "Life long ago": "সেকালের জীবন"
 }

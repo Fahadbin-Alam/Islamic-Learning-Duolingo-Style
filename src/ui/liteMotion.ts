@@ -1,5 +1,5 @@
 import { useSyncExternalStore } from "react";
-import { InteractionManager, PixelRatio, Platform } from "react-native";
+import { PixelRatio, Platform } from "react-native";
 
 /**
  * Lite motion for slower phones: the moving pictures keep their life but lighter (the camera drift holds still and
@@ -33,24 +33,22 @@ function publish(value: boolean) {
   for (const listener of listeners) listener();
 }
 
-/** Watches ~2.5 s of frames once, in a quiet moment some seconds after start-up (phones only). */
+/** Watches ~2.5 s of frames once, some seconds after start-up when the first screen has settled (phones only). */
 function sampleFrames() {
-  if (sampled || Platform.OS === "web" || typeof requestAnimationFrame !== "function") return;
+  if (sampled || Platform.OS === "web" || process.env.NODE_ENV === "test" || typeof requestAnimationFrame !== "function") return;
   sampled = true;
   setTimeout(() => {
-    InteractionManager.runAfterInteractions(() => {
-      const gaps: number[] = [];
-      let last = 0;
-      const started = Date.now();
-      const tick = (now: number) => {
-        if (last) gaps.push(now - last);
-        last = now;
-        if (Date.now() - started < 2500) requestAnimationFrame(tick);
-        else if (framesLookSlow(gaps)) publish(true);
-      };
-      requestAnimationFrame(tick);
-    });
-  }, 8000);
+    const gaps: number[] = [];
+    let last = 0;
+    const started = Date.now();
+    const tick = (now: number) => {
+      if (last) gaps.push(now - last);
+      last = now;
+      if (Date.now() - started < 2500) requestAnimationFrame(tick);
+      else if (framesLookSlow(gaps)) publish(true);
+    };
+    requestAnimationFrame(tick);
+  }, 10000);
 }
 
 export function isLiteMotion() {

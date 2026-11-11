@@ -268,7 +268,8 @@ import { shareCertificateCard, shareRamadanCard } from "./services/shareCard";
 import { biggestFirst, buildCertificates, certificateProgress, earnedCertificateIds, recordCertificates, type CertificateProgress } from "./services/certificates";
 import { CertificatePop, CertificatesSheet } from "./ui/screens/Certificates";
 import { ALBUM_PICTURES, PictureAlbumSheet } from "./ui/screens/PictureAlbum";
-import { addToAlbum, useAlbum } from "./services/pictureAlbum";
+import { addToAlbum, albumPictureIds, useAlbum } from "./services/pictureAlbum";
+import { setsFinishedBy, type AlbumSet } from "./data/albumSets";
 import { isUpdateAvailable, openStore } from "./services/appUpdate";
 import { attemptOrder, ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, HarderSheet, QuitSheet, QuizComplete, isPlayablePractice, lessonStars } from "./ui/lesson";
 import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic, isFirstUseOfWord } from "./data/arabicTerms";
@@ -397,6 +398,8 @@ type LessonCelebration = {
   questsDone?: string[];
   /** Pictures this lesson put in the picture album for the first time. */
   newPictures?: LessonPicture[];
+  /** Album sets those pictures finished: each gets its badge on the card. */
+  finishedSets?: AlbumSet[];
 };
 
 interface AppState {
@@ -2292,7 +2295,7 @@ export default function TopicApp() {
    * Puts the pictures this lesson showed in the picture album: its own, each page's, and those of its questions and
    * picture answers. Returns the ones new to the album, for the lesson complete card.
    */
-  function collectLessonPictures(): LessonPicture[] {
+  function collectLessonPictures(): { newPictures: LessonPicture[]; finishedSets: AlbumSet[] } {
     const questions = pictureLesson?.challenges ?? [];
     const ids = [
       lessonPicture?.id,
@@ -2301,11 +2304,13 @@ export default function TopicApp() {
       ...questions.flatMap((question) => Object.values(choicePictures(question.choices) ?? {}).map((picture) => picture.id))
     ];
     try {
-      return addToAlbum(ids)
-        .map((id) => getLessonPicture(id))
-        .filter((picture): picture is LessonPicture => Boolean(picture));
+      const fresh = addToAlbum(ids);
+      return {
+        newPictures: fresh.map((id) => getLessonPicture(id)).filter((picture): picture is LessonPicture => Boolean(picture)),
+        finishedSets: setsFinishedBy(fresh, albumPictureIds())
+      };
     } catch {
-      return [];
+      return { newPictures: [], finishedSets: [] };
     }
   }
 
@@ -2491,7 +2496,7 @@ export default function TopicApp() {
       accuracy: asked ? Math.round((state.sessionCorrectCount / asked) * 100) : undefined,
       bestInARow: state.bestInARow,
       questsDone: finishQuests(perfect, nextUser.totalXp - user.totalXp),
-      newPictures: collectLessonPictures(),
+      ...collectLessonPictures(),
       recap: lessonRecap(localizeLessonContent(state.activeSession.lesson, currentLanguage).challenges, state.missedChallengeIds),
       // A replayed lesson earns nothing, so show what was actually added.
       xp: nextUser.totalXp - user.totalXp,
@@ -4124,6 +4129,7 @@ export default function TopicApp() {
             recap={lessonCompleteSummary.recap}
             questsDone={lessonCompleteSummary.questsDone}
             newPictures={lessonCompleteSummary.newPictures}
+            finishedSets={lessonCompleteSummary.finishedSets}
             mascotVariant={lessonMascot}
             accent={lessonAccent}
             nextTitle={nextLessonNode?.title}
