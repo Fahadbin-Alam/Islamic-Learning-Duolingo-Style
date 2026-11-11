@@ -1,4 +1,5 @@
 import { hadith, quran, quranQuote, type DeepUnit } from "./deepKit";
+import { HUNAYN_UNIT, KHAYBAR_UNIT, MUTAH_UNIT, TABUK_UNIT } from "./seerahLaterUnits";
 
 // The life of the Prophet ﷺ (the Seerah), in order, as new units at the end of the "Lives of the Prophets" topic.
 // Every card is from the Quran or a hadith checked on sunnah.com (number and grade as sunnah.com gives them).
@@ -1384,4 +1385,4 @@ const CHARACTER: DeepUnit = {
   ]
 };
 
-export const SEERAH_UNITS: readonly DeepUnit[] = [EARLY, REVELATION, MAKKAH, TAIF, ISRA, HIJRAH, BADR, UHUD, TRENCH, HUDAYBIYAH, CONQUEST, FAREWELL, CHARACTER];
+export const SEERAH_UNITS: readonly DeepUnit[] = [EARLY, REVELATION, MAKKAH, TAIF, ISRA, HIJRAH, BADR, UHUD, TRENCH, HUDAYBIYAH, KHAYBAR_UNIT, MUTAH_UNIT, CONQUEST, HUNAYN_UNIT, TABUK_UNIT, FAREWELL, CHARACTER];

@@ -65,7 +65,7 @@ describe("which certificates there are", () => {
     const prophets = section("prophets");
     const seerahUnits = new Set(prophets.nodes.filter((node) => byId("group:seerah").nodeIds.includes(node.id)).map((node) => node.branchId));
     expect([...seerahUnits].every((id) => id.startsWith("seerah-"))).toBe(true);
-    expect(seerahUnits.size).toBe(13);
+    expect(seerahUnits.size).toBe(17);
     expect(byId("group:prophets").nodeIds.length).toBeGreaterThan(100);
   });
 
