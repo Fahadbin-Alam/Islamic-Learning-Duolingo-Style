@@ -23,7 +23,9 @@ const TABLE_FILES = {
   "src/components/FoundationLearning.tsx": ["QUIT_TITLES", "QUIT_LINE", "HEADLINES", "SKILL_LOOK"],
   "src/i18n.ts": ["UI_STRINGS", "TOPIC_COPY"],
   // Read even though data/ is not walked: the album sets' names.
-  "src/data/albumSets.ts": ["SET_TITLES"]
+  "src/data/albumSets.ts": ["SET_TITLES"],
+  // The "Say it out loud" words' meanings and when to say them.
+  "src/data/sayWords.ts": ["SAY_WORD_TEXT"]
 };
 // Lesson states read aloud with t(node.status) in LearnPath.
 const DYNAMIC_STRINGS = ["available", "completed", "current", "locked"];

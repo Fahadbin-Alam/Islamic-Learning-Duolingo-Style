@@ -2,11 +2,11 @@ from __future__ import annotations
 
 import secrets
 from datetime import date, datetime, timedelta, timezone
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from pydantic import BaseModel
-from sqlalchemy import delete, or_, select
+from sqlalchemy import delete, func, or_, select
 
 from backend.app.core.rate_limit import check_rate
 from backend.app.api.deps import DbSession, current_user
@@ -26,6 +26,13 @@ MAX_KIDS = 40
 MAX_PARENTS = 4
 # Days of XP sent to a parent: enough for the week chart.
 KID_XP_DAYS = 14
+# The family challenge week: each day someone in the family learns lights one lantern, and the family lights them
+# together from Monday to Sunday (the league's week, on the caller's clock). Nobody loses: an unfinished week ends.
+LANTERNS_PER_PERSON = 3
+# A grown-up following more learners than this is a teacher: a class is not one family, so their links don't join
+# families together.
+FAMILY_SIZE_LIMIT = 10
+FAMILY_MAX_PEOPLE = 30
 
 
 class LinkKidInput(BaseModel):
@@ -65,6 +72,65 @@ def person_payload(user: User) -> Dict[str, Any]:
     return {"id": user.id, "name": user.display_name, "avatarInitials": initials(user.display_name)}
 
 
+def family_circle(db, user: User) -> List[User]:
+    """Everyone joined to this account by family links (grown-ups, their learners, their learners' other grown-ups...),
+    through grown-ups who follow at most FAMILY_SIZE_LIMIT learners, so every phone in one family counts the same
+    people. Nearest first, this account first, at most FAMILY_MAX_PEOPLE."""
+    people: Dict[int, User] = {user.id: user}
+    frontier = {user.id}
+    while frontier and len(people) < FAMILY_MAX_PEOPLE:
+        links = db.scalars(
+            select(FamilyLink)
+            .where(or_(FamilyLink.parent_id.in_(frontier), FamilyLink.child_id.in_(frontier)))
+            .order_by(FamilyLink.created_at, FamilyLink.id)
+        ).all()
+        grown_ups = {link.parent_id for link in links}
+        sizes = dict(
+            db.execute(select(FamilyLink.parent_id, func.count(FamilyLink.id)).where(FamilyLink.parent_id.in_(grown_ups)).group_by(FamilyLink.parent_id)).all()
+        ) if grown_ups else {}
+        frontier = set()
+        for link in links:
+            if sizes.get(link.parent_id, 0) > FAMILY_SIZE_LIMIT:
+                continue
+            for person in (link.parent, link.child):
+                if person.id not in people and len(people) < FAMILY_MAX_PEOPLE:
+                    people[person.id] = person
+                    frontier.add(person.id)
+    return list(people.values())
+
+
+def xp_on(history: Dict[str, Any], day: str) -> int:
+    try:
+        return int(history.get(day) or 0)
+    except (TypeError, ValueError):
+        return 0
+
+
+def family_week(db, user: User, day: date) -> Optional[Dict[str, Any]]:
+    """The family's lanterns this week: one for each day each person learned, the goal, and whether the people this
+    account already sees (itself, its learners, its grown-ups) learned today. Everyone else is only counted, so a
+    child never learns another child's name from it. None when the account has no family."""
+    circle = family_circle(db, user)
+    if len(circle) < 2:
+        return None
+    first = day - timedelta(days=day.weekday())
+    days = [(first + timedelta(days=offset)).isoformat() for offset in range(day.weekday() + 1)]
+    learned = {person.id: [entry for entry in days if xp_on(person.xp_history_json or {}, entry) > 0] for person in circle}
+    known = {user.id}
+    known.update(db.scalars(select(FamilyLink.child_id).where(FamilyLink.parent_id == user.id)).all())
+    known.update(db.scalars(select(FamilyLink.parent_id).where(FamilyLink.child_id == user.id)).all())
+    today = day.isoformat()
+    return {
+        "weekStart": first.isoformat(),
+        "members": len(circle),
+        "goal": len(circle) * LANTERNS_PER_PERSON,
+        "lit": sum(len(entry) for entry in learned.values()),
+        # This account's own days, so its phone can add a lesson the server has not heard about yet.
+        "selfDays": learned[user.id],
+        "people": [{**person_payload(person), "today": today in learned[person.id]} for person in circle if person.id in known],
+    }
+
+
 @router.post("/family/code", status_code=status.HTTP_201_CREATED)
 def make_link_code(db: DbSession, user: User = Depends(current_user)):
     """The child's phone asks for a code (behind the grown-up gate). A new code replaces the old one."""
@@ -87,6 +153,7 @@ def family(db: DbSession, today: Optional[str] = Query(default=None), user: User
     return {
         "kids": [kid_payload(link.child, day) for link in links if link.parent_id == user.id],
         "parents": [person_payload(link.parent) for link in links if link.child_id == user.id],
+        "familyWeek": family_week(db, user, day),
     }
 
 
