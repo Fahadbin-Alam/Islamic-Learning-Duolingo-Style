@@ -11,7 +11,7 @@ import { ExerciseView } from "../ui/lesson";
 import { questionFormat } from "../ui/lesson/questionFormats";
 import { surahScene } from "../data/surahPictures";
 import { coverRect, LiveFrame } from "../ui/lesson/LivePicture";
-import { PICTURE_LIFE, sceneLife, type Life } from "../ui/lesson/pictureLife";
+import { PICTURE_LIFE, pokeSound, sceneLife, type Life } from "../ui/lesson/pictureLife";
 
 const shares = (life: Life) => Object.entries(life).filter(([key, value]) => key !== "count" && typeof value === "number") as [string, number][];
 
@@ -28,6 +28,15 @@ describe("living lesson pictures", () => {
       }
       if ("top" in life && "bottom" in life) expect(life.top).toBeLessThan(life.bottom);
     }
+  });
+
+  test("a tapped picture makes the sound of what lives on it", () => {
+    expect(pokeSound("sheep")).toBe("baa");
+    expect(pokeSound("arafah")).toBe("camel");
+    expect(pokeSound("ark")).toBe("splash");
+    expect(pokeSound("makkah")).toBe("chirp");
+    expect(pokeSound("kaaba")).toBe("sparkle");
+    expect(pokeSound("manuscript")).toBe("sparkle");
   });
 
   test("the Ka'bah itself never moves: only the sky around it", () => {
