@@ -24,6 +24,7 @@ import { SurahCover, SurahParts } from "./SurahCover";
 import { isCredit, splitLessonFacts } from "./lessonNotes";
 import { highlightPieces, plainSummary, saidInSummary, type LearnPageKind, type TeachLesson } from "./lessonPages";
 import { Teacher, talkTime, type TeacherLook } from "./Teacher";
+import { textScaled } from "../textScale";
 
 export type LearnCardProps = {
   /** Lesson title, e.g. "As-Salamu Alaikum". Hidden when it only repeats the Arabic word's transliteration. */
@@ -836,7 +837,7 @@ function QuizPage({
 const SPEAKER = 44;
 const SPEAKER_SMALL = 38;
 
-const styles = StyleSheet.create({
+const styles = textScaled(StyleSheet.create({
   writeWrap: {
     alignSelf: "stretch",
     overflow: "hidden"
@@ -1428,4 +1429,4 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     color: colors.ink
   }
-});
+}));

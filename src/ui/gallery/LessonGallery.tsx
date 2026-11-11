@@ -7,6 +7,7 @@ import { choicePictures, getLessonPicture, LESSON_PICTURE_IDS, pictureForLesson,
 import { LessonPhoto } from "../lesson/LessonPhoto";
 import { MatchGame } from "../lesson/WordGames";
 import { SurahCover } from "../lesson/SurahCover";
+import { ALBUM_SETS } from "../../data/albumSets";
 import { addToAlbum } from "../../services/pictureAlbum";
 import { PictureAlbumSheet } from "../screens/PictureAlbum";
 import { surahNumberForTitle, surahParts } from "../../data/surahPictures";
@@ -316,7 +317,7 @@ type State = { id: string; render: () => React.ReactElement };
 
 /** The picture album with a few found: #gallery-lesson-album. */
 function AlbumDemo() {
-  addToAlbum(["kaaba", "ark", "arafah", "mina", "muzdalifah", "ants", "big-fish", "nile"]);
+  addToAlbum(["kaaba", "ark", "arafah", "mina", "muzdalifah", "ants", "big-fish", "nile", "aqsa", "jerusalem", "damascus"]);
   return <PictureAlbumSheet visible onClose={noop} />;
 }
 
@@ -550,7 +551,8 @@ const STATES: State[] = [
         xp={salam.xpReward + 10}
         stars={3}
         streakDays={12}
-        newPictures={["arafah", "mina", "muzdalifah"].map((id) => getLessonPicture(id)).filter((picture) => picture !== undefined)}
+        newPictures={["aqsa", "jerusalem", "damascus"].map((id) => getLessonPicture(id)).filter((picture) => picture !== undefined)}
+        finishedSets={ALBUM_SETS.filter((set) => set.id === "lands")}
         nextTitle="Next"
         mascotVariant="girl"
         accent={FOUNDATION_ACCENT}

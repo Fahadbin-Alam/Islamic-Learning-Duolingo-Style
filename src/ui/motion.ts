@@ -7,6 +7,7 @@
 
 import { useEffect, useState } from "react";
 import { AccessibilityInfo } from "react-native";
+import { getDeviceSettings, subscribeDeviceSettings } from "../services/deviceSettings";
 
 type Key = number | string;
 
@@ -66,22 +67,37 @@ let reduceMotionNow = false;
 let reduceMotionRead = false;
 const reduceMotionSubscribers = new Set<(value: boolean) => void>();
 
+let systemReduceMotion = false;
+
+/** The phone's "reduce motion", or the app's own calm mode (Settings): either one cuts motion. */
+function publishReduceMotion() {
+  const next = systemReduceMotion || getDeviceSettings().calm;
+  if (next === reduceMotionNow) return;
+  reduceMotionNow = next;
+  reduceMotionSubscribers.forEach((notify) => notify(reduceMotionNow));
+}
+
 function watchReduceMotion() {
   if (reduceMotionRead) return;
   reduceMotionRead = true;
   const publish = (value: boolean) => {
-    reduceMotionNow = Boolean(value);
-    reduceMotionSubscribers.forEach((notify) => notify(reduceMotionNow));
+    systemReduceMotion = Boolean(value);
+    publishReduceMotion();
   };
+  reduceMotionNow = getDeviceSettings().calm;
   AccessibilityInfo.isReduceMotionEnabled?.()
     .then(publish)
     .catch(() => undefined);
   AccessibilityInfo.addEventListener?.("reduceMotionChanged", publish);
+  subscribeDeviceSettings(publishReduceMotion);
 }
 
 /** True while the phone asks apps to cut motion. Starts false and updates once the setting is read. */
 export function useReduceMotion() {
-  const [reduce, setReduce] = useState(reduceMotionNow);
+  const [reduce, setReduce] = useState(() => {
+    watchReduceMotion();
+    return reduceMotionNow;
+  });
   useEffect(() => {
     watchReduceMotion();
     reduceMotionSubscribers.add(setReduce);

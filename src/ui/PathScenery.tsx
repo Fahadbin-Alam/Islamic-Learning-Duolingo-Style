@@ -3,6 +3,7 @@ import { Animated, Easing, Pressable, StyleSheet, View, type StyleProp, type Vie
 import type { GameSoundEvent } from "../services/gameSoundLibrary";
 import Svg, { Circle, Ellipse, G, Path, Rect } from "react-native-svg";
 import { useReduceMotion } from "./Camel";
+import { useLiteMotion } from "./liteMotion";
 import { Icon, type IconName } from "./Icon";
 import { smoothKeys } from "./motion";
 import { Floater, Sparkle, shake, useCycle, useOneShot } from "./reactions";
@@ -653,7 +654,9 @@ export const PathScenery = memo(function PathScenery(props: PathSceneryProps) {
 
 const SceneryBody = memo(function SceneryBody({ kind, size = 64, animated = false, tappable = false, seed = 0, style }: PathSceneryProps) {
   const reduceMotion = useReduceMotion();
-  const sways = animated && !reduceMotion && SWAYS.has(kind);
+  // On a slow phone (lite motion) trees and flowers hold still; animals still roam and everything still reacts to taps.
+  const lite = useLiteMotion();
+  const sways = animated && !reduceMotion && !lite && SWAYS.has(kind);
   const sway = useRef(new Animated.Value(0)).current;
   const tap = useRef(new Animated.Value(0)).current;
   const busy = useRef(false);

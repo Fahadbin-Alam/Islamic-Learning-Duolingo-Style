@@ -14,6 +14,7 @@ import { noBreakHyphens } from "./lessonText";
 import { useScrollMore } from "./ScrollHint";
 import { sheetRoom, type LayoutBox } from "./sheetFit";
 import { t } from "../../i18n";
+import { textScaled } from "../textScale";
 
 export type OrderOption = { id: string; label: string; icon?: IconName };
 
@@ -425,7 +426,7 @@ export function OrderGame({
 
 const CHIP_LIP = 4;
 
-const styles = StyleSheet.create({
+const styles = textScaled(StyleSheet.create({
   root: {
     flex: 1,
     position: "relative",
@@ -577,4 +578,4 @@ const styles = StyleSheet.create({
     color: colors.white,
     includeFontPadding: false
   }
-});
+}));

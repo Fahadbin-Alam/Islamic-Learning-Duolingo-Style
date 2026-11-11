@@ -13,9 +13,9 @@ import { LiveFrame, type Poke } from "./LivePicture";
 import { PICTURE_LIFE, pokeSound } from "./pictureLife";
 
 /** The picture, moving (see LivePicture): the slow camera drift and its own little life. */
-function LiveImage({ picture, testID, cheer, poke }: { picture: LessonPicture; testID?: string; cheer?: number | string; poke?: Poke }) {
+function LiveImage({ picture, testID, cheer, poke, still }: { picture: LessonPicture; testID?: string; cheer?: number | string; poke?: Poke; still?: boolean }) {
   return (
-    <LiveFrame aspect={photoAspect(picture)} life={PICTURE_LIFE[picture.id]} cheer={cheer} poke={poke}>
+    <LiveFrame aspect={photoAspect(picture)} life={PICTURE_LIFE[picture.id]} cheer={cheer} poke={poke} still={still}>
       <Image source={picture.image} style={styles.photoImage} resizeMode="cover" testID={testID} />
     </LiveFrame>
   );
@@ -165,10 +165,11 @@ export function QuestionBanner({ picture, cheer }: { picture: LessonPicture; che
 }
 
 /** A small living picture for the album and the "new in your album" card: square, rounded, moving. */
-export function AlbumThumb({ picture, size, testID }: { picture: LessonPicture; size: number; testID?: string }) {
+/** `still`: drawn without motion (the album holds the ones scrolled out of sight still, so a phone only moves what shows). */
+export function AlbumThumb({ picture, size, testID, still }: { picture: LessonPicture; size: number; testID?: string; still?: boolean }) {
   return (
     <View style={[styles.thumb, { width: size, height: size }]} testID={testID} accessible accessibilityRole="image" accessibilityLabel={t(picture.caption)}>
-      <LiveImage picture={picture} />
+      <LiveImage picture={picture} still={still} />
     </View>
   );
 }
