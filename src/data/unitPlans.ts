@@ -287,6 +287,10 @@ export const UNIT_PLANS: Partial<Record<TopicId, UnitPlan[]>> = {
         "deep-quranwomen-umm-umarah-ayah",
         "deep-quranwomen-rubayyi-water",
         "deep-quranwomen-umm-sulaym-patience",
+        "deep-quranwomen-umm-khalid-dress",
+        "deep-quranwomen-zaynab-two-rewards",
+        "deep-quranwomen-umm-zufar-patience",
+        "deep-quranwomen-umm-al-fadl-milk",
         "deep-quranwomen-umm-haram-sea",
         "deep-quranwomen-umm-ayman-visit",
         "deep-quranwomen-final-quiz"
