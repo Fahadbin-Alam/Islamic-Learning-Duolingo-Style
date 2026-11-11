@@ -759,6 +759,11 @@ export default function TopicApp() {
   }, []);
   // A tap on the home-screen widget opens the app at muslimo://daily: show today's ayah and hadith.
   const [dailyOpenSignal, setDailyOpenSignal] = useState(0);
+  // The last of those requests the top bar has opened the card for. The top bar leaves during a lesson and comes
+  // back after it; it gets only a request still waiting, so it does not open the card again after every lesson.
+  const [dailyOpenDone, setDailyOpenDone] = useState(0);
+  // Today's card is up over the screen (the top bar shows it).
+  const [dailySheetOpen, setDailySheetOpen] = useState(false);
   useEffect(() => {
     const open = (url: string | null) => isDailyLink(url) && setDailyOpenSignal((count) => count + 1);
     void Linking.getInitialURL().then(open).catch(() => undefined);
@@ -3945,9 +3950,12 @@ export default function TopicApp() {
             onOpenTopics={() => setTopicPickerVisible(true)}
             onOpenShop={() => dispatch({ type: "open_shop" })}
             dailySeen={dailySeenDay === localDayNumber()}
-            dailyOpenSignal={dailyOpenSignal}
+            dailyOpenSignal={dailyOpenSignal > dailyOpenDone ? dailyOpenSignal : 0}
             onOpenAdhkar={() => openAdhkar()}
+            onDailyClosed={() => setDailySheetOpen(false)}
             onDailyOpened={() => {
+              setDailyOpenDone(dailyOpenSignal);
+              setDailySheetOpen(true);
               const today = localDayNumber();
               setDailySeenDay(today);
               setStoredItem("sira-path-daily-seen", String(today));
@@ -3987,6 +3995,8 @@ export default function TopicApp() {
             onNextTopic={() => setTopicPickerVisible(true)}
             reveal={pathReveal}
             onRevealed={() => setPathReveal(undefined)}
+            // A circle a lesson just opened waits, shut, under a sheet, and pops open when the path shows again.
+            covered={otherSheetOpen || dailySheetOpen || accountModalVisible || Boolean(planOffer?.open)}
             header={
               pathUnitId ? (
                 <Tappable

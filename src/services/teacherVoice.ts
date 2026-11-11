@@ -84,10 +84,22 @@ export function speakingMs(text: string) {
   return Math.min(30000, Math.max(1200, words * 380));
 }
 
+/** The most a phone's voice takes at once (Android: 4000 characters). */
+const MAX_SPOKEN = Math.min(3900, Number(Speech.maxSpeechInputLength) || 3900);
+
+/** Text short enough for the phone's voice: a longer one is cut at the last sentence that fits. */
+export function fitForVoice(text: string, max = MAX_SPOKEN) {
+  if (text.length <= max) return text;
+  const head = text.slice(0, max);
+  const end = Math.max(...[".", "!", "?", "؟", "।", "۔"].map((mark) => head.lastIndexOf(mark)));
+  const space = head.lastIndexOf(" ");
+  return head.slice(0, end > max / 2 ? end + 1 : space > 0 ? space : max).trim();
+}
+
 export function speakTeacher(text: string, language: SupportedLanguage, voiceId: string, onEnd?: () => void) {
   try {
     void Speech.stop();
-    Speech.speak(text, {
+    Speech.speak(fitForVoice(text), {
       language: SPEECH_CODE[language],
       ...(voiceId ? { voice: voiceId } : null),
       rate: 0.95,

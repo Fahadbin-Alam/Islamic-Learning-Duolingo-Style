@@ -26,6 +26,7 @@ import { SurahCover, SurahParts } from "./SurahCover";
 import { isCredit, splitLessonFacts } from "./lessonNotes";
 import { highlightPieces, plainSummary, saidInSummary, type LearnPageKind, type TeachLesson } from "./lessonPages";
 import { Teacher, talkTime, type TeacherLook } from "./Teacher";
+import { readAloudText, useReadAloud } from "./useReadAloud";
 import { textScaled } from "../textScale";
 
 export type LearnCardProps = {
@@ -324,6 +325,32 @@ export function LearnCard({
       openWebPage(url);
     }
   };
+  const deeperPart = deeper && (page === "meaning" || page === "story" || page === "takeaway") ? page : undefined;
+  const deeperIntro = deeperPart === "meaning" ? t("Let me explain what it means.") : deeperPart === "story" ? t("Let me tell you the story.") : t("Take this home with you.");
+  const deeperSaying = deeperPart === "meaning" ? deeper?.meaning.join(" ") : deeperPart === "story" ? deeper?.story : deeper?.takeaway;
+  // What the teacher reads out when the speaker is tapped: the words this page shows, in the order it shows them.
+  const readText =
+    page === "quiz"
+      ? readAloudText([testPass ? t("Test time!") : t("Quiz time!"), quizLine(quizCount, testPass)])
+      : page === "teach"
+        ? readAloudText([...(teach?.lines ?? []), teach?.card?.question, teach?.card?.answer])
+        : deeperPart
+          ? readAloudText([deeperIntro, deeperSaying])
+          : readAloudText([
+              ...(at("start")
+                ? [
+                    showTitle ? title : undefined,
+                    // The word card: the Arabic word itself for a voice that reads Arabic letters, its Latin spelling for one that does not.
+                    arabic ? `${readsArabic(getActiveLanguage()) ? arabic.ar : arabic.translit}: ${t(arabic.meaning)}` : undefined,
+                    line,
+                    quoteText && !isArabicOnly(quoteText) ? quoteText : undefined
+                  ]
+                : []),
+              ...(page === "facts" || all ? [explainText, sourceSays, ...notes.points.map((point) => (point.key ? `${point.key}: ${point.text}` : point.text))] : [])
+            ]);
+  const aloud = useReadAloud(readText);
+  // Once the learner asks the teacher to read, its mouth moves with the voice (and stops with it).
+  const mouth = (ms: number) => aloud.talkMs ?? ms;
 
   return (
     <View style={styles.root} testID={testID}>
@@ -337,8 +364,8 @@ export function LearnCard({
           ) : null}
           {/* Every later page opens on a big picture of what it teaches (or one that fits the lesson). */}
           {pagePicture && !all && page !== "start" && page !== "quiz" ? <LessonPhoto picture={pagePicture} short={short} delay={0} big /> : null}
-          {page === "teach" && teach ? <TeachPage teach={teach} marks={marks} palette={palette} mascotVariant={mascotVariant} teacher={teacher} accent={accent} short={short} /> : null}
-          {page === "quiz" ? <QuizPage count={quizCount} testPass={testPass} mascotVariant={mascotVariant} teacher={teacher} accent={accent} short={short} /> : null}
+          {page === "teach" && teach ? <TeachPage teach={teach} marks={marks} palette={palette} mascotVariant={mascotVariant} teacher={teacher} accent={accent} short={short} talkMs={aloud.talkMs} /> : null}
+          {page === "quiz" ? <QuizPage count={quizCount} testPass={testPass} mascotVariant={mascotVariant} teacher={teacher} accent={accent} short={short} talkMs={aloud.talkMs} /> : null}
           {/* A surah's own lesson opens on a picture of what its name means. */}
           {surah && at("start") ? <SurahCover surah={surah.number} meaning={surah.meaning ?? arabic?.meaning} arabicName={arabic?.ar} short={short} /> : null}
           {/* NEW marks a new word, so it only shows with one the learner has not met yet. */}
@@ -420,7 +447,7 @@ export function LearnCard({
 
           {!at("start") ? null : arabic || rich ? (
             <View style={[styles.talkRow, short ? styles.talkRowShort : null]}>
-              <Teacher look={teacher} variant={mascotVariant} mood={arabic ? "happy" : "wave"} accent={accent} size={short ? (rich ? 52 : 64) : rich ? 68 : 92} talkMs={talkTime(line)} />
+              <Teacher look={teacher} variant={mascotVariant} mood={arabic ? "happy" : "wave"} accent={accent} size={short ? (rich ? 52 : 64) : rich ? 68 : 92} talkMs={mouth(talkTime(line))} />
               <SlideIn delay={soon(320)} style={styles.bubbleWrap}>
                 {/* The line the lesson teaches: big enough to read at a glance, using the width the mascot leaves. */}
                 <SpeechBubble style={styles.bubbleWide}>
@@ -435,7 +462,7 @@ export function LearnCard({
                   <Text style={styles.bigLine}>{withHonorifics(noBreakHyphens(line))}</Text>
                 </SpeechBubble>
               </SlideIn>
-              <Teacher look={teacher} variant={mascotVariant} mood="wave" accent={accent} size={short ? 118 : 150} talkMs={talkTime(line)} />
+              <Teacher look={teacher} variant={mascotVariant} mood="wave" accent={accent} size={short ? 118 : 150} talkMs={mouth(talkTime(line))} />
             </View>
           )}
 
@@ -447,15 +474,8 @@ export function LearnCard({
           ) : null}
 
           {/* On its own page, each part of the lesson is said by the teacher, who stays on the page talking. */}
-          {deeper && (page === "meaning" || page === "story" || page === "takeaway") ? (
-            <TeacherIntro
-              text={page === "meaning" ? t("Let me explain what it means.") : page === "story" ? t("Let me tell you the story.") : t("Take this home with you.")}
-              saying={page === "meaning" ? deeper.meaning.join(" ") : page === "story" ? deeper.story : deeper.takeaway}
-              teacher={teacher}
-              mascotVariant={mascotVariant}
-              accent={accent}
-              short={short}
-            />
+          {deeperPart ? (
+            <TeacherIntro text={deeperIntro} saying={deeperSaying} teacher={teacher} mascotVariant={mascotVariant} accent={accent} short={short} talkMs={aloud.talkMs} />
           ) : null}
 
           {(notes.points.length > 0 && at("facts")) || sourceSays || explainText || partsInCard ? (
@@ -465,7 +485,7 @@ export function LearnCard({
               <View style={[styles.notes, { borderColor: palette.soft }]} testID="learn-facts">
                 <View style={styles.notesHead}>
                   {page === "facts" ? (
-                    <Teacher look={teacher} variant={mascotVariant} accent={accent} size={short ? 40 : 48} talkMs={talkTime([explain ?? "", sourceSays ?? "", ...notes.points.map((point) => point.text)].join(" "))} />
+                    <Teacher look={teacher} variant={mascotVariant} accent={accent} size={short ? 40 : 48} talkMs={mouth(talkTime([explain ?? "", sourceSays ?? "", ...notes.points.map((point) => point.text)].join(" ")))} />
                   ) : (
                     <Icon name="bookOpen" size={20} color={palette.ink} />
                   )}
@@ -595,7 +615,13 @@ export function LearnCard({
       </View>
 
       <LessonBottomBar bottomInset={bottomInset} scrollHint={{ visible: more, onPress: scrollDown }}>
-        <GameButton label={t("Continue")} fullWidth onPress={onContinue} testID="learn-continue" />
+        <View style={styles.barRow}>
+          {/* The teacher reads the page out: next to CONTINUE, in the same place on every page. */}
+          {aloud.onRead ? <ReadAloudButton reading={aloud.reading} onPress={aloud.onRead} /> : null}
+          <View style={styles.barContinue}>
+            <GameButton label={t("Continue")} fullWidth onPress={onContinue} testID="learn-continue" />
+          </View>
+        </View>
       </LessonBottomBar>
     </View>
   );
@@ -726,7 +752,8 @@ function TeacherIntro({
   teacher,
   mascotVariant,
   accent,
-  short
+  short,
+  talkMs
 }: {
   text: string;
   saying?: string;
@@ -734,10 +761,12 @@ function TeacherIntro({
   mascotVariant: string;
   accent: string;
   short: boolean;
+  /** Set once the page is being read aloud: the mouth moves with the voice. */
+  talkMs?: number;
 }) {
   return (
     <View style={[styles.talkRow, styles.introRow, short ? styles.introRowShort : null]} testID="learn-teacher-intro">
-      <Teacher look={teacher} variant={mascotVariant} accent={accent} size={short ? 50 : 60} talkMs={talkTime(`${intro} ${saying ?? ""}`)} />
+      <Teacher look={teacher} variant={mascotVariant} accent={accent} size={short ? 50 : 60} talkMs={talkMs ?? talkTime(`${intro} ${saying ?? ""}`)} />
       <SlideIn delay={soon(120)} style={styles.bubbleWrap}>
         <SpeechBubble>
           <Text style={[styles.lineText, styles.introText]} testID="learn-teacher-line">
@@ -757,7 +786,8 @@ function TeachPage({
   mascotVariant,
   teacher,
   accent,
-  short
+  short,
+  talkMs
 }: {
   teach: TeachLesson;
   marks: string[];
@@ -766,13 +796,14 @@ function TeachPage({
   teacher?: TeacherLook;
   accent: string;
   short: boolean;
+  talkMs?: number;
 }) {
   const answerMarks = teach.answer ? [teach.answer, ...marks] : marks;
   return (
     <View style={styles.teach} testID="learn-teach">
       {teach.lines.length ? (
         <View style={[styles.talkRow, short ? styles.talkRowShort : null]}>
-          <Teacher look={teacher} variant={mascotVariant} accent={accent} size={short ? 56 : 72} talkMs={talkTime(teach.lines.join(" "))} />
+          <Teacher look={teacher} variant={mascotVariant} accent={accent} size={short ? 56 : 72} talkMs={talkMs ?? talkTime(teach.lines.join(" "))} />
           <SlideIn delay={soon(200)} style={styles.bubbleWrap}>
             <SpeechBubble style={styles.bubbleWide}>
               {teach.lines.map((line, index) => (
@@ -804,10 +835,47 @@ function TeachPage({
       ) : null}
       {!teach.lines.length ? (
         <View style={styles.teachMascot}>
-          <Teacher look={teacher} variant={mascotVariant} accent={accent} size={short ? 72 : 96} />
+          <Teacher look={teacher} variant={mascotVariant} accent={accent} size={short ? 72 : 96} talkMs={talkMs} />
         </View>
       ) : null}
     </View>
+  );
+}
+
+/** An Urdu or Arabic voice reads Arabic letters; an English or Bangla one does not. */
+function readsArabic(language: string) {
+  return language === "ar" || language === "ur";
+}
+
+/** What the quiz page says under "Quiz time!". */
+function quizLine(count?: number, testPass?: number) {
+  return testPass && count
+    ? t("Get {count} of {total} right to pass this unit.", { count: testPass, total: count })
+    : count && count > 1
+      ? t("{count} questions from your last lessons, in new ways.", { count })
+      : t("Get them right to move on.");
+}
+
+/**
+ * The speaker next to CONTINUE: the teacher reads the page out. While it reads, the button fills and shows a stop
+ * square; a tap stops it.
+ */
+function ReadAloudButton({ reading, onPress }: { reading: boolean; onPress: () => void }) {
+  return (
+    <Tappable
+      onPress={onPress}
+      style={styles.readButton}
+      pressScale={0.92}
+      accessibilityRole="button"
+      accessibilityLabel={reading ? t("Stop") : t("Read it to me")}
+      accessibilityState={{ selected: reading }}
+      testID="learn-read-aloud"
+    >
+      <View style={[styles.readLip, reading ? styles.readLipOn : null]} />
+      <View style={[styles.readFace, reading ? styles.readFaceOn : null]}>
+        {reading ? <View style={styles.readStop} testID="learn-read-aloud-stop" /> : <Icon name="speaker" size={26} color={colors.gem} />}
+      </View>
+    </Tappable>
   );
 }
 
@@ -818,7 +886,8 @@ function QuizPage({
   mascotVariant,
   teacher,
   accent,
-  short
+  short,
+  talkMs
 }: {
   count?: number;
   testPass?: number;
@@ -826,22 +895,17 @@ function QuizPage({
   teacher?: TeacherLook;
   accent: string;
   short: boolean;
+  talkMs?: number;
 }) {
   return (
     <View style={[styles.talkColumn, short ? styles.talkColumnShort : null]} testID="learn-quiz">
       <SlideIn delay={soon(150)} style={styles.bubbleTop}>
         <SpeechBubble tail="down" tailAlign="center">
           <Text style={styles.bigLine}>{testPass ? t("Test time!") : t("Quiz time!")}</Text>
-          <Text style={styles.quizSub}>
-            {testPass && count
-              ? t("Get {count} of {total} right to pass this unit.", { count: testPass, total: count })
-              : count && count > 1
-                ? t("{count} questions from your last lessons, in new ways.", { count })
-                : t("Get them right to move on.")}
-          </Text>
+          <Text style={styles.quizSub}>{quizLine(count, testPass)}</Text>
         </SpeechBubble>
       </SlideIn>
-      <Teacher look={teacher} variant={mascotVariant} mood="cheer" accent={accent} size={short ? 118 : 150} talkMs={1400} />
+      <Teacher look={teacher} variant={mascotVariant} mood="cheer" accent={accent} size={short ? 118 : 150} talkMs={talkMs ?? 1400} />
     </View>
   );
 }
@@ -849,7 +913,54 @@ function QuizPage({
 const SPEAKER = 44;
 const SPEAKER_SMALL = 38;
 
+const READ_BUTTON = 54;
+
 const styles = textScaled(StyleSheet.create({
+  barRow: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: space.sm
+  },
+  barContinue: {
+    flex: 1,
+    minWidth: 0
+  },
+  readButton: {
+    width: READ_BUTTON,
+    height: READ_BUTTON + lip.button
+  },
+  readLip: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: lip.button,
+    height: READ_BUTTON,
+    borderRadius: radii.button,
+    backgroundColor: colors.lineLip
+  },
+  readLipOn: {
+    backgroundColor: colors.gemLip
+  },
+  readFace: {
+    width: READ_BUTTON,
+    height: READ_BUTTON,
+    borderRadius: radii.button,
+    borderWidth: 2,
+    borderColor: colors.line,
+    backgroundColor: colors.white,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  readFaceOn: {
+    borderColor: colors.gem,
+    backgroundColor: colors.gem
+  },
+  readStop: {
+    width: 16,
+    height: 16,
+    borderRadius: 3,
+    backgroundColor: colors.white
+  },
   writeWrap: {
     alignSelf: "stretch",
     overflow: "hidden"

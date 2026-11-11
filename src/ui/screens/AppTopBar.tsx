@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Icon } from "../Icon";
 import { StatChip } from "../StatChip";
@@ -31,6 +31,8 @@ export type AppTopBarProps = {
   dailySeen?: boolean;
   /** The book opened today's ayah and hadith (to remember it for the day). */
   onDailyOpened?: () => void;
+  /** Today's card went away (closed, or the bar left the screen with it up). */
+  onDailyClosed?: () => void;
   /** Opens today's ayah and hadith each time it goes up (a tap on the home-screen widget). */
   dailyOpenSignal?: number;
   /** From today's card: opens the adhkar for this time of day. */
@@ -54,6 +56,7 @@ export function AppTopBar({
   onStreak,
   dailySeen = false,
   onDailyOpened,
+  onDailyClosed,
   dailyOpenSignal = 0,
   onOpenAdhkar,
   topInset = 0
@@ -72,6 +75,19 @@ export function AppTopBar({
     if (dailyOpenSignal > 0) openDaily();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dailyOpenSignal]);
+  const closeDaily = () => {
+    setDailyOpen(false);
+    onDailyClosed?.();
+  };
+  // The bar leaving with the card up takes the card with it: say so, or the app would think it is still over the path.
+  const leaving = useRef({ dailyOpen, onDailyClosed });
+  leaving.current = { dailyOpen, onDailyClosed };
+  useEffect(
+    () => () => {
+      if (leaving.current.dailyOpen) leaving.current.onDailyClosed?.();
+    },
+    []
+  );
   const heartLabel = hearts.unlimited ? t("Unlimited hearts") : t("{count} of {max} hearts", { count: hearts.current, max: hearts.max });
 
   return (
@@ -154,7 +170,7 @@ export function AppTopBar({
           )}
         </View>
       </View>
-      <DailySheet visible={dailyOpen} onClose={() => setDailyOpen(false)} onOpenAdhkar={onOpenAdhkar} />
+      <DailySheet visible={dailyOpen} onClose={closeDaily} onOpenAdhkar={onOpenAdhkar} />
       {onStreak ? null : (
         <StreakSheet
           visible={streakOpen}
