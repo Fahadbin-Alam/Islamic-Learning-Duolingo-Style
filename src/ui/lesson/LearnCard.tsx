@@ -26,8 +26,9 @@ import { SurahCover, SurahParts } from "./SurahCover";
 import { isCredit, splitLessonFacts } from "./lessonNotes";
 import { highlightPieces, plainSummary, saidInSummary, type LearnPageKind, type TeachLesson } from "./lessonPages";
 import { Teacher, talkTime, type TeacherLook } from "./Teacher";
-import { readAloudText, useReadAloud } from "./useReadAloud";
+import { useReadAloud, type ReadPart } from "./useReadAloud";
 import { ReadAloudButton } from "./ReadAloudButton";
+import { ReadGlow, ReadingContext, ReadRing } from "./ReadGlow";
 import { textScaled } from "../textScale";
 
 export type LearnCardProps = {
@@ -329,31 +330,48 @@ export function LearnCard({
   const deeperPart = deeper && (page === "meaning" || page === "story" || page === "takeaway") ? page : undefined;
   const deeperIntro = deeperPart === "meaning" ? t("Let me explain what it means.") : deeperPart === "story" ? t("Let me tell you the story.") : t("Take this home with you.");
   const deeperSaying = deeperPart === "meaning" ? deeper?.meaning.join(" ") : deeperPart === "story" ? deeper?.story : deeper?.takeaway;
-  // What the teacher reads out when the speaker is tapped: the words this page shows, in the order it shows them.
-  const readText =
+  // What the teacher reads out when the speaker is tapped: the words this page shows, in the order it shows them, each
+  // with the key of the block that shows it, so that block glows while it is said (see ReadGlow).
+  const readParts: ReadPart[] =
     page === "quiz"
-      ? readAloudText([testPass ? t("Test time!") : t("Quiz time!"), quizLine(quizCount, testPass)])
+      ? [
+          { key: "line", text: testPass ? t("Test time!") : t("Quiz time!") },
+          { key: "line", text: quizLine(quizCount, testPass) }
+        ]
       : page === "teach"
-        ? readAloudText([...(teach?.lines ?? []), teach?.card?.question, teach?.card?.answer])
+        ? [
+            ...(teach?.lines ?? []).map((text) => ({ key: "line", text })),
+            { key: "card-question", text: teach?.card?.question },
+            { key: "card-answer", text: teach?.card?.answer }
+          ]
         : deeperPart
-          ? readAloudText([deeperIntro, deeperSaying])
-          : readAloudText([
+          ? [
+              { key: "line", text: deeperIntro },
+              { key: "deeper", text: deeperSaying }
+            ]
+          : [
               ...(at("start")
                 ? [
-                    showTitle ? title : undefined,
+                    { key: "title", text: showTitle ? title : undefined },
                     // The word card: the Arabic word itself for a voice that reads Arabic letters, its Latin spelling for one that does not.
-                    arabic ? `${readsArabic(getActiveLanguage()) ? arabic.ar : arabic.translit}: ${t(arabic.meaning)}` : undefined,
-                    line,
-                    quoteText && !isArabicOnly(quoteText) ? quoteText : undefined
+                    { key: "word", text: arabic ? `${readsArabic(getActiveLanguage()) ? arabic.ar : arabic.translit}: ${t(arabic.meaning)}` : undefined },
+                    { key: "line", text: line },
+                    { key: "quote", text: quoteText && !isArabicOnly(quoteText) ? quoteText : undefined }
                   ]
                 : []),
-              ...(page === "facts" || all ? [explainText, sourceSays, ...notes.points.map((point) => (point.key ? `${point.key}: ${point.text}` : point.text))] : [])
-            ]);
-  const aloud = useReadAloud(readText);
+              ...(page === "facts" || all
+                ? [
+                    { key: "explain", text: explainText },
+                    { key: "summary", text: sourceSays },
+                    ...notes.points.map((point, index) => ({ key: `point-${index}`, text: point.key ? `${point.key}: ${point.text}` : point.text }))
+                  ]
+                : [])
+            ];
+  const aloud = useReadAloud(readParts);
   // Once the learner asks the teacher to read, its mouth moves with the voice (and stops with it).
   const mouth = (ms: number) => aloud.talkMs ?? ms;
 
-  return (
+  const card = (
     <View style={styles.root} testID={testID}>
       <View style={styles.scrollBox}>
         <ScrollView ref={ref} style={styles.scroll} contentContainerStyle={[styles.content, short ? styles.contentShort : null]} {...scrollProps}>
@@ -377,13 +395,16 @@ export function LearnCard({
             </PopIn>
           ) : null}
           {showTitle && at("start") ? (
-            <Text style={[styles.title, short ? styles.titleShort : null]} accessibilityRole="header">
-              {withHonorifics(noBreakHyphens(title))}
-            </Text>
+            <ReadGlow part="title" radius={radii.md} style={short ? styles.glowTopShort : styles.glowTop}>
+              <Text style={[styles.title, short ? styles.titleShort : null, styles.flushTop]} accessibilityRole="header">
+                {withHonorifics(noBreakHyphens(title))}
+              </Text>
+            </ReadGlow>
           ) : null}
 
           {arabic && at("start") ? (
             <PopIn delay={soon(120)} style={[styles.cardWrap, short ? styles.cardWrapShort : null]}>
+              <ReadRing part="word" radius={radii.lg} />
               <View style={[styles.cardLip, { backgroundColor: palette.soft }]} />
               <View
                 style={[styles.card, short ? styles.cardShort : null, { borderColor: palette.soft, backgroundColor: palette.light }]}
@@ -451,7 +472,7 @@ export function LearnCard({
               <Teacher look={teacher} variant={mascotVariant} mood={arabic ? "happy" : "wave"} accent={accent} size={short ? (rich ? 52 : 64) : rich ? 68 : 92} talkMs={mouth(talkTime(line))} />
               <SlideIn delay={soon(320)} style={styles.bubbleWrap}>
                 {/* The line the lesson teaches: big enough to read at a glance, using the width the mascot leaves. */}
-                <SpeechBubble style={styles.bubbleWide}>
+                <SpeechBubble style={styles.bubbleWide} readPart="line">
                   <Text style={[styles.lineText, short || narrow ? styles.lineTextSmall : null]}>{withHonorifics(noBreakHyphens(line))}</Text>
                 </SpeechBubble>
               </SlideIn>
@@ -459,7 +480,7 @@ export function LearnCard({
           ) : (
             <View style={[styles.talkColumn, short ? styles.talkColumnShort : null]}>
               <SlideIn delay={soon(200)} style={styles.bubbleTop}>
-                <SpeechBubble tail="down" tailAlign="center">
+                <SpeechBubble tail="down" tailAlign="center" readPart="line">
                   <Text style={styles.bigLine}>{withHonorifics(noBreakHyphens(line))}</Text>
                 </SpeechBubble>
               </SlideIn>
@@ -495,17 +516,22 @@ export function LearnCard({
                   </Text>
                 </View>
                 {explainText ? (
-                  <Text style={[styles.explainText, short ? styles.explainTextShort : null]} testID="learn-explain">
-                    <Marked text={noBreakHyphens(explainText)} marks={marks} />
-                  </Text>
+                  <ReadGlow part="explain" radius={radii.sm} style={styles.glowTop}>
+                    <Text style={[styles.explainText, short ? styles.explainTextShort : null, styles.flushTop]} testID="learn-explain">
+                      <Marked text={noBreakHyphens(explainText)} marks={marks} />
+                    </Text>
+                  </ReadGlow>
                 ) : null}
                 {sourceSays ? (
-                  <Text style={[styles.summaryText, short ? styles.noteTextShort : null]} testID="learn-summary">
-                    <Marked text={noBreakHyphens(sourceSays)} marks={marks} />
-                  </Text>
+                  <ReadGlow part="summary" radius={radii.sm} style={styles.glowTop}>
+                    <Text style={[styles.summaryText, short ? styles.noteTextShort : null, styles.flushTop]} testID="learn-summary">
+                      <Marked text={noBreakHyphens(sourceSays)} marks={marks} />
+                    </Text>
+                  </ReadGlow>
                 ) : null}
                 {notes.points.map((point, index) => (
                   <View key={`${index}-${point.key ?? ""}-${point.text}`} style={styles.noteRow} testID="learn-fact">
+                    <ReadRing part={`point-${index}`} radius={radii.sm} />
                     <View style={[styles.noteNumber, { backgroundColor: palette.main }]}>
                       <Text style={styles.noteNumberText}>{index + 1}</Text>
                     </View>
@@ -522,6 +548,7 @@ export function LearnCard({
 
           {quoteText && at("start") ? (
             <PopIn delay={soon(460)} from="up" style={[styles.quoteWrap, short ? styles.quoteWrapShort : null]}>
+              <ReadRing part="quote" radius={radii.md} />
               <View style={[styles.quote, { borderColor: palette.soft }]} testID="learn-quote">
                 <View style={[styles.quoteBar, { backgroundColor: palette.main }]} />
                 <View style={styles.quoteBody}>
@@ -626,6 +653,8 @@ export function LearnCard({
       </LessonBottomBar>
     </View>
   );
+  // The block the teacher is reading glows: a child who cannot read well yet follows along.
+  return <ReadingContext.Provider value={aloud.lit}>{card}</ReadingContext.Provider>;
 }
 
 /** What the ayahs mean, the story and what to take home, with a chip for each tafsir book it comes from. */
@@ -658,6 +687,7 @@ function DeeperLesson({
   const chips = english.length ? english : linked;
   return (
     <PopIn delay={soon(500)} from="up" style={[styles.deeper, short ? styles.deeperShort : null, { borderColor: palette.soft }]}>
+      {part ? <ReadRing part="deeper" radius={radii.lg} inset={7} /> : null}
       <View testID="learn-deeper">
         {meaning.length && !part ? (
           <View style={styles.deeperHead}>
@@ -769,7 +799,7 @@ function TeacherIntro({
     <View style={[styles.talkRow, styles.introRow, short ? styles.introRowShort : null]} testID="learn-teacher-intro">
       <Teacher look={teacher} variant={mascotVariant} accent={accent} size={short ? 50 : 60} talkMs={talkMs ?? talkTime(`${intro} ${saying ?? ""}`)} />
       <SlideIn delay={soon(120)} style={styles.bubbleWrap}>
-        <SpeechBubble>
+        <SpeechBubble readPart="line">
           <Text style={[styles.lineText, styles.introText]} testID="learn-teacher-line">
             {intro}
           </Text>
@@ -806,7 +836,7 @@ function TeachPage({
         <View style={[styles.talkRow, short ? styles.talkRowShort : null]}>
           <Teacher look={teacher} variant={mascotVariant} accent={accent} size={short ? 56 : 72} talkMs={talkMs ?? talkTime(teach.lines.join(" "))} />
           <SlideIn delay={soon(200)} style={styles.bubbleWrap}>
-            <SpeechBubble style={styles.bubbleWide}>
+            <SpeechBubble style={styles.bubbleWide} readPart="line">
               {teach.lines.map((line, index) => (
                 <Text key={index} style={[styles.lineText, index > 0 ? styles.teachExtra : null]} testID="learn-teach-line">
                   <Marked text={noBreakHyphens(line)} marks={answerMarks} />
@@ -819,7 +849,9 @@ function TeachPage({
       {teach.card ? (
         <PopIn delay={soon(teach.lines.length ? 420 : 200)} from="up" style={styles.notesWrap}>
           <View style={[styles.teachCard, { borderColor: palette.soft }]} testID="learn-teach-card">
-            <Text style={styles.teachQuestion}>{withHonorifics(noBreakHyphens(teach.card.question))}</Text>
+            <ReadGlow part="card-question" radius={radii.sm}>
+              <Text style={styles.teachQuestion}>{withHonorifics(noBreakHyphens(teach.card.question))}</Text>
+            </ReadGlow>
             <View
               style={[
                 styles.teachAnswer,
@@ -828,6 +860,7 @@ function TeachPage({
                   : { backgroundColor: palette.light, borderColor: palette.soft }
               ]}
             >
+              <ReadRing part="card-answer" radius={radii.md} inset={7} />
               <Icon name={teach.card.isFalse ? "close" : "check"} size={18} color={teach.card.isFalse ? colors.wrongInk : palette.ink} />
               <Text style={[styles.teachAnswerText, { color: teach.card.isFalse ? colors.wrongInk : palette.ink }]}>{withHonorifics(noBreakHyphens(teach.card.answer))}</Text>
             </View>
@@ -878,7 +911,7 @@ function QuizPage({
   return (
     <View style={[styles.talkColumn, short ? styles.talkColumnShort : null]} testID="learn-quiz">
       <SlideIn delay={soon(150)} style={styles.bubbleTop}>
-        <SpeechBubble tail="down" tailAlign="center">
+        <SpeechBubble tail="down" tailAlign="center" readPart="line">
           <Text style={styles.bigLine}>{testPass ? t("Test time!") : t("Quiz time!")}</Text>
           <Text style={styles.quizSub}>{quizLine(count, testPass)}</Text>
         </SpeechBubble>
@@ -892,6 +925,16 @@ const SPEAKER = 44;
 const SPEAKER_SMALL = 38;
 
 const styles = textScaled(StyleSheet.create({
+  // A block that glows while it is read keeps its room above on the glow's box, so the glow sits round its words.
+  glowTop: {
+    marginTop: space.sm
+  },
+  glowTopShort: {
+    marginTop: space.xs
+  },
+  flushTop: {
+    marginTop: 0
+  },
   barRow: {
     flexDirection: "row",
     alignItems: "flex-start",

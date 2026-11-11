@@ -1,6 +1,6 @@
 import { createContext, useEffect } from "react";
 import { hasQuranMarks } from "../ArabicText";
-import { readAloudText, useReadAloud } from "./useReadAloud";
+import { readAloudText, useReadAloud, type ReadPart } from "./useReadAloud";
 
 /** A gap in a sentence ("___") is said as a short pause. */
 const GAP = /_{2,}/g;
@@ -21,12 +21,25 @@ export function questionAloudText(parts: (string | undefined | false)[]) {
   return readAloudText(parts.map(sayable));
 }
 
+/** The same, part by part, each with the key of what shows it on the screen (it lights up while it is said). */
+export function questionParts(parts: ReadPart[]): ReadPart[] {
+  return parts.map((part) => ({ key: part.key, text: sayable(part.text) }));
+}
+
+/** The key a question's answer lights up with while the teacher says it (see ReadRing). */
+export function answerPart(id: string) {
+  return `answer-${id}`;
+}
+
+/** The question itself, in the asking teacher's bubble. */
+export const QUESTION_PART = "question";
+
 /**
  * The teacher reads a question aloud (see useReadAloud): only when the learner taps the speaker, never by itself, and
  * it stops when the answer is checked, so the voice never talks over the answer sheet.
  */
-export function useQuestionAloud(text: string, checked: boolean) {
-  const aloud = useReadAloud(text);
+export function useQuestionAloud(parts: ReadPart[], checked: boolean) {
+  const aloud = useReadAloud(questionParts(parts));
   const { stop } = aloud;
   useEffect(() => {
     if (checked) stop();

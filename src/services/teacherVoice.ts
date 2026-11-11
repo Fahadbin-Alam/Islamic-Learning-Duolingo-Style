@@ -106,18 +106,44 @@ export function fitForVoice(text: string, max = MAX_SPOKEN) {
 }
 
 export function speakTeacher(text: string, language: SupportedLanguage, voiceId: string, onEnd?: () => void) {
+  speakTeacherParts([text], language, voiceId, { onEnd });
+}
+
+/**
+ * Says a page's parts one after another, each as its own sentence (the phone's voice queues them), and tells which
+ * part it starts saying, so that part can light up while it is said (see ReadGlow). `onEnd` comes once: after the
+ * last part, or when the voice is stopped or fails.
+ */
+export function speakTeacherParts(
+  parts: string[],
+  language: SupportedLanguage,
+  voiceId: string,
+  { onPart, onEnd }: { onPart?: (index: number) => void; onEnd?: () => void } = {}
+) {
+  let ended = false;
+  const end = () => {
+    if (ended) return;
+    ended = true;
+    onEnd?.();
+  };
   try {
     void Speech.stop();
-    Speech.speak(fitForVoice(text), {
-      language: SPEECH_CODE[language],
-      ...(voiceId ? { voice: voiceId } : null),
-      rate: 0.95,
-      onDone: onEnd,
-      onStopped: onEnd,
-      onError: onEnd
+    parts.forEach((part, index) => {
+      Speech.speak(fitForVoice(part), {
+        language: SPEECH_CODE[language],
+        ...(voiceId ? { voice: voiceId } : null),
+        rate: 0.95,
+        onStart: () => {
+          if (!ended) onPart?.(index);
+        },
+        onDone: index === parts.length - 1 ? end : undefined,
+        onStopped: end,
+        onError: end
+      });
     });
+    if (!parts.length) end();
   } catch {
-    onEnd?.();
+    end();
   }
 }
 

@@ -25,7 +25,8 @@ import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, radii, space } from "../theme";
 import { FeedbackSheet, type FeedbackSource } from "./FeedbackSheet";
 import { useMistakeVoice } from "./useMistakeVoice";
-import { QuestionTalkContext, questionAloudText, useQuestionAloud } from "./questionAloud";
+import { answerPart, QUESTION_PART, QuestionTalkContext, useQuestionAloud } from "./questionAloud";
+import { ReadingContext, ReadRing } from "./ReadGlow";
 import { BAR_GAP, LessonCheckBar } from "./LessonHeader";
 import { noBreakHyphens, shortWhy } from "./lessonText";
 import { EVERY_FRAME, SCROLL_HINT_SLACK, scrollHintGrowth, useScrollMore } from "./ScrollHint";
@@ -250,10 +251,16 @@ export const QuestionBubble = memo(function QuestionBubble({ prompt, mascotVaria
   if (long || hideMascot || small) {
     const plainStyle = [styles.plainPrompt, compact ? styles.plainPromptCompact : null, smallGaps ? styles.plainPromptSmallGaps : null];
     const text = <PromptText size={promptSize}>{prompt}</PromptText>;
+    // While the teacher reads the question, it glows (see ReadRing).
+    const ring = <ReadRing part={QUESTION_PART} radius={radii.md} />;
     return still && !long ? (
-      <View style={plainStyle}>{text}</View>
+      <View style={plainStyle}>
+        {ring}
+        {text}
+      </View>
     ) : (
       <PopIn from="up" delay={60} style={plainStyle}>
+        {ring}
         {text}
       </PopIn>
     );
@@ -267,7 +274,7 @@ export const QuestionBubble = memo(function QuestionBubble({ prompt, mascotVaria
         <TapToPlay testID="question-mascot">{(tapMood) => <Mascot variant={mascotVariant} mood={tapMood ?? mood} accent={accent} size={mascotSize} act={act} talkMs={talk} />}</TapToPlay>
       )}
       <PopIn from="up" delay={60} style={styles.bubbleWrap}>
-        <SpeechBubble>
+        <SpeechBubble readPart={QUESTION_PART}>
           <PromptText size={promptSize}>{prompt}</PromptText>
         </SpeechBubble>
       </PopIn>
@@ -1068,7 +1075,11 @@ export function ExerciseView({
   const voice = useMistakeVoice(checked, Boolean(shown?.correct), sheetLabel, shown?.why);
   // The speaker by CHECK: the teacher reads the question, then its answers in the order they show (true or false: the
   // question alone, its two buttons say the rest). A listening question has its own speaker, for the word.
-  const aloud = useQuestionAloud(listen ? "" : questionAloudText([prompt, ...(kind === "true_false" ? [] : shownChoices.map((choice) => choice.label))]), checked);
+  // Each part lights up while it is said: the question in its bubble, then each answer's tile.
+  const aloud = useQuestionAloud(
+    listen ? [] : [{ key: QUESTION_PART, text: prompt }, ...(kind === "true_false" ? [] : shownChoices.map((choice) => ({ key: answerPart(choice.id), text: choice.label })))],
+    checked
+  );
   const mood: MascotMood = result ? (result.correct ? "cheer" : "sad") : "think";
   // The mascot also hides while a squeezed question gives the feedback sheet its room.
   const hideMascot = mascotAway || fit.squeeze;
@@ -1238,7 +1249,7 @@ export function ExerciseView({
     }
   }
 
-  return (
+  const page = (
     <View ref={rootRef} style={styles.root} testID={testID} onLayout={(event) => setRootHeight(Math.round(event.nativeEvent.layout.height))}>
       <View
         ref={scrollBoxRef}
@@ -1357,6 +1368,7 @@ export function ExerciseView({
                       smallText={look.smallText}
                       state={tileState(choice)}
                       onPress={tapOf(choice)}
+                      readPart={answerPart(choice.id)}
                       testID={`choice-${choice.id}`}
                     />
                   )
@@ -1407,6 +1419,8 @@ export function ExerciseView({
       />
     </View>
   );
+  // The part the teacher is reading glows: the question's bubble, then each answer's tile as it is said.
+  return <ReadingContext.Provider value={aloud.lit}>{page}</ReadingContext.Provider>;
 }
 
 const styles = textScaled(StyleSheet.create({

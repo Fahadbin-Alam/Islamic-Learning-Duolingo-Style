@@ -19,7 +19,8 @@ import { QuestionBubble, useLessonCompact, type ExerciseChoice, type ExerciseRes
 import { CORRECT_TEXT, WRONG_TEXT } from "./FeedbackSheet";
 import { PANEL_GAP, mapLevelFor, mapPlanFor, mapSizes, mapViewFor, placeLabels, zoneBox, type LabelBox, type PlacedLabel } from "./mapQuestions";
 import { GameCue, GameFrame, useGameRoom } from "./WordGames";
-import { questionAloudText } from "./questionAloud";
+import { answerPart, QUESTION_PART } from "./questionAloud";
+import { ReadRing } from "./ReadGlow";
 
 /**
  * A place question asked on a map (see mapQuestions.ts): each answer stands at its real place, drawn the way the
@@ -86,8 +87,8 @@ export function MapGame(props: MapGameProps) {
       ready={Boolean(selectedChoiceId)}
       result={result}
       prompt={prompt}
-      // Read out: the question, then the places to tap.
-      aloud={questionAloudText([prompt, ...choices.map((choice) => choice.label)])}
+      // Read out: the question, then the places to tap, each glowing on the map as it is said.
+      aloud={[{ key: QUESTION_PART, text: prompt }, ...choices.map((choice) => ({ key: answerPart(choice.id), text: choice.label }))]}
       praiseSeed={praiseSeed}
       playSound={playSound}
       continueSound={continueSound}
@@ -412,6 +413,7 @@ function MapPanel({
             disabled={checked}
             onPress={() => onSelect(pin.choice.id)}
             delay={delay + 60 + index * 90}
+            readPart={answerPart(pin.choice.id)}
             testID={`choice-${pin.choice.id}`}
           />
         );
@@ -558,6 +560,7 @@ function MapLabel({
   disabled,
   onPress,
   delay,
+  readPart,
   testID
 }: {
   box: PlacedLabel;
@@ -570,6 +573,8 @@ function MapLabel({
   disabled: boolean;
   onPress: () => void;
   delay: number;
+  /** The place's name glows while the teacher says it (see ReadRing). */
+  readPart?: string;
   testID: string;
 }) {
   const { style: shakeStyle, shake } = useShake(6);
@@ -586,6 +591,7 @@ function MapLabel({
           : { backgroundColor: colors.white, borderColor: "rgba(31,45,39,0.22)", color: colors.ink };
   return (
     <Animated.View style={[styles.abs, { left: box.x, top: box.y, width: box.w, height: box.h }, shakeStyle]}>
+      {readPart ? <ReadRing part={readPart} radius={box.h / 2} inset={4} /> : null}
       <PopIn delay={delay}>
         <Tappable
           onPress={onPress}

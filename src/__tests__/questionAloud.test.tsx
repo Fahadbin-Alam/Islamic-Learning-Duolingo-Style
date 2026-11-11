@@ -21,6 +21,7 @@ jest.mock("../ui/Mascot", () => {
 import React from "react";
 import * as Speech from "expo-speech";
 import { act, fireEvent, render, screen } from "@testing-library/react-native";
+import { StyleSheet } from "react-native";
 import { setActiveLanguage } from "../i18n";
 import { resetTeacherVoiceForTests } from "../services/teacherVoice";
 import type { Challenge } from "../types";
@@ -38,7 +39,17 @@ let mockVoices: Speech.Voice[] = [];
 const speak = Speech.speak as jest.Mock;
 const stop = Speech.stop as jest.Mock;
 const HIDDEN = { includeHiddenElements: true };
-const said = () => (speak.mock.calls[speak.mock.calls.length - 1] as [string, Speech.SpeechOptions])[0];
+// The teacher says a question part by part (the question, then each answer): these are the parts of the last tap.
+let readFrom = 0;
+const partsSaid = () => speak.mock.calls.slice(readFrom) as [string, Speech.SpeechOptions][];
+const said = () => partsSaid().map((part) => part[0]).join(" ");
+const glowing = () => screen.queryAllByTestId(/^read-glow-/, HIDDEN).map((glow) => glow.props.testID as string);
+/** The voice starts saying part `index` of the last tap. */
+async function startPart(index: number) {
+  await act(async () => {
+    partsSaid()[index][1].onStart?.();
+  });
+}
 const talk = () => Number(screen.getAllByTestId("mascot-talk", HIDDEN)[0].props.children);
 const show = { mascotVariant: "girl", accent: "#58CC02", onCheck: jest.fn(), onContinue: jest.fn(), onSelect: jest.fn(), playSound: false };
 
@@ -54,6 +65,7 @@ const house = question("Twelve extra rak'ahs a day bring what?", ["A house in Ja
 const choose: ExerciseViewProps = { ...show, kind: "multiple_choice", prompt: house.prompt, choices: house.choices, correctChoiceId: "a" };
 
 async function press(testID: string) {
+  if (testID === "question-read-aloud") readFrom = speak.mock.calls.length;
   await act(async () => {
     fireEvent.press(screen.getByTestId(testID, HIDDEN));
   });
@@ -98,9 +110,11 @@ describe("the speaker by CHECK", () => {
     // The teacher's mouth moves while it reads; the button shows a stop square.
     expect(talk()).toBeGreaterThan(0);
     expect(screen.getByTestId("question-read-aloud-stop", HIDDEN)).toBeTruthy();
-    // The voice is done: the mouth closes.
+    // Each part is its own sentence, said in turn.
+    expect(partsSaid().map((part) => part[0])).toEqual(["Twelve extra rak'ahs a day bring what?", "A house in Jannah.", "Wealth.", "A long life."]);
+    // The voice is done with the last part: the mouth closes.
     await act(async () => {
-      (speak.mock.calls[0][1] as Speech.SpeechOptions).onDone?.();
+      partsSaid()[3][1].onDone?.();
     });
     expect(talk()).toBe(0);
     expect(screen.queryByTestId("question-read-aloud-stop", HIDDEN)).toBeNull();
@@ -191,5 +205,91 @@ describe("the speaker by CHECK", () => {
     await press("question-read-aloud");
     expect(said()).toBe("দিনে বারো রাকাত কী এনে দেয়? জান্নাতে একটি ঘর. সম্পদ.");
     expect(speak.mock.calls[0][1]).toMatchObject({ language: "bn", voice: "bn-voice" });
+  });
+});
+
+describe("the part being read lights up", () => {
+  it("lights the question, then each answer as it is said, then nothing", async () => {
+    await render(<ExerciseView {...choose} />);
+    expect(glowing()).toEqual([]);
+    await press("question-read-aloud");
+    // The voice has not started yet.
+    expect(glowing()).toEqual([]);
+    await startPart(0);
+    expect(glowing()).toEqual(["read-glow-question"]);
+    await startPart(1);
+    expect(glowing()).toEqual(["read-glow-answer-a"]);
+    await startPart(2);
+    expect(glowing()).toEqual(["read-glow-answer-b"]);
+    await startPart(3);
+    expect(glowing()).toEqual(["read-glow-answer-c"]);
+    await act(async () => {
+      partsSaid()[3][1].onDone?.();
+    });
+    expect(glowing()).toEqual([]);
+  });
+
+  it("goes dark when the reading is stopped or the answer is checked", async () => {
+    const view = await render(<ExerciseView {...choose} />);
+    await press("question-read-aloud");
+    await startPart(1);
+    expect(glowing()).toEqual(["read-glow-answer-a"]);
+    await press("question-read-aloud");
+    expect(glowing()).toEqual([]);
+    await press("question-read-aloud");
+    await startPart(0);
+    expect(glowing()).toEqual(["read-glow-question"]);
+    await view.rerender(<ExerciseView {...choose} selectedChoiceId="b" result={{ correct: false, correctLabel: "A house in Jannah" }} />);
+    expect(glowing()).toEqual([]);
+  });
+
+  it("lights a gap sentence's question, its sentence, then its words", async () => {
+    await render(<FillGame {...show} prompt="Who was the first caliph?" fill={{ before: "Abu Bakr ", piece: "as-Siddiq", after: "", options: ["as-Siddiq", "al-Faruq", "Dhun-Nurayn"] }} correctChoiceId="a" />);
+    await press("question-read-aloud");
+    await startPart(0);
+    expect(glowing()).toEqual(["read-glow-question"]);
+    await startPart(1);
+    expect(glowing()).toEqual(["read-glow-sentence"]);
+    await startPart(2);
+    const first = glowing();
+    expect(first).toHaveLength(1);
+    // The word said is the one that glows.
+    expect(first[0]).toBe(`read-glow-answer-fill:${partsSaid()[2][0].replace(/\.$/, "")}`);
+  });
+
+  it("lights a place on the map as it is said", async () => {
+    const uhud = question("In which battle was Hamzah martyred?", ["Badr", "Khaybar", "Tabuk", "Uhud"], 3);
+    await render(<MapGame {...show} prompt={uhud.prompt} choices={uhud.choices} places={mapPlacesFor(uhud)!} correctChoiceId="d" />);
+    await press("question-read-aloud");
+    await startPart(0);
+    expect(glowing()).toEqual(["read-glow-question"]);
+    await startPart(4);
+    expect(glowing()).toEqual(["read-glow-answer-d"]);
+  });
+
+  it("lights each step of a put-in-order task, in the bank or once placed", async () => {
+    const steps = [
+      { id: "intention", label: "Make the intention" },
+      { id: "hands", label: "Wash the hands" },
+      { id: "mouth", label: "Rinse the mouth" }
+    ];
+    await render(<OrderGame title="Wudu" prompt="Put the steps of wudu in order!" options={steps} correctOrderIds={steps.map((step) => step.id)} mascotVariant="girl" accent="#58CC02" onDone={jest.fn()} playSound={false} />);
+    const bank = screen.getAllByTestId(/^order-bank-/).map((chip) => chip.props.testID.replace("order-bank-", "") as string);
+    await press("question-read-aloud");
+    await startPart(0);
+    expect(glowing()).toEqual(["read-glow-question"]);
+    await startPart(1);
+    expect(glowing()).toEqual([`read-glow-answer-${bank[0]}`]);
+  });
+
+  it("is a soft ring behind the part: it lets taps through and moves nothing", async () => {
+    await render(<ExerciseView {...choose} />);
+    const before = screen.getByTestId("choice-a").props.style;
+    await press("question-read-aloud");
+    await startPart(1);
+    const ring = screen.getByTestId("read-glow-answer-a", HIDDEN);
+    expect(ring.props.pointerEvents).toBe("none");
+    expect(StyleSheet.flatten(ring.props.style)).toMatchObject({ position: "absolute" });
+    expect(screen.getByTestId("choice-a").props.style).toEqual(before);
   });
 });

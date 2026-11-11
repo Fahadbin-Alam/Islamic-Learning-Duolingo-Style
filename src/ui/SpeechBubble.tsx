@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View, type StyleProp, type ViewStyle } from "react-native";
 import { withHonorifics } from "./ArabicText";
+import { ReadRing } from "./lesson/ReadGlow";
 import { colors, fonts, radii } from "./theme";
 
 export type SpeechBubbleProps = {
@@ -9,10 +10,12 @@ export type SpeechBubbleProps = {
   /** Where a down tail sits: near the left edge (default) or in the middle, over a centered mascot. */
   tailAlign?: "start" | "center";
   style?: StyleProp<ViewStyle>;
+  /** The bubble glows while the teacher reads this part aloud (see ReadRing): the question, on a question page. */
+  readPart?: string;
 };
 
 /** White bubble with a small tail. String children are styled as bubble text. */
-export function SpeechBubble({ children, tail = "left", tailAlign = "start", style }: SpeechBubbleProps) {
+export function SpeechBubble({ children, tail = "left", tailAlign = "start", style, readPart }: SpeechBubbleProps) {
   const content =
     typeof children === "string" ? (
       <Text style={styles.text}>{withHonorifics(children)}</Text>
@@ -24,6 +27,7 @@ export function SpeechBubble({ children, tail = "left", tailAlign = "start", sty
   const tailStyle = tail === "left" ? styles.tailLeft : tailAlign === "center" ? styles.tailDownCenter : styles.tailDown;
   return (
     <View style={[styles.bubble, tail === "left" ? styles.withLeftTail : styles.withDownTail, style]}>
+      {readPart ? <ReadRing part={readPart} radius={radii.md} inset={BORDER + 4} /> : null}
       <View style={[styles.tail, tailStyle]} />
       <View style={styles.content}>{content}</View>
     </View>
@@ -31,13 +35,14 @@ export function SpeechBubble({ children, tail = "left", tailAlign = "start", sty
 }
 
 const TAIL = 14;
+const BORDER = 2;
 
 const styles = StyleSheet.create({
   bubble: {
     position: "relative",
     backgroundColor: colors.white,
     borderColor: colors.line,
-    borderWidth: 2,
+    borderWidth: BORDER,
     borderRadius: radii.md,
     paddingHorizontal: 14,
     paddingVertical: 10,

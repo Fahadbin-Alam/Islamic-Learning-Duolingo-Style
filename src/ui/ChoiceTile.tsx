@@ -8,6 +8,7 @@ import { photoAspect } from "./lesson/LessonPhoto";
 import { LiveFrame } from "./lesson/LivePicture";
 import { noBreakHyphens } from "./lesson/lessonText";
 import { PICTURE_LIFE } from "./lesson/pictureLife";
+import { ReadRing } from "./lesson/ReadGlow";
 import { useShake } from "./PopIn";
 import { useReduceMotion } from "./motion";
 import { Sparkle } from "./reactions";
@@ -39,6 +40,8 @@ export type ChoiceTileProps = {
   smallText?: boolean;
   /** A picture of the answer (a place), shown moving at the tile's start, like a picture card. */
   picture?: LessonPicture;
+  /** The tile glows while the teacher reads out this part (see ReadRing): an answer, by the speaker next to CHECK. */
+  readPart?: string;
   testID?: string;
   accessibilityLabel?: string;
 };
@@ -125,6 +128,7 @@ const TileFace = memo(function TileFace({
   long: longProp,
   smallText,
   picture,
+  readPart,
   testID,
   accessibilityLabel,
   rtl
@@ -207,6 +211,7 @@ const TileFace = memo(function TileFace({
   return (
     <Animated.View style={[square ? styles.squareRoot : styles.rowRoot, shakeStyle, state === "dimmed" ? styles.dimmed : null]}>
       <Animated.View style={{ transform: [{ scale: pop }] }}>
+        {readPart ? <ReadRing part={readPart} radius={radii.tile} /> : null}
         <Pressable
           onPress={() => {
             if (!interactive) {

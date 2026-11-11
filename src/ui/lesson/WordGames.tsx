@@ -10,8 +10,10 @@ import { useReduceMotion } from "../motion";
 import { haptic, playUi } from "../sound";
 import { colors, darken, fonts, lighten, radii, space, topicPalette } from "../theme";
 import { ExerciseView, QuestionBubble, useLessonCompact, type ExerciseChoice, type ExerciseResult, type ExerciseViewProps } from "./ExerciseView";
-import { QuestionTalkContext, questionAloudText, useQuestionAloud } from "./questionAloud";
+import { answerPart, QUESTION_PART, QuestionTalkContext, useQuestionAloud } from "./questionAloud";
 import { WithReadAloud } from "./ReadAloudButton";
+import { ReadingContext, ReadRing } from "./ReadGlow";
+import type { ReadPart } from "./useReadAloud";
 import { CORRECT_TEXT, FeedbackSheet, WRONG_TEXT } from "./FeedbackSheet";
 import { useMistakeVoice } from "./useMistakeVoice";
 import { LessonBottomBar } from "./LessonHeader";
@@ -71,6 +73,7 @@ function WordTile({
   onDrop,
   disabled,
   picture,
+  readPart,
   testID
 }: {
   label: string;
@@ -82,6 +85,8 @@ function WordTile({
   /** Called when the tile is dragged up and let go over the sentence. */
   onDrop?: () => void;
   disabled?: boolean;
+  /** The tile glows while the teacher says this part (see ReadRing). */
+  readPart?: string;
   testID?: string;
 }) {
   const drag = useRef(new Animated.ValueXY({ x: 0, y: 0 })).current;
@@ -130,6 +135,7 @@ function WordTile({
       style={[styles.tileOuter, dragging ? styles.tileLifted : null, { transform: drag.getTranslateTransform() }]}
       {...(onDrop && !disabled ? responder.panHandlers : {})}
     >
+      {readPart ? <ReadRing part={readPart} radius={14} /> : null}
       <Tappable onPress={onPress} disabled={disabled} pressScale={0.94} accessibilityLabel={label} testID={testID} style={styles.tilePress}>
         <View pointerEvents="none" style={[styles.tileLip, { backgroundColor: look.lip }]} />
         <View style={[styles.tileFace, picture ? styles.tileRow : null, { backgroundColor: look.bg, borderColor: look.border }]}>
@@ -174,6 +180,10 @@ export function useGameRoom() {
   return useContext(GameRoomContext);
 }
 
+const NOTHING_TO_READ: ReadPart[] = [];
+/** A gap sentence, glowing while the teacher reads it. */
+const SENTENCE_PART = "sentence";
+
 /** The frame every game shares: a scrolling body, CHECK at the bottom, the answer sheet over it. */
 export function GameFrame({
   children,
@@ -193,8 +203,11 @@ export function GameFrame({
   ready: boolean;
   result?: ExerciseResult;
   prompt: string;
-  /** What the teacher says when the learner taps the speaker by CHECK (see questionAloudText). None: no speaker. */
-  aloud?: string;
+  /**
+   * What the teacher says when the learner taps the speaker by CHECK, part by part (see questionAloudText), each part
+   * glowing while it is said. None: no speaker.
+   */
+  aloud?: ReadPart[];
   praiseSeed?: string;
   playSound?: boolean;
   continueSound?: GameSoundEvent | false;
@@ -210,7 +223,7 @@ export function GameFrame({
   const shown = lastResult.current;
   const why = shown ? (getActiveLanguage() === "en" ? shortWhy({ explanation: shown.why, prompt, correctLabel: shown.correctLabel }) : shown.why) : undefined;
   const voice = useMistakeVoice(checked, Boolean(shown?.correct), shown && !shown.correct ? shown.correctLabel : undefined, shown?.why);
-  const reader = useQuestionAloud(aloud ?? "", checked);
+  const reader = useQuestionAloud(aloud ?? NOTHING_TO_READ, checked);
   // The asking teacher's mouth moves with whichever voice is talking: the question's before CHECK, the sheet's after.
   const talkMs = checked ? voice.talkMs : reader.talkMs ?? 0;
   const scroller = useRef<ScrollView>(null);
@@ -250,7 +263,9 @@ export function GameFrame({
         scrollEventThrottle={32}
       >
         <QuestionTalkContext.Provider value={talkMs}>
-          <GameRoomContext.Provider value={room}>{children}</GameRoomContext.Provider>
+          <ReadingContext.Provider value={reader.lit}>
+            <GameRoomContext.Provider value={room}>{children}</GameRoomContext.Provider>
+          </ReadingContext.Provider>
         </QuestionTalkContext.Provider>
       </ScrollView>
       <LessonBottomBar bottomInset={bottomInset}>
@@ -309,7 +324,7 @@ export function GapGame({ prompt, choices, correctChoiceId, question, testID, se
       result={result}
       prompt={question ?? prompt}
       // Read out: the question (when there is one), the sentence with a pause for its gap, then the words as they show.
-      aloud={questionAloudText([question, prompt, ...tiles.map((choice) => choice.label)])}
+      aloud={[{ key: QUESTION_PART, text: question }, { key: SENTENCE_PART, text: prompt }, ...tiles.map((choice) => ({ key: answerPart(choice.id), text: choice.label }))]}
       praiseSeed={praiseSeed}
       playSound={playSound}
       continueSound={continueSound}
@@ -322,6 +337,7 @@ export function GapGame({ prompt, choices, correctChoiceId, question, testID, se
       <QuestionBubble prompt={question ?? t("Drag the right word into the gap!")} mascotVariant={mascotVariant} accent={accent} mood={mood} hideMascot={compact} pick={selectedChoiceId} />
       <PopIn from="up" delay={80}>
         <Animated.View style={[styles.sentence, shakeStyle]} testID="gap-sentence">
+          <ReadRing part={SENTENCE_PART} radius={radii.tile} inset={6} />
           <Text style={styles.sentenceText}>
             {withHonorifics(noBreakHyphens(before ?? ""))}
             <Text
@@ -353,6 +369,7 @@ export function GapGame({ prompt, choices, correctChoiceId, question, testID, se
             disabled={checked}
             onPress={() => onSelect(choice.id)}
             onDrop={() => onSelect(choice.id)}
+            readPart={answerPart(choice.id)}
             testID={`choice-${choice.id}`}
           />
         ))}
