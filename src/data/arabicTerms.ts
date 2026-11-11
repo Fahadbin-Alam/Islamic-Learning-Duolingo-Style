@@ -426,7 +426,10 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "aqidah-faith-in-the-unseen": { ar: "الإيمان بالغيب", translit: "Al-iman bil-ghayb", meaning: "Faith in the unseen" },
   "zakat-not-asking-people": { ar: "التعفف عن المسألة", translit: "At-ta'affuf 'an al-mas'alah", meaning: "Keeping from asking people" },
   "marriage-faith-at-home": { ar: "الإيمان في البيت", translit: "Al-iman fil-bayt", meaning: "Faith at home" },
-  "hajj-answering-the-call": { ar: "لبيك اللهم", translit: "Labbayk Allahumma", meaning: "At Your service, O Allah" }
+  "hajj-answering-the-call": { ar: "لبيك اللهم", translit: "Labbayk Allahumma", meaning: "At Your service, O Allah" },
+  "prayer-calm-and-focus": { ar: "الطمأنينة في الصلاة", translit: "At-tuma'ninah fis-salah", meaning: "Calm in the prayer" },
+  "sahabi-praised-by-name": { ar: "نعم الرجل", translit: "Ni'ma ar-rajul", meaning: "What an excellent man" },
+  "intro-growing-in-faith": { ar: "زيادة الإيمان", translit: "Ziyadat al-iman", meaning: "Faith that grows" }
 };
 
 export const NODE_ARABIC: Record<string, ArabicTerm> = {
@@ -932,6 +935,7 @@ const LEARN_FORMS = [
   "أَذْكَارُ الصَّلَاةِ", "مِنْ نَعِيمِ الْجَنَّةِ", "أَدْعِيَةٌ مِنَ السُّنَّةِ",
   "اخْتِيَارُ الْأَلْفَاظِ", "صِغَارُ الصَّحَابَةِ", "الْإِيمَانُ بِالْغَيْبِ",
   "التَّعَفُّفُ عَنِ الْمَسْأَلَةِ", "الْإِيمَانُ فِي الْبَيْتِ", "لَبَّيْكَ اللَّهُمَّ",
+  "الطُّمَأْنِينَةُ فِي الصَّلَاةِ", "نِعْمَ الرَّجُلُ", "زِيَادَةُ الْإِيمَانِ",
   "الْعُمْرَةُ", "الْبَيْتُ الْحَرَامُ", "الْمَسَاجِدُ الثَّلَاثَةُ",
   ...SURAH_NAMES.map((name) => `سُورَةُ ${name}`)
 ];
