@@ -75,7 +75,7 @@ import {
 } from "./i18n";
 import { CHARITY, charityEnabled } from "./config/charity";
 import { localizeLessonContent } from "./services/contentLocalization";
-import { localizedLessonLine, localizedWhy } from "./ui/lesson/localizedLines";
+import { localizedLessonLine, localizedTeach, localizedWhy } from "./ui/lesson/localizedLines";
 import {
   clearLocalAuthAccount,
   createLocalAuthAccount,
@@ -194,7 +194,7 @@ import { claimQuestChest, recordQuestEvent, useQuestBoard, type Quest } from "./
 import { QuestsBanner, QuestsSheet, questLabel } from "./ui/screens/DailyQuests";
 import { markLeagueResultSeen, settleLeague, unseenLeagueResult } from "./services/leagues";
 import { answerLessonStep, isLastLessonStep, startLessonQueue, type FlowStep } from "./services/lessonQueue";
-import { buildLessonFlow, flowProgress, isLearnStep, isMatchStep, isQuestionStep, isRecallLesson, teachLesson, teachText, highlightWords, lessonExplain, lessonSummary } from "./ui/lesson/lessonPages";
+import { buildLessonFlow, flowProgress, isLearnStep, isMatchStep, isQuestionStep, isRecallLesson, teachText, highlightWords, lessonExplain, lessonSummary } from "./ui/lesson/lessonPages";
 import { checkAnswerId, checkCandidate, fillPiece, questionFormat } from "./ui/lesson/questionFormats";
 import { CheckGame, FillGame, GapGame, MatchGame } from "./ui/lesson/WordGames";
 import * as Speech from "expo-speech";
@@ -3760,8 +3760,9 @@ export default function TopicApp() {
   // for (highlighted), and a Good to know page's fact, all in the learner's language.
   const lessonSummaryShown = lesson && englishLesson && lessonSummary(englishLesson) ? lesson.learnSource?.summary : undefined;
   const lessonMarks = lesson ? highlightWords(lesson) : [];
-  const teachChallenge = learnStep?.page === "teach" && learnStep.index !== undefined ? lesson?.challenges[learnStep.index] : undefined;
-  const teachShown = teachChallenge ? teachLesson(teachChallenge) : undefined;
+  // Shaped from the English question (the rules read English words), then shown in the learner's language.
+  const teachChallenge = learnStep?.page === "teach" && learnStep.index !== undefined ? (englishLesson ?? lesson)?.challenges[learnStep.index] : undefined;
+  const teachShown = teachChallenge ? localizedTeach(teachChallenge, currentLanguage) : undefined;
   const quizQuestionCount = state.lessonQueue.filter((step) => isQuestionStep(step) && step.quiz && step.attempt === 0).length;
   // How this question is asked: tiles, a gap to fill, a word puzzle or true-or-false (questionFormats). Asked again
   // (a review, a quiz circle, a test or practice) it leans to another format than when it was taught.

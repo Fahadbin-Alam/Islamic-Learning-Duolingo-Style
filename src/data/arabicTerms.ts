@@ -160,6 +160,10 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "manners-brotherhood": { ar: "الأخوة في الله", translit: "Al-ukhuwwah fillah", meaning: "Brotherhood for Allah" },
   "manners-cleanliness": { ar: "النظافة", translit: "An-nazafah", meaning: "Cleanliness" },
   "manners-haya": { ar: "الحياء", translit: "Al-haya'", meaning: "Modesty" },
+  "manners-visiting-the-sick": { ar: "عيادة المريض", translit: "Iyadat al-marid", meaning: "Visiting the sick" },
+  "manners-asking-permission": { ar: "الاستئذان", translit: "Al-isti'dhan", meaning: "Asking permission" },
+  "manners-sunnah-of-sleep": { ar: "آداب النوم", translit: "Adab an-nawm", meaning: "Manners of sleep" },
+  "manners-gifts": { ar: "الهدية", translit: "Al-hadiyyah", meaning: "The gift" },
   "marriage-husbands": { ar: "حقوق الزوجة", translit: "Huquq az-zawjah", meaning: "A wife's rights" },
   "marriage-wives": { ar: "الزوجة الصالحة", translit: "Az-zawjah as-salihah", meaning: "The good wife" },
   "marriage-mistakes": { ar: "أخطاء في الزواج", translit: "Akhta' fiz-zawaj", meaning: "Mistakes in marriage" },
@@ -202,6 +206,12 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "prayer-extra": { ar: "صلاة التطوع", translit: "Salat at-tatawwu'", meaning: "Voluntary prayer" },
   "prayer-jumuah": { ar: "صلاة الجمعة", translit: "Salat al-jumu'ah", meaning: "The Friday prayer" },
   "prayer-after-salah": { ar: "أذكار بعد الصلاة", translit: "Adhkar ba'd as-salah", meaning: "Remembrance after prayer" },
+  "prayer-wudu-sunnah": { ar: "الوضوء النبوي", translit: "Al-wudu an-nabawi", meaning: "The Prophet's wudu" },
+  "prayer-adhan-reward": { ar: "فضل الأذان", translit: "Fadl al-adhan", meaning: "The virtue of the adhan" },
+  "prayer-night": { ar: "قيام الليل", translit: "Qiyam al-layl", meaning: "Standing in prayer at night" },
+  "prayer-made-easy": { ar: "تيسير الصلاة", translit: "Taysir as-salah", meaning: "Prayer made easy" },
+  "aqidah-names-mercy": { ar: "أسماء الرحمة", translit: "Asma ar-rahmah", meaning: "Names of mercy" },
+  "aqidah-names-majesty": { ar: "أسماء العظمة", translit: "Asma al-azamah", meaning: "Names of greatness" },
   "hajj-umrah": { ar: "العمرة", translit: "Al-'umrah", meaning: "The Umrah" },
   "hajj-sacred-house": { ar: "البيت الحرام", translit: "Al-bayt al-haram", meaning: "The Sacred House" },
   "hajj-three-masjids": { ar: "المساجد الثلاثة", translit: "Al-masajid ath-thalathah", meaning: "The three masjids" },
@@ -358,6 +368,8 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "duas-every-day": { ar: "أدعية اليوم", translit: "Ad'iyat al-yawm", meaning: "Duas of the day" },
   "duas-quran": { ar: "أدعية من القرآن", translit: "Ad'iyah min al-Quran", meaning: "Duas from the Quran" },
   "duas-reward": { ar: "فضل الذكر", translit: "Fadl adh-dhikr", meaning: "The virtue of dhikr" },
+  "duas-prophets": { ar: "أدعية الأنبياء", translit: "Ad'iyat al-anbiya'", meaning: "Duas of the prophets" },
+  "duas-believers": { ar: "أدعية المؤمنين", translit: "Ad'iyat al-mu'minin", meaning: "Duas of the believers" },
   "akhirah-get-ready": { ar: "الاستعداد للآخرة", translit: "Al-isti'dad lil-akhirah", meaning: "Getting ready for the Hereafter" }
 };
 
@@ -860,7 +872,7 @@ const LEARN_FORMS = [
   "فَضْلُ الصِّيَامِ", "السُّحُورُ وَالْإِفْطَارُ", "صِيَامُ التَّطَوُّعِ", "رُخَصُ الصِّيَامِ", "لَيَالِي الْعَشْرِ",
   "رُكْنُ الزَّكَاةِ", "زَكَاةُ الْفِطْرِ", "كُلُّ مَعْرُوفٍ صَدَقَةٌ", "الْإِنْفَاقُ فِي سَبِيلِ اللَّهِ",
   "أَحَادِيثُ مَشْهُورَةٌ", "صَلَاحُ الْقَلْبِ", "الصِّدْقُ وَالْأَمَانَةُ", "التَّوَاضُعُ", "الصَّبْرُ وَالشُّكْرُ", "الْأُخُوَّةُ فِي اللَّهِ", "النَّظَافَةُ", "الْحَيَاءُ", "حُقُوقُ الزَّوْجَةِ", "الزَّوْجَةُ الصَّالِحَةُ", "أَخْطَاءٌ فِي الزَّوَاجِ", "بِدَايَةٌ جَدِيدَةٌ", "الْقُرْآنُ وَالنَّبِيُّ", "الصَّلَوَاتُ الْأُولَى", "الْحَلَالُ وَالْحَرَامُ", "عَشْرُ ذِي الْحِجَّةِ", "لَيْلَةُ الْقَدْرِ", "الْأَشْهُرُ الْحُرُمُ", "ذِكْرُ اللَّهِ", "الصَّدَقَةُ", "الرِّفْقُ", "قِصَصٌ نَبَوِيَّةٌ", "الْحَدِيثُ الْقُدْسِيُّ", "مَغْفِرَةُ اللَّهِ", "طَلَبُ الْعِلْمِ", "كِتَابُ الْإِيمَانِ", "كِتَابُ الطَّهَارَةِ", "كِتَابُ الْأَدَبِ", "كِتَابُ الْأَطْعِمَةِ وَالْأَشْرِبَةِ", "كِتَابُ الدَّعَوَاتِ", "كِتَابُ الرِّقَاقِ", "كِتَابُ اللِّبَاسِ", "كِتَابُ الْبُيُوعِ", "كِتَابُ الطِّبِّ", "كِتَابُ فَضَائِلِ الصَّحَابَةِ", "كِتَابُ الصَّلَاةِ", "كِتَابُ الصَّوْمِ", "كِتَابُ الزَّكَاةِ", "كِتَابُ النِّكَاحِ", "كِتَابُ الْأَذَانِ", "كِتَابُ الْجَنَائِزِ", "كِتَابُ الْحَجِّ", "كِتَابُ الْأَيْمَانِ وَالنُّذُورِ", "كِتَابُ الْوَصَايَا", "كِتَابُ فَضَائِلِ الْقُرْآنِ", "كِتَابُ التَّهَجُّدِ",
-  "فَضْلُ الصَّلَاةِ", "صَلَاةُ التَّطَوُّعِ", "صَلَاةُ الْجُمُعَةِ", "أَذْكَارُ بَعْدَ الصَّلَاةِ",
+  "فَضْلُ الصَّلَاةِ", "صَلَاةُ التَّطَوُّعِ", "صَلَاةُ الْجُمُعَةِ", "أَذْكَارُ بَعْدَ الصَّلَاةِ", "الْوُضُوءُ النَّبَوِيُّ", "فَضْلُ الْأَذَانِ", "قِيَامُ اللَّيْلِ", "تَيْسِيرُ الصَّلَاةِ", "أَسْمَاءُ الرَّحْمَةِ", "أَسْمَاءُ الْعَظَمَةِ", "عِيَادَةُ الْمَرِيضِ", "الِاسْتِئْذَانُ", "آدَابُ النَّوْمِ", "الْهَدِيَّةُ", "أَدْعِيَةُ الْأَنْبِيَاءِ", "أَدْعِيَةُ الْمُؤْمِنِينَ",
   "الْعُمْرَةُ", "الْبَيْتُ الْحَرَامُ", "الْمَسَاجِدُ الثَّلَاثَةُ",
   ...SURAH_NAMES.map((name) => `سُورَةُ ${name}`)
 ];

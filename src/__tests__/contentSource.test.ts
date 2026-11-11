@@ -17,6 +17,7 @@ import { getFoundationWordBank } from "../services/foundationAssessment";
 import { getTopicCopy } from "../i18n";
 import { getCatalog } from "../translations";
 import { englishWhy } from "../ui/lesson/localizedLines";
+import { isRecallLesson, lessonExplain } from "../ui/lesson/lessonPages";
 import { getLessonLine, isPlayablePractice } from "../ui/lesson/lessonSteps";
 import { shortWhy } from "../ui/lesson/lessonText";
 import type { FoundationQuestion, Lesson } from "../types";
@@ -36,6 +37,8 @@ function addLesson(lesson: Lesson) {
   add("course", lesson.title);
   add("lesson", getLessonLine(lesson));
   lesson.learnFacts?.forEach((fact) => add("lesson", fact));
+  // The lesson told plainly, at the top of "What you learn" (lessonExplain).
+  if (!isRecallLesson(lesson)) add("lesson", lessonExplain(lesson));
   add("quote", lesson.quote?.text);
   add("source", lesson.quote?.reference);
   add("source", lesson.learnSource?.reference);
