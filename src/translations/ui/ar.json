@@ -983,5 +983,6 @@
   "{count} seconds left": "الوقت المتبقي: {count} ثانية",
   "+{count} seconds!": "+{count} ثوانٍ!",
   "True or false?": "صح أم خطأ؟",
-  "Right or not? Swipe fast for one minute": "صحيح أم لا؟ اسحب بسرعة لمدة دقيقة"
+  "Right or not? Swipe fast for one minute": "صحيح أم لا؟ اسحب بسرعة لمدة دقيقة",
+  "Read it to me": "اقرأها لي"
 }
