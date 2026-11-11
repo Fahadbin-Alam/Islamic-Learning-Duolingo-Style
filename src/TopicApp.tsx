@@ -263,12 +263,15 @@ import { STORIES, storyGroupFor, type StoryGroup } from "./data/stories";
 import { recordStoryRead } from "./services/stories";
 import { addFamilyKid, buildFamilySnapshot, encodeFamilyCode, removeFamilyKid, snapshotFromLinkedKid, type FamilyKid, type LearningLabel } from "./services/familyCode";
 import { getFamilyId, loadFamilyKids, peekFamilyId, saveFamilyKids } from "./services/familyStorage";
+import { buildFamilyWeek, ownXpByDay } from "./services/familyWeek";
 import { shareApp } from "./services/shareApp";
 import { shareCertificateCard, shareRamadanCard } from "./services/shareCard";
 import { biggestFirst, buildCertificates, certificateProgress, earnedCertificateIds, recordCertificates, type CertificateProgress } from "./services/certificates";
 import { CertificatePop, CertificatesSheet } from "./ui/screens/Certificates";
 import { ALBUM_PICTURES, PictureAlbumSheet } from "./ui/screens/PictureAlbum";
-import { addToAlbum, useAlbum } from "./services/pictureAlbum";
+import { SayItSheet } from "./ui/screens/SayItSheet";
+import { addToAlbum, albumPictureIds, useAlbum } from "./services/pictureAlbum";
+import { setsFinishedBy, type AlbumSet } from "./data/albumSets";
 import { isUpdateAvailable, openStore } from "./services/appUpdate";
 import { attemptOrder, ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, HarderSheet, QuitSheet, QuizComplete, isPlayablePractice, lessonStars } from "./ui/lesson";
 import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic, isFirstUseOfWord } from "./data/arabicTerms";
@@ -281,6 +284,8 @@ import { didRamadanToday, ramadanDoneDayNumbers, ramadanSeason, ramadanStreak } 
 import { RAMADAN_TOPIC } from "./data/ramadanDays";
 import { teacherFor } from "./ui/lesson/Teacher";
 import { flowPictures, getLessonPicture, pictureForLesson, choicePictures, pictureForQuestion, pictureForText, type LessonPicture } from "./data/lessonPictures";
+import { journeyForLesson } from "./data/seerahMap";
+import { LifeMapBanner, LifeMapSheet } from "./ui/journey/LifeMap";
 import { surahNumberForTitle, surahParts } from "./data/surahPictures";
 import { BACKGROUND_KEY, INTRO_TOPIC, introStartFor, isLearnerBackground, type LearnerBackground } from "./data/introToIslam";
 import type {
@@ -397,6 +402,8 @@ type LessonCelebration = {
   questsDone?: string[];
   /** Pictures this lesson put in the picture album for the first time. */
   newPictures?: LessonPicture[];
+  /** Album sets those pictures finished: each gets its badge on the card. */
+  finishedSets?: AlbumSet[];
 };
 
 interface AppState {
@@ -834,6 +841,8 @@ export default function TopicApp() {
   const [quizSheetVisible, setQuizSheetVisible] = useState(false);
   // Story mode: the shelf it opens on, while it is open.
   const [storyShelf, setStoryShelf] = useState<StoryGroup | undefined>(undefined);
+  // The map of his life ﷺ (src/ui/journey), opened from the Prophets path.
+  const [lifeMapOpen, setLifeMapOpen] = useState(false);
   // An opened chest: its gems land when the learner taps COLLECT.
   const [rewardCelebration, setRewardCelebration] = useState<{ stop: JourneyRewardStop } | undefined>(undefined);
   // Daily quests: the sheet, the chest's dates waiting in the reward pop, and the quests finished during this lesson.
@@ -1324,6 +1333,7 @@ export default function TopicApp() {
   const [shownCertificate, setShownCertificate] = useState<CertificateProgress | undefined>(undefined);
   const [certificatesSheetVisible, setCertificatesSheetVisible] = useState(false);
   const [albumVisible, setAlbumVisible] = useState(false);
+  const [sayItVisible, setSayItVisible] = useState(false);
   const albumFound = useAlbum();
   const certificatesBefore = useRef<{ userId?: number; ids?: Set<string> }>({});
   useEffect(() => {
@@ -1546,6 +1556,33 @@ export default function TopicApp() {
     setFamilyVisible(true);
     void loadFamilyLinks();
   };
+  // The family challenge week on the Me tab: asked again each time the tab opens (at most once a minute), with the
+  // learners from pasted codes read from this phone.
+  const familyWeekAsked = useRef(0);
+  useEffect(() => {
+    if (state.screen !== "profile") return;
+    setFamilyKids(loadFamilyKids());
+    if (Date.now() - familyWeekAsked.current < 60_000) return;
+    familyWeekAsked.current = Date.now();
+    void loadFamilyLinks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.screen]);
+  const familyWeek = useMemo(
+    () =>
+      state.user
+        ? buildFamilyWeek({
+            // A logged-out phone keeps no one else's family.
+            server: familySignedIn ? familyLinks.familyWeek : null,
+            self: { xpByDay: ownXpByDay(state.user), initials: state.user.avatarInitials || "?" },
+            liveKids: familySignedIn ? familyLinks.kids : [],
+            pastedKids: familyKids,
+            today: localDateKey()
+          })
+        : undefined,
+    // The day can change while the app is open: the tab opening asks again.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [familyLinks, familyKids, familySignedIn, state.user, state.screen]
+  );
   // What a friend or linked learner has open, named in this phone's language: the unit of the circle START sits
   // on in their last topic (with how far through it they are, when their finished circles are known), else the topic.
   const describeLearning = (now: LearningNow | null | undefined, finished?: string[]): LearningLabel | undefined => {
@@ -1597,6 +1634,8 @@ export default function TopicApp() {
           try {
             const kid = await linkFamilyKid(code, localDateKey());
             setFamilyLinks((links) => ({ ...links, kids: [...links.kids.filter((entry) => entry.id !== kid.id), kid] }));
+            // Asked again so the family challenge week counts them too.
+            void loadFamilyLinks();
             return undefined;
           } catch (error) {
             return familyErrorLine(error);
@@ -1604,11 +1643,16 @@ export default function TopicApp() {
         },
         onRemoveKid: (id: number) => {
           setFamilyLinks((links) => ({ ...links, kids: links.kids.filter((kid) => kid.id !== id) }));
-          void unlinkFamilyKid(id).catch(() => void loadFamilyLinks());
+          // Asked again either way: for the family challenge week, or to bring the learner back if it failed.
+          void unlinkFamilyKid(id)
+            .catch(() => undefined)
+            .then(() => loadFamilyLinks());
         },
         onRemoveParent: (id: number) => {
           setFamilyLinks((links) => ({ ...links, parents: links.parents.filter((parent) => parent.id !== id) }));
-          void unlinkFamilyParent(id).catch(() => void loadFamilyLinks());
+          void unlinkFamilyParent(id)
+            .catch(() => undefined)
+            .then(() => loadFamilyLinks());
         },
         onSignIn: () => {
           setFamilyVisible(false);
@@ -2292,7 +2336,7 @@ export default function TopicApp() {
    * Puts the pictures this lesson showed in the picture album: its own, each page's, and those of its questions and
    * picture answers. Returns the ones new to the album, for the lesson complete card.
    */
-  function collectLessonPictures(): LessonPicture[] {
+  function collectLessonPictures(): { newPictures: LessonPicture[]; finishedSets: AlbumSet[] } {
     const questions = pictureLesson?.challenges ?? [];
     const ids = [
       lessonPicture?.id,
@@ -2301,11 +2345,13 @@ export default function TopicApp() {
       ...questions.flatMap((question) => Object.values(choicePictures(question.choices) ?? {}).map((picture) => picture.id))
     ];
     try {
-      return addToAlbum(ids)
-        .map((id) => getLessonPicture(id))
-        .filter((picture): picture is LessonPicture => Boolean(picture));
+      const fresh = addToAlbum(ids);
+      return {
+        newPictures: fresh.map((id) => getLessonPicture(id)).filter((picture): picture is LessonPicture => Boolean(picture)),
+        finishedSets: setsFinishedBy(fresh, albumPictureIds())
+      };
     } catch {
-      return [];
+      return { newPictures: [], finishedSets: [] };
     }
   }
 
@@ -2491,7 +2537,7 @@ export default function TopicApp() {
       accuracy: asked ? Math.round((state.sessionCorrectCount / asked) * 100) : undefined,
       bestInARow: state.bestInARow,
       questsDone: finishQuests(perfect, nextUser.totalXp - user.totalXp),
-      newPictures: collectLessonPictures(),
+      ...collectLessonPictures(),
       recap: lessonRecap(localizeLessonContent(state.activeSession.lesson, currentLanguage).challenges, state.missedChallengeIds),
       // A replayed lesson earns nothing, so show what was actually added.
       xp: nextUser.totalXp - user.totalXp,
@@ -3728,6 +3774,8 @@ export default function TopicApp() {
   // A surah's own lesson ("Surah Al-Baqarah") opens on a picture of what its name means, then lists its parts.
   const lessonSurahNumber = pictureLesson ? surahNumberForTitle(pictureLesson.title) : undefined;
   const lessonSurah = lessonSurahNumber ? { number: lessonSurahNumber, parts: surahParts(lessonSurahNumber) } : undefined;
+  // A Seerah lesson opens on its map: where it happened and the road that led there (its photo moves to the next page).
+  const lessonJourney = pictureLesson ? journeyForLesson(pictureLesson) : undefined;
   // Every page shows a big picture: what it teaches (the bridge, the ark, a market...), else the lesson's own, else
   // one that fits the topic, never the same one twice in a row (flowPictures).
   const learnQueue = state.lessonQueue.flatMap((step, index) => (isLearnStep(step) ? [{ step, index }] : []));
@@ -3739,7 +3787,7 @@ export default function TopicApp() {
           page: step.page,
           text: step.page === "teach" && step.index !== undefined && pictureLesson.challenges[step.index] ? teachText(pictureLesson.challenges[step.index]) : undefined
         })),
-        { startPicture: lessonPicture, cover: Boolean(lessonSurah) }
+        { startPicture: lessonPicture, cover: Boolean(lessonSurah) || Boolean(lessonJourney) }
       )
     : [];
   const shownPictureAt = learnQueue.findIndex(({ index }) => index === state.stepIndex);
@@ -3945,6 +3993,7 @@ export default function TopicApp() {
                   {/* Missed questions due again (spaced review): one tap starts a Review of them. */}
                   {pathReviewDue > 0 ? <ReviewBanner count={pathReviewDue} onOpen={startReviewDeck} /> : null}
                   {storyBanner}
+                  {selectedSection.topicId === "prophets" ? <LifeMapBanner accent={selectedSection.accentColor} onOpen={() => setLifeMapOpen(true)} /> : null}
                 </>
               )
             }
@@ -3982,6 +4031,7 @@ export default function TopicApp() {
             arabicRecitation={lessonRecitation ?? undefined}
             picture={lessonSurah ? lessonPicture : stepPicture ?? lessonPicture}
             pagePicture={pagePicture}
+            journey={lessonJourney}
             teacher={lessonTeacher}
             surah={lessonSurah}
             deeper={lesson.learnDeeper}
@@ -4125,6 +4175,7 @@ export default function TopicApp() {
             recap={lessonCompleteSummary.recap}
             questsDone={lessonCompleteSummary.questsDone}
             newPictures={lessonCompleteSummary.newPictures}
+            finishedSets={lessonCompleteSummary.finishedSets}
             mascotVariant={lessonMascot}
             accent={lessonAccent}
             nextTitle={nextLessonNode?.title}
@@ -4176,6 +4227,7 @@ export default function TopicApp() {
             onStartLessonPractice={canPracticeLessons(state.user) ? startLessonPractice : undefined}
             onOpenQuizzes={() => setQuizSheetVisible(true)}
             onOpenStories={() => setStoryShelf(storyGroupFor(selectedSection.topicId) ?? "seerah")}
+            onOpenSayIt={() => setSayItVisible(true)}
             quizBest={getQuizScore(state.user, { kind: "topic", topicId: selectedSection.topicId })?.best}
             onGoFoundation={() => openTopicScreen("foundation")}
           />
@@ -4200,6 +4252,7 @@ export default function TopicApp() {
             charity={charityEnabled() ? CHARITY : undefined}
             hasSavedAccount={hasSavedAccount}
             onCreateAccount={() => openAccountPanel()}
+            familyWeek={familyWeek}
           />
         )}
         {state.screen === "shop" && (
@@ -4325,7 +4378,17 @@ export default function TopicApp() {
             onFinish={finishStory}
           />
         )}
+        {!inLesson && <LifeMapSheet visible={lifeMapOpen} onClose={() => setLifeMapOpen(false)} accent={selectedSection.accentColor} />}
         {!inLesson && <PictureAlbumSheet visible={albumVisible} onClose={() => setAlbumVisible(false)} />}
+        {!inLesson && (
+          <SayItSheet
+            visible={sayItVisible}
+            onClose={() => setSayItVisible(false)}
+            mascotVariant={selectedSection.mascot}
+            accent={selectedSection.accentColor}
+            soundOn={state.user?.soundEffectsEnabled !== false}
+          />
+        )}
         {!inLesson && (
           <CertificatesSheet
             visible={certificatesSheetVisible}

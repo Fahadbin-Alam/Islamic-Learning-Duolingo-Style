@@ -18,13 +18,18 @@ const TABLE_FILES = {
   "src/ui/screens/FamilySheet.tsx": ["ADD_ERRORS"],
   "src/ui/lesson/FeedbackSheet.tsx": ["PRAISE_WORDS", "WRONG_TITLE"],
   "src/ui/lesson/QuizComplete.tsx": ["HEADLINES"],
+  "src/ui/lesson/Teacher.tsx": ["TEACHER_TAPS"],
   "src/ui/screens/AdhkarBanner.tsx": ["NOW_LINES"],
   "src/components/FoundationLearning.tsx": ["QUIT_TITLES", "QUIT_LINE", "HEADLINES", "SKILL_LOOK"],
-  "src/i18n.ts": ["UI_STRINGS", "TOPIC_COPY"]
+  "src/i18n.ts": ["UI_STRINGS", "TOPIC_COPY"],
+  // Read even though data/ is not walked: the album sets' names.
+  "src/data/albumSets.ts": ["SET_TITLES"],
+  // The "Say it out loud" words' meanings and when to say them.
+  "src/data/sayWords.ts": ["SAY_WORD_TEXT"]
 };
 // Lesson states read aloud with t(node.status) in LearnPath.
 const DYNAMIC_STRINGS = ["available", "completed", "current", "locked"];
-const SKIP_TABLE_KEYS = new Set(["key", "icon", "id", "testID"]);
+const SKIP_TABLE_KEYS = new Set(["key", "icon", "id", "testID", "mood", "sound", "move"]);
 
 function walk(dir, out = []) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -41,6 +46,8 @@ function walk(dir, out = []) {
 function collectStrings(node, out) {
   if (ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)) {
     const parent = node.parent;
+    // A quoted key ("last-day": ...) is a name, not words to translate.
+    if (ts.isPropertyAssignment(parent) && parent.name === node) return;
     const key = ts.isPropertyAssignment(parent) ? parent.name.getText() : "";
     if (!SKIP_TABLE_KEYS.has(key) && /[A-Za-z]/.test(node.text)) out.add(node.text);
     return;
@@ -50,7 +57,8 @@ function collectStrings(node, out) {
 
 function extract() {
   const strings = new Set(DYNAMIC_STRINGS);
-  for (const file of walk(path.join(ROOT, "src"))) {
+  const files = new Set([...walk(path.join(ROOT, "src")), ...Object.keys(TABLE_FILES).map((rel) => path.join(ROOT, rel))]);
+  for (const file of files) {
     const rel = path.relative(ROOT, file).split(path.sep).join("/");
     const source = ts.createSourceFile(file, fs.readFileSync(file, "utf8"), ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
     const tables = TABLE_FILES[rel] ?? [];

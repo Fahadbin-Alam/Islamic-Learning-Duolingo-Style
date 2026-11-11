@@ -16,6 +16,8 @@ import { useGrownUpGate } from "./GrownUpGate";
 import { SwitchTrack } from "./sheetParts";
 import { SecretTap } from "./SecretTap";
 import { activeIcon } from "../../services/ummah";
+import type { FamilyWeek } from "../../services/familyWeek";
+import { FamilyWeekCard } from "./FamilyWeekCard";
 import { t } from "../../i18n";
 
 export type ProfileViewProps = {
@@ -58,6 +60,8 @@ export type ProfileViewProps = {
   accent?: string;
   /** Mascot on the guest save card. */
   mascotVariant?: string;
+  /** The family challenge week, when this account or phone has a family to share it with. */
+  familyWeek?: FamilyWeek;
 };
 
 const STARS_BY_NODE = new Map<string, number>(
@@ -192,7 +196,8 @@ export function ProfileView({
   onToggleSound,
   stars,
   accent = colors.green,
-  mascotVariant = "hijabi"
+  mascotVariant = "hijabi",
+  familyWeek
 }: ProfileViewProps) {
   const guest = !user.hasAccount;
   const sound = soundEnabled ?? user.soundEffectsEnabled !== false;
@@ -277,6 +282,12 @@ export function ProfileView({
             </View>
             <GameButton label={hasSavedAccount ? t("Log in") : t("Sign up")} fullWidth onPress={onCreateAccount} testID="profile-create" />
           </View>
+        </PopIn>
+      ) : null}
+
+      {familyWeek ? (
+        <PopIn delay={140} from="up">
+          <FamilyWeekCard week={familyWeek} testID="profile-family-week" />
         </PopIn>
       ) : null}
 

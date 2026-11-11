@@ -13,6 +13,7 @@ import { useReduceMotion } from "./motion";
 import { Sparkle } from "./reactions";
 import { haptic, playUi } from "./sound";
 import { colors, fonts, lighten, radii } from "./theme";
+import { textScaled } from "./textScale";
 
 export type ChoiceTileState = "idle" | "selected" | "correct" | "wrong" | "disabled" | "dimmed";
 
@@ -314,7 +315,7 @@ function CorrectBurst() {
   );
 }
 
-const styles = StyleSheet.create({
+const styles = textScaled(StyleSheet.create({
   shineClip: {
     borderRadius: radii.tile,
     overflow: "hidden"
@@ -445,4 +446,4 @@ const styles = StyleSheet.create({
     fontFamily: fonts.bodyHeavy,
     fontSize: 14
   }
-});
+}));

@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState, type ReactNode } from "rea
 import { Animated, Easing, StyleSheet, View, type LayoutChangeEvent } from "react-native";
 import Svg, { Circle, Defs, Ellipse, LinearGradient, Path, RadialGradient, Stop } from "react-native-svg";
 import { sampleCurve, smoothKeys, useReduceMotion } from "../motion";
+import { LITE_LIFE, useLiteMotion } from "../liteMotion";
 import type { Life } from "./pictureLife";
 
 /**
@@ -33,11 +34,13 @@ export function LiveFrame({
   poke?: Poke;
 }) {
   const reduceMotion = useReduceMotion();
+  // A slow phone keeps the life but lighter: no camera drift, and only the first few moving things.
+  const lite = useLiteMotion();
   const [box, setBox] = useState<{ width: number; height: number } | null>(null);
   // Nothing runs until the picture is on screen and knows its size.
   const moving = !still && !reduceMotion && box !== null;
   // `calm`: the life moves but the camera holds still (a picture shown whole, with nothing to spare at its edges).
-  const drift = useLoopClock(32000, moving && !calm);
+  const drift = useLoopClock(32000, moving && !calm && !lite);
   const pop = useRef(new Animated.Value(1)).current;
   const gleam = useRef(new Animated.Value(0)).current;
   const lastCheer = useRef(cheer);
@@ -76,13 +79,14 @@ export function LiveFrame({
   // Where the picture shows inside the box (cover): its own size and offset, so the life lines up with it.
   const frame = useMemo(() => (box ? coverRect(box.width, box.height, aspect) : null), [box, aspect]);
   const camera = useMemo(() => {
-    if (!moving || calm || !frame) return { scale: 1, translateX: 0, translateY: 0 };
+    if (!moving || calm || lite || !frame) return { scale: 1, translateX: 0, translateY: 0 };
     return {
       scale: drift.interpolate(sampleCurve(0, 1, 48, (x) => 1.04 - 0.04 * Math.cos(2 * Math.PI * x))),
       translateX: drift.interpolate(sampleCurve(0, 1, 48, (x) => frame.width * 0.016 * Math.sin(2 * Math.PI * x))),
       translateY: drift.interpolate(sampleCurve(0, 1, 48, (x) => frame.height * 0.01 * Math.sin(4 * Math.PI * x)))
     };
-  }, [moving, calm, frame, drift]);
+  }, [moving, calm, lite, frame, drift]);
+  const shownLife = lite ? life?.slice(0, LITE_LIFE) : life;
   const { scale, translateX, translateY } = camera;
 
   return (
@@ -90,9 +94,9 @@ export function LiveFrame({
       <Animated.View style={[StyleSheet.absoluteFill, { transform: [{ scale: pop }] }]} pointerEvents="box-none">
         <Animated.View style={[StyleSheet.absoluteFill, { transform: [{ translateX }, { translateY }, { scale }] }]} pointerEvents="box-none">
           {children}
-          {frame && moving && life?.length ? (
+          {frame && moving && shownLife?.length ? (
             <View pointerEvents="none" style={[styles.frame, { left: frame.left, top: frame.top, width: frame.width, height: frame.height }]} testID="picture-life">
-              {life.map((each, index) => (
+              {shownLife.map((each, index) => (
                 <LifeView key={`${each.kind}-${index}`} life={each} width={frame.width} height={frame.height} seed={index + 1} />
               ))}
             </View>

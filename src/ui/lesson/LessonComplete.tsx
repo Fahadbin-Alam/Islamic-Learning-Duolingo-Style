@@ -7,9 +7,10 @@ import { GameButton } from "../GameButton";
 import { Icon, type IconName } from "../Icon";
 import { Mascot } from "../Mascot";
 import { PopIn } from "../PopIn";
-import { playUi } from "../sound";
+import { haptic, playUi } from "../sound";
 import type { LessonRecapItem } from "./lessonRecap";
 import type { LessonPicture } from "../../data/lessonPictures";
+import type { AlbumSet } from "../../data/albumSets";
 import { AlbumThumb } from "./LessonPhoto";
 import { colors, darken, fonts, lighten, radii, space } from "../theme";
 import { LessonBottomBar } from "./LessonHeader";
@@ -40,6 +41,8 @@ export type LessonCompleteProps = {
   questsDone?: string[];
   /** Pictures this lesson put in the learner's picture album for the first time: they pop in, moving. */
   newPictures?: LessonPicture[];
+  /** Album sets these pictures finished: a gold badge for each, with its own fanfare. */
+  finishedSets?: AlbumSet[];
   mascotVariant: string;
   accent: string;
   /** When set, the main button reads NEXT LESSON. */
@@ -67,6 +70,8 @@ const STREAK_INK = darken(colors.flame, 0.3);
 const HEADLINE = darken(colors.goldLip, 0.2);
 const CARD_DELAY = 350;
 const CARD_STAGGER = 140;
+/** When a finished album set's badge lands: after the new pictures have popped in. */
+const SET_BADGE_DELAY = CARD_DELAY + 4 * CARD_STAGGER + COUNT_DURATION + 1700;
 
 function StatCard({
   label,
@@ -141,6 +146,7 @@ export function LessonComplete({
   recap,
   questsDone,
   newPictures,
+  finishedSets,
   mascotVariant,
   accent,
   nextTitle,
@@ -184,7 +190,17 @@ export function LessonComplete({
     const xpTimer = xp > 0 ? setTimeout(() => playUi("xp"), CARD_DELAY + 2 * CARD_STAGGER + COUNT_DURATION + (streakExtended ? 420 : 120)) : undefined;
     // A finished daily quest chimes last, as its pill pops in.
     const questTimer = questsDone?.length ? setTimeout(() => playUi("quest"), CARD_DELAY + 4 * CARD_STAGGER + COUNT_DURATION + 600) : undefined;
+    // A finished album set: its badge lands with the unlock fanfare and a happy buzz.
+    const setTimer = finishedSets?.length
+      ? setTimeout(() => {
+          playUi("unlock");
+          haptic("success");
+        }, SET_BADGE_DELAY)
+      : undefined;
     return () => {
+      if (setTimer) {
+        clearTimeout(setTimer);
+      }
       if (questTimer) {
         clearTimeout(questTimer);
       }
@@ -314,6 +330,20 @@ export function LessonComplete({
                   </PopIn>
                 ))}
               </View>
+              {finishedSets?.map((set, index) => (
+                <PopIn key={set.id} delay={SET_BADGE_DELAY + index * 220} style={styles.setBadge}>
+                  <View style={styles.setBadgeRow} testID="complete-album-set" accessible accessibilityLabel={t("Set complete: {set}!", { set: t(set.title) })}>
+                    <View style={styles.setMedal}>
+                      <Icon name={set.icon} size={26} />
+                    </View>
+                    <View style={styles.setBadgeWords}>
+                      <Text style={styles.setBadgeEyebrow}>{t("Set complete!")}</Text>
+                      <Text style={styles.setBadgeTitle}>{withHonorifics(t(set.title))}</Text>
+                    </View>
+                    <Icon name="crown" size={24} />
+                  </View>
+                </PopIn>
+              ))}
             </View>
           </PopIn>
         ) : null}
@@ -579,6 +609,46 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     gap: space.sm,
     marginTop: space.sm
+  },
+  setBadge: {
+    marginTop: space.sm
+  },
+  setBadgeRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: space.sm,
+    paddingVertical: space.xs,
+    paddingHorizontal: space.sm,
+    borderRadius: radii.md,
+    borderWidth: 2,
+    borderColor: colors.goldLip,
+    backgroundColor: lighten(colors.gold, 0.75)
+  },
+  setMedal: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: colors.white,
+    borderWidth: 2,
+    borderColor: colors.gold
+  },
+  setBadgeWords: {
+    flex: 1,
+    minWidth: 0
+  },
+  setBadgeEyebrow: {
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 12,
+    letterSpacing: 0.6,
+    textTransform: "uppercase",
+    color: darken(colors.gold, 0.45)
+  },
+  setBadgeTitle: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 16,
+    color: colors.ink
   },
   quests: {
     alignSelf: "stretch",
