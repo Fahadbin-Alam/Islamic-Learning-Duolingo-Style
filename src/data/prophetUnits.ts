@@ -529,6 +529,20 @@ const IBRAHIM = unit("prophet-ibrahim", "prophets-unit-ibrahim", "Ibrahim", [
       { q: "In every prayer we ask Allah to bless Muhammad ﷺ as He blessed whom?", a: "Ibrahim and his family", wrong: ["Musa and Harun", "Nuh", "Adam"], why: "As You blessed Ibrahim (Bukhari 3370)." },
       { q: "Who is called to Hajj by Ibrahim's call?", a: "All people", wrong: ["Only kings", "Only his sons", "Only angels"], why: "Proclaim the Hajj to the people (Quran 22:27)." }
     ]
+  },
+  {
+    slug: "wisdom-dua",
+    title: "Ibrahim asks for wisdom",
+    line: "Ibrahim asked Allah for wisdom and a place with the righteous.",
+    facts: ["Quran 26:83", "Hukm: wisdom and sound judgment", "The righteous: Allah's good servants"],
+    quote: quranQuote(26, 83),
+    source: quran(26, 83, "My Lord, grant me wisdom and join me with the righteous."),
+    difficulty: 2,
+    questions: [
+      { q: "What did Ibrahim ask for first in 26:83?", a: "Wisdom", wrong: ["Wealth", "A palace", "A big army"], why: "My Lord, grant me wisdom." },
+      { q: "Whom did Ibrahim ask to be joined with?", a: "The righteous", wrong: ["The kings", "The rich traders", "The poets"], why: "And join me with the righteous." },
+      { q: "Even a great prophet asked Allah for wisdom.", tf: true, why: "My Lord, grant me wisdom and join me with the righteous." }
+    ]
   }
 ]);
 
@@ -545,6 +559,20 @@ const LUT = unit("prophet-lut", "prophets-unit-lut", "Lut", [
       { q: "Whose message did Lut believe?", a: "Ibrahim's", wrong: ["Hud's", "Nuh's", "Musa's"], why: "Quran 29:26." },
       { q: "What did Ibrahim do then?", a: "Emigrated for Allah", wrong: ["Became a king", "Built a ship", "Stayed home"], why: "I am emigrating to my Lord." },
       { q: "Allah later sent Lut as a prophet to a town of his own.", tf: true, why: "Quran 7:80." }
+    ]
+  },
+  {
+    slug: "lut-dua",
+    title: "Lut's du'a for his family",
+    line: "Lut prayed: My Lord, save me and my family from their deeds.",
+    facts: ["Quran 26:169", "He turned to Allah for help", "Allah answered his du'a"],
+    quote: quranQuote(26, 169),
+    source: quran(26, 169, "My Lord, save me and my family from what they do."),
+    difficulty: 2,
+    questions: [
+      { q: "Whom did Lut ask Allah to save?", a: "Himself and his family", wrong: ["Only his camels", "The chiefs of the town", "Only his guests"], why: "My Lord, save me and my family from what they do." },
+      { q: "Whom did Lut turn to when his people did wrong?", a: "His Lord, Allah", wrong: ["The chiefs of the town", "A strong army", "A faraway king"], why: "He called: My Lord, save me and my family." },
+      { q: "Making du'a for your family is the way of the prophets.", tf: true, why: "Lut prayed: My Lord, save me and my family from what they do." }
     ]
   },
   {
@@ -617,6 +645,20 @@ const SHUAIB = unit("prophet-shuaib", "prophets-unit-shuaib", "Shu'ayb", [
       { q: "What did Shu'ayb want?", a: "To set things right", wrong: ["To be king", "To get rich", "To take revenge"], why: "Quran 11:88." },
       { q: "Where did Shu'ayb say his success comes from?", a: "Only from Allah", wrong: ["From his family", "From trade", "From the king"], why: "Wa ma tawfiqi illa billah." },
       { q: "Shu'ayb did himself what he told others to do.", tf: true, why: "I don't want to do what I forbid you (Quran 11:88)." }
+    ]
+  },
+  {
+    slug: "loving-lord",
+    title: "My Lord is Loving",
+    line: "Shu'ayb said: seek forgiveness; my Lord is Merciful and Loving.",
+    facts: ["Quran 11:90", "Al-Wadud: the Loving", "Forgiveness, then repentance"],
+    quote: quranQuote(11, 90),
+    source: quran(11, 90, "Ask forgiveness of your Lord, then turn to Him in repentance. My Lord is Merciful and Loving."),
+    difficulty: 2,
+    questions: [
+      { q: "What did Shu'ayb tell his people to ask their Lord for?", a: "Forgiveness", wrong: ["Gold", "Rain", "Kingship"], why: "Ask forgiveness of your Lord, then repent to Him." },
+      { q: "How did Shu'ayb describe his Lord in 11:90?", a: "Merciful and Loving", wrong: ["Mighty and Wise", "Hearing and Seeing", "Rich and Praised"], why: "Indeed, my Lord is Merciful and Affectionate." },
+      { q: "Allah loves those who turn back to Him.", tf: true, why: "My Lord is Merciful and Loving." }
     ]
   },
   {
@@ -1693,6 +1735,20 @@ const ZAKARIYYA = unit("prophet-zakariyya", "prophets-unit-zakariyya", "Zakariyy
     ]
   },
   {
+    slug: "good-offspring",
+    title: "Grant me a good child",
+    line: "Seeing Maryam's gift, Zakariyya asked Allah for a good child.",
+    facts: ["Quran 3:38", "Right after Maryam's provision", "Allah hears every du'a"],
+    quote: quranQuote(3, 38),
+    source: quran(3, 38, "At that, Zakariyya called upon his Lord: My Lord, grant me from Yourself a good child. You are the Hearer of du'a."),
+    difficulty: 2,
+    questions: [
+      { q: "What did Zakariyya ask for in 3:38?", a: "A good child", wrong: ["A bigger house", "Much wealth", "A long journey"], why: "My Lord, grant me from Yourself a good offspring." },
+      { q: "How did Zakariyya end his du'a in 3:38?", a: "You are the Hearer of du'a", wrong: ["You are the King", "You are the Strong", "You are the Rich"], why: "Indeed, You are the Hearer of supplication." },
+      { q: "Zakariyya made his du'a when he saw Allah's provision with Maryam.", tf: true, why: "At that, Zakariyya called upon his Lord." }
+    ]
+  },
+  {
     slug: "quiet-dua",
     title: "A quiet dua",
     line: "Old and grey, Zakariyya asked Allah quietly for a child.",
@@ -1791,6 +1847,32 @@ const YAHYA = unit("prophet-yahya", "prophets-unit-yahya", "Yahya", [
       { q: "How were Yahya and Isa related?", a: "Cousins", wrong: ["Father and son", "Brothers", "Not related"], why: "They were cousins." },
       { q: "Who were Yahya's parents?", a: "Zakariyya and his wife", wrong: ["Musa and Asiyah", "Dawud and his wife", "Unknown"], why: "Quran 19:7 and 21:90." }
     ]
+  },
+  {
+    slug: "five-commands",
+    title: "Yahya's five commands",
+    line: "Allah gave Yahya five commands to keep and to teach.",
+    facts: ["Jami at-Tirmidhi 2863", "Worship, prayer, fasting, charity, dhikr"],
+    source: hadith("tirmidhi", "2863", "Al-Harith al-Ash'ari", "Sahih (Al-Albani)", "The Prophet ﷺ said: Allah gave Yahya son of Zakariyya five commands to keep and to teach the Children of Isra'il. Yahya gathered the people and told them: worship Allah alone, pray without turning away, fast, give charity, and remember Allah.", "Allah commanded Yahya bin Zakariyya with five commandments to abide by"),
+    difficulty: 3,
+    questions: [
+      { q: "How many commands did Allah give Yahya to teach?", a: "Five", wrong: ["Three", "Seven", "Ten"], why: "Allah commanded Yahya bin Zakariyya with five commandments to abide by." },
+      { q: "What was the first of Yahya's five commands?", a: "Worship Allah alone", wrong: ["Build a tall tower", "Travel to the sea", "Gather much wealth"], why: "The first of them is that you worship Allah and not associate anything with Him." },
+      { q: "Prayer, fasting and charity were among Yahya's commands.", tf: true, why: "Allah commands you to perform Salat, to fast and to give charity." }
+    ]
+  },
+  {
+    slug: "fortress",
+    title: "A strong fortress",
+    line: "Remembering Allah protects you, like a strong fortress.",
+    facts: ["Jami at-Tirmidhi 2863", "Dhikr: remembering Allah"],
+    source: hadith("tirmidhi", "2863", "Al-Harith al-Ash'ari", "Sahih (Al-Albani)", "Yahya told the people: Allah commands you to remember Him. It is like a man chased by an enemy who reaches a strong fortress and is safe inside. In the same way, a servant is kept safe from Shaytan only by remembering Allah.", "he does not protect himself from Ash-Shaitan except by the remembrance of Allah"),
+    difficulty: 3,
+    questions: [
+      { q: "What did Yahya compare remembering Allah to?", a: "A strong fortress", wrong: ["A heavy load", "A long road", "A busy market"], why: "A man whose enemy tracks him until he reaches a fortress in which he protects himself." },
+      { q: "What keeps a servant safe from Shaytan?", a: "Remembering Allah", wrong: ["Staying awake", "Talking a lot", "Being rich"], why: "He does not protect himself from Ash-Shaitan except by the remembrance of Allah." },
+      { q: "Yahya gathered the people to teach them Allah's commands.", tf: true, why: "So he gathered the people, and they filled the masjid and sat upon its balconies." }
+    ]
   }
 ]);
 
@@ -1838,6 +1920,20 @@ const ISA = unit("prophet-isa", "prophets-unit-isa", "Isa", [
     ]
   },
   {
+    slug: "peace-on-me",
+    title: "Peace on the day I was born",
+    line: "Isa said: peace on me at birth, at death, and when raised.",
+    facts: ["Quran 19:33", "Said as a baby in the cradle", "Peace from birth to the Last Day"],
+    quote: quranQuote(19, 33),
+    source: quran(19, 33, "And peace is on me the day I was born, the day I will die, and the day I am raised alive."),
+    difficulty: 2,
+    questions: [
+      { q: "On which days did Isa say peace is on him?", a: "Birth, death, and being raised", wrong: ["Only the day of Eid", "Only the day of rain", "Only on Fridays"], why: "Peace is on me the day I was born, the day I will die, and the day I am raised alive." },
+      { q: "Which day comes last in Isa's words in 19:33?", a: "The day he is raised alive", wrong: ["The day he was born", "The day of the harvest", "The day of the flood"], why: "He named his birth first, then his death, then the day he is raised." },
+      { q: "Isa said these words as a baby in the cradle.", tf: true, why: "He spoke from the cradle, starting with: I am the servant of Allah." }
+    ]
+  },
+  {
     slug: "like-adam",
     title: "Like Adam",
     line: "Isa's creation is like Adam's: Allah said Be, and he was.",
@@ -1863,6 +1959,19 @@ const ISA = unit("prophet-isa", "prophets-unit-isa", "Isa", [
       { q: "How did Isa do his miracles?", a: "By Allah's permission", wrong: ["By his own power", "By magic", "By tricks"], why: "Quran 3:49 says it again and again." },
       { q: "What did Isa make from clay?", a: "The shape of a bird", wrong: ["A house", "A pot", "A camel"], why: "Quran 3:49." },
       { q: "Whom did Isa heal?", a: "The blind and the leper", wrong: ["Only kings", "No one", "Only animals"], why: "Quran 3:49." }
+    ]
+  },
+  {
+    slug: "honest-oath",
+    title: "I believe in Allah",
+    line: "Isa trusted a man who swore by Allah, over his own eyes.",
+    facts: ["Sahih al-Bukhari 3444", "He honored Allah's name"],
+    source: hadith("bukhari", "3444", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: Isa saw a man stealing and asked him: did you steal? He said: no, by Allah, besides whom none has the right to be worshipped. Isa said: I believe in Allah, and I doubt my own eyes.", "I believe in Allah and suspect my eyes"),
+    difficulty: 3,
+    questions: [
+      { q: "What did Isa ask the man?", a: "Did you steal?", wrong: ["Where do you live?", "Are you hungry?", "Who is your father?"], why: "Isa saw a man stealing and asked him if he had stolen." },
+      { q: "What did Isa say when the man swore by Allah?", a: "I believe in Allah", wrong: ["Show me your hands", "Go to the judge", "I saw you clearly"], why: "I believe in Allah and suspect my eyes." },
+      { q: "Isa treated an oath by Allah as a serious thing.", tf: true, why: "He said: I believe in Allah and suspect my eyes." }
     ]
   },
   {
@@ -1905,6 +2014,19 @@ const ISA = unit("prophet-isa", "prophets-unit-isa", "Isa", [
       { q: "Was Isa crucified, as the Quran says?", a: "No", wrong: ["Yes", "Only for a day", "Nobody knows"], why: "They did not crucify him (Quran 4:157)." },
       { q: "What did Allah do with Isa?", a: "Raised him up to Himself", wrong: ["Hid him in a cave", "Made him a king", "Nothing"], why: "Quran 4:158." },
       { q: "What will Isa say about worshipping him and his mother?", a: "I never told them to", wrong: ["It is right", "Only sometimes", "Ask Maryam"], why: "Quran 5:116-117." }
+    ]
+  },
+  {
+    slug: "servant-and-messenger",
+    title: "Allah's servant and messenger",
+    line: "We testify that Isa is Allah's servant and His messenger.",
+    facts: ["Sahih al-Bukhari 3435", "His word, given to Maryam"],
+    source: hadith("bukhari", "3435", "Ubadah ibn as-Samit", "Sahih", "The Prophet ﷺ said: whoever testifies that none has the right to be worshipped but Allah alone, with no partner, that Muhammad is His servant and messenger, that Isa is Allah's servant and messenger, His word that He gave to Maryam and a spirit from Him, and that Paradise and the Fire are true, Allah will admit him into Paradise with the deeds he did, even if they were few.", "His Word which He bestowed on Mary and a Spirit created by Him"),
+    difficulty: 3,
+    questions: [
+      { q: "What do Muslims testify about Isa?", a: "He is Allah's servant and messenger", wrong: ["He was only a king", "He was an angel", "He was a poet"], why: "And that Jesus is Allah's Slave and His Apostle." },
+      { q: "Whom did the Prophet ﷺ call His word given to Maryam?", a: "Isa", wrong: ["Yahya", "Musa", "Ibrahim"], why: "Jesus is Allah's Slave and His Apostle and His Word which He bestowed on Mary." },
+      { q: "A believer also testifies that Paradise and the Fire are true.", tf: true, why: "And that Paradise is true, and Hell is true." }
     ]
   },
   {

@@ -3,35 +3,58 @@ import { hadith, quran, saadi, type DeepUnit, type Question } from "./deepKit";
 import { EID_SECTION, LIFE_UNITS } from "./lifeUnits";
 import { WOMEN_UNITS } from "./womenUnits";
 import { AKHIRAH_SECTION, AKHIRAH_UNITS } from "./akhirahUnits";
+import { AKHIRAH_MORE_UNITS } from "./akhirahMoreUnits";
+import { AKHIRAH_WORLD_UNITS } from "./akhirahWorldUnits";
 import { DUAS_SECTION, DUA_UNITS } from "./duaUnits";
 import { DUA_MORE_UNITS } from "./duaMoreUnits";
+import { DUA_SUNNAH_UNITS } from "./duaSunnahUnits";
+import { DUA_WEATHER_UNITS } from "./duaWeatherUnits";
+import { DUA_MOMENTS_UNITS } from "./duaMomentsUnits";
 import { BAQARAH_UNITS } from "./baqarahUnits";
 import { SURAH_DEPTH_UNITS } from "./surahDepth";
 import { SEERAH_UNITS } from "./seerahUnits";
 import { PROPHET_UNITS } from "./prophetUnits";
 import { AQIDAH_UNITS } from "./aqidahUnits";
 import { AQIDAH_NAMES_UNITS } from "./aqidahNamesUnits";
+import { AQIDAH_FAITH_UNITS } from "./aqidahFaithUnits";
+import { AQIDAH_TRIALS_UNITS } from "./aqidahTrialsUnits";
+import { AQIDAH_SUNNAH_UNITS } from "./aqidahSunnahUnits";
 import { FASTING_UNITS } from "./fastingUnits";
 import { FASTING_MORE_UNITS } from "./fastingMoreUnits";
+import { FASTING_DAY_UNITS } from "./fastingDayUnits";
 import { ZAKAT_UNITS } from "./zakatUnits";
 import { ZAKAT_MORE_UNITS } from "./zakatMoreUnits";
+import { ZAKAT_GIVING_UNITS } from "./zakatGivingUnits";
+import { ZAKAT_WEALTH_UNITS } from "./zakatWealthUnits";
 import { HADITH_UNITS } from "./hadithUnits";
 import { FOUNDATION_MORE_UNITS } from "./foundationMoreUnits";
 import { KIDS_HADITH_UNITS } from "./kidsHadithUnits";
+import { KIDS_ANIMALS_UNITS } from "./kidsAnimalsUnits";
+import { KIDS_MANNERS_UNITS } from "./kidsMannersUnits";
+import { KIDS_HELPING_UNITS } from "./kidsHelpingUnits";
 import { HADITH_STORY_UNITS } from "./hadithStoryUnits";
 import { SAHABA_MORE_UNITS } from "./sahabaMoreUnits";
 import { EID_UNITS } from "./eidUnits";
 import { EID_MORE_UNITS } from "./eidMoreUnits";
 import { INTRO_UNITS } from "./introUnits";
 import { HADITH_BOOK_UNITS, SAHIHAYN_SECTION } from "./hadithBooks";
+import { HADITH_BOOK_MORE_UNITS } from "./hadithBooksMoreUnits";
 import { PRAYER_UNITS } from "./prayerUnits";
 import { PRAYER_MORE_UNITS } from "./prayerMoreUnits";
+import { PRAYER_TOGETHER_UNITS } from "./prayerTogetherUnits";
 import { HAJJ_UNITS } from "./hajjUnits";
 import { HAJJ_MORE_UNITS } from "./hajjMoreUnits";
+import { HAJJ_WAY_UNITS } from "./hajjWayUnits";
+import { HAJJ_MADINAH_UNITS } from "./hajjMadinahUnits";
 import { SAHABA_UNITS } from "./sahabaUnits";
 import { MANNERS_UNITS } from "./mannersUnits";
 import { MANNERS_MORE_UNITS } from "./mannersMoreUnits";
+import { MANNERS_PEOPLE_UNITS } from "./mannersPeopleUnits";
+import { MANNERS_PEACE_UNITS } from "./mannersPeaceUnits";
+import { MANNERS_GATHERING_UNITS } from "./mannersGatheringUnits";
 import { MARRIAGE_UNITS } from "./marriageUnits";
+import { MARRIAGE_MORE_UNITS } from "./marriageMoreUnits";
+import { MARRIAGE_FAMILY_UNITS } from "./marriageFamilyUnits";
 export type { DeepUnit } from "./deepKit";
 import { QURAN_AYAHS } from "./quranAyahs";
 import { SCHOLAR_UNITS, SCHOLARS_SECTION } from "./scholarUnits";
@@ -3083,7 +3106,7 @@ const ASR: DeepUnit = {
 
 const SURAH_DEEP_UNITS: readonly DeepUnit[] = [NAS, FALAQ, IKHLAS, ASR, ...BAQARAH_UNITS, ...SURAH_DEPTH_UNITS, ...INTRO_UNITS];
 
-export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, ...SAHABA_UNITS, MUHAJIRUN, ...SAHABA_MORE_UNITS, FATIHAH, MULK, NAS, FALAQ, IKHLAS, ASR, SPEECH, PARENTS, NEIGHBORS, ANGER, ...MANNERS_UNITS, ...MANNERS_MORE_UNITS, SPOUSES, CHILDREN, ...MARRIAGE_UNITS, ...WOMEN_UNITS, ...LIFE_UNITS, ...EID_UNITS, ...EID_MORE_UNITS, ...SCHOLAR_UNITS, ...AKHIRAH_UNITS, ...DUA_UNITS, ...DUA_MORE_UNITS, ...PROPHET_UNITS, ...SEERAH_UNITS, ...AQIDAH_UNITS, ...AQIDAH_NAMES_UNITS, ...FASTING_UNITS, ...FASTING_MORE_UNITS, ...ZAKAT_UNITS, ...ZAKAT_MORE_UNITS, ...HADITH_UNITS, ...FOUNDATION_MORE_UNITS, ...KIDS_HADITH_UNITS, ...HADITH_STORY_UNITS, ...HADITH_BOOK_UNITS, ...PRAYER_UNITS, ...PRAYER_MORE_UNITS, ...HAJJ_UNITS, ...HAJJ_MORE_UNITS, ...BAQARAH_UNITS, ...SURAH_DEPTH_UNITS];
+export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, ...SAHABA_UNITS, MUHAJIRUN, ...SAHABA_MORE_UNITS, FATIHAH, MULK, NAS, FALAQ, IKHLAS, ASR, SPEECH, PARENTS, NEIGHBORS, ANGER, ...MANNERS_UNITS, ...MANNERS_MORE_UNITS, ...MANNERS_GATHERING_UNITS, ...MANNERS_PEOPLE_UNITS, ...MANNERS_PEACE_UNITS, SPOUSES, CHILDREN, ...MARRIAGE_UNITS, ...MARRIAGE_MORE_UNITS, ...MARRIAGE_FAMILY_UNITS, ...WOMEN_UNITS, ...LIFE_UNITS, ...EID_UNITS, ...EID_MORE_UNITS, ...SCHOLAR_UNITS, ...AKHIRAH_UNITS, ...AKHIRAH_MORE_UNITS, ...AKHIRAH_WORLD_UNITS, ...DUA_UNITS, ...DUA_MORE_UNITS, ...DUA_SUNNAH_UNITS, ...DUA_WEATHER_UNITS, ...DUA_MOMENTS_UNITS, ...PROPHET_UNITS, ...SEERAH_UNITS, ...AQIDAH_UNITS, ...AQIDAH_NAMES_UNITS, ...AQIDAH_FAITH_UNITS, ...AQIDAH_TRIALS_UNITS, ...AQIDAH_SUNNAH_UNITS, ...FASTING_UNITS, ...FASTING_MORE_UNITS, ...FASTING_DAY_UNITS, ...ZAKAT_UNITS, ...ZAKAT_MORE_UNITS, ...ZAKAT_GIVING_UNITS, ...ZAKAT_WEALTH_UNITS, ...HADITH_UNITS, ...FOUNDATION_MORE_UNITS, ...KIDS_HADITH_UNITS, ...KIDS_ANIMALS_UNITS, ...KIDS_MANNERS_UNITS, ...KIDS_HELPING_UNITS, ...HADITH_STORY_UNITS, ...HADITH_BOOK_UNITS, ...HADITH_BOOK_MORE_UNITS, ...PRAYER_UNITS, ...PRAYER_MORE_UNITS, ...PRAYER_TOGETHER_UNITS, ...HAJJ_UNITS, ...HAJJ_MORE_UNITS, ...HAJJ_WAY_UNITS, ...HAJJ_MADINAH_UNITS, ...BAQARAH_UNITS, ...SURAH_DEPTH_UNITS];
 
 // The hand-written answer comes first, so the four choices turn by a stable hash of the question id.
 function turn<T>(id: string, items: T[]): T[] {

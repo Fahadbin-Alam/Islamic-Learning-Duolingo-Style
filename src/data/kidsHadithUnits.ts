@@ -2,7 +2,7 @@ import { hadith, type DeepUnit } from "./deepKit";
 
 // More hadith for the Hadith topic, still a child's path: short sahih sayings of the Prophet ﷺ a young learner can
 // live by, each told with what it means in a child's day. Words that please Allah, small deeds with big rewards,
-// and kindness at home. Number, narrator and grade as sunnah.com gives them.
+// kindness at home, and good friends. Number, narrator and grade as sunnah.com gives them.
 
 const DHIKR: DeepUnit = {
   key: "kids-dhikr",
@@ -295,4 +295,101 @@ const KINDNESS: DeepUnit = {
   ]
 };
 
-export const KIDS_HADITH_UNITS: DeepUnit[] = [DHIKR, SMALL_DEEDS, KINDNESS];
+const FRIENDS: DeepUnit = {
+  key: "kids-friends",
+  topicId: "hadith",
+  branchId: "hadith-friends",
+  branch: { title: "Good friends", description: "Choosing friends, a mirror for your brother, telling him you love him, and good manners when you sit." },
+  name: "good friends",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "choose-friends",
+      title: "Choose good friends",
+      line: "A person follows his friend's religion, so choose friends well.",
+      facts: [
+        "Abu Hurairah heard the Prophet ﷺ say it.",
+        "A person follows the religion of his friend.",
+        "So each of us should think about whom we befriend."
+      ],
+      source: hadith("abudawud", "4833", "Abu Hurairah", "Hasan (Al-Albani)", "The Prophet ﷺ said: a person follows the religion of his friend, so let each of you look at whom he takes as a friend.", "A man follows the religion of his friend; so each one should consider whom he makes his friend"),
+      difficulty: 1,
+      questions: [
+        { q: "Whose religion does a person follow, said the Prophet ﷺ?", a: "His friend's", wrong: ["A stranger's", "No one's", "His enemy's"], why: "Abu Hurairah heard him ﷺ say: a man follows the religion of his friend." },
+        { q: "What should each of us think about?", a: "Whom we take as a friend", wrong: ["What we eat for lunch", "Which game to play", "How fast we can run"], why: "So each one should consider whom he makes his friend." },
+        { q: "Our friends do not change us at all.", tf: false, why: "No. A man follows the religion of his friend." }
+      ]
+    },
+    {
+      slug: "mirror",
+      title: "A mirror for your brother",
+      line: "A believer is a mirror for his brother in faith.",
+      facts: [
+        "The believer is the mirror of the believer.",
+        "He guards his brother against loss.",
+        "He protects him when he is away."
+      ],
+      source: hadith("abudawud", "4918", "Abu Hurairah", "Hasan (Al-Albani)", "The Prophet ﷺ said: the believer is the mirror of the believer. The believer is the brother of the believer: he guards him against loss and protects him when he is away.", "who guards him against loss and protects him when he is absent"),
+      difficulty: 2,
+      questions: [
+        { q: "What did he ﷺ say a believer is for another believer?", a: "A mirror", wrong: ["A stranger", "A servant", "A judge"], why: "He also called the believer a brother who protects him when he is absent." },
+        { q: "What does a believer do for his brother who is away?", a: "Protects him", wrong: ["Forgets him", "Talks about him", "Laughs at him"], why: "He guards him against loss and protects him when he is absent." },
+        { q: "A good friend speaks badly of you when you are away.", tf: false, why: "No. The believer protects his brother when he is away." }
+      ]
+    },
+    {
+      slug: "tell-him",
+      title: "Tell him you love him",
+      line: "If you love someone for Allah's sake, tell him so.",
+      facts: [
+        "A man told the Prophet ﷺ that he loved another man.",
+        "He ﷺ asked: have you told him? Go and tell him.",
+        "The man said: I love you for Allah's sake."
+      ],
+      source: hadith("abudawud", "5125", "Anas ibn Malik", "Hasan (Al-Albani)", "A man said to the Prophet ﷺ: I love this man. He asked: have you told him? He said no. He ﷺ said: tell him. So he went to him and said: I love you for Allah's sake. The other said: may He for whose sake you love me love you.", "Have you informed him? He replied: No. He said: Inform him"),
+      difficulty: 1,
+      questions: [
+        { q: "What did he ﷺ tell the man to do?", a: "Tell him you love him", wrong: ["Keep it a secret", "Give him money", "Write him a poem"], why: "He ﷺ asked if he had told him, then said: Inform him." },
+        { q: "What did the other man answer?", a: "May Allah love you too", wrong: ["Thank you very much", "I do not know you", "Please go away"], why: "May He for Whose sake you love me love you." },
+        { q: "The man loved the other man for Allah's sake.", tf: true, why: "He went to him and said: I love you for Allah's sake." }
+      ]
+    },
+    {
+      slug: "ask-before-sitting",
+      title: "Ask before you sit between two",
+      line: "Do not sit between two people without their permission.",
+      facts: [
+        "Abdullah ibn Amr heard the Prophet ﷺ say it.",
+        "One should not sit between two people.",
+        "You may sit there if the two of them give permission."
+      ],
+      source: hadith("abudawud", "4844", "Abdullah ibn Amr", "Hasan (Al-Albani)", "The Prophet ﷺ said: no one should sit between two people except with their permission.", "One should not sit between two men except with their permission"),
+      difficulty: 1,
+      questions: [
+        { q: "When may you sit between two people?", a: "When they give permission", wrong: ["Whenever you like", "When you are tired", "When you are older"], why: "One should not sit between two men except with their permission." },
+        { q: "Who narrated the manners of sitting between two?", a: "Abdullah ibn Amr", wrong: ["Abu Bakr", "Bilal", "Salman"], why: "Abdullah ibn Amr heard the Prophet ﷺ say it." },
+        { q: "Asking before you sit between two people is good manners.", tf: true, why: "One should not sit between two men except with their permission." }
+      ]
+    },
+    {
+      slug: "good-character",
+      title: "Good character, high rank",
+      line: "Good character lifts a believer to a very high rank.",
+      facts: [
+        "Aishah heard the Prophet ﷺ say it.",
+        "A believer with good character reaches a high rank.",
+        "That is the rank of one who prays at night and fasts by day."
+      ],
+      source: hadith("abudawud", "4798", "Aishah", "Sahih (Al-Albani)", "The Prophet ﷺ said: by his good character a believer reaches the rank of one who prays at night and fasts by day.", "By his good character a believer will attain the degree of one who prays during the night and fasts during the day"),
+      difficulty: 2,
+      questions: [
+        { q: "Whose rank does good character reach?", a: "One who prays at night and fasts by day", wrong: ["One who is very rich", "One who is very strong", "One who travels a lot"], why: "He will attain the degree of one who prays during the night and fasts during the day." },
+        { q: "What lifts a believer to that high rank?", a: "Good character", wrong: ["A loud voice", "Fancy clothes", "Many toys"], why: "He ﷺ said: by his good character a believer will attain that degree." },
+        { q: "Good manners are a great deed in Islam.", tf: true, why: "Good character reaches the rank of one who prays at night and fasts by day." }
+      ]
+    }
+  ]
+};
+
+export const KIDS_HADITH_UNITS: DeepUnit[] = [DHIKR, SMALL_DEEDS, KINDNESS, FRIENDS];
