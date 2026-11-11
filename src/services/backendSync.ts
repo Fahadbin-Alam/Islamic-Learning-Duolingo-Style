@@ -468,11 +468,24 @@ export type LinkedKid = {
 
 export type LinkedParent = { id: number; name: string; avatarInitials: string };
 
-export type FamilyLinks = { kids: LinkedKid[]; parents: LinkedParent[] };
+/**
+ * The family challenge week (family_week in backend/app/api/routes/family.py): lanterns lit by everyone linked into
+ * one family, Monday to today. `people` are only those this account already sees, itself first.
+ */
+export type FamilyWeekPayload = {
+  weekStart: string;
+  members: number;
+  goal: number;
+  lit: number;
+  selfDays: string[];
+  people: { id: number; name: string; avatarInitials: string; today: boolean }[];
+};
 
-export async function fetchFamilyLinks(today: string) {
+export type FamilyLinks = { kids: LinkedKid[]; parents: LinkedParent[]; familyWeek?: FamilyWeekPayload | null };
+
+export async function fetchFamilyLinks(today: string): Promise<FamilyLinks> {
   const body = await backendRequest<FamilyLinks>(`/api/family?today=${encodeURIComponent(today)}`, { headers: authHeaders() });
-  return { kids: body.kids ?? [], parents: body.parents ?? [] };
+  return { kids: body.kids ?? [], parents: body.parents ?? [], familyWeek: body.familyWeek ?? null };
 }
 
 export async function makeFamilyLinkCode() {

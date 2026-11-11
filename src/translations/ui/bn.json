@@ -954,5 +954,15 @@
   "When you see something you like.": "যখন পছন্দের কিছু দেখো।",
   "Word {count} of {total}": "{total}টির মধ্যে {count} নম্বর শব্দ",
   "{count} said out loud": "{count}টি জোরে বলা হয়েছে",
-  "{word}, said": "{word}, বলা হয়েছে"
+  "{word}, said": "{word}, বলা হয়েছে",
+  "Family challenge": "পরিবারের চ্যালেঞ্জ",
+  "Done!": "হয়ে গেছে!",
+  "Last day!": "শেষ দিন!",
+  "{count} of {total} lanterns lit": "{total}টির মধ্যে {count}টি লণ্ঠন জ্বলেছে",
+  "Your family lit every lantern! MashaAllah!": "তোমার পরিবার সব লণ্ঠন জ্বালিয়েছে! মাশাআল্লাহ!",
+  "A new week! Light the lanterns together.": "নতুন সপ্তাহ! সবাই মিলে লণ্ঠন জ্বালাও।",
+  "Every day someone in your family learns, a lantern lights up.": "পরিবারের কেউ যেদিন শেখে, সেদিন একটি লণ্ঠন জ্বলে ওঠে।",
+  "+{count} more": "আরও {count} জন",
+  "Weeks lit together: {count}": "একসাথে জ্বালানো সপ্তাহ: {count}",
+  "{name}, learned today": "{name}, আজ শিখেছে"
 }

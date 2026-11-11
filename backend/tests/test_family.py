@@ -101,3 +101,75 @@ def test_deleting_the_childs_account_removes_the_link(client):
 def test_family_needs_an_account(client):
     assert client.get("/api/family").status_code == 401
     assert client.post("/api/family/code").status_code == 401
+
+
+def link(client, parent, kid):
+    response = client.post("/api/family/kids", headers=parent, json={"code": code_for(client, kid)})
+    assert response.status_code == 201, response.text
+
+
+def family_week(client, headers, today="2026-11-11"):
+    response = client.get(f"/api/family?today={today}", headers=headers)
+    assert response.status_code == 200, response.text
+    return response.json()["familyWeek"]
+
+
+def test_the_family_week_lights_a_lantern_for_each_day_anyone_learns(client):
+    # Wednesday 11 November: the week is Monday 9 to Sunday 15, as in the league.
+    _, mum = register(client, "Mum")
+    _, dad = register(client, "Dad")
+    _, yusuf = register(client, "Yusuf")
+    _, maryam = register(client, "Maryam")
+    link(client, mum, yusuf)
+    link(client, mum, maryam)
+    link(client, dad, yusuf)
+    sync(client, mum, xpByDay={"2026-11-09": 20, "2026-11-11": 10})
+    # Last week's lessons light nothing this week.
+    sync(client, dad, xpByDay={"2026-11-08": 30})
+    sync(client, yusuf, xpByDay={"2026-11-09": 15, "2026-11-10": 15, "2026-11-11": 5})
+    sync(client, maryam, xpByDay={"2026-11-10": 12, "2026-11-12": 40})
+
+    week = family_week(client, mum)
+    assert week["weekStart"] == "2026-11-09"
+    # Dad is in the family through Yusuf, so every phone counts the same four people.
+    assert week["members"] == 4
+    assert week["goal"] == 12
+    assert week["lit"] == 2 + 0 + 3 + 1
+    assert week["selfDays"] == ["2026-11-09", "2026-11-11"]
+    # Mum sees herself and her learners; Dad is only counted, as she does not follow him.
+    assert [(person["name"], person["today"]) for person in week["people"]] == [("Mum", True), ("Yusuf", True), ("Maryam", False)]
+
+    child_week = family_week(client, yusuf)
+    assert (child_week["members"], child_week["goal"], child_week["lit"]) == (4, 12, 6)
+    assert child_week["selfDays"] == ["2026-11-09", "2026-11-10", "2026-11-11"]
+    # A child sees their own grown-ups, never another child's name.
+    assert [person["name"] for person in child_week["people"]] == ["Yusuf", "Mum", "Dad"]
+    assert [person["name"] for person in family_week(client, maryam)["people"]] == ["Maryam", "Mum"]
+    assert [person["name"] for person in family_week(client, dad)["people"]] == ["Dad", "Yusuf"]
+    assert all(set(person) == {"id", "name", "avatarInitials", "today"} for person in child_week["people"])
+
+    # Monday: a new week starts with every lantern out.
+    assert family_week(client, mum, today="2026-11-16")["lit"] == 0
+
+
+def test_a_class_does_not_join_families_together(client):
+    _, teacher = register(client, "Teacher")
+    _, mum = register(client, "Mum")
+    _, ali = register(client, "Ali")
+    link(client, mum, ali)
+    link(client, teacher, ali)
+    for number in range(10):
+        _, learner = register(client, f"Pupil{number}")
+        link(client, teacher, learner)
+
+    week = family_week(client, ali)
+    # Ali's family is Ali and Mum: the teacher's class of 11 is not one family.
+    assert week["members"] == 2
+    assert [person["name"] for person in week["people"]] == ["Ali", "Mum"]
+    assert family_week(client, mum)["members"] == 2
+    assert family_week(client, teacher) is None
+
+
+def test_no_family_no_family_week(client):
+    _, alone = register(client, "Alone")
+    assert family_week(client, alone) is None

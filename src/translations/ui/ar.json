@@ -954,5 +954,15 @@
   "When you see something you like.": "حين ترى شيئًا يعجبك.",
   "Word {count} of {total}": "الكلمة {count} من {total}",
   "{count} said out loud": "قيلت {count} بصوت عالٍ",
-  "{word}, said": "{word}، قيلت"
+  "{word}, said": "{word}، قيلت",
+  "Family challenge": "تحدي العائلة",
+  "Done!": "تم!",
+  "Last day!": "آخر يوم!",
+  "{count} of {total} lanterns lit": "أُضيء {count} من {total} فوانيس",
+  "Your family lit every lantern! MashaAllah!": "أضاءت عائلتك كل الفوانيس! ما شاء الله!",
+  "A new week! Light the lanterns together.": "أسبوع جديد! أضيئوا الفوانيس معًا.",
+  "Every day someone in your family learns, a lantern lights up.": "في كل يوم يتعلّم فيه أحد من عائلتك، يُضاء فانوس.",
+  "+{count} more": "و{count} آخرون",
+  "Weeks lit together: {count}": "أسابيع أضأناها معًا: {count}",
+  "{name}, learned today": "{name}، تعلّم اليوم"
 }
