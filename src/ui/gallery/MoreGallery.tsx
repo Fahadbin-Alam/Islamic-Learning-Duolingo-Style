@@ -1,10 +1,12 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Platform, ScrollView, StyleSheet, View } from "react-native";
+import { localDateKey } from "../../api/islamicLearningApi";
 import { FoundationAssessmentScreen, FoundationDashboard, PracticeComplete } from "../../components/FoundationLearning";
 import { COURSE, SHOP_ITEMS } from "../../data/course";
 import { FOUNDATION_QUESTION_BANK } from "../../data/foundationQuestionBank";
 import { getUiStrings } from "../../i18n";
 import type { CrewMember, FriendBattle } from "../../services/backendSync";
+import { familyWeekStart, type FamilyWeek } from "../../services/familyWeek";
 import {
   advanceFoundationAssessment,
   createEmptyLearnerProfile,
@@ -39,6 +41,8 @@ const STATES = [
   "crew-battles",
   "profile-guest",
   "profile-user",
+  "profile-family",
+  "profile-family-lit",
   "crew-ready",
   "crew-empty",
   "crew-guest",
@@ -64,6 +68,24 @@ const STATES = [
   "practice-complete-unplaced"
 ] as const;
 type State = (typeof STATES)[number];
+
+/** The family challenge on the Me tab: a family of four midweek, or with every lantern lit. */
+function familyWeekDemo(lit: boolean): FamilyWeek {
+  const today = localDateKey();
+  return {
+    weekStart: familyWeekStart(today),
+    today,
+    members: 4,
+    goal: 12,
+    lit: lit ? 13 : 7,
+    people: [
+      { key: "you", name: "", initials: "AR", learnedToday: true, self: true },
+      { key: "p-1", name: "Mum", initials: "M", learnedToday: true },
+      { key: "p-2", name: "Dad", initials: "D", learnedToday: false }
+    ],
+    others: 1
+  };
+}
 
 function readState(): State {
   if (Platform.OS !== "web" || typeof window === "undefined") return "practice-new";
@@ -438,6 +460,7 @@ function Screen({ state }: { state: State }) {
           onToggleSound={noop}
           accent={state === "profile-guest" ? foundation.accentColor : prayer.accentColor}
           mascotVariant={state === "profile-guest" ? foundation.mascot : prayer.mascot}
+          familyWeek={state.startsWith("profile-family") ? familyWeekDemo(state === "profile-family-lit") : undefined}
         />
       </TabFrame>
     );

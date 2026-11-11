@@ -174,7 +174,7 @@ describe("say it out loud: the sheet", () => {
     expect(progress()).toHaveTextContent(`Word 2 of ${SAY_WORDS.length}`);
     expect(screen.getByTestId("say-arabic")).toHaveTextContent(SAY_WORDS[1].arabic);
     expect(lit()).toBe(0);
-    screen.unmount();
+    await screen.unmount();
   });
 
   it("says it again, and stops the count when the learner moves to another word", async () => {
@@ -191,7 +191,7 @@ describe("say it out loud: the sheet", () => {
     await waitSteps(10, 650);
     expect(lit()).toBe(0);
     expect(screen.getByTestId("say-along")).toBeTruthy();
-    screen.unmount();
+    await screen.unmount();
   });
 
   it("steps through the words with the arrows and the chips, all the way round", async () => {
