@@ -1,9 +1,13 @@
 import React, { memo, useEffect, useRef, useState } from "react";
-import { Animated, Easing, Pressable, StyleSheet, Text, View } from "react-native";
+import { Animated, Easing, Image, Pressable, StyleSheet, Text, View } from "react-native";
+import type { LessonPicture } from "../data/lessonPictures";
 import { isRtlLanguage } from "../i18n";
 import { ArabicText, isArabicOnly, isQuranText, withHonorifics } from "./ArabicText";
 import { Icon, type IconName } from "./Icon";
+import { photoAspect } from "./lesson/LessonPhoto";
+import { LiveFrame } from "./lesson/LivePicture";
 import { noBreakHyphens } from "./lesson/lessonText";
+import { PICTURE_LIFE } from "./lesson/pictureLife";
 import { useShake } from "./PopIn";
 import { useReduceMotion } from "./motion";
 import { Sparkle } from "./reactions";
@@ -32,6 +36,8 @@ export type ChoiceTileProps = {
    * Arabic answer), for a set of tiles too tall for its screen even tight (see sheetFit's FIT_STEPS).
    */
   smallText?: boolean;
+  /** A picture of the answer (a place), shown moving at the tile's start, like a picture card. */
+  picture?: LessonPicture;
   testID?: string;
   accessibilityLabel?: string;
 };
@@ -117,6 +123,7 @@ const TileFace = memo(function TileFace({
   tight,
   long: longProp,
   smallText,
+  picture,
   testID,
   accessibilityLabel,
   rtl
@@ -161,6 +168,13 @@ const TileFace = memo(function TileFace({
       {badge && !square ? (
         <View style={[styles.badge, { borderColor: look.badgeBorder }]}>
           <Text style={[styles.badgeText, { color: look.badgeText }]}>{badge}</Text>
+        </View>
+      ) : null}
+      {picture && !square ? (
+        <View style={[styles.picture, compact || tight ? styles.pictureSmall : null, { borderColor: look.border }]} testID={testID ? `${testID}-picture` : undefined}>
+          <LiveFrame aspect={photoAspect(picture)} life={PICTURE_LIFE[picture.id]} cheer={bursts || undefined}>
+            <Image source={picture.image} style={styles.pictureImage} resizeMode="cover" />
+          </LiveFrame>
         </View>
       ) : null}
       {icon ? (
@@ -363,6 +377,25 @@ const styles = StyleSheet.create({
   squareFaceCompact: {
     minHeight: 104,
     paddingVertical: 12
+  },
+  picture: {
+    width: 64,
+    height: 64,
+    borderRadius: 12,
+    borderWidth: 2,
+    overflow: "hidden",
+    marginEnd: 12,
+    backgroundColor: "#EEF3F0"
+  },
+  pictureSmall: {
+    width: 48,
+    height: 48,
+    borderRadius: 10,
+    marginEnd: 10
+  },
+  pictureImage: {
+    width: "100%",
+    height: "100%"
   },
   rowIcon: {
     marginEnd: 12
