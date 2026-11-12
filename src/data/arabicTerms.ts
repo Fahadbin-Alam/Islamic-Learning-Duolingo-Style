@@ -462,7 +462,10 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "foundation-looking-neat": { ar: "التجمل", translit: "At-tajammul", meaning: "Looking your best" },
   "manners-salam-and-visitors": { ar: "السلام والزائر", translit: "As-salam waz-za'ir", meaning: "Salam and the visitor" },
   "prayer-masjid-sunnahs": { ar: "آداب المسجد", translit: "Adab al-masjid", meaning: "The manners of the masjid" },
-  "sahaba-small-stories": { ar: "قصص الصحابة", translit: "Qisas as-Sahabah", meaning: "Stories of the Companions" }
+  "sahaba-small-stories": { ar: "قصص الصحابة", translit: "Qisas as-Sahabah", meaning: "Stories of the Companions" },
+  "hajj-as-he-taught-it": { ar: "خذوا مناسككم", translit: "Khudhu manasikakum", meaning: "Take your rites from me" },
+  "foundation-bathroom": { ar: "آداب الخلاء", translit: "Adab al-khala'", meaning: "The manners of the toilet" },
+  "manners-words-of-a-believer": { ar: "كلام المؤمن", translit: "Kalam al-mu'min", meaning: "The believer's speech" }
 };
 
 export const NODE_ARABIC: Record<string, ArabicTerm> = {
@@ -983,7 +986,7 @@ const LEARN_FORMS = [
   "الرِّفْقُ بِالْأَطْفَالِ", "كَيْفَ أَسْلَمُوا", "اغْتِنَامُ رَمَضَانَ",
   "مَكَّةُ الْمُكَرَّمَةُ", "الْإِخْلَاصُ لِلَّهِ", "آدَابُ الْجُمُعَةِ",
   "كِتَابُ الْفَضَائِلِ", "سُنَنُ الطَّعَامِ وَالشَّرَابِ", "أَسْئِلَةُ الصَّحَابَةِ",
-  "التَّزَوُّدُ لِلْآخِرَةِ", "الدِّقَّةُ فِي الرِّوَايَةِ", "آدَابُ التِّلَاوَةِ", "أَدْعِيَةٌ نَبَوِيَّةٌ", "صَلَاةُ اللَّيْلِ", "التَّجَمُّلُ", "السَّلَامُ وَالزَّائِرُ", "آدَابُ الْمَسْجِدِ", "قِصَصُ الصَّحَابَةِ",
+  "التَّزَوُّدُ لِلْآخِرَةِ", "الدِّقَّةُ فِي الرِّوَايَةِ", "آدَابُ التِّلَاوَةِ", "أَدْعِيَةٌ نَبَوِيَّةٌ", "صَلَاةُ اللَّيْلِ", "التَّجَمُّلُ", "السَّلَامُ وَالزَّائِرُ", "آدَابُ الْمَسْجِدِ", "قِصَصُ الصَّحَابَةِ", "خُذُوا مَنَاسِكَكُمْ", "آدَابُ الْخَلَاءِ", "كَلَامُ الْمُؤْمِنِ",
   "الْعُمْرَةُ", "الْبَيْتُ الْحَرَامُ", "الْمَسَاجِدُ الثَّلَاثَةُ",
   ...SURAH_NAMES.map((name) => `سُورَةُ ${name}`)
 ];
