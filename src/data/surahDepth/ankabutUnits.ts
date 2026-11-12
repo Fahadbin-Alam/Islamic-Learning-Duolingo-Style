@@ -943,7 +943,7 @@ const ANKABUT_FOUR: DeepUnit = {
       line: "They asked to hasten it, yet it will surely come to deniers.",
       facts: ["Allah's promise is true", "Turn back to Allah now"],
       quote: q29(54),
-      source: ik(54, "They kept asking for the punishment to come quickly, but it will certainly reach the deniers. A wise person repents while there is time.", "they ask you to hasten on the punishment, but it will undoubtedly befall them"),
+      source: ik(54, "They kept asking for the punishment to come quickly, but it will certainly reach the deniers. A wise person repents while there is time.", "hasten on the punishment, but it will undoubtedly befall them"),
       difficulty: 3,
       questions: [
         { q: "What did they ask to hasten, in 29:54?", a: "The torment", wrong: ["The rain", "The harvest", "The trade"], why: "They ask you to hasten on the torment." },

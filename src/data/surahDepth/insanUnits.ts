@@ -291,7 +291,7 @@ const INSAN_TWO: DeepUnit = {
       line: "Jannah and silk are the reward for being patient.",
       facts: ["Sabr: patience", "Leaving desires for Allah"],
       quote: q76(12),
-      source: ik(12, "Abu Sulayman Ad-Darani said they were patient in leaving off their desires in this world.", "Because they were patient in leaving off their desires in the world"),
+      source: ik(12, "Abu Sulayman Ad-Darani said they were patient in leaving off their desires in this world.", "they were patient in leaving off their desires in the world"),
       difficulty: 2,
       questions: [
         { q: "What is their reward, per 76:12?", a: "Paradise and silken garments", wrong: ["Gold coins", "A big army", "Fame"], why: "And their recompense shall be Paradise, and silken garments, because they were patient." },

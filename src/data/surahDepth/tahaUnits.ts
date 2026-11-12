@@ -291,7 +291,7 @@ const TAHA_ONE: DeepUnit = {
       line: "Afraid, they heard: I am with you both, hearing and seeing.",
       facts: ["Allah protects His Messengers", "Nothing is hidden"],
       quote: q20(46),
-      source: ik(46, "Musa and Harun feared Fir'awn would harm them. Allah told them not to fear, for He was with them, hearing and seeing, and Fir'awn could do nothing without His leave.", "I am with you by My protection, My help and My support"),
+      source: ik(46, "Musa and Harun feared Fir'awn would harm them. Allah told them not to fear, for He was with them, hearing and seeing, and Fir'awn could do nothing without His leave.", "am with you by My protection, My help and My support"),
       difficulty: 2,
       questions: [
         { q: "What did they fear, in 20:45?", a: "That Fir'awn would harm them", wrong: ["Getting lost", "The sea", "Hunger"], why: "Verily, we fear lest he should hasten to punish us or lest he should transgress." },
@@ -668,7 +668,7 @@ const TAHA_TWO: DeepUnit = {
       line: "The calf was destroyed; your God is only Allah, Who knows all.",
       facts: ["No god but Him", "His knowledge covers all"],
       quote: q20(98),
-      source: ik(98, "Musa sent As-Samiri away and said the calf would be burned and scattered in the sea. Then he said: your God is only Allah, none is worthy of worship but Him, and He knows everything.", "Your God is only Allah, the One Whom there is no true God except Him"),
+      source: ik(98, "Musa sent As-Samiri away and said the calf would be burned and scattered in the sea. Then he said: your God is only Allah, none is worthy of worship but Him, and He knows everything.", "is only Allah, the One Whom there is no true God except Him"),
       difficulty: 5,
       questions: [
         { q: "What would happen to the calf, in 20:97?", a: "Burned and scattered in the sea", wrong: ["Kept in a temple", "Given away", "Buried with gold"], why: "We will certainly burn it, and scatter its particles in the sea." },

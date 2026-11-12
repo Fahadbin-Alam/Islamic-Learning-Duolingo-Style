@@ -193,7 +193,7 @@ const TAGHABUN_ONE: DeepUnit = {
       line: "Those who denied the truth tasted the results of their deeds.",
       facts: ["Deeds have results", "In this life and the next"],
       quote: q64(5),
-      source: ik(5, "Ibn Kathir says they tasted the bad results of their denial in this world, and the Hereafter holds more.", "They tasted the evil consequences of their denial and sinful actions"),
+      source: ik(5, "Ibn Kathir says they tasted the bad results of their denial in this world, and the Hereafter holds more.", "tasted the evil consequences of their denial and sinful actions"),
       difficulty: 3,
       questions: [
         { q: "What did they taste?", a: "The results of their denial", wrong: ["Sweet fruit", "Cool water", "Victory"], why: "They tasted the evil consequences of their denial and sinful actions." },
@@ -276,7 +276,7 @@ const TAGHABUN_TWO: DeepUnit = {
       line: "On that Day, we are told of every deed, big or small.",
       facts: ["Nothing is forgotten", "Small deeds count too"],
       quote: q64(7),
-      source: ik(7, "Ibn Kathir says people will be informed of all their actions, major or minor, big or small.", "you will be informed of all of your actions, whether major or minor, big or small"),
+      source: ik(7, "Ibn Kathir says people will be informed of all their actions, major or minor, big or small.", "be informed of all of your actions, whether major or minor, big or small"),
       difficulty: 2,
       questions: [
         { q: "Which deeds will we be told about?", a: "All, big or small", wrong: ["Only big ones", "Only bad ones", "Only the last one"], why: "You will be informed of all of your actions, whether major or minor, big or small." },
@@ -638,7 +638,7 @@ const TAGHABUN_FOUR: DeepUnit = {
       line: "Fear Allah as much as you are able; He asks no more.",
       facts: ["Allah is kind", "Do your best"],
       quote: q64(16),
-      source: ik(16, "Ibn Kathir says have Taqwa of Allah as much as you can means as much as you are able to bear.", "as much as you are able and can bear or endure"),
+      source: ik(16, "Ibn Kathir says have Taqwa of Allah as much as you can means as much as you are able to bear.", "much as you are able and can bear or endure"),
       difficulty: 2,
       questions: [
         { q: "How much Taqwa does 64:16 ask?", a: "As much as you can", wrong: ["More than you can", "None at all", "Only on Fridays"], why: "So have Taqwa of Allah as much as you can." },

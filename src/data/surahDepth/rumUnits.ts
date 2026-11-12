@@ -876,7 +876,7 @@ const RUM_FOUR: DeepUnit = {
       line: "See how Allah revives dead earth; so He will raise the dead.",
       facts: ["Rain is His mercy", "Resurrection is certain"],
       quote: q30(50),
-      source: ik(50, "Rain is the trace of Allah's mercy. Reviving dead earth points to reviving people's bodies after they have turned to nothing.", "Thus Allah draws attention to the revival of people"),
+      source: ik(50, "Rain is the trace of Allah's mercy. Reviving dead earth points to reviving people's bodies after they have turned to nothing.", "Thus Allah draws attention to the revival"),
       difficulty: 3,
       questions: [
         { q: "What should we look at, in 30:50?", a: "The effects of Allah's mercy", wrong: ["The stars only", "Our wealth", "The markets"], why: "Look then at the effects of Allah's mercy." },

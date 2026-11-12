@@ -179,7 +179,7 @@ const MARYAM_ONE: DeepUnit = {
       line: "Peace on Yahya at birth, at death, and when raised again.",
       facts: ["Three lonely moments", "Honoured with safety"],
       quote: q19(15),
-      source: ik(15, "Allah gave Yahya peace on the day of his birth, his death and his raising. Sufyan said these are the three loneliest times for a person.", "This means that he had security and safety in these three circumstances"),
+      source: ik(15, "Allah gave Yahya peace on the day of his birth, his death and his raising. Sufyan said these are the three loneliest times for a person.", "means that he had security and safety in these three circumstances"),
       difficulty: 2,
       questions: [
         { q: "On which days is peace on Yahya, in 19:15?", a: "Birth, death and being raised", wrong: ["Friday only", "Eid days", "His wedding"], why: "Peace be on him the day he was born, and the day he dies, and the day he will be raised up to life again." },

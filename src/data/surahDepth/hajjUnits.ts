@@ -738,7 +738,7 @@ const HAJJ_THREE: DeepUnit = {
       line: "Allah gave us life, will cause us to die, then raise us.",
       facts: ["From nothing to life", "Raised on the Day of Resurrection"],
       quote: q22(66),
-      source: ik(66, "Allah gave you life after you were nothing, then will cause you to die, then give you life again on the Day of Resurrection. Yet man is so often ungrateful.", "He gave you life after you were nothing, and brought you into existence"),
+      source: ik(66, "Allah gave you life after you were nothing, then will cause you to die, then give you life again on the Day of Resurrection. Yet man is so often ungrateful.", "gave you life after you were nothing, and brought you into existence"),
       difficulty: 4,
       questions: [
         { q: "What order does 22:66 give?", a: "Life, death, then life again", wrong: ["Death, then nothing", "Life forever here", "Life, then nothing"], why: "It is He, Who gave you life, and then will cause you to die, and will again give you life." },
@@ -836,7 +836,7 @@ const HAJJ_THREE: DeepUnit = {
       line: "Allah has put no hardship on us in this religion.",
       facts: ["The sick may pray sitting", "The traveller shortens prayer"],
       quote: q22(78),
-      source: hadith("bukhari", "1117", "Imran ibn Husayn", "Sahih", "The Prophet ﷺ told a sick man: pray standing; if you cannot, pray sitting; and if you cannot, pray lying on your side.", "Pray while standing and if you can"),
+      source: hadith("bukhari", "1117", "Imran ibn Husayn", "Sahih", "The Prophet ﷺ told a sick man: pray standing; if you cannot, pray sitting; and if you cannot, pray lying on your side.", "Pray while standing and if you can … pray while sitting"),
       difficulty: 5,
       questions: [
         { q: "What has Allah not placed on us, in 22:78?", a: "Hardship in religion", wrong: ["Any prayer", "Any duty", "Any reward"], why: "And has not laid upon you in religion any hardship." },

@@ -123,7 +123,7 @@ const YASIN_ONE: DeepUnit = {
       line: "The Word proved true on most of them; they will not believe.",
       facts: ["Allah knew they would refuse", "Faith is a gift"],
       quote: q36(7),
-      source: ik(7, "Allah decreed in the Preserved Tablet that most of them would not believe in Him or His Messengers.", "so they will not believe.) in Allah, or in His Messengers"),
+      source: ik(7, "Allah decreed in the Preserved Tablet that most of them would not believe in Him or His Messengers.", "will not believe.) in Allah, or in His Messengers"),
       difficulty: 4,
       questions: [
         { q: "What proved true, in 36:7?", a: "The Word against most", wrong: ["Their poems", "Their dreams", "Their trade"], why: "Indeed the Word has proved true against most of them." },
@@ -669,7 +669,7 @@ const YASIN_TWO: DeepUnit = {
       line: "If Allah willed, the sea could take them, with none to help.",
       facts: ["Safety at sea is a mercy", "No one else can save"],
       quote: q36(43),
-      source: ik(43, "There would be no one to save them from their predicament.", "there will be no one to save them from their predicament"),
+      source: ik(43, "There would be no one to save them from their predicament.", "will be no one to save them from their predicament"),
       difficulty: 3,
       questions: [
         { q: "Who is meant, in 36:43, per Ibn Kathir?", a: "Those aboard ships", wrong: ["Those in houses", "Birds", "Fish"], why: "And if We will, We shall drown them, means, those who are on board the ships." },

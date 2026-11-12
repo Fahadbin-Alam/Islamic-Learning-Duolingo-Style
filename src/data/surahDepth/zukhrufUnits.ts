@@ -1114,7 +1114,7 @@ const ZUKHRUF_FOUR: DeepUnit = {
       line: "Paradise is inherited by Allah's mercy; ranks follow deeds.",
       facts: ["Entry is by Allah's mercy", "Higher ranks come from good deeds"],
       quote: q43(72),
-      source: ik(72, "Ibn Kathir says no one enters Paradise by deeds alone but by Allah's mercy, while ranks depend on deeds.", "the varying ranks and degrees of Paradise will be attained according to one"),
+      source: ik(72, "Ibn Kathir says no one enters Paradise by deeds alone but by Allah's mercy, while ranks depend on deeds.", "the varying ranks and degrees of Paradise will be attained according to one … righteous deeds"),
       difficulty: 4,
       questions: [
         { q: "Why do they inherit Paradise, in 43:72?", a: "Because of their deeds", wrong: ["Because of wealth", "Because of family name", "By chance"], why: "Because of your deeds that you used to do." },

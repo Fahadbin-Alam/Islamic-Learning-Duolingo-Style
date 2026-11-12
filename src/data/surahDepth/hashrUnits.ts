@@ -137,7 +137,7 @@ const HASHR_ONE: DeepUnit = {
       line: "They thought their strong forts would protect them from Allah.",
       facts: ["Their forts were very strong", "Nothing protects against Allah"],
       quote: q59(2),
-      source: ik(2, "Ibn Kathir says they thought their fortifications would save them from Allah, but they did not help them in the least.", "their fortifications will save them from Allah"),
+      source: ik(2, "Ibn Kathir says they thought their fortifications would save them from Allah, but they did not help them in the least.", "their fortifications will save them"),
       difficulty: 2,
       questions: [
         { q: "What did they think would protect them?", a: "Their fortresses", wrong: ["Their camels", "Their songs", "Their clothes"], why: "And they thought that their fortresses would defend them from Allah!" },
@@ -458,7 +458,7 @@ const HASHR_TWO: DeepUnit = {
       line: "Do what the Messenger ﷺ commands, and avoid what he forbids.",
       facts: ["A rule for every Muslim", "He only commands good"],
       quote: q59(7),
-      source: ik(7, "Ibn Kathir says whatever the Messenger ﷺ commands you, do it, and whatever he forbids you, avoid it; he only commands righteousness.", "whatever the Messenger ﷺ commands you, then do it and whatever he forbids you, then avoid it"),
+      source: ik(7, "Ibn Kathir says whatever the Messenger ﷺ commands you, do it, and whatever he forbids you, avoid it; he only commands righteousness.", "whatever the Messenger commands you, then do it and whatever he forbids you, then avoid it"),
       difficulty: 2,
       questions: [
         { q: "What should we do with what the Messenger ﷺ gives?", a: "Take it", wrong: ["Ignore it", "Return it", "Hide it"], why: "And whatsoever the Messenger ﷺ gives you, take it." },

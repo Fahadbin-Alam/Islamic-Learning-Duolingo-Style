@@ -502,7 +502,7 @@ const IMRAN_ONE: DeepUnit = {
       line: "Good news of a Word from Allah: Al-Masih, Isa son of Maryam.",
       facts: ["Honored in both worlds", "Named after his mother"],
       quote: q3(45),
-      source: ik(45, "The angels gave Maryam good news of a son made by a word from Allah, Be. He was called Al-Masih because when he touched the sick they were healed by Allah's leave, and Isa son of Maryam because he had no father.", "those afflicted with an illness, they would be healed by Allah"),
+      source: ik(45, "The angels gave Maryam good news of a son made by a word from Allah, Be. He was called Al-Masih because when he touched the sick they were healed by Allah's leave, and Isa son of Maryam because he had no father.", "those afflicted with an illness, they would be healed"),
       difficulty: 3,
       questions: [
         { q: "Why is Isa called the son of Maryam, Ibn Kathir says?", a: "He had no father", wrong: ["To honor a king", "It was a custom", "His father asked it"], why: "Relating him to his mother." },
@@ -697,7 +697,7 @@ const IMRAN_TWO: DeepUnit = {
       line: "Some return a fortune they hold; some hold back even a coin.",
       facts: ["Qintar: a huge amount", "Allah loves the mindful"],
       quote: q3(75),
-      source: ik(75, "Among the People of the Book is one who, if trusted with a great fortune, gives it back, and one who, if trusted with a single coin, will not return it unless you keep demanding. Whoever keeps his promise and fears Allah, Allah loves the mindful.", "if entrusted with a single silver coin, will not repay it unless you constantly stand demanding"),
+      source: ik(75, "Among the People of the Book is one who, if trusted with a great fortune, gives it back, and one who, if trusted with a single coin, will not return it unless you keep demanding. Whoever keeps his promise and fears Allah, Allah loves the mindful.", "entrusted with a single silver coin, will not repay it unless you constantly stand demanding"),
       difficulty: 3,
       questions: [
         { q: "What is a 'qintar' in 3:75?", a: "A huge amount of wealth", wrong: ["A small coin", "A camel", "A book"], why: "A great amount of money." },
@@ -809,7 +809,7 @@ const IMRAN_TWO: DeepUnit = {
       line: "You will not reach true goodness until you give what you love.",
       facts: ["Al-birr: true goodness", "Allah knows what you give"],
       quote: q3(92),
-      source: ik(92, "You will not attain al-birr, true goodness, until you spend from what you love. Amr ibn Maymun said al-birr here means Paradise. Whatever good you spend, Allah knows it.", "By no means shall you attain Al-Birr) is in reference to attaining Paradise"),
+      source: ik(92, "You will not attain al-birr, true goodness, until you spend from what you love. Amr ibn Maymun said al-birr here means Paradise. Whatever good you spend, Allah knows it.", "shall you attain Al-Birr) is in reference to attaining Paradise"),
       difficulty: 4,
       questions: [
         { q: "How do you reach al-birr, in 3:92?", a: "By giving from what you love", wrong: ["By giving what you dislike", "By keeping everything", "By giving once"], why: "Hatta tunfiqu mimma tuhibbun." },
@@ -963,7 +963,7 @@ const IMRAN_TWO: DeepUnit = {
       line: "On that Day some faces will shine; they live in Allah's mercy.",
       facts: ["Faces bright and dark", "Allah wants no injustice"],
       quote: q3(107),
-      source: ik(107, "On the Day of Resurrection some faces will become bright and some dark. Those whose faces are bright will be in Allah's mercy, Paradise, forever. These are the ayahs of Allah, and Allah wills no injustice to anyone.", "And for those whose faces will become white, they will be in Allah"),
+      source: ik(107, "On the Day of Resurrection some faces will become bright and some dark. Those whose faces are bright will be in Allah's mercy, Paradise, forever. These are the ayahs of Allah, and Allah wills no injustice to anyone.", "And for those whose faces will become white, they will be in … mercy"),
       difficulty: 4,
       questions: [
         { q: "Where will the bright faces be, in 3:107?", a: "In Allah's mercy", wrong: ["In the market", "In a desert", "Nowhere"], why: "Fa-fi rahmatillah." },
@@ -1046,7 +1046,7 @@ const IMRAN_THREE: DeepUnit = {
       line: "The Prophet ﷺ left home at dawn to place the believers at Uhud.",
       facts: ["Shawwal, 3 AH", "A Saturday"],
       quote: q3(121),
-      source: ik(121, "Most scholars say these ayahs describe the battle of Uhud, which happened on a Saturday in Shawwal in the third year after the Hijrah.", "The battle of Uhud occurred on a Saturday, in the month of Shawwal on the third year of Hijrah"),
+      source: ik(121, "Most scholars say these ayahs describe the battle of Uhud, which happened on a Saturday in Shawwal in the third year after the Hijrah.", "battle of Uhud occurred on a Saturday, in the month of Shawwal on the third year of Hijrah"),
       difficulty: 4,
       questions: [
         { q: "Which battle do ayahs 121 onward of Ali 'Imran describe?", a: "Uhud", wrong: ["Badr", "Khaybar", "Tabuk"], why: "Most scholars say Uhud." },
@@ -1200,7 +1200,7 @@ const IMRAN_THREE: DeepUnit = {
       line: "No soul dies except by Allah's leave, at a written time.",
       facts: ["Kitaban mu'ajjala", "Reward of the grateful"],
       quote: q3(145),
-      source: ik(145, "No person can die except by Allah's leave, at a term written down. Whoever wants the reward of this world, Allah gives him some of it; whoever wants the reward of the Hereafter, Allah gives him of it, and Allah rewards the grateful.", "And no person can ever die except by Allah"),
+      source: ik(145, "No person can die except by Allah's leave, at a term written down. Whoever wants the reward of this world, Allah gives him some of it; whoever wants the reward of the Hereafter, Allah gives him of it, and Allah rewards the grateful.", "And no person can ever die except by … leave and at an appointed term"),
       difficulty: 5,
       questions: [
         { q: "When does a soul die, in 3:145?", a: "At a time Allah has written", wrong: ["Whenever luck says", "Only when old", "Never"], why: "Kitaban mu'ajjala." },

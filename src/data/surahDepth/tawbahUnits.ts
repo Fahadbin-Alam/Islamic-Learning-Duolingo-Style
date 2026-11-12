@@ -375,7 +375,7 @@ const TAWBAH_TWO: DeepUnit = {
       line: "Trying to put out Allah's light is like blowing at the sun.",
       facts: ["His light will be perfected", "Even if disbelievers hate it"],
       quote: q9(32),
-      source: ik(32, "Those who try to put out the guidance with lies are like someone who tries to put out the sun or the moon by blowing at it. They will never manage it.", "extinguish the light of the sun or the moon by blowing at them"),
+      source: ik(32, "Those who try to put out the guidance with lies are like someone who tries to put out the sun or the moon by blowing at it. They will never manage it.", "the light of the sun or the moon by blowing at them"),
       difficulty: 4,
       questions: [
         { q: "What is trying to put out Allah's light like, per Ibn Kathir?", a: "Blowing at the sun", wrong: ["Climbing a hill", "Digging a well", "Lighting a lamp"], why: "Extinguish the light of the sun or the moon by blowing at them." },

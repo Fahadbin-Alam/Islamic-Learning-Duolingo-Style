@@ -193,7 +193,7 @@ const HUMAZAH_TWO: DeepUnit = {
       line: "Allah asks what Al-Hutamah is, then says: His kindled fire.",
       facts: ["Al-Muqadah: kindled", "Reaching the hearts"],
       quote: q104(6),
-      source: ik(6, "Allah explains Al-Hutamah: the fire of Allah, kindled, which leaps up over the hearts.", "The fire of Allah, Al-Muqadah, which leaps up over the hearts"),
+      source: ik(6, "Allah explains Al-Hutamah: the fire of Allah, kindled, which leaps up over the hearts.", "of Allah, Al-Muqadah, which leaps up over the hearts"),
       difficulty: 2,
       questions: [
         { q: "What does 104:5 ask?", a: "What will make you know Al-Hutamah?", wrong: ["Where is the sea?", "Who is the king?", "When is the harvest?"], why: "And what will make you know what Al-Hutamah is?" },

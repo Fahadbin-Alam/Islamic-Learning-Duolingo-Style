@@ -717,7 +717,7 @@ const IBRAHIM_FOUR: DeepUnit = {
       line: "Allah keeps His promise; the earth and heavens will be changed.",
       facts: ["All appear before the One", "His promise to His Messengers"],
       quote: q14(48),
-      source: ik(47, "Allah never breaks His promise to give His Messengers victory. On the Day of Resurrection the earth will be changed to another earth, and so will the heavens, and all will appear before Allah, the One.", "the earth will be changed to an earth other than this earth that we know and recognize"),
+      source: ik(47, "Allah never breaks His promise to give His Messengers victory. On the Day of Resurrection the earth will be changed to another earth, and so will the heavens, and all will appear before Allah, the One.", "be changed to an earth other than this earth that we know and recognize"),
       difficulty: 4,
       questions: [
         { q: "Will Allah fail His promise to His Messengers, in 14:47?", a: "Never", wrong: ["Sometimes", "If they ask", "Only once"], why: "So think not that Allah will fail to keep His promise to His Messengers." },

@@ -277,7 +277,7 @@ const FUSSILAT_ONE: DeepUnit = {
       line: "Thamud were shown the truth, but chose blindness over guidance.",
       facts: ["Salih made the truth clear", "They harmed the she-camel"],
       quote: q41(17),
-      source: ik(17, "Ibn Kathir says Allah made the truth clear to Thamud through their Prophet Salih, but they opposed him.", "We showed them the truth and made it clear to them through the words of their Prophet Salih"),
+      source: ik(17, "Ibn Kathir says Allah made the truth clear to Thamud through their Prophet Salih, but they opposed him.", "showed them the truth and made it clear to them through the words of their Prophet Salih"),
       difficulty: 2,
       questions: [
         { q: "What did Thamud prefer, in 41:17?", a: "Blindness over guidance", wrong: ["Guidance", "Travel", "Trade"], why: "But they preferred blindness to guidance." },
@@ -444,7 +444,7 @@ const FUSSILAT_TWO: DeepUnit = {
       line: "Allah will repay them for the worst of what they did.",
       facts: ["A warning for blocking the Quran", "Allah repays with justice"],
       quote: q41(27),
-      source: ik(27, "Ibn Kathir says this is in return for what they did when they heard the Quran.", "in return for what they do when they hear the Qur"),
+      source: ik(27, "Ibn Kathir says this is in return for what they did when they heard the Quran.", "in return for what they do when they hear"),
       difficulty: 3,
       questions: [
         { q: "What will Allah requite them for, in 41:27?", a: "The worst of what they did", wrong: ["Their good deeds", "Their sleep", "Their travels"], why: "Certainly, We shall requite them the worst of what they used to do." },
@@ -737,7 +737,7 @@ const FUSSILAT_THREE: DeepUnit = {
       line: "Nothing is said to you but what was said to Messengers before.",
       facts: ["They were rejected too", "So be patient like them"],
       quote: q41(43),
-      source: ik(43, "Qatadah said just as the Messengers before bore their people's insults with patience, so too the Prophet ﷺ must be patient.", "Just as they bore their people"),
+      source: ik(43, "Qatadah said just as the Messengers before bore their people's insults with patience, so too the Prophet ﷺ must be patient.", "Just as they bore their … insults with patience"),
       difficulty: 2,
       questions: [
         { q: "What was said to the Prophet ﷺ, in 41:43?", a: "What was said to Messengers before", wrong: ["Something brand new", "Only praise", "Nothing at all"], why: "Nothing is said to you except what was said to the Messengers before you." },

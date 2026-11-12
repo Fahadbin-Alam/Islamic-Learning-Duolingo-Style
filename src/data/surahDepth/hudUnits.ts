@@ -1043,7 +1043,7 @@ const HUD_FIVE: DeepUnit = {
       line: "Give full measure; the honest profit Allah leaves you is better.",
       facts: ["Fair when giving and taking", "Do not spread corruption"],
       quote: q11(86),
-      source: ik(86, "The profit you earn from honest trade with full measure is better for you than wrongly taking people's wealth.", "is better for you than wrongfully taking the wealth of the people"),
+      source: ik(86, "The profit you earn from honest trade with full measure is better for you than wrongly taking people's wealth.", "better for you than wrongfully taking the wealth of the people"),
       difficulty: 2,
       questions: [
         { q: "What must they give, in 11:85?", a: "Full measure and weight", wrong: ["Half measure", "No measure", "Extra taxes"], why: "Give full measure and weight in justice." },

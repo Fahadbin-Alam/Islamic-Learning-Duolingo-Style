@@ -124,7 +124,7 @@ const TARIQ_ONE: DeepUnit = {
       line: "Allah, who made us from a drop, can easily bring us back.",
       facts: ["Raj': bringing back", "Starting is harder than repeating"],
       quote: q86(8),
-      source: ik(8, "Ibn Kathir says whoever can begin creation is surely able to repeat it, a proof given many times in the Quran.", "whoever is able to begin the creation then he surely is able to repeat it"),
+      source: ik(8, "Ibn Kathir says whoever can begin creation is surely able to repeat it, a proof given many times in the Quran.", "whoever is able to begin the creation then he is also able to repeat it"),
       difficulty: 2,
       questions: [
         { q: "What is Allah able to do, per 86:8?", a: "Bring him back", wrong: ["Forget him", "Leave him", "Nothing more"], why: "Verily, He is Able to bring him back!" },
@@ -249,7 +249,7 @@ const TARIQ_TWO: DeepUnit = {
       line: "The deniers plotted against the Quran, but Allah's plan wins.",
       facts: ["Kayd: plot", "Allah plans best"],
       quote: q86(16),
-      source: ik(15, "Ibn Kathir says they plotted by calling people to oppose the Quran, and Allah answered with His plan.", "they plot against the people in their calling them to oppose the Qur"),
+      source: ik(15, "Ibn Kathir says they plotted by calling people to oppose the Quran, and Allah answered with His plan.", "they plot against the people in their calling them to oppose"),
       difficulty: 3,
       questions: [
         { q: "What are the deniers doing, per 86:15?", a: "Plotting a plot", wrong: ["Praying", "Giving charity", "Sleeping"], why: "Verily, they are but plotting a plot." },

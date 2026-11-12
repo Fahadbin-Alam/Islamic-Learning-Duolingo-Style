@@ -333,7 +333,7 @@ const NAJM_ONE: DeepUnit = {
       line: "His sight did not turn aside or go past its limit.",
       facts: ["He looked only where told", "Perfect obedience"],
       quote: q53(17),
-      source: ik(17, "Ibn Kathir says his sight did not turn right or left, nor pass its limit, showing his firm obedience to Allah.", "demonstrates the Prophet ﷺ"),
+      source: ik(17, "Ibn Kathir says his sight did not turn right or left, nor pass its limit, showing his firm obedience to Allah.", "a tremendous quality that demonstrates the … firm obedience to Allah"),
       difficulty: 3,
       questions: [
         { q: "What did his sight not do, in 53:17?", a: "Turn aside or go too far", wrong: ["See clearly", "Stay focused", "Look ahead"], why: "The sight turned not aside, nor it transgressed beyond the limit." },
@@ -361,7 +361,7 @@ const NAJM_ONE: DeepUnit = {
       line: "He ﷺ saw some of the greatest signs of his Lord.",
       facts: ["Signs of Allah's might", "Like 17:1"],
       quote: q53(18),
-      source: ik(18, "Ibn Kathir links 53:18 to 17:1: signs that testify to Allah's might and greatness.", "signs that testify to Allah"),
+      source: ik(18, "Ibn Kathir links 53:18 to 17:1: signs that testify to Allah's might and greatness.", "signs that testify to … might and greatness"),
       difficulty: 2,
       questions: [
         { q: "What did he ﷺ see, in 53:18?", a: "The greatest signs of his Lord", wrong: ["Old ruins", "Great armies", "Rich palaces"], why: "Indeed he saw of the greatest signs of his Lord." },

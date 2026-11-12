@@ -395,7 +395,7 @@ const ADAB: DeepUnit = {
       title: "Don't expose what Allah hid",
       line: "Allah covered a sin at night; in the morning he told everyone.",
       facts: ["Everyone forgiven but them", "Keep Allah's cover"],
-      source: hadith("bukhari", "6069", "Abu Hurairah", "Sahih", "All my Ummah will be forgiven except those who sin openly: a man sins at night while Allah covers it, then in the morning says: I did this and that last night.", "in the morning he removes Allah"),
+      source: hadith("bukhari", "6069", "Abu Hurairah", "Sahih", "All my Ummah will be forgiven except those who sin openly: a man sins at night while Allah covers it, then in the morning says: I did this and that last night.", "in the morning he removes … screen from himself"),
       difficulty: 3,
       questions: [
         { q: "Who did Allah cover in this hadith?", a: "A man who sinned at night", wrong: ["A man who prayed", "A traveller", "A child"], why: "Sahih al-Bukhari 6069." },
@@ -796,7 +796,7 @@ const DUA: DeepUnit = {
       title: "Forgive my mistakes",
       line: "Forgive my mistakes, my ignorance, and what I overdid.",
       facts: ["Allahummaghfir li khati'ati", "Jokes and serious, all of it"],
-      source: hadith("bukhari", "6399", "Abu Musa al-Ash'ari", "Sahih", "The Prophet ﷺ prayed: O Allah, forgive my mistakes, my ignorance, my going too far in my affairs, and what You know better than me; forgive what I did in jest and in earnest, by error and on purpose.", "Allahumma ighfirli khati"),
+      source: hadith("bukhari", "6399", "Abu Musa al-Ash'ari", "Sahih", "The Prophet ﷺ prayed: O Allah, forgive my mistakes, my ignorance, my going too far in my affairs, and what You know better than me; forgive what I did in jest and in earnest, by error and on purpose.", "Allahumma ighfirli … wa jahli wa israfi"),
       difficulty: 3,
       questions: [
         { q: "What does this dua first ask Allah to forgive?", a: "My mistakes", wrong: ["My enemies", "My money", "My house"], why: "Sahih al-Bukhari 6399." },
@@ -1300,7 +1300,7 @@ const TRADE: DeepUnit = {
       title: "Care where money comes from",
       line: "A time will come when people won't care if money is halal.",
       facts: ["A warning from the Prophet ﷺ", "Always check your earnings"],
-      source: hadith("bukhari", "2059", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: a time will come when people will not care whether they earn their money lawfully or unlawfully.", "one will not care how one gains one"),
+      source: hadith("bukhari", "2059", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: a time will come when people will not care whether they earn their money lawfully or unlawfully.", "A time will come when one will not care how one gains"),
       difficulty: 2,
       questions: [
         { q: "What did he ﷺ warn people would stop caring about?", a: "Whether money is halal", wrong: ["How much they sleep", "What they wear", "Where they travel"], why: "One will not care how one gains money, legally or illegally." },
@@ -1378,7 +1378,7 @@ const TRADE: DeepUnit = {
       title: "Oaths that kill blessing",
       line: "Swearing may sell the goods but removes Allah's blessing.",
       facts: ["Oaths to push a sale", "Blessing is lost"],
-      source: hadith("bukhari", "2087", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: swearing may help sell the goods, but it wipes out the blessing.", "that will be deprived of Allah"),
+      source: hadith("bukhari", "2087", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: swearing may help sell the goods, but it wipes out the blessing.", "may persuade the buyer to purchase the goods but that will be deprived"),
       difficulty: 2,
       questions: [
         { q: "What does swearing a lot help a seller do?", a: "Sell the goods", wrong: ["Pray more", "Sleep well", "Get healthy"], why: "Swearing may persuade the buyer." },
@@ -1714,7 +1714,7 @@ const COMPANIONS: DeepUnit = {
       title: "Freed for Allah",
       line: "Bilal asked Abu Bakr to free him for the work of Allah.",
       facts: ["Abu Bakr bought and freed him", "Bilal's heart was for Allah"],
-      source: hadith("bukhari", "3755", "Qays ibn Abi Hazim", "Sahih", "Bilal said to Abu Bakr: if you bought me for yourself, keep me; but if you bought me for Allah, then leave me to work for Allah.", "if you have bought me for Allah"),
+      source: hadith("bukhari", "3755", "Qays ibn Abi Hazim", "Sahih", "Bilal said to Abu Bakr: if you bought me for yourself, keep me; but if you bought me for Allah, then leave me to work for Allah.", "but if you have bought me for … Sake, then leave me"),
       difficulty: 2,
       questions: [
         { q: "Who had bought Bilal's freedom?", a: "Abu Bakr", wrong: ["Umar", "Abu Jahl", "Uthman"], why: "Bilal said to Abu Bakr: if you have bought me." },
@@ -1766,7 +1766,7 @@ const COMPANIONS: DeepUnit = {
       title: "The Throne shook for Sa'd",
       line: "The Throne of the Most Merciful shook when Sa'd ibn Mu'adh died.",
       facts: ["Chief of the Aws", "Said beside his bier"],
-      source: hadith("muslim", "2466a", "Jabir ibn Abdullah", "Sahih", "With the bier of Sa'd ibn Mu'adh before them, the Prophet ﷺ said: the Throne of the Most Merciful shook at the death of Sa'd ibn Mu'adh.", "The Throne of the most Gracious shook at the death of Sa"),
+      source: hadith("muslim", "2466a", "Jabir ibn Abdullah", "Sahih", "With the bier of Sa'd ibn Mu'adh before them, the Prophet ﷺ said: the Throne of the Most Merciful shook at the death of Sa'd ibn Mu'adh.", "The Throne of the most Gracious shook at the death"),
       difficulty: 2,
       questions: [
         { q: "What shook at Sa'd's death?", a: "The Throne of Allah", wrong: ["A mountain", "The sea", "A palm tree"], why: "The Throne of the most Gracious shook." },
@@ -2297,7 +2297,7 @@ const ZAKAT: DeepUnit = {
       title: "Just enough to live",
       line: "He ﷺ prayed: Allah, give the family of Muhammad just enough.",
       facts: ["Not riches, enough", "Told by Abu Hurairah"],
-      source: hadith("muslim", "1055", "Abu Hurairah", "Sahih", "The Prophet ﷺ prayed: O Allah, make the provision of the family of Muhammad just enough to live on.", "make the provision of Muhammad"),
+      source: hadith("muslim", "1055", "Abu Hurairah", "Sahih", "The Prophet ﷺ prayed: O Allah, make the provision of the family of Muhammad just enough to live on.", "make the provision of … family sufficient just to sustain life"),
       difficulty: 1,
       questions: [
         { q: "What did he ﷺ ask for his family?", a: "Just enough to live", wrong: ["Great riches", "Palaces", "Nothing at all"], why: "Sufficient just to sustain life." },
@@ -3201,7 +3201,7 @@ const WILLS: DeepUnit = {
       title: "He left us the Quran",
       line: "Asked about his will: he ﷺ left us the Book of Allah.",
       facts: ["The Quran is his legacy", "Told by Ibn Abi Awfa"],
-      source: hadith("bukhari", "2740", "Abdullah ibn Abi Awfa", "Sahih", "Talhah asked Ibn Abi Awfa whether the Prophet ﷺ made a will. He said the Prophet ﷺ left as his will the Book of Allah.", "The Prophet (ﷺ) bequeathed Allah"),
+      source: hadith("bukhari", "2740", "Abdullah ibn Abi Awfa", "Sahih", "Talhah asked Ibn Abi Awfa whether the Prophet ﷺ made a will. He said the Prophet ﷺ left as his will the Book of Allah.", "The Prophet (ﷺ) bequeathed … Book"),
       difficulty: 1,
       questions: [
         { q: "What did he ﷺ leave as his will?", a: "The Book of Allah", wrong: ["A palace", "A sword", "A letter of rulers"], why: "The Prophet ﷺ bequeathed Allah's Book." },

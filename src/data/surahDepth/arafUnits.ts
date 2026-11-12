@@ -346,7 +346,7 @@ const ARAF_TWO: DeepUnit = {
       line: "Allah commands justice and worship that is sincere to Him alone.",
       facts: ["Al-qist: justice", "Mukhlisin: sincere"],
       quote: q7(29),
-      source: ik(29, "Allah commands justice, facing Him alone in every masjid, and calling on Him with sincere religion. That means following the messengers and making worship sincere. As He began us, so we will return.", "He also commands sincerit"),
+      source: ik(29, "Allah commands justice, facing Him alone in every masjid, and calling on Him with sincere religion. That means following the messengers and making worship sincere. As He began us, so we will return.", "He also commands sincerity in worshipping Him"),
       difficulty: 3,
       questions: [
         { q: "What does Allah command first, in 7:29?", a: "Justice", wrong: ["Wealth", "Revenge", "Silence"], why: "Amara rabbi bil-qist." },
@@ -640,7 +640,7 @@ const ARAF_TWO: DeepUnit = {
       line: "Rain brings dead land to life; so too will the dead rise.",
       facts: ["Bushra: good news", "Like the Resurrection"],
       quote: q7(57),
-      source: ik(57, "Allah sends winds with good news before His mercy, the rain. Clouds are driven to dead land and fruit comes out. In the same way the dead will be raised; Allah often gives this example of the Resurrection.", "Allah often mentions this similarity in the Qur"),
+      source: ik(57, "Allah sends winds with good news before His mercy, the rain. Clouds are driven to dead land and fruit comes out. In the same way the dead will be raised; Allah often gives this example of the Resurrection.", "Allah often mentions this similarity"),
       difficulty: 3,
       questions: [
         { q: "What comes before Allah's mercy, the rain, in 7:57?", a: "The winds", wrong: ["The snow", "The night", "The birds"], why: "Yursilur-riyaha bushran bayna yaday rahmatih." },
@@ -1213,7 +1213,7 @@ const ARAF_FOUR: DeepUnit = {
       line: "Sign after sign came; each time they promised, then broke it.",
       facts: ["Five clear signs", "Promises broken"],
       quote: q7(133),
-      source: ik(133, "They said they would never believe. So came the flood, the locusts, the lice, the frogs and the blood. Each time they begged Musa to pray, Allah removed it, and each time they broke their promise.", "Musa invoked his Lord and He removed the affliction from them, but they did not keep their promises"),
+      source: ik(133, "They said they would never believe. So came the flood, the locusts, the lice, the frogs and the blood. Each time they begged Musa to pray, Allah removed it, and each time they broke their promise.", "the affliction from them, but they did not keep their promises"),
       difficulty: 4,
       questions: [
         { q: "Which of these was a sign sent in 7:133?", a: "Frogs", wrong: ["Snow", "Snakes", "Lions"], why: "At-tufan, al-jarad, al-qummal, ad-difa', ad-dam." },
@@ -1227,7 +1227,7 @@ const ARAF_FOUR: DeepUnit = {
       line: "Fir'awn's army drowned; the weak inherited the blessed land.",
       facts: ["Al-yamm: the sea", "Sabr rewarded"],
       quote: q7(137),
-      source: ik(137, "After sign upon sign, Allah drowned Fir'awn's people in the sea that Musa parted by Allah's power, after Musa and Bani Isra'il passed through. The weak inherited the blessed land, because of their patience.", "by drowning them in the sea that Musa parted by Allah"),
+      source: ik(137, "After sign upon sign, Allah drowned Fir'awn's people in the sea that Musa parted by Allah's power, after Musa and Bani Isra'il passed through. The weak inherited the blessed land, because of their patience.", "by drowning them in the sea that Musa parted"),
       difficulty: 3,
       questions: [
         { q: "How did Fir'awn's people end, in 7:136?", a: "Drowned in the sea", wrong: ["Burned", "Lost in sand", "Turned to stone"], why: "Fa aghraqnahum fil-yamm." },
@@ -1255,7 +1255,7 @@ const ARAF_FOUR: DeepUnit = {
       line: "Going to Hunayn, the Prophet ﷺ warned against 7:138.",
       facts: ["Dhat Anwat", "Subhan Allah"],
       quote: q7(138),
-      source: hadith("tirmidhi", "2180", "Abu Waqid al-Laythi", "Sahih", "On the way to Hunayn they passed a tree the idol worshippers hung weapons on, called Dhat Anwat. Some said: make one for us. The Prophet ﷺ said: Subhan Allah, this is like what Musa's people said: make for us a god like their gods.", "This is like what Musa"),
+      source: hadith("tirmidhi", "2180", "Abu Waqid al-Laythi", "Sahih", "On the way to Hunayn they passed a tree the idol worshippers hung weapons on, called Dhat Anwat. Some said: make one for us. The Prophet ﷺ said: Subhan Allah, this is like what Musa's people said: make for us a god like their gods.", "This is like what … people said: Make for us a god like their gods"),
       difficulty: 5,
       questions: [
         { q: "Where were they going, in Tirmidhi 2180?", a: "To Hunayn", wrong: ["To Badr", "To Ta'if", "To Tabuk"], why: "When the Messenger of Allah went out to Hunain." },
@@ -1269,7 +1269,7 @@ const ARAF_FOUR: DeepUnit = {
       line: "Musa: shall I seek you a god other than Allah, your Saviour?",
       facts: ["Fir'awn's cruelty", "A great trial"],
       quote: q7(140),
-      source: ik(140, "Musa reminded Bani Isra'il of Allah's blessings: He saved them from Fir'awn's tyranny and the disgrace they suffered, and they watched their enemy drown.", "Musa reminded the Children of Israel of Allah"),
+      source: ik(140, "Musa reminded Bani Isra'il of Allah's blessings: He saved them from Fir'awn's tyranny and the disgrace they suffered, and they watched their enemy drown.", "Musa reminded the Children of Israel of … blessings, such as saving them"),
       difficulty: 4,
       questions: [
         { q: "What did Musa ask them, in 7:140?", a: "Shall I seek a god besides Allah?", wrong: ["Shall we go back?", "Shall I be king?", "Shall we build a ship?"], why: "A ghayrallahi abghikum ilaha." },
@@ -1436,7 +1436,7 @@ const ARAF_FIVE: DeepUnit = {
       line: "The unlettered Prophet ﷺ is described in the Tawrah and Injil.",
       facts: ["An-nabiyy al-ummi", "Light sent down"],
       quote: q7(157),
-      source: hadith("bukhari", "2125", "Ata ibn Yasar", "Sahih", "Abdullah ibn Amr said the Prophet ﷺ is described in the Torah with qualities the Quran gives him: O Prophet, We sent you as a witness, a giver of good news and a warner.", "he is described in Torah with some of the qualities attributed to him in the Qur"),
+      source: hadith("bukhari", "2125", "Ata ibn Yasar", "Sahih", "Abdullah ibn Amr said the Prophet ﷺ is described in the Torah with qualities the Quran gives him: O Prophet, We sent you as a witness, a giver of good news and a warner.", "he is described in Torah with some of the qualities attributed to him"),
       difficulty: 4,
       questions: [
         { q: "Where is the Prophet ﷺ described, in 7:157?", a: "In the Tawrah and Injil", wrong: ["Only in poems", "Nowhere before", "In Greek books"], why: "Yajidunahu maktuban indahum fit-tawrati wal-injil." },
@@ -1548,7 +1548,7 @@ const ARAF_FIVE: DeepUnit = {
       line: "Allah raised the mountain over them: hold firm to the Book.",
       facts: ["Nataqna: We raised", "Khudhu ma ataynakum"],
       quote: q7(171),
-      source: ik(171, "Ibn Abbas said Allah raised the mountain over them like a canopy, as in 4:154, and they thought it would fall. They were told: hold firmly to what We gave you and remember what is in it.", "We raised the mountain, as Allah"),
+      source: ik(171, "Ibn Abbas said Allah raised the mountain over them like a canopy, as in 4:154, and they thought it would fall. They were told: hold firmly to what We gave you and remember what is in it.", "We raised the mountain, as … other statement testifies"),
       difficulty: 5,
       questions: [
         { q: "What was raised over them, in 7:171?", a: "The mountain", wrong: ["A cloud", "A tent", "A wall"], why: "Wa idh nataqnal-jabala fawqahum." },
@@ -1589,7 +1589,7 @@ const ARAF_SIX: DeepUnit = {
       line: "A man given knowledge threw it off and chased this world.",
       facts: ["Insalakha: slipped out", "Clung to the earth"],
       quote: q7(175),
-      source: ik(175, "Allah tells of a man given His signs who threw them off, so Shaytan caught him and he went astray. Ibn Mas'ud said he was Bal'am of Bani Isra'il. He clung to this world and his desires, like a dog that pants either way.", "Is about Bal"),
+      source: ik(175, "Allah tells of a man given His signs who threw them off, so Shaytan caught him and he went astray. Ibn Mas'ud said he was Bal'am of Bani Isra'il. He clung to this world and his desires, like a dog that pants either way.", "Is about … a man from the Children of Israel"),
       difficulty: 3,
       questions: [
         { q: "What did the man do with Allah's signs, in 7:175?", a: "Threw them off", wrong: ["Taught them", "Wrote them", "Kept them"], why: "Fansalakha minha." },
@@ -1631,7 +1631,7 @@ const ARAF_SIX: DeepUnit = {
       line: "Some always guide by the truth; such a group never ends.",
       facts: ["Yahduna bil-haqq", "Until the Last Day"],
       quote: q7(181),
-      source: hadith("bukhari", "3641", "Mu'awiyah", "Sahih", "The Prophet ﷺ said: a group of my followers will keep obeying Allah's orders, unharmed by those who desert or oppose them, until the Last Day comes while they are still on the right path.", "A group of people amongst my followers will remain obedient to Allah"),
+      source: hadith("bukhari", "3641", "Mu'awiyah", "Sahih", "The Prophet ﷺ said: a group of my followers will keep obeying Allah's orders, unharmed by those who desert or oppose them, until the Last Day comes while they are still on the right path.", "A group of people amongst my followers will remain obedient … orders"),
       difficulty: 4,
       questions: [
         { q: "What does the community do, in 7:181?", a: "Guides with truth and justice", wrong: ["Stays silent", "Follows desires", "Hides away"], why: "Ummatun yahduna bil-haqqi wa bihi ya'dilun." },
@@ -1799,7 +1799,7 @@ const ARAF_SIX: DeepUnit = {
       line: "When the Quran is recited, listen and be quiet to get mercy.",
       facts: ["Istami'u: listen", "Ansitu: be silent"],
       quote: q7(204),
-      source: ik(204, "After calling the Quran clear proof, guidance and mercy, Allah commanded listening when it is recited, out of respect for it. This is the opposite of the Quraysh idol worshippers, who said: do not listen, make noise.", "He commanded that one listen to the Qur"),
+      source: ik(204, "After calling the Quran clear proof, guidance and mercy, Allah commanded listening when it is recited, out of respect for it. This is the opposite of the Quraysh idol worshippers, who said: do not listen, make noise.", "He commanded that one listen"),
       difficulty: 3,
       questions: [
         { q: "What should we do when the Quran is recited, in 7:204?", a: "Listen and be silent", wrong: ["Talk over it", "Leave the room", "Play music"], why: "Fastami'u lahu wa ansitu." },

@@ -1087,7 +1087,7 @@ const SAD_THREE: DeepUnit = {
       line: "Hell is where they enter, and an evil place to rest.",
       facts: ["The opposite of Paradise", "A warning, not a wish"],
       quote: q38(56),
-      source: ik(56, "They will enter Hell and it will surround them on all sides; it is the worst place to rest.", "they will enter it and it will overwhelm them on all sides"),
+      source: ik(56, "They will enter Hell and it will surround them on all sides; it is the worst place to rest.", "will enter it and it will overwhelm them on all sides"),
       difficulty: 3,
       questions: [
         { q: "What is their resting place, in 38:56?", a: "Hell", wrong: ["A garden", "A palace", "A river"], why: "Hell! Where they will enter it, and worst indeed is that place to rest." },
@@ -1520,7 +1520,7 @@ const SAD_FOUR: DeepUnit = {
       line: "Hell will be filled with Iblis and all who follow him.",
       facts: ["Following him has a price", "Like 17:63 and 32:13"],
       quote: q38(85),
-      source: ik(85, "Like 32:13, Allah's word took effect that Hell will be filled with jinn and people who follow Iblis.", "that I will fill Hell with Jinn and mankind together"),
+      source: ik(85, "Like 32:13, Allah's word took effect that Hell will be filled with jinn and people who follow Iblis.", "I will fill Hell with Jinn and mankind together"),
       difficulty: 4,
       questions: [
         { q: "Who will be with Iblis, in 38:85?", a: "Those who follow him", wrong: ["The angels", "The Prophets", "The sincere"], why: "That I will fill Hell with you and those of them that follow you, together." },

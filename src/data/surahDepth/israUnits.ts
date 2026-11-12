@@ -319,7 +319,7 @@ const ISRA_ONE: DeepUnit = {
       line: "Many nations after Nuh were destroyed; Allah sees every sin.",
       facts: ["Learn from past nations", "Allah sees everything"],
       quote: q17(17),
-      source: ik(17, "Allah destroyed many nations after Nuh who denied the Messengers. Before Nuh, people followed Islam for ten generations.", "Between Adam and Nuh there were ten generations, during all of which humans were following Islam"),
+      source: ik(17, "Allah destroyed many nations after Nuh who denied the Messengers. Before Nuh, people followed Islam for ten generations.", "Adam and Nuh there were ten generations, during all of which humans were following Islam"),
       difficulty: 3,
       questions: [
         { q: "After which Prophet were generations destroyed, in 17:17?", a: "Nuh", wrong: ["Musa", "Isa", "Yusuf"], why: "And how many generations have We destroyed after Nuh!" },

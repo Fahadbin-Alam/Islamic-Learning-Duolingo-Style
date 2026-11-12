@@ -472,7 +472,7 @@ const KAHF_TWO: DeepUnit = {
       line: "Mountains will pass and all people be gathered, none left out.",
       facts: ["A flat, open earth", "First and last together"],
       quote: q18(47),
-      source: ik(47, "On that Day the mountains will vanish and the earth will be a level plain where no one can hide. Allah will gather everyone, the first and the last, young and old.", "We shall gather them all, the first of them and the last of them"),
+      source: ik(47, "On that Day the mountains will vanish and the earth will be a level plain where no one can hide. Allah will gather everyone, the first and the last, young and old.", "shall gather them all, the first of them and the last of them"),
       difficulty: 4,
       questions: [
         { q: "What happens to the mountains, in 18:47?", a: "They pass away", wrong: ["They grow", "They turn to gold", "They stay"], why: "And remember the Day We shall cause the mountains to pass away." },
@@ -570,7 +570,7 @@ const KAHF_TWO: DeepUnit = {
       line: "Who does more wrong than one reminded who turns away?",
       facts: ["Listen when reminded", "Remember your deeds"],
       quote: q18(57),
-      source: ik(57, "No one does more wrong than a person reminded of Allah's signs who ignores them, forgetting the bad deeds he has sent ahead.", "does more wrong than one who is reminded of the signs of Allah then turns away"),
+      source: ik(57, "No one does more wrong than a person reminded of Allah's signs who ignores them, forgetting the bad deeds he has sent ahead.", "more wrong than one who is reminded of the signs of Allah then turns away"),
       difficulty: 4,
       questions: [
         { q: "Who does the most wrong, in 18:57?", a: "One reminded who turns away", wrong: ["One who asks", "One who forgets once", "One who travels"], why: "And who does more wrong than he who is reminded of the Ayat of his Lord, but turns away from them." },

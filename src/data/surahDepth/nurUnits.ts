@@ -543,7 +543,7 @@ const NUR_TWO: DeepUnit = {
       line: "A believer's heart is like a bright lamp in clear glass.",
       facts: ["The Quran is like pure, shining oil", "Light upon light"],
       quote: q24(35),
-      source: ik(35, "Allah gives a parable: a lamp in a niche, inside clear glass, lit with pure olive oil. The believer's pure heart is the lamp in the glass, and the Quran and Shari'ah that guide it are the pure, shining oil.", "The heart of the believer in its purity and clarity is likened to a lamp in transparent and jewel-like glass"),
+      source: ik(35, "Allah gives a parable: a lamp in a niche, inside clear glass, lit with pure olive oil. The believer's pure heart is the lamp in the glass, and the Quran and Shari'ah that guide it are the pure, shining oil.", "of the believer in its purity and clarity is likened to a lamp in transparent and jewel-like glass"),
       difficulty: 2,
       questions: [
         { q: "Where is the lamp, in 24:35?", a: "In a glass, in a niche", wrong: ["Under the sea", "On a mountain", "In a cave"], why: "The parable of His Light is as a niche and within it a lamp: the lamp is in a glass." },
@@ -613,7 +613,7 @@ const NUR_TWO: DeepUnit = {
       line: "Without Allah's guidance, a heart is like a dark, deep sea.",
       facts: ["Waves on waves, clouds on top", "No light except from Allah"],
       quote: q24(40),
-      source: ik(40, "Another parable: darkness in a deep sea, waves upon waves, with clouds above, so dark a man can hardly see his own hand. Whoever Allah does not give light has no light.", "he can hardly see it because it is so intensely dark"),
+      source: ik(40, "Another parable: darkness in a deep sea, waves upon waves, with clouds above, so dark a man can hardly see his own hand. Whoever Allah does not give light has no light.", "hardly see it because it is so intensely dark"),
       difficulty: 4,
       questions: [
         { q: "What covers the deep sea, in 24:40?", a: "Waves upon waves and clouds", wrong: ["Sunlight", "Ice and snow", "Boats and ships"], why: "Overwhelmed with waves topped by waves, topped by dark clouds." },

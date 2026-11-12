@@ -179,7 +179,7 @@ const FATH_ONE: DeepUnit = {
       line: "Hypocrites and idol worshippers thought badly of Allah's plan.",
       facts: ["Trust Allah's wisdom", "Think well of Allah"],
       quote: q48(6),
-      source: ik(6, "Ibn Kathir says they questioned the wisdom in Allah's decisions and thought the Messenger ﷺ and his Companions would be destroyed.", "who question the wisdom in Allah"),
+      source: ik(6, "Ibn Kathir says they questioned the wisdom in Allah's decisions and thought the Messenger ﷺ and his Companions would be destroyed.", "who question the wisdom in … decisions"),
       difficulty: 3,
       questions: [
         { q: "What wrong thought did they have, in 48:6?", a: "Evil thoughts about Allah", wrong: ["Kind thoughts", "No thoughts", "Thoughts of travel"], why: "Who think evil thoughts about Allah." },
@@ -360,7 +360,7 @@ const FATH_TWO: DeepUnit = {
       line: "Faith must be true inside, not just shown to people.",
       facts: ["Showing faith is not enough", "Allah sees the heart"],
       quote: q48(13),
-      source: ik(13, "Ibn Kathir says whoever does not make his actions pure inside and out for Allah will be punished, even if he shows people faith.", "does not purify his actions outwardly and inwardly for Allah"),
+      source: ik(13, "Ibn Kathir says whoever does not make his actions pure inside and out for Allah will be punished, even if he shows people faith.", "does not purify his actions outwardly and inwardly"),
       difficulty: 2,
       questions: [
         { q: "What must actions be, per Ibn Kathir on 48:13?", a: "Pure inside and out for Allah", wrong: ["Seen by many", "Done quickly", "Kept secret from all"], why: "Whoever does not purify his actions outwardly and inwardly for Allah's sake." },
@@ -639,7 +639,7 @@ const FATH_THREE: DeepUnit = {
       line: "Allah made the believers hold to the word of Taqwa.",
       facts: ["La ilaha illallah", "Mujahid: sincerity"],
       quote: q48(26),
-      source: ik(26, "Ibn Kathir says the word of Taqwa means sincerity, according to Mujahid, and La ilaha illallah according to others.", "the word of Taqwa refers to sincerity, according to Mujahid"),
+      source: ik(26, "Ibn Kathir says the word of Taqwa means sincerity, according to Mujahid, and La ilaha illallah according to others.", "word of Taqwa refers to sincerity, according to Mujahid"),
       difficulty: 2,
       questions: [
         { q: "What does the word of Taqwa mean, per Mujahid?", a: "Sincerity", wrong: ["Wealth", "Strength", "Speed"], why: "The word of Taqwa refers to sincerity, according to Mujahid." },

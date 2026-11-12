@@ -139,7 +139,7 @@ const QIYAMAH_ONE: DeepUnit = {
       line: "Man will look for escape, but there is no refuge.",
       facts: ["Wazar: a refuge", "Only Allah can save"],
       quote: q75(10),
-      source: ik(11, "Ibn Kathir says man will want to flee, but there will be no place to hide or seek shelter.", "there will be no place for you to seek shelter"),
+      source: ik(11, "Ibn Kathir says man will want to flee, but there will be no place to hide or seek shelter.", "be no place for you to seek shelter"),
       difficulty: 1,
       questions: [
         { q: "What will man say, per 75:10?", a: "Where is the refuge to flee?", wrong: ["Where is my house?", "Where is the market?", "Where is my horse?"], why: "On that Day man will say: Where is the refuge to flee?" },
@@ -431,7 +431,7 @@ const QIYAMAH_THREE: DeepUnit = {
       line: "A believer near death hears good news and loves to meet Allah.",
       facts: ["Liqa' Allah: meeting Allah", "The drive is to your Lord"],
       quote: q75(30),
-      source: hadith("bukhari", "6507", "Ubadah ibn as-Samit", "Sahih", "The Prophet ﷺ said whoever loves to meet Allah, Allah loves to meet him; a believer near death is given good news of Allah's pleasure.", "he receives the good news of Allah"),
+      source: hadith("bukhari", "6507", "Ubadah ibn as-Samit", "Sahih", "The Prophet ﷺ said whoever loves to meet Allah, Allah loves to meet him; a believer near death is given good news of Allah's pleasure.", "he receives the good news of … pleasure with him and His blessings upon him"),
       difficulty: 3,
       questions: [
         { q: "To whom is the drive that Day, per 75:30?", a: "To your Lord", wrong: ["To the market", "To the sea", "To the city"], why: "The drive will be on that Day to your Lord." },

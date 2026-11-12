@@ -583,7 +583,7 @@ const TAHRIM_THREE: DeepUnit = {
       line: "The Prophet ﷺ named Asiyah and Maryam as women of perfection.",
       facts: ["Asiyah and Maryam honored", "Khadija the best of her nation"],
       quote: q66(12),
-      source: hadith("bukhari", "3411", "Abu Musa al-Ash'ari", "Sahih", "The Prophet ﷺ said many men reached perfection but among women only Asiyah, the wife of Firawn, and Maryam, the daughter of Imran.", "Many amongst men reached (the level of) perfection but none amongst the women reached this level except Asia, Pharaoh"),
+      source: hadith("bukhari", "3411", "Abu Musa al-Ash'ari", "Sahih", "The Prophet ﷺ said many men reached perfection but among women only Asiyah, the wife of Firawn, and Maryam, the daughter of Imran.", "Many amongst men reached (the level of) perfection but none amongst the women reached this level except Asia … wife, and Mary"),
       difficulty: 2,
       questions: [
         { q: "Which two women in 66:11-12 reached perfection?", a: "Asiyah and Maryam", wrong: ["Wives of Nuh and Lut", "Hawwa and Sarah", "Bilqis and Hajar"], why: "None amongst the women reached this level except Asia, Pharaoh's wife, and Mary, the daughter of Imran." },

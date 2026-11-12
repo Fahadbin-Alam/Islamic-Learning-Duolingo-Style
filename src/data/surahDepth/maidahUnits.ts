@@ -320,7 +320,7 @@ const MAIDAH_ONE: DeepUnit = {
       line: "Saving one life is like saving all of mankind.",
       facts: ["Every life is sacred", "Ahyaha: saved it"],
       quote: q5(32),
-      source: ik(32, "Whoever unjustly takes one life is as if he took all, since one life is like another. Whoever saves a life, by protecting it and respecting its sanctity, is as if he saved all mankind.", "it would be as if he saved the life of all mankind"),
+      source: ik(32, "Whoever unjustly takes one life is as if he took all, since one life is like another. Whoever saves a life, by protecting it and respecting its sanctity, is as if he saved all mankind.", "as if he saved the life of all mankind"),
       difficulty: 4,
       questions: [
         { q: "Saving one life is like saving whom, in 5:32?", a: "All mankind", wrong: ["One city", "One family", "No one"], why: "Fa-ka'annama ahyan-nasa jami'a." },

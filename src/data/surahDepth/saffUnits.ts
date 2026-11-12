@@ -276,7 +276,7 @@ const SAFF_TWO: DeepUnit = {
       line: "Musa asked his people why they hurt him, knowing he was sent.",
       facts: ["Musa, son of Imran", "Allah spoke to him directly"],
       quote: q61(5),
-      source: ik(5, "Ibn Kathir explains Musa asked why his people annoyed him though they knew the truth of the message he brought.", "why do you annoy me even though you know my truth regarding the Message that I brought you"),
+      source: ik(5, "Ibn Kathir explains Musa asked why his people annoyed him though they knew the truth of the message he brought.", "you annoy me even though you know my truth regarding the Message that I brought"),
       difficulty: 2,
       questions: [
         { q: "Which prophet asked why his people hurt him?", a: "Musa", wrong: ["Nuh", "Yunus", "Hud"], why: "Musa said to his people, Why do you annoy me?" },

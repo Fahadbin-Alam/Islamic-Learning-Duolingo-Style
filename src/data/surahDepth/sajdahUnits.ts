@@ -53,7 +53,7 @@ const SAJDAH_ONE: DeepUnit = {
       line: "The Book comes from the Lord of all, with no doubt.",
       facts: ["The Quran is from Allah", "Ibn Kathir explains the letters in Al-Baqarah"],
       quote: q32(2),
-      source: ik(2, "There is no doubt at all that the Quran was revealed from the Lord of all that exists.", "there is no doubt whatsoever that it has been revealed"),
+      source: ik(2, "There is no doubt at all that the Quran was revealed from the Lord of all that exists.", "no doubt whatsoever that it has been revealed"),
       difficulty: 2,
       questions: [
         { q: "What is in the Book, in 32:2?", a: "No doubt", wrong: ["Some doubt", "Many riddles", "Old myths"], why: "The revelation of the Book in which there is no doubt." },
@@ -221,7 +221,7 @@ const SAJDAH_ONE: DeepUnit = {
       line: "Those who acted as if they forgot the Day are left out.",
       facts: ["Nothing escapes Allah", "Remember the meeting with Him"],
       quote: q32(14),
-      source: ik(14, "They acted as if they had forgotten the Day. Allah will deal with them as if forgotten, though nothing escapes Him.", "but nothing escapes Allah"),
+      source: ik(14, "They acted as if they had forgotten the Day. Allah will deal with them as if forgotten, though nothing escapes Him.", "but nothing escapes … attention, and He makes the punishment fit the crime"),
       difficulty: 5,
       questions: [
         { q: "What did they forget, in 32:14?", a: "The meeting of this Day", wrong: ["Their homes", "Their names", "Their food"], why: "Then taste because of your forgetting the meeting of this Day of yours." },

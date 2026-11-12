@@ -305,7 +305,7 @@ const DUHA_THREE: DeepUnit = {
       line: "Tell others of the good Allah gave you, out of thanks.",
       facts: ["Fa haddith: so speak of it", "Thanks with the tongue"],
       quote: q93(11),
-      source: ik(11, "As you were poor and Allah made you rich, tell about Allah's favour upon you.", "just as you were poor and needy, and Allah made you wealthy"),
+      source: ik(11, "As you were poor and Allah made you rich, tell about Allah's favour upon you.", "as you were poor and needy, and Allah made you wealthy"),
       difficulty: 2,
       questions: [
         { q: "What does 93:11 command?", a: "Proclaim the grace of your Lord", wrong: ["Hide every blessing", "Boast of yourself", "Keep silent"], why: "And proclaim the grace of your Lord." },

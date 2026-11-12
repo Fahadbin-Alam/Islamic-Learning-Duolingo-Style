@@ -193,7 +193,7 @@ const HADID_ONE: DeepUnit = {
       line: "Allah created the heavens and earth in six Days.",
       facts: ["Then He rose over the Throne", "Surah Al-A'raf speaks of it too"],
       quote: q57(4),
-      source: ik(4, "Ibn Kathir says Allah created the heavens and earth and all between them in six Days, then rose over the Throne.", "created the heavens and earth, and all that is between them, in six Days and then rose over the Throne"),
+      source: ik(4, "Ibn Kathir says Allah created the heavens and earth and all between them in six Days, then rose over the Throne.", "the heavens and earth, and all that is between them, in six Days and then rose over the Throne"),
       difficulty: 1,
       questions: [
         { q: "In how many Days were heavens and earth made?", a: "Six", wrong: ["One", "Seven", "Forty"], why: "Who created the heavens and the earth in six Days." },
@@ -361,7 +361,7 @@ const HADID_ONE: DeepUnit = {
       line: "Allah turns winter into spring, then summer, then autumn.",
       facts: ["The seasons change by His wisdom", "Everything has a due measure"],
       quote: q57(6),
-      source: ik(6, "Ibn Kathir says Allah makes the season winter, then changes it to spring, then summer then autumn, all by His wisdom.", "Sometimes, He makes the season winter, then changes it to spring, then summer then autumn"),
+      source: ik(6, "Ibn Kathir says Allah makes the season winter, then changes it to spring, then summer then autumn, all by His wisdom.", "He makes the season winter, then changes it to spring, then summer then autumn"),
       difficulty: 1,
       questions: [
         { q: "Which season comes after winter, per Ibn Kathir?", a: "Spring", wrong: ["Autumn", "Summer", "Winter again"], why: "He makes the season winter, then changes it to spring." },
@@ -472,7 +472,7 @@ const HADID_TWO: DeepUnit = {
       line: "The Messenger ﷺ was among them, calling them with clear proofs.",
       facts: ["The Messenger ﷺ invited them to faith", "He brought clear proofs and evidence"],
       quote: q57(8),
-      source: ik(8, "Ibn Kathir says 57:8 asks what prevents you from believing while the Messenger ﷺ is among you calling you to faith with clear proofs.", "what prevents you from believing, while the Messenger ﷺ is among you calling you to faith"),
+      source: ik(8, "Ibn Kathir says 57:8 asks what prevents you from believing while the Messenger ﷺ is among you calling you to faith with clear proofs.", "what prevents you from believing, while the Messenger is among you calling you to faith"),
       difficulty: 2,
       questions: [
         { q: "Who was inviting them to believe, in 57:8?", a: "The Messenger ﷺ", wrong: ["A poet", "A king", "A merchant"], why: "While the Messenger ﷺ invites you to believe in your Lord." },
@@ -849,7 +849,7 @@ const HADID_THREE: DeepUnit = {
       line: "Allah asks: is it not time for hearts to be humble?",
       facts: ["Hearts soften by remembering Allah", "Listening to the Quran softens them too"],
       quote: q57(16),
-      source: ik(16, "Ibn Kathir explains 57:16: has not the time come for the believers to feel humility in their hearts by the remembrance of Allah and the recitation of the Quran?", "Has not the time come for the believers to feel humility in their hearts by the remembrance of Allah"),
+      source: ik(16, "Ibn Kathir explains 57:16: has not the time come for the believers to feel humility in their hearts by the remembrance of Allah and the recitation of the Quran?", "not the time come for the believers to feel humility in their hearts by the remembrance of Allah"),
       difficulty: 2,
       questions: [
         { q: "What should humble the believers' hearts?", a: "The remembrance of Allah", wrong: ["Loud music", "Big crowds", "Wealth"], why: "That their hearts should be humble for the remembrance of Allah." },
@@ -1478,7 +1478,7 @@ const HADID_FOUR: DeepUnit = {
       line: "Allah is Powerful and Almighty, and needs no one.",
       facts: ["He tests who will support His religion", "Support is for our own good"],
       quote: q57(25),
-      source: ik(25, "Ibn Kathir says Allah is Powerful, Almighty, and He does not need mankind's help; He tests people.", "However, Allah does not need mankind"),
+      source: ik(25, "Ibn Kathir says Allah is Powerful, Almighty, and He does not need mankind's help; He tests people.", "However, Allah does not need … help, but He ordered Jihad to test people with each other"),
       difficulty: 3,
       questions: [
         { q: "How does 57:25 end?", a: "Allah is Powerful, Almighty", wrong: ["Allah is Gentle", "Allah is First", "Allah is Rich"], why: "Verily, Allah is Powerful, Almighty." },

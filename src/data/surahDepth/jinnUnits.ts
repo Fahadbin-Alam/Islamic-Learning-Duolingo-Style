@@ -471,7 +471,7 @@ const JINN_FOUR: DeepUnit = {
       line: "The Prophet ﷺ told his own family to save themselves with deeds.",
       facts: ["Each soul answers for itself", "Family ties do not replace faith"],
       quote: q72(22),
-      source: hadith("bukhari", "2753", "Abu Hurairah", "Sahih", "When told to warn his nearest kin, the Prophet ﷺ called out to Quraysh, his aunt Safiyyah and his daughter Fatimah: ask me for my wealth, but I cannot save you from Allah.", "Ask me anything from my wealth, but I cannot save you from Allah"),
+      source: hadith("bukhari", "2753", "Abu Hurairah", "Sahih", "When told to warn his nearest kin, the Prophet ﷺ called out to Quraysh, his aunt Safiyyah and his daughter Fatimah: ask me for my wealth, but I cannot save you from Allah.", "Ask me anything from my wealth, but I cannot save you from … Punishment"),
       difficulty: 3,
       questions: [
         { q: "Whom did the Prophet ﷺ call when told to warn his kin?", a: "Quraysh and his own family", wrong: ["Only strangers", "Only kings", "Only the jinn"], why: "O people of Quraish! Buy yourselves as I cannot save you from Allah's Punishment." },

@@ -693,7 +693,7 @@ const QASAS_FIVE: DeepUnit = {
       line: "The Prophet ﷺ was sent as a mercy to people with no warner.",
       facts: ["No warner came before him", "So they may remember"],
       quote: q28(46),
-      source: ik(46, "Allah revealed these stories to the Prophet ﷺ as a mercy from Him to him and to His servants, sending him to warn a people to whom no warner had come before, so they may be guided.", "as a mercy from Him to you and to His servants"),
+      source: ik(46, "Allah revealed these stories to the Prophet ﷺ as a mercy from Him to him and to His servants, sending him to warn a people to whom no warner had come before, so they may be guided.", "a mercy from Him to you and to His servants"),
       difficulty: 2,
       questions: [
         { q: "Why was the Prophet ﷺ sent, in 28:46?", a: "As a mercy from his Lord", wrong: ["To gain wealth", "To rule Makkah", "To fight Rome"], why: "But you are sent as a mercy from your Lord." },

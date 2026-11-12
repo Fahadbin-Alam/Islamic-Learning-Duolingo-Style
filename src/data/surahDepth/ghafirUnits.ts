@@ -975,7 +975,7 @@ const GHAFIR_THREE: DeepUnit = {
       line: "Allah helps His Messengers and believers, now and later.",
       facts: ["The call of the Prophets prevails", "Victory is complete on the Last Day"],
       quote: q40(51),
-      source: ik(51, "Ibn Kathir says on the Day of Resurrection the victory will be greater and more complete.", "on the Day of Resurrection the victory will be greater and more complete"),
+      source: ik(51, "Ibn Kathir says on the Day of Resurrection the victory will be greater and more complete.", "the Day of Resurrection the victory will be greater and more complete"),
       difficulty: 2,
       questions: [
         { q: "Whom will Allah make victorious, in 40:51?", a: "His Messengers and the believers", wrong: ["The proud", "The rich only", "The tyrants"], why: "Verily, We will indeed make victorious Our Messengers and those who believe in this world's life." },
@@ -1184,7 +1184,7 @@ const GHAFIR_FOUR: DeepUnit = {
       line: "Allah made the night for rest and the day to see.",
       facts: ["Night lets us rest and relax", "Day lets us travel and work"],
       quote: q40(61),
-      source: ik(61, "Ibn Kathir says Allah gave the night for rest and the day with its light for journeys and business.", "He has given them the day with its light, so that they can undertake their journeys and engage in their business"),
+      source: ik(61, "Ibn Kathir says Allah gave the night for rest and the day with its light for journeys and business.", "given them the day with its light, so that they can undertake their journeys and engage in their business"),
       difficulty: 1,
       questions: [
         { q: "What is the night for, in 40:61?", a: "Rest", wrong: ["Trade", "Travel", "Farming"], why: "Allah, it is He Who has made the night for you that you may rest therein." },

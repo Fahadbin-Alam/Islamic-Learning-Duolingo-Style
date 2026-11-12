@@ -378,7 +378,7 @@ const NISA_ONE: DeepUnit = {
       line: "Avoid the great sins, and Allah erases the small ones.",
       facts: ["Kaba'ir: major sins", "Mudkhal karim: Paradise"],
       quote: q4(31),
-      source: ik(31, "If you avoid the major evil deeds you were forbidden, Allah forgives your smaller sins and admits you to Paradise.", "if you avoid the major evil deeds that you were prohibited"),
+      source: ik(31, "If you avoid the major evil deeds you were forbidden, Allah forgives your smaller sins and admits you to Paradise.", "you avoid the major evil deeds that you were prohibited"),
       difficulty: 3,
       questions: [
         { q: "What erases small sins, in 4:31?", a: "Avoiding the great sins", wrong: ["Doing more great sins", "Sleeping", "Being rich"], why: "In tajtanibu kaba'ira ma tunhawna 'anh." },
