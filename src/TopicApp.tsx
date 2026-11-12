@@ -1782,11 +1782,14 @@ export default function TopicApp() {
     (state.screen === "home" || state.screen === "topic" || state.screen === "branch" || state.screen === "review") &&
     selectedSection.topicId === "foundation";
   const otherSheetOpen =
-    Boolean(outOfHearts?.open || rewardCelebration || testOutResult?.open) ||
+    Boolean(outOfHearts?.open || rewardCelebration || testOutResult?.open || planOffer?.open || openHadith) ||
     topicPickerVisible || settingsModalVisible || languageModalVisible || prayerModalVisible || noticeOpen || familyVisible ||
     // Practice's own sheets too: nothing pops up over a story, a quiz list, a sprint against the clock or a surah
     // being memorized with the reciter.
-    quizSheetVisible || Boolean(storyShelf) || lifeMapOpen || albumVisible || sayItVisible || sprintVisible || memorizeVisible;
+    quizSheetVisible || Boolean(storyShelf) || lifeMapOpen || albumVisible || sayItVisible || sprintVisible || memorizeVisible ||
+    // Nor over today's ayah and hadith, the adhkar being said (a reminder can open them as the app starts), today's
+    // quests and their chest, the certificates, the secret and hadith lists, or Ramadan's "I finished day N" card.
+    dailySheetOpen || adhkarOpen !== null || questsOpen || questChestDates > 0 || certificatesSheetVisible || secretListOpen || hadithListOpen || ramadanPop;
 
   useEffect(() => {
     const busy = state.screen.startsWith("lesson_") || state.screen === "assessment";
