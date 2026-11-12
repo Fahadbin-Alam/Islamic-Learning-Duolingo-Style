@@ -444,7 +444,10 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "hadith-qudsi-more": { ar: "قال الله تعالى", translit: "Qal Allahu ta'ala", meaning: "Allah the Most High said" },
   "aqidah-the-balanced-way": { ar: "الوسطية", translit: "Al-wasatiyyah", meaning: "The balanced middle way" },
   "manners-haya-and-gentle-manners": { ar: "الحياء والحلم", translit: "Al-haya' wal-hilm", meaning: "Haya and forbearance" },
-  "duas-remembering-allah-always": { ar: "دوام الذكر", translit: "Dawam adh-dhikr", meaning: "Remembering Allah always" }
+  "duas-remembering-allah-always": { ar: "دوام الذكر", translit: "Dawam adh-dhikr", meaning: "Remembering Allah always" },
+  "marriage-gentle-with-children": { ar: "الرفق بالأطفال", translit: "Ar-rifq bil-atfal", meaning: "Gentleness with children" },
+  "intro-how-they-came-to-islam": { ar: "كيف أسلموا", translit: "Kayfa aslamu", meaning: "How they became Muslim" },
+  "fasting-making-the-most-of-ramadan": { ar: "اغتنام رمضان", translit: "Ightinam Ramadan", meaning: "Making the most of Ramadan" }
 };
 
 export const NODE_ARABIC: Record<string, ArabicTerm> = {
@@ -962,6 +965,7 @@ const LEARN_FORMS = [
   "الصَّدَقَةُ عِنْدَ اللَّهِ", "آدَابُ السَّفَرِ", "الدُّعَاءُ لِلْآخَرِينَ",
   "الرُّكُوعُ وَالسُّجُودُ لِلَّهِ", "الْبَعْثُ", "قَالَ اللَّهُ تَعَالَى",
   "الْوَسَطِيَّةُ", "الْحَيَاءُ وَالْحِلْمُ", "دَوَامُ الذِّكْرِ",
+  "الرِّفْقُ بِالْأَطْفَالِ", "كَيْفَ أَسْلَمُوا", "اغْتِنَامُ رَمَضَانَ",
   "الْعُمْرَةُ", "الْبَيْتُ الْحَرَامُ", "الْمَسَاجِدُ الثَّلَاثَةُ",
   ...SURAH_NAMES.map((name) => `سُورَةُ ${name}`)
 ];
