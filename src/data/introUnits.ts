@@ -3,6 +3,7 @@ import { EASY_WAY } from "./introEasyUnits";
 import { INTRO_GROWING_UNITS } from "./introGrowingUnits";
 import { INTRO_STORIES_UNITS } from "./introStoriesUnits";
 import { INTRO_QUESTIONS_UNITS } from "./introQuestionsUnits";
+import { INTRO_SHORT_WORDS_UNITS } from "./introShortWordsUnits";
 
 // "New to Islam" in more depth: the essentials a new Muslim needs, each told with the story around it. A fresh
 // start, the Quran and the Prophet ﷺ, the first prayers, and daily life (food, family, greeting). Only what is
@@ -557,4 +558,4 @@ const DAILY_LIFE: DeepUnit = {
   ]
 };
 
-export const INTRO_UNITS: DeepUnit[] = [FRESH_START, QURAN_AND_PROPHET, FIRST_PRAYERS, DAILY_LIFE, EASY_WAY, ...INTRO_GROWING_UNITS, ...INTRO_STORIES_UNITS, ...INTRO_QUESTIONS_UNITS];
+export const INTRO_UNITS: DeepUnit[] = [FRESH_START, QURAN_AND_PROPHET, FIRST_PRAYERS, DAILY_LIFE, EASY_WAY, ...INTRO_GROWING_UNITS, ...INTRO_STORIES_UNITS, ...INTRO_QUESTIONS_UNITS, ...INTRO_SHORT_WORDS_UNITS];
