@@ -125,6 +125,18 @@
   },
   {
     "kind": "course",
+    "text": "Sunnahs of eating and drinking"
+  },
+  {
+    "kind": "course",
+    "text": "Praise after a meal, plain vinegar, dates at home, the server drinks last, olive oil, and rinsing after milk."
+  },
+  {
+    "kind": "arabic",
+    "text": "Sunnahs of food and drink"
+  },
+  {
+    "kind": "course",
     "text": "As-salamu alaykum"
   },
   {
@@ -350,6 +362,30 @@
   {
     "kind": "course",
     "text": "Hurry home when it is done"
+  },
+  {
+    "kind": "course",
+    "text": "Made easy to swallow"
+  },
+  {
+    "kind": "course",
+    "text": "A good condiment"
+  },
+  {
+    "kind": "course",
+    "text": "Dates at home"
+  },
+  {
+    "kind": "course",
+    "text": "The server drinks last"
+  },
+  {
+    "kind": "course",
+    "text": "Oil from a blessed tree"
+  },
+  {
+    "kind": "course",
+    "text": "Rinse after milk"
   },
   {
     "kind": "course",
@@ -38573,6 +38609,14 @@
   },
   {
     "kind": "course",
+    "text": "The Book of Virtues"
+  },
+  {
+    "kind": "course",
+    "text": "From Sahih Muslim's Book of Virtues: a stone's greeting, two angels at Uhud, sitting till sunrise, a hand in every bowl, heads lowered, and longing to see him ﷺ."
+  },
+  {
+    "kind": "course",
     "text": "Faith has many branches"
   },
   {
@@ -39661,6 +39705,30 @@
   },
   {
     "kind": "course",
+    "text": "The stone that greeted him"
+  },
+  {
+    "kind": "course",
+    "text": "Two angels at Uhud"
+  },
+  {
+    "kind": "course",
+    "text": "Sitting until sunrise"
+  },
+  {
+    "kind": "course",
+    "text": "A hand in every bowl"
+  },
+  {
+    "kind": "course",
+    "text": "Heads lowered"
+  },
+  {
+    "kind": "course",
+    "text": "Longing to see him"
+  },
+  {
+    "kind": "course",
     "text": "Duas and adhkar"
   },
   {
@@ -40628,6 +40696,18 @@
     "text": "How they became Muslim"
   },
   {
+    "kind": "course",
+    "text": "Questions they asked him ﷺ"
+  },
+  {
+    "kind": "course",
+    "text": "A deed for Paradise, something useful, the best people, relatives who cut you off, forgiving often, and keeping your harm away."
+  },
+  {
+    "kind": "arabic",
+    "text": "The Companions' questions"
+  },
+  {
     "kind": "arabic",
     "text": "Say: He is Allah, the One"
   },
@@ -40950,6 +41030,30 @@
   {
     "kind": "course",
     "text": "Islam, dearer than the world"
+  },
+  {
+    "kind": "course",
+    "text": "A deed for Paradise"
+  },
+  {
+    "kind": "course",
+    "text": "Something that benefits"
+  },
+  {
+    "kind": "course",
+    "text": "The best people"
+  },
+  {
+    "kind": "course",
+    "text": "When family cuts you off"
+  },
+  {
+    "kind": "course",
+    "text": "Forgive, and forgive again"
+  },
+  {
+    "kind": "course",
+    "text": "And if I cannot?"
   },
   {
     "kind": "lesson",
@@ -64093,6 +64197,434 @@
   },
   {
     "kind": "lesson",
+    "text": "After eating or drinking, he ﷺ praised Allah for it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abu Ayyub al-Ansari"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah gives food and drink"
+  },
+  {
+    "kind": "lesson",
+    "text": "He made it easy to swallow"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 3851"
+  },
+  {
+    "kind": "question",
+    "text": "When did he ﷺ praise Allah with these words?"
+  },
+  {
+    "kind": "question",
+    "text": "After eating or drinking"
+  },
+  {
+    "kind": "question",
+    "text": "When riding his camel"
+  },
+  {
+    "kind": "question",
+    "text": "On leaving the house"
+  },
+  {
+    "kind": "question",
+    "text": "When the Messenger of Allah ﷺ ate or drank, he praised Allah, Abu Ayyub said."
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ thank Allah for making easy?"
+  },
+  {
+    "kind": "question",
+    "text": "Swallowing the food"
+  },
+  {
+    "kind": "question",
+    "text": "Cooking the food"
+  },
+  {
+    "kind": "question",
+    "text": "Buying the food"
+  },
+  {
+    "kind": "question",
+    "text": "Carrying the food"
+  },
+  {
+    "kind": "question",
+    "text": "Praise be to Allah Who has given food and drink and made it easy to swallow."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ thanked Allah for food and drink."
+  },
+  {
+    "kind": "question",
+    "text": "Praise be to Allah Who has given food and drink, he ﷺ said after eating."
+  },
+  {
+    "kind": "lesson",
+    "text": "Vinegar was all they had, and he ﷺ praised it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Something to eat with bread"
+  },
+  {
+    "kind": "lesson",
+    "text": "Jabir loved vinegar after that"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 2052"
+  },
+  {
+    "kind": "question",
+    "text": "What did his family have to eat with the bread?"
+  },
+  {
+    "kind": "question",
+    "text": "Only vinegar"
+  },
+  {
+    "kind": "question",
+    "text": "Only honey"
+  },
+  {
+    "kind": "question",
+    "text": "Only meat"
+  },
+  {
+    "kind": "question",
+    "text": "Only milk"
+  },
+  {
+    "kind": "question",
+    "text": "We have nothing with us but vinegar, his family said, and he asked for it."
+  },
+  {
+    "kind": "question",
+    "text": "What did Jabir love ever since that day?"
+  },
+  {
+    "kind": "question",
+    "text": "Barley"
+  },
+  {
+    "kind": "question",
+    "text": "Milk"
+  },
+  {
+    "kind": "question",
+    "text": "Dates"
+  },
+  {
+    "kind": "question",
+    "text": "Vinegar"
+  },
+  {
+    "kind": "question",
+    "text": "I have always loved vinegar since I heard it from Allah's Apostle ﷺ, Jabir said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ ate the plain food at home and praised it."
+  },
+  {
+    "kind": "question",
+    "text": "He began to eat it, and then said: vinegar is a good condiment, Jabir said."
+  },
+  {
+    "kind": "lesson",
+    "text": "A home with dates will not go hungry, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Aishah"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ said it to Aishah"
+  },
+  {
+    "kind": "lesson",
+    "text": "He said it two or three times"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 2046"
+  },
+  {
+    "kind": "question",
+    "text": "Which food keeps a family from hunger, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "Grapes"
+  },
+  {
+    "kind": "question",
+    "text": "Melons"
+  },
+  {
+    "kind": "question",
+    "text": "Figs"
+  },
+  {
+    "kind": "question",
+    "text": "A family which has dates will not be hungry, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "To whom did he ﷺ say these words?"
+  },
+  {
+    "kind": "question",
+    "text": "Aishah, a family which has no dates, its members will be hungry, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ said a home with dates will not go hungry."
+  },
+  {
+    "kind": "question",
+    "text": "A family which has dates will not be hungry, he ﷺ told Aishah."
+  },
+  {
+    "kind": "lesson",
+    "text": "The one who serves drinks to people drinks last."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abdullah ibn Abi Awfa"
+  },
+  {
+    "kind": "lesson",
+    "text": "Serve the others first"
+  },
+  {
+    "kind": "lesson",
+    "text": "Then drink yourself"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 3725"
+  },
+  {
+    "kind": "question",
+    "text": "Who should drink last, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "The newest guest"
+  },
+  {
+    "kind": "question",
+    "text": "The one who serves"
+  },
+  {
+    "kind": "question",
+    "text": "The youngest one"
+  },
+  {
+    "kind": "question",
+    "text": "The oldest one"
+  },
+  {
+    "kind": "question",
+    "text": "The supplier of the people is the last to drink, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "When serving water to people, when do you drink?"
+  },
+  {
+    "kind": "question",
+    "text": "After everyone else"
+  },
+  {
+    "kind": "question",
+    "text": "Before anyone else"
+  },
+  {
+    "kind": "question",
+    "text": "Halfway through"
+  },
+  {
+    "kind": "question",
+    "text": "Only the next day"
+  },
+  {
+    "kind": "question",
+    "text": "The one who gives people their drink is the last of them to drink, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "The one serving the drinks should drink first."
+  },
+  {
+    "kind": "question",
+    "text": "The one who serves the people drinks last, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Olive oil comes from a blessed tree, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Umar ibn al-Khattab"
+  },
+  {
+    "kind": "lesson",
+    "text": "Eat it with your food"
+  },
+  {
+    "kind": "lesson",
+    "text": "Rub it on your skin"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Ibn Majah 3319"
+  },
+  {
+    "kind": "question",
+    "text": "Why did he ﷺ praise olive oil?"
+  },
+  {
+    "kind": "question",
+    "text": "From a blessed tree"
+  },
+  {
+    "kind": "question",
+    "text": "From a far land"
+  },
+  {
+    "kind": "question",
+    "text": "From a royal garden"
+  },
+  {
+    "kind": "question",
+    "text": "From a rare fruit"
+  },
+  {
+    "kind": "question",
+    "text": "Anoint yourselves with it, for it comes from a blessed tree, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Besides eating it, what did he ﷺ say to do with it?"
+  },
+  {
+    "kind": "question",
+    "text": "Save it for guests"
+  },
+  {
+    "kind": "question",
+    "text": "Give it to animals"
+  },
+  {
+    "kind": "question",
+    "text": "Store it for a year"
+  },
+  {
+    "kind": "question",
+    "text": "Rub it on the body"
+  },
+  {
+    "kind": "question",
+    "text": "Season your food with olive oil and anoint yourselves with it, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ told them to use olive oil in their food."
+  },
+  {
+    "kind": "question",
+    "text": "Season your food with olive oil, for it comes from a blessed tree, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "After drinking milk, he ﷺ rinsed his mouth."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ said: it has fat"
+  },
+  {
+    "kind": "lesson",
+    "text": "A clean mouth after milk"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 211"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ do after drinking milk?"
+  },
+  {
+    "kind": "question",
+    "text": "Washed his feet"
+  },
+  {
+    "kind": "question",
+    "text": "Combed his hair"
+  },
+  {
+    "kind": "question",
+    "text": "Changed his clothes"
+  },
+  {
+    "kind": "question",
+    "text": "Rinsed his mouth"
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ drank milk, rinsed his mouth and said: it has fat, Ibn Abbas said."
+  },
+  {
+    "kind": "question",
+    "text": "Why did he ﷺ rinse his mouth after milk?"
+  },
+  {
+    "kind": "question",
+    "text": "Milk is too cold"
+  },
+  {
+    "kind": "question",
+    "text": "Milk is too sour"
+  },
+  {
+    "kind": "question",
+    "text": "Milk has fat in it"
+  },
+  {
+    "kind": "question",
+    "text": "Milk is too sweet"
+  },
+  {
+    "kind": "question",
+    "text": "He drank milk, rinsed his mouth and said: it has fat, Ibn Abbas said."
+  },
+  {
+    "kind": "question",
+    "text": "Rinsing the mouth after milk follows his ﷺ way."
+  },
+  {
+    "kind": "question",
+    "text": "Allah's Messenger ﷺ drank milk, rinsed his mouth and said: it has fat."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about sunnahs of eating and drinking!"
+  },
+  {
+    "kind": "lesson",
     "text": "Uthman showed wudu: hands, mouth, nose, face, arms, head, feet."
   },
   {
@@ -65354,10 +65886,6 @@
   {
     "kind": "lesson",
     "text": "Two rak'ahs before Fajr beat the world and all in it."
-  },
-  {
-    "kind": "lesson",
-    "text": "Told by Aishah"
   },
   {
     "kind": "source",
@@ -69218,10 +69746,6 @@
   {
     "kind": "lesson",
     "text": "Rising from ruku': praise that fills the heavens and earth."
-  },
-  {
-    "kind": "lesson",
-    "text": "Told by Abdullah ibn Abi Awfa"
   },
   {
     "kind": "lesson",
@@ -79530,10 +80054,6 @@
   {
     "kind": "question",
     "text": "The richest one"
-  },
-  {
-    "kind": "question",
-    "text": "The oldest one"
   },
   {
     "kind": "question",
@@ -90289,14 +90809,6 @@
   },
   {
     "kind": "question",
-    "text": "Dates"
-  },
-  {
-    "kind": "question",
-    "text": "Milk"
-  },
-  {
-    "kind": "question",
     "text": "How good is the believer's meal of dates before dawn."
   },
   {
@@ -93254,10 +93766,6 @@
   {
     "kind": "lesson",
     "text": "Take a gift you did not ask for, but never chase one."
-  },
-  {
-    "kind": "lesson",
-    "text": "Told by Umar ibn al-Khattab"
   },
   {
     "kind": "lesson",
@@ -97538,10 +98046,6 @@
   {
     "kind": "question",
     "text": "Where did the Black Stone come from?"
-  },
-  {
-    "kind": "question",
-    "text": "From a far land"
   },
   {
     "kind": "question",
@@ -149817,10 +150321,6 @@
   },
   {
     "kind": "question",
-    "text": "To whom did he ﷺ say these words?"
-  },
-  {
-    "kind": "question",
     "text": "He said: O Aishah, Allah is kind."
   },
   {
@@ -152658,10 +153158,6 @@
   {
     "kind": "question",
     "text": "White flour"
-  },
-  {
-    "kind": "question",
-    "text": "Barley"
   },
   {
     "kind": "question",
@@ -178977,10 +179473,6 @@
   },
   {
     "kind": "question",
-    "text": "Only milk"
-  },
-  {
-    "kind": "question",
     "text": "Every drink that intoxicates"
   },
   {
@@ -182506,14 +182998,6 @@
   {
     "kind": "question",
     "text": "Which dates are named?"
-  },
-  {
-    "kind": "question",
-    "text": "Figs"
-  },
-  {
-    "kind": "question",
-    "text": "Grapes"
   },
   {
     "kind": "question",
@@ -191018,6 +191502,402 @@
   {
     "kind": "lesson",
     "text": "The last test: everything about the Book of Creation!"
+  },
+  {
+    "kind": "lesson",
+    "text": "In Makkah, a stone used to greet him ﷺ before prophethood."
+  },
+  {
+    "kind": "lesson",
+    "text": "Before he ﷺ was sent as a Prophet"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ said: I know it even now"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 2277"
+  },
+  {
+    "kind": "question",
+    "text": "What did the stone in Makkah use to do?"
+  },
+  {
+    "kind": "question",
+    "text": "Give him water"
+  },
+  {
+    "kind": "question",
+    "text": "Show him the road"
+  },
+  {
+    "kind": "question",
+    "text": "Tell him the time"
+  },
+  {
+    "kind": "question",
+    "text": "Greet him with salam"
+  },
+  {
+    "kind": "question",
+    "text": "The stone in Mecca used to pay me salutations, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "In which city was the stone that greeted him ﷺ?"
+  },
+  {
+    "kind": "question",
+    "text": "I recognise the stone in Mecca which used to greet me, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ said he still knew that stone."
+  },
+  {
+    "kind": "question",
+    "text": "I recognise that even now, he ﷺ said of the stone that greeted him."
+  },
+  {
+    "kind": "lesson",
+    "text": "At Uhud, two angels in white stood beside him ﷺ."
+  },
+  {
+    "kind": "lesson",
+    "text": "One on his right, one on his left"
+  },
+  {
+    "kind": "lesson",
+    "text": "Jibril and Mika'il"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 2306"
+  },
+  {
+    "kind": "question",
+    "text": "What were the two at his ﷺ side wearing?"
+  },
+  {
+    "kind": "question",
+    "text": "White clothes"
+  },
+  {
+    "kind": "question",
+    "text": "Green clothes"
+  },
+  {
+    "kind": "question",
+    "text": "Black clothes"
+  },
+  {
+    "kind": "question",
+    "text": "Red clothes"
+  },
+  {
+    "kind": "question",
+    "text": "Two persons dressed in white clothes, Sa'd said of the day of Uhud."
+  },
+  {
+    "kind": "question",
+    "text": "Which two angels did Sa'd see beside him ﷺ at Uhud?"
+  },
+  {
+    "kind": "question",
+    "text": "Harut and Marut"
+  },
+  {
+    "kind": "question",
+    "text": "Munkar and Nakir"
+  },
+  {
+    "kind": "question",
+    "text": "Israfil and Malik"
+  },
+  {
+    "kind": "question",
+    "text": "And they were Gabriel and Michael, Sa'd said of the two in white."
+  },
+  {
+    "kind": "question",
+    "text": "Sa'd had often seen those two men before Uhud."
+  },
+  {
+    "kind": "question",
+    "text": "Sa'd said he never saw those two men before that day, nor after it."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ sat after Fajr until the sun rose."
+  },
+  {
+    "kind": "lesson",
+    "text": "Asked by Simak ibn Harb"
+  },
+  {
+    "kind": "lesson",
+    "text": "They laughed, and he ﷺ smiled"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 2322"
+  },
+  {
+    "kind": "question",
+    "text": "Until when did he ﷺ stay where he prayed Fajr?"
+  },
+  {
+    "kind": "question",
+    "text": "Until night came"
+  },
+  {
+    "kind": "question",
+    "text": "He did not stand up from where he prayed Fajr until the sun rose, Jabir said."
+  },
+  {
+    "kind": "question",
+    "text": "What did the Companions do as they talked of old days?"
+  },
+  {
+    "kind": "question",
+    "text": "They would laugh"
+  },
+  {
+    "kind": "question",
+    "text": "They would weep"
+  },
+  {
+    "kind": "question",
+    "text": "They would stay silent"
+  },
+  {
+    "kind": "question",
+    "text": "They would write it down"
+  },
+  {
+    "kind": "question",
+    "text": "They talked of the days of ignorance and laughed, and he ﷺ smiled, Jabir said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ would smile as they talked and laughed."
+  },
+  {
+    "kind": "question",
+    "text": "They would laugh, and Allah's Messenger ﷺ smiled only, Jabir ibn Samurah said."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ dipped his hand in every bowl the servants brought."
+  },
+  {
+    "kind": "lesson",
+    "text": "The servants of Madinah came after Fajr"
+  },
+  {
+    "kind": "lesson",
+    "text": "Even on cold mornings"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 2324"
+  },
+  {
+    "kind": "question",
+    "text": "Who brought vessels of water to him ﷺ after Fajr?"
+  },
+  {
+    "kind": "question",
+    "text": "The servants of Madinah"
+  },
+  {
+    "kind": "question",
+    "text": "The traders of Makkah"
+  },
+  {
+    "kind": "question",
+    "text": "The kings of Yemen"
+  },
+  {
+    "kind": "question",
+    "text": "The poets of Ta'if"
+  },
+  {
+    "kind": "question",
+    "text": "The servants of Medina came to him with utensils containing water, Anas said."
+  },
+  {
+    "kind": "question",
+    "text": "When did the servants bring him ﷺ their water?"
+  },
+  {
+    "kind": "question",
+    "text": "After the Isha prayer"
+  },
+  {
+    "kind": "question",
+    "text": "At midday"
+  },
+  {
+    "kind": "question",
+    "text": "When he had completed his dawn prayer, the servants of Medina came to him, Anas said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ dipped his hand in their water even on cold mornings."
+  },
+  {
+    "kind": "question",
+    "text": "Sometimes they came in the cold dawn, and he dipped his hand in them, Anas said."
+  },
+  {
+    "kind": "lesson",
+    "text": "When revelation came, he ﷺ lowered his head."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Ubadah ibn as-Samit"
+  },
+  {
+    "kind": "lesson",
+    "text": "His Companions lowered their heads too"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ raised his head once it was over"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 2335"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ do as revelation came down?"
+  },
+  {
+    "kind": "question",
+    "text": "Tied up his camel"
+  },
+  {
+    "kind": "question",
+    "text": "Called for food"
+  },
+  {
+    "kind": "question",
+    "text": "Lowered his head"
+  },
+  {
+    "kind": "question",
+    "text": "Stood up to walk"
+  },
+  {
+    "kind": "question",
+    "text": "When wahi descended upon him, he lowered his head, Ubadah ibn as-Samit said."
+  },
+  {
+    "kind": "question",
+    "text": "What did his Companions do at that time?"
+  },
+  {
+    "kind": "question",
+    "text": "Went out to the market"
+  },
+  {
+    "kind": "question",
+    "text": "Lit a big fire"
+  },
+  {
+    "kind": "question",
+    "text": "Started to eat"
+  },
+  {
+    "kind": "question",
+    "text": "Lowered their heads too"
+  },
+  {
+    "kind": "question",
+    "text": "He lowered his head and so his Companions lowered their heads, Ubadah said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ raised his head once the revelation was over."
+  },
+  {
+    "kind": "question",
+    "text": "When that state was over, he raised his head, Ubadah ibn as-Samit said."
+  },
+  {
+    "kind": "lesson",
+    "text": "One day, seeing him ﷺ would be dearer than family."
+  },
+  {
+    "kind": "lesson",
+    "text": "A day would come without seeing him ﷺ"
+  },
+  {
+    "kind": "lesson",
+    "text": "Dearer than family and wealth"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 2364"
+  },
+  {
+    "kind": "question",
+    "text": "One day, seeing him ﷺ would be dearer than what?"
+  },
+  {
+    "kind": "question",
+    "text": "Sleep and comfort"
+  },
+  {
+    "kind": "question",
+    "text": "Shade and water"
+  },
+  {
+    "kind": "question",
+    "text": "Bread and salt"
+  },
+  {
+    "kind": "question",
+    "text": "A glimpse of my face would be dearer to one than his family and property, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ say they would one day be unable to do?"
+  },
+  {
+    "kind": "question",
+    "text": "See him"
+  },
+  {
+    "kind": "question",
+    "text": "Ride their camels"
+  },
+  {
+    "kind": "question",
+    "text": "Plant their palms"
+  },
+  {
+    "kind": "question",
+    "text": "Build their homes"
+  },
+  {
+    "kind": "question",
+    "text": "A day would come to you when you would not be able to see me, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ swore by Allah as he said these words."
+  },
+  {
+    "kind": "question",
+    "text": "By Him in Whose Hand is the life of Muhammad, he ﷺ began, Abu Hurairah said."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about the Book of Virtues!"
   },
   {
     "kind": "lesson",
@@ -249925,10 +250805,6 @@
   },
   {
     "kind": "lesson",
-    "text": "Jibril and Mika'il"
-  },
-  {
-    "kind": "lesson",
     "text": "Angels obey Allah"
   },
   {
@@ -249950,10 +250826,6 @@
   {
     "kind": "question",
     "text": "Harut and Marut only"
-  },
-  {
-    "kind": "question",
-    "text": "Munkar and Nakir"
   },
   {
     "kind": "question",
@@ -252314,10 +253186,6 @@
   {
     "kind": "question",
     "text": "What food does 2:168 tell people to eat?"
-  },
-  {
-    "kind": "question",
-    "text": "Only meat"
   },
   {
     "kind": "question",
@@ -300085,10 +300953,6 @@
   },
   {
     "kind": "question",
-    "text": "At midday"
-  },
-  {
-    "kind": "question",
     "text": "Indeed, morning is their appointed time."
   },
   {
@@ -319198,10 +320062,6 @@
   {
     "kind": "question",
     "text": "Olives and pears"
-  },
-  {
-    "kind": "question",
-    "text": "Melons"
   },
   {
     "kind": "question",
@@ -413505,10 +414365,6 @@
   },
   {
     "kind": "question",
-    "text": "Harut and Marut"
-  },
-  {
-    "kind": "question",
     "text": "Jibril, Mikail and Israfil"
   },
   {
@@ -455602,10 +456458,6 @@
   {
     "kind": "question",
     "text": "Which is a pair named by Ibn Kathir?"
-  },
-  {
-    "kind": "question",
-    "text": "Bread and salt"
   },
   {
     "kind": "question",
@@ -568374,6 +569226,378 @@
   {
     "kind": "lesson",
     "text": "The last test: everything about coming to Islam!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Worship Allah alone, pray, give zakat, and keep family ties."
+  },
+  {
+    "kind": "lesson",
+    "text": "A man asked for a deed for Paradise"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ said: he has a need"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1396"
+  },
+  {
+    "kind": "question",
+    "text": "Tell me of such a deed as will make me enter Paradise, the man said."
+  },
+  {
+    "kind": "question",
+    "text": "Which of these was in his ﷺ answer?"
+  },
+  {
+    "kind": "question",
+    "text": "Owning many camels"
+  },
+  {
+    "kind": "question",
+    "text": "Wearing fine clothes"
+  },
+  {
+    "kind": "question",
+    "text": "Keeping ties with family"
+  },
+  {
+    "kind": "question",
+    "text": "Building a big house"
+  },
+  {
+    "kind": "question",
+    "text": "Pay the Zakat and keep good relations with your kith and kin, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ said the man had a real need to ask."
+  },
+  {
+    "kind": "question",
+    "text": "He has something to ask, he ﷺ said, when the people wondered about the man."
+  },
+  {
+    "kind": "lesson",
+    "text": "Remove harmful things from the paths Muslims use."
+  },
+  {
+    "kind": "lesson",
+    "text": "He asked to be taught something useful"
+  },
+  {
+    "kind": "lesson",
+    "text": "Clear what harms people on the road"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 2618"
+  },
+  {
+    "kind": "question",
+    "text": "What did Abu Barzah ask him ﷺ to teach him?"
+  },
+  {
+    "kind": "question",
+    "text": "A clever riddle"
+  },
+  {
+    "kind": "question",
+    "text": "Something to benefit from"
+  },
+  {
+    "kind": "question",
+    "text": "A new poem"
+  },
+  {
+    "kind": "question",
+    "text": "Teach me something so that I may derive benefit from it, Abu Barzah said."
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ tell Abu Barzah to do?"
+  },
+  {
+    "kind": "question",
+    "text": "Sell his sheep"
+  },
+  {
+    "kind": "question",
+    "text": "Remove harm from paths"
+  },
+  {
+    "kind": "question",
+    "text": "Buy a fast horse"
+  },
+  {
+    "kind": "question",
+    "text": "Learn some poetry"
+  },
+  {
+    "kind": "question",
+    "text": "Remove the troublesome thing from the paths of the Muslims, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Moving harm off a path is a good deed to do."
+  },
+  {
+    "kind": "question",
+    "text": "Remove the troublesome thing from the paths of the Muslims, he ﷺ told Abu Barzah."
+  },
+  {
+    "kind": "lesson",
+    "text": "The best people have a pure heart and honest speech."
+  },
+  {
+    "kind": "lesson",
+    "text": "A pure heart has no sin or envy"
+  },
+  {
+    "kind": "lesson",
+    "text": "Honest in what they say"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Ibn Majah 4216"
+  },
+  {
+    "kind": "question",
+    "text": "Which people did he ﷺ call the best?"
+  },
+  {
+    "kind": "question",
+    "text": "The famous and loud"
+  },
+  {
+    "kind": "question",
+    "text": "The pure-hearted and truthful"
+  },
+  {
+    "kind": "question",
+    "text": "The rich and powerful"
+  },
+  {
+    "kind": "question",
+    "text": "The strong and tall"
+  },
+  {
+    "kind": "question",
+    "text": "Everyone who is pure of heart and sincere in speech, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "What is not found in a pure heart, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "Mercy or care"
+  },
+  {
+    "kind": "question",
+    "text": "Joy or thanks"
+  },
+  {
+    "kind": "question",
+    "text": "Sin, hatred or envy"
+  },
+  {
+    "kind": "question",
+    "text": "Love or kindness"
+  },
+  {
+    "kind": "question",
+    "text": "Pious and pure, with no sin, injustice, rancor or envy in it, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "A pure heart has no envy in it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Keep doing good to family, even if they cut you off."
+  },
+  {
+    "kind": "lesson",
+    "text": "He was kind, and they were harsh"
+  },
+  {
+    "kind": "lesson",
+    "text": "A helper from Allah stays with him"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 2558"
+  },
+  {
+    "kind": "question",
+    "text": "What did the man's relatives do to him?"
+  },
+  {
+    "kind": "question",
+    "text": "Visited him daily"
+  },
+  {
+    "kind": "question",
+    "text": "Helped his work"
+  },
+  {
+    "kind": "question",
+    "text": "Cut him off"
+  },
+  {
+    "kind": "question",
+    "text": "Sent him gifts"
+  },
+  {
+    "kind": "question",
+    "text": "I try to have close relationship, but they sever this relation, the man said."
+  },
+  {
+    "kind": "question",
+    "text": "Who stays with him while he keeps doing good?"
+  },
+  {
+    "kind": "question",
+    "text": "A strong guard"
+  },
+  {
+    "kind": "question",
+    "text": "A helper from Allah"
+  },
+  {
+    "kind": "question",
+    "text": "There would always remain with you, on behalf of Allah, one to support you, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Allah's help stays with one who keeps doing good to them."
+  },
+  {
+    "kind": "question",
+    "text": "A helper from Allah stays with you as long as you keep to this, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Forgive a servant seventy times a day, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "The man asked more than once"
+  },
+  {
+    "kind": "lesson",
+    "text": "Seventy times every day"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 5164"
+  },
+  {
+    "kind": "question",
+    "text": "How many times a day did he ﷺ say to forgive?"
+  },
+  {
+    "kind": "question",
+    "text": "Forgive him seventy times daily, he ﷺ replied to the man."
+  },
+  {
+    "kind": "question",
+    "text": "Who was the man asking about forgiving?"
+  },
+  {
+    "kind": "question",
+    "text": "The one who lived next door"
+  },
+  {
+    "kind": "question",
+    "text": "The one who sold to him"
+  },
+  {
+    "kind": "question",
+    "text": "The one who served him"
+  },
+  {
+    "kind": "question",
+    "text": "The one who taught him"
+  },
+  {
+    "kind": "question",
+    "text": "How often shall I forgive a servant, the man asked the Messenger of Allah ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ taught them to forgive servants many times."
+  },
+  {
+    "kind": "question",
+    "text": "Forgive him seventy times daily, he ﷺ said when asked about a servant."
+  },
+  {
+    "kind": "lesson",
+    "text": "If you can do nothing else, keep your harm from people."
+  },
+  {
+    "kind": "lesson",
+    "text": "He kept asking: and if I cannot?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Keeping harm away is charity"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 2518"
+  },
+  {
+    "kind": "question",
+    "text": "What did Abu Dharr keep asking him ﷺ?"
+  },
+  {
+    "kind": "question",
+    "text": "And how much?"
+  },
+  {
+    "kind": "question",
+    "text": "And who else?"
+  },
+  {
+    "kind": "question",
+    "text": "And where to?"
+  },
+  {
+    "kind": "question",
+    "text": "If I cannot do that, Abu Dharr asked, and he ﷺ gave him another good deed."
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ say keeping harm away counts as?"
+  },
+  {
+    "kind": "question",
+    "text": "A favor for later"
+  },
+  {
+    "kind": "question",
+    "text": "Charity for yourself"
+  },
+  {
+    "kind": "question",
+    "text": "Refrain from harming others, for this will be a charitable deed for your own good."
+  },
+  {
+    "kind": "question",
+    "text": "Helping someone who cannot do his work is a good deed."
+  },
+  {
+    "kind": "question",
+    "text": "Help the weak or do good for a person who cannot work for himself, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about the questions they asked him ﷺ!"
   },
   {
     "kind": "question",
