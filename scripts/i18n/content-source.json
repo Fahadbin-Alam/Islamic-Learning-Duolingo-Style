@@ -869,6 +869,18 @@
   },
   {
     "kind": "course",
+    "text": "Forgetting in salah"
+  },
+  {
+    "kind": "course",
+    "text": "Rising without sitting, remind me if I forget, Dhul-Yadayn's question, doubts from Shaytan, building on what you are sure of, and an imam who stands up."
+  },
+  {
+    "kind": "arabic",
+    "text": "The prostrations of forgetfulness"
+  },
+  {
+    "kind": "course",
     "text": "What wudu is"
   },
   {
@@ -1689,6 +1701,30 @@
   },
   {
     "kind": "course",
+    "text": "Standing up without sitting"
+  },
+  {
+    "kind": "course",
+    "text": "Remind me if I forget"
+  },
+  {
+    "kind": "course",
+    "text": "Dhul-Yadayn asks"
+  },
+  {
+    "kind": "course",
+    "text": "When Shaytan brings doubts"
+  },
+  {
+    "kind": "course",
+    "text": "Throw away the doubt"
+  },
+  {
+    "kind": "course",
+    "text": "If the imam stands up"
+  },
+  {
+    "kind": "course",
     "text": "Aqidah and Iman"
   },
   {
@@ -1862,6 +1898,18 @@
   {
     "kind": "course",
     "text": "His mercy better than our deeds, no arguing about the Decree, nothing outruns it, the two books, two kinds of advisers, and provision that will reach you."
+  },
+  {
+    "kind": "course",
+    "text": "What the angels do"
+  },
+  {
+    "kind": "course",
+    "text": "Angels who bring our salams, blessings on the first row, Allah boasting of those who wait, wings over Sham, a bier the angels carried, and the angel of the clouds."
+  },
+  {
+    "kind": "arabic",
+    "text": "Belief in the angels"
   },
   {
     "kind": "course",
@@ -2378,6 +2426,30 @@
   {
     "kind": "course",
     "text": "Your provision will reach you"
+  },
+  {
+    "kind": "course",
+    "text": "Angels who bring the salams"
+  },
+  {
+    "kind": "course",
+    "text": "Blessings on the first row"
+  },
+  {
+    "kind": "course",
+    "text": "Waiting for the next prayer"
+  },
+  {
+    "kind": "course",
+    "text": "Wings over Sham"
+  },
+  {
+    "kind": "course",
+    "text": "Carried by the angels"
+  },
+  {
+    "kind": "course",
+    "text": "The angel of the clouds"
   },
   {
     "kind": "course",
@@ -39361,6 +39433,14 @@
   },
   {
     "kind": "course",
+    "text": "The Book of Dreams"
+  },
+  {
+    "kind": "course",
+    "text": "From al-Bukhari's Book of Dreams: the worst lie, two golden bangles, a land of palm trees, Aishah shown in a dream, keys of treasure, and dreams that come true."
+  },
+  {
+    "kind": "course",
     "text": "Faith has many branches"
   },
   {
@@ -40470,6 +40550,30 @@
   {
     "kind": "course",
     "text": "Longing to see him"
+  },
+  {
+    "kind": "course",
+    "text": "A dream never seen"
+  },
+  {
+    "kind": "course",
+    "text": "Two golden bangles"
+  },
+  {
+    "kind": "course",
+    "text": "A land of palm trees"
+  },
+  {
+    "kind": "course",
+    "text": "Aishah shown in a dream"
+  },
+  {
+    "kind": "course",
+    "text": "Keys of the treasures"
+  },
+  {
+    "kind": "course",
+    "text": "Dreams near the end"
   },
   {
     "kind": "course",
@@ -74305,6 +74409,418 @@
   },
   {
     "kind": "lesson",
+    "text": "He ﷺ once rose after two rak'ahs without sitting."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abdullah ibn Buhaynah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Sahw: forgetting in the prayer"
+  },
+  {
+    "kind": "lesson",
+    "text": "The people rose with him ﷺ"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1224"
+  },
+  {
+    "kind": "question",
+    "text": "After how many rak'ahs did he ﷺ rise without sitting?"
+  },
+  {
+    "kind": "question",
+    "text": "Three rak'ahs"
+  },
+  {
+    "kind": "question",
+    "text": "He offered two rak'ahs and got up without sitting, Abdullah ibn Buhaynah said."
+  },
+  {
+    "kind": "question",
+    "text": "What did the people behind him ﷺ do?"
+  },
+  {
+    "kind": "question",
+    "text": "They went into sujud"
+  },
+  {
+    "kind": "question",
+    "text": "They went into ruku'"
+  },
+  {
+    "kind": "question",
+    "text": "They stood up with him"
+  },
+  {
+    "kind": "question",
+    "text": "They stayed sitting"
+  },
+  {
+    "kind": "question",
+    "text": "The people also got up with him, Ibn Buhaynah said; they followed their imam."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ made two prostrations while sitting, near the end of that prayer."
+  },
+  {
+    "kind": "question",
+    "text": "When he was about to finish, he made two prostrations while sitting, Ibn Buhaynah said."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ said: I am human and may forget, so remind me."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abdullah ibn Mas'ud"
+  },
+  {
+    "kind": "lesson",
+    "text": "Sajdah: a prostration"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ faced the qiblah for two sajdahs"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 401"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ ask the people to do if he forgot?"
+  },
+  {
+    "kind": "question",
+    "text": "Say nothing to him"
+  },
+  {
+    "kind": "question",
+    "text": "Pray it again later"
+  },
+  {
+    "kind": "question",
+    "text": "Wait for the next day"
+  },
+  {
+    "kind": "question",
+    "text": "Remind him"
+  },
+  {
+    "kind": "question",
+    "text": "So if I forget, remind me, he ﷺ said after turning to face them."
+  },
+  {
+    "kind": "question",
+    "text": "Which way did he ﷺ face for the two prostrations?"
+  },
+  {
+    "kind": "question",
+    "text": "Toward the door"
+  },
+  {
+    "kind": "question",
+    "text": "Toward the minbar"
+  },
+  {
+    "kind": "question",
+    "text": "Toward the people"
+  },
+  {
+    "kind": "question",
+    "text": "He bent his legs, faced the qiblah and made two prostrations, Ibn Mas'ud said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ said he is a human being who can forget."
+  },
+  {
+    "kind": "question",
+    "text": "I am a human being like you and liable to forget like you, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Dhul-Yadayn asked: was the prayer shortened, or did you forget?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Dhul-Yadayn: a man with long hands"
+  },
+  {
+    "kind": "lesson",
+    "text": "Two more rak'ahs were then prayed"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1229"
+  },
+  {
+    "kind": "question",
+    "text": "What did Dhul-Yadayn ask him ﷺ after two rak'ahs?"
+  },
+  {
+    "kind": "question",
+    "text": "Shall we pray again tomorrow?"
+  },
+  {
+    "kind": "question",
+    "text": "May I lead the next prayer?"
+  },
+  {
+    "kind": "question",
+    "text": "Why was the prayer so long?"
+  },
+  {
+    "kind": "question",
+    "text": "Was the prayer reduced, or did you forget?"
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ had ended the prayer after two rak'ahs, so Dhul-Yadayn asked if it had been reduced."
+  },
+  {
+    "kind": "question",
+    "text": "How many more rak'ahs did he ﷺ pray to complete it?"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ prayed two more rak'ahs; then he made two prostrations, Abu Hurairah said."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakr and Umar were present at that prayer."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakr and Umar were there, but out of respect they did not dare speak to him ﷺ."
+  },
+  {
+    "kind": "lesson",
+    "text": "Unsure how many rak'ahs? Make two sajdahs while sitting."
+  },
+  {
+    "kind": "lesson",
+    "text": "Shaytan comes when one stands to pray"
+  },
+  {
+    "kind": "lesson",
+    "text": "He brings doubts about the rak'ahs"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1232"
+  },
+  {
+    "kind": "question",
+    "text": "When does Shaytan come to make one forget the rak'ahs?"
+  },
+  {
+    "kind": "question",
+    "text": "When one plants a tree"
+  },
+  {
+    "kind": "question",
+    "text": "When one stands to pray"
+  },
+  {
+    "kind": "question",
+    "text": "When one walks home"
+  },
+  {
+    "kind": "question",
+    "text": "When one greets a friend"
+  },
+  {
+    "kind": "question",
+    "text": "When one of you stands to pray, Shaytan comes and brings doubts, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "What should one do if Shaytan makes him forget the count?"
+  },
+  {
+    "kind": "question",
+    "text": "Pray the whole prayer twice"
+  },
+  {
+    "kind": "question",
+    "text": "Call the adhan again"
+  },
+  {
+    "kind": "question",
+    "text": "Make two prostrations while sitting"
+  },
+  {
+    "kind": "question",
+    "text": "Leave the prayer at once"
+  },
+  {
+    "kind": "question",
+    "text": "He should perform two prostrations of sahw while sitting, the Messenger of Allah ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Forgetting how many rak'ahs can come from Shaytan's doubts."
+  },
+  {
+    "kind": "question",
+    "text": "Shaytan comes and puts him in doubts until he forgets how many he prayed, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Unsure of your prayer? Build on what you know for sure."
+  },
+  {
+    "kind": "lesson",
+    "text": "Doubt: not sure how much was prayed"
+  },
+  {
+    "kind": "lesson",
+    "text": "Then make two sajdahs"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 1024"
+  },
+  {
+    "kind": "question",
+    "text": "What should one in doubt do with that doubt?"
+  },
+  {
+    "kind": "question",
+    "text": "Hold on to it"
+  },
+  {
+    "kind": "question",
+    "text": "Ask about it later"
+  },
+  {
+    "kind": "question",
+    "text": "Throw it away"
+  },
+  {
+    "kind": "question",
+    "text": "Act upon it"
+  },
+  {
+    "kind": "question",
+    "text": "He should throw away his doubt and base his prayer on what he is sure of, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "What are the two prostrations for Shaytan, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "A victory"
+  },
+  {
+    "kind": "question",
+    "text": "A disgrace"
+  },
+  {
+    "kind": "question",
+    "text": "A gift"
+  },
+  {
+    "kind": "question",
+    "text": "A reward"
+  },
+  {
+    "kind": "question",
+    "text": "When the extra rak'ah completes it, the two prostrations disgrace Shaytan, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "If the prayer was already complete, the extra rak'ah is lost."
+  },
+  {
+    "kind": "question",
+    "text": "If the prayer was complete, the extra rak'ah counts as voluntary prayer, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "An imam fully up by mistake should not sit back down."
+  },
+  {
+    "kind": "lesson",
+    "text": "Not yet straight up: he sits back down"
+  },
+  {
+    "kind": "lesson",
+    "text": "Fully up: he makes two sajdahs of sahw"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 1036"
+  },
+  {
+    "kind": "question",
+    "text": "If the imam remembers before standing straight up, what does he do?"
+  },
+  {
+    "kind": "question",
+    "text": "Keep standing"
+  },
+  {
+    "kind": "question",
+    "text": "Leave the prayer"
+  },
+  {
+    "kind": "question",
+    "text": "Start again"
+  },
+  {
+    "kind": "question",
+    "text": "Sit back down"
+  },
+  {
+    "kind": "question",
+    "text": "Not fully up yet, he goes back to sitting, as Al-Mughirah reported from him ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "If he is already fully up, what should he make instead?"
+  },
+  {
+    "kind": "question",
+    "text": "Two prostrations of forgetfulness"
+  },
+  {
+    "kind": "question",
+    "text": "Two extra rak'ahs"
+  },
+  {
+    "kind": "question",
+    "text": "Two more salams"
+  },
+  {
+    "kind": "question",
+    "text": "Two more adhans"
+  },
+  {
+    "kind": "question",
+    "text": "If he stands straight up, he must not sit down; he makes the two prostrations, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "An imam who stood straight up should not sit back down."
+  },
+  {
+    "kind": "question",
+    "text": "Once fully up, he does not sit back, Al-Mughirah reported; the two sajdahs make up for it."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about forgetting in salah!"
+  },
+  {
+    "kind": "lesson",
     "text": "Allah's right on His servants: worship Him and join no partner."
   },
   {
@@ -77370,10 +77886,6 @@
   {
     "kind": "lesson",
     "text": "He ﷺ had a fever like two men, and double reward."
-  },
-  {
-    "kind": "lesson",
-    "text": "Told by Abdullah ibn Mas'ud"
   },
   {
     "kind": "lesson",
@@ -80626,6 +81138,362 @@
   {
     "kind": "lesson",
     "text": "The last test: everything about what Allah has written!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Angels travel the earth bringing him ﷺ our salams."
+  },
+  {
+    "kind": "lesson",
+    "text": "Salam: a greeting of peace"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ummah: all the Muslims"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan an-Nasa'i 1282"
+  },
+  {
+    "kind": "question",
+    "text": "Where do these angels travel, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "Only in Makkah"
+  },
+  {
+    "kind": "question",
+    "text": "Only in the sky"
+  },
+  {
+    "kind": "question",
+    "text": "Around the earth"
+  },
+  {
+    "kind": "question",
+    "text": "Allah has angels who travel around on earth, Ibn Mas'ud heard him ﷺ say."
+  },
+  {
+    "kind": "question",
+    "text": "What do they bring to him ﷺ from his Ummah?"
+  },
+  {
+    "kind": "question",
+    "text": "Their letters"
+  },
+  {
+    "kind": "question",
+    "text": "Their gifts"
+  },
+  {
+    "kind": "question",
+    "text": "Their salams"
+  },
+  {
+    "kind": "question",
+    "text": "Their coins"
+  },
+  {
+    "kind": "question",
+    "text": "Conveying to me the salams of my Ummah, he ﷺ said of these angels."
+  },
+  {
+    "kind": "question",
+    "text": "Our salams on the Prophet ﷺ reach him."
+  },
+  {
+    "kind": "question",
+    "text": "Angels travel the earth to bring him ﷺ the salams of his Ummah, Ibn Mas'ud said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah and the angels send blessings on the first row."
+  },
+  {
+    "kind": "lesson",
+    "text": "The first row: just behind the imam"
+  },
+  {
+    "kind": "lesson",
+    "text": "Come early to reach it"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Ibn Majah 997"
+  },
+  {
+    "kind": "question",
+    "text": "On which row do Allah and the angels send blessings?"
+  },
+  {
+    "kind": "question",
+    "text": "The third row"
+  },
+  {
+    "kind": "question",
+    "text": "Allah and the angels send blessings upon the first row, Al-Bara heard him ﷺ say."
+  },
+  {
+    "kind": "question",
+    "text": "Who sends blessings on the first row, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "Allah and the angels"
+  },
+  {
+    "kind": "question",
+    "text": "Only the mu'adhdhin"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Bara ibn Azib heard the Messenger of Allah ﷺ say that Allah and the angels bless it."
+  },
+  {
+    "kind": "question",
+    "text": "Allah blesses those who pray in the first row."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah boasts to His angels of those awaiting the next prayer."
+  },
+  {
+    "kind": "lesson",
+    "text": "They had prayed Maghrib with him ﷺ"
+  },
+  {
+    "kind": "lesson",
+    "text": "Some stayed on to wait for Isha"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Ibn Majah 801"
+  },
+  {
+    "kind": "question",
+    "text": "Before whom does Allah boast of those who wait?"
+  },
+  {
+    "kind": "question",
+    "text": "Your Lord opened a gate of heaven; He is boasting of you before the angels, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Which prayer had they just prayed with him ﷺ?"
+  },
+  {
+    "kind": "question",
+    "text": "Maghrib"
+  },
+  {
+    "kind": "question",
+    "text": "Zuhr"
+  },
+  {
+    "kind": "question",
+    "text": "They had prayed Maghrib with him ﷺ; some went home and some stayed, Abdullah ibn Amr said."
+  },
+  {
+    "kind": "question",
+    "text": "Allah praises those who wait in the masjid for the next prayer."
+  },
+  {
+    "kind": "question",
+    "text": "They prayed one prayer and now wait for the next, Allah tells the angels, praising them."
+  },
+  {
+    "kind": "lesson",
+    "text": "The angels of Ar-Rahman spread their wings over Sham."
+  },
+  {
+    "kind": "lesson",
+    "text": "Tuba: glad tidings and good"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ash-Sham: the Levant, north of Arabia"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 3954"
+  },
+  {
+    "kind": "question",
+    "text": "Which land did he ﷺ say Tuba is for?"
+  },
+  {
+    "kind": "question",
+    "text": "Ash-Sham"
+  },
+  {
+    "kind": "question",
+    "text": "Tuba is for Ash-Sham, he ﷺ said while they collected the Quran on pieces of cloth."
+  },
+  {
+    "kind": "question",
+    "text": "Why is Tuba for Ash-Sham, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "Its rivers are the most"
+  },
+  {
+    "kind": "question",
+    "text": "Its markets are the biggest"
+  },
+  {
+    "kind": "question",
+    "text": "Its kings are the richest"
+  },
+  {
+    "kind": "question",
+    "text": "Angels spread their wings over it"
+  },
+  {
+    "kind": "question",
+    "text": "Because the angels of Ar-Rahman spread their wings over it, he ﷺ answered."
+  },
+  {
+    "kind": "question",
+    "text": "Zayd ibn Thabit was collecting the Quran with him ﷺ that day."
+  },
+  {
+    "kind": "question",
+    "text": "Zayd said they were with him ﷺ, collecting the Quran on pieces of cloth."
+  },
+  {
+    "kind": "lesson",
+    "text": "The angels carried the bier of Sa'd ibn Mu'adh."
+  },
+  {
+    "kind": "lesson",
+    "text": "Bier: the frame a body is carried on"
+  },
+  {
+    "kind": "lesson",
+    "text": "Hypocrites: those who hide disbelief"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 3849"
+  },
+  {
+    "kind": "question",
+    "text": "Whose bier did the angels carry, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "Utbah ibn Rabi'ah"
+  },
+  {
+    "kind": "question",
+    "text": "Indeed, the angels were carrying him, he ﷺ said of Sa'd ibn Mu'adh."
+  },
+  {
+    "kind": "question",
+    "text": "What did the hypocrites say as his bier was carried?"
+  },
+  {
+    "kind": "question",
+    "text": "How long it is"
+  },
+  {
+    "kind": "question",
+    "text": "How slow it is"
+  },
+  {
+    "kind": "question",
+    "text": "How light it is"
+  },
+  {
+    "kind": "question",
+    "text": "How heavy it is"
+  },
+  {
+    "kind": "question",
+    "text": "How light his bier is, the hypocrites said; the angels were carrying him, he ﷺ answered."
+  },
+  {
+    "kind": "question",
+    "text": "The words of the hypocrites about the bier reached him ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "When their words reached the Prophet ﷺ, he said that the angels were carrying Sa'd."
+  },
+  {
+    "kind": "lesson",
+    "text": "An angel is in charge of the clouds and drives them."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Jews asked him ﷺ about thunder"
+  },
+  {
+    "kind": "lesson",
+    "text": "He drives the clouds where Allah wills"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 3117"
+  },
+  {
+    "kind": "question",
+    "text": "Who is responsible for the clouds, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "One of the birds"
+  },
+  {
+    "kind": "question",
+    "text": "One of the stars"
+  },
+  {
+    "kind": "question",
+    "text": "One of the kings"
+  },
+  {
+    "kind": "question",
+    "text": "Asked about thunder, he ﷺ said an angel among the angels drives the clouds."
+  },
+  {
+    "kind": "question",
+    "text": "Where does that angel drive the clouds?"
+  },
+  {
+    "kind": "question",
+    "text": "Wherever Allah wills"
+  },
+  {
+    "kind": "question",
+    "text": "Wherever people ask"
+  },
+  {
+    "kind": "question",
+    "text": "Only over the sea"
+  },
+  {
+    "kind": "question",
+    "text": "Only over Makkah"
+  },
+  {
+    "kind": "question",
+    "text": "He drives the clouds wherever Allah wills, he ﷺ told the Jews who asked about thunder."
+  },
+  {
+    "kind": "question",
+    "text": "The Jews who asked said he ﷺ had told the truth."
+  },
+  {
+    "kind": "question",
+    "text": "After his answer about the thunder, they said: you have told the truth."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about what the angels do!"
   },
   {
     "kind": "lesson",
@@ -89190,10 +90058,6 @@
   {
     "kind": "question",
     "text": "Send it back"
-  },
-  {
-    "kind": "question",
-    "text": "Throw it away"
   },
   {
     "kind": "question",
@@ -99573,10 +100437,6 @@
   },
   {
     "kind": "question",
-    "text": "A reward"
-  },
-  {
-    "kind": "question",
     "text": "A stern warning"
   },
   {
@@ -101322,10 +102182,6 @@
   {
     "kind": "question",
     "text": "Ask a scholar"
-  },
-  {
-    "kind": "question",
-    "text": "Start again"
   },
   {
     "kind": "question",
@@ -111077,10 +111933,6 @@
   },
   {
     "kind": "question",
-    "text": "Utbah ibn Rabi'ah"
-  },
-  {
-    "kind": "question",
     "text": "Ibn ad-Dughunnah"
   },
   {
@@ -114598,10 +115450,6 @@
   {
     "kind": "question",
     "text": "A witness to the hadith"
-  },
-  {
-    "kind": "question",
-    "text": "A gift"
   },
   {
     "kind": "question",
@@ -127509,10 +128357,6 @@
   },
   {
     "kind": "question",
-    "text": "Only in Makkah"
-  },
-  {
-    "kind": "question",
     "text": "Only for a year"
   },
   {
@@ -137662,10 +138506,6 @@
   {
     "kind": "question",
     "text": "Which prayer did they wait to pray with him ﷺ?"
-  },
-  {
-    "kind": "question",
-    "text": "Zuhr"
   },
   {
     "kind": "question",
@@ -187344,10 +188184,6 @@
     "text": "Even when it's hard"
   },
   {
-    "kind": "lesson",
-    "text": "Waiting for the next prayer"
-  },
-  {
     "kind": "source",
     "text": "Sahih Muslim 251a"
   },
@@ -198917,10 +199753,6 @@
   },
   {
     "kind": "question",
-    "text": "Maghrib"
-  },
-  {
-    "kind": "question",
     "text": "Besides the two rak'at of the Fajr prayer."
   },
   {
@@ -201110,6 +201942,378 @@
   {
     "kind": "lesson",
     "text": "The last test: everything about the Book of Virtues!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Claiming a dream you never saw is the worst lie."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ru'ya: a dream"
+  },
+  {
+    "kind": "lesson",
+    "text": "Tell only the dreams you truly saw"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 7043"
+  },
+  {
+    "kind": "question",
+    "text": "What is the worst lie, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "Forgetting a dream"
+  },
+  {
+    "kind": "question",
+    "text": "Telling a true dream"
+  },
+  {
+    "kind": "question",
+    "text": "Claiming a dream not seen"
+  },
+  {
+    "kind": "question",
+    "text": "A person claims a dream he has not seen; that is the worst lie, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "A boy makes up a dream to impress his friends. What is that?"
+  },
+  {
+    "kind": "question",
+    "text": "A funny joke"
+  },
+  {
+    "kind": "question",
+    "text": "A good story"
+  },
+  {
+    "kind": "question",
+    "text": "He did not see it; claiming such a dream is the worst lie, Ibn Umar heard him ﷺ say."
+  },
+  {
+    "kind": "question",
+    "text": "Making up a dream to tell people is fine."
+  },
+  {
+    "kind": "question",
+    "text": "Claiming a dream you have not seen is the worst lie, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ dreamt of two gold bangles and blew them away."
+  },
+  {
+    "kind": "lesson",
+    "text": "Bangles: bracelets worn on the arm"
+  },
+  {
+    "kind": "lesson",
+    "text": "The two liars: al-Ansi and Musaylimah"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 7034"
+  },
+  {
+    "kind": "question",
+    "text": "What was put in his ﷺ hands in the dream?"
+  },
+  {
+    "kind": "question",
+    "text": "Two silver rings"
+  },
+  {
+    "kind": "question",
+    "text": "Two green leaves"
+  },
+  {
+    "kind": "question",
+    "text": "Two white birds"
+  },
+  {
+    "kind": "question",
+    "text": "While I was sleeping, two golden bangles were put in my two hands, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ take the two bangles to mean?"
+  },
+  {
+    "kind": "question",
+    "text": "Two cities that would be built"
+  },
+  {
+    "kind": "question",
+    "text": "Two liars who would appear"
+  },
+  {
+    "kind": "question",
+    "text": "Two kings who would believe"
+  },
+  {
+    "kind": "question",
+    "text": "Two rains that would come"
+  },
+  {
+    "kind": "question",
+    "text": "I interpret it as a symbol of two liars who will appear, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ blew on the bangles, and they flew away."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ was allowed to blow them off, and they flew away, Ibn Abbas said."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ dreamt he moved to a land of palms: it was Madinah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Yathrib: the old name of Madinah"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ first thought of al-Yamamah or Hajar"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 7035"
+  },
+  {
+    "kind": "question",
+    "text": "What kind of land did he ﷺ see himself migrating to?"
+  },
+  {
+    "kind": "question",
+    "text": "A land of snow"
+  },
+  {
+    "kind": "question",
+    "text": "A land of lakes"
+  },
+  {
+    "kind": "question",
+    "text": "A land of date palms"
+  },
+  {
+    "kind": "question",
+    "text": "In the dream he ﷺ was migrating from Makkah; the land ahead had date palm trees."
+  },
+  {
+    "kind": "question",
+    "text": "Which city did that land turn out to be?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Yamamah"
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ thought it might be al-Yamamah or Hajar, but it turned out to be Yathrib, Madinah."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ first thought the land might be al-Yamamah."
+  },
+  {
+    "kind": "question",
+    "text": "I thought that it might be the land of al-Yamamah or Hajar, he ﷺ said; it was Yathrib."
+  },
+  {
+    "kind": "lesson",
+    "text": "Aishah was shown to him ﷺ twice in a dream."
+  },
+  {
+    "kind": "lesson",
+    "text": "She was carried in a piece of silk"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 7011"
+  },
+  {
+    "kind": "question",
+    "text": "How many times was Aishah shown to him ﷺ in a dream?"
+  },
+  {
+    "kind": "question",
+    "text": "You were shown to me twice in my dream, he ﷺ told Aishah."
+  },
+  {
+    "kind": "question",
+    "text": "In what was she carried in the dream?"
+  },
+  {
+    "kind": "question",
+    "text": "A piece of silk"
+  },
+  {
+    "kind": "question",
+    "text": "A woolen blanket"
+  },
+  {
+    "kind": "question",
+    "text": "A cotton sheet"
+  },
+  {
+    "kind": "question",
+    "text": "A leather mat"
+  },
+  {
+    "kind": "question",
+    "text": "A man was carrying you in a silken piece of cloth, he ﷺ told her."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ said: if this is from Allah, it will surely happen."
+  },
+  {
+    "kind": "question",
+    "text": "If this is from Allah, then it must happen, he ﷺ said to himself, and it did."
+  },
+  {
+    "kind": "lesson",
+    "text": "In a dream, he ﷺ was given the keys to earth's treasures."
+  },
+  {
+    "kind": "lesson",
+    "text": "Jawami' al-Kalim: few words, wide meaning"
+  },
+  {
+    "kind": "lesson",
+    "text": "Put in his ﷺ hand while he slept"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 7013"
+  },
+  {
+    "kind": "question",
+    "text": "What was brought to him ﷺ while he slept?"
+  },
+  {
+    "kind": "question",
+    "text": "The keys of earth's treasures"
+  },
+  {
+    "kind": "question",
+    "text": "A crown of gold"
+  },
+  {
+    "kind": "question",
+    "text": "A large lamp"
+  },
+  {
+    "kind": "question",
+    "text": "A white flag"
+  },
+  {
+    "kind": "question",
+    "text": "The keys of the earth's treasures were brought to him ﷺ; they were put in his hand."
+  },
+  {
+    "kind": "question",
+    "text": "What are Jawami' al-Kalim, which he ﷺ was sent with?"
+  },
+  {
+    "kind": "question",
+    "text": "Long books of stories"
+  },
+  {
+    "kind": "question",
+    "text": "Songs of the Arabs"
+  },
+  {
+    "kind": "question",
+    "text": "Poems about kings"
+  },
+  {
+    "kind": "question",
+    "text": "Short words with wide meanings"
+  },
+  {
+    "kind": "question",
+    "text": "Jawami' al-Kalim are the shortest words that carry the widest meanings."
+  },
+  {
+    "kind": "question",
+    "text": "Jawami' al-Kalim are long speeches with little meaning."
+  },
+  {
+    "kind": "question",
+    "text": "Jawami' al-Kalim are few words that carry wide meanings, al-Bukhari explains."
+  },
+  {
+    "kind": "lesson",
+    "text": "Near the Last Day, a believer's dreams will rarely be false."
+  },
+  {
+    "kind": "lesson",
+    "text": "A believer's dream: a part of prophethood"
+  },
+  {
+    "kind": "lesson",
+    "text": "What is of prophethood is never false"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 7017"
+  },
+  {
+    "kind": "question",
+    "text": "When will a believer's dreams hardly fail to come true?"
+  },
+  {
+    "kind": "question",
+    "text": "As the Last Day draws near"
+  },
+  {
+    "kind": "question",
+    "text": "As the Day of Resurrection approaches, a believer's dreams will hardly fail to come true."
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ say can never be false?"
+  },
+  {
+    "kind": "question",
+    "text": "What people say"
+  },
+  {
+    "kind": "question",
+    "text": "What poets write"
+  },
+  {
+    "kind": "question",
+    "text": "What belongs to prophethood"
+  },
+  {
+    "kind": "question",
+    "text": "Every dream we see"
+  },
+  {
+    "kind": "question",
+    "text": "A believer's dream is a part of prophethood, which can never be false, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Near the Last Day, a believer's dreams will often be false."
+  },
+  {
+    "kind": "question",
+    "text": "As the Day draws near, a believer's dreams will hardly fail to come true, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about the Book of Dreams!"
   },
   {
     "kind": "lesson",
@@ -227457,10 +228661,6 @@
   },
   {
     "kind": "lesson",
-    "text": "Allah defends those who believe; He does not love the treacherous and ungrateful."
-  },
-  {
-    "kind": "lesson",
     "text": "Those driven from their homes only for saying 'Our Lord is Allah' were allowed to defend themselves."
   },
   {
@@ -232778,10 +233978,6 @@
   {
     "kind": "question",
     "text": "Only in cities"
-  },
-  {
-    "kind": "question",
-    "text": "Only in the sky"
   },
   {
     "kind": "question",
@@ -317897,10 +319093,6 @@
   },
   {
     "kind": "question",
-    "text": "Their coins"
-  },
-  {
-    "kind": "question",
     "text": "And so do their shadows in the mornings and in the afternoons."
   },
   {
@@ -349774,10 +350966,6 @@
   {
     "kind": "question",
     "text": "What did Shaytan offer Adam, in 20:120?"
-  },
-  {
-    "kind": "question",
-    "text": "A crown of gold"
   },
   {
     "kind": "question",
@@ -508234,10 +509422,6 @@
   {
     "kind": "question",
     "text": "Where did Isa send his disciples?"
-  },
-  {
-    "kind": "question",
-    "text": "Ash-Sham"
   },
   {
     "kind": "question",
