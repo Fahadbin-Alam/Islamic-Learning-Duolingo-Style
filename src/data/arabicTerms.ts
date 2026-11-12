@@ -450,7 +450,10 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "fasting-making-the-most-of-ramadan": { ar: "اغتنام رمضان", translit: "Ightinam Ramadan", meaning: "Making the most of Ramadan" },
   "hajj-makkah-the-beloved-city": { ar: "مكة المكرمة", translit: "Makkah al-Mukarramah", meaning: "Makkah, the honoured city" },
   "aqidah-sincere-for-allah": { ar: "الإخلاص لله", translit: "Al-ikhlas lillah", meaning: "Sincerity for Allah" },
-  "prayer-coming-to-jumuah": { ar: "آداب الجمعة", translit: "Adab al-jumu'ah", meaning: "The manners of Friday" }
+  "prayer-coming-to-jumuah": { ar: "آداب الجمعة", translit: "Adab al-jumu'ah", meaning: "The manners of Friday" },
+  "hadith-book-fadail": { ar: "كتاب الفضائل", translit: "Kitab al-fada'il", meaning: "The Book of Virtues" },
+  "foundation-eating-drinking": { ar: "سنن الطعام والشراب", translit: "Sunan at-ta'am wash-sharab", meaning: "Sunnahs of food and drink" },
+  "intro-questions-they-asked": { ar: "أسئلة الصحابة", translit: "As'ilat as-Sahabah", meaning: "The Companions' questions" }
 };
 
 export const NODE_ARABIC: Record<string, ArabicTerm> = {
@@ -970,6 +973,7 @@ const LEARN_FORMS = [
   "الْوَسَطِيَّةُ", "الْحَيَاءُ وَالْحِلْمُ", "دَوَامُ الذِّكْرِ",
   "الرِّفْقُ بِالْأَطْفَالِ", "كَيْفَ أَسْلَمُوا", "اغْتِنَامُ رَمَضَانَ",
   "مَكَّةُ الْمُكَرَّمَةُ", "الْإِخْلَاصُ لِلَّهِ", "آدَابُ الْجُمُعَةِ",
+  "كِتَابُ الْفَضَائِلِ", "سُنَنُ الطَّعَامِ وَالشَّرَابِ", "أَسْئِلَةُ الصَّحَابَةِ",
   "الْعُمْرَةُ", "الْبَيْتُ الْحَرَامُ", "الْمَسَاجِدُ الثَّلَاثَةُ",
   ...SURAH_NAMES.map((name) => `سُورَةُ ${name}`)
 ];
