@@ -78,8 +78,14 @@ async function press(testID: string) {
 describe("memorize surahs (the questions)", () => {
   it("offers Al-Fatihah, then the short surahs from An-Nas back, a longer one in parts that meet", () => {
     const parts = memorizeParts();
-    expect(parts.slice(0, 13).map((item) => item.id)).toEqual(["1", "114", "113", "112", "111", "110", "109", "108", "107", "106", "105", "103", "100"]);
+    expect(parts.slice(0, 13).map((item) => item.id)).toEqual(["1", "114", "113", "112", "111", "110", "109", "108", "107", "106", "105", "104", "103"]);
     expect(parts.map((item) => item.id)).toEqual(expect.arrayContaining(["92:1-11", "92:11-21", "91:1-8", "91:8-15", "90:1-11", "90:11-20"]));
+    // All of Juz 'Amma (An-Naba to An-Nas), but for the 3 surahs with an ayah too long to tap as an answer: An-Naba
+    // (38 and 40), Al-Buruj (10 and 11) and Al-Bayyinah (5, 6 and 8).
+    const juzAmma = Array.from({ length: 114 - 78 + 1 }, (_, index) => 114 - index);
+    expect([...new Set(parts.map((item) => item.surah))]).toEqual([1, ...juzAmma.filter((surah) => ![78, 85, 98].includes(surah))]);
+    // A long one comes in parts, such as 'Abasa (42 ayahs) in 5.
+    expect(parts.filter((item) => item.surah === 80).map((item) => item.id)).toEqual(["80:1-9", "80:9-17", "80:17-26", "80:26-34", "80:34-42"]);
     // Al-Fatihah first, then the surahs in reverse order, each part of a surah after the one before it.
     const surahs = parts.slice(1).map((item) => item.surah);
     expect(surahs).toEqual([...surahs].sort((a, b) => b - a));

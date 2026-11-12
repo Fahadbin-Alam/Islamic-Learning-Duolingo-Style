@@ -151,10 +151,12 @@ describe("which surah is it? (the questions)", () => {
   it("goes on to the next 8 surahs each try, so all come round, and each time to the next of a surah's ayahs", () => {
     const surahs = memorizeSurahNumbers();
     const tries = Array.from({ length: 30 }, (_, attempt) => whichSurahChallenges(attempt));
-    // Three tries go through all 21 surahs (and 3 again).
-    expect(new Set(tries.slice(0, 3).flat().map(surahOf)).size).toBe(surahs.length);
+    // Five tries go through all 35 surahs (and 5 again); four do not.
+    expect(surahs).toHaveLength(35);
+    expect(new Set(tries.slice(0, 5).flat().map(surahOf)).size).toBe(surahs.length);
+    expect(new Set(tries.slice(0, 4).flat().map(surahOf)).size).toBeLessThan(surahs.length);
     tries.forEach((questions) => expect(new Set(questions.map(surahOf)).size).toBe(WHICH_SURAH_QUESTIONS));
-    expect(tries[1].map(surahOf).sort((a, b) => a - b)).toEqual([95, 97, 99, 100, 103, 105, 106, 107]);
+    expect(tries[1].map(surahOf).sort((a, b) => a - b)).toEqual([100, 101, 102, 103, 104, 105, 106, 107]);
     // A surah plays each of its ayahs in turn before any again.
     for (const surah of surahs) {
       const played = tries.flat().filter((question) => surahOf(question) === surah).map((question) => Number(question.listen!.which!.key.split(":")[1]));

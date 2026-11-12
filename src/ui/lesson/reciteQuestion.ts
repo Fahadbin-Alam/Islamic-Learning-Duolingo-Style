@@ -48,10 +48,24 @@ function lastWord(text: string) {
   return piece ? { text: piece.text, gap: words - 1, words } : undefined;
 }
 
+/**
+ * A text's letters (see arabicLetters), worked out once: the same ayahs are compared again and again (a surah's every
+ * ayah with each of its others), which would take a slow phone a moment when Memorize surahs opens.
+ */
+const lettersOfText = new Map<string, string>();
+function lettersOf(text: string) {
+  let letters = lettersOfText.get(text);
+  if (letters === undefined) {
+    letters = arabicLetters(text);
+    lettersOfText.set(text, letters);
+  }
+  return letters;
+}
+
 /** Endings too close to be fair: the same letters, or one inside the other ("ٱلنَّاسِ" and "وَٱلنَّاسِ"). */
 function tooClose(a: string, b: string) {
-  const x = arabicLetters(a);
-  const y = arabicLetters(b);
+  const x = lettersOf(a);
+  const y = lettersOf(b);
   return !x || !y || x.includes(y) || y.includes(x);
 }
 
@@ -270,8 +284,8 @@ function nextQuestion(id: string, { surah, ayah, text, recitation }: AyahAt, inO
   const words = ayahPieces(text).words;
   if (ayahWordTimes(ayahKey)![words] > MAX_NEXT_LISTEN_S) return undefined;
   // An ayah said more than once in its surah ("فَبِأَيِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ") has more than one ayah after it.
-  const letters = arabicLetters(QURAN_AYAHS[ayahKey] ?? text);
-  const twins = ayahsOf(surah).filter((a) => a !== ayah && arabicLetters(QURAN_AYAHS[`${surah}:${a}`]) === letters);
+  const letters = lettersOf(QURAN_AYAHS[ayahKey] ?? text);
+  const twins = ayahsOf(surah).filter((a) => a !== ayah && lettersOf(QURAN_AYAHS[`${surah}:${a}`]) === letters);
   if (twins.length && !inOrder) return undefined;
   const wrong = inOrder ? wrongInOrderAyahs(surah, ayah, next, twins) : wrongNextAyahs(surah, ayah, next);
   if (wrong.length < WRONG_CHOICES) return undefined;
@@ -448,14 +462,14 @@ let whichAyahs: Map<number, number[]> | undefined;
 export function whichSurahAyahs(surah: number): number[] {
   if (!whichAyahs) {
     const surahs = memorizeSurahNumbers();
-    const letters = new Map(surahs.map((each) => [each, ayahsOf(each).map((ayah) => arabicLetters(QURAN_AYAHS[`${each}:${ayah}`]))]));
+    const letters = new Map(surahs.map((each) => [each, ayahsOf(each).map((ayah) => lettersOf(QURAN_AYAHS[`${each}:${ayah}`]))]));
     whichAyahs = new Map(
       surahs.map((each) => {
         const others = surahs.filter((other) => other !== each).flatMap((other) => letters.get(other) ?? []);
         const fair = ayahsOf(each).filter((ayah) => {
           const text = QURAN_AYAHS[`${each}:${ayah}`];
           if (ayahPieces(text).words < 2 || !quranAudioUrl(`Quran ${each}:${ayah}`)) return false;
-          const mine = arabicLetters(text);
+          const mine = lettersOf(text);
           return !others.some((other) => other.includes(mine) || mine.includes(other));
         });
         return [each, fair];
