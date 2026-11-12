@@ -438,7 +438,10 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "hadith-trust": { ar: "الأمانة", translit: "Al-amanah", meaning: "Being trustworthy" },
   "zakat-how-allah-counts": { ar: "الصدقة عند الله", translit: "As-sadaqah 'indallah", meaning: "Charity as Allah counts it" },
   "foundation-journey": { ar: "آداب السفر", translit: "Adab as-safar", meaning: "The manners of travel" },
-  "duas-for-other-people": { ar: "الدعاء للآخرين", translit: "Ad-du'a lil-akharin", meaning: "Du'a for others" }
+  "duas-for-other-people": { ar: "الدعاء للآخرين", translit: "Ad-du'a lil-akharin", meaning: "Du'a for others" },
+  "prayer-ruku-and-sujud-for-allah": { ar: "الركوع والسجود لله", translit: "Ar-ruku' was-sujud lillah", meaning: "Bowing and prostrating for Allah" },
+  "akhirah-how-people-are-raised": { ar: "البعث", translit: "Al-ba'th", meaning: "The raising of the dead" },
+  "hadith-qudsi-more": { ar: "قال الله تعالى", translit: "Qal Allahu ta'ala", meaning: "Allah the Most High said" }
 };
 
 export const NODE_ARABIC: Record<string, ArabicTerm> = {
@@ -954,6 +957,7 @@ const LEARN_FORMS = [
   "جَوَامِعُ الدُّعَاءِ", "فِتْنَةُ الْمَالِ", "الْحَذَرُ مِنَ الْأَذَى",
   "كِتَابُ بَدْءِ الْخَلْقِ", "ثَبَاتُ الْإِيمَانِ", "الْأَمَانَةُ",
   "الصَّدَقَةُ عِنْدَ اللَّهِ", "آدَابُ السَّفَرِ", "الدُّعَاءُ لِلْآخَرِينَ",
+  "الرُّكُوعُ وَالسُّجُودُ لِلَّهِ", "الْبَعْثُ", "قَالَ اللَّهُ تَعَالَى",
   "الْعُمْرَةُ", "الْبَيْتُ الْحَرَامُ", "الْمَسَاجِدُ الثَّلَاثَةُ",
   ...SURAH_NAMES.map((name) => `سُورَةُ ${name}`)
 ];
