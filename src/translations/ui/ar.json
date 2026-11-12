@@ -1015,5 +1015,10 @@
   "Hear an ayah, tap its surah": "استمع إلى آية واختر سورتها",
   "Every surah right!": "كل السور صحيحة!",
   "Surah complete!": "اكتملت السورة!",
-  "{count} of {total} surahs complete": "السور المكتملة: {count} من {total}"
+  "{count} of {total} surahs complete": "السور المكتملة: {count} من {total}",
+  "Review today": "مراجعة اليوم",
+  "{title} and {count} more": "{title} و{count} أخرى",
+  "{count} ready to review today": "جاهزة للمراجعة اليوم: {count}",
+  "Review it again tomorrow": "راجعها مرة أخرى غدًا",
+  "Review it again in {count} days": "راجعها مرة أخرى بعد {count} أيام"
 }

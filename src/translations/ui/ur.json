@@ -1015,5 +1015,10 @@
   "Hear an ayah, tap its surah": "ایک آیت سنیں، اس کی سورۃ چنیں",
   "Every surah right!": "ہر سورۃ درست!",
   "Surah complete!": "سورۃ مکمل!",
-  "{count} of {total} surahs complete": "مکمل سورتیں: {total} میں سے {count}"
+  "{count} of {total} surahs complete": "مکمل سورتیں: {total} میں سے {count}",
+  "Review today": "آج کی دہرائی",
+  "{title} and {count} more": "{title} اور {count} مزید",
+  "{count} ready to review today": "آج دہرائی کے لیے {count} تیار",
+  "Review it again tomorrow": "کل دوبارہ دہرائیں",
+  "Review it again in {count} days": "{count} دن بعد دوبارہ دہرائیں"
 }
