@@ -80,8 +80,9 @@ export function subscribeAyahPlayback(listener: (playback: AyahPlayback) => void
 /**
  * Plays the ayah from its start. With the same ayah already loaded, it starts over without fetching again.
  * `once` plays it a single time even when Repeat is on (the word card's speaker, which has no Stop).
+ * `resume` goes on from where stopAyah left it, when it is still the loaded ayah.
  */
-export function playAyah(url: string, { once = false }: { once?: boolean } = {}) {
+export function playAyah(url: string, { once = false, resume = false }: { once?: boolean; resume?: boolean } = {}) {
   const saved = localAyahUri(url);
   // With no internet, an ayah not saved on the phone cannot play: say so now instead of after the load timeout.
   if (!saved && !isOnline()) {
@@ -107,7 +108,7 @@ export function playAyah(url: string, { once = false }: { once?: boolean } = {})
     } else if (state.url !== url) {
       player.pause();
       player.replace(source);
-    } else {
+    } else if (!resume) {
       void player.seekTo(0).catch(() => undefined);
     }
     player.loop = state.repeat && !once;
@@ -127,7 +128,10 @@ export function playAyah(url: string, { once = false }: { once?: boolean } = {})
   }
 }
 
-/** Stops the recitation. With a url, only when that ayah is the one playing (a card leaving the screen). */
+/**
+ * Stops the recitation. With a url, only when that ayah is the one playing (a card leaving the screen). It stops where
+ * it is: playAyah(url, { resume: true }) goes on from there.
+ */
 export function stopAyah(url?: string) {
   if (url && state.url !== url) {
     return;

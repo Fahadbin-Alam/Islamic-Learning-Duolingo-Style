@@ -73,6 +73,7 @@ import {
 } from "./sheetFit";
 import { scaleFont, textScaled } from "../textScale";
 import { TapToPlay } from "./Teacher";
+import { ReciteCard } from "./ReciteCard";
 
 // Arabic letters only: honorific signs like ﷺ (U+FDF0-U+FDFF) stay part of the English line.
 const AR = "؀-ۿݐ-ݿࢠ-ࣿﭐ-﴿ﵐ-﷎ﹰ-﻿";
@@ -437,8 +438,12 @@ export type ExerciseViewProps = {
   picture?: LessonPicture;
   /** A picture for each answer (all places, see choicePictures): each tile shows its place, moving, like a picture card. */
   choicePictures?: Record<string, LessonPicture>;
-  /** A listening question: a big speaker under the prompt plays the Arabic; tap again to stop. */
-  listen?: { onPlay: () => void; playing: boolean };
+  /**
+   * A listening question: a big speaker under the prompt plays the Arabic; tap again to stop. With `recite` ("How does
+   * the ayah end?"), the ayah shows instead, its last word a gap, with a speaker of its own (ReciteCard), and the
+   * answers are in the Quran's face.
+   */
+  listen?: { onPlay: () => void; playing: boolean; recite?: { text: string; ayahKey: string; url: string; gap: number } };
   bottomInset?: number;
   testID?: string;
 };
@@ -1072,7 +1077,8 @@ export function ExerciseView({
   const why = shown ? (getActiveLanguage() === "en" ? shortWhy({ explanation: shown.why, prompt, correctLabel: shown.correctLabel }) : shown.why) : undefined;
   // "Correct answer: ..." always names the answer, even though the green tile shows it too.
   const sheetLabel = shown && !shown.correct ? shown.correctLabel : undefined;
-  const voice = useMistakeVoice(checked, Boolean(shown?.correct), sheetLabel, shown?.why);
+  // The ayah's ending is said by the reciter, on screen, not the teacher's voice.
+  const voice = useMistakeVoice(checked && !listen?.recite, Boolean(shown?.correct), sheetLabel, shown?.why);
   // The speaker by CHECK: the teacher reads the question, then its answers in the order they show (true or false: the
   // question alone, its two buttons say the rest). A listening question has its own speaker, for the word.
   // Each part lights up while it is said: the question in its bubble, then each answer's tile.
@@ -1313,7 +1319,11 @@ export function ExerciseView({
                 picture={picture}
               />
             </View>
-            {listen ? <ListenButton onPlay={listen.onPlay} playing={listen.playing} accent={accent} /> : null}
+            {listen?.recite ? (
+              <ReciteCard {...listen.recite} onPlay={listen.onPlay} playing={listen.playing} answered={checked} accent={accent} />
+            ) : listen ? (
+              <ListenButton onPlay={listen.onPlay} playing={listen.playing} accent={accent} />
+            ) : null}
             {checked && promptGap?.key === shownKey ? (
               <FoldGap key={`prompt-gap-${promptGap.n}`} height={promptGap.height} shut={whyOpened} viewRef={gapRef(`prompt-${promptGap.n}`, promptGap.height)} />
             ) : null}
@@ -1361,6 +1371,7 @@ export function ExerciseView({
                       delay={80 + index * 60}
                       distance={entryRise(choice.id)}
                       label={choice.label}
+                      quran={listen?.recite ? true : undefined}
                       picture={choicePictures?.[choice.id]}
                       compact={compact}
                       tight={look.tight}

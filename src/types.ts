@@ -435,7 +435,16 @@ export interface Challenge {
    * A listening question: a speaker plays the Arabic (the reciter for an ayah, else the phone's Arabic voice) and
    * the learner picks what it means. Built from the lesson's own checked Arabic word (src/ui/lesson/listenQuestion.ts).
    */
-  listen?: { ar: string; translit: string; recitation?: string };
+  listen?: {
+    ar: string;
+    translit: string;
+    recitation?: string;
+    /**
+     * "How does the ayah end?" (src/ui/lesson/reciteQuestion.ts): `ar` is the whole ayah the lesson quoted; the
+     * reciter recites it, its words lighting up, and stops before word `gap` (its last), which the learner picks.
+     */
+    recite?: { key: string; gap: number };
+  };
 }
 
 export interface LessonTeachingMoment {

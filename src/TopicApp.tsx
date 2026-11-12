@@ -202,8 +202,11 @@ import { mapPlacesFor } from "./ui/lesson/mapQuestions";
 import * as Speech from "expo-speech";
 import { findArabicVoice, recitationForArabic } from "./services/arabicVoice";
 import { playAyah, stopAyah } from "./services/ayahPlayer";
+import { localAyahUri } from "./services/offlineAudio";
+import { quranAudioUrl } from "./services/quranAudio";
 import { useAyahPlayback } from "./ui/lesson/AyahListen";
 import { listenWhy, withListenQuestion } from "./ui/lesson/listenQuestion";
+import { withReciteQuestion } from "./ui/lesson/reciteQuestion";
 import { colors, configureUiSound, darken, preloadUiSounds, fonts, Icon, lighten, Mascot, PopIn, radii, space, Tappable } from "./ui";
 import { PortalHost } from "./ui/Portal";
 import { applyBattle, buyIcon, rerollNickname, setUmmahJoined, wearIcon, type ProfileIconId } from "./services/ummah";
@@ -1999,16 +2002,24 @@ export default function TopicApp() {
   }
 
   // A lesson whose learn card teaches a checked Arabic word asks one listening question, when it can be heard:
-  // the reciter (online) for an ayah, else the phone's Arabic voice. Never with sound effects off, nor in a test.
+  // the reciter (online) for an ayah, else the phone's Arabic voice. A lesson quoting a short ayah instead asks how
+  // the ayah ends, while the reciter recites it (online, or saved on the phone). Never with sound effects off, nor in
+  // a test.
   function withListening(session: LessonSession, nodeId: string, user: UserProfile): LessonSession {
     if ((session.mode ?? "standard") !== "standard" || session.unitTest || user.soundEffectsEnabled === false) return session;
     const lesson = session.lesson;
     const term = getNodeArabic(nodeId);
-    if (!term) return session;
-    const recitation = recitationForArabic(term.ar, [lesson.quote?.reference, lesson.learnSource?.reference]);
-    if (!arabicVoiceId && !(recitation && online)) return session;
-    const withListen = withListenQuestion(lesson, nodeId, recitation);
-    return withListen === lesson ? session : { ...session, lesson: withListen };
+    if (term) {
+      const recitation = recitationForArabic(term.ar, [lesson.quote?.reference, lesson.learnSource?.reference]);
+      if (arabicVoiceId || (recitation && online)) {
+        const withListen = withListenQuestion(lesson, nodeId, recitation);
+        if (withListen !== lesson) return { ...session, lesson: withListen };
+      }
+    }
+    const ayah = quranAudioUrl(lesson.quote?.reference);
+    if (!ayah || !(online || localAyahUri(ayah))) return session;
+    const withRecite = withReciteQuestion(lesson, nodeId);
+    return withRecite === lesson ? session : { ...session, lesson: withRecite };
   }
 
   const [listenSpeaking, setListenSpeaking] = useState(false);
@@ -2030,7 +2041,8 @@ export default function TopicApp() {
     if (listen.recitation) {
       const active = ayahNow.url === listen.recitation && (ayahNow.status === "playing" || ayahNow.status === "loading");
       if (active) stopAyah(listen.recitation);
-      else playAyah(listen.recitation);
+      // "How does the ayah end?" plays the ayah once from its start, even with Repeat on.
+      else playAyah(listen.recitation, { once: Boolean(listen.recite) });
       return;
     }
     try {
@@ -4169,7 +4181,11 @@ export default function TopicApp() {
                         onPlay: () => playListen(challenge.listen!),
                         playing: challenge.listen.recitation
                           ? ayahNow.url === challenge.listen.recitation && (ayahNow.status === "playing" || ayahNow.status === "loading")
-                          : listenSpeaking
+                          : listenSpeaking,
+                        recite:
+                          challenge.listen.recite && challenge.listen.recitation
+                            ? { text: challenge.listen.ar, ayahKey: challenge.listen.recite.key, url: challenge.listen.recitation, gap: challenge.listen.recite.gap }
+                            : undefined
                       }
                     : undefined
                 }
