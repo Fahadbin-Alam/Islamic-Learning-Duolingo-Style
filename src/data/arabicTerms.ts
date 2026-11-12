@@ -471,7 +471,10 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "sahabi-salamah-ibn-al-akwa": { ar: "سلمة بن الأكوع", translit: "Salamah ibn al-Akwa'", meaning: "The runner who saved the camels" },
   "aqidah-what-allah-has-written": { ar: "ما كتب الله", translit: "Ma kataba Allah", meaning: "What Allah has written" },
   "duas-easy-words": { ar: "كلمات خفيفة", translit: "Kalimat khafifah", meaning: "Light words" },
-  "prayer-little-extras": { ar: "فضائل الصلاة", translit: "Fada'il as-salah", meaning: "Virtues of the prayer" }
+  "prayer-little-extras": { ar: "فضائل الصلاة", translit: "Fada'il as-salah", meaning: "Virtues of the prayer" },
+  "foundation-sunnahs-of-clothing": { ar: "آداب اللباس", translit: "Adab al-libas", meaning: "The manners of dress" },
+  "akhirah-what-this-world-is-worth": { ar: "هوان الدنيا", translit: "Hawan ad-dunya", meaning: "How small this world is" },
+  "manners-rights-of-others": { ar: "حقوق الناس", translit: "Huquq an-nas", meaning: "People's rights" }
 };
 
 export const NODE_ARABIC: Record<string, ArabicTerm> = {
@@ -992,7 +995,7 @@ const LEARN_FORMS = [
   "الرِّفْقُ بِالْأَطْفَالِ", "كَيْفَ أَسْلَمُوا", "اغْتِنَامُ رَمَضَانَ",
   "مَكَّةُ الْمُكَرَّمَةُ", "الْإِخْلَاصُ لِلَّهِ", "آدَابُ الْجُمُعَةِ",
   "كِتَابُ الْفَضَائِلِ", "سُنَنُ الطَّعَامِ وَالشَّرَابِ", "أَسْئِلَةُ الصَّحَابَةِ",
-  "التَّزَوُّدُ لِلْآخِرَةِ", "الدِّقَّةُ فِي الرِّوَايَةِ", "آدَابُ التِّلَاوَةِ", "أَدْعِيَةٌ نَبَوِيَّةٌ", "صَلَاةُ اللَّيْلِ", "التَّجَمُّلُ", "السَّلَامُ وَالزَّائِرُ", "آدَابُ الْمَسْجِدِ", "قِصَصُ الصَّحَابَةِ", "خُذُوا مَنَاسِكَكُمْ", "آدَابُ الْخَلَاءِ", "كَلَامُ الْمُؤْمِنِ", "وَدَاعُ الْمُؤْمِنِ", "آدَابٌ يَوْمِيَّةٌ", "سَلَمَةُ بْنُ الْأَكْوَعِ", "مَا كَتَبَ اللَّهُ", "كَلِمَاتٌ خَفِيفَةٌ", "فَضَائِلُ الصَّلَاةِ",
+  "التَّزَوُّدُ لِلْآخِرَةِ", "الدِّقَّةُ فِي الرِّوَايَةِ", "آدَابُ التِّلَاوَةِ", "أَدْعِيَةٌ نَبَوِيَّةٌ", "صَلَاةُ اللَّيْلِ", "التَّجَمُّلُ", "السَّلَامُ وَالزَّائِرُ", "آدَابُ الْمَسْجِدِ", "قِصَصُ الصَّحَابَةِ", "خُذُوا مَنَاسِكَكُمْ", "آدَابُ الْخَلَاءِ", "كَلَامُ الْمُؤْمِنِ", "وَدَاعُ الْمُؤْمِنِ", "آدَابٌ يَوْمِيَّةٌ", "سَلَمَةُ بْنُ الْأَكْوَعِ", "مَا كَتَبَ اللَّهُ", "كَلِمَاتٌ خَفِيفَةٌ", "فَضَائِلُ الصَّلَاةِ", "آدَابُ اللِّبَاسِ", "هَوَانُ الدُّنْيَا", "حُقُوقُ النَّاسِ",
   "الْعُمْرَةُ", "الْبَيْتُ الْحَرَامُ", "الْمَسَاجِدُ الثَّلَاثَةُ",
   ...SURAH_NAMES.map((name) => `سُورَةُ ${name}`)
 ];
