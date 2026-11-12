@@ -773,6 +773,18 @@
   },
   {
     "kind": "course",
+    "text": "Sunnahs of the masjid"
+  },
+  {
+    "kind": "course",
+    "text": "Clean and scented masjids, a wall made clean, refuge on entering, learning and teaching, lost things, and a prayer in Quba."
+  },
+  {
+    "kind": "arabic",
+    "text": "The manners of the masjid"
+  },
+  {
+    "kind": "course",
     "text": "What wudu is"
   },
   {
@@ -1542,6 +1554,30 @@
   {
     "kind": "course",
     "text": "Loud or quiet"
+  },
+  {
+    "kind": "course",
+    "text": "Clean and scented"
+  },
+  {
+    "kind": "course",
+    "text": "The qiblah wall"
+  },
+  {
+    "kind": "course",
+    "text": "Refuge on entering"
+  },
+  {
+    "kind": "course",
+    "text": "To learn or to teach"
+  },
+  {
+    "kind": "course",
+    "text": "Not for lost things"
+  },
+  {
+    "kind": "course",
+    "text": "A prayer in Quba"
   },
   {
     "kind": "course",
@@ -28557,6 +28593,18 @@
   },
   {
     "kind": "course",
+    "text": "Salam and visitors"
+  },
+  {
+    "kind": "course",
+    "text": "Salam when asking to come in, standing to one side, being sent for, a sign to enter, the right words of salam, and honoring a visitor."
+  },
+  {
+    "kind": "arabic",
+    "text": "Salam and the visitor"
+  },
+  {
+    "kind": "course",
     "text": "Hadith for a good heart"
   },
   {
@@ -29206,6 +29254,30 @@
   {
     "kind": "course",
     "text": "Do not laugh too much"
+  },
+  {
+    "kind": "course",
+    "text": "Salam, then may I come in?"
+  },
+  {
+    "kind": "course",
+    "text": "Stand to one side"
+  },
+  {
+    "kind": "course",
+    "text": "When you are sent for"
+  },
+  {
+    "kind": "course",
+    "text": "A sign to come in"
+  },
+  {
+    "kind": "course",
+    "text": "The right words of salam"
+  },
+  {
+    "kind": "course",
+    "text": "Honor a respected visitor"
   },
   {
     "kind": "course",
@@ -32021,6 +32093,18 @@
   },
   {
     "kind": "course",
+    "text": "Small stories of the Sahabah"
+  },
+  {
+    "kind": "course",
+    "text": "Abu Hurairah's kitten, Jarir serving Anas, a du'a for Abu Zayd, a gift for the Mothers, the best at Badr, and a safety for the Ummah."
+  },
+  {
+    "kind": "arabic",
+    "text": "Stories of the Companions"
+  },
+  {
+    "kind": "course",
     "text": "Ibn Umar and more"
   },
   {
@@ -33778,6 +33862,30 @@
   {
     "kind": "course",
     "text": "Memorized with care"
+  },
+  {
+    "kind": "course",
+    "text": "Why Abu Hurairah?"
+  },
+  {
+    "kind": "course",
+    "text": "Jarir served Anas"
+  },
+  {
+    "kind": "course",
+    "text": "A du'a for Abu Zayd"
+  },
+  {
+    "kind": "course",
+    "text": "For the Mothers"
+  },
+  {
+    "kind": "course",
+    "text": "Jibril asked about Badr"
+  },
+  {
+    "kind": "course",
+    "text": "A safety for the Ummah"
   },
   {
     "kind": "course",
@@ -71985,6 +72093,430 @@
   },
   {
     "kind": "lesson",
+    "text": "He ﷺ wanted masjids kept clean and smelling sweet."
+  },
+  {
+    "kind": "lesson",
+    "text": "A clean masjid is a joy to pray in"
+  },
+  {
+    "kind": "lesson",
+    "text": "Scented means smelling sweet"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 594"
+  },
+  {
+    "kind": "question",
+    "text": "How did he ﷺ want masjids to be kept?"
+  },
+  {
+    "kind": "question",
+    "text": "Locked and empty"
+  },
+  {
+    "kind": "question",
+    "text": "Bare and dusty"
+  },
+  {
+    "kind": "question",
+    "text": "Dark and cold"
+  },
+  {
+    "kind": "question",
+    "text": "He ordered that they be kept clean and scented, Aishah said."
+  },
+  {
+    "kind": "question",
+    "text": "What does scented mean?"
+  },
+  {
+    "kind": "question",
+    "text": "Staying cold"
+  },
+  {
+    "kind": "question",
+    "text": "Smelling sweet"
+  },
+  {
+    "kind": "question",
+    "text": "Shining bright"
+  },
+  {
+    "kind": "question",
+    "text": "Standing tall"
+  },
+  {
+    "kind": "question",
+    "text": "Scented means given a sweet smell, and he ﷺ wanted masjids kept that way."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ ordered that masjids be kept clean and scented."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ ordered that masjids be kept clean and scented, Aishah said."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ saw spit on the masjid wall and scraped it off."
+  },
+  {
+    "kind": "lesson",
+    "text": "It was on the qiblah wall"
+  },
+  {
+    "kind": "lesson",
+    "text": "We help keep the masjid clean too"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 407"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ do when he saw spit on the masjid wall?"
+  },
+  {
+    "kind": "question",
+    "text": "He scraped it off"
+  },
+  {
+    "kind": "question",
+    "text": "He painted over it"
+  },
+  {
+    "kind": "question",
+    "text": "He hung a cloth on it"
+  },
+  {
+    "kind": "question",
+    "text": "He asked for a new wall"
+  },
+  {
+    "kind": "question",
+    "text": "He saw it on the wall of the mosque in the direction of the Qibla and scraped it off."
+  },
+  {
+    "kind": "question",
+    "text": "Which wall of the masjid was it on?"
+  },
+  {
+    "kind": "question",
+    "text": "The wall of the yard"
+  },
+  {
+    "kind": "question",
+    "text": "The back wall"
+  },
+  {
+    "kind": "question",
+    "text": "The wall by the door"
+  },
+  {
+    "kind": "question",
+    "text": "It was on the wall of the mosque in the direction of the Qibla, Aishah said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ cleaned the masjid wall himself."
+  },
+  {
+    "kind": "question",
+    "text": "He saw it on the wall of the mosque towards the Qibla and scraped it off, Aishah said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Entering the masjid, he ﷺ sought refuge in Allah from Shaytan."
+  },
+  {
+    "kind": "lesson",
+    "text": "A'udhu billahil-'Azim wa bi wajhihil-karim"
+  },
+  {
+    "kind": "lesson",
+    "text": "Shaytan says: he is kept from me all day"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 466"
+  },
+  {
+    "kind": "question",
+    "text": "When did he ﷺ say these words of refuge?"
+  },
+  {
+    "kind": "question",
+    "text": "On riding a camel"
+  },
+  {
+    "kind": "question",
+    "text": "On entering the masjid"
+  },
+  {
+    "kind": "question",
+    "text": "On waking from sleep"
+  },
+  {
+    "kind": "question",
+    "text": "On finishing a meal"
+  },
+  {
+    "kind": "question",
+    "text": "When he entered the mosque, he would say: I seek refuge in Allah, the Magnificent."
+  },
+  {
+    "kind": "question",
+    "text": "How long is he kept safe from Shaytan, the hadith says?"
+  },
+  {
+    "kind": "question",
+    "text": "Only one minute"
+  },
+  {
+    "kind": "question",
+    "text": "Only one night"
+  },
+  {
+    "kind": "question",
+    "text": "The rest of the day"
+  },
+  {
+    "kind": "question",
+    "text": "Only one hour"
+  },
+  {
+    "kind": "question",
+    "text": "When anyone says so, the devil says: he is protected from me all the day long."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ sought refuge in Allah from Shaytan when entering the masjid."
+  },
+  {
+    "kind": "question",
+    "text": "When he entered the mosque he would seek refuge in Allah from the accursed Devil."
+  },
+  {
+    "kind": "lesson",
+    "text": "Coming to his ﷺ masjid to learn or teach earns a great reward."
+  },
+  {
+    "kind": "lesson",
+    "text": "His ﷺ masjid is in Madinah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Like one who strives in Allah's cause"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Ibn Majah 227"
+  },
+  {
+    "kind": "question",
+    "text": "For which good did he ﷺ want people to come to his masjid?"
+  },
+  {
+    "kind": "question",
+    "text": "To rest or to sleep"
+  },
+  {
+    "kind": "question",
+    "text": "To eat or to drink"
+  },
+  {
+    "kind": "question",
+    "text": "To buy or to sell"
+  },
+  {
+    "kind": "question",
+    "text": "And only comes for a good purpose, such as to learn or to teach, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Whose reward is it like, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "One who sails the sea"
+  },
+  {
+    "kind": "question",
+    "text": "One who strives in Allah's cause"
+  },
+  {
+    "kind": "question",
+    "text": "One who builds a house"
+  },
+  {
+    "kind": "question",
+    "text": "One who sells in a market"
+  },
+  {
+    "kind": "question",
+    "text": "His status is like one who fights in Jihad in the cause of Allah, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ praised coming to his masjid to learn or to teach."
+  },
+  {
+    "kind": "question",
+    "text": "Whoever comes to this mosque of mine to learn or to teach is like one in Jihad, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Masjids were not built for calling out about lost things."
+  },
+  {
+    "kind": "lesson",
+    "text": "Say: may Allah not return it to you"
+  },
+  {
+    "kind": "lesson",
+    "text": "Masjids are for prayer and dhikr"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 568a"
+  },
+  {
+    "kind": "question",
+    "text": "What should you say to one calling for a lost thing in the masjid?"
+  },
+  {
+    "kind": "question",
+    "text": "May you find it very soon"
+  },
+  {
+    "kind": "question",
+    "text": "May Allah give you more"
+  },
+  {
+    "kind": "question",
+    "text": "May Allah not return it to you"
+  },
+  {
+    "kind": "question",
+    "text": "May Allah reward your search"
+  },
+  {
+    "kind": "question",
+    "text": "He should say: May Allah not restore it to you, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Why not call out for lost things in the masjid?"
+  },
+  {
+    "kind": "question",
+    "text": "The masjid is too small"
+  },
+  {
+    "kind": "question",
+    "text": "The walls echo too loudly"
+  },
+  {
+    "kind": "question",
+    "text": "Lost things are never found"
+  },
+  {
+    "kind": "question",
+    "text": "Masjids were not built for this"
+  },
+  {
+    "kind": "question",
+    "text": "For the mosques were not built for this, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Masjids were built for calling out about lost things."
+  },
+  {
+    "kind": "question",
+    "text": "The mosques were not built for this, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "A prayer in Masjid Quba is like an Umrah, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Usaid ibn Zuhair al-Ansari"
+  },
+  {
+    "kind": "lesson",
+    "text": "Quba is just outside Madinah"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ stopped at Quba on the Hijrah"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 324"
+  },
+  {
+    "kind": "question",
+    "text": "What is a prayer in Masjid Quba like, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "A night of Qadr"
+  },
+  {
+    "kind": "question",
+    "text": "An Umrah"
+  },
+  {
+    "kind": "question",
+    "text": "A Hajj"
+  },
+  {
+    "kind": "question",
+    "text": "The Salat in Masjid Quba is like Umrah, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Where is Masjid Quba?"
+  },
+  {
+    "kind": "question",
+    "text": "Just outside Madinah"
+  },
+  {
+    "kind": "question",
+    "text": "Just outside Makkah"
+  },
+  {
+    "kind": "question",
+    "text": "Near Jerusalem"
+  },
+  {
+    "kind": "question",
+    "text": "Near Ta'if"
+  },
+  {
+    "kind": "question",
+    "text": "Quba is just outside Madinah; he ﷺ stopped there on the Hijrah."
+  },
+  {
+    "kind": "question",
+    "text": "A prayer in Masjid Quba is like an Umrah."
+  },
+  {
+    "kind": "question",
+    "text": "The Salat in Masjid Quba is like Umrah, the Prophet ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about sunnahs of the masjid!"
+  },
+  {
+    "kind": "lesson",
     "text": "Allah's right on His servants: worship Him and join no partner."
   },
   {
@@ -89689,6 +90221,410 @@
   },
   {
     "kind": "lesson",
+    "text": "Ask to come in like this: As-salamu alaykum, may I come in?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by a man of Banu Amir"
+  },
+  {
+    "kind": "lesson",
+    "text": "He had only asked: may I come in?"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ let him in after his salam"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 5177"
+  },
+  {
+    "kind": "question",
+    "text": "What had the man said at the door?"
+  },
+  {
+    "kind": "question",
+    "text": "Who is inside?"
+  },
+  {
+    "kind": "question",
+    "text": "Is anyone awake?"
+  },
+  {
+    "kind": "question",
+    "text": "Is this your house?"
+  },
+  {
+    "kind": "question",
+    "text": "May I come in?"
+  },
+  {
+    "kind": "question",
+    "text": "He asked for permission saying only: may I enter, the man of Banu Amir said."
+  },
+  {
+    "kind": "question",
+    "text": "Which words did he ﷺ want the man to add?"
+  },
+  {
+    "kind": "question",
+    "text": "Subhan Allah"
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ let the man in once he said salam."
+  },
+  {
+    "kind": "question",
+    "text": "When the man said the salam and asked, he ﷺ permitted him, and he entered."
+  },
+  {
+    "kind": "lesson",
+    "text": "At a door he ﷺ stood to one side, not in front."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ said salam twice at the door"
+  },
+  {
+    "kind": "lesson",
+    "text": "Doors had no curtains back then"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 5186"
+  },
+  {
+    "kind": "question",
+    "text": "Where did he ﷺ stand at someone's door?"
+  },
+  {
+    "kind": "question",
+    "text": "Behind a tall tree"
+  },
+  {
+    "kind": "question",
+    "text": "By its right or left side"
+  },
+  {
+    "kind": "question",
+    "text": "Right in front of it"
+  },
+  {
+    "kind": "question",
+    "text": "Far across the road"
+  },
+  {
+    "kind": "question",
+    "text": "He did not face it squarely, but faced the right or left corner, Abdullah ibn Busr said."
+  },
+  {
+    "kind": "question",
+    "text": "Why did he ﷺ stand to one side?"
+  },
+  {
+    "kind": "question",
+    "text": "Doors had no curtains then"
+  },
+  {
+    "kind": "question",
+    "text": "The sun was too hot"
+  },
+  {
+    "kind": "question",
+    "text": "The road was too narrow"
+  },
+  {
+    "kind": "question",
+    "text": "The door was too low"
+  },
+  {
+    "kind": "question",
+    "text": "There were no curtains on the doors of houses at that time."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ said salam at the door of the people he visited."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ would say peace be upon you twice, Abdullah ibn Busr said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Being sent for counts as permission to come in."
+  },
+  {
+    "kind": "lesson",
+    "text": "A friend sends someone to call you"
+  },
+  {
+    "kind": "lesson",
+    "text": "Still say salam as you come in"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 5189"
+  },
+  {
+    "kind": "question",
+    "text": "A friend sends someone to call you over. What is that?"
+  },
+  {
+    "kind": "question",
+    "text": "A sign that you are late"
+  },
+  {
+    "kind": "question",
+    "text": "A test of your speed"
+  },
+  {
+    "kind": "question",
+    "text": "His permission to come in"
+  },
+  {
+    "kind": "question",
+    "text": "A reason to stay away"
+  },
+  {
+    "kind": "question",
+    "text": "A man's messenger sent to another indicates his permission to enter, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Who brings you the permission, in his ﷺ words?"
+  },
+  {
+    "kind": "question",
+    "text": "A trader passing by"
+  },
+  {
+    "kind": "question",
+    "text": "A child at play"
+  },
+  {
+    "kind": "question",
+    "text": "The messenger he sends"
+  },
+  {
+    "kind": "question",
+    "text": "The messenger a man sends to another is his permission to enter, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ gave Ibn Mas'ud a sign that he could come in."
+  },
+  {
+    "kind": "lesson",
+    "text": "A raised curtain meant: come in"
+  },
+  {
+    "kind": "lesson",
+    "text": "So did hearing his ﷺ quiet voice"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 2169a"
+  },
+  {
+    "kind": "question",
+    "text": "What was one sign that Ibn Mas'ud could come in?"
+  },
+  {
+    "kind": "question",
+    "text": "The curtain was raised"
+  },
+  {
+    "kind": "question",
+    "text": "A bell was rung"
+  },
+  {
+    "kind": "question",
+    "text": "A lamp was lit"
+  },
+  {
+    "kind": "question",
+    "text": "A drum was beaten"
+  },
+  {
+    "kind": "question",
+    "text": "Your sign to come in is that the curtain is raised, he ﷺ told Ibn Mas'ud."
+  },
+  {
+    "kind": "question",
+    "text": "What other sign could Ibn Mas'ud go by?"
+  },
+  {
+    "kind": "question",
+    "text": "Seeing a fire at night"
+  },
+  {
+    "kind": "question",
+    "text": "Smelling food cooking"
+  },
+  {
+    "kind": "question",
+    "text": "Hearing a camel call"
+  },
+  {
+    "kind": "question",
+    "text": "Hearing his ﷺ quiet voice"
+  },
+  {
+    "kind": "question",
+    "text": "Or that you hear me speaking quietly, until I forbid you, he ﷺ told Ibn Mas'ud."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ gave Ibn Mas'ud a special sign to come in."
+  },
+  {
+    "kind": "question",
+    "text": "That the curtain is raised, or you hear me speak quietly, is your sign, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ said: do not greet with alayka as-salam."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abu Jurayy al-Hujaymi"
+  },
+  {
+    "kind": "lesson",
+    "text": "He had said: alayka as-salam, Messenger of Allah"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ called that the greeting of the dead"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 5209"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ tell Abu Jurayy not to say?"
+  },
+  {
+    "kind": "question",
+    "text": "Alayka as-salam"
+  },
+  {
+    "kind": "question",
+    "text": "Do not say: Upon you be peace, alayka as-salam, he ﷺ told Abu Jurayy."
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ call the words alayka as-salam?"
+  },
+  {
+    "kind": "question",
+    "text": "The greeting of traders"
+  },
+  {
+    "kind": "question",
+    "text": "The greeting of travelers"
+  },
+  {
+    "kind": "question",
+    "text": "The greeting of the dead"
+  },
+  {
+    "kind": "question",
+    "text": "The greeting of kings"
+  },
+  {
+    "kind": "question",
+    "text": "Upon you be peace is the salutation to the dead, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ told Abu Jurayy not to greet with alayka as-salam."
+  },
+  {
+    "kind": "question",
+    "text": "Do not say: Upon you be peace, for that is the greeting of the dead, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "When a man respected by his people visits, honor him."
+  },
+  {
+    "kind": "lesson",
+    "text": "He is someone his people look up to"
+  },
+  {
+    "kind": "lesson",
+    "text": "Every guest should be treated kindly"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Ibn Majah 3712"
+  },
+  {
+    "kind": "question",
+    "text": "A man his people respect comes to you. What should you do?"
+  },
+  {
+    "kind": "question",
+    "text": "Keep him waiting"
+  },
+  {
+    "kind": "question",
+    "text": "Honor him"
+  },
+  {
+    "kind": "question",
+    "text": "Turn him away"
+  },
+  {
+    "kind": "question",
+    "text": "Pass him by"
+  },
+  {
+    "kind": "question",
+    "text": "If there comes to you a man respected among his own people, then honor him, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Which visitor did he ﷺ tell us to honor?"
+  },
+  {
+    "kind": "question",
+    "text": "Only one who is rich"
+  },
+  {
+    "kind": "question",
+    "text": "Only one from our town"
+  },
+  {
+    "kind": "question",
+    "text": "One respected among his people"
+  },
+  {
+    "kind": "question",
+    "text": "Only one who brings gifts"
+  },
+  {
+    "kind": "question",
+    "text": "A man who is respected among his own people, then honor him, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ told us to honor a man respected among his people."
+  },
+  {
+    "kind": "question",
+    "text": "If there comes to you a man who is respected among his own people, then honor him."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about salam and visitors!"
+  },
+  {
+    "kind": "lesson",
     "text": "If the heart is good, the whole body is good."
   },
   {
@@ -97354,10 +98290,6 @@
   {
     "kind": "question",
     "text": "A small charity"
-  },
-  {
-    "kind": "question",
-    "text": "A Hajj"
   },
   {
     "kind": "question",
@@ -132554,6 +133486,406 @@
   {
     "kind": "lesson",
     "text": "The last test: everything about how they guarded his words ﷺ!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Hurairah got his name from a little kitten he kept."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hurairah means a little cat"
+  },
+  {
+    "kind": "lesson",
+    "text": "He took it along while tending sheep"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 3840"
+  },
+  {
+    "kind": "question",
+    "text": "What little pet did Abu Hurairah have?"
+  },
+  {
+    "kind": "question",
+    "text": "A puppy"
+  },
+  {
+    "kind": "question",
+    "text": "A parrot"
+  },
+  {
+    "kind": "question",
+    "text": "A rabbit"
+  },
+  {
+    "kind": "question",
+    "text": "A kitten"
+  },
+  {
+    "kind": "question",
+    "text": "I used to tend the sheep of my people, and I had a small kitten, he said."
+  },
+  {
+    "kind": "question",
+    "text": "Where did he put the kitten at night?"
+  },
+  {
+    "kind": "question",
+    "text": "In a tree"
+  },
+  {
+    "kind": "question",
+    "text": "In a box"
+  },
+  {
+    "kind": "question",
+    "text": "I used to place it in a tree at night, Abu Hurairah said."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Hurairah got his name because of a small kitten."
+  },
+  {
+    "kind": "question",
+    "text": "He played with his small kitten, so his people named him Abu Hurairah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Jarir, though older, served Anas on a journey."
+  },
+  {
+    "kind": "lesson",
+    "text": "Jarir was older than Anas"
+  },
+  {
+    "kind": "lesson",
+    "text": "Anas was one of the Ansar"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 2513"
+  },
+  {
+    "kind": "question",
+    "text": "Why did Jarir serve Anas on the journey?"
+  },
+  {
+    "kind": "question",
+    "text": "He was paid to do it"
+  },
+  {
+    "kind": "question",
+    "text": "Anas was much older"
+  },
+  {
+    "kind": "question",
+    "text": "Anas had asked him to"
+  },
+  {
+    "kind": "question",
+    "text": "He saw how the Ansar honored him ﷺ"
+  },
+  {
+    "kind": "question",
+    "text": "I have seen the Ansar doing this with Allah's Messenger ﷺ, Jarir said."
+  },
+  {
+    "kind": "question",
+    "text": "What did Anas first tell Jarir?"
+  },
+  {
+    "kind": "question",
+    "text": "Carry my bag"
+  },
+  {
+    "kind": "question",
+    "text": "Walk ahead of me"
+  },
+  {
+    "kind": "question",
+    "text": "Do not do that"
+  },
+  {
+    "kind": "question",
+    "text": "Serve me more"
+  },
+  {
+    "kind": "question",
+    "text": "Don't do that, Anas said to Jarir when he served him."
+  },
+  {
+    "kind": "question",
+    "text": "Jarir swore to serve any of the Ansar he traveled with."
+  },
+  {
+    "kind": "question",
+    "text": "I swore by Allah whenever I accompany any one of the Ansar, I would serve him, Jarir said."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ wiped Abu Zayd's face and made du'a for him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abu Zayd ibn Akhtab"
+  },
+  {
+    "kind": "lesson",
+    "text": "Azrah said he lived to 120"
+  },
+  {
+    "kind": "lesson",
+    "text": "His head had only a few gray hairs"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 3629"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ do for Abu Zayd ibn Akhtab?"
+  },
+  {
+    "kind": "question",
+    "text": "Gave him a sword"
+  },
+  {
+    "kind": "question",
+    "text": "Wiped his face and made du'a"
+  },
+  {
+    "kind": "question",
+    "text": "Built him a house"
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ wiped his hand over my face and supplicated for me, Abu Zayd said."
+  },
+  {
+    "kind": "question",
+    "text": "What was his hair like in old age, Azrah said?"
+  },
+  {
+    "kind": "question",
+    "text": "Only a few gray hairs"
+  },
+  {
+    "kind": "question",
+    "text": "All of it white"
+  },
+  {
+    "kind": "question",
+    "text": "All of it gone"
+  },
+  {
+    "kind": "question",
+    "text": "Many gray hairs"
+  },
+  {
+    "kind": "question",
+    "text": "There were only a few small gray hairs on his head, Azrah said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ made du'a for Abu Zayd ibn Akhtab."
+  },
+  {
+    "kind": "question",
+    "text": "The Messenger of Allah ﷺ wiped his hand over my face and made du'a for me, Abu Zayd said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abdur-Rahman ibn Awf kept up ties with the Prophet's ﷺ wives."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Salamah was his son"
+  },
+  {
+    "kind": "lesson",
+    "text": "Salsabil is a spring in Paradise"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 3749"
+  },
+  {
+    "kind": "question",
+    "text": "What did Aishah ask Allah to give Abdur-Rahman ibn Awf?"
+  },
+  {
+    "kind": "question",
+    "text": "A big house in Madinah"
+  },
+  {
+    "kind": "question",
+    "text": "A strong, fast camel"
+  },
+  {
+    "kind": "question",
+    "text": "A garden of date palms"
+  },
+  {
+    "kind": "question",
+    "text": "A drink from Salsabil"
+  },
+  {
+    "kind": "question",
+    "text": "May Allah give your father drink from the Salsabil of Paradise, Aishah said."
+  },
+  {
+    "kind": "question",
+    "text": "What is Salsabil?"
+  },
+  {
+    "kind": "question",
+    "text": "A spring in Paradise"
+  },
+  {
+    "kind": "question",
+    "text": "A well in Madinah"
+  },
+  {
+    "kind": "question",
+    "text": "A river in Iraq"
+  },
+  {
+    "kind": "question",
+    "text": "A garden in Ta'if"
+  },
+  {
+    "kind": "question",
+    "text": "A spring there named Salsabil, Allah says of Paradise in Surah al-Insan."
+  },
+  {
+    "kind": "question",
+    "text": "Abdur-Rahman ibn Awf kept up ties with the Mothers of the Believers."
+  },
+  {
+    "kind": "question",
+    "text": "He had kept up ties with the wives of the Prophet ﷺ with his wealth."
+  },
+  {
+    "kind": "lesson",
+    "text": "Those who fought at Badr are among the best Muslims."
+  },
+  {
+    "kind": "lesson",
+    "text": "Rifa'ah himself fought at Badr"
+  },
+  {
+    "kind": "lesson",
+    "text": "Angels came down to help at Badr"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3992"
+  },
+  {
+    "kind": "question",
+    "text": "Who came to ask him ﷺ about the people of Badr?"
+  },
+  {
+    "kind": "question",
+    "text": "Mikail"
+  },
+  {
+    "kind": "question",
+    "text": "Gabriel came to the Prophet ﷺ and asked about the warriors of Badr, Rifa'ah said."
+  },
+  {
+    "kind": "question",
+    "text": "How did he ﷺ count the Muslims who fought at Badr?"
+  },
+  {
+    "kind": "question",
+    "text": "Among the youngest Muslims"
+  },
+  {
+    "kind": "question",
+    "text": "Among the richest Muslims"
+  },
+  {
+    "kind": "question",
+    "text": "Among the last Muslims"
+  },
+  {
+    "kind": "question",
+    "text": "Among the best of the Muslims"
+  },
+  {
+    "kind": "question",
+    "text": "As the best of the Muslims, he ﷺ said, or words like it."
+  },
+  {
+    "kind": "question",
+    "text": "Jibril said the angels at Badr are also among the best."
+  },
+  {
+    "kind": "question",
+    "text": "And so are the angels who took part in Badr, Jibril said."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ said his Companions are a safety for the Ummah."
+  },
+  {
+    "kind": "lesson",
+    "text": "They waited after Maghrib to pray Isha with him ﷺ"
+  },
+  {
+    "kind": "lesson",
+    "text": "The stars are a safety for the sky"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 2531"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ say the stars are for the sky?"
+  },
+  {
+    "kind": "question",
+    "text": "A source of luck"
+  },
+  {
+    "kind": "question",
+    "text": "A source of fear"
+  },
+  {
+    "kind": "question",
+    "text": "A source of safety"
+  },
+  {
+    "kind": "question",
+    "text": "A source of rain"
+  },
+  {
+    "kind": "question",
+    "text": "The stars are a source of security for the sky, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Which prayer did they wait to pray with him ﷺ?"
+  },
+  {
+    "kind": "question",
+    "text": "Zuhr"
+  },
+  {
+    "kind": "question",
+    "text": "After Maghrib they sat on, to pray Isha with him ﷺ, Abu Musa said."
+  },
+  {
+    "kind": "question",
+    "text": "My Companions are a source of security for the Umma, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about small stories of the Sahabah!"
   },
   {
     "kind": "lesson",
@@ -177757,10 +179089,6 @@
   },
   {
     "kind": "question",
-    "text": "A well in Madinah"
-  },
-  {
-    "kind": "question",
     "text": "A garden on earth"
   },
   {
@@ -187501,10 +188829,6 @@
   },
   {
     "kind": "question",
-    "text": "In a tree"
-  },
-  {
-    "kind": "question",
     "text": "In his pocket"
   },
   {
@@ -192070,10 +193394,6 @@
   {
     "kind": "question",
     "text": "Which prayer had two before and two after?"
-  },
-  {
-    "kind": "question",
-    "text": "Zuhr"
   },
   {
     "kind": "question",
@@ -197481,10 +198801,6 @@
   },
   {
     "kind": "question",
-    "text": "Subhan Allah"
-  },
-  {
-    "kind": "question",
     "text": "The best remembrance is: there is none worthy of worship except Allah."
   },
   {
@@ -202258,10 +203574,6 @@
   {
     "kind": "question",
     "text": "Which angel brought the Quran down?"
-  },
-  {
-    "kind": "question",
-    "text": "Mikail"
   },
   {
     "kind": "question",
@@ -239018,10 +240330,6 @@
   {
     "kind": "question",
     "text": "Cast down"
-  },
-  {
-    "kind": "question",
-    "text": "Shining bright"
   },
   {
     "kind": "lesson",
@@ -379386,10 +380694,6 @@
   {
     "kind": "question",
     "text": "In a pocket"
-  },
-  {
-    "kind": "question",
-    "text": "In a box"
   },
   {
     "kind": "question",
@@ -532409,10 +533713,6 @@
   },
   {
     "kind": "question",
-    "text": "A spring in Paradise"
-  },
-  {
-    "kind": "question",
     "text": "Ikrimah said, It is the name of a spring in Paradise."
   },
   {
@@ -534350,10 +535650,6 @@
   {
     "kind": "question",
     "text": "What did Allah make the earth, per 78:6?"
-  },
-  {
-    "kind": "question",
-    "text": "Dark and cold"
   },
   {
     "kind": "question",
