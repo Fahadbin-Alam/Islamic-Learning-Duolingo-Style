@@ -2003,8 +2003,8 @@ export default function TopicApp() {
 
   // A lesson whose learn card teaches a checked Arabic word asks one listening question, when it can be heard:
   // the reciter (online) for an ayah, else the phone's Arabic voice. A lesson quoting a short ayah instead asks how
-  // the ayah ends, while the reciter recites it (online, or saved on the phone). Never with sound effects off, nor in
-  // a test.
+  // the ayah ends, or which ayah comes next, while the reciter recites it (online, or saved on the phone). Never with
+  // sound effects off, nor in a test.
   function withListening(session: LessonSession, nodeId: string, user: UserProfile): LessonSession {
     if ((session.mode ?? "standard") !== "standard" || session.unitTest || user.soundEffectsEnabled === false) return session;
     const lesson = session.lesson;
@@ -4184,7 +4184,15 @@ export default function TopicApp() {
                           : listenSpeaking,
                         recite:
                           challenge.listen.recite && challenge.listen.recitation
-                            ? { text: challenge.listen.ar, ayahKey: challenge.listen.recite.key, url: challenge.listen.recitation, gap: challenge.listen.recite.gap }
+                            ? {
+                                text: challenge.listen.ar,
+                                ayahKey: challenge.listen.recite.key,
+                                url: challenge.listen.recitation,
+                                gap: challenge.listen.recite.gap,
+                                next: challenge.listen.recite.next
+                                  ? { text: challenge.listen.recite.next.text, ayahKey: challenge.listen.recite.next.key, url: challenge.listen.recite.next.recitation }
+                                  : undefined
+                              }
                             : undefined
                       }
                     : undefined

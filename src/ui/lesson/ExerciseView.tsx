@@ -439,11 +439,16 @@ export type ExerciseViewProps = {
   /** A picture for each answer (all places, see choicePictures): each tile shows its place, moving, like a picture card. */
   choicePictures?: Record<string, LessonPicture>;
   /**
-   * A listening question: a big speaker under the prompt plays the Arabic; tap again to stop. With `recite` ("How does
-   * the ayah end?"), the ayah shows instead, its last word a gap, with a speaker of its own (ReciteCard), and the
-   * answers are in the Quran's face.
+   * A listening question: a big speaker under the prompt plays the Arabic; tap again to stop. With `recite` (the
+   * Quran's listening questions), the ayah shows instead, with a gap for the answer and a speaker of its own
+   * (ReciteCard): its last word ("How does the ayah end?", the answers are words in the Quran's face) or, with `next`,
+   * the ayah after it ("Which ayah comes next?", the answers are whole ayahs).
    */
-  listen?: { onPlay: () => void; playing: boolean; recite?: { text: string; ayahKey: string; url: string; gap: number } };
+  listen?: {
+    onPlay: () => void;
+    playing: boolean;
+    recite?: { text: string; ayahKey: string; url: string; gap: number; next?: { text: string; ayahKey: string; url: string } };
+  };
   bottomInset?: number;
   testID?: string;
 };
@@ -1371,7 +1376,7 @@ export function ExerciseView({
                       delay={80 + index * 60}
                       distance={entryRise(choice.id)}
                       label={choice.label}
-                      quran={listen?.recite ? true : undefined}
+                      quran={listen?.recite && !listen.recite.next ? true : undefined}
                       picture={choicePictures?.[choice.id]}
                       compact={compact}
                       tight={look.tight}
