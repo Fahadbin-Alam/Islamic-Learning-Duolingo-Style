@@ -19,8 +19,7 @@ import { sourceUrl } from "../../services/sourceLink";
 import { openWebPage, useOnline } from "../../services/network";
 import { getActiveLanguage, t } from "../../i18n";
 import type { LessonPicture } from "../../data/lessonPictures";
-import type { LessonJourney } from "../../data/seerahMap";
-import { JourneyCard } from "../journey/JourneyCard";
+import { JourneyCard, type LessonMap } from "../journey/JourneyCard";
 import { LessonPhoto } from "./LessonPhoto";
 import { SurahCover, SurahParts } from "./SurahCover";
 import { isCredit, splitLessonFacts } from "./lessonNotes";
@@ -74,10 +73,10 @@ export type LearnCardProps = {
   /** A picture of what this page teaches (the bridge, the ark...), under the teacher on a later page. */
   pagePicture?: LessonPicture;
   /**
-   * A Seerah lesson's map (src/ui/journey): its first page opens on where it happened and the road that led there, in
-   * the place of the photo (the photo moves on to the next page).
+   * A Seerah or Hajj lesson's map (src/ui/journey): its first page opens on where it happened and the road that led
+   * there, in the place of the photo (the photo moves on to the next page).
    */
-  journey?: LessonJourney;
+  journey?: LessonMap;
   /**
    * The deeper lesson (lesson.learnDeeper): what the ayahs mean, the story, what to take home, and a chip for each
    * tafsir book it comes from. The harder questions ask about it, so it is shown in full.

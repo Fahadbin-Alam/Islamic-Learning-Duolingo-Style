@@ -1020,5 +1020,7 @@
   "{title} and {count} more": "{title} اور {count} مزید",
   "{count} ready to review today": "آج دہرائی کے لیے {count} تیار",
   "Review it again tomorrow": "کل دوبارہ دہرائیں",
-  "Review it again in {count} days": "{count} دن بعد دوبارہ دہرائیں"
+  "Review it again in {count} days": "{count} دن بعد دوبارہ دہرائیں",
+  "Map of Hajj": "حج کا نقشہ",
+  "Where each step of Hajj happens, in order.": "حج کا ہر مرحلہ کہاں ہوتا ہے، ترتیب سے۔"
 }

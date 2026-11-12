@@ -1020,5 +1020,7 @@
   "{title} and {count} more": "{title} و{count} أخرى",
   "{count} ready to review today": "جاهزة للمراجعة اليوم: {count}",
   "Review it again tomorrow": "راجعها مرة أخرى غدًا",
-  "Review it again in {count} days": "راجعها مرة أخرى بعد {count} أيام"
+  "Review it again in {count} days": "راجعها مرة أخرى بعد {count} أيام",
+  "Map of Hajj": "خريطة الحج",
+  "Where each step of Hajj happens, in order.": "أين تكون كل خطوة من الحج، بالترتيب."
 }

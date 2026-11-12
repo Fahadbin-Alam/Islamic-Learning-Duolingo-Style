@@ -18,10 +18,11 @@ import {
   sourcesFor,
   type MapScene
 } from "../data/seerahMap";
+import { t } from "../i18n";
 import { getCatalog } from "../translations";
 import { LearnCard } from "../ui/lesson";
 import { JourneyCard } from "../ui/journey/JourneyCard";
-import { JourneyMap } from "../ui/journey/JourneyMap";
+import { JourneyMap, sceneLayout, type Rect } from "../ui/journey/JourneyMap";
 import { LIFE_STOPS, LifeMapSheet } from "../ui/journey/LifeMap";
 import { evenPoints, fitView, kmBetween, pixels, roundKm, smoothLine } from "../ui/journey/mapGeometry";
 import { terrainSvg } from "../ui/journey/mapTerrain";
@@ -132,6 +133,43 @@ describe("the Seerah on a map: its data", () => {
     for (const language of ["bn", "ur", "ar"] as const) {
       const catalog = getCatalog(language);
       expect({ language, missing: text.filter((each) => !catalog[each]) }).toEqual({ language, missing: [] });
+    }
+  });
+});
+
+describe("the notes on the maps", () => {
+  const overlap = (a: Rect, b: Rect) => Math.max(0, Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x)) * Math.max(0, Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y));
+  const gap = (rect: Rect, at: { x: number; y: number }) => Math.hypot(Math.max(rect.x - at.x, 0, at.x - rect.x - rect.w), Math.max(rect.y - at.y, 0, at.y - rect.y - rect.h));
+
+  test("on a phone, in every language, each note sits by its own place, covers no name, place or note, and none is left out", () => {
+    for (const language of ["en", "bn", "ur", "ar"] as const) {
+      const say = (text: string, params?: Record<string, string>) => t(text, params, language);
+      for (const journey of SEERAH_JOURNEYS) {
+        for (const [index, scene] of journey.scenes.entries()) {
+          const slugs = [undefined, ...Object.entries(journey.lessons).filter(([, own]) => (own.scene ?? 0) === index).map(([slug]) => slug)];
+          for (const lessonSlug of slugs) {
+            for (const [width, height] of [
+              [320, 240],
+              [350, 262],
+              [390, 292]
+            ]) {
+              const where = `${language} ${scene.id} ${lessonSlug ?? "life"} ${width}`;
+              const { labels, notes } = sceneLayout(scene, width, height, lessonSlug, say);
+              const wanted = (scene.notes ?? []).filter((note) => shownFor(note, lessonSlug)).length;
+              expect([where, notes.filter(Boolean).length]).toEqual([where, wanted]);
+              const spots = notes.flatMap((spot, at) => (spot ? [{ spot, note: scene.notes![at] }] : []));
+              for (const [each, { spot, note }] of spots.entries()) {
+                const others = [...labels.map(({ rect }) => rect), ...labels.map(({ at }) => ({ x: at.x - 13, y: at.y - 13, w: 26, h: 26 })), ...spots.filter((_, other) => other !== each).map((other) => other.spot.rect)];
+                expect([where, spot.text, others.reduce((sum, rect) => sum + overlap(spot.rect, rect), 0) <= 30]).toEqual([where, spot.text, true]);
+                if (note.at && note.leg === undefined) {
+                  const own = labels.find((label) => label.id === note.at);
+                  if (own) for (const label of labels) expect([where, spot.text, label.id, gap(spot.rect, label.at) >= gap(spot.rect, own.at)]).toEqual([where, spot.text, label.id, true]);
+                }
+              }
+            }
+          }
+        }
+      }
     }
   });
 });

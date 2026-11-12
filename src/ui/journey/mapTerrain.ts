@@ -180,6 +180,22 @@ export function placeGlyph(kind: MapPlaceKind, x: number, y: number) {
         `<path d="M${n(x - 6)} ${n(y + 7)}v-5h3.6v5ZM${n(x + 2.5)} ${n(y + 7)}v-5h3.6v5Z" fill="#6D4A33"/>` +
         `<path d="M${n(x - 6.6)} ${n(y + 1.6)}l2.4 -2l2.4 2ZM${n(x + 1.9)} ${n(y + 1.6)}l2.4 -2l2.4 2Z" fill="#6D4A33"/>`
       );
+    case "pillar":
+      // The Jamarat at Mina: a stone pillar in its round basin.
+      return (
+        `<ellipse cx="${n(x)}" cy="${n(y + 6)}" rx="11" ry="4.6" fill="#DCD2BF" stroke="#9E907A" stroke-width="0.9"/>` +
+        `<ellipse cx="${n(x)}" cy="${n(y + 6)}" rx="7" ry="2.6" fill="#C9BEA8"/>` +
+        `<path d="M${n(x - 3.2)} ${n(y + 6)}v-13.4a3.2 3.2 0 0 1 6.4 0v13.4Z" fill="#9C9284" stroke="#6F665A" stroke-width="0.9"/>` +
+        `<path d="M${n(x - 1.3)} ${n(y - 6.2)}v10.6" stroke="#BDB4A6" stroke-width="1" stroke-linecap="round"/>`
+      );
+    case "tent":
+      // A tent of hair, as was pitched for him ﷺ at Namirah: dark goat hair, its door open.
+      return (
+        `<ellipse cx="${n(x)}" cy="${n(y + 6.5)}" rx="12" ry="3" fill="#B98F5E" opacity="0.35"/>` +
+        `<path d="M${n(x - 11)} ${n(y + 6)}L${n(x - 2)} ${n(y - 7)}h4L${n(x + 11)} ${n(y + 6)}Z" fill="#4A3B2F" stroke="#2E241C" stroke-width="1" stroke-linejoin="round"/>` +
+        `<path d="M${n(x - 2.8)} ${n(y + 6)}L${n(x)} ${n(y - 1.5)}L${n(x + 2.8)} ${n(y + 6)}Z" fill="#EAD9B6"/>` +
+        `<path d="M${n(x - 2)} ${n(y - 7)}v-2.6M${n(x + 2)} ${n(y - 7)}v-2.6" stroke="#2E241C" stroke-width="1.2" stroke-linecap="round"/>`
+      );
     case "point":
     default:
       return `<circle cx="${n(x)}" cy="${n(y)}" r="5.5" fill="#FFFFFF" stroke="#178A56" stroke-width="2.4"/><circle cx="${n(x)}" cy="${n(y)}" r="2" fill="#178A56"/>`;

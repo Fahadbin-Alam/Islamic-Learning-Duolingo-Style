@@ -40,6 +40,7 @@ export const ROAD_LOOK: Record<MapLeg["kind"], { color: string; dot: number; rin
   his: { color: "#E04E2B", dot: 7.5, ring: 1.6, gap: 8.5 },
   home: { color: "#F08A5D", dot: 6, ring: 1.3, gap: 8.5 },
   army: { color: "#7E57C8", dot: 6.5, ring: 1.4, gap: 8 },
+  pilgrims: { color: "#1E9E6A", dot: 6.5, ring: 1.4, gap: 8 },
   sea: { color: "#1D5E9E", dot: 6.5, ring: 1.4, gap: 8 },
   letter: { color: "#2F7FD8", dot: 6, ring: 1.3, gap: 7.5 },
   trench: { color: "#5B3A21", dot: 4.5, ring: 0, gap: 2.2 }
@@ -169,6 +170,164 @@ function pillBox(at: Pt, text: string, width: number, height: number) {
   return { left: x - box / 2, top: Math.max(2, Math.min(height - 24, at.y - 11)), width: box };
 }
 
+export type Rect = { x: number; y: number; w: number; h: number };
+
+const overlapArea = (a: Rect, b: Rect) =>
+  Math.max(0, Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x)) * Math.max(0, Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y));
+
+/** How far a point is from the nearest edge of a box (0 inside it). */
+const gapTo = (rect: Rect, at: Pt) => Math.hypot(Math.max(rect.x - at.x, 0, at.x - rect.x - rect.w), Math.max(rect.y - at.y, 0, at.y - rect.y - rect.h));
+
+/** The box a place's name takes on the map (as labelBox puts it, by a guess at how wide its words are). */
+function labelRect(at: Pt, side: LabelSide, text: string, width: number, height: number): Rect {
+  const guess = Math.min(150, Math.max(28, text.length * 6.6 + 12));
+  const { style } = labelBox(at, side, text, width, height);
+  const x = style.alignItems === "flex-end" ? style.left + style.width - guess : style.alignItems === "flex-start" ? style.left : style.left + style.width / 2 - guess / 2;
+  return { x, y: style.top, w: guess, h: 17 };
+}
+
+/** The box a note's pill takes, centred on its point and kept inside the frame. */
+function noteRect(point: Pt, text: string, width: number, height: number): Rect {
+  const box = pillBox(point, text, width, height);
+  const half = Math.min(200, text.length * 6.4 + 18) / 2;
+  return { x: box.left + 100 - half, y: box.top, w: half * 2, h: 21 };
+}
+
+/** The spots a note may take around its place: its four sides, past its name (above or below), then its corners. */
+type NoteSide = LabelSide | "top-far" | "bottom-far" | "top-left" | "top-right" | "bottom-left" | "bottom-right";
+const CORNERS: NoteSide[] = ["top-right", "top-left", "bottom-right", "bottom-left"];
+
+/** Where a note on `side` of its place is centred (clear of the place's picture, and of its name for "-far"). */
+function notePoint(at: Pt, side: NoteSide, text: string): Pt {
+  const half = Math.min(200, text.length * 6.4 + 18) / 2;
+  if (side === "left") return { x: at.x - half - GLYPH_RADIUS - 2, y: at.y };
+  if (side === "right") return { x: at.x + half + GLYPH_RADIUS + 2, y: at.y };
+  if (side === "top" || side === "bottom") return { x: at.x, y: at.y + (side === "bottom" ? GLYPH_RADIUS + 22 : -GLYPH_RADIUS - 22) };
+  if (side === "top-far" || side === "bottom-far") return { x: at.x, y: at.y + (side === "bottom-far" ? GLYPH_RADIUS + 37 : -GLYPH_RADIUS - 37) };
+  const x = at.x + (side.endsWith("right") ? half + GLYPH_RADIUS + 2 : -half - GLYPH_RADIUS - 2);
+  return { x, y: at.y + (side.startsWith("bottom") ? GLYPH_RADIUS + 12 : -GLYPH_RADIUS - 12) };
+}
+
+/** The moment the roads first reach a place (0 when no road goes there). */
+function reachesIn(tracks: Track[], placeId: string) {
+  const times = tracks.filter((track) => track.stops[placeId] !== undefined).map((track) => track.start + track.stops[placeId] * (track.end - track.start));
+  return times.length ? Math.min(...times) : 0;
+}
+
+/** When a note or touch that waits for a road comes: in the rest after that road, before the next one starts. */
+function afterRoad(tracks: Track[], index: number) {
+  const road = tracks.find((each) => each.index === index);
+  if (!road) return undefined;
+  const next = tracks.filter((each) => each.start > road.end).sort((a, b) => a.start - b.start)[0];
+  return Math.min(0.96, next ? (road.end + next.start) / 2 : road.end + 0.03);
+}
+
+export type NoteSpot = { point: Pt; rect: Rect; text: string; from: number };
+
+/**
+ * Where a scene's notes go, and when each comes. A note on a road sits beside the road's middle; a note on a place
+ * takes its own side when that is free, or else the spot around the place (a side, past its name, a corner) where it
+ * covers the least: the places' names and pictures and the notes placed before it most of all, then the touches and
+ * the roads' dots. A note that would still cover a name, a picture or a note (a small phone, a long translation) is
+ * left out, as is one that could only sit nearer another place than its own: the caption under the map says it too.
+ * Undefined for a note this lesson does not show.
+ */
+export function placeNotes({
+  scene,
+  lessonSlug,
+  width,
+  height,
+  map,
+  tracks,
+  say = (text, params) => t(text, params)
+}: {
+  scene: MapScene;
+  lessonSlug?: string;
+  width: number;
+  height: number;
+  map: { of: (latLon: LatLon) => Pt };
+  tracks: Track[];
+  say?: (text: string, params?: Record<string, string>) => string;
+}): (NoteSpot | undefined)[] {
+  const sideOf = (placeId: string): LabelSide => scene.labels?.[placeId] ?? MAP_PLACES[placeId]?.side ?? "bottom";
+  // What a note must not cover (names, pictures, notes: `hard`), and what it had better not (touches, roads).
+  const busy: { rect: Rect; weight: number; hard?: boolean }[] = [];
+  for (const id of scene.places) {
+    const at = map.of(MAP_PLACES[id].at);
+    busy.push({ rect: { x: at.x - GLYPH_RADIUS, y: at.y - GLYPH_RADIUS, w: GLYPH_RADIUS * 2, h: GLYPH_RADIUS * 2 }, weight: 5, hard: true });
+    busy.push({ rect: labelRect(at, sideOf(id), say(MAP_PLACES[id].name), width, height), weight: 5, hard: true });
+  }
+  for (const effect of scene.effects ?? []) {
+    if (!shownFor(effect, lessonSlug) || effect.at === undefined || (effect.kind !== "pebbles" && effect.kind !== "sunset")) continue;
+    const at = typeof effect.at === "string" ? map.of(MAP_PLACES[effect.at].at) : map.of(effect.at);
+    // Where the pebbles fall (Pebbles), or the sun goes down (Sunset).
+    busy.push({ rect: effect.kind === "pebbles" ? { x: at.x - 10, y: at.y - 38, w: 20, h: 40 } : { x: at.x - 30, y: at.y - 46, w: 60, h: 48 }, weight: 3 });
+  }
+  for (const track of tracks) for (const dot of track.dots) busy.push({ rect: { x: dot.x - 3.5, y: dot.y - 3.5, w: 7, h: 7 }, weight: 1 });
+  const cost = (rect: Rect) => busy.reduce((sum, item) => sum + overlapArea(rect, item.rect) * item.weight, 0);
+  const covers = (rect: Rect) => busy.reduce((sum, item) => sum + (item.hard ? overlapArea(rect, item.rect) : 0), 0);
+
+  const spots: (NoteSpot | undefined)[] = (scene.notes ?? []).map(() => undefined);
+  // Notes on roads first: they cannot move.
+  (scene.notes ?? []).forEach((note, index) => {
+    if (note.leg === undefined || !shownFor(note, lessonSlug)) return;
+    const track = tracks.find((each) => each.index === note.leg);
+    if (!track) return;
+    const middle = pointAlong(track.line, 0.5);
+    const ahead = pointAlong(track.line, 0.53);
+    const dx = ahead.x - middle.x;
+    const dy = ahead.y - middle.y;
+    const length = Math.hypot(dx, dy) || 1;
+    // Beside the road's middle, on its left (seen going along it), clear of the dots.
+    const point = { x: middle.x + (dy / length) * 22, y: middle.y - (dx / length) * 22 };
+    const text = note.distance ? say(note.text, { km: roundKm(kmBetween(track.ends[0], track.ends[1])).toLocaleString("en-US") }) : say(note.text);
+    const rect = noteRect(point, text, width, height);
+    spots[index] = { point, rect, text, from: track.end };
+    busy.push({ rect, weight: 5, hard: true });
+  });
+  (scene.notes ?? []).forEach((note, index) => {
+    if (note.leg !== undefined || !note.at || !MAP_PLACES[note.at] || !shownFor(note, lessonSlug)) return;
+    const at = map.of(MAP_PLACES[note.at].at);
+    const text = say(note.text);
+    const own: LabelSide = note.side ?? (sideOf(note.at) === "top" ? "bottom" : "top");
+    const named = sideOf(note.at);
+    const past: NoteSide[] = named === "top" ? ["top-far"] : named === "bottom" ? ["bottom-far"] : [];
+    const sides: NoteSide[] = [own, ...(["top", "bottom", "right", "left"] as LabelSide[]).filter((side) => side !== own && side !== named), ...past, ...CORNERS];
+    // A note must sit nearer its own place than any other, or it would seem to be about that one.
+    const others = scene.places.filter((id) => id !== note.at).map((id) => map.of(MAP_PLACES[id].at));
+    const strays = (rect: Rect) => others.some((other) => gapTo(rect, other) < gapTo(rect, at));
+    let best: { point: Pt; rect: Rect; cost: number } | undefined;
+    for (const [order, side] of sides.entries()) {
+      const point = notePoint(at, side, text);
+      const rect = noteRect(point, text, width, height);
+      // A little more for each spot further down the list, so a note leaves its own side only to get clear.
+      const covered = cost(rect) + (strays(rect) ? 4000 : 0);
+      const score = covered === 0 ? 0 : covered + order * 12;
+      if (!best || score < best.cost) best = { point, rect, cost: score };
+      if (score === 0) break;
+    }
+    // Left out rather than laid over a name, a picture or a note (a sliver of a corner is let be), or beside another place.
+    if (covers(best!.rect) > 30 || strays(best!.rect)) return;
+    const from = (note.after !== undefined ? afterRoad(tracks, note.after) : undefined) ?? (reachesIn(tracks, note.at) || 0.1);
+    spots[index] = { point: best!.point, rect: best!.rect, text, from };
+    busy.push({ rect: best!.rect, weight: 5, hard: true });
+  });
+  return spots;
+}
+
+/** The boxes of a scene's place names, for checking that none covers another (tests, the gallery). */
+export function placeLabelRects(scene: MapScene, width: number, height: number, say: (text: string) => string = (text) => t(text)) {
+  const map = pixels(fitView(scene.box, width / height), width);
+  return scene.places.map((id) => ({ id, rect: labelRect(map.of(MAP_PLACES[id].at), scene.labels?.[id] ?? MAP_PLACES[id].side ?? "bottom", say(MAP_PLACES[id].name), width, height), at: map.of(MAP_PLACES[id].at) }));
+}
+
+/** Everything a scene's map places, for checks: the roads (as dots), the place names and the notes. */
+export function sceneLayout(scene: MapScene, width: number, height: number, lessonSlug?: string, say?: (text: string, params?: Record<string, string>) => string) {
+  const map = pixels(fitView(scene.box, width / height), width);
+  const { tracks } = buildTracks(scene, lessonSlug, map.of);
+  return { tracks, labels: placeLabelRects(scene, width, height, say), notes: placeNotes({ scene, lessonSlug, width, height, map, tracks, say }) };
+}
+
 export function JourneyMap({ scene, width, height, lessonSlug, focus, still = false, play = 0, delay = 0, onDrawn }: JourneyMapProps) {
   // A slow phone keeps the touches but with fewer moving pieces.
   const lite = useLiteMotion();
@@ -202,14 +361,10 @@ export function JourneyMap({ scene, width, height, lessonSlug, focus, still = fa
     };
   }, [play, still, duration, delay, progress, scene.id, lessonSlug]);
 
-  /** The moment the roads first reach a place (0 when no road goes there). */
-  const reaches = (placeId: string) => {
-    const times = tracks.filter((track) => track.stops[placeId] !== undefined).map((track) => track.start + track.stops[placeId] * (track.end - track.start));
-    return times.length ? Math.min(...times) : 0;
-  };
+  const reaches = (placeId: string) => reachesIn(tracks, placeId);
   const effects = (scene.effects ?? []).filter((effect) => shownFor(effect, lessonSlug));
   const night = effects.some((effect) => effect.kind === "night");
-  const notes = (scene.notes ?? []).filter((note) => shownFor(note, lessonSlug));
+  const notes = placeNotes({ scene, lessonSlug, width, height, map, tracks });
   const focusPlace = focus ? places.find(({ place }) => place.id === focus) : undefined;
   const sideOf = (placeId: string): LabelSide => scene.labels?.[placeId] ?? MAP_PLACES[placeId]?.side ?? "bottom";
   // A sea's name once on a map, where its water is.
@@ -223,7 +378,7 @@ export function JourneyMap({ scene, width, height, lessonSlug, focus, still = fa
         .filter((effect) => effect.kind !== "night" && effect.at !== undefined)
         .map((effect, index) => {
           const point = typeof effect.at === "string" ? map.of(MAP_PLACES[effect.at].at) : map.of(effect.at as LatLon);
-          const from = typeof effect.at === "string" ? reaches(effect.at) : 0;
+          const from = (effect.after !== undefined ? afterRoad(tracks, effect.after) : undefined) ?? (typeof effect.at === "string" ? reaches(effect.at) : 0);
           return (
             <Animated.View key={`${effect.kind}-${index}`} style={[StyleSheet.absoluteFill, { opacity: appear(progress, from, 0.05) }]} pointerEvents="none">
               <MapTouch kind={effect.kind} at={point} still={still} lite={lite} color={night ? "#FFE58A" : ROAD_LOOK.his.color} />
@@ -301,35 +456,9 @@ export function JourneyMap({ scene, width, height, lessonSlug, focus, still = fa
             </Animated.View>
           );
         })}
-      {notes.map((note, index) => {
-        let point: Pt | undefined;
-        let from = 0.1;
-        let text = t(note.text);
-        if (note.leg !== undefined) {
-          const track = tracks.find((each) => each.index === note.leg);
-          if (!track) return null;
-          const middle = pointAlong(track.line, 0.5);
-          const after = pointAlong(track.line, 0.53);
-          const dx = after.x - middle.x;
-          const dy = after.y - middle.y;
-          const length = Math.hypot(dx, dy) || 1;
-          // Beside the road's middle, on its left (seen going along it), clear of the dots.
-          point = { x: middle.x + (dy / length) * 22, y: middle.y - (dx / length) * 22 };
-          from = track.end;
-          if (note.distance) text = t(note.text, { km: roundKm(kmBetween(track.ends[0], track.ends[1])).toLocaleString("en-US") });
-        } else if (note.at && MAP_PLACES[note.at]) {
-          const at = map.of(MAP_PLACES[note.at].at);
-          const side = note.side ?? (sideOf(note.at) === "top" ? "bottom" : "top");
-          const room = Math.min(150, text.length * 6.4 + 18) / 2 + GLYPH_RADIUS + 2;
-          point =
-            side === "left"
-              ? { x: at.x - room, y: at.y }
-              : side === "right"
-                ? { x: at.x + room, y: at.y }
-                : { x: at.x, y: at.y + (side === "bottom" ? GLYPH_RADIUS + 22 : -GLYPH_RADIUS - 22) };
-          from = reaches(note.at) || 0.1;
-        }
-        if (!point) return null;
+      {notes.map((spot, index) => {
+        if (!spot) return null;
+        const { point, text, from } = spot;
         return (
           <Animated.View
             key={`note-${index}`}
