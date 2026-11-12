@@ -113,6 +113,18 @@
   },
   {
     "kind": "course",
+    "text": "Sunnahs of the journey"
+  },
+  {
+    "kind": "course",
+    "text": "Setting out on a Thursday, blessed early mornings, travelling by night, camping close together, caring for the weak, and hurrying home."
+  },
+  {
+    "kind": "arabic",
+    "text": "The manners of travel"
+  },
+  {
+    "kind": "course",
     "text": "As-salamu alaykum"
   },
   {
@@ -314,6 +326,30 @@
   {
     "kind": "course",
     "text": "Before bed: lamps and doors"
+  },
+  {
+    "kind": "course",
+    "text": "Setting out on a Thursday"
+  },
+  {
+    "kind": "course",
+    "text": "Blessed early mornings"
+  },
+  {
+    "kind": "course",
+    "text": "Travelling by night"
+  },
+  {
+    "kind": "course",
+    "text": "Camp close together"
+  },
+  {
+    "kind": "course",
+    "text": "At the back, for the weak"
+  },
+  {
+    "kind": "course",
+    "text": "Hurry home when it is done"
   },
   {
     "kind": "course",
@@ -29421,6 +29457,18 @@
   },
   {
     "kind": "course",
+    "text": "How Allah counts charity"
+  },
+  {
+    "kind": "course",
+    "text": "An honest zakat collector, giving your best, quiet reciting, time for one in debt, seven hundred times over, and sleep as a gift."
+  },
+  {
+    "kind": "arabic",
+    "text": "Charity as Allah counts it"
+  },
+  {
+    "kind": "course",
     "text": "What zakat is"
   },
   {
@@ -29710,6 +29758,26 @@
   {
     "kind": "course",
     "text": "Home without asking"
+  },
+  {
+    "kind": "course",
+    "text": "An honest zakat collector"
+  },
+  {
+    "kind": "course",
+    "text": "Reciting quietly, giving secretly"
+  },
+  {
+    "kind": "course",
+    "text": "Give the debtor more time"
+  },
+  {
+    "kind": "course",
+    "text": "Seven hundred times over"
+  },
+  {
+    "kind": "course",
+    "text": "Sleep as a gift from Allah"
   },
   {
     "kind": "course",
@@ -39405,6 +39473,18 @@
   },
   {
     "kind": "course",
+    "text": "Du'as for other people"
+  },
+  {
+    "kind": "course",
+    "text": "Seven times for the sick, a blessing for the host, thanks for a meal, the living and the dead, guidance for a tribe, and blessed food."
+  },
+  {
+    "kind": "arabic",
+    "text": "Du'a for others"
+  },
+  {
+    "kind": "course",
     "text": "The three Quls"
   },
   {
@@ -39782,6 +39862,30 @@
   {
     "kind": "course",
     "text": "Knowledge that benefits"
+  },
+  {
+    "kind": "course",
+    "text": "Seven times for the sick"
+  },
+  {
+    "kind": "course",
+    "text": "A blessing for the host"
+  },
+  {
+    "kind": "course",
+    "text": "Thanks for a meal"
+  },
+  {
+    "kind": "course",
+    "text": "For the living and the dead"
+  },
+  {
+    "kind": "course",
+    "text": "Guide them, O Allah"
+  },
+  {
+    "kind": "course",
+    "text": "Blessed food for Madinah"
   },
   {
     "kind": "course",
@@ -63125,6 +63229,446 @@
   },
   {
     "kind": "lesson",
+    "text": "He ﷺ usually set out on his journeys on a Thursday."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Ka'b ibn Malik"
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-khamis: Thursday"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ rarely set out on another day"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 2949"
+  },
+  {
+    "kind": "question",
+    "text": "On which day did he ﷺ usually set out on a journey?"
+  },
+  {
+    "kind": "question",
+    "text": "Thursday"
+  },
+  {
+    "kind": "question",
+    "text": "Saturday"
+  },
+  {
+    "kind": "question",
+    "text": "Sunday"
+  },
+  {
+    "kind": "question",
+    "text": "Tuesday"
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ seldom set out for a journey on a day other than Thursday, Ka'b said."
+  },
+  {
+    "kind": "question",
+    "text": "How often did he ﷺ start a journey on another day?"
+  },
+  {
+    "kind": "question",
+    "text": "Every morning"
+  },
+  {
+    "kind": "question",
+    "text": "Rarely"
+  },
+  {
+    "kind": "question",
+    "text": "Every week"
+  },
+  {
+    "kind": "question",
+    "text": "Always"
+  },
+  {
+    "kind": "question",
+    "text": "Scarcely did he ﷺ set out on a day other than Thursday, Ka'b ibn Malik said."
+  },
+  {
+    "kind": "question",
+    "text": "Ka'b ibn Malik is the one who told us of the Thursday journeys."
+  },
+  {
+    "kind": "question",
+    "text": "Ka'b used to say: he ﷺ rarely set out on a day other than Thursday."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ asked Allah to bless his Ummah in its early mornings."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Sakhr al-Ghamidi"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ sent groups out at the start of the day"
+  },
+  {
+    "kind": "lesson",
+    "text": "Sakhr, a trader, sent his goods out early and grew rich"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 2606"
+  },
+  {
+    "kind": "question",
+    "text": "Which part of the day did he ﷺ ask Allah to bless?"
+  },
+  {
+    "kind": "question",
+    "text": "The early morning"
+  },
+  {
+    "kind": "question",
+    "text": "The midday heat"
+  },
+  {
+    "kind": "question",
+    "text": "Just before sunset"
+  },
+  {
+    "kind": "question",
+    "text": "Late at night"
+  },
+  {
+    "kind": "question",
+    "text": "O Allah, bless my people in their early mornings, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Sakhr sent his goods out early in the day. What happened to him?"
+  },
+  {
+    "kind": "question",
+    "text": "He lost everything"
+  },
+  {
+    "kind": "question",
+    "text": "He gave up trading"
+  },
+  {
+    "kind": "question",
+    "text": "He stopped sending goods"
+  },
+  {
+    "kind": "question",
+    "text": "He grew very rich"
+  },
+  {
+    "kind": "question",
+    "text": "Sakhr sent his goods at the start of the day, and he had much wealth."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ sent out groups at the start of the day."
+  },
+  {
+    "kind": "question",
+    "text": "When he sent out a group or an army, he sent them at the beginning of the day."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ said: travel by night, the earth is crossed more easily."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ad-duljah: travelling in the night"
+  },
+  {
+    "kind": "lesson",
+    "text": "The road feels shorter at night"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 2571"
+  },
+  {
+    "kind": "question",
+    "text": "Why did he ﷺ say to keep to travelling by night?"
+  },
+  {
+    "kind": "question",
+    "text": "The camels like it"
+  },
+  {
+    "kind": "question",
+    "text": "The earth is crossed easily"
+  },
+  {
+    "kind": "question",
+    "text": "The shops are open"
+  },
+  {
+    "kind": "question",
+    "text": "The stars are bright"
+  },
+  {
+    "kind": "question",
+    "text": "For the earth is traversed more easily by night, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "What does ad-duljah mean?"
+  },
+  {
+    "kind": "question",
+    "text": "Riding very fast"
+  },
+  {
+    "kind": "question",
+    "text": "Camping by a well"
+  },
+  {
+    "kind": "question",
+    "text": "Resting at noon"
+  },
+  {
+    "kind": "question",
+    "text": "Keep to ad-duljah, travelling by night, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Travelling part of the night can make the road feel shorter."
+  },
+  {
+    "kind": "question",
+    "text": "The earth is traversed more easily by night, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Camping on a journey? Stay close together, not scattered."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abu Tha'labah al-Khushani"
+  },
+  {
+    "kind": "lesson",
+    "text": "People had spread out in the valleys"
+  },
+  {
+    "kind": "lesson",
+    "text": "Then they camped so close a cloth could cover them"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 2628"
+  },
+  {
+    "kind": "question",
+    "text": "When they camped, where had the people spread out?"
+  },
+  {
+    "kind": "question",
+    "text": "On the ships"
+  },
+  {
+    "kind": "question",
+    "text": "In the valleys and passes"
+  },
+  {
+    "kind": "question",
+    "text": "On the city walls"
+  },
+  {
+    "kind": "question",
+    "text": "Inside the mosque"
+  },
+  {
+    "kind": "question",
+    "text": "The people scattered in the glens and wadis, Abu Tha'labah said."
+  },
+  {
+    "kind": "question",
+    "text": "After his words, how did they camp?"
+  },
+  {
+    "kind": "question",
+    "text": "Close together"
+  },
+  {
+    "kind": "question",
+    "text": "Far apart"
+  },
+  {
+    "kind": "question",
+    "text": "On the hilltops"
+  },
+  {
+    "kind": "question",
+    "text": "If a cloth were spread over them, it would cover them all, people said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ said spreading out in the valleys was from Shaytan."
+  },
+  {
+    "kind": "question",
+    "text": "Your scattering in these glens and wadis is only of the devil, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "On journeys, he ﷺ rode at the back to help the weak."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ urged on the weak and slow"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ let someone ride behind him, and made du'a for all"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 2639"
+  },
+  {
+    "kind": "question",
+    "text": "Which part of the group did he ﷺ keep to when travelling?"
+  },
+  {
+    "kind": "question",
+    "text": "Far to one side"
+  },
+  {
+    "kind": "question",
+    "text": "The back"
+  },
+  {
+    "kind": "question",
+    "text": "The very front"
+  },
+  {
+    "kind": "question",
+    "text": "Far ahead"
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ used to keep to the rear when travelling, Jabir said."
+  },
+  {
+    "kind": "question",
+    "text": "Whom did he ﷺ urge on, riding at the back?"
+  },
+  {
+    "kind": "question",
+    "text": "The weak"
+  },
+  {
+    "kind": "question",
+    "text": "The fastest riders"
+  },
+  {
+    "kind": "question",
+    "text": "The camels in front"
+  },
+  {
+    "kind": "question",
+    "text": "The guards ahead"
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ would keep to the rear and urge on the weak, Jabir said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ would let someone ride behind him on his mount."
+  },
+  {
+    "kind": "question",
+    "text": "He would take someone up behind him and make du'a for them all."
+  },
+  {
+    "kind": "lesson",
+    "text": "Travel is hard; when your work is done, hurry home."
+  },
+  {
+    "kind": "lesson",
+    "text": "Travel keeps you from good food, drink and sleep"
+  },
+  {
+    "kind": "lesson",
+    "text": "When your work is done, go back quickly to your family"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1804"
+  },
+  {
+    "kind": "question",
+    "text": "What does travel keep a person from, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "Eating, drinking and sleeping well"
+  },
+  {
+    "kind": "question",
+    "text": "Praying and fasting"
+  },
+  {
+    "kind": "question",
+    "text": "Speaking and smiling"
+  },
+  {
+    "kind": "question",
+    "text": "Reading and writing"
+  },
+  {
+    "kind": "question",
+    "text": "Travel prevents one from eating, drinking and sleeping properly, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "When your work on a journey is done, what should you do?"
+  },
+  {
+    "kind": "question",
+    "text": "Stay away for a year"
+  },
+  {
+    "kind": "question",
+    "text": "Start another trip"
+  },
+  {
+    "kind": "question",
+    "text": "Wait for winter"
+  },
+  {
+    "kind": "question",
+    "text": "Hurry back to your family"
+  },
+  {
+    "kind": "question",
+    "text": "When one's needs are fulfilled, one should return quickly to one's family."
+  },
+  {
+    "kind": "question",
+    "text": "Once your work is done, it is best to stay away a long time."
+  },
+  {
+    "kind": "question",
+    "text": "When your work is done, hurry back to your family, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about sunnahs of the journey!"
+  },
+  {
+    "kind": "lesson",
     "text": "Uthman showed wudu: hands, mouth, nose, face, arms, head, feet."
   },
   {
@@ -66865,10 +67409,6 @@
   },
   {
     "kind": "question",
-    "text": "Far apart"
-  },
-  {
-    "kind": "question",
     "text": "One behind another"
   },
   {
@@ -66938,10 +67478,6 @@
   {
     "kind": "question",
     "text": "Right at sunrise"
-  },
-  {
-    "kind": "question",
-    "text": "Just before sunset"
   },
   {
     "kind": "question",
@@ -67158,10 +67694,6 @@
   {
     "kind": "question",
     "text": "Soon after sunset"
-  },
-  {
-    "kind": "question",
-    "text": "Late at night"
   },
   {
     "kind": "question",
@@ -82813,10 +83345,6 @@
   },
   {
     "kind": "lesson",
-    "text": "Told by Ka'b ibn Malik"
-  },
-  {
-    "kind": "lesson",
     "text": "Voices rose in the masjid"
   },
   {
@@ -86214,10 +86742,6 @@
   {
     "kind": "question",
     "text": "Which day should not be fasted on its own?"
-  },
-  {
-    "kind": "question",
-    "text": "Thursday"
   },
   {
     "kind": "question",
@@ -90841,6 +91365,406 @@
   },
   {
     "kind": "lesson",
+    "text": "Collecting zakat honestly is like striving in Allah's cause."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-'amil: the one who collects zakat"
+  },
+  {
+    "kind": "lesson",
+    "text": "His reward lasts until he returns home"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 645"
+  },
+  {
+    "kind": "question",
+    "text": "Who is like one striving in Allah's cause, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "One who hoards his gold"
+  },
+  {
+    "kind": "question",
+    "text": "One who boasts of his wealth"
+  },
+  {
+    "kind": "question",
+    "text": "One who sleeps all day"
+  },
+  {
+    "kind": "question",
+    "text": "The one who works in collecting charity in truth, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "How must the collector do his work?"
+  },
+  {
+    "kind": "question",
+    "text": "With a loud voice"
+  },
+  {
+    "kind": "question",
+    "text": "Only in winter"
+  },
+  {
+    "kind": "question",
+    "text": "In truth, honestly"
+  },
+  {
+    "kind": "question",
+    "text": "In a great hurry"
+  },
+  {
+    "kind": "question",
+    "text": "Collecting charity in truth is like fighting in the cause of Allah, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Even the work of collecting zakat can earn a great reward."
+  },
+  {
+    "kind": "question",
+    "text": "Done in truth, it is like striving in Allah's cause until he returns home."
+  },
+  {
+    "kind": "lesson",
+    "text": "In charity, give something good, not dry, bad dates."
+  },
+  {
+    "kind": "lesson",
+    "text": "A man had hung up a bunch of dry, bad dates"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ came out with a stick in his hand"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan an-Nasa'i 2493"
+  },
+  {
+    "kind": "question",
+    "text": "What had the man hung up as charity?"
+  },
+  {
+    "kind": "question",
+    "text": "A new woollen cloak"
+  },
+  {
+    "kind": "question",
+    "text": "A jar of fresh honey"
+  },
+  {
+    "kind": "question",
+    "text": "A bunch of dry, bad dates"
+  },
+  {
+    "kind": "question",
+    "text": "A man had hung up a bunch of dry and bad dates, Awf ibn Malik said."
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ wish the giver had done?"
+  },
+  {
+    "kind": "question",
+    "text": "Given it next year"
+  },
+  {
+    "kind": "question",
+    "text": "Given something better"
+  },
+  {
+    "kind": "question",
+    "text": "Hung it up higher"
+  },
+  {
+    "kind": "question",
+    "text": "Given it at night"
+  },
+  {
+    "kind": "question",
+    "text": "I wish the one who gave this Sadaqah had given something better than this, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "When we give in charity, we should give what is good."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ wished the giver of the bad dates had given something better."
+  },
+  {
+    "kind": "lesson",
+    "text": "Reciting the Quran quietly is like giving charity in secret."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Uqbah ibn Amir"
+  },
+  {
+    "kind": "lesson",
+    "text": "Aloud is like charity given openly"
+  },
+  {
+    "kind": "lesson",
+    "text": "Quietly is like charity given in secret"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 2919"
+  },
+  {
+    "kind": "question",
+    "text": "Reciting the Quran aloud is like giving charity how?"
+  },
+  {
+    "kind": "question",
+    "text": "Openly"
+  },
+  {
+    "kind": "question",
+    "text": "By mistake"
+  },
+  {
+    "kind": "question",
+    "text": "One who recites aloud is like one who gives charity publicly, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Reciting the Quran quietly is like what?"
+  },
+  {
+    "kind": "question",
+    "text": "Charity taken back"
+  },
+  {
+    "kind": "question",
+    "text": "Charity never given"
+  },
+  {
+    "kind": "question",
+    "text": "Charity given late"
+  },
+  {
+    "kind": "question",
+    "text": "Charity in secret"
+  },
+  {
+    "kind": "question",
+    "text": "One who recites the Quran quietly is like one who gives charity secretly."
+  },
+  {
+    "kind": "question",
+    "text": "Both reciting aloud and reciting quietly are good."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ likened both to charity: one given openly, one given in secret."
+  },
+  {
+    "kind": "lesson",
+    "text": "Give one in hardship more time: each day is charity."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Buraidah al-Aslami"
+  },
+  {
+    "kind": "lesson",
+    "text": "Before the debt is due: charity for each day"
+  },
+  {
+    "kind": "lesson",
+    "text": "After it is due: each day, charity equal to the loan"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Ibn Majah 2418"
+  },
+  {
+    "kind": "question",
+    "text": "Giving more time to one in difficulty is charity how often?"
+  },
+  {
+    "kind": "question",
+    "text": "For each day"
+  },
+  {
+    "kind": "question",
+    "text": "He will have the reward of an act of charity for each day, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "After the debt is due, each day's charity is equal to what?"
+  },
+  {
+    "kind": "question",
+    "text": "Half a date"
+  },
+  {
+    "kind": "question",
+    "text": "One small coin"
+  },
+  {
+    "kind": "question",
+    "text": "A cup of water"
+  },
+  {
+    "kind": "question",
+    "text": "The amount of the loan"
+  },
+  {
+    "kind": "question",
+    "text": "Charity equal to the amount of the loan, for each day, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Being patient with someone who owes you is a kind of charity."
+  },
+  {
+    "kind": "question",
+    "text": "Whoever gives respite to one in difficulty has charity for each day."
+  },
+  {
+    "kind": "lesson",
+    "text": "Spending in Allah's cause is written seven hundred times over."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Khuraim ibn Fatik"
+  },
+  {
+    "kind": "lesson",
+    "text": "Fi sabilillah: in the cause of Allah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah multiplies it many times"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 1625"
+  },
+  {
+    "kind": "question",
+    "text": "How many times over is it written, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "Seventy"
+  },
+  {
+    "kind": "question",
+    "text": "Seven hundred"
+  },
+  {
+    "kind": "question",
+    "text": "It is recorded for him seven-hundred fold, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "What must the spending be for, to be written seven hundred times?"
+  },
+  {
+    "kind": "question",
+    "text": "The cause of Allah"
+  },
+  {
+    "kind": "question",
+    "text": "Games and fun"
+  },
+  {
+    "kind": "question",
+    "text": "Things that harm"
+  },
+  {
+    "kind": "question",
+    "text": "Whoever spends a sum in the cause of Allah, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Allah can give back far more than what we give for Him."
+  },
+  {
+    "kind": "question",
+    "text": "What is spent in His cause is written seven hundred times over."
+  },
+  {
+    "kind": "lesson",
+    "text": "Meant to pray at night, then slept? Your sleep is charity."
+  },
+  {
+    "kind": "lesson",
+    "text": "He went to bed meaning to pray at night"
+  },
+  {
+    "kind": "lesson",
+    "text": "Sleep overcame him until the morning"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Ibn Majah 1344"
+  },
+  {
+    "kind": "question",
+    "text": "He meant to pray at night but slept till morning. What is written for him?"
+  },
+  {
+    "kind": "question",
+    "text": "A bad deed"
+  },
+  {
+    "kind": "question",
+    "text": "Only half a prayer"
+  },
+  {
+    "kind": "question",
+    "text": "What he meant to do"
+  },
+  {
+    "kind": "question",
+    "text": "What he intended will be recorded for him, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "What does his sleep become?"
+  },
+  {
+    "kind": "question",
+    "text": "A wasted night"
+  },
+  {
+    "kind": "question",
+    "text": "A heavy debt"
+  },
+  {
+    "kind": "question",
+    "text": "A charity from his Lord"
+  },
+  {
+    "kind": "question",
+    "text": "His sleep is a charity given to him by his Lord, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "A good intention can be rewarded even when sleep wins."
+  },
+  {
+    "kind": "question",
+    "text": "He meant to pray at night, so what he intended is written for him."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about how Allah counts charity!"
+  },
+  {
+    "kind": "lesson",
     "text": "Hajj is due once in a life, for those able."
   },
   {
@@ -91334,10 +92258,6 @@
   {
     "kind": "question",
     "text": "How many pebbles are thrown at a pillar each time?"
-  },
-  {
-    "kind": "question",
-    "text": "Seventy"
   },
   {
     "kind": "question",
@@ -102181,10 +103101,6 @@
   },
   {
     "kind": "question",
-    "text": "Sunday"
-  },
-  {
-    "kind": "question",
     "text": "He died that night, before Tuesday morning came."
   },
   {
@@ -103142,10 +104058,6 @@
   {
     "kind": "lesson",
     "text": "But no prophet comes after him ﷺ."
-  },
-  {
-    "kind": "lesson",
-    "text": "Told by Uqbah ibn Amir"
   },
   {
     "kind": "source",
@@ -123225,10 +124137,6 @@
   },
   {
     "kind": "question",
-    "text": "The weak"
-  },
-  {
-    "kind": "question",
     "text": "The late ones"
   },
   {
@@ -131057,10 +131965,6 @@
   },
   {
     "kind": "question",
-    "text": "By mistake"
-  },
-  {
-    "kind": "question",
     "text": "Quran 18:79."
   },
   {
@@ -132641,10 +133545,6 @@
   },
   {
     "kind": "question",
-    "text": "Rarely"
-  },
-  {
-    "kind": "question",
     "text": "Only in joy"
   },
   {
@@ -133677,10 +134577,6 @@
   },
   {
     "kind": "question",
-    "text": "Saturday"
-  },
-  {
-    "kind": "question",
     "text": "Wednesday"
   },
   {
@@ -134026,10 +134922,6 @@
   {
     "kind": "question",
     "text": "With true dreams"
-  },
-  {
-    "kind": "question",
-    "text": "With a loud voice"
   },
   {
     "kind": "question",
@@ -139209,10 +140101,6 @@
   },
   {
     "kind": "question",
-    "text": "Wait for winter"
-  },
-  {
-    "kind": "question",
     "text": "Go forth, whether light or heavy."
   },
   {
@@ -139937,10 +140825,6 @@
   },
   {
     "kind": "question",
-    "text": "Tuesday"
-  },
-  {
-    "kind": "question",
     "text": "Umar knew the day and the place."
   },
   {
@@ -140286,10 +141170,6 @@
   {
     "kind": "question",
     "text": "Did he ﷺ take revenge for himself?"
-  },
-  {
-    "kind": "question",
-    "text": "Always"
   },
   {
     "kind": "question",
@@ -146585,10 +147465,6 @@
   },
   {
     "kind": "question",
-    "text": "A cup of water"
-  },
-  {
-    "kind": "question",
     "text": "His hand or his cloth"
   },
   {
@@ -150118,10 +150994,6 @@
   {
     "kind": "question",
     "text": "A full good deed"
-  },
-  {
-    "kind": "question",
-    "text": "A bad deed"
   },
   {
     "kind": "question",
@@ -154422,10 +155294,6 @@
   {
     "kind": "lesson",
     "text": "Yet he said: I am not the best of them"
-  },
-  {
-    "kind": "question",
-    "text": "Seven hundred"
   },
   {
     "kind": "question",
@@ -172062,10 +172930,6 @@
   {
     "kind": "question",
     "text": "The left"
-  },
-  {
-    "kind": "question",
-    "text": "The back"
   },
   {
     "kind": "question",
@@ -191793,6 +192657,378 @@
   },
   {
     "kind": "lesson",
+    "text": "Visiting the sick? Ask Allah seven times to cure them."
+  },
+  {
+    "kind": "lesson",
+    "text": "As'alullah al-'Azim, Rabbal-'Arshil-'Azim, an yashfiyak"
+  },
+  {
+    "kind": "lesson",
+    "text": "Said seven times at the side of one who is ill"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 2083"
+  },
+  {
+    "kind": "question",
+    "text": "How many times does the visitor say the du'a?"
+  },
+  {
+    "kind": "question",
+    "text": "And he says seven times: I ask Allah the Magnificent to cure you, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Whom do we ask to cure the sick person?"
+  },
+  {
+    "kind": "question",
+    "text": "Allah, Lord of the Throne"
+  },
+  {
+    "kind": "question",
+    "text": "I ask Allah the Magnificent, Lord of the Magnificent Throne, to cure you."
+  },
+  {
+    "kind": "question",
+    "text": "We can make du'a for a sick friend when we visit."
+  },
+  {
+    "kind": "question",
+    "text": "Visiting one who is ill, say seven times: I ask Allah to cure you."
+  },
+  {
+    "kind": "lesson",
+    "text": "Asked by his host, he ﷺ prayed: O Allah, bless them."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ was a guest of Abdullah's father"
+  },
+  {
+    "kind": "lesson",
+    "text": "His host held the rein of his ride and asked for a du'a"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 3729"
+  },
+  {
+    "kind": "question",
+    "text": "What did the host ask for as he ﷺ was leaving?"
+  },
+  {
+    "kind": "question",
+    "text": "A new camel"
+  },
+  {
+    "kind": "question",
+    "text": "A du'a for him"
+  },
+  {
+    "kind": "question",
+    "text": "My father held the rein of his mount and said: Pray to Allah for me."
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ ask Allah to bless them in?"
+  },
+  {
+    "kind": "question",
+    "text": "Their fame"
+  },
+  {
+    "kind": "question",
+    "text": "Their big houses"
+  },
+  {
+    "kind": "question",
+    "text": "Their fine clothes"
+  },
+  {
+    "kind": "question",
+    "text": "What Allah provided them"
+  },
+  {
+    "kind": "question",
+    "text": "O Allah, bless them in what you provided them, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "A guest can make du'a for the people who fed him."
+  },
+  {
+    "kind": "question",
+    "text": "Asked by his host, he ﷺ said: O Allah, bless them and have mercy on them."
+  },
+  {
+    "kind": "lesson",
+    "text": "After a meal, he ﷺ prayed: may the pious eat your food."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ visited Sa'd ibn Ubadah"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ asked that the angels pray for blessing on them"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 3854"
+  },
+  {
+    "kind": "question",
+    "text": "What did Sa'd bring him ﷺ to eat?"
+  },
+  {
+    "kind": "question",
+    "text": "Bread and olive oil"
+  },
+  {
+    "kind": "question",
+    "text": "He brought bread and olive oil, and he ﷺ ate, Anas said."
+  },
+  {
+    "kind": "question",
+    "text": "In his du'a, who would pray for blessing on Sa'd's family?"
+  },
+  {
+    "kind": "question",
+    "text": "The market traders"
+  },
+  {
+    "kind": "question",
+    "text": "And the angels pray for blessing on you, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ prayed that the pious would eat Sa'd's food."
+  },
+  {
+    "kind": "question",
+    "text": "And the pious eat your food, he ﷺ said after eating with Sa'd."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ prayed for our living and our dead, young and old."
+  },
+  {
+    "kind": "lesson",
+    "text": "Said in the funeral prayer"
+  },
+  {
+    "kind": "lesson",
+    "text": "Our young and our old, our men and our women"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 3201"
+  },
+  {
+    "kind": "question",
+    "text": "When did he ﷺ say the du'a for our living and our dead?"
+  },
+  {
+    "kind": "question",
+    "text": "In the funeral prayer"
+  },
+  {
+    "kind": "question",
+    "text": "At a wedding feast"
+  },
+  {
+    "kind": "question",
+    "text": "On the way to market"
+  },
+  {
+    "kind": "question",
+    "text": "At the Eid meal"
+  },
+  {
+    "kind": "question",
+    "text": "When he prayed over a dead person, he said: O Allah, forgive those of us living."
+  },
+  {
+    "kind": "question",
+    "text": "Whom did he ﷺ ask Allah to forgive?"
+  },
+  {
+    "kind": "question",
+    "text": "Only our men"
+  },
+  {
+    "kind": "question",
+    "text": "Our living and our dead"
+  },
+  {
+    "kind": "question",
+    "text": "Only our old"
+  },
+  {
+    "kind": "question",
+    "text": "Only those present"
+  },
+  {
+    "kind": "question",
+    "text": "Forgive those of us who are living and those of us who are dead, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Our young and our old are named in the du'a."
+  },
+  {
+    "kind": "question",
+    "text": "Our young and our old, our male and our female, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Asked to pray against a tribe, he ﷺ asked for its guidance."
+  },
+  {
+    "kind": "lesson",
+    "text": "At-Tufail ibn Amr came from the tribe of Daws"
+  },
+  {
+    "kind": "lesson",
+    "text": "People thought he ﷺ would pray against them"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 6397"
+  },
+  {
+    "kind": "question",
+    "text": "Why did at-Tufail ask him ﷺ to pray against Daws?"
+  },
+  {
+    "kind": "question",
+    "text": "They were too few"
+  },
+  {
+    "kind": "question",
+    "text": "They had refused Islam"
+  },
+  {
+    "kind": "question",
+    "text": "They had no water"
+  },
+  {
+    "kind": "question",
+    "text": "The tribe of Daus has disobeyed and refused to embrace Islam, at-Tufail said."
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ ask Allah for, for Daws?"
+  },
+  {
+    "kind": "question",
+    "text": "Guidance for them"
+  },
+  {
+    "kind": "question",
+    "text": "Wealth for them"
+  },
+  {
+    "kind": "question",
+    "text": "Rain for them"
+  },
+  {
+    "kind": "question",
+    "text": "Fame for them"
+  },
+  {
+    "kind": "question",
+    "text": "Guide the tribe of Daus and let them come to us, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "People thought he ﷺ would pray against Daws."
+  },
+  {
+    "kind": "question",
+    "text": "The people thought so, but he prayed for Daws to be guided instead."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ asked Allah to bless the food measures of Madinah."
+  },
+  {
+    "kind": "lesson",
+    "text": "The mudd and the sa' were measures for food"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ meant the people of Madinah"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 2130"
+  },
+  {
+    "kind": "question",
+    "text": "For which people did he ﷺ make du'a?"
+  },
+  {
+    "kind": "question",
+    "text": "The people of Persia"
+  },
+  {
+    "kind": "question",
+    "text": "The traders of Egypt"
+  },
+  {
+    "kind": "question",
+    "text": "The people of Madinah"
+  },
+  {
+    "kind": "question",
+    "text": "The people of Rome"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ meant the people of Medina, Anas said."
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ ask Allah to bless?"
+  },
+  {
+    "kind": "question",
+    "text": "Their horses"
+  },
+  {
+    "kind": "question",
+    "text": "Their palaces"
+  },
+  {
+    "kind": "question",
+    "text": "Their city walls"
+  },
+  {
+    "kind": "question",
+    "text": "Their food measures"
+  },
+  {
+    "kind": "question",
+    "text": "O Allah, bestow your blessings on their measures, their Mudd and Sa."
+  },
+  {
+    "kind": "question",
+    "text": "The mudd and the sa' were used to measure food."
+  },
+  {
+    "kind": "question",
+    "text": "Bless their Mudd and Sa, he ﷺ said: the measures they used."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about du'as for other people!"
+  },
+  {
+    "kind": "lesson",
     "text": "This Book has no doubt; it guides those mindful of Allah."
   },
   {
@@ -194906,10 +196142,6 @@
   {
     "kind": "question",
     "text": "Ayat al-Kursi: does guarding the heavens tire Allah?"
-  },
-  {
-    "kind": "question",
-    "text": "Only in winter"
   },
   {
     "kind": "question",
@@ -221493,10 +222725,6 @@
   },
   {
     "kind": "question",
-    "text": "Their fame"
-  },
-  {
-    "kind": "question",
     "text": "Ayah 27: how does Allah send provision?"
   },
   {
@@ -236594,10 +237822,6 @@
   {
     "kind": "question",
     "text": "Ayah 3: what do the saved urge one another to?"
-  },
-  {
-    "kind": "question",
-    "text": "Games and fun"
   },
   {
     "kind": "question",
@@ -256094,10 +257318,6 @@
   {
     "kind": "question",
     "text": "Hiding good deeds"
-  },
-  {
-    "kind": "question",
-    "text": "Charity in secret"
   },
   {
     "kind": "question",
@@ -281634,10 +282854,6 @@
   {
     "kind": "question",
     "text": "Their poetry"
-  },
-  {
-    "kind": "question",
-    "text": "Their horses"
   },
   {
     "kind": "question",
@@ -333864,10 +335080,6 @@
     "text": "Your Lord's provision"
   },
   {
-    "kind": "question",
-    "text": "Their palaces"
-  },
-  {
     "kind": "lesson",
     "text": "Tell your family to pray, be patient in it; Allah provides."
   },
@@ -337250,10 +338462,6 @@
   {
     "kind": "question",
     "text": "The idolators of Makkah"
-  },
-  {
-    "kind": "question",
-    "text": "The people of Madinah"
   },
   {
     "kind": "question",
@@ -385334,10 +386542,6 @@
   {
     "kind": "question",
     "text": "When will they regret, per Ibn Kathir?"
-  },
-  {
-    "kind": "question",
-    "text": "Every morning"
   },
   {
     "kind": "question",
@@ -435537,10 +436741,6 @@
   },
   {
     "kind": "question",
-    "text": "The people of Rome"
-  },
-  {
-    "kind": "question",
     "text": "Which nation lived in Yemen, per Ibn Kathir?"
   },
   {
@@ -437498,10 +438698,6 @@
   {
     "kind": "question",
     "text": "Trading and traveling"
-  },
-  {
-    "kind": "question",
-    "text": "Reading and writing"
   },
   {
     "kind": "question",
@@ -477933,10 +479129,6 @@
   },
   {
     "kind": "question",
-    "text": "One small coin"
-  },
-  {
-    "kind": "question",
     "text": "The wages of both earlier batches"
   },
   {
@@ -485170,10 +486362,6 @@
   {
     "kind": "question",
     "text": "What was the smallest gift he mentioned?"
-  },
-  {
-    "kind": "question",
-    "text": "Half a date"
   },
   {
     "kind": "question",
@@ -524438,10 +525626,6 @@
   {
     "kind": "lesson",
     "text": "Kifat: a place that holds"
-  },
-  {
-    "kind": "lesson",
-    "text": "For the living and the dead"
   },
   {
     "kind": "source",
