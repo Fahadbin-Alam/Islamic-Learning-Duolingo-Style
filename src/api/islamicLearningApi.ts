@@ -32,6 +32,8 @@ import type {
 } from "../types";
 import { buildGuidedLesson } from "../services/lessonGuidance";
 import { isRecallLesson } from "../ui/lesson/lessonPages";
+import { firstLessonQuoting, hifzChallenges, type HifzPart } from "../ui/lesson/reciteQuestion";
+import { SURAH_NAMES } from "../data/surahMeanings";
 import {
   REVIEW_SESSION_SIZE,
   dueCards,
@@ -614,6 +616,47 @@ export function createLessonPracticeSession(user: UserProfile, attempt = 0): Les
     heartsAtStart: user.hearts.current,
     mode: "lesson_practice",
     attempt
+  };
+}
+
+// "Memorize surahs" in Practice: a short surah, or part of a longer one, ayah by ayah with the reciter: how its first
+// ayah ends, then each ayah after it, in order (ui/lesson/reciteQuestion.ts hifzChallenges). Like "My lessons", a miss
+// comes back at the end, it costs no hearts and pays practice XP, 2 per question right on its first try; each new try
+// has the tiles in another order. It wears the colors of the Quran lesson that teaches the surah.
+export function createMemorizeSession(user: UserProfile, part: HifzPart, attempt = 0): LessonSession | undefined {
+  const questions = hifzChallenges(part);
+  const teaching = firstLessonQuoting(`${part.surah}:${part.from}`) ?? firstLessonQuoting(`${part.surah}:1`);
+  const nodeId = teaching ? LESSONS_BY_ID[teaching]?.nodeId : undefined;
+
+  if (!questions?.length || !nodeId) {
+    return undefined;
+  }
+
+  const challenges = questions.map((question) => ({ ...question, choices: shuffleChoicesForAttempt(question, attempt) }));
+  const sources = uniqueById(challenges.flatMap((challenge) => (challenge.source ? [challenge.source] : [])));
+  const intro = "Listen to the reciter, then tap each ayah that comes next.";
+
+  return {
+    id: `session_memorize_${part.id}_${attempt}_${Date.now()}`,
+    lesson: {
+      id: `memorize_${part.id.replace(/\W/g, "_")}`,
+      nodeId,
+      title: `Surah ${SURAH_NAMES[part.surah - 1]}`,
+      intro,
+      explanationContent: intro,
+      lessonType: "review",
+      xpReward: challenges.length * PRACTICE_XP_PER_CORRECT_ANSWER,
+      sources,
+      sourceReferences: sources,
+      masteryState: "learning",
+      masteryTestEligible: false,
+      challenges
+    },
+    startedAt: new Date().toISOString(),
+    heartsAtStart: user.hearts.current,
+    mode: "lesson_practice",
+    attempt,
+    memorize: { part: part.id, surah: part.surah, from: part.from, to: part.to, ayahs: part.ayahs }
   };
 }
 

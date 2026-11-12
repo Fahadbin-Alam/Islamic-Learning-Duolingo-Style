@@ -444,8 +444,9 @@ export interface Challenge {
      * reciter recites it, its words lighting up, and stops before word `gap` (its last), which the learner picks.
      * "Which ayah comes next?" has `next`, the ayah after it, which the learner picks: the reciter recites the whole
      * ayah (`gap` is its number of words, so none of it is hidden) and goes on to `next` after the answer.
+     * Memorizing a surah in Practice, `ayahs` is the surah's number of ayahs: the card says which one this is.
      */
-    recite?: { key: string; gap: number; next?: { key: string; text: string; recitation: string } };
+    recite?: { key: string; gap: number; next?: { key: string; text: string; recitation: string }; ayahs?: number };
   };
 }
 
@@ -561,6 +562,8 @@ export interface LessonSession {
   jumpNodeId?: string;
   /** A Review of missed questions (mode "lesson_practice"): every first-try answer moves its card in the deck. */
   reviewDeck?: boolean;
+  /** "Memorize surahs" (mode "lesson_practice"): the surah, or part of it (`part` "92:1-11"), gone through ayah by ayah. */
+  memorize?: { part: string; surah: number; from: number; to: number; ayahs: number };
 }
 
 export interface ShopItem {

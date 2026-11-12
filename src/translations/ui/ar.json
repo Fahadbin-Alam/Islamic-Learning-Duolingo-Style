@@ -1001,5 +1001,12 @@
   "Come back tomorrow to make it {count}!": "عُد غدًا لتجعلها {count}!",
   "The deeds Allah loves most are done regularly, even if small.": "أحب الأعمال إلى الله أدومها وإن قلّ.",
   "Tap it on the map": "اضغط عليه في الخريطة",
-  "Near Makkah": "قرب مكة"
+  "Near Makkah": "قرب مكة",
+  "Memorize surahs": "احفظ السور",
+  "Short surahs, ayah by ayah, with the reciter": "سور قصيرة، آيةً آيةً، مع القارئ",
+  "Listen to the reciter, then tap each ayah that comes next.": "استمع إلى القارئ، ثم اختر في كل مرة الآية التي تليها.",
+  "{count} ayahs": "عدد الآيات: {count}",
+  "Ayahs {from}-{to}": "الآيات {from}-{to}",
+  "Ayah {number} of {count}": "الآية {number} من {count}",
+  "Every ayah right!": "كل الآيات صحيحة!"
 }

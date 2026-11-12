@@ -447,7 +447,7 @@ export type ExerciseViewProps = {
   listen?: {
     onPlay: () => void;
     playing: boolean;
-    recite?: { text: string; ayahKey: string; url: string; gap: number; next?: { text: string; ayahKey: string; url: string } };
+    recite?: { text: string; ayahKey: string; url: string; gap: number; next?: { text: string; ayahKey: string; url: string }; ayahs?: number };
   };
   bottomInset?: number;
   testID?: string;

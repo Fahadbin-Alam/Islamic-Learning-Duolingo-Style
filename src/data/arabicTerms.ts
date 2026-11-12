@@ -714,6 +714,12 @@ const SURAH_NAMES = [
   "الْمَسَدِ", "الْإِخْلَاصِ", "الْفَلَقِ", "النَّاسِ"
 ];
 
+/** "سُورَةُ الْإِخْلَاصِ": a surah's name in Arabic, vowelled, by its number. */
+export function surahArabicName(surah: number): string | undefined {
+  const name = SURAH_NAMES[surah - 1];
+  return name ? `سُورَةُ ${name}` : undefined;
+}
+
 // [Arabic, meaning]; the transliteration is the lesson's own title.
 type PersonTerm = [ar: string, meaning: string];
 const COMPANION = "Companion of the Prophet ﷺ";

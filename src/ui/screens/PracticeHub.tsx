@@ -42,6 +42,11 @@ export type PracticeHubProps = {
   onOpenSprint?: () => void;
   /** The most right in one sprint on this phone; unset or 0 until one is played. */
   sprintBest?: number;
+  /** MEMORIZE SURAHS: Al-Fatihah and the short surahs, ayah by ayah with the reciter. */
+  onOpenMemorize?: () => void;
+  /** How many of its surahs (and parts) have stars on this phone, and how many there are. */
+  memorizeDone?: number;
+  memorizeTotal?: number;
   /** MY LESSONS: practice questions from lessons already done. Left out until there are enough of them. */
   onStartLessonPractice?: () => void;
   /** Tabs replace back buttons; kept so the old call site still type-checks. */
@@ -192,6 +197,9 @@ export function PracticeHub({
   onOpenSayIt,
   onOpenSprint,
   sprintBest = 0,
+  onOpenMemorize,
+  memorizeDone = 0,
+  memorizeTotal = 0,
   quizBest,
   mascotVariant = "hijabi",
   // The mascot's own default, so it matches the other screens when no accent is passed.
@@ -357,6 +365,37 @@ export function PracticeHub({
               {sprintBest > 0 ? (
                 <View style={styles.quizPill} testID="practice-sprint-best">
                   <Text style={[styles.quizPillText, styles.sprintPillText]}>{formatNumber(sprintBest)}</Text>
+                </View>
+              ) : null}
+              <Icon name="chevronRight" size={24} color={colors.lineLip} />
+            </View>
+          </Tappable>
+        </PopIn>
+      ) : null}
+
+      {onOpenMemorize ? (
+        <PopIn delay={220} from="up">
+          <Tappable
+            onPress={onOpenMemorize}
+            style={[styles.basicsRow, styles.quizRow, styles.memorizeRow]}
+            testID="practice-memorize"
+            accessibilityLabel={memorizeDone > 0 ? `${t("Memorize surahs")}, ${memorizeDone}/${memorizeTotal}` : t("Memorize surahs")}
+          >
+            <View style={[styles.basicsIcon, styles.quizIcon]}>
+              <Icon name="quran" size={30} />
+            </View>
+            <View style={styles.quizText}>
+              <Text style={styles.basicsTitle} numberOfLines={1}>
+                {t("Memorize surahs")}
+              </Text>
+              <Text style={[styles.quizLine, styles.memorizeLine]} numberOfLines={2}>
+                {t("Short surahs, ayah by ayah, with the reciter")}
+              </Text>
+            </View>
+            <View style={[styles.rowEnd, styles.quizEnd]}>
+              {memorizeDone > 0 ? (
+                <View style={styles.quizPill} testID="practice-memorize-done">
+                  <Text style={[styles.quizPillText, styles.memorizePillText]}>{`${formatNumber(memorizeDone)}/${formatNumber(memorizeTotal)}`}</Text>
                 </View>
               ) : null}
               <Icon name="chevronRight" size={24} color={colors.lineLip} />
@@ -677,6 +716,17 @@ const styles = StyleSheet.create({
   },
   sprintPillText: {
     color: darken(colors.gemLip, 0.3)
+  },
+  memorizeRow: {
+    borderColor: lighten(colors.green, 0.6),
+    borderBottomColor: colors.greenLip,
+    backgroundColor: lighten(colors.green, 0.88)
+  },
+  memorizeLine: {
+    color: darken(colors.greenLip, 0.35)
+  },
+  memorizePillText: {
+    color: darken(colors.greenLip, 0.3)
   },
   quizPill: {
     paddingHorizontal: 10,

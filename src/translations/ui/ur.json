@@ -1001,5 +1001,12 @@
   "Come back tomorrow to make it {count}!": "کل واپس آ کر اسے {count} بنائیں!",
   "The deeds Allah loves most are done regularly, even if small.": "اللہ کو سب سے پسندیدہ عمل وہ ہے جو پابندی سے کیا جائے، چاہے تھوڑا ہو۔",
   "Tap it on the map": "نقشے پر ٹیپ کریں",
-  "Near Makkah": "مکہ کے قریب"
+  "Near Makkah": "مکہ کے قریب",
+  "Memorize surahs": "سورتیں یاد کریں",
+  "Short surahs, ayah by ayah, with the reciter": "چھوٹی سورتیں، آیت بہ آیت، قاری کے ساتھ",
+  "Listen to the reciter, then tap each ayah that comes next.": "قاری کی تلاوت سنیں، پھر ہر بار اگلی آیت چنیں۔",
+  "{count} ayahs": "{count} آیات",
+  "Ayahs {from}-{to}": "آیات {from}-{to}",
+  "Ayah {number} of {count}": "{count} میں سے آیت {number}",
+  "Every ayah right!": "ہر آیت درست!"
 }

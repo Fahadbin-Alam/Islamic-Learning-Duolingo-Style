@@ -4,6 +4,7 @@ export { LearnPath, testOutGoalLine, type LearnPathProps, type PathChest, type P
 export { TopicPicker, type TopicPickerProps, type TopicPickerTopic } from "./TopicPicker";
 export { StoryBanner, StorySheet, storySteps, type StorySheetProps } from "./StorySheet";
 export { QuizSheet, type QuizSheetProps, type QuizSheetTopic, type QuizSheetUnit } from "./QuizSheet";
+export { MemorizeSheet, type MemorizeSheetProps, type MemorizeSheetRow } from "./MemorizeSheet";
 export { PracticeHub, type PracticeHubProps } from "./PracticeHub";
 export { ShopView, formatShopPrice, type ShopViewProps } from "./ShopView";
 export { ProfileView, countStars, type ProfileViewProps } from "./ProfileView";
