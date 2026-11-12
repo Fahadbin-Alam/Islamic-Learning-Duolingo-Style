@@ -2765,7 +2765,7 @@ const ABU_QATADAH: DeepUnit = {
       title: "The fast of Arafah",
       line: "Abu Qatadah narrated the great reward for fasting on Arafah.",
       facts: ["The day of Arafah is the 9th of Dhul-Hijjah.", "Fasting it wipes out sins of two years.", "Fasting Ashura wipes out a year."],
-      source: hadith("muslim", "1162", "Abu Qatadah", "Sahih", "The Prophet ﷺ was asked about fasting the day of Arafah and said it expiates the sins of the year before and the year after; and Ashura expiates the year before.", "It expiates the sins of the preceding year and the coming year"),
+      source: hadith("muslim", "1162b", "Abu Qatadah", "Sahih", "The Prophet ﷺ was asked about fasting the day of Arafah and said it expiates the sins of the year before and the year after; and Ashura expiates the year before.", "It expiates the sins of the preceding year and the coming year"),
       difficulty: 3,
       questions: [
         { q: "Fasting Arafah covers sins of how many years?", a: "Two", wrong: ["One", "Ten", "Five"], why: "The preceding year and the coming year." },

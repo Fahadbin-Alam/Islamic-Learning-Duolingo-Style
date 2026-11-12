@@ -45,7 +45,7 @@ const REFUGE: DeepUnit = {
       title: "Poverty and wrong",
       line: "Seek refuge from poverty, and from doing or suffering wrong.",
       facts: ["Told by Abu Hurairah", "From poverty, want and lowliness", "And from wronging others, or being wronged"],
-      source: hadith("abudawud", "1544", "Abu Hurairah", "Sahih (Al-Albani)", "Abu Hurairah said: the Prophet ﷺ used to say: O Allah, I seek refuge in You from poverty, from want and from lowliness, and I seek refuge in You from doing wrong or being wronged.", "I seek refuge in Thee lest I cause or suffer wrong"),
+      source: hadith("abudawud", "1544", "Abu Hurairah", "Sahih (Al-Albani)", "Abu Hurairah said: the Prophet ﷺ used to say: O Allah, I seek refuge in You from poverty, from want and from lowliness, and I seek refuge in You from doing wrong or being wronged.", "refuge in Thee lest I cause or suffer wrong"),
       difficulty: 2,
       questions: [
         { q: "What three things did he ﷺ seek refuge from first?", a: "Poverty, want and lowliness", wrong: ["Rain, wind and cold", "Work, study and play", "Guests, gifts and food"], why: "He ﷺ used to say: O Allah, I seek refuge in You from poverty, lack and abasement." },

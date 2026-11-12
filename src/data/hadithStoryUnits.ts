@@ -154,7 +154,7 @@ const QUDSI: DeepUnit = {
         "Remember Him with people, and He remembers you with better.",
         "Come to Him walking, and He comes to you running."
       ],
-      source: hadith("bukhari", "7405", "Abu Hurairah", "Sahih", "Allah says: I am as My servant thinks I am, and I am with him when he remembers Me. If he remembers Me in himself, I remember him in Myself; if he remembers Me in a gathering, I remember him in a better gathering.", "if he remembers Me in a group of people, I remember him in a group that is better than they"),
+      source: hadith("bukhari", "7405", "Abu Hurairah", "Sahih", "Allah says: I am as My servant thinks I am, and I am with him when he remembers Me. If he remembers Me in himself, I remember him in Myself; if he remembers Me in a gathering, I remember him in a better gathering.", "remembers Me in a group of people, I remember him in a group that is better than they"),
       difficulty: 1,
       questions: [
         { q: "How should we think of Allah?", a: "With good hope", wrong: ["As far away", "As not caring", "As harsh only"], why: "I am as My servant thinks I am, so think good of Him." },

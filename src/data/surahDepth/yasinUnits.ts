@@ -193,7 +193,7 @@ const YASIN_ONE: DeepUnit = {
       line: "Allah records our deeds and what we leave behind.",
       facts: ["A good example keeps earning", "Footsteps to the masjid count"],
       quote: q36(12),
-      source: hadith("muslim", "1017", "Jarir ibn Abdullah", "Sahih", "The Prophet ﷺ said whoever starts a good practice that others follow gets its reward and the reward of all who follow it.", "He who introduced some good practice in Islam which was followed after him"),
+      source: hadith("muslim", "1017e", "Jarir ibn Abdullah", "Sahih", "The Prophet ﷺ said whoever starts a good practice that others follow gets its reward and the reward of all who follow it.", "He who introduced some good practice in Islam which was followed after him"),
       difficulty: 4,
       questions: [
         { q: "What does Allah record, in 36:12?", a: "Deeds and traces", wrong: ["Only names", "Only words", "Nothing"], why: "We record that which they send before them, and their traces." },

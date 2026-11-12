@@ -933,7 +933,7 @@ const QAMAR_THREE: DeepUnit = {
       line: "Allah wrote the measures fifty thousand years before creation.",
       facts: ["Written before the heavens and earth", "His Throne was upon the water"],
       quote: q54(49),
-      source: hadith("muslim", "2653", "Abdullah ibn Amr", "Sahih", "The Prophet ﷺ said Allah ordained the measures of creation fifty thousand years before the heavens and earth.", "fifty thousand years before He created the heavens and the earth"),
+      source: hadith("muslim", "2653b", "Abdullah ibn Amr", "Sahih", "The Prophet ﷺ said Allah ordained the measures of creation fifty thousand years before the heavens and earth.", "fifty thousand years before He created the heavens and the earth"),
       difficulty: 3,
       questions: [
         { q: "How long before creation were measures set?", a: "Fifty thousand years", wrong: ["Ten years", "A thousand years", "One day"], why: "Allah ordained the measures of the creation fifty thousand years before He created the heavens and the earth." },

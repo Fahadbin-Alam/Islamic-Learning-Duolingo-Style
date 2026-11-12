@@ -353,7 +353,7 @@ const SAD: DeepUnit = {
       title: "Kind, but not in shirk",
       line: "Sa'd's mother refused food to turn him; Allah sent ayahs.",
       facts: ["Quran 29:8 and 31:15", "Be kind to your parents.", "But do not obey them in shirk."],
-      source: hadith("muslim", "1748", "Sa'd", "Sahih", "Sa'd's mother swore not to eat or drink until he left Islam; Allah revealed: if they push you to shirk, do not obey, but keep them company kindly."),
+      source: hadith("muslim", "1748c", "Sa'd", "Sahih", "Sa'd's mother swore not to eat or drink until he left Islam; Allah revealed: if they push you to shirk, do not obey, but keep them company kindly."),
       difficulty: 4,
       questions: [
         { q: "What did Sa'd's mother do to make him leave Islam?", a: "Refused to eat or drink", wrong: ["Left Makkah", "Took his money", "Burned his house"], why: "She swore not to eat or drink." },

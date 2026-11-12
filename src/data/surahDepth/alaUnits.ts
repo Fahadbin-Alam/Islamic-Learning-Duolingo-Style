@@ -110,7 +110,7 @@ const ALA_ONE: DeepUnit = {
       line: "Allah wrote all measures before the heavens and earth.",
       facts: ["Qadar: Allah's decree", "His Throne was over the water"],
       quote: q87(3),
-      source: hadith("muslim", "2653", "Abdullah ibn Amr", "Sahih", "The Prophet ﷺ said Allah wrote the measures of creation fifty thousand years before He created the heavens and the earth, while His Throne was on the water.", "fifty thousand years before He created the heavens and the earth"),
+      source: hadith("muslim", "2653b", "Abdullah ibn Amr", "Sahih", "The Prophet ﷺ said Allah wrote the measures of creation fifty thousand years before He created the heavens and the earth, while His Throne was on the water.", "fifty thousand years before He created the heavens and the earth"),
       difficulty: 3,
       questions: [
         { q: "When did Allah ordain the measures?", a: "50,000 years before the heavens and earth", wrong: ["Yesterday", "After people came", "Never"], why: "Allah ordained the measure of all creation fifty thousand years before He created the heavens and the earth." },

@@ -248,7 +248,7 @@ const TAHRIM_TWO: DeepUnit = {
       line: "Each of us is a guardian, responsible for those in our care.",
       facts: ["Parents care for children", "Leaders care for people"],
       quote: q66(6),
-      source: hadith("bukhari", "893", "Ibn Umar", "Sahih", "The Prophet ﷺ said all of you are guardians and responsible for those under your care.", "All of you are guardians and responsible for your wards and the things under your care"),
+      source: hadith("bukhari", "893", "Ibn Umar", "Sahih", "The Prophet ﷺ said all of you are guardians and responsible for those under your care.", "guardians and responsible for your wards and the things under your care"),
       difficulty: 2,
       questions: [
         { q: "What did the Prophet ﷺ call all of us?", a: "Guardians", wrong: ["Strangers", "Kings", "Travelers only"], why: "All of you are guardians and responsible for your wards and the things under your care." },
@@ -374,7 +374,7 @@ const TAHRIM_TWO: DeepUnit = {
       line: "He said: repent, I repent a hundred times a day.",
       facts: ["Repentance is for everyone", "Al-Agharr narrated it"],
       quote: q66(8),
-      source: hadith("muslim", "2702", "Al-Agharr al-Muzani", "Sahih", "The Prophet ﷺ said: O people, seek repentance from Allah; I seek repentance from Him a hundred times a day.", "O people, seek repentance from Allah. Verily, I seek repentance from Him a hundred times a day"),
+      source: hadith("muslim", "2702b", "Al-Agharr al-Muzani", "Sahih", "The Prophet ﷺ said: O people, seek repentance from Allah; I seek repentance from Him a hundred times a day.", "O people, seek repentance from Allah. Verily, I seek repentance from Him a hundred times a day"),
       difficulty: 2,
       questions: [
         { q: "Whom did the Prophet ﷺ tell to repent?", a: "All people", wrong: ["Only kings", "Only scholars", "Nobody"], why: "O people, seek repentance from Allah." },

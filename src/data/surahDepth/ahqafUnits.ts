@@ -556,7 +556,7 @@ const AHQAF_TWO: DeepUnit = {
       line: "In strong wind, ask Allah for its good, and refuge from harm.",
       facts: ["Ask for the good it brings", "Rain is a mercy"],
       quote: q46(25),
-      source: hadith("muslim", "899", "Aishah", "Sahih", "When the wind was stormy the Prophet ﷺ said: O Allah, I ask You for its good, and seek refuge with You from its evil.", "I ask Thee for what is good in it, and the good which it contains"),
+      source: hadith("muslim", "899b", "Aishah", "Sahih", "When the wind was stormy the Prophet ﷺ said: O Allah, I ask You for its good, and seek refuge with You from its evil.", "I ask Thee for what is good in it, and the good which it contains"),
       difficulty: 2,
       questions: [
         { q: "What did he ask for in a storm, per Muslim 899?", a: "The good in the wind", wrong: ["Only shelter", "Nothing", "That it never stops"], why: "O Allah! I ask Thee for what is good in it, and the good which it contains." },

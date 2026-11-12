@@ -35,7 +35,8 @@ export interface PassageDeep {
   /** What to take home from it, one sentence. */
   takeaway: string;
   /** A hadith the take-home line gives; it is the first question's source. */
-  hadith?: { collection: "bukhari" | "muslim"; number: number; narrator: string; text: string };
+  /** A Sahih Muslim number carries its narration's letter ("2653b") when the plain number shows another narration. */
+  hadith?: { collection: "bukhari" | "muslim"; number: number | string; narrator: string; text: string };
   /** Harder questions about the meaning, story or take-home line: the question, its answer, then three wrong answers. */
   q: [string, string, string, string, string][];
 }

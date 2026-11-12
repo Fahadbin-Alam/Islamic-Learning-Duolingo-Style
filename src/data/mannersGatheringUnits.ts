@@ -57,7 +57,7 @@ const GATHERINGS: DeepUnit = {
       title: "Correcting without names",
       line: "He ﷺ corrected mistakes without naming the person.",
       facts: ["Told by Aishah", "Ma balu aqwamin: what is wrong with people"],
-      source: hadith("abudawud", "4788", "Aishah", "Sahih (Al-Albani)", "Aishah said: when the Prophet ﷺ heard something about a man, he would not say: what is wrong with so-and-so, that he says this? He would say: what is wrong with people who say such and such?", "What is the matter with the people that they say such and such"),
+      source: hadith("abudawud", "4788", "Aishah", "Sahih (Al-Albani)", "Aishah said: when the Prophet ﷺ heard something about a man, he would not say: what is wrong with so-and-so, that he says this? He would say: what is wrong with people who say such and such?", "the matter with the people that they say such and such"),
       difficulty: 2,
       questions: [
         { q: "What would he ﷺ say when he heard of someone's mistake?", a: "What is the matter with people", wrong: ["Tell me his name", "Bring that man to me", "Who said such a thing"], why: "He did not name the man, but spoke of people in general." },

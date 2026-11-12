@@ -319,7 +319,7 @@ const GHAFIR_ONE: DeepUnit = {
       line: "Call upon Allah sincerely, even if the disbelievers dislike it.",
       facts: ["Worship and call on Allah alone", "The Prophet ﷺ said this after prayers"],
       quote: q40(14),
-      source: hadith("muslim", "594", "Abdullah ibn Az-Zubair", "Sahih", "Ibn Az-Zubair said the Prophet ﷺ ended every prayer with: There is no god but Allah, to Whom we are sincere in devotion, even if the disbelievers dislike it.", "There is no god but Allah, to Whom we are sincere in devotion, even though the unbelievers should disapprove it"),
+      source: hadith("muslim", "594", "Abdullah ibn Az-Zubair", "Sahih", "Ibn Az-Zubair said the Prophet ﷺ ended every prayer with: There is no god but Allah, to Whom we are sincere in devotion, even if the disbelievers dislike it.", "Allah, to Whom we are sincere in devotion, even though the unbelievers should disapprove it"),
       difficulty: 2,
       questions: [
         { q: "How should we call upon Allah, in 40:14?", a: "Sincerely, for Him alone", wrong: ["Only when sad", "To show off", "Through idols"], why: "So, call you upon Allah making religion sincerely for Him, however much the disbelievers may hate." },

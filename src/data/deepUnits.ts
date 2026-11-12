@@ -2416,7 +2416,7 @@ const SPOUSES: DeepUnit = {
       title: "Look for the good",
       line: "Dislike one trait in your wife? Another will please you.",
       facts: ["A believer should not hate a believing wife"],
-      source: hadith("muslim", "1469a", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said: a believing man should not hate a believing woman; if he dislikes one of her traits, he will be pleased with another."),
+      source: hadith("muslim", "1468b", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said: a believing man should not hate a believing woman; if he dislikes one of her traits, he will be pleased with another."),
       difficulty: 3,
       questions: [
         { q: "If a husband dislikes one trait in his wife, what should he remember?", a: "He will like another", wrong: ["Leave at once", "Tell everyone", "Stop talking"], why: "Look for the good in her." },

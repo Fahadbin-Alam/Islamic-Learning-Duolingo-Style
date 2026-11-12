@@ -250,7 +250,7 @@ const HAJJ_ONE: DeepUnit = {
       line: "Reciting a sajdah ayah and prostrating makes Shaytan weep.",
       facts: ["22:18 is a place of sajdah", "Adam's children obey; Iblis refused"],
       quote: q22(18),
-      source: hadith("muslim", "81", "Abu Hurairah", "Sahih", "The Prophet ﷺ said when a person recites a sajdah ayah and prostrates, Shaytan goes aside weeping, saying the son of Adam was told to prostrate and did, and he was told and refused.", "the son of Adam was commanded to prostrate, and he prostrated"),
+      source: hadith("muslim", "81", "Abu Hurairah", "Sahih", "The Prophet ﷺ said when a person recites a sajdah ayah and prostrates, Shaytan goes aside weeping, saying the son of Adam was told to prostrate and did, and he was told and refused.", "son of Adam was commanded to prostrate, and he prostrated and Paradise was entitled to him"),
       difficulty: 5,
       questions: [
         { q: "What does Shaytan do when we prostrate at a sajdah ayah?", a: "Goes aside weeping", wrong: ["Laughs", "Joins in", "Stays near"], why: "The Satan goes into seclusion and weeps." },
@@ -403,7 +403,7 @@ const HAJJ_TWO: DeepUnit = {
       line: "Fasting the day of Arafah wipes out sins of two years.",
       facts: ["Arafah is in the ten days", "For those not on Hajj"],
       quote: q22(28),
-      source: hadith("muslim", "1162", "Abu Qatadah", "Sahih", "The Prophet ﷺ was asked about fasting the day of Arafah and said it expiates the sins of the year before and the year after.", "It expiates the sins of the preceding year and the coming year"),
+      source: hadith("muslim", "1162b", "Abu Qatadah", "Sahih", "The Prophet ﷺ was asked about fasting the day of Arafah and said it expiates the sins of the year before and the year after.", "It expiates the sins of the preceding year and the coming year"),
       difficulty: 4,
       questions: [
         { q: "What does fasting Arafah expiate, per the hadith?", a: "Sins of two years", wrong: ["Sins of one day", "Nothing", "Sins of ten years"], why: "It expiates the sins of the preceding year and the coming year." },
@@ -515,7 +515,7 @@ const HAJJ_TWO: DeepUnit = {
       line: "Allah does not look at faces or bodies, but at our hearts.",
       facts: ["Taqwa is in the heart", "Deeds show what is inside"],
       quote: q22(37),
-      source: hadith("muslim", "2564", "Abu Hurairah", "Sahih", "The Prophet ﷺ said Allah does not look at your bodies or your faces, but He looks at your hearts, and he pointed to his chest.", "Verily Allah does not look to your bodies nor to your faces but He looks to your hearts"),
+      source: hadith("muslim", "2564b", "Abu Hurairah", "Sahih", "The Prophet ﷺ said Allah does not look at your bodies or your faces, but He looks at your hearts, and he pointed to his chest.", "Verily Allah does not look to your bodies nor to your faces but He looks to your hearts"),
       difficulty: 5,
       questions: [
         { q: "What does Allah look at, per the hadith?", a: "Our hearts", wrong: ["Our faces", "Our clothes", "Our money"], why: "Allah does not look to your bodies nor to your faces but He looks to your hearts." },
@@ -766,7 +766,7 @@ const HAJJ_THREE: DeepUnit = {
       line: "Allah knows everything, and it is all written in the Book.",
       facts: ["Written before creation", "It is easy for Allah"],
       quote: q22(70),
-      source: hadith("muslim", "2653", "Abdullah ibn Amr", "Sahih", "The Prophet ﷺ said Allah wrote the measures of creation fifty thousand years before He created the heavens and the earth, while His Throne was on the water.", "fifty thousand years before He created the heavens and the earth"),
+      source: hadith("muslim", "2653b", "Abdullah ibn Amr", "Sahih", "The Prophet ﷺ said Allah wrote the measures of creation fifty thousand years before He created the heavens and the earth, while His Throne was on the water.", "fifty thousand years before He created the heavens and the earth"),
       difficulty: 4,
       questions: [
         { q: "Where is everything recorded, in 22:70?", a: "In the Book", wrong: ["On stone walls", "In the stars", "Nowhere"], why: "Verily, it is all in the Book. Verily, that is easy for Allah." },

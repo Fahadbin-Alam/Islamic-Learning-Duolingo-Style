@@ -46,7 +46,7 @@ const SUNNAH_DUAS: DeepUnit = {
       title: "Allah affirms your words",
       line: "Say La ilaha illallah wallahu akbar, and Allah affirms it.",
       facts: ["Told by Abu Sa'id al-Khudri and Abu Hurairah", "La ilaha illallah wallahu akbar", "Allah says: none is worthy of worship but Me"],
-      source: hadith("tirmidhi", "3430", "Abu Sa'id al-Khudri and Abu Hurairah", "Sahih (Al-Albani)", "Abu Sa'id al-Khudri and Abu Hurairah said: the Prophet ﷺ said: whoever says: none is worthy of worship but Allah, and Allah is the Greatest, his Lord affirms his words and says: none is worthy of worship but Me, and I am the Greatest. And he ﷺ used to say: whoever says these words in his illness and then dies, the Fire will not consume him.", "There is none worthy of worship except Me, and I am the Greatest"),
+      source: hadith("tirmidhi", "3430", "Abu Sa'id al-Khudri and Abu Hurairah", "Sahih (Al-Albani)", "Abu Sa'id al-Khudri and Abu Hurairah said: the Prophet ﷺ said: whoever says: none is worthy of worship but Allah, and Allah is the Greatest, his Lord affirms his words and says: none is worthy of worship but Me, and I am the Greatest. And he ﷺ used to say: whoever says these words in his illness and then dies, the Fire will not consume him.", "of worship except Me, and I am the Greatest"),
       difficulty: 2,
       questions: [
         { q: "Who affirms the words of one who says La ilaha illallah wallahu akbar?", a: "Allah, his Lord", wrong: ["His neighbors", "The people near him", "His teacher"], why: "His Lord says back: none is worthy of worship but Me, and I am the Greatest." },

@@ -86,7 +86,7 @@ const BALANCED: DeepUnit = {
       title: "Balanced when rich or poor",
       line: "Ask Allah to keep you balanced in wealth and in poverty.",
       facts: ["Told by Ammar ibn Yasir", "He said it in a short prayer he led", "He heard it from the Prophet ﷺ"],
-      source: hadith("nasai", "1305", "Ammar ibn Yasir", "Sahih (Al-Albani)", "As-Sa'ib said: Ammar ibn Yasir led us in prayer and kept it short. He said: I still said du'as I heard from the Messenger of Allah ﷺ: O Allah, by Your knowledge of the unseen and Your power over creation, keep me alive while life is good for me. I ask You to make me fear You in secret and in public, to speak the truth when pleased and when angry, and to be balanced in wealth and in poverty.", "I ask You to make me moderate in times of wealth and poverty"),
+      source: hadith("nasai", "1305", "Ammar ibn Yasir", "Sahih (Al-Albani)", "As-Sa'ib said: Ammar ibn Yasir led us in prayer and kept it short. He said: I still said du'as I heard from the Messenger of Allah ﷺ: O Allah, by Your knowledge of the unseen and Your power over creation, keep me alive while life is good for me. I ask You to make me fear You in secret and in public, to speak the truth when pleased and when angry, and to be balanced in wealth and in poverty.", "to make me moderate in times of wealth and poverty"),
       difficulty: 3,
       questions: [
         { q: "When does Ammar's du'a ask Allah to keep us balanced?", a: "In wealth and in poverty", wrong: ["Only on journeys", "Only in Ramadan", "Only at night"], why: "I ask You to make me moderate in times of wealth and poverty, the du'a says." },

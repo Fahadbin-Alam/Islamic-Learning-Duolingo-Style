@@ -514,7 +514,7 @@ const SHURA_TWO: DeepUnit = {
       line: "Hardships come by what we earn, and Allah pardons much.",
       facts: ["Hardship wipes away sins", "Even the prick of a thorn"],
       quote: q42(30),
-      source: hadith("muslim", "2572", "Aishah", "Sahih", "The Prophet ﷺ said no trouble comes to a believer, even the pricking of a thorn, but it wipes away some of his sins.", "even if it is the pricking of a thorn"),
+      source: hadith("muslim", "2572e", "Aishah", "Sahih", "The Prophet ﷺ said no trouble comes to a believer, even the pricking of a thorn, but it wipes away some of his sins.", "even if it is the pricking of a thorn"),
       difficulty: 3,
       questions: [
         { q: "Why does misfortune befall us, in 42:30?", a: "Because of what our hands earned", wrong: ["By chance", "Because of stars", "For no reason"], why: "And whatever of misfortune befalls you, it is because of what your hands have earned." },

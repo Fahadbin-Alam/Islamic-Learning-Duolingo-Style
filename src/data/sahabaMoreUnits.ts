@@ -73,7 +73,7 @@ const KHUBAYB: DeepUnit = {
         "He kept the prayer short, so they would not think he was afraid.",
         "He began the Sunnah of two rak'ahs before being killed."
       ],
-      source: hadith("bukhari", "3045", "Abu Hurairah", "Sahih", "Khubaib asked to pray two rak'ahs, and they let him. He said: Had I not feared you would think I was afraid, I would have prayed longer. So Khubaib began the practice of praying two rak'ahs for any Muslim about to be killed in captivity.", "it was Khubaib who set the tradition for any Muslim sentenced to death in captivity"),
+      source: hadith("bukhari", "3045", "Abu Hurairah", "Sahih", "Khubaib asked to pray two rak'ahs, and they let him. He said: Had I not feared you would think I was afraid, I would have prayed longer. So Khubaib began the practice of praying two rak'ahs for any Muslim about to be killed in captivity.", "Khubaib who set the tradition for any Muslim sentenced to death in captivity"),
       difficulty: 4,
       questions: [
         { q: "What did Khubayb ask for before he was killed?", a: "To pray two rak'ahs", wrong: ["A last meal", "To see his family", "To be set free"], why: "He asked them to let him offer two rak'ahs." },
