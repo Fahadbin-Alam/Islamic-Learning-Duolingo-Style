@@ -442,8 +442,10 @@ export interface Challenge {
     /**
      * "How does the ayah end?" (src/ui/lesson/reciteQuestion.ts): `ar` is the whole ayah the lesson quoted; the
      * reciter recites it, its words lighting up, and stops before word `gap` (its last), which the learner picks.
+     * "Which ayah comes next?" has `next`, the ayah after it, which the learner picks: the reciter recites the whole
+     * ayah (`gap` is its number of words, so none of it is hidden) and goes on to `next` after the answer.
      */
-    recite?: { key: string; gap: number };
+    recite?: { key: string; gap: number; next?: { key: string; text: string; recitation: string } };
   };
 }
 
