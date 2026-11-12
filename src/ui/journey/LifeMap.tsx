@@ -4,7 +4,7 @@ import { LIFE_YEARS, SEERAH_JOURNEYS, type MapScene, type SeerahJourney } from "
 import { SEERAH_UNITS } from "../../data/seerahUnits";
 import { t } from "../../i18n";
 import { ERA_COLORS, LifeBar, LifeLegend, LifeLine } from "./LifeBar";
-import { MapBanner, MapPlayerSheet, playerBox, type PlayerStop } from "./MapPlayer";
+import { MapBanner, MapPlayerSheet, mapStop, playerBox, type PlayerStop } from "./MapPlayer";
 
 /**
  * "Map of his life ﷺ": the Seerah played in order on the map, one place after another, from Makkah where he ﷺ grew up
@@ -19,7 +19,7 @@ export const LIFE_STOPS: readonly LifeStop[] = SEERAH_JOURNEYS.flatMap((journey)
 const UNIT_TITLES = new Map(SEERAH_UNITS.map((unit) => [unit.branchId, unit.branch?.title ?? unit.name]));
 export const stopTitle = (stop: LifeStop) => UNIT_TITLES.get(stop.journey.branchId) ?? "";
 
-const PLAYER_STOPS: readonly PlayerStop[] = LIFE_STOPS.map((stop) => ({ key: stop.scene.id, scene: stop.scene, title: stopTitle(stop), color: ERA_COLORS[stop.journey.era] }));
+const PLAYER_STOPS: readonly PlayerStop[] = LIFE_STOPS.map((stop) => mapStop(stop.scene.id, stop.scene, stopTitle(stop), ERA_COLORS[stop.journey.era]));
 
 /** The banner on the Prophets path that opens the map of his life ﷺ. */
 export function LifeMapBanner({ accent, onOpen }: { accent: string; onOpen: () => void }) {

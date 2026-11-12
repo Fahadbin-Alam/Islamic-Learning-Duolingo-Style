@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Animated, Easing, ScrollView, StyleSheet, Text, useWindowDimensions, View, type LayoutChangeEvent } from "react-native";
 import { SvgXml } from "react-native-svg";
-import { sourcesFor, type MapScene } from "../../data/seerahMap";
+import { sourcesFor, type MapScene, type MapSource } from "../../data/seerahMap";
 import { withHonorifics } from "../ArabicText";
 import { t } from "../../i18n";
 import { Icon } from "../Icon";
@@ -14,12 +14,35 @@ import { MapSources } from "./JourneyCard";
 import { JourneyMap } from "./JourneyMap";
 
 /**
- * A story told on maps, one stop after another: the map of his life ﷺ on the Prophets path, and the map of Hajj on the
- * Hajj path. It plays by itself (each road draws, rests, then the next stop comes); back, pause and next, or tap a dot
- * to jump. Under the map each stop's name, what it shows, its sources, and its own box (his years, or the days of Hajj).
+ * A story told one stop after another: the map of his life ﷺ on the Prophets path, the map of Hajj on the Hajj path,
+ * and the day of prayer in the sky on the Prayer path. It plays by itself (each stop draws, rests, then the next one
+ * comes); back, pause and next, or tap a dot to jump. Under it each stop's name, what it shows, its sources, and its
+ * own box (his years, the days of Hajj, or the times of the day).
  */
 
-export type PlayerStop = { key: string; scene: MapScene; title: string; color: string };
+/** What a stop draws in the frame, and when it is done drawing. */
+export type StopFrame = { width: number; height: number; still: boolean; delay: number; onDrawn: () => void };
+
+export type PlayerStop = {
+  key: string;
+  title: string;
+  color: string;
+  /** What it shows, in English (said here in the learner's language). */
+  caption: string;
+  sources: MapSource[];
+  /** Draws the stop: a map whose road draws itself, or the sky playing from one hour to another. */
+  draw: (frame: StopFrame) => React.ReactNode;
+};
+
+/** A stop that is a map. */
+export const mapStop = (key: string, scene: MapScene, title: string, color: string): PlayerStop => ({
+  key,
+  title,
+  color,
+  caption: scene.caption,
+  sources: sourcesFor(scene),
+  draw: ({ width, height, still, delay, onDrawn }) => <JourneyMap scene={scene} width={width} height={height} still={still} delay={delay} onDrawn={onDrawn} />
+});
 
 // How long a stop rests once its road is drawn, before the next one comes.
 export const REST_MS = 2600;
@@ -80,7 +103,9 @@ export function MapPlayerSheet({
   below,
   testPrefix,
   topGap = 40,
-  startAt = 0
+  startAt = 0,
+  sourcesLead,
+  frameColor
 }: {
   visible: boolean;
   onClose: () => void;
@@ -94,6 +119,10 @@ export function MapPlayerSheet({
   testPrefix: string;
   topGap?: number;
   startAt?: number;
+  /** The words before the sources ("Map from", or "Times from" under the sky). */
+  sourcesLead?: string;
+  /** The frame's colour while a stop comes in. */
+  frameColor?: string;
 }) {
   const still = useReduceMotion();
   const { height: screenHeight } = useWindowDimensions();
@@ -155,10 +184,10 @@ export function MapPlayerSheet({
         </Tappable>
       </View>
       <ScrollView style={styles.scroll} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        <View style={[styles.frame, { height: mapHeight || 220 }]} onLayout={onLayout} testID={id("frame")}>
+        <View style={[styles.frame, { height: mapHeight || 220 }, frameColor ? { backgroundColor: frameColor } : null]} onLayout={onLayout} testID={id("frame")}>
           {width > 0 ? (
             <FadeIn key={`${stop.key}-${index}`} still={still}>
-              <JourneyMap scene={stop.scene} width={width - 4} height={mapHeight - 4} still={still} delay={still ? 0 : 280} onDrawn={() => setDrawn(index)} />
+              {stop.draw({ width: width - 4, height: mapHeight - 4, still, delay: still ? 0 : 280, onDrawn: () => setDrawn(index) })}
             </FadeIn>
           ) : null}
         </View>
@@ -171,9 +200,9 @@ export function MapPlayerSheet({
           </Text>
         </View>
         <Text style={styles.caption} testID={id("caption")}>
-          {withHonorifics(t(stop.scene.caption))}
+          {withHonorifics(t(stop.caption))}
         </Text>
-        <MapSources sources={sourcesFor(stop.scene)} testID={id("sources")} />
+        <MapSources sources={stop.sources} lead={sourcesLead} testID={id("sources")} />
         {below(index)}
         <View style={styles.controls}>
           <Tappable onPress={() => go(index - 1)} disabled={index === 0} accessibilityLabel={t("Back")} testID={id("back")} style={[styles.step, index === 0 ? styles.stepOff : null]} hitSlop={6}>
