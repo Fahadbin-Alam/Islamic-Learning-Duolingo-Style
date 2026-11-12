@@ -19,7 +19,7 @@ export async function toQuestion() {
 }
 
 function onGame() {
-  return Boolean(screen.queryByTestId("gap-game") || screen.queryByTestId("fill-game") || screen.queryByTestId("match-game") || screen.queryByTestId("map-game"));
+  return Boolean(screen.queryByTestId("gap-game") || screen.queryByTestId("fill-game") || screen.queryByTestId("match-game") || screen.queryByTestId("map-game") || screen.queryByTestId("sky-game"));
 }
 
 function promptShown(challenge: Challenge) {

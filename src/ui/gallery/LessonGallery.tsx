@@ -8,6 +8,8 @@ import { LessonPhoto } from "../lesson/LessonPhoto";
 import { MatchGame } from "../lesson/WordGames";
 import { MapGame } from "../lesson/MapGame";
 import { mapPlacesFor } from "../lesson/mapQuestions";
+import { SkyGame } from "../lesson/SkyGame";
+import { skyTimesFor } from "../lesson/skyQuestions";
 import { SurahCover } from "../lesson/SurahCover";
 import { ALBUM_SETS } from "../../data/albumSets";
 import { addToAlbum } from "../../services/pictureAlbum";
@@ -426,6 +428,47 @@ function MapDemo({ lessonId, ask, pick, check }: { lessonId: string; ask: string
 }
 
 /**
+ * A time question asked in the sky, from a real lesson (?lang=bn, ur or ar): the first one whose prompt has `ask`.
+ * `pick`: an answer already picked; `check`: and checked (the answer sheet up).
+ */
+function SkyQuestionDemo({ lessonId, ask, pick, check }: { lessonId: string; ask: string; pick?: "right" | "wrong"; check?: boolean }) {
+  const query = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("lang") : null;
+  const language = (["en", "bn", "ur", "ar"].includes(query ?? "") ? query : "en") as SupportedLanguage;
+  setActiveLanguage(language);
+  const english = LESSONS_BY_ID[lessonId];
+  const index = Math.max(0, english.challenges.findIndex((challenge) => challenge.prompt.includes(ask)));
+  const challenge = localizeLessonContent(english, language).challenges[index];
+  const times = skyTimesFor(english.challenges[index]) ?? {};
+  const wrongId = challenge.choices.find((choice) => choice.id !== challenge.correctChoiceId)?.id;
+  const [selected, setSelected] = useState<string | undefined>(pick === "right" ? challenge.correctChoiceId : pick === "wrong" ? wrongId : undefined);
+  const [checked, setChecked] = useState(Boolean(check));
+  const correctLabel = challenge.choices.find((choice) => choice.id === challenge.correctChoiceId)?.label ?? "";
+  const correct = selected === challenge.correctChoiceId;
+  return (
+    <LessonScreen progress={0.45} hearts={FULL_HEARTS} onClose={noop}>
+      <SkyGame
+        prompt={challenge.prompt}
+        choices={challenge.choices}
+        times={times}
+        correctChoiceId={challenge.correctChoiceId}
+        selectedChoiceId={selected}
+        result={checked ? { correct, correctLabel, why: shortWhy({ explanation: challenge.explanation, prompt: challenge.prompt, correctLabel }) } : undefined}
+        mascotVariant="girl"
+        accent={accentOf(english)}
+        praiseSeed={challenge.id}
+        playSound={false}
+        onSelect={setSelected}
+        onCheck={() => setChecked(true)}
+        onContinue={() => {
+          setChecked(false);
+          setSelected(undefined);
+        }}
+      />
+    </LessonScreen>
+  );
+}
+
+/**
  * The swipe sprint after forty lessons, with a best of 12 kept: #gallery-lesson-sprint (?lang=bn, ur or ar). Each
  * game is six cards, the first with a living picture when one has it, so it can be played to its end in a few taps.
  */
@@ -702,6 +745,12 @@ const STATES: State[] = [
   { id: "map-arabia", render: () => <MapDemo lessonId="lesson-deep-najm1-the-first-sajdah-surah" ask="recite An-Najm" /> },
   { id: "map-quba", render: () => <MapDemo lessonId="lesson-deep-hajj-masjids-three" ask="Jerusalem" /> },
   { id: "map-hajj", render: () => <MapDemo lessonId="lesson-deep-book-hajj-labbayk-as-the-camel-rose" ask="talbiyah" pick="wrong" check /> },
+  // Time questions in the sky: suhur before dawn; the last third of the night, answered wrong (the sky plays on to it).
+  { id: "sky", render: () => <SkyQuestionDemo lessonId="lesson-deep-fast-suhur-blessing" ask="suhur eaten" /> },
+  { id: "sky-picked", render: () => <SkyQuestionDemo lessonId="lesson-deep-fast-suhur-blessing" ask="suhur eaten" pick="right" /> },
+  { id: "sky-right", render: () => <SkyQuestionDemo lessonId="lesson-deep-fast-suhur-blessing" ask="suhur eaten" pick="right" check /> },
+  { id: "sky-wrong", render: () => <SkyQuestionDemo lessonId="lesson-deep-insan4-prostrate-at-night" ask="who will call" pick="wrong" check /> },
+  { id: "sky-zuhr", render: () => <SkyQuestionDemo lessonId="lesson-deep-prayer-sunnah-times-the-times-of-the-five-prayers" ask="pray Zuhr" /> },
   {
     id: "match",
     render: () => (

@@ -65,6 +65,9 @@ export type DaySkyProps = {
   delay?: number;
   /** Called once the sky has played to its end. */
   onDrawn?: () => void;
+  /** How long it plays, in ms (else skyDuration: longer for more hours). */
+  duration?: number;
+  testID?: string;
 };
 
 /** How long a sky takes to play: longer for more hours, never too quick or too slow. */
@@ -229,7 +232,7 @@ function Word({ text, rect, opacity, testID }: { text: string; rect: WordBox; op
   );
 }
 
-export function DaySky({ scene, width, height, still = false, play = 0, delay = 0, onDrawn }: DaySkyProps) {
+export function DaySky({ scene, width, height, still = false, play = 0, delay = 0, onDrawn, duration: playFor, testID = "day-sky" }: DaySkyProps) {
   const lite = useLiteMotion();
   const id = useRef(`sky${(skyCount += 1)}`).current;
   const layout = useMemo(() => skyLayout(scene, width, height, (text) => t(text)), [scene, width, height]);
@@ -257,7 +260,7 @@ export function DaySky({ scene, width, height, still = false, play = 0, delay = 
   const hour = useRef(new Animated.Value(still ? scene.to : scene.from)).current;
   const drawnRef = useRef(onDrawn);
   drawnRef.current = onDrawn;
-  const duration = skyDuration(scene);
+  const duration = playFor ?? skyDuration(scene);
 
   useEffect(() => {
     if (still) {
@@ -334,7 +337,7 @@ export function DaySky({ scene, width, height, still = false, play = 0, delay = 
   const veilIn = hour.interpolate(overHours(scene.from, scene.to, (h) => -frame.width * 0.7 * (1 - Math.min(1, Math.max(0, (dayHour(h) - 17.2) / 1)))));
 
   return (
-    <View style={[styles.frame, { width, height }]} pointerEvents="none" testID="day-sky">
+    <View style={[styles.frame, { width, height }]} pointerEvents="none" testID={testID}>
       {layers.map((xml, index) => (
         <Animated.View
           key={`${scene.id}-${index}`}
