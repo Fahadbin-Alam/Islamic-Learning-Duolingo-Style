@@ -8,7 +8,8 @@ import type { Pt } from "./mapGeometry";
  * The small moving touches on a Seerah map, each from its lesson's source: the rain before Badr (Quran 8:11), the wind
  * on the armies at the Trench (Quran 33:9) and at Tabuk, the camp fires at Marr az-Zahran, the cloud that shaded him ﷺ
  * at Qarn ath-Tha'alib, the night of the Isra, the call and the news going out (rings), the way up from Al-Aqsa (a
- * column of light), and the tents of the camps. Only weather, light and things: never anyone.
+ * column of light), and the tents of the camps. On the Hajj maps: the sun going down at Arafah, and the seven small
+ * pebbles falling at the Jamrah (Sahih Muslim 1218). Only weather, light and things: never anyone.
  *
  * Every one runs on the native driver from one looping value; with reduce motion (or Calm mode) it stands still, and on
  * a slow phone (lite motion) it keeps fewer drops, streaks, flames, rings and sparks.
@@ -217,6 +218,65 @@ function Tents({ at }: { at: Pt }) {
   );
 }
 
+const SUN = `<svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="16" fill="#FFB347" opacity="0.28"/><circle cx="17" cy="17" r="11" fill="#FF9A3C" opacity="0.45"/><circle cx="17" cy="17" r="7.5" fill="#FFC94A" stroke="#FF8A2A" stroke-width="1.2"/></svg>`;
+
+/**
+ * The sun going down at the end of the day of Arafah (he ﷺ stood "till the sun set... and the disc of the sun had
+ * disappeared", Sahih Muslim 1218a): the land turns warm and the sun sinks behind the hills at `at`, again and again.
+ */
+function Sunset({ at, still }: { at: Pt; still: boolean }) {
+  const loop = useLoop(5200, still);
+  return (
+    <>
+      <View pointerEvents="none" style={[StyleSheet.absoluteFill, styles.warm]} />
+      <View pointerEvents="none" style={[styles.abs, styles.horizon, { left: at.x - 24, top: at.y - 46, width: 48, height: 46 }]} testID="map-sunset">
+        <Animated.View
+          style={[
+            styles.abs,
+            {
+              left: 7,
+              top: 0,
+              opacity: still ? 1 : loop.interpolate({ inputRange: [0, 0.08, 0.86, 1], outputRange: [0, 1, 1, 0] }),
+              transform: [{ translateY: still ? 26 : loop.interpolate({ inputRange: [0, 1], outputRange: [2, 44] }) }]
+            }
+          ]}
+        >
+          <SvgXml xml={SUN} width={34} height={34} />
+        </Animated.View>
+      </View>
+      <View pointerEvents="none" style={[styles.abs, styles.horizonLine, { left: at.x - 30, top: at.y - 1, width: 60 }]} />
+    </>
+  );
+}
+
+/** Seven small pebbles, one after another, at the Jamrah (Sahih Muslim 1218a, Sahih al-Bukhari 1751). */
+function Pebbles({ at, still, lite }: { at: Pt; still: boolean; lite: boolean }) {
+  const loop = useLoop(4200, still);
+  const spots = [-5, 3, -2, 6, -6, 1, 4];
+  return (
+    <View pointerEvents="none" style={[styles.abs, { left: at.x - 20, top: at.y - 40, width: 40, height: 48 }]} testID="map-pebbles">
+      {fewer(spots, lite).map((dx, index, all) => {
+        if (still) return <View key={index} style={[styles.pebble, { left: 20 + dx * 1.3 - 2.5, top: 40 + (index % 2) * 3 }]} />;
+        const value = phase(loop, index / all.length);
+        return (
+          <Animated.View
+            key={index}
+            style={[
+              styles.pebble,
+              {
+                left: 20 + dx - 2.5,
+                top: 0,
+                opacity: value.interpolate({ inputRange: [0, 0.04, 0.3, 0.42, 1], outputRange: [0, 1, 1, 0, 0] }),
+                transform: [{ translateY: value.interpolate({ inputRange: [0, 0.22, 1], outputRange: [2, 36, 36], extrapolate: "clamp" }) }]
+              }
+            ]}
+          />
+        );
+      })}
+    </View>
+  );
+}
+
 /** The night over the whole map (the Isra). */
 export function Night({ still }: { still: boolean }) {
   const shown = useRef(new Animated.Value(still ? 1 : 0)).current;
@@ -246,6 +306,10 @@ export function MapTouch({ kind, at, still, lite = false, color }: { kind: MapEf
       return <Rise at={at} still={still} lite={lite} />;
     case "tents":
       return <Tents at={at} />;
+    case "sunset":
+      return <Sunset at={at} still={still} />;
+    case "pebbles":
+      return <Pebbles at={at} still={still} lite={lite} />;
     default:
       return null;
   }
@@ -258,5 +322,9 @@ const styles = StyleSheet.create({
   ring: { position: "absolute", left: 22, top: 22, width: 36, height: 36, borderRadius: 18, borderWidth: 2.5 },
   shade: { position: "absolute", left: 10, top: 38, width: 40, height: 11, borderRadius: 6, backgroundColor: "rgba(70,50,30,0.2)" },
   beam: { position: "absolute", left: 11, top: 4, width: 10, height: 64, borderRadius: 5, backgroundColor: "rgba(255,240,170,0.42)" },
-  night: { backgroundColor: "rgba(18,26,64,0.46)" }
+  night: { backgroundColor: "rgba(18,26,64,0.46)" },
+  warm: { backgroundColor: "rgba(255,130,50,0.14)" },
+  horizon: { overflow: "hidden" },
+  horizonLine: { height: 2, borderRadius: 1, backgroundColor: "rgba(150,90,40,0.35)" },
+  pebble: { position: "absolute", width: 5, height: 5, borderRadius: 2.5, backgroundColor: "#857B6E", borderWidth: 1, borderColor: "#FFFFFF" }
 });

@@ -1020,5 +1020,7 @@
   "{title} and {count} more": "{title} ও আরও {count}টি",
   "{count} ready to review today": "আজ রিভিউয়ের জন্য {count}টি প্রস্তুত",
   "Review it again tomorrow": "কাল আবার রিভিউ করো",
-  "Review it again in {count} days": "{count} দিন পরে আবার রিভিউ করো"
+  "Review it again in {count} days": "{count} দিন পরে আবার রিভিউ করো",
+  "Map of Hajj": "হজের মানচিত্র",
+  "Where each step of Hajj happens, in order.": "হজের প্রতিটি ধাপ কোথায় হয়, ধারাবাহিকভাবে।"
 }

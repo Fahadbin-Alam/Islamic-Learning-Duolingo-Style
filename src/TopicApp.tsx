@@ -299,7 +299,9 @@ import { didRamadanToday, ramadanDoneDayNumbers, ramadanSeason, ramadanStreak } 
 import { RAMADAN_TOPIC } from "./data/ramadanDays";
 import { teacherFor } from "./ui/lesson/Teacher";
 import { flowPictures, getLessonPicture, pictureForLesson, choicePictures, pictureForQuestion, pictureForText, type LessonPicture } from "./data/lessonPictures";
+import { hajjMapForLesson } from "./data/hajjMap";
 import { journeyForLesson } from "./data/seerahMap";
+import { HajjMapBanner, HajjMapSheet } from "./ui/journey/HajjMap";
 import { LifeMapBanner, LifeMapSheet } from "./ui/journey/LifeMap";
 import { surahNumberForTitle, surahParts } from "./data/surahPictures";
 import { BACKGROUND_KEY, INTRO_TOPIC, introStartFor, isLearnerBackground, type LearnerBackground } from "./data/introToIslam";
@@ -867,8 +869,9 @@ export default function TopicApp() {
   const [quizSheetVisible, setQuizSheetVisible] = useState(false);
   // Story mode: the shelf it opens on, while it is open.
   const [storyShelf, setStoryShelf] = useState<StoryGroup | undefined>(undefined);
-  // The map of his life ﷺ (src/ui/journey), opened from the Prophets path.
+  // The map of his life ﷺ (src/ui/journey), opened from the Prophets path, and the map of Hajj from the Hajj path.
   const [lifeMapOpen, setLifeMapOpen] = useState(false);
+  const [hajjMapOpen, setHajjMapOpen] = useState(false);
   // An opened chest: its gems land when the learner taps COLLECT.
   const [rewardCelebration, setRewardCelebration] = useState<{ stop: JourneyRewardStop } | undefined>(undefined);
   // Daily quests: the sheet, the chest's dates waiting in the reward pop, and the quests finished during this lesson.
@@ -1800,7 +1803,7 @@ export default function TopicApp() {
     topicPickerVisible || settingsModalVisible || languageModalVisible || prayerModalVisible || noticeOpen || familyVisible ||
     // Practice's own sheets too: nothing pops up over a story, a quiz list, a sprint against the clock or a surah
     // being memorized with the reciter.
-    quizSheetVisible || Boolean(storyShelf) || lifeMapOpen || albumVisible || sayItVisible || sprintVisible || memorizeVisible ||
+    quizSheetVisible || Boolean(storyShelf) || lifeMapOpen || hajjMapOpen || albumVisible || sayItVisible || sprintVisible || memorizeVisible ||
     // Nor over today's ayah and hadith, the adhkar being said (a reminder can open them as the app starts), today's
     // quests and their chest, the certificates, the secret and hadith lists, or Ramadan's "I finished day N" card.
     dailySheetOpen || adhkarOpen !== null || questsOpen || questChestDates > 0 || certificatesSheetVisible || secretListOpen || hadithListOpen || ramadanPop;
@@ -3957,8 +3960,9 @@ export default function TopicApp() {
   // A surah's own lesson ("Surah Al-Baqarah") opens on a picture of what its name means, then lists its parts.
   const lessonSurahNumber = pictureLesson ? surahNumberForTitle(pictureLesson.title) : undefined;
   const lessonSurah = lessonSurahNumber ? { number: lessonSurahNumber, parts: surahParts(lessonSurahNumber) } : undefined;
-  // A Seerah lesson opens on its map: where it happened and the road that led there (its photo moves to the next page).
-  const lessonJourney = pictureLesson ? journeyForLesson(pictureLesson) : undefined;
+  // A Seerah or Hajj lesson opens on its map: where it happened and the road that led there (its photo moves to the
+  // next page).
+  const lessonJourney = pictureLesson ? journeyForLesson(pictureLesson) ?? hajjMapForLesson(pictureLesson) : undefined;
   // Every page shows a big picture: what it teaches (the bridge, the ark, a market...), else the lesson's own, else
   // one that fits the topic, never the same one twice in a row (flowPictures).
   const learnQueue = state.lessonQueue.flatMap((step, index) => (isLearnStep(step) ? [{ step, index }] : []));
@@ -4186,6 +4190,7 @@ export default function TopicApp() {
                   {pathReviewDue > 0 ? <ReviewBanner count={pathReviewDue} onOpen={startReviewDeck} /> : null}
                   {storyBanner}
                   {selectedSection.topicId === "prophets" ? <LifeMapBanner accent={selectedSection.accentColor} onOpen={() => setLifeMapOpen(true)} /> : null}
+                  {selectedSection.topicId === "hajj" ? <HajjMapBanner accent={selectedSection.accentColor} onOpen={() => setHajjMapOpen(true)} /> : null}
                 </>
               )
             }
@@ -4616,6 +4621,7 @@ export default function TopicApp() {
           />
         )}
         {!inLesson && <LifeMapSheet visible={lifeMapOpen} onClose={() => setLifeMapOpen(false)} accent={selectedSection.accentColor} />}
+        {!inLesson && <HajjMapSheet visible={hajjMapOpen} onClose={() => setHajjMapOpen(false)} accent={selectedSection.accentColor} />}
         {!inLesson && <PictureAlbumSheet visible={albumVisible} onClose={() => setAlbumVisible(false)} />}
         {!inLesson && (
           <SayItSheet
