@@ -209,8 +209,9 @@ import { localAyahUri } from "./services/offlineAudio";
 import { quranAudioUrl } from "./services/quranAudio";
 import { useAyahPlayback } from "./ui/lesson/AyahListen";
 import { listenWhy, withListenQuestion } from "./ui/lesson/listenQuestion";
-import { hifzAyahs, memorizeParts, withReciteQuestion, type HifzPart } from "./ui/lesson/reciteQuestion";
-import { recordMemorized, useMemorizeStars } from "./services/memorizeSurahs";
+import { completeSurahs, hifzAyahs, memorizeParts, memorizeSurahNumbers, withReciteQuestion, type HifzPart } from "./ui/lesson/reciteQuestion";
+import { memorizeStars, recordMemorized, useMemorizeStars } from "./services/memorizeSurahs";
+import type { SurahComplete } from "./ui/lesson/SurahCompleteBadge";
 import { SURAH_NAMES } from "./data/surahMeanings";
 import { colors, configureUiSound, darken, preloadUiSounds, fonts, Icon, lighten, Mascot, PopIn, radii, space, Tappable } from "./ui";
 import { PortalHost } from "./ui/Portal";
@@ -420,6 +421,8 @@ type LessonCelebration = {
   finishedSets?: AlbumSet[];
   /** A surah gone through in Memorize surahs: CONTINUE goes back to the surahs, to pick the next one. */
   memorize?: boolean;
+  /** That practice finished the last part of its surah, now complete: the card shows its gold badge. */
+  surahComplete?: SurahComplete;
 };
 
 interface AppState {
@@ -1781,8 +1784,9 @@ export default function TopicApp() {
   const otherSheetOpen =
     Boolean(outOfHearts?.open || rewardCelebration || testOutResult?.open) ||
     topicPickerVisible || settingsModalVisible || languageModalVisible || prayerModalVisible || noticeOpen || familyVisible ||
-    // Practice's own sheets too: nothing pops up over a story, a quiz list or a sprint against the clock.
-    quizSheetVisible || Boolean(storyShelf) || lifeMapOpen || albumVisible || sayItVisible || sprintVisible;
+    // Practice's own sheets too: nothing pops up over a story, a quiz list, a sprint against the clock or a surah
+    // being memorized with the reciter.
+    quizSheetVisible || Boolean(storyShelf) || lifeMapOpen || albumVisible || sayItVisible || sprintVisible || memorizeVisible;
 
   useEffect(() => {
     const busy = state.screen.startsWith("lesson_") || state.screen === "assessment";
@@ -2499,9 +2503,22 @@ export default function TopicApp() {
       const memorize = state.activeSession.memorize;
       const whichSurah = state.activeSession.whichSurah;
       const stars = lessonStars(state.sessionMistakes);
+      // Was the surah complete before this try (every part practised to the end)? If this try completes it, the card says so.
+      const surahWasComplete = !memorize || completeSurahs(memorizeStars()).includes(memorize.surah);
       // A memorized surah keeps its best stars on this phone, for its row in Memorize surahs; so does "Which surah is it?".
       if (memorize) recordMemorized(memorize.part, stars);
       if (whichSurah) recordMemorized(WHICH_SURAH_ID, stars);
+      const complete = surahWasComplete ? [] : completeSurahs(memorizeStars());
+      const surahComplete: SurahComplete | undefined =
+        memorize && complete.includes(memorize.surah)
+          ? {
+              surah: memorize.surah,
+              title: translateStudyText(`Surah ${SURAH_NAMES[memorize.surah - 1]}`, currentLanguage),
+              arabic: currentLanguage === "ar" || currentLanguage === "ur" ? undefined : surahArabicName(memorize.surah),
+              done: complete.length,
+              total: memorizeSurahNumbers().length
+            }
+          : undefined;
       const allRight = state.sessionMistakes === 0;
       setLessonCompleteSummary({
         questsDone: practiceQuests,
@@ -2516,7 +2533,8 @@ export default function TopicApp() {
         stars,
         streakDays: nextUser.streakDays,
         // Back to Memorize surahs after it.
-        memorize: Boolean(memorize || whichSurah)
+        memorize: Boolean(memorize || whichSurah),
+        surahComplete
       });
       const xpSummary = await learningApi.getXpSummaries(nextUser);
       dispatch({ type: "finish_lesson", user: nextUser, xpSummary });
@@ -4358,6 +4376,7 @@ export default function TopicApp() {
             questsDone={lessonCompleteSummary.questsDone}
             newPictures={lessonCompleteSummary.newPictures}
             finishedSets={lessonCompleteSummary.finishedSets}
+            surahComplete={lessonCompleteSummary.surahComplete}
             mascotVariant={lessonMascot}
             accent={lessonAccent}
             nextTitle={lessonCompleteSummary.memorize ? undefined : nextLessonNode?.title}

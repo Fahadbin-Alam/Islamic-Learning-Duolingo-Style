@@ -10,10 +10,12 @@ import { Icon } from "../Icon";
 import { RecitedAyah } from "../lesson/RecitedAyah";
 import { useAyahQueue } from "../lesson/useAyahQueue";
 import { useReduceMotion } from "../motion";
+import { ProgressBar } from "../ProgressBar";
 import { Sheet } from "../Sheet";
 import { Tappable } from "../Tappable";
 import { scaleFont } from "../textScale";
 import { colors, darken, fonts, lighten, text } from "../theme";
+import { formatNumber } from "./FormattedCount";
 import { useBackToClose } from "./sheetParts";
 
 /** One ayah of a surah to memorize: "112:1", its Quran text, and its recitation. */
@@ -172,6 +174,29 @@ function WhichSurahRow({ stars, onStart }: { stars: number; onStart: () => void 
       </View>
       <Stars stars={stars} testID="memorize-which-stars" />
     </Tappable>
+  );
+}
+
+/** How many of the surahs are complete (each part of it practised to the end, so has stars), out of all of them. */
+export function surahsComplete(rows: readonly MemorizeSheetRow[]) {
+  const surahs = new Map<number, boolean>();
+  for (const row of rows) surahs.set(row.surah, (surahs.get(row.surah) ?? true) && row.stars > 0);
+  return { done: [...surahs.values()].filter(Boolean).length, total: surahs.size };
+}
+
+/** The bar on top of the list: how many of the surahs are complete, filling up in gold. */
+function SurahsProgress({ done, total }: { done: number; total: number }) {
+  const count = t("{count} of {total} surahs complete", { count: formatNumber(done), total: formatNumber(total) });
+  return (
+    <View style={styles.progress} testID="memorize-progress" accessible accessibilityLabel={count}>
+      <View style={styles.progressHead}>
+        <Icon name="crown" size={20} color={done > 0 ? undefined : colors.lockedLip} />
+        <Text style={styles.progressText} testID="memorize-progress-count">
+          {count}
+        </Text>
+      </View>
+      <ProgressBar progress={total ? done / total : 0} color={colors.gold} trackColor={lighten(colors.gold, 0.6)} height={12} testID="memorize-progress-bar" />
+    </View>
   );
 }
 
@@ -398,9 +423,11 @@ function SurahList({
 }) {
   const list = useRef<ScrollView>(null);
   const focused = useRef(false);
+  const progress = useMemo(() => surahsComplete(rows), [rows]);
   return (
     <ScrollView ref={list} style={styles.scroll} contentContainerStyle={{ paddingBottom: 32 + bottomInset }} showsVerticalScrollIndicator={false}>
       {which ? <WhichSurahRow stars={which.stars} onStart={which.onStart} /> : null}
+      {progress.total ? <SurahsProgress done={progress.done} total={progress.total} /> : null}
       <Text style={styles.line}>{t("Listen to the reciter, then tap each ayah that comes next.")}</Text>
       {rows.map((row) => (
         <View
@@ -521,6 +548,26 @@ const styles = StyleSheet.create({
     ...text.bodyBold,
     color: colors.inkSoft,
     marginBottom: 12
+  },
+  progress: {
+    marginBottom: 14,
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+    borderRadius: 16,
+    borderWidth: 2,
+    borderColor: lighten(colors.gold, 0.35),
+    backgroundColor: lighten(colors.gold, 0.85),
+    gap: 8
+  },
+  progressHead: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8
+  },
+  progressText: {
+    flex: 1,
+    ...text.bodyBold,
+    color: GOLD_INK
   },
   row: {
     flexDirection: "row",
