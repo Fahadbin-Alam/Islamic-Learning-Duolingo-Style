@@ -29,6 +29,8 @@ export function beforePaint(update: () => void) {
 
 /** Content hidden below the fold by more than this shows the hint (less is only a tile's lip or padding). */
 export const SCROLL_HINT_SLACK = 40;
+/** Room left under something scrolled into view (scrollToShow), so it does not end on the very edge. */
+const SHOW_MARGIN = 12;
 
 /** Size of the round hint button. */
 export const SCROLL_HINT_SIZE = 30;
@@ -81,6 +83,15 @@ export function useScrollMore(slack: number = SCROLL_HINT_SLACK) {
     ref.current?.scrollTo?.({ y: Math.max(0, Math.min(content - viewport, offset + Math.round(viewport * 0.7))), animated: true });
   }, []);
 
+  /** Scrolls just far enough to show the content from `y` to `y + height` whole, when part of it is hidden below. */
+  const scrollToShow = useCallback((y: number, height: number, animated = true) => {
+    const { viewport, content, offset } = size.current;
+    if (viewport <= 0 || y + height <= offset + viewport) {
+      return;
+    }
+    ref.current?.scrollTo?.({ y: Math.max(0, Math.min(content - viewport, y + height + SHOW_MARGIN - viewport)), animated });
+  }, []);
+
   /**
    * The sizes as laid out right now, read before the frame is drawn (see laidOutHeight): the hint shows, or not, in
    * that very frame, not a frame after it once the scroll view reports them. `offset` when it is known (a new question
@@ -94,7 +105,7 @@ export function useScrollMore(slack: number = SCROLL_HINT_SLACK) {
     [update]
   );
 
-  return { ref, scrollProps, more, scrollDown, know };
+  return { ref, scrollProps, more, scrollDown, scrollToShow, know };
 }
 
 /** Which way a hint points: down while more is hidden below, up once the end is in view and the start is not. */

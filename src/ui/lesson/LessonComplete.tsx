@@ -6,6 +6,7 @@ import { CountUp } from "../CountUp";
 import { GameButton } from "../GameButton";
 import { Icon, type IconName } from "../Icon";
 import { Mascot } from "../Mascot";
+import { useReduceMotion } from "../motion";
 import { PopIn } from "../PopIn";
 import { haptic, playUi } from "../sound";
 import type { LessonRecapItem } from "./lessonRecap";
@@ -16,6 +17,7 @@ import { colors, darken, fonts, lighten, radii, space } from "../theme";
 import { LessonBottomBar } from "./LessonHeader";
 import { useScrollMore } from "./ScrollHint";
 import { StreakMoment } from "./StreakMoment";
+import { SurahCompleteBadge, type SurahComplete } from "./SurahCompleteBadge";
 import { t } from "../../i18n";
 
 export type LessonCompleteProps = {
@@ -49,6 +51,8 @@ export type LessonCompleteProps = {
   newPictures?: LessonPicture[];
   /** Album sets these pictures finished: a gold badge for each, with its own fanfare. */
   finishedSets?: AlbumSet[];
+  /** Memorize surahs: this practice finished the last part of a surah, now complete. Its gold badge lands, with a fanfare. */
+  surahComplete?: SurahComplete;
   mascotVariant: string;
   accent: string;
   /** When set, the main button reads NEXT LESSON. */
@@ -78,6 +82,10 @@ const CARD_DELAY = 350;
 const CARD_STAGGER = 140;
 /** When a finished album set's badge lands: after the new pictures have popped in. */
 const SET_BADGE_DELAY = CARD_DELAY + 4 * CARD_STAGGER + COUNT_DURATION + 1700;
+/** When a complete surah's badge pops in: after the counters and the quest chime, so no two sounds land together. */
+const SURAH_BADGE_DELAY = CARD_DELAY + 4 * CARD_STAGGER + COUNT_DURATION + 850;
+/** Gold confetti for a complete surah. */
+const SURAH_CONFETTI = [colors.gold, colors.goldLip, lighten(colors.gold, 0.4), colors.white];
 
 function StatCard({
   label,
@@ -184,6 +192,7 @@ function LessonCompleteCard({
   questsDone,
   newPictures,
   finishedSets,
+  surahComplete,
   mascotVariant,
   accent,
   nextTitle,
@@ -200,7 +209,7 @@ function LessonCompleteCard({
   const mascotSize = short ? 96 : height > 0 && height < 720 ? 112 : 150;
   // Three cards share a 320 px row: no room for the trophy next to "10/40", and the headline drops a size.
   const narrow = width > 0 && width < 360;
-  const { ref: scrollRef, scrollProps, more, scrollDown } = useScrollMore();
+  const { ref: scrollRef, scrollProps, more, scrollDown, scrollToShow } = useScrollMore();
 
   useEffect(() => {
     const loop = Animated.loop(
@@ -234,7 +243,17 @@ function LessonCompleteCard({
           haptic("success");
         }, SET_BADGE_DELAY)
       : undefined;
+    // A complete surah: its fanfare and a happy buzz as its star lands.
+    const surahTimer = surahComplete
+      ? setTimeout(() => {
+          playUi("unlock");
+          haptic("success");
+        }, SURAH_BADGE_DELAY + 300)
+      : undefined;
     return () => {
+      if (surahTimer) {
+        clearTimeout(surahTimer);
+      }
       if (setTimer) {
         clearTimeout(setTimer);
       }
@@ -263,6 +282,24 @@ function LessonCompleteCard({
     const timer = setInterval(() => setCheers((count) => count + 1), 2200);
     return () => clearInterval(timer);
   }, [perfect]);
+  // A complete surah's gold confetti bursts as its star lands (not with less motion).
+  const reduceMotion = useReduceMotion();
+  const [surahBurst, setSurahBurst] = useState(false);
+  useEffect(() => {
+    if (!surahComplete || reduceMotion) return undefined;
+    const timer = setTimeout(() => setSurahBurst(true), SURAH_BADGE_DELAY + 300);
+    return () => clearTimeout(timer);
+  }, [reduceMotion, surahComplete]);
+  // On a small phone the badge can pop in below the fold, cut by the buttons: the card scrolls just enough to show it.
+  const surahBadgeBox = useRef<{ y: number; height: number } | undefined>(undefined);
+  useEffect(() => {
+    if (!surahComplete) return undefined;
+    const timer = setTimeout(() => {
+      const box = surahBadgeBox.current;
+      if (box) scrollToShow(box.y, box.height, !reduceMotion);
+    }, SURAH_BADGE_DELAY);
+    return () => clearTimeout(timer);
+  }, [reduceMotion, scrollToShow, surahComplete]);
   const recapItems = recap ?? [];
   const showStats = accuracy !== undefined;
 
@@ -339,6 +376,20 @@ function LessonCompleteCard({
           </View>
         ) : null}
 
+        {surahComplete ? (
+          <View
+            style={styles.surahBadge}
+            onLayout={(event) => {
+              const { y, height } = event.nativeEvent.layout;
+              surahBadgeBox.current = { y, height };
+            }}
+            testID="complete-surah-place"
+          >
+            <PopIn delay={SURAH_BADGE_DELAY}>
+              <SurahCompleteBadge {...surahComplete} delay={SURAH_BADGE_DELAY} />
+            </PopIn>
+          </View>
+        ) : null}
         {questsDone?.length ? (
           <PopIn delay={CARD_DELAY + 4 * CARD_STAGGER + COUNT_DURATION + 600} style={styles.quests}>
             <View testID="complete-quests">
@@ -433,6 +484,7 @@ function LessonCompleteCard({
       </LessonBottomBar>
 
       <Confetti active />
+      {surahComplete ? <Confetti active={surahBurst} count={44} colors={SURAH_CONFETTI} /> : null}
     </View>
   );
 }
@@ -649,6 +701,9 @@ const styles = StyleSheet.create({
   },
   setBadge: {
     marginTop: space.sm
+  },
+  surahBadge: {
+    alignSelf: "stretch"
   },
   setBadgeRow: {
     flexDirection: "row",
