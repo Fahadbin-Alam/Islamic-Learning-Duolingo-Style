@@ -465,7 +465,10 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "sahaba-small-stories": { ar: "قصص الصحابة", translit: "Qisas as-Sahabah", meaning: "Stories of the Companions" },
   "hajj-as-he-taught-it": { ar: "خذوا مناسككم", translit: "Khudhu manasikakum", meaning: "Take your rites from me" },
   "foundation-bathroom": { ar: "آداب الخلاء", translit: "Adab al-khala'", meaning: "The manners of the toilet" },
-  "manners-words-of-a-believer": { ar: "كلام المؤمن", translit: "Kalam al-mu'min", meaning: "The believer's speech" }
+  "manners-words-of-a-believer": { ar: "كلام المؤمن", translit: "Kalam al-mu'min", meaning: "The believer's speech" },
+  "akhirah-saying-goodbye": { ar: "وداع المؤمن", translit: "Wada' al-mu'min", meaning: "Farewell to a believer" },
+  "manners-little-things": { ar: "آداب يومية", translit: "Adab yawmiyyah", meaning: "Everyday manners" },
+  "sahabi-salamah-ibn-al-akwa": { ar: "سلمة بن الأكوع", translit: "Salamah ibn al-Akwa'", meaning: "The runner who saved the camels" }
 };
 
 export const NODE_ARABIC: Record<string, ArabicTerm> = {
@@ -986,7 +989,7 @@ const LEARN_FORMS = [
   "الرِّفْقُ بِالْأَطْفَالِ", "كَيْفَ أَسْلَمُوا", "اغْتِنَامُ رَمَضَانَ",
   "مَكَّةُ الْمُكَرَّمَةُ", "الْإِخْلَاصُ لِلَّهِ", "آدَابُ الْجُمُعَةِ",
   "كِتَابُ الْفَضَائِلِ", "سُنَنُ الطَّعَامِ وَالشَّرَابِ", "أَسْئِلَةُ الصَّحَابَةِ",
-  "التَّزَوُّدُ لِلْآخِرَةِ", "الدِّقَّةُ فِي الرِّوَايَةِ", "آدَابُ التِّلَاوَةِ", "أَدْعِيَةٌ نَبَوِيَّةٌ", "صَلَاةُ اللَّيْلِ", "التَّجَمُّلُ", "السَّلَامُ وَالزَّائِرُ", "آدَابُ الْمَسْجِدِ", "قِصَصُ الصَّحَابَةِ", "خُذُوا مَنَاسِكَكُمْ", "آدَابُ الْخَلَاءِ", "كَلَامُ الْمُؤْمِنِ",
+  "التَّزَوُّدُ لِلْآخِرَةِ", "الدِّقَّةُ فِي الرِّوَايَةِ", "آدَابُ التِّلَاوَةِ", "أَدْعِيَةٌ نَبَوِيَّةٌ", "صَلَاةُ اللَّيْلِ", "التَّجَمُّلُ", "السَّلَامُ وَالزَّائِرُ", "آدَابُ الْمَسْجِدِ", "قِصَصُ الصَّحَابَةِ", "خُذُوا مَنَاسِكَكُمْ", "آدَابُ الْخَلَاءِ", "كَلَامُ الْمُؤْمِنِ", "وَدَاعُ الْمُؤْمِنِ", "آدَابٌ يَوْمِيَّةٌ", "سَلَمَةُ بْنُ الْأَكْوَعِ",
   "الْعُمْرَةُ", "الْبَيْتُ الْحَرَامُ", "الْمَسَاجِدُ الثَّلَاثَةُ",
   ...SURAH_NAMES.map((name) => `سُورَةُ ${name}`)
 ];
