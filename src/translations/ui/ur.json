@@ -1010,5 +1010,8 @@
   "Ayah {number} of {count}": "{count} میں سے آیت {number}",
   "Every ayah right!": "ہر آیت درست!",
   "Listen and say each ayah after the reciter, then practice.": "قاری کی تلاوت سنیں، ہر آیت ان کے بعد دہرائیں، پھر مشق کریں۔",
-  "Each ayah 3 times": "ہر آیت 3 بار"
+  "Each ayah 3 times": "ہر آیت 3 بار",
+  "Which surah is it?": "یہ کون سی سورۃ ہے؟",
+  "Hear an ayah, tap its surah": "ایک آیت سنیں، اس کی سورۃ چنیں",
+  "Every surah right!": "ہر سورۃ درست!"
 }
