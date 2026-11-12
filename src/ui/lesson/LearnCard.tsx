@@ -20,6 +20,8 @@ import { openWebPage, useOnline } from "../../services/network";
 import { getActiveLanguage, t } from "../../i18n";
 import type { LessonPicture } from "../../data/lessonPictures";
 import { JourneyCard, type LessonMap } from "../journey/JourneyCard";
+import { SkyCard } from "../journey/SkyCard";
+import type { LessonSky } from "../../data/daySky";
 import { LessonPhoto } from "./LessonPhoto";
 import { SurahCover, SurahParts } from "./SurahCover";
 import { isCredit, splitLessonFacts } from "./lessonNotes";
@@ -77,6 +79,11 @@ export type LearnCardProps = {
    * there, in the place of the photo (the photo moves on to the next page).
    */
   journey?: LessonMap;
+  /**
+   * A lesson about a time of the day (the prayers, suhur, iftar, the night prayer): its first page opens on the sky at
+   * that time, in the place of the photo (the photo moves on to the next page).
+   */
+  sky?: LessonSky;
   /**
    * The deeper lesson (lesson.learnDeeper): what the ayahs mean, the story, what to take home, and a chip for each
    * tafsir book it comes from. The harder questions ask about it, so it is shown in full.
@@ -247,6 +254,7 @@ export function LearnCard({
   picture,
   pagePicture,
   journey,
+  sky,
   deeper,
   surah,
   page,
@@ -320,7 +328,7 @@ export function LearnCard({
   // Its words light up as the reciter says them.
   const recited = ayahAudio && ayahKey ? [{ key: `${ayahKey.surah}:${ayahKey.ayah}`, url: ayahAudio }] : [];
   // With facts or a quote to show, the mascot sits small next to its line to leave them room.
-  const rich = factList.length > 0 || Boolean(quoteText) || Boolean(picture) || Boolean(journey) || Boolean(deeper) || Boolean(surah);
+  const rich = factList.length > 0 || Boolean(quoteText) || Boolean(picture) || Boolean(journey) || Boolean(sky) || Boolean(deeper) || Boolean(surah);
   const quranWord = arabic ? isQuranText(arabic.ar) : false;
   const arabicSize = quranWord ? (narrow || short ? 24 : 28) : narrow || short ? (narrow ? 30 : 34) : 40;
   const openSource = (url: string) => {
@@ -494,6 +502,8 @@ export function LearnCard({
           {/* Under the mascot's line, so the line the lesson teaches stays in view on small phones. */}
           {journey && at("start") ? (
             <JourneyCard journey={journey} short={short} delay={soon(380)} onOpenSource={openSource} />
+          ) : sky && at("start") ? (
+            <SkyCard sky={sky} short={short} delay={soon(380)} onOpenSource={openSource} />
           ) : picture && at("start") ? (
             <LessonPhoto picture={picture} short={short} delay={soon(380)} big={!all} />
           ) : null}
