@@ -202,6 +202,8 @@ import { checkAnswerId, checkCandidate, fillPiece, questionFormat } from "./ui/l
 import { CheckGame, FillGame, GapGame, MatchGame } from "./ui/lesson/WordGames";
 import { MapGame } from "./ui/lesson/MapGame";
 import { mapPlacesFor } from "./ui/lesson/mapQuestions";
+import { SkyGame } from "./ui/lesson/SkyGame";
+import { skyTimesFor } from "./ui/lesson/skyQuestions";
 import * as Speech from "expo-speech";
 import { findArabicVoice, recitationForArabic } from "./services/arabicVoice";
 import { playAyah, stopAyah } from "./services/ayahPlayer";
@@ -3991,6 +3993,8 @@ export default function TopicApp() {
   const answerPictures = pictureChallenge && !pictureChallenge.listen && pictureChallenge.type === "multiple_choice" ? choicePictures(pictureChallenge.choices) : undefined;
   // Every answer a place on the map (Badr, Uhud, Khaybar; Hira and Thawr): the learner can find it where it is.
   const answerPlaces = pictureChallenge && !pictureChallenge.listen && pictureChallenge.type === "multiple_choice" ? mapPlacesFor(pictureChallenge) : undefined;
+  // Every answer a time of the day (at dawn, at noon, at sunset, the last third of the night): asked in the sky.
+  const answerTimes = pictureChallenge && !pictureChallenge.listen && pictureChallenge.type === "multiple_choice" ? skyTimesFor(pictureChallenge) : undefined;
   const inTest = isTestSession(lessonSession);
   const testPassingScore = inTest && lesson ? lessonSession?.passingScore ?? testOutPassingScore(lesson.challenges.length) : 0;
   // The pages of the lesson: what the source says (when it is about this lesson), the words its questions ask
@@ -4007,7 +4011,7 @@ export default function TopicApp() {
     challenge && (challenge.isReview || (lesson && isRecallLesson(lesson)) || (lessonSession?.mode && lessonSession.mode !== "standard"))
   );
   const questionFormatNow = challenge
-    ? questionFormat(challenge, { recall: questionRecall, language: currentLanguage, pictures: Boolean(answerPictures), map: Boolean(answerPlaces) })
+    ? questionFormat(challenge, { recall: questionRecall, language: currentLanguage, pictures: Boolean(answerPictures), map: Boolean(answerPlaces), sky: Boolean(answerTimes) })
     : "choose";
   const checkShown = challenge && questionFormatNow === "check" ? checkCandidate(challenge) : undefined;
   const fillNow = challenge && questionFormatNow === "fill" ? fillPiece(challenge) : undefined;
@@ -4264,7 +4268,17 @@ export default function TopicApp() {
             {inTest ? (
               <TestStrip passingScore={testPassingScore} total={lesson?.challenges.length ?? 0} accent={lessonAccent} quiz={lessonSession?.mode === "quiz"} />
             ) : null}
-{questionFormatNow === "map" && answerPlaces ? (
+{questionFormatNow === "sky" && answerTimes ? (
+              <SkyGame
+                key={`${challenge.id}-sky-${lessonStep.attempt}`}
+                prompt={challenge.prompt}
+                choices={challenge.choices}
+                times={answerTimes}
+                correctChoiceId={challenge.correctChoiceId}
+                {...questionShared}
+                onSelect={(choiceId) => dispatch({ type: "select_choice", choiceId })}
+              />
+            ) : questionFormatNow === "map" && answerPlaces ? (
               <MapGame
                 key={`${challenge.id}-map-${lessonStep.attempt}`}
                 prompt={challenge.prompt}

@@ -40,6 +40,13 @@ export const DAY_TIMES: readonly DayTime[] = [
 /** The sky's day: the first light of dawn, sunrise, midday, sunset, the end of twilight, and the next dawn. */
 export const SKY_HOURS = { dawn: 4.75, sunrise: 6, midday: 12, sunset: 18, dusk: 19.25, nextDawn: 28.75 } as const;
 
+/**
+ * Where the sky stands for each time of the day on its own (a question's answer, src/ui/lesson/SkyGame.tsx): Fajr's
+ * first light, the sun on the horizon at sunrise and at sunset, the forenoon, just past midday, the afternoon, the
+ * night once twilight has gone, and the last third of the night (3 at night).
+ */
+export const MOMENT_HOURS: Record<DayMoment, number> = { dawn: 5.15, sunrise: 6, forenoon: 8.9, midday: 12.35, afternoon: 15.5, sunset: 18, night: 22, lastThird: 27 };
+
 /** Where in the day each prayer's name sits in the sky. */
 const AT = { fajr: 5.15, sunrise: 6.12, duha: 8.9, zuhr: 12.35, asr: 15.5, maghrib: 18.12, isha: 20.6, midnight: 23.4, lastThird: 27, nextFajr: 29.15 };
 
