@@ -432,7 +432,10 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "intro-growing-in-faith": { ar: "زيادة الإيمان", translit: "Ziyadat al-iman", meaning: "Faith that grows" },
   "duas-asking-allah-well": { ar: "جوامع الدعاء", translit: "Jawami' ad-du'a", meaning: "Du'as that gather much good" },
   "akhirah-wealth-and-next-life": { ar: "فتنة المال", translit: "Fitnat al-mal", meaning: "The test of wealth" },
-  "manners-staying-safe": { ar: "الحذر من الأذى", translit: "Al-hadhar min al-adha", meaning: "Guarding against harm" }
+  "manners-staying-safe": { ar: "الحذر من الأذى", translit: "Al-hadhar min al-adha", meaning: "Guarding against harm" },
+  "hadith-book-bad-al-khalq": { ar: "كتاب بدء الخلق", translit: "Kitab bad' al-khalq", meaning: "The Book of the Beginning of Creation" },
+  "aqidah-steady-on-the-path": { ar: "ثبات الإيمان", translit: "Thabat al-iman", meaning: "Faith that stays steady" },
+  "hadith-trust": { ar: "الأمانة", translit: "Al-amanah", meaning: "Being trustworthy" }
 };
 
 export const NODE_ARABIC: Record<string, ArabicTerm> = {
@@ -946,6 +949,7 @@ const LEARN_FORMS = [
   "التَّعَفُّفُ عَنِ الْمَسْأَلَةِ", "الْإِيمَانُ فِي الْبَيْتِ", "لَبَّيْكَ اللَّهُمَّ",
   "الطُّمَأْنِينَةُ فِي الصَّلَاةِ", "نِعْمَ الرَّجُلُ", "زِيَادَةُ الْإِيمَانِ",
   "جَوَامِعُ الدُّعَاءِ", "فِتْنَةُ الْمَالِ", "الْحَذَرُ مِنَ الْأَذَى",
+  "كِتَابُ بَدْءِ الْخَلْقِ", "ثَبَاتُ الْإِيمَانِ", "الْأَمَانَةُ",
   "الْعُمْرَةُ", "الْبَيْتُ الْحَرَامُ", "الْمَسَاجِدُ الثَّلَاثَةُ",
   ...SURAH_NAMES.map((name) => `سُورَةُ ${name}`)
 ];
