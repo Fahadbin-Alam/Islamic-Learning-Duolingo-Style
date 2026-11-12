@@ -435,7 +435,10 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "manners-staying-safe": { ar: "الحذر من الأذى", translit: "Al-hadhar min al-adha", meaning: "Guarding against harm" },
   "hadith-book-bad-al-khalq": { ar: "كتاب بدء الخلق", translit: "Kitab bad' al-khalq", meaning: "The Book of the Beginning of Creation" },
   "aqidah-steady-on-the-path": { ar: "ثبات الإيمان", translit: "Thabat al-iman", meaning: "Faith that stays steady" },
-  "hadith-trust": { ar: "الأمانة", translit: "Al-amanah", meaning: "Being trustworthy" }
+  "hadith-trust": { ar: "الأمانة", translit: "Al-amanah", meaning: "Being trustworthy" },
+  "zakat-how-allah-counts": { ar: "الصدقة عند الله", translit: "As-sadaqah 'indallah", meaning: "Charity as Allah counts it" },
+  "foundation-journey": { ar: "آداب السفر", translit: "Adab as-safar", meaning: "The manners of travel" },
+  "duas-for-other-people": { ar: "الدعاء للآخرين", translit: "Ad-du'a lil-akharin", meaning: "Du'a for others" }
 };
 
 export const NODE_ARABIC: Record<string, ArabicTerm> = {
@@ -950,6 +953,7 @@ const LEARN_FORMS = [
   "الطُّمَأْنِينَةُ فِي الصَّلَاةِ", "نِعْمَ الرَّجُلُ", "زِيَادَةُ الْإِيمَانِ",
   "جَوَامِعُ الدُّعَاءِ", "فِتْنَةُ الْمَالِ", "الْحَذَرُ مِنَ الْأَذَى",
   "كِتَابُ بَدْءِ الْخَلْقِ", "ثَبَاتُ الْإِيمَانِ", "الْأَمَانَةُ",
+  "الصَّدَقَةُ عِنْدَ اللَّهِ", "آدَابُ السَّفَرِ", "الدُّعَاءُ لِلْآخَرِينَ",
   "الْعُمْرَةُ", "الْبَيْتُ الْحَرَامُ", "الْمَسَاجِدُ الثَّلَاثَةُ",
   ...SURAH_NAMES.map((name) => `سُورَةُ ${name}`)
 ];
