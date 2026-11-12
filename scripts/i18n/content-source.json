@@ -881,6 +881,18 @@
   },
   {
     "kind": "course",
+    "text": "A sutrah for your prayer"
+  },
+  {
+    "kind": "course",
+    "text": "Waiting rather than passing in front, room for a sheep, keeping close, a short spear on Eid, a saddle's back, and his camel as a sutrah."
+  },
+  {
+    "kind": "arabic",
+    "text": "Something set in front of one who prays"
+  },
+  {
+    "kind": "course",
     "text": "What wudu is"
   },
   {
@@ -1722,6 +1734,30 @@
   {
     "kind": "course",
     "text": "If the imam stands up"
+  },
+  {
+    "kind": "course",
+    "text": "Better to wait"
+  },
+  {
+    "kind": "course",
+    "text": "Room for a sheep"
+  },
+  {
+    "kind": "course",
+    "text": "Stay close to it"
+  },
+  {
+    "kind": "course",
+    "text": "A spear in front of him"
+  },
+  {
+    "kind": "course",
+    "text": "Like the back of a saddle"
+  },
+  {
+    "kind": "course",
+    "text": "His camel as a sutrah"
   },
   {
     "kind": "course",
@@ -38289,6 +38325,14 @@
   },
   {
     "kind": "course",
+    "text": "The day of sacrifice"
+  },
+  {
+    "kind": "course",
+    "text": "Camels that came close, eating after the prayer, the sacrifice at the prayer place, four animals that will not do, a sharp blade, and meat for the road home."
+  },
+  {
+    "kind": "course",
     "text": "Two days, better than before"
   },
   {
@@ -38386,6 +38430,30 @@
   {
     "kind": "course",
     "text": "Ibn Abbas, a boy at Eid"
+  },
+  {
+    "kind": "course",
+    "text": "Camels that came close"
+  },
+  {
+    "kind": "course",
+    "text": "Eating after the prayer"
+  },
+  {
+    "kind": "course",
+    "text": "At the prayer place"
+  },
+  {
+    "kind": "course",
+    "text": "Four that will not do"
+  },
+  {
+    "kind": "course",
+    "text": "A sharp blade"
+  },
+  {
+    "kind": "course",
+    "text": "Meat for the road"
   },
   {
     "kind": "course",
@@ -39438,6 +39506,14 @@
   {
     "kind": "course",
     "text": "From al-Bukhari's Book of Dreams: the worst lie, two golden bangles, a land of palm trees, Aishah shown in a dream, keys of treasure, and dreams that come true."
+  },
+  {
+    "kind": "course",
+    "text": "The Book of Actions in Prayer"
+  },
+  {
+    "kind": "course",
+    "text": "From al-Bukhari's Book of Actions in Prayer: busy with the prayer, keeping silent, smoothing the ground once, a greeting not returned, hands off the hips, and the surah of Isha."
   },
   {
     "kind": "course",
@@ -40574,6 +40650,30 @@
   {
     "kind": "course",
     "text": "Dreams near the end"
+  },
+  {
+    "kind": "course",
+    "text": "Busy with the prayer"
+  },
+  {
+    "kind": "course",
+    "text": "Silence in the prayer"
+  },
+  {
+    "kind": "course",
+    "text": "Smoothing the ground once"
+  },
+  {
+    "kind": "course",
+    "text": "A greeting not returned"
+  },
+  {
+    "kind": "course",
+    "text": "No hands on the hips"
+  },
+  {
+    "kind": "course",
+    "text": "Which surah was it?"
   },
   {
     "kind": "course",
@@ -74821,6 +74921,434 @@
   },
   {
     "kind": "lesson",
+    "text": "Do not pass in front of someone who is praying."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abu Juhaim"
+  },
+  {
+    "kind": "lesson",
+    "text": "Zayd ibn Khalid sent someone to ask him"
+  },
+  {
+    "kind": "lesson",
+    "text": "Waiting is better than passing"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 510"
+  },
+  {
+    "kind": "question",
+    "text": "What would the passer prefer, if he knew his sin?"
+  },
+  {
+    "kind": "question",
+    "text": "To walk past slowly"
+  },
+  {
+    "kind": "question",
+    "text": "To pass by twice"
+  },
+  {
+    "kind": "question",
+    "text": "To wait instead"
+  },
+  {
+    "kind": "question",
+    "text": "To run past quickly"
+  },
+  {
+    "kind": "question",
+    "text": "He would prefer to wait rather than pass in front of him, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Someone is praying between you and the door. What fits his ﷺ words?"
+  },
+  {
+    "kind": "question",
+    "text": "Step over his mat"
+  },
+  {
+    "kind": "question",
+    "text": "Wait until he finishes"
+  },
+  {
+    "kind": "question",
+    "text": "Walk right in front"
+  },
+  {
+    "kind": "question",
+    "text": "Run quickly past him"
+  },
+  {
+    "kind": "question",
+    "text": "If the passer knew the size of his sin, he would rather wait, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Passing in front of someone who is praying is a small matter."
+  },
+  {
+    "kind": "question",
+    "text": "If the one passing in front knew his sin, he would rather wait, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ prayed near the wall, leaving room for a sheep."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Sahl ibn Sa'd"
+  },
+  {
+    "kind": "lesson",
+    "text": "Musalla: the place where one prays"
+  },
+  {
+    "kind": "lesson",
+    "text": "Pray close to your sutrah"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 496"
+  },
+  {
+    "kind": "question",
+    "text": "How much room was between his ﷺ prayer place and the wall?"
+  },
+  {
+    "kind": "question",
+    "text": "Room for ten men"
+  },
+  {
+    "kind": "question",
+    "text": "Room for a camel"
+  },
+  {
+    "kind": "question",
+    "text": "Room for a horse"
+  },
+  {
+    "kind": "question",
+    "text": "The space was just enough for a sheep to pass through, Sahl ibn Sa'd said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ prayed close to the wall in front of him."
+  },
+  {
+    "kind": "question",
+    "text": "Between his prayer place and the wall was just room for a sheep to pass, Sahl said."
+  },
+  {
+    "kind": "question",
+    "text": "You pray facing a wall at home. Where should you stand?"
+  },
+  {
+    "kind": "question",
+    "text": "Far from the wall"
+  },
+  {
+    "kind": "question",
+    "text": "Across the room"
+  },
+  {
+    "kind": "question",
+    "text": "In the doorway"
+  },
+  {
+    "kind": "question",
+    "text": "Close to the wall"
+  },
+  {
+    "kind": "question",
+    "text": "Between his ﷺ prayer place and the wall was just room for a sheep, Sahl said."
+  },
+  {
+    "kind": "lesson",
+    "text": "When you pray facing a sutrah, stay close to it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Sahl ibn Abi Hathmah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Sutrah: something in front of one who prays"
+  },
+  {
+    "kind": "lesson",
+    "text": "Do not let Shaytan cut in"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 695"
+  },
+  {
+    "kind": "question",
+    "text": "You put a bag in front of you as a sutrah. Where should you stand?"
+  },
+  {
+    "kind": "question",
+    "text": "Close to it"
+  },
+  {
+    "kind": "question",
+    "text": "Far from it"
+  },
+  {
+    "kind": "question",
+    "text": "Out in the hall"
+  },
+  {
+    "kind": "question",
+    "text": "When one of you prays facing a sutrah, he should keep close to it, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Whom should you not let interrupt your prayer, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "Keep close to it, and do not let the devil interrupt the prayer, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ said not to let the devil interrupt the prayer."
+  },
+  {
+    "kind": "question",
+    "text": "Keep close to the sutrah, and do not let the devil interrupt the prayer, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "On Eid, a short spear was his ﷺ sutrah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Harbah: a short spear"
+  },
+  {
+    "kind": "lesson",
+    "text": "The people prayed behind him ﷺ"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 494"
+  },
+  {
+    "kind": "question",
+    "text": "What was planted in front of him ﷺ on Eid?"
+  },
+  {
+    "kind": "question",
+    "text": "A short spear"
+  },
+  {
+    "kind": "question",
+    "text": "A tall flag"
+  },
+  {
+    "kind": "question",
+    "text": "A wooden chair"
+  },
+  {
+    "kind": "question",
+    "text": "A stone pillar"
+  },
+  {
+    "kind": "question",
+    "text": "On Eid he ﷺ would order a short spear to be planted in front of him, Ibn Umar said."
+  },
+  {
+    "kind": "question",
+    "text": "Where were the people as he ﷺ prayed facing it?"
+  },
+  {
+    "kind": "question",
+    "text": "On the rooftops"
+  },
+  {
+    "kind": "question",
+    "text": "Right behind him"
+  },
+  {
+    "kind": "question",
+    "text": "In front of him"
+  },
+  {
+    "kind": "question",
+    "text": "Beside the spear"
+  },
+  {
+    "kind": "question",
+    "text": "He would pray facing it with the people behind him, Ibn Umar said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ also used a sutrah like this on journeys."
+  },
+  {
+    "kind": "question",
+    "text": "He used to do the same while on a journey, Ibn Umar said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Something like a saddle's back post can be your sutrah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Talhah ibn Ubaydillah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Rahl: a camel saddle"
+  },
+  {
+    "kind": "lesson",
+    "text": "Who passes beyond it need not worry you"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 335"
+  },
+  {
+    "kind": "question",
+    "text": "Something like what should be in front of you, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "The hump of a camel"
+  },
+  {
+    "kind": "question",
+    "text": "The rope of a camel"
+  },
+  {
+    "kind": "question",
+    "text": "The tail of a camel"
+  },
+  {
+    "kind": "question",
+    "text": "The post of a camel saddle"
+  },
+  {
+    "kind": "question",
+    "text": "Place something like the post of a camel saddle in front of you, then pray, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Once your sutrah is in front, whose passing need not worry you?"
+  },
+  {
+    "kind": "question",
+    "text": "Those right in front of you"
+  },
+  {
+    "kind": "question",
+    "text": "Those crossing your place"
+  },
+  {
+    "kind": "question",
+    "text": "Those beyond it"
+  },
+  {
+    "kind": "question",
+    "text": "Those between you and it"
+  },
+  {
+    "kind": "question",
+    "text": "Let him pray and not concern himself with who passes beyond that, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "With a sutrah in front, one need not mind who passes beyond it."
+  },
+  {
+    "kind": "question",
+    "text": "Then let him pray, and not concern himself with who passes beyond that, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ would pray facing his she-camel as a sutrah."
+  },
+  {
+    "kind": "lesson",
+    "text": "She-camel: a female camel"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Umar did the same"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 507"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ make sit across in front of him?"
+  },
+  {
+    "kind": "question",
+    "text": "His mule"
+  },
+  {
+    "kind": "question",
+    "text": "His donkey"
+  },
+  {
+    "kind": "question",
+    "text": "His she-camel"
+  },
+  {
+    "kind": "question",
+    "text": "His goat"
+  },
+  {
+    "kind": "question",
+    "text": "He used to make his she-camel sit across and he would pray facing it, Ibn Umar said."
+  },
+  {
+    "kind": "question",
+    "text": "If the camel moved, what did he ﷺ pray facing?"
+  },
+  {
+    "kind": "question",
+    "text": "Its rope"
+  },
+  {
+    "kind": "question",
+    "text": "Its water bowl"
+  },
+  {
+    "kind": "question",
+    "text": "Its feed bag"
+  },
+  {
+    "kind": "question",
+    "text": "Its saddle"
+  },
+  {
+    "kind": "question",
+    "text": "He would put its saddle in front of him and pray facing its back part, Ibn Umar said."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Umar used to do the same as he ﷺ did."
+  },
+  {
+    "kind": "question",
+    "text": "Nafi, who learned from Ibn Umar, saw him follow the Prophet ﷺ in this."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about the sutrah in prayer!"
+  },
+  {
+    "kind": "lesson",
     "text": "Allah's right on His servants: worship Him and join no partner."
   },
   {
@@ -84310,10 +84838,6 @@
   {
     "kind": "lesson",
     "text": "Between the jaws: the tongue"
-  },
-  {
-    "kind": "lesson",
-    "text": "Told by Sahl ibn Sa'd"
   },
   {
     "kind": "source",
@@ -134297,10 +134821,6 @@
   },
   {
     "kind": "question",
-    "text": "His she-camel"
-  },
-  {
-    "kind": "question",
     "text": "Al-Fath means the victory or opening."
   },
   {
@@ -176749,6 +177269,406 @@
   },
   {
     "kind": "lesson",
+    "text": "The camels drew near, to see which he ﷺ would offer first."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abdullah ibn Qurt"
+  },
+  {
+    "kind": "lesson",
+    "text": "Budn: camels brought for sacrifice"
+  },
+  {
+    "kind": "lesson",
+    "text": "They came near on their own"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 1765"
+  },
+  {
+    "kind": "question",
+    "text": "What did the camels do when brought to him ﷺ?"
+  },
+  {
+    "kind": "question",
+    "text": "They turned back home"
+  },
+  {
+    "kind": "question",
+    "text": "They came close to him"
+  },
+  {
+    "kind": "question",
+    "text": "They ran off"
+  },
+  {
+    "kind": "question",
+    "text": "They lay down to rest"
+  },
+  {
+    "kind": "question",
+    "text": "They began to draw near to see which he would sacrifice first, Abdullah ibn Qurt said."
+  },
+  {
+    "kind": "question",
+    "text": "Why did the camels draw near, Abdullah ibn Qurt said?"
+  },
+  {
+    "kind": "question",
+    "text": "To be sacrificed first"
+  },
+  {
+    "kind": "question",
+    "text": "To drink some water"
+  },
+  {
+    "kind": "question",
+    "text": "To eat some grass"
+  },
+  {
+    "kind": "question",
+    "text": "To find some shade"
+  },
+  {
+    "kind": "question",
+    "text": "Each came closer to see which of them he ﷺ would offer first."
+  },
+  {
+    "kind": "question",
+    "text": "The camels moved away from him ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "The camels began to draw near him, to see which he would sacrifice first."
+  },
+  {
+    "kind": "lesson",
+    "text": "On Eid al-Adha, he ﷺ ate only after the prayer."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Buraydah ibn al-Hasib"
+  },
+  {
+    "kind": "lesson",
+    "text": "Adha: the Eid of the sacrifice"
+  },
+  {
+    "kind": "lesson",
+    "text": "On Eid al-Fitr, he ﷺ ate first"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 542"
+  },
+  {
+    "kind": "question",
+    "text": "When did he ﷺ eat on the day of Adha?"
+  },
+  {
+    "kind": "question",
+    "text": "After the prayer"
+  },
+  {
+    "kind": "question",
+    "text": "Before the prayer"
+  },
+  {
+    "kind": "question",
+    "text": "He would not eat on the day of Adha until he prayed, Buraydah said."
+  },
+  {
+    "kind": "question",
+    "text": "On the morning of Eid al-Adha, what fits his ﷺ way?"
+  },
+  {
+    "kind": "question",
+    "text": "Skip the Eid prayer"
+  },
+  {
+    "kind": "question",
+    "text": "Fast the whole day"
+  },
+  {
+    "kind": "question",
+    "text": "Eat after the Eid prayer"
+  },
+  {
+    "kind": "question",
+    "text": "Eat a big meal first"
+  },
+  {
+    "kind": "question",
+    "text": "On the day of Adha he ﷺ would not eat until he had prayed, Buraydah said."
+  },
+  {
+    "kind": "question",
+    "text": "On Eid al-Adha, the sunnah is to eat after the prayer."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ would not eat on the day of Adha until he prayed, Buraydah said."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ offered his sacrifice at the Eid prayer place."
+  },
+  {
+    "kind": "lesson",
+    "text": "Musalla: the open Eid prayer place"
+  },
+  {
+    "kind": "lesson",
+    "text": "Nafi heard it from Ibn Umar"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan an-Nasa'i 4366"
+  },
+  {
+    "kind": "question",
+    "text": "Where did he ﷺ use to offer the sacrifice, Ibn Umar said?"
+  },
+  {
+    "kind": "question",
+    "text": "Beside the sea"
+  },
+  {
+    "kind": "question",
+    "text": "On a mountain top"
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ used to offer the sacrifice at the prayer place, Ibn Umar told Nafi."
+  },
+  {
+    "kind": "question",
+    "text": "Who told Nafi where he ﷺ offered the sacrifice?"
+  },
+  {
+    "kind": "question",
+    "text": "Abdullah ibn Umar told Nafi that he ﷺ used to sacrifice at the prayer place."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ used to offer his sacrifice where the Eid prayer was held."
+  },
+  {
+    "kind": "question",
+    "text": "The Messenger of Allah ﷺ used to offer the sacrifice at the prayer place, Ibn Umar said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Four kinds of animal will not do as a sacrifice."
+  },
+  {
+    "kind": "lesson",
+    "text": "Udhiyah: the Eid sacrifice"
+  },
+  {
+    "kind": "lesson",
+    "text": "Choose a healthy animal"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan an-Nasa'i 4369"
+  },
+  {
+    "kind": "question",
+    "text": "How many kinds will not do as sacrifices, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "Two kinds"
+  },
+  {
+    "kind": "question",
+    "text": "Six kinds"
+  },
+  {
+    "kind": "question",
+    "text": "Ten kinds"
+  },
+  {
+    "kind": "question",
+    "text": "Four kinds"
+  },
+  {
+    "kind": "question",
+    "text": "There are four that will not do as sacrifices, Al-Bara heard him ﷺ say."
+  },
+  {
+    "kind": "question",
+    "text": "Which of these will not do as a sacrifice?"
+  },
+  {
+    "kind": "question",
+    "text": "A clearly sick animal"
+  },
+  {
+    "kind": "question",
+    "text": "A healthy sheep"
+  },
+  {
+    "kind": "question",
+    "text": "A well-fed cow"
+  },
+  {
+    "kind": "question",
+    "text": "An animal that is obviously sick is one of the four that will not do, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "A lame animal with a clear limp will not do as a sacrifice."
+  },
+  {
+    "kind": "question",
+    "text": "The lame animal with an obvious limp is one of the four that will not do, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Sharpen the blade, and put the animal at ease."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Shaddad ibn Aws"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ihsan: doing a thing well"
+  },
+  {
+    "kind": "lesson",
+    "text": "Mercy to the animal"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 1409"
+  },
+  {
+    "kind": "question",
+    "text": "What has Allah decreed in everything, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "Doing things fast"
+  },
+  {
+    "kind": "question",
+    "text": "Doing things alone"
+  },
+  {
+    "kind": "question",
+    "text": "Doing things later"
+  },
+  {
+    "kind": "question",
+    "text": "Doing things well"
+  },
+  {
+    "kind": "question",
+    "text": "Indeed Allah has decreed ihsan in everything, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Before a sacrifice, what should one do to his blade?"
+  },
+  {
+    "kind": "question",
+    "text": "Sharpen it"
+  },
+  {
+    "kind": "question",
+    "text": "Leave it dull"
+  },
+  {
+    "kind": "question",
+    "text": "Paint it red"
+  },
+  {
+    "kind": "question",
+    "text": "Bend it a little"
+  },
+  {
+    "kind": "question",
+    "text": "Let one of you sharpen his blade, and let him comfort his animal, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "One should put his animal at ease before the sacrifice."
+  },
+  {
+    "kind": "question",
+    "text": "Let him comfort his animal, he ﷺ said, after he sharpens his blade."
+  },
+  {
+    "kind": "lesson",
+    "text": "On a journey, he ﷺ had his sacrifice meat kept for the road."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Thawban"
+  },
+  {
+    "kind": "lesson",
+    "text": "Thawban served the Prophet ﷺ"
+  },
+  {
+    "kind": "lesson",
+    "text": "The meat lasted until Madinah"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 2814"
+  },
+  {
+    "kind": "question",
+    "text": "Whom did he ﷺ ask to prepare the meat?"
+  },
+  {
+    "kind": "question",
+    "text": "Thawban, mend the meat of this goat, he ﷺ said on the journey."
+  },
+  {
+    "kind": "question",
+    "text": "Until when did the meat last?"
+  },
+  {
+    "kind": "question",
+    "text": "Until that evening"
+  },
+  {
+    "kind": "question",
+    "text": "Until the next morning"
+  },
+  {
+    "kind": "question",
+    "text": "Until they reached Makkah"
+  },
+  {
+    "kind": "question",
+    "text": "Until they reached Madinah"
+  },
+  {
+    "kind": "question",
+    "text": "I kept on giving him of its meat until we reached Madinah, Thawban said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ offered a sacrifice while on a journey."
+  },
+  {
+    "kind": "question",
+    "text": "The Messenger of Allah ﷺ sacrificed during a journey, Thawban said."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about the day of sacrifice!"
+  },
+  {
+    "kind": "lesson",
     "text": "Faith in the Last Day is a pillar of iman."
   },
   {
@@ -183122,10 +184042,6 @@
   {
     "kind": "lesson",
     "text": "Walking to the masjid in the dark brings light on that Day."
-  },
-  {
-    "kind": "lesson",
-    "text": "Told by Buraydah ibn al-Hasib"
   },
   {
     "kind": "lesson",
@@ -196213,10 +197129,6 @@
   },
   {
     "kind": "question",
-    "text": "After the prayer"
-  },
-  {
-    "kind": "question",
     "text": "When they saw him ﷺ"
   },
   {
@@ -202317,6 +203229,398 @@
   },
   {
     "kind": "lesson",
+    "text": "In the prayer, one is busy with something greater."
+  },
+  {
+    "kind": "lesson",
+    "text": "An-Najashi: the ruler of Ethiopia"
+  },
+  {
+    "kind": "lesson",
+    "text": "Salam: the greeting of peace"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1199"
+  },
+  {
+    "kind": "question",
+    "text": "Why did he ﷺ not answer their salam in the prayer?"
+  },
+  {
+    "kind": "question",
+    "text": "The prayer keeps one busy"
+  },
+  {
+    "kind": "question",
+    "text": "He did not hear them"
+  },
+  {
+    "kind": "question",
+    "text": "The masjid was too loud"
+  },
+  {
+    "kind": "question",
+    "text": "They spoke too softly"
+  },
+  {
+    "kind": "question",
+    "text": "In the prayer one is occupied with a more serious matter, he ﷺ said after praying."
+  },
+  {
+    "kind": "question",
+    "text": "Who was An-Najashi, whom they came back from?"
+  },
+  {
+    "kind": "question",
+    "text": "A poet of Madinah"
+  },
+  {
+    "kind": "question",
+    "text": "The ruler of Ethiopia"
+  },
+  {
+    "kind": "question",
+    "text": "The ruler of Persia"
+  },
+  {
+    "kind": "question",
+    "text": "A trader of Makkah"
+  },
+  {
+    "kind": "question",
+    "text": "They came back from An-Najashi, the ruler of Ethiopia, Ibn Mas'ud said."
+  },
+  {
+    "kind": "question",
+    "text": "In the early days, he ﷺ would answer a salam during the prayer."
+  },
+  {
+    "kind": "question",
+    "text": "We used to greet him while he was praying, and he used to answer, Ibn Mas'ud said."
+  },
+  {
+    "kind": "lesson",
+    "text": "When 2:238 came down, they kept silent in prayer."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Zayd ibn Arqam"
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Baqarah 2:238: guard the prayers"
+  },
+  {
+    "kind": "lesson",
+    "text": "From then on, no talking in prayer"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1200"
+  },
+  {
+    "kind": "question",
+    "text": "After 2:238 came down, what were they ordered to do in prayer?"
+  },
+  {
+    "kind": "question",
+    "text": "Speak only to the imam"
+  },
+  {
+    "kind": "question",
+    "text": "Remain silent"
+  },
+  {
+    "kind": "question",
+    "text": "Speak softly"
+  },
+  {
+    "kind": "question",
+    "text": "Speak in turns"
+  },
+  {
+    "kind": "question",
+    "text": "After that we were ordered to remain silent while praying, Zayd ibn Arqam said."
+  },
+  {
+    "kind": "question",
+    "text": "Which ayah did Zayd name for this order?"
+  },
+  {
+    "kind": "question",
+    "text": "Seek help in patience and prayer"
+  },
+  {
+    "kind": "question",
+    "text": "Establish the prayer and give zakah"
+  },
+  {
+    "kind": "question",
+    "text": "Guard strictly the prayers"
+  },
+  {
+    "kind": "question",
+    "text": "They used to speak while praying, until 2:238 came: guard strictly the prayers, Zayd said."
+  },
+  {
+    "kind": "question",
+    "text": "In the early days, one could tell his companions his needs in prayer."
+  },
+  {
+    "kind": "question",
+    "text": "One of us would tell his needs to his companions, until 2:238 came, Zayd said."
+  },
+  {
+    "kind": "lesson",
+    "text": "If you must smooth the ground for sujud, do it once."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Mu'ayqib"
+  },
+  {
+    "kind": "lesson",
+    "text": "Sujud: the forehead on the ground"
+  },
+  {
+    "kind": "lesson",
+    "text": "Once, and only if you must"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1207"
+  },
+  {
+    "kind": "question",
+    "text": "If you must smooth the ground in sujud, how often?"
+  },
+  {
+    "kind": "question",
+    "text": "Every time"
+  },
+  {
+    "kind": "question",
+    "text": "If you have to do so, then do it once, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "What was the man doing where he prostrated?"
+  },
+  {
+    "kind": "question",
+    "text": "Sweeping the masjid"
+  },
+  {
+    "kind": "question",
+    "text": "Spreading a mat"
+  },
+  {
+    "kind": "question",
+    "text": "Washing the floor"
+  },
+  {
+    "kind": "question",
+    "text": "Leveling the ground"
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ spoke of a man leveling the earth where he prostrated, Mu'ayqib said."
+  },
+  {
+    "kind": "question",
+    "text": "Smoothing the ground many times in sujud is the sunnah."
+  },
+  {
+    "kind": "question",
+    "text": "If you have to smooth the ground, then do it once, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "The prayer kept him ﷺ from answering Jabir's salam."
+  },
+  {
+    "kind": "lesson",
+    "text": "Jabir came back from an errand"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ explained after praying"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1217"
+  },
+  {
+    "kind": "question",
+    "text": "Why did he ﷺ not return Jabir's greeting at first?"
+  },
+  {
+    "kind": "question",
+    "text": "He was too far off"
+  },
+  {
+    "kind": "question",
+    "text": "He did not hear it"
+  },
+  {
+    "kind": "question",
+    "text": "What kept me from returning the greeting was that I was praying, he ﷺ told Jabir."
+  },
+  {
+    "kind": "question",
+    "text": "How did Jabir feel when no answer came?"
+  },
+  {
+    "kind": "question",
+    "text": "Very sorry"
+  },
+  {
+    "kind": "question",
+    "text": "Very glad"
+  },
+  {
+    "kind": "question",
+    "text": "Very hungry"
+  },
+  {
+    "kind": "question",
+    "text": "Very sleepy"
+  },
+  {
+    "kind": "question",
+    "text": "I felt so sorry that only Allah knows it, Jabir said."
+  },
+  {
+    "kind": "question",
+    "text": "After the prayer, he ﷺ told Jabir why he had not answered."
+  },
+  {
+    "kind": "question",
+    "text": "He returned the greeting and explained that he had been praying, Jabir said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Do not keep your hands on your hips in prayer."
+  },
+  {
+    "kind": "lesson",
+    "text": "From the Prophet ﷺ"
+  },
+  {
+    "kind": "lesson",
+    "text": "Khasr: hands on the hips"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1219"
+  },
+  {
+    "kind": "question",
+    "text": "What was forbidden during the prayer?"
+  },
+  {
+    "kind": "question",
+    "text": "Hands raised at the first takbir"
+  },
+  {
+    "kind": "question",
+    "text": "Forehead on the ground in sujud"
+  },
+  {
+    "kind": "question",
+    "text": "Hands on the hips"
+  },
+  {
+    "kind": "question",
+    "text": "Keeping the hands on the hips during the prayer was forbidden, Abu Hurairah said."
+  },
+  {
+    "kind": "question",
+    "text": "From whom did Abu Hurairah narrate this?"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Hurairah narrated it from the Prophet ﷺ, al-Bukhari writes."
+  },
+  {
+    "kind": "question",
+    "text": "Standing with hands on the hips is a good way to pray."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Hurairah remembered which surah was recited in Isha."
+  },
+  {
+    "kind": "lesson",
+    "text": "Isha: the night prayer"
+  },
+  {
+    "kind": "lesson",
+    "text": "He listened with care"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1223"
+  },
+  {
+    "kind": "question",
+    "text": "What did Abu Hurairah ask the man about?"
+  },
+  {
+    "kind": "question",
+    "text": "The time of Isha"
+  },
+  {
+    "kind": "question",
+    "text": "The way to the masjid"
+  },
+  {
+    "kind": "question",
+    "text": "The number of rak'ahs"
+  },
+  {
+    "kind": "question",
+    "text": "The surah recited in Isha"
+  },
+  {
+    "kind": "question",
+    "text": "Which surah did he ﷺ recite yesterday in Isha? Abu Hurairah asked the man."
+  },
+  {
+    "kind": "question",
+    "text": "What did the man answer?"
+  },
+  {
+    "kind": "question",
+    "text": "I was traveling"
+  },
+  {
+    "kind": "question",
+    "text": "I was at home"
+  },
+  {
+    "kind": "question",
+    "text": "I was not there"
+  },
+  {
+    "kind": "question",
+    "text": "The man had attended the prayer, yet he said he did not know, Abu Hurairah said."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Hurairah knew which surah was recited in that Isha."
+  },
+  {
+    "kind": "question",
+    "text": "I know, he recited such and such surah, Abu Hurairah told the man."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about the Book of Actions in Prayer!"
+  },
+  {
+    "kind": "lesson",
     "text": "Allah tells believers: remember Me much, morning and evening."
   },
   {
@@ -207333,10 +208637,6 @@
   },
   {
     "kind": "question",
-    "text": "On a mountain top"
-  },
-  {
-    "kind": "question",
     "text": "Glad tidings to those who find a lot of seeking forgiveness there, he ﷺ said."
   },
   {
@@ -210116,10 +211416,6 @@
     "text": "Do not mix truth with lies"
   },
   {
-    "kind": "lesson",
-    "text": "Seek help in patience and prayer"
-  },
-  {
     "kind": "source",
     "text": "Quran 2:45"
   },
@@ -210178,10 +211474,6 @@
   {
     "kind": "question",
     "text": "They forget to do it themselves"
-  },
-  {
-    "kind": "question",
-    "text": "They spoke too softly"
   },
   {
     "kind": "question",
@@ -266953,10 +268245,6 @@
   },
   {
     "kind": "question",
-    "text": "His donkey"
-  },
-  {
-    "kind": "question",
     "text": "His food and drink"
   },
   {
@@ -277390,10 +278678,6 @@
   {
     "kind": "question",
     "text": "From our own deeds"
-  },
-  {
-    "kind": "question",
-    "text": "From the Prophet ﷺ"
   },
   {
     "kind": "question",
@@ -298862,10 +300146,6 @@
   {
     "kind": "question",
     "text": "The Friday after Hajj"
-  },
-  {
-    "kind": "question",
-    "text": "The day of sacrifice"
   },
   {
     "kind": "question",
@@ -499893,10 +501173,6 @@
   },
   {
     "kind": "question",
-    "text": "Very hungry"
-  },
-  {
-    "kind": "question",
     "text": "Often absent"
   },
   {
@@ -507434,10 +508710,6 @@
   {
     "kind": "question",
     "text": "Someone who warns against evil should be...?"
-  },
-  {
-    "kind": "question",
-    "text": "Close to it"
   },
   {
     "kind": "question",
