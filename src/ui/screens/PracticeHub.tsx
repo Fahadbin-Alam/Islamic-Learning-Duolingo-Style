@@ -47,6 +47,8 @@ export type PracticeHubProps = {
   /** How many of its surahs (and parts) have stars on this phone, and how many there are. */
   memorizeDone?: number;
   memorizeTotal?: number;
+  /** How many memorized ones are ready to review today: the row says so, in review blue. */
+  memorizeDue?: number;
   /** MY LESSONS: practice questions from lessons already done. Left out until there are enough of them. */
   onStartLessonPractice?: () => void;
   /** Tabs replace back buttons; kept so the old call site still type-checks. */
@@ -56,6 +58,9 @@ export type PracticeHubProps = {
   /** The topic accent the path uses: the mascot's clothes and the level check's color, so the mascot looks the same everywhere. */
   accent?: string;
 };
+
+/** Memorized surahs ready to review: in review blue, as the sheet shows them. */
+const MEMORIZE_REVIEW_INK = darken(colors.gemLip, 0.3);
 
 function isToday(value: string | undefined, now = new Date()) {
   if (!value) return false;
@@ -200,12 +205,14 @@ export function PracticeHub({
   onOpenMemorize,
   memorizeDone = 0,
   memorizeTotal = 0,
+  memorizeDue = 0,
   quizBest,
   mascotVariant = "hijabi",
   // The mascot's own default, so it matches the other screens when no accent is passed.
   accent = colors.green
 }: PracticeHubProps) {
   const t = (value: string) => translateStudyText(value, language);
+  const memorizeDueLine = memorizeDue > 0 ? t("{count} ready to review today").replace("{count}", formatNumber(memorizeDue)) : "";
   // Missed lesson questions due again come first; then the Basics questions missed in a level check or challenge.
   const deckDue = onStartReviewDeck ? reviewDueCount : 0;
   const reviewCount = deckDue + learnerProfile.needs_review_question_ids.length;
@@ -379,7 +386,7 @@ export function PracticeHub({
             onPress={onOpenMemorize}
             style={[styles.basicsRow, styles.quizRow, styles.memorizeRow]}
             testID="practice-memorize"
-            accessibilityLabel={memorizeDone > 0 ? `${t("Memorize surahs")}, ${memorizeDone}/${memorizeTotal}` : t("Memorize surahs")}
+            accessibilityLabel={[t("Memorize surahs"), memorizeDone > 0 ? `${memorizeDone}/${memorizeTotal}` : "", memorizeDueLine].filter(Boolean).join(", ")}
           >
             <View style={[styles.basicsIcon, styles.quizIcon]}>
               <Icon name="quran" size={30} />
@@ -388,9 +395,18 @@ export function PracticeHub({
               <Text style={styles.basicsTitle} numberOfLines={1}>
                 {t("Memorize surahs")}
               </Text>
-              <Text style={[styles.quizLine, styles.memorizeLine]} numberOfLines={2}>
-                {t("Short surahs, ayah by ayah, with the reciter")}
-              </Text>
+              {memorizeDueLine ? (
+                <View style={styles.memorizeDue} testID="practice-memorize-review">
+                  <Icon name="repeat" size={16} color={MEMORIZE_REVIEW_INK} />
+                  <Text style={[styles.quizLine, styles.memorizeDueText]} numberOfLines={2}>
+                    {memorizeDueLine}
+                  </Text>
+                </View>
+              ) : (
+                <Text style={[styles.quizLine, styles.memorizeLine]} numberOfLines={2}>
+                  {t("Short surahs, ayah by ayah, with the reciter")}
+                </Text>
+              )}
             </View>
             <View style={[styles.rowEnd, styles.quizEnd]}>
               {memorizeDone > 0 ? (
@@ -727,6 +743,22 @@ const styles = StyleSheet.create({
   },
   memorizePillText: {
     color: darken(colors.greenLip, 0.3)
+  },
+  memorizeDue: {
+    flexDirection: "row",
+    alignItems: "center",
+    maxWidth: "100%",
+    gap: 4,
+    marginTop: 2,
+    paddingHorizontal: 10,
+    paddingVertical: 2,
+    borderRadius: radii.pill,
+    backgroundColor: colors.white
+  },
+  memorizeDueText: {
+    flexShrink: 1,
+    fontFamily: fonts.bodyHeavy,
+    color: MEMORIZE_REVIEW_INK
   },
   quizPill: {
     paddingHorizontal: 10,

@@ -1015,5 +1015,10 @@
   "Hear an ayah, tap its surah": "একটি আয়াত শোনো, তার সূরা বেছে নাও",
   "Every surah right!": "সব সূরা ঠিক!",
   "Surah complete!": "সূরা সম্পূর্ণ!",
-  "{count} of {total} surahs complete": "{total}টির মধ্যে {count}টি সূরা সম্পূর্ণ"
+  "{count} of {total} surahs complete": "{total}টির মধ্যে {count}টি সূরা সম্পূর্ণ",
+  "Review today": "আজকের রিভিউ",
+  "{title} and {count} more": "{title} ও আরও {count}টি",
+  "{count} ready to review today": "আজ রিভিউয়ের জন্য {count}টি প্রস্তুত",
+  "Review it again tomorrow": "কাল আবার রিভিউ করো",
+  "Review it again in {count} days": "{count} দিন পরে আবার রিভিউ করো"
 }

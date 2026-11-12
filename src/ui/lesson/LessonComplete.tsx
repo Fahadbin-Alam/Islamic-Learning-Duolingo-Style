@@ -53,6 +53,8 @@ export type LessonCompleteProps = {
   finishedSets?: AlbumSet[];
   /** Memorize surahs: this practice finished the last part of a surah, now complete. Its gold badge lands, with a fanfare. */
   surahComplete?: SurahComplete;
+  /** Memorize surahs: in how many days the surah (or part) comes back to review, said in a blue pill. */
+  nextReview?: number;
   mascotVariant: string;
   accent: string;
   /** When set, the main button reads NEXT LESSON. */
@@ -78,6 +80,8 @@ const XP_INK = darken(colors.goldLip, 0.25);
 const GOLD_LABEL = darken(colors.goldLip, 0.45);
 const STREAK_INK = darken(colors.flame, 0.3);
 const HEADLINE = darken(colors.goldLip, 0.2);
+// Review is blue, as in Practice.
+const REVIEW_INK = darken(colors.gemLip, 0.25);
 const CARD_DELAY = 350;
 const CARD_STAGGER = 140;
 /** When a finished album set's badge lands: after the new pictures have popped in. */
@@ -193,6 +197,7 @@ function LessonCompleteCard({
   newPictures,
   finishedSets,
   surahComplete,
+  nextReview,
   mascotVariant,
   accent,
   nextTitle,
@@ -359,7 +364,7 @@ function LessonCompleteCard({
           )}
         </View>
 
-        {unlockedTitle || gemsReward ? (
+        {unlockedTitle || gemsReward || nextReview ? (
           <View style={styles.pills}>
             {unlockedTitle ? (
               <PopIn delay={CARD_DELAY + 3 * CARD_STAGGER} style={[styles.pill, { backgroundColor: lighten(colors.green, 0.85) }]}>
@@ -371,6 +376,14 @@ function LessonCompleteCard({
               <PopIn delay={CARD_DELAY + 4 * CARD_STAGGER} style={[styles.pill, { backgroundColor: lighten(colors.date, 0.86) }]}>
                 <Icon name="date" size={18} />
                 <Text style={[styles.pillText, { color: colors.dateLip }]}>{t("+{count} dates", { count: gemsReward })}</Text>
+              </PopIn>
+            ) : null}
+            {nextReview ? (
+              <PopIn delay={CARD_DELAY + 4 * CARD_STAGGER + 120} style={[styles.pill, { backgroundColor: lighten(colors.gem, 0.86) }]}>
+                <Icon name="repeat" size={18} color={REVIEW_INK} />
+                <Text style={[styles.pillText, { color: REVIEW_INK }]} testID="complete-next-review">
+                  {nextReview <= 1 ? t("Review it again tomorrow") : t("Review it again in {count} days", { count: nextReview })}
+                </Text>
               </PopIn>
             ) : null}
           </View>

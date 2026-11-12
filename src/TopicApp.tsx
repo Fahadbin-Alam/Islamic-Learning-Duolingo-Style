@@ -210,7 +210,7 @@ import { quranAudioUrl } from "./services/quranAudio";
 import { useAyahPlayback } from "./ui/lesson/AyahListen";
 import { listenWhy, withListenQuestion } from "./ui/lesson/listenQuestion";
 import { completeSurahs, hifzAyahs, memorizeParts, memorizeSurahNumbers, withReciteQuestion, type HifzPart } from "./ui/lesson/reciteQuestion";
-import { memorizeStars, recordMemorized, useMemorizeStars } from "./services/memorizeSurahs";
+import { isReviewDue, localDay, memorizeStars, recordMemorized, recordReview, useMemorizeReviews, useMemorizeStars } from "./services/memorizeSurahs";
 import type { SurahComplete } from "./ui/lesson/SurahCompleteBadge";
 import { SURAH_NAMES } from "./data/surahMeanings";
 import { colors, configureUiSound, darken, preloadUiSounds, fonts, Icon, lighten, Mascot, PopIn, radii, space, Tappable } from "./ui";
@@ -423,6 +423,8 @@ type LessonCelebration = {
   memorize?: boolean;
   /** That practice finished the last part of its surah, now complete: the card shows its gold badge. */
   surahComplete?: SurahComplete;
+  /** A memorized part: in how many days it comes back for review. */
+  nextReview?: number;
 };
 
 interface AppState {
@@ -1368,6 +1370,13 @@ export default function TopicApp() {
   // The surah practised last: the list opens at it again, with its new stars.
   const [memorizeFocus, setMemorizeFocus] = useState<string>();
   const memorizeStarsNow = useMemorizeStars();
+  const memorizeReviewsNow = useMemorizeReviews();
+  // Today, for which memorized surahs are ready to review: a new day once the learner is back in the app.
+  const [memorizeToday, setMemorizeToday] = useState(localDay);
+  useEffect(() => {
+    const listener = PhoneAppState.addEventListener("change", (status) => status === "active" && setMemorizeToday(localDay()));
+    return () => listener.remove();
+  }, []);
   const albumFound = useAlbum();
   const certificatesBefore = useRef<{ userId?: number; ids?: Set<string> }>({});
   useEffect(() => {
@@ -1490,8 +1499,13 @@ export default function TopicApp() {
   // Worked out only on the Practice tab or while the sheet is open.
   const memorizeShown = state.screen === "review" || memorizeVisible;
   const memorizeRows = useMemo<MemorizeSheetRow[]>(
-    () => (memorizeShown ? memorizeParts().map((part) => memorizeRow(part, currentLanguage, memorizeStarsNow[part.id] ?? 0)) : []),
-    [currentLanguage, memorizeShown, memorizeStarsNow]
+    () =>
+      memorizeShown
+        ? memorizeParts().map((part) =>
+            memorizeRow(part, currentLanguage, memorizeStarsNow[part.id] ?? 0, isReviewDue(part.id, memorizeStarsNow, memorizeReviewsNow, memorizeToday))
+          )
+        : [],
+    [currentLanguage, memorizeShown, memorizeStarsNow, memorizeReviewsNow, memorizeToday]
   );
 
   // The Quizzes sheet: every topic with a quiz (Ramadan only in its season), each with its units' quizzes and the
@@ -2511,6 +2525,8 @@ export default function TopicApp() {
       // A memorized surah keeps its best stars on this phone, for its row in Memorize surahs; so does "Which surah is it?".
       if (memorize) recordMemorized(memorize.part, stars);
       if (whichSurah) recordMemorized(WHICH_SURAH_ID, stars);
+      // A memorized part comes back for review: sooner after a mistake, further off after each review with none.
+      const nextReview = memorize ? recordReview(memorize.part, stars) : undefined;
       const complete = surahWasComplete ? [] : completeSurahs(memorizeStars());
       const surahComplete: SurahComplete | undefined =
         memorize && complete.includes(memorize.surah)
@@ -2537,7 +2553,8 @@ export default function TopicApp() {
         streakDays: nextUser.streakDays,
         // Back to Memorize surahs after it.
         memorize: Boolean(memorize || whichSurah),
-        surahComplete
+        surahComplete,
+        nextReview
       });
       const xpSummary = await learningApi.getXpSummaries(nextUser);
       dispatch({ type: "finish_lesson", user: nextUser, xpSummary });
@@ -2831,6 +2848,7 @@ export default function TopicApp() {
     }
 
     dispatch({ type: "open_review" });
+    setMemorizeToday(localDay());
     setMemorizeVisible(true);
   }
 
@@ -4380,6 +4398,7 @@ export default function TopicApp() {
             newPictures={lessonCompleteSummary.newPictures}
             finishedSets={lessonCompleteSummary.finishedSets}
             surahComplete={lessonCompleteSummary.surahComplete}
+            nextReview={lessonCompleteSummary.nextReview}
             mascotVariant={lessonMascot}
             accent={lessonAccent}
             nextTitle={lessonCompleteSummary.memorize ? undefined : nextLessonNode?.title}
@@ -4434,9 +4453,17 @@ export default function TopicApp() {
             onOpenSayIt={() => setSayItVisible(true)}
             onOpenSprint={sprintReady ? () => setSprintVisible(true) : undefined}
             sprintBest={sprintBest}
-            onOpenMemorize={memorizeRows.length ? () => setMemorizeVisible(true) : undefined}
+            onOpenMemorize={
+              memorizeRows.length
+                ? () => {
+                    setMemorizeToday(localDay());
+                    setMemorizeVisible(true);
+                  }
+                : undefined
+            }
             memorizeDone={memorizeRows.filter((row) => row.stars > 0).length}
             memorizeTotal={memorizeRows.length}
+            memorizeDue={memorizeRows.filter((row) => row.due).length}
             quizBest={getQuizScore(state.user, { kind: "topic", topicId: selectedSection.topicId })?.best}
             onGoFoundation={() => openTopicScreen("foundation")}
           />
@@ -5084,7 +5111,7 @@ function memorizeTitle(part: Pick<HifzPart, "surah" | "from" | "to" | "ayahs">, 
 }
 
 /** A surah's row in Memorize surahs. Arabic and Urdu name it in Arabic letters already, so only the others add the Arabic. */
-function memorizeRow(part: HifzPart, language: SupportedLanguage, stars: number): MemorizeSheetRow {
+function memorizeRow(part: HifzPart, language: SupportedLanguage, stars: number, due: boolean): MemorizeSheetRow {
   const whole = part.to - part.from + 1 >= part.ayahs;
   return {
     id: part.id,
@@ -5093,6 +5120,7 @@ function memorizeRow(part: HifzPart, language: SupportedLanguage, stars: number)
     arabic: language === "ar" || language === "ur" ? undefined : surahArabicName(part.surah),
     line: whole ? t("{count} ayahs", { count: part.ayahs }) : t("Ayahs {from}-{to}", { from: part.from, to: part.to }),
     stars,
+    due,
     ayahs: hifzAyahs(part),
     surahAyahs: part.ayahs
   };

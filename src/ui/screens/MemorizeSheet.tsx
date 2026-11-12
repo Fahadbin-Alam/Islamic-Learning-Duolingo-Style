@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { ActivityIndicator, Animated, Platform, ScrollView, StyleSheet, Text, View, type LayoutChangeEvent } from "react-native";
+import { ActivityIndicator, Animated, Easing, Platform, ScrollView, StyleSheet, Text, View, type LayoutChangeEvent } from "react-native";
 import { getActiveLanguage, t } from "../../i18n";
 import { AYAH_WORD_TIMES_CREDIT } from "../../services/ayahWords";
 import { useOnline } from "../../services/network";
@@ -33,6 +33,8 @@ export type MemorizeSheetRow = {
   line: string;
   /** The best stars so far, 0 before the first try. */
   stars: number;
+  /** Memorized (three stars) and its review day has come: time to say it again from memory (isReviewDue). */
+  due?: boolean;
   /** Its ayahs in order, listed on its page to listen to before practising. */
   ayahs: readonly MemorizeAyah[];
   /** How many ayahs the whole surah has ("Ayah 2 of 4"). */
@@ -58,6 +60,9 @@ export type MemorizeSheetProps = {
 const GOLD_INK = darken(colors.gold, 0.45);
 const GOLD_DEEP = darken(colors.gold, 0.3);
 const LISTEN_COLOR = colors.green;
+/** Review is blue in Practice, as the missed questions' review is. */
+const REVIEW_COLOR = colors.gem;
+const REVIEW_INK = darken(colors.gemLip, 0.2);
 /** With "Each ayah 3 times" on, the reciter says each ayah this many times before the next one. */
 const REPEAT_TIMES = 3;
 /** The ayahs' size on a surah's page, bigger with "Bigger text" in Settings. */
@@ -173,6 +178,68 @@ function WhichSurahRow({ stars, onStart }: { stars: number; onStart: () => void 
         </Text>
       </View>
       <Stars stars={stars} testID="memorize-which-stars" />
+    </Tappable>
+  );
+}
+
+/** "Review today" under a memorized surah whose review day has come. */
+function DueChip({ testID }: { testID?: string }) {
+  return (
+    <View style={styles.dueChip} testID={testID}>
+      <Icon name="repeat" size={14} color={REVIEW_INK} />
+      <Text style={styles.dueChipText} numberOfLines={1}>
+        {t("Review today")}
+      </Text>
+    </View>
+  );
+}
+
+/**
+ * On top of the list once a memorized surah's review day has come: a tap starts the first one's questions straight
+ * away, to say it from memory. Its arrows turn now and then (still with less motion).
+ */
+function ReviewCard({ due, onStart }: { due: readonly MemorizeSheetRow[]; onStart: (id: string) => void }) {
+  const reduceMotion = useReduceMotion();
+  const spin = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    if (reduceMotion) {
+      spin.setValue(0);
+      return undefined;
+    }
+    const loop = Animated.loop(
+      Animated.sequence([Animated.delay(2200), Animated.timing(spin, { toValue: 1, duration: 700, easing: Easing.inOut(Easing.cubic), useNativeDriver: true })])
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [reduceMotion, spin]);
+  const turn = spin.interpolate({ inputRange: [0, 1], outputRange: ["0deg", "360deg"] });
+  const first = due[0];
+  const title = t("Review today");
+  const line = due.length > 1 ? t("{title} and {count} more", { title: first.title, count: formatNumber(due.length - 1) }) : first.title;
+  return (
+    <Tappable
+      onPress={() => onStart(first.id)}
+      sound="node_tap"
+      pressScale={0.97}
+      accessibilityRole="button"
+      accessibilityLabel={`${title}, ${line}`}
+      testID="memorize-review"
+      style={[styles.row, styles.reviewRow]}
+    >
+      <View style={styles.reviewBadge}>
+        <Animated.View style={{ transform: [{ rotate: turn }] }}>
+          <Icon name="repeat" size={26} color={colors.white} />
+        </Animated.View>
+      </View>
+      <View style={styles.rowText}>
+        <Text style={styles.rowTitle} numberOfLines={2}>
+          {title}
+        </Text>
+        <Text style={styles.rowLine} numberOfLines={2} testID="memorize-review-line">
+          {line}
+        </Text>
+      </View>
+      <Icon name="chevronRight" size={24} color={REVIEW_INK} />
     </Tappable>
   );
 }
@@ -330,6 +397,7 @@ function SurahPage({ row, onPractice, bottomInset }: { row: MemorizeSheetRow; on
             <Text style={styles.rowLine} numberOfLines={1}>
               {row.line}
             </Text>
+            {row.due ? <DueChip testID="memorize-page-due" /> : null}
           </View>
           <Stars stars={row.stars} testID="memorize-page-stars" />
         </View>
@@ -407,25 +475,32 @@ function SurahPage({ row, onPractice, bottomInset }: { row: MemorizeSheetRow; on
   );
 }
 
-/** The surahs, under "Which surah is it?": each row opens its page; a row's stars are its best try on this phone. */
+/**
+ * The surahs, under "Review today" (once one is due) and "Which surah is it?": each row opens its page; a row's stars
+ * are its best try on this phone.
+ */
 function SurahList({
   rows,
   which,
   focus,
   onOpen,
+  onStart,
   bottomInset
 }: {
   rows: MemorizeSheetRow[];
   which?: MemorizeSheetProps["which"];
   focus?: string;
   onOpen: (id: string) => void;
+  onStart: (id: string) => void;
   bottomInset: number;
 }) {
   const list = useRef<ScrollView>(null);
   const focused = useRef(false);
   const progress = useMemo(() => surahsComplete(rows), [rows]);
+  const due = useMemo(() => rows.filter((row) => row.due), [rows]);
   return (
     <ScrollView ref={list} style={styles.scroll} contentContainerStyle={{ paddingBottom: 32 + bottomInset }} showsVerticalScrollIndicator={false}>
+      {due.length ? <ReviewCard due={due} onStart={onStart} /> : null}
       {which ? <WhichSurahRow stars={which.stars} onStart={which.onStart} /> : null}
       {progress.total ? <SurahsProgress done={progress.done} total={progress.total} /> : null}
       <Text style={styles.line}>{t("Listen to the reciter, then tap each ayah that comes next.")}</Text>
@@ -443,7 +518,7 @@ function SurahList({
             onPress={() => onOpen(row.id)}
             sound="node_tap"
             pressScale={0.97}
-            accessibilityLabel={`${row.title}, ${row.line}${row.stars ? `, ${t("{count} of {max} stars", { count: row.stars, max: 3 })}` : ""}`}
+            accessibilityLabel={`${row.title}, ${row.line}${row.stars ? `, ${t("{count} of {max} stars", { count: row.stars, max: 3 })}` : ""}${row.due ? `, ${t("Review today")}` : ""}`}
             testID={`memorize-${row.id}`}
             style={[styles.row, row.stars >= 3 ? styles.rowDone : null]}
           >
@@ -460,6 +535,7 @@ function SurahList({
               <Text style={styles.rowLine} numberOfLines={1}>
                 {row.line}
               </Text>
+              {row.due ? <DueChip testID={`memorize-due-${row.id}`} /> : null}
             </View>
             <Stars stars={row.stars} testID={`memorize-stars-${row.id}`} />
           </Tappable>
@@ -510,7 +586,7 @@ export function MemorizeSheet({ visible, onClose, rows, onStart, which, focusId,
       {open ? (
         <SurahPage key={open.id} row={open} onPractice={() => onStart(open.id)} bottomInset={bottomInset} />
       ) : (
-        <SurahList rows={rows} which={which} focus={focus} onOpen={openSurah} bottomInset={bottomInset} />
+        <SurahList rows={rows} which={which} focus={focus} onOpen={openSurah} onStart={onStart} bottomInset={bottomInset} />
       )}
     </Sheet>
   );
@@ -594,6 +670,41 @@ const styles = StyleSheet.create({
     borderColor: lighten(LISTEN_COLOR, 0.5),
     borderBottomColor: lighten(LISTEN_COLOR, 0.2),
     backgroundColor: lighten(LISTEN_COLOR, 0.9)
+  },
+  reviewRow: {
+    marginBottom: 14,
+    borderColor: lighten(REVIEW_COLOR, 0.5),
+    borderBottomColor: lighten(REVIEW_COLOR, 0.15),
+    backgroundColor: lighten(REVIEW_COLOR, 0.9)
+  },
+  reviewBadge: {
+    width: 46,
+    height: 46,
+    borderRadius: 23,
+    alignItems: "center",
+    justifyContent: "center",
+    borderBottomWidth: 3,
+    borderBottomColor: colors.gemLip,
+    backgroundColor: REVIEW_COLOR
+  },
+  dueChip: {
+    flexDirection: "row",
+    alignItems: "center",
+    alignSelf: "flex-start",
+    maxWidth: "100%",
+    gap: 4,
+    marginTop: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 999,
+    backgroundColor: lighten(REVIEW_COLOR, 0.82)
+  },
+  dueChipText: {
+    flexShrink: 1,
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 12,
+    lineHeight: 16,
+    color: REVIEW_INK
   },
   whichBadge: {
     width: 46,
