@@ -20,6 +20,21 @@ const stop = (id: string) => HAJJ_STOPS.find((each) => each.scene.id === id)!;
 const tagged = (scene: MapScene) => [...scene.legs, ...(scene.effects ?? []), ...(scene.notes ?? [])];
 const inBox = (scene: MapScene, [lat, lon]: readonly [number, number]) => lat <= scene.box.north && lat >= scene.box.south && lon >= scene.box.west && lon <= scene.box.east;
 const lessonsOf = (sceneId: string) => Object.entries(HAJJ_MAP_LESSONS).filter(([, own]) => own.stop === sceneId).map(([nodeId]) => nodeId);
+// The map's frame on phones 320, 360, 375, 390 and 412 px wide: on a lesson's first page, and in the sheet.
+const LESSON_FRAMES = [
+  [292, 178],
+  [332, 201],
+  [347, 209],
+  [362, 270],
+  [384, 287]
+];
+const SHEET_FRAMES = [
+  [288, 225],
+  [328, 256],
+  [343, 267],
+  [358, 279],
+  [380, 296]
+];
 const overlap = (a: Rect, b: Rect) => Math.max(0, Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x)) * Math.max(0, Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y));
 
 describe("Hajj on a map: its data", () => {
@@ -128,16 +143,13 @@ describe("Hajj on a map: its data", () => {
     }
   });
 
-  test("on a phone, in every language, no note covers a name, a place or another note, and none is left out", () => {
+  test("on every phone, in every language, no note covers a name, a place or another note, and none is left out", () => {
     for (const language of ["en", "bn", "ur", "ar"] as const) {
       const say = (text: string, params?: Record<string, string>) => t(text, params, language);
       for (const { scene } of HAJJ_STOPS) {
         for (const lessonSlug of [undefined, ...lessonsOf(scene.id)]) {
-          for (const [width, height] of [
-            [320, 240],
-            [350, 262],
-            [390, 292]
-          ]) {
+          // A lesson's map, or the map of Hajj's sheet, on phones 320 to 412 px wide (as measured in the browser).
+          for (const [width, height] of lessonSlug ? LESSON_FRAMES : SHEET_FRAMES) {
             const where = `${language} ${scene.id} ${lessonSlug ?? "map of Hajj"} ${width}`;
             const { labels, notes } = sceneLayout(scene, width, height, lessonSlug, say);
             const wanted = (scene.notes ?? []).filter((note) => shownFor(note, lessonSlug)).length;

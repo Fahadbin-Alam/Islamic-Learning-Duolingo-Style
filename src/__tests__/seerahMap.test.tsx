@@ -138,21 +138,33 @@ describe("the Seerah on a map: its data", () => {
 });
 
 describe("the notes on the maps", () => {
+  // The map's frame on phones 320, 360, 375, 390 and 412 px wide: on a lesson's first page, and in the sheet.
+  const LESSON_FRAMES = [
+    [292, 178],
+    [332, 201],
+    [347, 209],
+    [362, 270],
+    [384, 287]
+  ];
+  const SHEET_FRAMES = [
+    [288, 225],
+    [328, 256],
+    [343, 267],
+    [358, 279],
+    [380, 296]
+  ];
   const overlap = (a: Rect, b: Rect) => Math.max(0, Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x)) * Math.max(0, Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y));
   const gap = (rect: Rect, at: { x: number; y: number }) => Math.hypot(Math.max(rect.x - at.x, 0, at.x - rect.x - rect.w), Math.max(rect.y - at.y, 0, at.y - rect.y - rect.h));
 
-  test("on a phone, in every language, each note sits by its own place, covers no name, place or note, and none is left out", () => {
+  test("on every phone, in every language, each note sits by its own place, covers no name, place or note, and none is left out", () => {
     for (const language of ["en", "bn", "ur", "ar"] as const) {
       const say = (text: string, params?: Record<string, string>) => t(text, params, language);
       for (const journey of SEERAH_JOURNEYS) {
         for (const [index, scene] of journey.scenes.entries()) {
           const slugs = [undefined, ...Object.entries(journey.lessons).filter(([, own]) => (own.scene ?? 0) === index).map(([slug]) => slug)];
           for (const lessonSlug of slugs) {
-            for (const [width, height] of [
-              [320, 240],
-              [350, 262],
-              [390, 292]
-            ]) {
+            // A lesson's map, or the map of his life's sheet, on phones 320 to 412 px wide (as measured in the browser).
+            for (const [width, height] of lessonSlug ? LESSON_FRAMES : SHEET_FRAMES) {
               const where = `${language} ${scene.id} ${lessonSlug ?? "life"} ${width}`;
               const { labels, notes } = sceneLayout(scene, width, height, lessonSlug, say);
               const wanted = (scene.notes ?? []).filter((note) => shownFor(note, lessonSlug)).length;

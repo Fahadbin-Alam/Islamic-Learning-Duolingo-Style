@@ -193,6 +193,20 @@ function noteRect(point: Pt, text: string, width: number, height: number): Rect 
   return { x: box.left + 100 - half, y: box.top, w: half * 2, h: 21 };
 }
 
+/** Where a road's note may sit: how far along the road (its middle first), on its left (1) or its right (-1). */
+const ROAD_SPOTS: readonly (readonly [number, number])[] = [
+  [0.5, 1],
+  [0.5, -1],
+  [0.4, 1],
+  [0.6, 1],
+  [0.4, -1],
+  [0.6, -1],
+  [0.3, 1],
+  [0.7, 1],
+  [0.3, -1],
+  [0.7, -1]
+];
+
 /** The spots a note may take around its place: its four sides, past its name (above or below), then its corners. */
 type NoteSide = LabelSide | "top-far" | "bottom-far" | "top-left" | "top-right" | "bottom-left" | "bottom-right";
 const CORNERS: NoteSide[] = ["top-right", "top-left", "bottom-right", "bottom-left"];
@@ -225,12 +239,13 @@ function afterRoad(tracks: Track[], index: number) {
 export type NoteSpot = { point: Pt; rect: Rect; text: string; from: number };
 
 /**
- * Where a scene's notes go, and when each comes. A note on a road sits beside the road's middle; a note on a place
- * takes its own side when that is free, or else the spot around the place (a side, past its name, a corner) where it
- * covers the least: the places' names and pictures and the notes placed before it most of all, then the touches and
- * the roads' dots. A note that would still cover a name, a picture or a note (a small phone, a long translation) is
- * left out, as is one that could only sit nearer another place than its own: the caption under the map says it too.
- * Undefined for a note this lesson does not show.
+ * Where a scene's notes go, and when each comes. Each note takes its usual spot when that is free, or else the spot
+ * that covers the least: the places' names and pictures and the notes placed before it most of all, then the touches
+ * and the roads' dots. A note on a road stays beside its road (its middle first, then along it, on either side). A
+ * note on a place stays around its place: its own side, the other sides, past its name, then its corners. A note on a
+ * place that would still cover a name, a picture or a note (a small phone, a long translation) is left out, as is one
+ * that could only sit nearer another place than its own: the caption under the map says it too. Undefined for a note
+ * this lesson does not show.
  */
 export function placeNotes({
   scene,
@@ -268,22 +283,29 @@ export function placeNotes({
   const covers = (rect: Rect) => busy.reduce((sum, item) => sum + (item.hard ? overlapArea(rect, item.rect) : 0), 0);
 
   const spots: (NoteSpot | undefined)[] = (scene.notes ?? []).map(() => undefined);
-  // Notes on roads first: they cannot move.
+  // Notes on roads first: they stay by their road wherever they go.
   (scene.notes ?? []).forEach((note, index) => {
     if (note.leg === undefined || !shownFor(note, lessonSlug)) return;
     const track = tracks.find((each) => each.index === note.leg);
     if (!track) return;
-    const middle = pointAlong(track.line, 0.5);
-    const ahead = pointAlong(track.line, 0.53);
-    const dx = ahead.x - middle.x;
-    const dy = ahead.y - middle.y;
-    const length = Math.hypot(dx, dy) || 1;
-    // Beside the road's middle, on its left (seen going along it), clear of the dots.
-    const point = { x: middle.x + (dy / length) * 22, y: middle.y - (dx / length) * 22 };
     const text = note.distance ? say(note.text, { km: roundKm(kmBetween(track.ends[0], track.ends[1])).toLocaleString("en-US") }) : say(note.text);
-    const rect = noteRect(point, text, width, height);
-    spots[index] = { point, rect, text, from: track.end };
-    busy.push({ rect, weight: 5, hard: true });
+    let best: { point: Pt; rect: Rect; cost: number } | undefined;
+    for (const [order, [along, side]] of ROAD_SPOTS.entries()) {
+      const middle = pointAlong(track.line, along);
+      const ahead = pointAlong(track.line, along + 0.03);
+      const dx = ahead.x - middle.x;
+      const dy = ahead.y - middle.y;
+      const length = Math.hypot(dx, dy) || 1;
+      // Beside the road, on its left (seen going along it) or its right, clear of the dots.
+      const point = { x: middle.x + side * (dy / length) * 22, y: middle.y - side * (dx / length) * 22 };
+      const rect = noteRect(point, text, width, height);
+      const covered = cost(rect);
+      const score = covered === 0 ? 0 : covered + order * 12;
+      if (!best || score < best.cost) best = { point, rect, cost: score };
+      if (score === 0) break;
+    }
+    spots[index] = { point: best!.point, rect: best!.rect, text, from: track.end };
+    busy.push({ rect: best!.rect, weight: 5, hard: true });
   });
   (scene.notes ?? []).forEach((note, index) => {
     if (note.leg !== undefined || !note.at || !MAP_PLACES[note.at] || !shownFor(note, lessonSlug)) return;

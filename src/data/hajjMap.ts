@@ -128,10 +128,12 @@ const NAHR: HajjStop = {
   scene: {
     id: "hajj-nahr",
     level: "makkah",
-    box: { north: 21.435, south: 21.375, west: 39.815, east: 39.95 },
+    // Room above the Jamarat for its note, over its name.
+    box: { north: 21.445, south: 21.375, west: 39.815, east: 39.95 },
     places: ["muzdalifah", "mina", "jamarat", "makkah"],
-    // The Jamarat's name over its pillar, clear of Mina's dot; Muzdalifah's under it, clear of the notes at Mina.
-    labels: { jamarat: "top", muzdalifah: "bottom" },
+    // The Jamarat's name over its pillar, clear of Mina's dot; Mina's on its right and Muzdalifah's under it, clear
+    // of the notes.
+    labels: { jamarat: "top", mina: "right", muzdalifah: "bottom" },
     // Through Mina to the big Jamrah at its far end, then on to the House.
     legs: [
       { kind: "his", path: ["muzdalifah", [21.401, 39.918], [21.4125, 39.897], [21.419, 39.881], "jamarat"] },
