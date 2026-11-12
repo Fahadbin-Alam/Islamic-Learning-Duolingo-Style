@@ -7,6 +7,7 @@ import { ArabicText } from "../ArabicText";
 import { Icon } from "../Icon";
 import { useReduceMotion } from "../motion";
 import { Tappable } from "../Tappable";
+import { scaleFont } from "../textScale";
 import { colors, darken, fonts, lighten } from "../theme";
 import { useRecitedWord } from "./RecitedAyah";
 
@@ -17,6 +18,8 @@ const TICK_MS = 50;
 /** Within this much of the gap, a timer stops it on time instead of the next check. */
 const CLOSE_S = 0.25;
 const BLINK_MS = 480;
+/** The ayah's size, bigger with "Bigger text" in Settings, like the question above it. */
+const AYAH_SIZE = 23;
 const LIT = "rgba(255, 207, 51, 0.55)";
 const GAP_BG = lighten(colors.gold, 0.72);
 const GAP_GLOW = "rgba(255, 194, 26, 0.75)";
@@ -113,7 +116,7 @@ export function ReciteCard({ text, ayahKey, url, gap, onPlay, playing, answered,
   const hint = playing ? t("Listening…") : waiting && !answered ? t("Your turn") : t("Tap to listen");
   return (
     <View style={[styles.card, { borderColor: lighten(accent, 0.55) }]} testID="recite-card">
-      <ArabicText size={23} quran align="right" color={colors.ink} style={styles.ayah} testID="recite-ayah">
+      <ArabicText size={scaleFont(AYAH_SIZE)} quran align="right" color={colors.ink} style={styles.ayah} testID="recite-ayah">
         {pieces.map((piece, index) => {
           if (piece.word === gap && !answered) {
             return (

@@ -39,12 +39,14 @@ jest.mock("expo-audio", () => ({
 }));
 
 import React, { useState } from "react";
+import { StyleSheet } from "react-native";
 import { act, fireEvent, render, screen } from "@testing-library/react-native";
 import { LESSONS_BY_ID } from "../data/course";
 import { QURAN_AYAHS } from "../data/quranAyahs";
 import { arabicLetters } from "../services/arabicVoice";
 import { playAyah, resetAyahPlayerForTests, stopAyah } from "../services/ayahPlayer";
 import { ayahPieces, ayahWordTimes } from "../services/ayahWords";
+import { resetDeviceSettingsForTests, setDeviceSetting } from "../services/deviceSettings";
 import { translateStudyText } from "../services/contentLocalization";
 import type { Challenge, Lesson } from "../types";
 import { useAyahPlayback } from "../ui/lesson/AyahListen";
@@ -238,5 +240,19 @@ describe("how does the ayah end? (on screen)", () => {
     expect(screen.queryByTestId("feedback-listen")).toBeNull();
     // Nothing was playing, so nothing starts by itself.
     expect(mockPlayers).toHaveLength(0);
+  });
+
+  test("the ayah grows with Bigger text, like the question", async () => {
+    const challenge = reciteChallenge(lessonFor("112:4"))!;
+    const size = () => StyleSheet.flatten(screen.getByTestId("recite-ayah").props.style).fontSize;
+    await render(<Question challenge={challenge} />);
+    expect(size()).toBe(23);
+    setDeviceSetting("bigText", true);
+    try {
+      await render(<Question challenge={challenge} />);
+      expect(size()).toBe(28);
+    } finally {
+      resetDeviceSettingsForTests();
+    }
   });
 });
