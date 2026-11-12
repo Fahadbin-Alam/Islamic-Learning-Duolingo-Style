@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, useWindowDimensions, View, type LayoutChangeEvent } from "react-native";
+import type { HajjLessonMap } from "../../data/hajjMap";
 import { sourcesFor, type LessonJourney, type MapSource } from "../../data/seerahMap";
 import { openWebPage } from "../../services/network";
 import { withHonorifics } from "../ArabicText";
@@ -11,10 +12,14 @@ import { Tappable } from "../Tappable";
 import { colors, fonts, radii, space } from "../theme";
 import { bigPhotoMaxHeight } from "../lesson/LessonPhoto";
 import { textScaled } from "../textScale";
+import { HajjDaysBar, HajjWhen } from "./HajjDays";
 import { JourneyMap } from "./JourneyMap";
 import { LifeBar, LifeLine } from "./LifeBar";
 
 const MAP_ASPECT = 4 / 3;
+
+/** A lesson's map: a Seerah lesson's (with his years under it) or a Hajj lesson's (with the days of Hajj). */
+export type LessonMap = LessonJourney | HajjLessonMap;
 
 /** Where the map's roads and notes come from, each opening its page (sunnah.com, quran.com). */
 export function MapSources({ sources, onOpen = openWebPage, testID }: { sources: MapSource[]; onOpen?: (url: string) => void; testID?: string }) {
@@ -33,16 +38,17 @@ export function MapSources({ sources, onOpen = openWebPage, testID }: { sources:
 }
 
 /**
- * A Seerah lesson's first page opens on its map (in the place of its photo): where it happened and the road that led
- * there, drawing itself; under it what the map shows, where in his life ﷺ it was, and the map's sources. Tap the map to
- * watch the road again.
+ * A Seerah or Hajj lesson's first page opens on its map (in the place of its photo): where it happened and the road
+ * that led there, drawing itself; under it what the map shows, where in his life ﷺ it was (or which day of Hajj), and
+ * the map's sources. Tap the map to watch the road again.
  */
-export function JourneyCard({ journey, short, delay = 380, onOpenSource }: { journey: LessonJourney; short?: boolean; delay?: number; onOpenSource?: (url: string) => void }) {
+export function JourneyCard({ journey, short, delay = 380, onOpenSource }: { journey: LessonMap; short?: boolean; delay?: number; onOpenSource?: (url: string) => void }) {
   const { height: screenHeight } = useWindowDimensions();
   const still = useReduceMotion();
   const [size, setSize] = useState<{ width: number; height: number } | undefined>(undefined);
   const [play, setPlay] = useState(0);
-  const { scene, lessonSlug, focus, era, age } = journey;
+  const { scene, lessonSlug, focus } = journey;
+  const sources = <MapSources sources={sourcesFor(scene, lessonSlug)} onOpen={onOpenSource} testID="journey-sources" />;
   const caption = t(scene.caption);
   const onLayout = (event: LayoutChangeEvent) => {
     const { width, height } = event.nativeEvent.layout;
@@ -75,11 +81,23 @@ export function JourneyCard({ journey, short, delay = 380, onOpenSource }: { jou
           <Icon name="repeat" size={18} color={colors.inkSoft} />
         </Tappable>
       </View>
-      <LifeBar era={era} age={age} testID="journey-life" />
-      <View style={styles.bottom}>
-        <LifeLine era={era} age={age} />
-        <MapSources sources={sourcesFor(scene, lessonSlug)} onOpen={onOpenSource} testID="journey-sources" />
-      </View>
+      {"stop" in journey ? (
+        <>
+          <HajjDaysBar stop={journey.stop} testID="journey-days" />
+          <View style={styles.bottom}>
+            <HajjWhen stop={journey.stop} />
+            {sources}
+          </View>
+        </>
+      ) : (
+        <>
+          <LifeBar era={journey.era} age={journey.age} testID="journey-life" />
+          <View style={styles.bottom}>
+            <LifeLine era={journey.era} age={journey.age} />
+            {sources}
+          </View>
+        </>
+      )}
     </PopIn>
   );
 }

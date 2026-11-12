@@ -12,7 +12,7 @@ import type { LatLon } from "./seerahMapGeo";
  * north to Tabuk), never a claim about exact paths. Dates and places the scholars differ on are left out.
  */
 
-export type MapPlaceKind = "kaaba" | "city" | "masjid" | "aqsa" | "cave" | "mount" | "hill" | "well" | "palms" | "ruins" | "point";
+export type MapPlaceKind = "kaaba" | "city" | "masjid" | "aqsa" | "cave" | "mount" | "hill" | "well" | "palms" | "ruins" | "point" | "pillar" | "tent";
 export type LabelSide = "top" | "bottom" | "left" | "right";
 
 export interface MapPlace {
@@ -50,7 +50,14 @@ export const MAP_PLACES: Record<string, MapPlace> = {
   hunayn: { id: "hunayn", name: "Hunayn", at: [21.52, 40.06], kind: "point", side: "top" },
   jiranah: { id: "jiranah", name: "Al-Ji'ranah", at: [21.5622, 39.955], kind: "point", side: "left" },
   hijr: { id: "hijr", name: "Al-Hijr", at: [26.7915, 37.953], kind: "ruins", side: "right" },
-  tabuk: { id: "tabuk", name: "Tabuk", at: [28.3835, 36.5662], kind: "palms", side: "right" }
+  tabuk: { id: "tabuk", name: "Tabuk", at: [28.3835, 36.5662], kind: "palms", side: "right" },
+  // The Hajj maps (hajjMap.ts): the miqats he ﷺ set (Sahih al-Bukhari 1524), Namirah where his tent was pitched and
+  // the Jamarat at Mina (Sahih Muslim 1218).
+  juhfah: { id: "juhfah", name: "Al-Juhfah", at: [22.7055, 39.1469], kind: "point", side: "left" },
+  qarnmanazil: { id: "qarnmanazil", name: "Qarn al-Manazil", at: [21.6264, 40.4153], kind: "point", side: "right" },
+  yalamlam: { id: "yalamlam", name: "Yalamlam", at: [20.5179, 39.8702], kind: "point", side: "right" },
+  namirah: { id: "namirah", name: "Namirah", at: [21.353, 39.9668], kind: "tent", side: "bottom" },
+  jamarat: { id: "jamarat", name: "The Jamarat", at: [21.4213, 39.8727], kind: "pillar", side: "bottom" }
 };
 
 /** A sea's name, written on the water where a map shows it. */
@@ -62,12 +69,13 @@ export const SEA_LABELS: { name: string; at: LatLon }[] = [
 
 /**
  * A road on the map. "his": the way he ﷺ went; "home": his way back (drawn beside the way there); "army": others on
- * the move (the army to Mu'tah, the caravan at Badr); "sea": by ship; "letter": his letters to the kings; "trench":
- * the trench round Madinah, drawn as a line. A point is a place id or a [lat, lon] bend on the way.
+ * the move (the army to Mu'tah, the caravan at Badr); "pilgrims": the pilgrims of a land, from its miqat; "sea": by
+ * ship; "letter": his letters to the kings; "trench": the trench round Madinah, drawn as a line. A point is a place id
+ * or a [lat, lon] bend on the way.
  * `lessons`: shown only on those lessons' maps (and not when the whole life plays).
  */
 export interface MapLeg {
-  kind: "his" | "home" | "army" | "sea" | "letter" | "trench";
+  kind: "his" | "home" | "army" | "pilgrims" | "sea" | "letter" | "trench";
   path: (string | LatLon)[];
   /** A name for whoever is on the move, at the road's start ("The caravan", "To Caesar"). */
   label?: string;
@@ -77,9 +85,11 @@ export interface MapLeg {
 }
 
 export type MapEffect = {
-  kind: "night" | "rain" | "wind" | "fires" | "ripple" | "cloud" | "rise" | "tents";
+  kind: "night" | "rain" | "wind" | "fires" | "ripple" | "cloud" | "rise" | "tents" | "sunset" | "pebbles";
   /** A place id or a point; none for the night. */
   at?: string | LatLon;
+  /** The index of a leg it waits for: it comes once that road is drawn (the sun sets once the road reaches Arafah). */
+  after?: number;
   /** The tents' name ("Quraysh's camp"). */
   label?: string;
   lessons?: string[];
@@ -90,10 +100,15 @@ export type MapEffect = {
 export interface MapNote {
   /** A place id (the place need not be drawn: a stop on the road such as Dhul-Hulayfah). */
   at?: string;
-  /** Which side of its place the note sits on. Default: above, or below when the place's name is above. */
+  /**
+   * Which side of its place the note would sit on. Default: above, or below when the place's name is above. When that
+   * spot is taken (a name, a picture, another note, a road), the note goes to the freest spot around its place.
+   */
   side?: LabelSide;
   /** The index of the leg whose middle it sits on. */
   leg?: number;
+  /** The index of a leg the note waits for: it comes once that road is drawn (a road that passes its place first). */
+  after?: number;
   text: string;
   /** Filled in for "About {km} km apart": the straight-line distance of the leg's two ends. */
   distance?: boolean;
@@ -147,12 +162,12 @@ export interface SeerahJourney {
   lessons: Record<string, { scene?: number; focus?: string; era?: LifeEra; age?: number }>;
 }
 
-const bukhari = (number: string): MapSource => ({ reference: `Sahih al-Bukhari ${number}`, url: `https://sunnah.com/bukhari:${number}` });
-const muslim = (number: string): MapSource => ({ reference: `Sahih Muslim ${number}`, url: `https://sunnah.com/muslim:${number}` });
-const quran = (surah: number, ayah: number): MapSource => ({ reference: `Quran ${surah}:${ayah}`, url: `https://quran.com/${surah}/${ayah}` });
+export const bukhari = (number: string): MapSource => ({ reference: `Sahih al-Bukhari ${number}`, url: `https://sunnah.com/bukhari:${number}` });
+export const muslim = (number: string): MapSource => ({ reference: `Sahih Muslim ${number}`, url: `https://sunnah.com/muslim:${number}` });
+export const quran = (surah: number, ayah: number): MapSource => ({ reference: `Quran ${surah}:${ayah}`, url: `https://quran.com/${surah}/${ayah}` });
 
 /** The road between Madinah and Makkah, inland, as its bends (north to south). */
-const INLAND_ROAD: LatLon[] = [
+export const INLAND_ROAD: LatLon[] = [
   [24.05, 39.4],
   [23.45, 39.34],
   [22.85, 39.33],
