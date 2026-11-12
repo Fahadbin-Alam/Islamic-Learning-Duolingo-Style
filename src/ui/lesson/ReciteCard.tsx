@@ -45,6 +45,8 @@ export type ReciteCardProps = {
   /** After CHECK: the gap shows its answer, and a recitation waiting at the gap goes on to say it. */
   answered: boolean;
   accent: string;
+  /** Memorizing a surah: its number of ayahs, so the card says which one this is ("Ayah 2 of 4"). */
+  ayahs?: number;
 };
 
 /**
@@ -54,7 +56,7 @@ export type ReciteCardProps = {
  * ayah, recited to its end, and a glowing gap under it for the next one; once answered, the next ayah fills it and
  * the reciter goes on to it, its words lighting up in turn.
  */
-export function ReciteCard({ text, ayahKey, url, gap, next, onPlay, playing, answered, accent }: ReciteCardProps) {
+export function ReciteCard({ text, ayahKey, url, gap, next, onPlay, playing, answered, accent, ayahs }: ReciteCardProps) {
   const reduceMotion = useReduceMotion();
   const playback = useAyahPlayback();
   const nextText = next?.text;
@@ -156,6 +158,11 @@ export function ReciteCard({ text, ayahKey, url, gap, next, onPlay, playing, ans
   const hint = busy ? t("Listening…") : waiting && !answered ? t("Your turn") : t("Tap to listen");
   return (
     <View style={[styles.card, { borderColor: lighten(accent, 0.55) }]} testID="recite-card">
+      {ayahs ? (
+        <Text style={[styles.place, { color: darken(accent, 0.25), backgroundColor: lighten(accent, 0.88) }]} testID="recite-place">
+          {t("Ayah {number} of {count}", { number: Number(ayahKey.split(":")[1]), count: ayahs })}
+        </Text>
+      ) : null}
       <ArabicText size={size} quran align="right" color={colors.ink} style={styles.ayah} testID="recite-ayah">
         {first.pieces.map((piece, index) => {
           if (piece.word === gap && !answered) {
@@ -238,6 +245,17 @@ const styles = StyleSheet.create({
   },
   ayah: {
     alignSelf: "stretch"
+  },
+  place: {
+    alignSelf: "flex-start",
+    overflow: "hidden",
+    marginBottom: 4,
+    paddingHorizontal: 10,
+    paddingVertical: 2,
+    borderRadius: 999,
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 13,
+    lineHeight: 18
   },
   lit: {
     backgroundColor: LIT

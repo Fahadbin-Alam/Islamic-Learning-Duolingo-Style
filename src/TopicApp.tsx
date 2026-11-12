@@ -21,6 +21,7 @@ import {
   completeLessonCluster,
   canPracticeLessons,
   createLessonPracticeSession,
+  createMemorizeSession,
   createReviewSession,
   recordLessonAnswer,
   reviewDueCount,
@@ -74,7 +75,7 @@ import {
   t
 } from "./i18n";
 import { CHARITY, charityEnabled } from "./config/charity";
-import { localizeLessonContent } from "./services/contentLocalization";
+import { localizeLessonContent, translateStudyText } from "./services/contentLocalization";
 import { localizedLessonLine, localizedTeach, localizedWhy } from "./ui/lesson/localizedLines";
 import {
   clearLocalAuthAccount,
@@ -206,7 +207,9 @@ import { localAyahUri } from "./services/offlineAudio";
 import { quranAudioUrl } from "./services/quranAudio";
 import { useAyahPlayback } from "./ui/lesson/AyahListen";
 import { listenWhy, withListenQuestion } from "./ui/lesson/listenQuestion";
-import { withReciteQuestion } from "./ui/lesson/reciteQuestion";
+import { memorizeParts, withReciteQuestion, type HifzPart } from "./ui/lesson/reciteQuestion";
+import { recordMemorized, useMemorizeStars } from "./services/memorizeSurahs";
+import { SURAH_NAMES } from "./data/surahMeanings";
 import { colors, configureUiSound, darken, preloadUiSounds, fonts, Icon, lighten, Mascot, PopIn, radii, space, Tappable } from "./ui";
 import { PortalHost } from "./ui/Portal";
 import { applyBattle, buyIcon, rerollNickname, setUmmahJoined, wearIcon, type ProfileIconId } from "./services/ummah";
@@ -251,6 +254,7 @@ import {
   ShopView,
   TopicPicker,
   QuizSheet,
+  MemorizeSheet,
   StoryBanner,
   StorySheet,
   UpdateBanner,
@@ -261,7 +265,8 @@ import {
   type PathUnit,
   type TabKey,
   type TopicPickerTopic,
-  type QuizSheetTopic
+  type QuizSheetTopic,
+  type MemorizeSheetRow
 } from "./ui/screens";
 import { getQuizScore, recordQuizScore, unitsToGoOver } from "./services/quizzes";
 import { STORIES, storyGroupFor, type StoryGroup } from "./data/stories";
@@ -281,7 +286,7 @@ import { addToAlbum, albumPictureIds, useAlbum } from "./services/pictureAlbum";
 import { setsFinishedBy, type AlbumSet } from "./data/albumSets";
 import { isUpdateAvailable, openStore } from "./services/appUpdate";
 import { attemptOrder, ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, HarderSheet, QuitSheet, QuizComplete, isPlayablePractice, lessonStars } from "./ui/lesson";
-import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic, isFirstUseOfWord } from "./data/arabicTerms";
+import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic, isFirstUseOfWord, surahArabicName } from "./data/arabicTerms";
 import { questionSource, shortReference } from "./services/questionSource";
 import { openSource } from "./services/sourceLink";
 import { openWebPage, setOfflineLinkNotice, subscribeOnline, useOnline } from "./services/network";
@@ -411,6 +416,8 @@ type LessonCelebration = {
   newPictures?: LessonPicture[];
   /** Album sets those pictures finished: each gets its badge on the card. */
   finishedSets?: AlbumSet[];
+  /** A surah gone through in Memorize surahs: CONTINUE goes back to the surahs, to pick the next one. */
+  memorize?: boolean;
 };
 
 interface AppState {
@@ -875,6 +882,8 @@ export default function TopicApp() {
   const lessonsFinishedRef = useRef(0);
   // Each MY LESSONS run starts from other questions.
   const lessonPracticeTriesRef = useRef(0);
+  // Each new try at a surah in Memorize surahs has its tiles in another order.
+  const memorizeTriesRef = useRef(new Map<string, number>());
   const lastFullScreenAdAtRef = useRef(0);
   // Everyone picks an age once, at the start. The answer stays on this device: it sets how hard lessons are for young
   // learners (lessonForAge) and, on phones, which ads may show.
@@ -1349,6 +1358,9 @@ export default function TopicApp() {
   // The swipe sprint in Practice, and the best one on this phone for its row.
   const [sprintVisible, setSprintVisible] = useState(false);
   const sprintBest = useSprintRecord().best;
+  // Memorize surahs in Practice, and each surah's best stars on this phone.
+  const [memorizeVisible, setMemorizeVisible] = useState(false);
+  const memorizeStarsNow = useMemorizeStars();
   const albumFound = useAlbum();
   const certificatesBefore = useRef<{ userId?: number; ids?: Set<string> }>({});
   useEffect(() => {
@@ -1466,6 +1478,14 @@ export default function TopicApp() {
     const ordered = beginner ? [...topics.filter((topic) => topic.topicId === INTRO_TOPIC), ...topics.filter((topic) => topic.topicId !== INTRO_TOPIC)] : topics;
     return season ? [...ordered.filter((topic) => topic.topicId === RAMADAN_TOPIC), ...ordered.filter((topic) => topic.topicId !== RAMADAN_TOPIC)] : ordered;
   }, [beginner, localizedSections, season, state.user?.completedNodeIds]);
+
+  // Memorize surahs: Al-Fatihah and the short surahs, named in the learner's language, each with its best stars.
+  // Worked out only on the Practice tab or while the sheet is open.
+  const memorizeShown = state.screen === "review" || memorizeVisible;
+  const memorizeRows = useMemo<MemorizeSheetRow[]>(
+    () => (memorizeShown ? memorizeParts().map((part) => memorizeRow(part, currentLanguage, memorizeStarsNow[part.id] ?? 0)) : []),
+    [currentLanguage, memorizeShown, memorizeStarsNow]
+  );
 
   // The Quizzes sheet: every topic with a quiz (Ramadan only in its season), each with its units' quizzes and the
   // best scores. Worked out only while the sheet is open.
@@ -2158,6 +2178,31 @@ export default function TopicApp() {
     dispatch({ type: "start_lesson", session });
   }
 
+  // MEMORIZE SURAHS in Practice: a surah ayah by ayah with the reciter, heard online or from the phone's saved copies.
+  function startMemorize(partId: string) {
+    const part = memorizeParts().find((item) => item.id === partId);
+    if (!state.user || !part) {
+      return;
+    }
+
+    const ayahs = Array.from({ length: part.to - part.from + 1 }, (_, index) => quranAudioUrl(`Quran ${part.surah}:${part.from + index}`));
+    if (!online && !ayahs.every((url) => url && localAyahUri(url))) {
+      void notify(t("No internet. This is not saved on your phone yet."), undefined, { mood: "think" });
+      return;
+    }
+
+    const attempt = memorizeTriesRef.current.get(part.id) ?? 0;
+    const session = createMemorizeSession(state.user, part, attempt);
+    if (!session) {
+      return;
+    }
+
+    memorizeTriesRef.current.set(part.id, attempt + 1);
+    setMemorizeVisible(false);
+    challengeStartedAtRef.current = Date.now();
+    dispatch({ type: "start_lesson", session });
+  }
+
   // REVIEW in Practice: the missed questions that are due again, weakest first.
   function startReviewDeck() {
     if (!state.user) {
@@ -2423,14 +2468,19 @@ export default function TopicApp() {
       });
 
       const practiceQuests = finishQuests(false, xp);
+      const memorize = state.activeSession.memorize;
+      const stars = lessonStars(state.sessionMistakes);
+      // A memorized surah keeps its best stars on this phone, for its row in Memorize surahs.
+      if (memorize) recordMemorized(memorize.part, stars);
       setLessonCompleteSummary({
         questsDone: practiceQuests,
-        headline: t("Practice done!"),
-        title: t(state.activeSession.reviewDeck ? "Review" : "My lessons"),
+        headline: memorize && state.sessionMistakes === 0 ? t("Every ayah right!") : t("Practice done!"),
+        title: memorize ? memorizeTitle(memorize, currentLanguage) : t(state.activeSession.reviewDeck ? "Review" : "My lessons"),
         xp,
         streakExtended: didExtendStreak(user, nextUser),
-        stars: lessonStars(state.sessionMistakes),
-        streakDays: nextUser.streakDays
+        stars,
+        streakDays: nextUser.streakDays,
+        memorize: Boolean(memorize)
       });
       const xpSummary = await learningApi.getXpSummaries(nextUser);
       dispatch({ type: "finish_lesson", user: nextUser, xpSummary });
@@ -2710,6 +2760,21 @@ export default function TopicApp() {
       return;
     }
     dispatch({ type: "close_lesson_complete" });
+  }
+
+  // Leaving a memorized surah's finish: CONTINUE goes back to Practice with the surahs open, to pick the next one.
+  function leaveMemorizeComplete() {
+    setLessonCompleteSummary(undefined);
+    dispatch({ type: "close_lesson_complete" });
+
+    if (planOfferDueRef.current) {
+      planOfferDueRef.current = false;
+      openPlanOffer("lessons");
+      return;
+    }
+
+    dispatch({ type: "open_review" });
+    setMemorizeVisible(true);
   }
 
   // Leaving a quiz's result: CONTINUE goes back to Practice, NEW QUIZ asks the same quiz with other questions, and a
@@ -4191,7 +4256,8 @@ export default function TopicApp() {
                                 gap: challenge.listen.recite.gap,
                                 next: challenge.listen.recite.next
                                   ? { text: challenge.listen.recite.next.text, ayahKey: challenge.listen.recite.next.key, url: challenge.listen.recite.next.recitation }
-                                  : undefined
+                                  : undefined,
+                                ayahs: challenge.listen.recite.ayahs
                               }
                             : undefined
                       }
@@ -4254,8 +4320,8 @@ export default function TopicApp() {
             finishedSets={lessonCompleteSummary.finishedSets}
             mascotVariant={lessonMascot}
             accent={lessonAccent}
-            nextTitle={nextLessonNode?.title}
-            onContinue={() => leaveLessonComplete(nextLessonNode)}
+            nextTitle={lessonCompleteSummary.memorize ? undefined : nextLessonNode?.title}
+            onContinue={() => (lessonCompleteSummary.memorize ? leaveMemorizeComplete() : leaveLessonComplete(nextLessonNode))}
             onBackToPath={() => leaveLessonComplete()}
           />
         )}
@@ -4306,6 +4372,9 @@ export default function TopicApp() {
             onOpenSayIt={() => setSayItVisible(true)}
             onOpenSprint={sprintReady ? () => setSprintVisible(true) : undefined}
             sprintBest={sprintBest}
+            onOpenMemorize={memorizeRows.length ? () => setMemorizeVisible(true) : undefined}
+            memorizeDone={memorizeRows.filter((row) => row.stars > 0).length}
+            memorizeTotal={memorizeRows.length}
             quizBest={getQuizScore(state.user, { kind: "topic", topicId: selectedSection.topicId })?.best}
             onGoFoundation={() => openTopicScreen("foundation")}
           />
@@ -4485,6 +4554,9 @@ export default function TopicApp() {
             onOpen={setShownCertificate}
             onClose={() => setCertificatesSheetVisible(false)}
           />
+        )}
+        {!inLesson && (
+          <MemorizeSheet visible={memorizeVisible} onClose={() => setMemorizeVisible(false)} rows={memorizeRows} onStart={startMemorize} />
         )}
         {!inLesson && (
           <QuizSheet
@@ -4934,6 +5006,25 @@ function getTestOutGoal(user: UserProfile, unitId: string, nodeId?: string) {
   const total = plan ? pickTestOutChallenges(plan.lessons).length : 0;
 
   return total > 0 ? { total, passingScore: testOutPassingScore(total) } : undefined;
+}
+
+/** "Surah Al-Ikhlas", or "Surah Al-Layl 1-11" for part of a surah, in the learner's language. */
+function memorizeTitle(part: Pick<HifzPart, "surah" | "from" | "to" | "ayahs">, language: SupportedLanguage) {
+  const name = translateStudyText(`Surah ${SURAH_NAMES[part.surah - 1]}`, language);
+  return part.to - part.from + 1 < part.ayahs ? `${name} ${part.from}-${part.to}` : name;
+}
+
+/** A surah's row in Memorize surahs. Arabic and Urdu name it in Arabic letters already, so only the others add the Arabic. */
+function memorizeRow(part: HifzPart, language: SupportedLanguage, stars: number): MemorizeSheetRow {
+  const whole = part.to - part.from + 1 >= part.ayahs;
+  return {
+    id: part.id,
+    surah: part.surah,
+    title: translateStudyText(`Surah ${SURAH_NAMES[part.surah - 1]}`, language),
+    arabic: language === "ar" || language === "ur" ? undefined : surahArabicName(part.surah),
+    line: whole ? t("{count} ayahs", { count: part.ayahs }) : t("Ayahs {from}-{to}", { from: part.from, to: part.to }),
+    stars
+  };
 }
 
 function buildLessonSignal(
