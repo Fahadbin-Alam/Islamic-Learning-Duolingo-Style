@@ -334,7 +334,7 @@ const BALAD_TWO: DeepUnit = {
       line: "Charity to a needy relative counts as two good deeds.",
       facts: ["Sadaqah: charity", "Silat ar-rahim: family ties"],
       quote: q90(15),
-      source: hadith("tirmidhi", "658", "Salman ibn Amir", "Hasan", "The Prophet ﷺ said charity to the needy is one charity, and to a relative it is two: charity and keeping family ties.", "if it is given to relatives it is"),
+      source: hadith("nasai", "2582", "Salman ibn Amir", "Sahih (Al-Albani)", "Salman ibn Amir said: the Prophet ﷺ said: charity to a poor person is charity, and to a relative it is two things: charity and keeping the ties of kinship.", "to a relative is two things, charity and upholding the ties of kinship"),
       difficulty: 3,
       questions: [
         { q: "How many rewards for charity to a relative?", a: "Two", wrong: ["One", "None", "Ten"], why: "If it is given to relatives it is counted as two: charity and nurturing the ties of kinship." },
