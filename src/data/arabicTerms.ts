@@ -441,7 +441,10 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "duas-for-other-people": { ar: "الدعاء للآخرين", translit: "Ad-du'a lil-akharin", meaning: "Du'a for others" },
   "prayer-ruku-and-sujud-for-allah": { ar: "الركوع والسجود لله", translit: "Ar-ruku' was-sujud lillah", meaning: "Bowing and prostrating for Allah" },
   "akhirah-how-people-are-raised": { ar: "البعث", translit: "Al-ba'th", meaning: "The raising of the dead" },
-  "hadith-qudsi-more": { ar: "قال الله تعالى", translit: "Qal Allahu ta'ala", meaning: "Allah the Most High said" }
+  "hadith-qudsi-more": { ar: "قال الله تعالى", translit: "Qal Allahu ta'ala", meaning: "Allah the Most High said" },
+  "aqidah-the-balanced-way": { ar: "الوسطية", translit: "Al-wasatiyyah", meaning: "The balanced middle way" },
+  "manners-haya-and-gentle-manners": { ar: "الحياء والحلم", translit: "Al-haya' wal-hilm", meaning: "Haya and forbearance" },
+  "duas-remembering-allah-always": { ar: "دوام الذكر", translit: "Dawam adh-dhikr", meaning: "Remembering Allah always" }
 };
 
 export const NODE_ARABIC: Record<string, ArabicTerm> = {
@@ -958,6 +961,7 @@ const LEARN_FORMS = [
   "كِتَابُ بَدْءِ الْخَلْقِ", "ثَبَاتُ الْإِيمَانِ", "الْأَمَانَةُ",
   "الصَّدَقَةُ عِنْدَ اللَّهِ", "آدَابُ السَّفَرِ", "الدُّعَاءُ لِلْآخَرِينَ",
   "الرُّكُوعُ وَالسُّجُودُ لِلَّهِ", "الْبَعْثُ", "قَالَ اللَّهُ تَعَالَى",
+  "الْوَسَطِيَّةُ", "الْحَيَاءُ وَالْحِلْمُ", "دَوَامُ الذِّكْرِ",
   "الْعُمْرَةُ", "الْبَيْتُ الْحَرَامُ", "الْمَسَاجِدُ الثَّلَاثَةُ",
   ...SURAH_NAMES.map((name) => `سُورَةُ ${name}`)
 ];
