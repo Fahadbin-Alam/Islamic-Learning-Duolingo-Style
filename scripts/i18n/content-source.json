@@ -149,6 +149,18 @@
   },
   {
     "kind": "course",
+    "text": "Sunnahs of looking neat"
+  },
+  {
+    "kind": "course",
+    "text": "Combed hair and washed clothes, caring for your hair, white clothes, the trace of Allah's blessings, the siwak, and the best of perfumes."
+  },
+  {
+    "kind": "arabic",
+    "text": "Looking your best"
+  },
+  {
+    "kind": "course",
     "text": "As-salamu alaykum"
   },
   {
@@ -422,6 +434,30 @@
   {
     "kind": "course",
     "text": "Heard from the roof"
+  },
+  {
+    "kind": "course",
+    "text": "Combed and washed"
+  },
+  {
+    "kind": "course",
+    "text": "Care for your hair"
+  },
+  {
+    "kind": "course",
+    "text": "White clothes"
+  },
+  {
+    "kind": "course",
+    "text": "Show Allah's blessings"
+  },
+  {
+    "kind": "course",
+    "text": "Siwak for a fresh mouth"
+  },
+  {
+    "kind": "course",
+    "text": "Musk, the best scent"
   },
   {
     "kind": "course",
@@ -722,6 +758,18 @@
   {
     "kind": "arabic",
     "text": "The manners of Friday"
+  },
+  {
+    "kind": "course",
+    "text": "Sunnahs of the night prayer"
+  },
+  {
+    "kind": "course",
+    "text": "Waking the household, sleeping early and rising late, sitting in old age, a missed portion, a middle voice, and reciting quietly or aloud."
+  },
+  {
+    "kind": "arabic",
+    "text": "The prayer of the night"
   },
   {
     "kind": "course",
@@ -1470,6 +1518,30 @@
   {
     "kind": "course",
     "text": "Sleepy? Change your seat"
+  },
+  {
+    "kind": "course",
+    "text": "Wake the sleepers"
+  },
+  {
+    "kind": "course",
+    "text": "Sleep early, rise to pray"
+  },
+  {
+    "kind": "course",
+    "text": "Sitting, then standing"
+  },
+  {
+    "kind": "course",
+    "text": "Missed at night"
+  },
+  {
+    "kind": "course",
+    "text": "A little higher, a little lower"
+  },
+  {
+    "kind": "course",
+    "text": "Loud or quiet"
   },
   {
     "kind": "course",
@@ -40025,6 +40097,18 @@
   },
   {
     "kind": "course",
+    "text": "Du'as he ﷺ made and taught"
+  },
+  {
+    "kind": "course",
+    "text": "Refuge from what was done and not done, words for hard times, the Lord of Jibril, a du'a for this life and the next, a bad neighbor, and counting tasbih."
+  },
+  {
+    "kind": "arabic",
+    "text": "Prophetic du'as"
+  },
+  {
+    "kind": "course",
     "text": "The three Quls"
   },
   {
@@ -40450,6 +40534,30 @@
   {
     "kind": "course",
     "text": "Words that reach the Throne"
+  },
+  {
+    "kind": "course",
+    "text": "Done and not done"
+  },
+  {
+    "kind": "course",
+    "text": "Words for hard times"
+  },
+  {
+    "kind": "course",
+    "text": "Lord of Jibril and Mikail"
+  },
+  {
+    "kind": "course",
+    "text": "Set right my religion"
+  },
+  {
+    "kind": "course",
+    "text": "A bad neighbor"
+  },
+  {
+    "kind": "course",
+    "text": "Counting on his hand"
   },
   {
     "kind": "course",
@@ -65157,6 +65265,426 @@
   },
   {
     "kind": "lesson",
+    "text": "He ﷺ wanted messy hair combed and dirty clothes washed."
+  },
+  {
+    "kind": "lesson",
+    "text": "One man came with untidy hair"
+  },
+  {
+    "kind": "lesson",
+    "text": "Another man wore dirty clothes"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 4062"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ want for the man with untidy hair?"
+  },
+  {
+    "kind": "question",
+    "text": "A cup of water"
+  },
+  {
+    "kind": "question",
+    "text": "Something to smooth his hair"
+  },
+  {
+    "kind": "question",
+    "text": "A hat to hide it"
+  },
+  {
+    "kind": "question",
+    "text": "A seat in the shade"
+  },
+  {
+    "kind": "question",
+    "text": "Could this man not find something to make his hair lie down, he ﷺ asked."
+  },
+  {
+    "kind": "question",
+    "text": "What did the man in dirty clothes need, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "A bigger tent"
+  },
+  {
+    "kind": "question",
+    "text": "A faster horse"
+  },
+  {
+    "kind": "question",
+    "text": "Something to wash his clothes"
+  },
+  {
+    "kind": "question",
+    "text": "A new pair of shoes"
+  },
+  {
+    "kind": "question",
+    "text": "Could this man not find something to wash his garments with, he ﷺ asked."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ wanted a man with untidy hair to smooth it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Whoever has hair should take good care of it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Honor it: keep it clean and combed"
+  },
+  {
+    "kind": "lesson",
+    "text": "Caring for yourself is part of the Sunnah"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 4163"
+  },
+  {
+    "kind": "question",
+    "text": "What should someone with hair do, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "Honor it"
+  },
+  {
+    "kind": "question",
+    "text": "Hide it under a cloth"
+  },
+  {
+    "kind": "question",
+    "text": "Leave it untidy"
+  },
+  {
+    "kind": "question",
+    "text": "Never wash it"
+  },
+  {
+    "kind": "question",
+    "text": "He who has hair should honour it, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "What does honoring your hair mean?"
+  },
+  {
+    "kind": "question",
+    "text": "Showing it off to people"
+  },
+  {
+    "kind": "question",
+    "text": "Never touching it"
+  },
+  {
+    "kind": "question",
+    "text": "Growing it to the ground"
+  },
+  {
+    "kind": "question",
+    "text": "Keeping it clean and combed"
+  },
+  {
+    "kind": "question",
+    "text": "Honor it: keep it washed and combed, not left untidy."
+  },
+  {
+    "kind": "question",
+    "text": "Taking care of our hair is part of the Sunnah."
+  },
+  {
+    "kind": "question",
+    "text": "He who has hair should honour it, the Prophet ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Wear white, he ﷺ said, for it is among your best clothes."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abdullah ibn Abbas"
+  },
+  {
+    "kind": "lesson",
+    "text": "White is among the best of clothes"
+  },
+  {
+    "kind": "lesson",
+    "text": "The dead are wrapped in white too"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 4061"
+  },
+  {
+    "kind": "question",
+    "text": "Which clothes did he ﷺ call among our best?"
+  },
+  {
+    "kind": "question",
+    "text": "Red clothes"
+  },
+  {
+    "kind": "question",
+    "text": "Green clothes"
+  },
+  {
+    "kind": "question",
+    "text": "Black clothes"
+  },
+  {
+    "kind": "question",
+    "text": "Wear your white garments, for they are among your best garments, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "What else did he ﷺ say to do with white cloth?"
+  },
+  {
+    "kind": "question",
+    "text": "Spread it on the road"
+  },
+  {
+    "kind": "question",
+    "text": "Wrap the dead in it"
+  },
+  {
+    "kind": "question",
+    "text": "Hang it on the door"
+  },
+  {
+    "kind": "question",
+    "text": "Wrap gifts in it"
+  },
+  {
+    "kind": "question",
+    "text": "And shroud your dead in them, he ﷺ said of white garments."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ called white clothes among our best clothes."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah loves to see the trace of His blessings on us."
+  },
+  {
+    "kind": "lesson",
+    "text": "Look clean and neat with what Allah gave you"
+  },
+  {
+    "kind": "lesson",
+    "text": "Thank Allah by using His gifts well"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 2819"
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah love to see on His servant?"
+  },
+  {
+    "kind": "question",
+    "text": "Signs of pride"
+  },
+  {
+    "kind": "question",
+    "text": "Torn, dirty clothes"
+  },
+  {
+    "kind": "question",
+    "text": "Gold on every finger"
+  },
+  {
+    "kind": "question",
+    "text": "The trace of His blessings"
+  },
+  {
+    "kind": "question",
+    "text": "Allah loves to see the results of His favors upon His slaves, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Allah has given you good things. How should you look?"
+  },
+  {
+    "kind": "question",
+    "text": "Proud and showing off"
+  },
+  {
+    "kind": "question",
+    "text": "Sad and gloomy"
+  },
+  {
+    "kind": "question",
+    "text": "Clean and neat, showing His gift"
+  },
+  {
+    "kind": "question",
+    "text": "Messy, to hide it"
+  },
+  {
+    "kind": "question",
+    "text": "Allah loves to see the trace of His blessings on His servant."
+  },
+  {
+    "kind": "question",
+    "text": "Indeed Allah loves to see the results of His favors upon His slaves, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "The siwak cleans the mouth and pleases the Lord."
+  },
+  {
+    "kind": "lesson",
+    "text": "A siwak is a twig for cleaning teeth"
+  },
+  {
+    "kind": "lesson",
+    "text": "A clean mouth pleases Allah"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan an-Nasa'i 5"
+  },
+  {
+    "kind": "question",
+    "text": "What two things does the siwak do, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "Makes you strong and tall"
+  },
+  {
+    "kind": "question",
+    "text": "Cools the head and feet"
+  },
+  {
+    "kind": "question",
+    "text": "Fills you up like food"
+  },
+  {
+    "kind": "question",
+    "text": "Cleans the mouth, pleases the Lord"
+  },
+  {
+    "kind": "question",
+    "text": "Siwak is a means of purification for the mouth and is pleasing to the Lord, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "What is a siwak?"
+  },
+  {
+    "kind": "question",
+    "text": "A twig for cleaning teeth"
+  },
+  {
+    "kind": "question",
+    "text": "A kind of bread"
+  },
+  {
+    "kind": "question",
+    "text": "A water jug"
+  },
+  {
+    "kind": "question",
+    "text": "A prayer mat"
+  },
+  {
+    "kind": "question",
+    "text": "The siwak is a small twig used to clean the teeth and mouth."
+  },
+  {
+    "kind": "question",
+    "text": "Using the siwak is pleasing to Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ said musk is the best of our perfumes."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abu Sa'id al-Khudri"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ was asked about musk"
+  },
+  {
+    "kind": "lesson",
+    "text": "Perfume was dear to him ﷺ"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 992"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ call the best of our perfumes?"
+  },
+  {
+    "kind": "question",
+    "text": "Amber"
+  },
+  {
+    "kind": "question",
+    "text": "Musk"
+  },
+  {
+    "kind": "question",
+    "text": "Rose"
+  },
+  {
+    "kind": "question",
+    "text": "Saffron"
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ was asked about musk and said: it is the best of your perfumes."
+  },
+  {
+    "kind": "question",
+    "text": "What kind of thing is musk?"
+  },
+  {
+    "kind": "question",
+    "text": "A perfume"
+  },
+  {
+    "kind": "question",
+    "text": "A fruit"
+  },
+  {
+    "kind": "question",
+    "text": "A cloth"
+  },
+  {
+    "kind": "question",
+    "text": "A stone"
+  },
+  {
+    "kind": "question",
+    "text": "It is the best of your perfumes, he ﷺ said when asked about musk."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ called musk the best of perfumes."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about sunnahs of looking neat!"
+  },
+  {
+    "kind": "lesson",
     "text": "Uthman showed wudu: hands, mouth, nose, face, arms, head, feet."
   },
   {
@@ -67674,10 +68202,6 @@
   {
     "kind": "lesson",
     "text": "When you hear the adhan, say what the caller says."
-  },
-  {
-    "kind": "lesson",
-    "text": "Told by Abu Sa'id al-Khudri"
   },
   {
     "kind": "question",
@@ -71026,6 +71550,438 @@
   {
     "kind": "lesson",
     "text": "The last test: everything about coming to Jumu'ah!"
+  },
+  {
+    "kind": "lesson",
+    "text": "One night he ﷺ asked for his sleeping wives to be woken."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Umm Salamah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Subhan Allah, he ﷺ said when he woke"
+  },
+  {
+    "kind": "lesson",
+    "text": "Trials and treasures came down that night"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1126"
+  },
+  {
+    "kind": "question",
+    "text": "Whom did he ﷺ want woken that night?"
+  },
+  {
+    "kind": "question",
+    "text": "The guards at the gate"
+  },
+  {
+    "kind": "question",
+    "text": "The travelers outside"
+  },
+  {
+    "kind": "question",
+    "text": "The sleeping women of the rooms"
+  },
+  {
+    "kind": "question",
+    "text": "The traders in the market"
+  },
+  {
+    "kind": "question",
+    "text": "Go and wake the sleeping lady occupants of these dwellings up, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "What came down that night, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "Food and drink"
+  },
+  {
+    "kind": "question",
+    "text": "Trials and treasures"
+  },
+  {
+    "kind": "question",
+    "text": "Snow and wind"
+  },
+  {
+    "kind": "question",
+    "text": "Stars and stones"
+  },
+  {
+    "kind": "question",
+    "text": "How many afflictions Allah has revealed tonight, and how many treasures, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ had the sleepers of his home woken to pray."
+  },
+  {
+    "kind": "question",
+    "text": "Go and wake the sleeping women of these rooms to pray, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ slept early and rose in the last part of the night."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Aswad asked her about his ﷺ night prayer"
+  },
+  {
+    "kind": "lesson",
+    "text": "After praying he ﷺ went back to bed"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1146"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ do after praying in the night, Aishah said?"
+  },
+  {
+    "kind": "question",
+    "text": "He went back to his bed"
+  },
+  {
+    "kind": "question",
+    "text": "He walked to the market"
+  },
+  {
+    "kind": "question",
+    "text": "He sat until noon"
+  },
+  {
+    "kind": "question",
+    "text": "He rode out of town"
+  },
+  {
+    "kind": "question",
+    "text": "Then he would return to his bed, Aishah told Al-Aswad."
+  },
+  {
+    "kind": "question",
+    "text": "When did he ﷺ get up for the dawn prayer, Aishah said?"
+  },
+  {
+    "kind": "question",
+    "text": "When the sun rose"
+  },
+  {
+    "kind": "question",
+    "text": "When a bell rang"
+  },
+  {
+    "kind": "question",
+    "text": "When a drum beat"
+  },
+  {
+    "kind": "question",
+    "text": "When he heard the adhan"
+  },
+  {
+    "kind": "question",
+    "text": "When the muadhdhin called the adhan, he would get up, Aishah said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ slept in the early part of the night."
+  },
+  {
+    "kind": "question",
+    "text": "He used to sleep early at night, and get up in its last part to pray, Aishah said."
+  },
+  {
+    "kind": "lesson",
+    "text": "When old, he ﷺ recited sitting, then stood for the last ayahs."
+  },
+  {
+    "kind": "lesson",
+    "text": "Only in old age did he ﷺ recite sitting"
+  },
+  {
+    "kind": "lesson",
+    "text": "He stood for the last thirty or forty ayahs"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1148"
+  },
+  {
+    "kind": "question",
+    "text": "When the last ayahs were left, what did he ﷺ do?"
+  },
+  {
+    "kind": "question",
+    "text": "He began a new surah"
+  },
+  {
+    "kind": "question",
+    "text": "He stood up and recited them"
+  },
+  {
+    "kind": "question",
+    "text": "He recited them sitting"
+  },
+  {
+    "kind": "question",
+    "text": "He bowed at once"
+  },
+  {
+    "kind": "question",
+    "text": "When thirty or forty verses remained, he would get up and recite them and then bow."
+  },
+  {
+    "kind": "question",
+    "text": "How many ayahs were left when he ﷺ stood up?"
+  },
+  {
+    "kind": "question",
+    "text": "Thirty or forty"
+  },
+  {
+    "kind": "question",
+    "text": "One or two"
+  },
+  {
+    "kind": "question",
+    "text": "Seven or eight"
+  },
+  {
+    "kind": "question",
+    "text": "Over a hundred"
+  },
+  {
+    "kind": "question",
+    "text": "When thirty or forty verses remained from the surah, he would get up, Aishah said."
+  },
+  {
+    "kind": "question",
+    "text": "In old age he ﷺ recited some of the night prayer sitting."
+  },
+  {
+    "kind": "question",
+    "text": "He recited sitting when he became old, and stood for the last ayahs, Aishah said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Slept through your night portion? Recite it before Zuhr."
+  },
+  {
+    "kind": "lesson",
+    "text": "Your portion: the Quran you recite at night"
+  },
+  {
+    "kind": "lesson",
+    "text": "Between Fajr and Zuhr it still counts"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 581"
+  },
+  {
+    "kind": "question",
+    "text": "When can you make up a missed night portion, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "Only on a Friday"
+  },
+  {
+    "kind": "question",
+    "text": "Between Fajr and Zuhr"
+  },
+  {
+    "kind": "question",
+    "text": "Between Asr and Maghrib"
+  },
+  {
+    "kind": "question",
+    "text": "Then he recited it between the Fajr prayer and the Zuhr prayer, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "How is it written for him, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "As nothing at all"
+  },
+  {
+    "kind": "question",
+    "text": "As if he recited it at night"
+  },
+  {
+    "kind": "question",
+    "text": "As half a reward"
+  },
+  {
+    "kind": "question",
+    "text": "As a missed deed"
+  },
+  {
+    "kind": "question",
+    "text": "If you sleep through your night portion, its reward is lost for good."
+  },
+  {
+    "kind": "question",
+    "text": "Recited between Fajr and Zuhr, it is written as if recited at night, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ asked Abu Bakr and Umar for a middle voice at night."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abu Qatadah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Bakr: the One I call on hears me"
+  },
+  {
+    "kind": "lesson",
+    "text": "Umar: I wake the sleepy and drive Shaytan away"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 1329"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ tell Abu Bakr about his voice?"
+  },
+  {
+    "kind": "question",
+    "text": "Raise it very loud"
+  },
+  {
+    "kind": "question",
+    "text": "Keep it the same"
+  },
+  {
+    "kind": "question",
+    "text": "Raise it a little"
+  },
+  {
+    "kind": "question",
+    "text": "Keep it silent"
+  },
+  {
+    "kind": "question",
+    "text": "Raise your voice a little, Abu Bakr, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Why did Umar pray in a loud voice?"
+  },
+  {
+    "kind": "question",
+    "text": "To call the traders to work"
+  },
+  {
+    "kind": "question",
+    "text": "To teach the children a poem"
+  },
+  {
+    "kind": "question",
+    "text": "To warn of a coming storm"
+  },
+  {
+    "kind": "question",
+    "text": "To wake the sleepy and drive Shaytan away"
+  },
+  {
+    "kind": "question",
+    "text": "Awakening the drowsy and driving away the Devil, Umar told him ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakr prayed at night in a low voice."
+  },
+  {
+    "kind": "question",
+    "text": "He found Abu Bakr praying in a low voice, Abu Qatadah said."
+  },
+  {
+    "kind": "lesson",
+    "text": "At night he ﷺ recited sometimes quietly, sometimes aloud."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abdullah ibn Abi Qais asked her"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah made the matter wide for us"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 449"
+  },
+  {
+    "kind": "question",
+    "text": "How did he ﷺ recite at night, Aishah said?"
+  },
+  {
+    "kind": "question",
+    "text": "Only in his heart"
+  },
+  {
+    "kind": "question",
+    "text": "Sometimes quietly, sometimes aloud"
+  },
+  {
+    "kind": "question",
+    "text": "Always in a whisper"
+  },
+  {
+    "kind": "question",
+    "text": "Always very loudly"
+  },
+  {
+    "kind": "question",
+    "text": "Sometimes he was silent with his recitation and sometimes it was audible, Aishah said."
+  },
+  {
+    "kind": "question",
+    "text": "What did Abdullah ibn Abi Qais thank Allah for?"
+  },
+  {
+    "kind": "question",
+    "text": "Sending down rain"
+  },
+  {
+    "kind": "question",
+    "text": "A safe journey home"
+  },
+  {
+    "kind": "question",
+    "text": "Making the matter wide"
+  },
+  {
+    "kind": "question",
+    "text": "Giving him a horse"
+  },
+  {
+    "kind": "question",
+    "text": "All praise is due to Allah, the One who made the matter broad, he said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ sometimes recited aloud in his night prayer."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about sunnahs of the night prayer!"
   },
   {
     "kind": "lesson",
@@ -76026,10 +76982,6 @@
   {
     "kind": "lesson",
     "text": "Hating a bad thought? Say Allahu akbar: Shaytan only whispers."
-  },
-  {
-    "kind": "lesson",
-    "text": "Told by Abdullah ibn Abbas"
   },
   {
     "kind": "lesson",
@@ -86625,10 +87577,6 @@
   },
   {
     "kind": "lesson",
-    "text": "Told by Umm Salamah"
-  },
-  {
-    "kind": "lesson",
     "text": "People argued at his door"
   },
   {
@@ -89166,10 +90114,6 @@
   {
     "kind": "question",
     "text": "Roses only"
-  },
-  {
-    "kind": "question",
-    "text": "Musk"
   },
   {
     "kind": "question",
@@ -95409,10 +96353,6 @@
   },
   {
     "kind": "question",
-    "text": "A cup of water"
-  },
-  {
-    "kind": "question",
     "text": "The amount of the loan"
   },
   {
@@ -96930,14 +97870,6 @@
   {
     "kind": "question",
     "text": "The pulpit for the khutbah"
-  },
-  {
-    "kind": "question",
-    "text": "A prayer mat"
-  },
-  {
-    "kind": "question",
-    "text": "A water jug"
   },
   {
     "kind": "question",
@@ -107741,10 +108673,6 @@
   },
   {
     "kind": "question",
-    "text": "One or two"
-  },
-  {
-    "kind": "question",
     "text": "Scholars saw this as Abu Bakr's short time as caliph, about two years."
   },
   {
@@ -114790,10 +115718,6 @@
   {
     "kind": "question",
     "text": "A leather bag"
-  },
-  {
-    "kind": "question",
-    "text": "A stone"
   },
   {
     "kind": "question",
@@ -127222,10 +128146,6 @@
   {
     "kind": "question",
     "text": "His health"
-  },
-  {
-    "kind": "question",
-    "text": "Food and drink"
   },
   {
     "kind": "question",
@@ -156701,10 +157621,6 @@
   },
   {
     "kind": "question",
-    "text": "A faster horse"
-  },
-  {
-    "kind": "question",
     "text": "A heart full of riches"
   },
   {
@@ -179149,10 +180065,6 @@
   },
   {
     "kind": "question",
-    "text": "What is a siwak?"
-  },
-  {
-    "kind": "question",
     "text": "A stick to clean teeth"
   },
   {
@@ -185302,10 +186214,6 @@
   {
     "kind": "lesson",
     "text": "Mercy for the mother"
-  },
-  {
-    "kind": "lesson",
-    "text": "Told by Abu Qatadah"
   },
   {
     "kind": "question",
@@ -192885,22 +193793,6 @@
   },
   {
     "kind": "question",
-    "text": "White clothes"
-  },
-  {
-    "kind": "question",
-    "text": "Green clothes"
-  },
-  {
-    "kind": "question",
-    "text": "Black clothes"
-  },
-  {
-    "kind": "question",
-    "text": "Red clothes"
-  },
-  {
-    "kind": "question",
     "text": "Two persons dressed in white clothes, Sa'd said of the day of Uhud."
   },
   {
@@ -199882,6 +200774,406 @@
   {
     "kind": "lesson",
     "text": "The last test: everything about remembering Allah always!"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ sought refuge from the evil of what he had done."
+  },
+  {
+    "kind": "lesson",
+    "text": "Farwah ibn Nawfal asked her about his ﷺ du'a"
+  },
+  {
+    "kind": "lesson",
+    "text": "And from the evil of what he had not done"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 1550"
+  },
+  {
+    "kind": "question",
+    "text": "Which two evils did he ﷺ seek refuge from, Aishah said?"
+  },
+  {
+    "kind": "question",
+    "text": "What he had bought and sold"
+  },
+  {
+    "kind": "question",
+    "text": "What he had built and planted"
+  },
+  {
+    "kind": "question",
+    "text": "What he had eaten and drunk"
+  },
+  {
+    "kind": "question",
+    "text": "What he had done and not done"
+  },
+  {
+    "kind": "question",
+    "text": "From the evil of what I have done, and of what I have not done, he ﷺ would say."
+  },
+  {
+    "kind": "question",
+    "text": "Whom did Farwah ibn Nawfal ask about his ﷺ du'a?"
+  },
+  {
+    "kind": "question",
+    "text": "Farwah ibn Nawfal asked Aishah, the Mother of the Believers, about his ﷺ du'a."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ sought refuge even from the evil of what he had not done."
+  },
+  {
+    "kind": "question",
+    "text": "And from the evil of what I have not done, he ﷺ would say, Aishah told Farwah."
+  },
+  {
+    "kind": "lesson",
+    "text": "In hard times say: Allah, Allah is my Lord."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Asma bint Umays"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allahu Rabbi, la ushriku bihi shay'a"
+  },
+  {
+    "kind": "lesson",
+    "text": "I do not associate anything with Him"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Ibn Majah 3882"
+  },
+  {
+    "kind": "question",
+    "text": "When did he ﷺ teach Asma to say these words?"
+  },
+  {
+    "kind": "question",
+    "text": "At times of distress"
+  },
+  {
+    "kind": "question",
+    "text": "At the start of a meal"
+  },
+  {
+    "kind": "question",
+    "text": "On the night of Eid"
+  },
+  {
+    "kind": "question",
+    "text": "When buying new clothes"
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ taught me some words to say at times of distress, Asma bint Umays said."
+  },
+  {
+    "kind": "question",
+    "text": "What does la ushriku bihi shay'a mean?"
+  },
+  {
+    "kind": "question",
+    "text": "I forget nothing about Him"
+  },
+  {
+    "kind": "question",
+    "text": "I hide nothing from Him"
+  },
+  {
+    "kind": "question",
+    "text": "I ask Him for nothing"
+  },
+  {
+    "kind": "question",
+    "text": "I associate nothing with Him"
+  },
+  {
+    "kind": "question",
+    "text": "Allah, Allah is my Lord, I do not associate anything with Him."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ taught Asma bint Umays words for hard times."
+  },
+  {
+    "kind": "question",
+    "text": "He taught me some words to say at times of distress, Asma bint Umays said."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ called on Allah, Lord of Jibril, Mikail and Israfil."
+  },
+  {
+    "kind": "lesson",
+    "text": "Jibril, Mikail and Israfil are angels"
+  },
+  {
+    "kind": "lesson",
+    "text": "Refuge from the heat of the Fire and the grave"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan an-Nasa'i 5519"
+  },
+  {
+    "kind": "question",
+    "text": "Who are Jibril, Mikail and Israfil?"
+  },
+  {
+    "kind": "question",
+    "text": "Companions"
+  },
+  {
+    "kind": "question",
+    "text": "O Allah, Lord of Jibra'il and Mika'il and Lord of Israfil, he ﷺ would say."
+  },
+  {
+    "kind": "question",
+    "text": "From the heat of what did he ﷺ seek refuge?"
+  },
+  {
+    "kind": "question",
+    "text": "The summer sun"
+  },
+  {
+    "kind": "question",
+    "text": "The desert sand"
+  },
+  {
+    "kind": "question",
+    "text": "The cooking pot"
+  },
+  {
+    "kind": "question",
+    "text": "The Fire of Jahannam"
+  },
+  {
+    "kind": "question",
+    "text": "I seek refuge in You from the heat of the Fire and the torment of the grave, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ sought refuge from the torment of the grave."
+  },
+  {
+    "kind": "question",
+    "text": "From the heat of the Fire and from the torment of the grave, he ﷺ sought refuge."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ask Allah to set right your religion, world and Hereafter."
+  },
+  {
+    "kind": "lesson",
+    "text": "Religion keeps all our affairs safe"
+  },
+  {
+    "kind": "lesson",
+    "text": "A good life, and a death that brings rest"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 2720"
+  },
+  {
+    "kind": "question",
+    "text": "Which three things did he ﷺ ask Allah to set right?"
+  },
+  {
+    "kind": "question",
+    "text": "Religion, world and Hereafter"
+  },
+  {
+    "kind": "question",
+    "text": "House, horse and garden"
+  },
+  {
+    "kind": "question",
+    "text": "Friends, food and sleep"
+  },
+  {
+    "kind": "question",
+    "text": "Clothes, shoes and tent"
+  },
+  {
+    "kind": "question",
+    "text": "Set right for me my religion, my world and my Hereafter, he ﷺ would say."
+  },
+  {
+    "kind": "question",
+    "text": "In his ﷺ du'a, what is in this world for us?"
+  },
+  {
+    "kind": "question",
+    "text": "Our final home"
+  },
+  {
+    "kind": "question",
+    "text": "Our only goal"
+  },
+  {
+    "kind": "question",
+    "text": "Our full reward"
+  },
+  {
+    "kind": "question",
+    "text": "Our living"
+  },
+  {
+    "kind": "question",
+    "text": "Set right for me my world, in which is my living, he ﷺ would say."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ asked Allah to make death a rest from every evil."
+  },
+  {
+    "kind": "question",
+    "text": "Make death a rest for me from every evil, he ﷺ would say, Abu Hurairah said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Seek refuge with Allah from a bad neighbor at home."
+  },
+  {
+    "kind": "lesson",
+    "text": "A neighbor where you live for good"
+  },
+  {
+    "kind": "lesson",
+    "text": "A neighbor on a journey soon moves on"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan an-Nasa'i 5502"
+  },
+  {
+    "kind": "question",
+    "text": "From which neighbor did he ﷺ tell us to seek refuge?"
+  },
+  {
+    "kind": "question",
+    "text": "A neighbor who visits"
+  },
+  {
+    "kind": "question",
+    "text": "A neighbor far away"
+  },
+  {
+    "kind": "question",
+    "text": "A bad neighbor at home"
+  },
+  {
+    "kind": "question",
+    "text": "A neighbor on a journey"
+  },
+  {
+    "kind": "question",
+    "text": "Seek refuge with Allah from a bad neighbor where you live for good, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Why is a bad neighbor on a journey less of a worry?"
+  },
+  {
+    "kind": "question",
+    "text": "He is always kind"
+  },
+  {
+    "kind": "question",
+    "text": "He never says a word"
+  },
+  {
+    "kind": "question",
+    "text": "He has no house"
+  },
+  {
+    "kind": "question",
+    "text": "He will soon move on"
+  },
+  {
+    "kind": "question",
+    "text": "For a neighbor in the desert will change, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "We should seek refuge with Allah from a bad neighbor."
+  },
+  {
+    "kind": "question",
+    "text": "Seek refuge with Allah from a bad neighbor where you live, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ counted his tasbih on his hand."
+  },
+  {
+    "kind": "lesson",
+    "text": "Tasbih is saying Subhan Allah"
+  },
+  {
+    "kind": "lesson",
+    "text": "We can count our dhikr on our hand too"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 3486"
+  },
+  {
+    "kind": "question",
+    "text": "What did Abdullah ibn Amr see him ﷺ count on his hand?"
+  },
+  {
+    "kind": "question",
+    "text": "The leaves of a tree"
+  },
+  {
+    "kind": "question",
+    "text": "The tasbih"
+  },
+  {
+    "kind": "question",
+    "text": "The stars in the sky"
+  },
+  {
+    "kind": "question",
+    "text": "The grains of sand"
+  },
+  {
+    "kind": "question",
+    "text": "I saw the Prophet ﷺ counting the tasbih on his hand, Abdullah ibn Amr said."
+  },
+  {
+    "kind": "question",
+    "text": "What is tasbih?"
+  },
+  {
+    "kind": "question",
+    "text": "Saying Insha Allah"
+  },
+  {
+    "kind": "question",
+    "text": "Saying Subhan Allah"
+  },
+  {
+    "kind": "question",
+    "text": "Tasbih means glorifying Allah, saying Subhan Allah."
+  },
+  {
+    "kind": "question",
+    "text": "Abdullah ibn Amr saw him ﷺ counting the tasbih on his hand."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about the du'as he ﷺ made and taught!"
   },
   {
     "kind": "lesson",
@@ -306689,10 +307981,6 @@
   },
   {
     "kind": "question",
-    "text": "Only in his heart"
-  },
-  {
-    "kind": "question",
     "text": "Yusuf said this to himself and did not utter it aloud."
   },
   {
@@ -334062,10 +335350,6 @@
   {
     "kind": "question",
     "text": "A covering from My Reminder"
-  },
-  {
-    "kind": "question",
-    "text": "A cloth"
   },
   {
     "kind": "question",
@@ -363046,10 +364330,6 @@
   {
     "kind": "lesson",
     "text": "He said La ilaha illallah"
-  },
-  {
-    "kind": "question",
-    "text": "At times of distress"
   },
   {
     "kind": "question",
@@ -438434,10 +439714,6 @@
   {
     "kind": "question",
     "text": "What is Sundus, per Ibn Kathir?"
-  },
-  {
-    "kind": "question",
-    "text": "A fruit"
   },
   {
     "kind": "question",
@@ -529974,10 +531250,6 @@
   {
     "kind": "question",
     "text": "He asked Allah"
-  },
-  {
-    "kind": "question",
-    "text": "He bowed at once"
   },
   {
     "kind": "question",
