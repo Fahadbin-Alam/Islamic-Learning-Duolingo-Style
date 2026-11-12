@@ -207,7 +207,7 @@ import { localAyahUri } from "./services/offlineAudio";
 import { quranAudioUrl } from "./services/quranAudio";
 import { useAyahPlayback } from "./ui/lesson/AyahListen";
 import { listenWhy, withListenQuestion } from "./ui/lesson/listenQuestion";
-import { memorizeParts, withReciteQuestion, type HifzPart } from "./ui/lesson/reciteQuestion";
+import { hifzAyahs, memorizeParts, withReciteQuestion, type HifzPart } from "./ui/lesson/reciteQuestion";
 import { recordMemorized, useMemorizeStars } from "./services/memorizeSurahs";
 import { SURAH_NAMES } from "./data/surahMeanings";
 import { colors, configureUiSound, darken, preloadUiSounds, fonts, Icon, lighten, Mascot, PopIn, radii, space, Tappable } from "./ui";
@@ -1360,6 +1360,8 @@ export default function TopicApp() {
   const sprintBest = useSprintRecord().best;
   // Memorize surahs in Practice, and each surah's best stars on this phone.
   const [memorizeVisible, setMemorizeVisible] = useState(false);
+  // The surah practised last: the list opens at it again, with its new stars.
+  const [memorizeFocus, setMemorizeFocus] = useState<string>();
   const memorizeStarsNow = useMemorizeStars();
   const albumFound = useAlbum();
   const certificatesBefore = useRef<{ userId?: number; ids?: Set<string> }>({});
@@ -2198,6 +2200,7 @@ export default function TopicApp() {
     }
 
     memorizeTriesRef.current.set(part.id, attempt + 1);
+    setMemorizeFocus(part.id);
     setMemorizeVisible(false);
     challengeStartedAtRef.current = Date.now();
     dispatch({ type: "start_lesson", session });
@@ -4556,7 +4559,7 @@ export default function TopicApp() {
           />
         )}
         {!inLesson && (
-          <MemorizeSheet visible={memorizeVisible} onClose={() => setMemorizeVisible(false)} rows={memorizeRows} onStart={startMemorize} />
+          <MemorizeSheet visible={memorizeVisible} onClose={() => setMemorizeVisible(false)} rows={memorizeRows} onStart={startMemorize} focusId={memorizeFocus} />
         )}
         {!inLesson && (
           <QuizSheet
@@ -5023,7 +5026,9 @@ function memorizeRow(part: HifzPart, language: SupportedLanguage, stars: number)
     title: translateStudyText(`Surah ${SURAH_NAMES[part.surah - 1]}`, language),
     arabic: language === "ar" || language === "ur" ? undefined : surahArabicName(part.surah),
     line: whole ? t("{count} ayahs", { count: part.ayahs }) : t("Ayahs {from}-{to}", { from: part.from, to: part.to }),
-    stars
+    stars,
+    ayahs: hifzAyahs(part),
+    surahAyahs: part.ayahs
   };
 }
 

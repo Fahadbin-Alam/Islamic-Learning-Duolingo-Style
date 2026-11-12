@@ -1008,5 +1008,7 @@
   "{count} ayahs": "{count}টি আয়াত",
   "Ayahs {from}-{to}": "আয়াত {from}-{to}",
   "Ayah {number} of {count}": "{count}টির মধ্যে {number} নম্বর আয়াত",
-  "Every ayah right!": "সব আয়াত ঠিক!"
+  "Every ayah right!": "সব আয়াত ঠিক!",
+  "Listen and say each ayah after the reciter, then practice.": "ক্বারীর তিলাওয়াত শোনো, প্রতিটি আয়াত তাঁর পরে পরে বলো, তারপর অনুশীলন করো।",
+  "Each ayah 3 times": "প্রতিটি আয়াত ৩ বার"
 }
