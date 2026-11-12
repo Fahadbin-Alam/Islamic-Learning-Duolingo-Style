@@ -360,7 +360,7 @@ const MULK_TWO: DeepUnit = {
       line: "Allah looks not at bodies or faces, but at hearts.",
       facts: ["Looks do not matter to Him", "The heart matters most"],
       quote: q67(13),
-      source: hadith("muslim", "2564", "Abu Hurairah", "Sahih", "The Prophet ﷺ said Allah does not look to your bodies nor your faces, but He looks to your hearts.", "Allah does not look to your bodies nor to your faces but He looks to your hearts"),
+      source: hadith("muslim", "2564b", "Abu Hurairah", "Sahih", "The Prophet ﷺ said Allah does not look to your bodies nor your faces, but He looks to your hearts.", "Allah does not look to your bodies nor to your faces but He looks to your hearts"),
       difficulty: 2,
       questions: [
         { q: "What does Allah look to?", a: "Our hearts", wrong: ["Our faces", "Our clothes", "Our houses"], why: "Allah does not look to your bodies nor to your faces but He looks to your hearts." },

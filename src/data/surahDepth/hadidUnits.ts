@@ -1282,7 +1282,7 @@ const HADID_FOUR: DeepUnit = {
       line: "Allah wrote all measures long before the heavens and earth.",
       facts: ["His Throne was upon the water", "Belief in Qadar is part of faith"],
       quote: q57(22),
-      source: hadith("muslim", "2653", "Abdullah ibn Amr", "Sahih", "The Prophet ﷺ said Allah ordained the measures of creation fifty thousand years before He created the heavens and the earth, and His Throne was upon water.", "of the creation fifty thousand years before He created the heavens and the earth, as His Throne was upon water"),
+      source: hadith("muslim", "2653b", "Abdullah ibn Amr", "Sahih", "The Prophet ﷺ said Allah ordained the measures of creation fifty thousand years before He created the heavens and the earth, and His Throne was upon water.", "of the creation fifty thousand years before He created the heavens and the earth, as His Throne was upon water"),
       difficulty: 3,
       questions: [
         { q: "How long before the heavens were measures written?", a: "Fifty thousand years", wrong: ["Fifty years", "One thousand years", "Seven days"], why: "Fifty thousand years before He created the heavens and the earth." },

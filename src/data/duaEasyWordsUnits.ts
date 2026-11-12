@@ -32,7 +32,7 @@ const EASY_WORDS: DeepUnit = {
       title: "A thousand good deeds",
       line: "A hundred tasbih bring a thousand good deeds, he ﷺ said.",
       facts: ["Told by Sa'd ibn Abi Waqqas", "Tasbih is saying Subhan Allah", "He ﷺ asked: is anyone unable to earn it?"],
-      source: hadith("tirmidhi", "3463", "Sa'd ibn Abi Waqqas", "Sahih (Al-Albani)", "The Messenger of Allah ﷺ asked those sitting with him: is one of you unable to earn a thousand good deeds? Someone asked: how can one of us earn a thousand good deeds? He said: when one of you says a hundred tasbih, a thousand good deeds are written for him, and a thousand bad deeds are wiped away from him.", "a thousand good deeds are written for him, and a thousand evil deeds are wiped away from him"),
+      source: hadith("tirmidhi", "3463", "Sa'd ibn Abi Waqqas", "Sahih (Al-Albani)", "The Messenger of Allah ﷺ asked those sitting with him: is one of you unable to earn a thousand good deeds? Someone asked: how can one of us earn a thousand good deeds? He said: when one of you says a hundred tasbih, a thousand good deeds are written for him, and a thousand bad deeds are wiped away from him.", "one of you recites a hundred … a thousand good deeds are written for him, and a thousand evil deeds are wiped away from him"),
       difficulty: 1,
       questions: [
         { q: "How many good deeds are written for a hundred tasbih?", a: "A thousand good deeds", wrong: ["Ten good deeds", "Seventy good deeds", "Forty good deeds"], why: "When one of you recites a hundred tasbih, a thousand good deeds are written for him." },

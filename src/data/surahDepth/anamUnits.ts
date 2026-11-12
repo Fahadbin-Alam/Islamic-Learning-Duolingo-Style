@@ -347,7 +347,7 @@ const ANAM_ONE: DeepUnit = {
       line: "Allah does not look at faces and wealth, but hearts and deeds.",
       facts: ["Qalb: heart", "Not status or looks"],
       quote: q6(53),
-      source: hadith("muslim", "2564", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: Allah does not look at your bodies or your faces, but He looks at your hearts and your deeds. Ibn Kathir quotes it on 6:53.", "Verily Allah does not look to your bodies nor to your faces but He looks to your hearts"),
+      source: hadith("muslim", "2564c", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: Allah does not look at your faces or your wealth, but He looks at your hearts and your deeds. Ibn Kathir quotes it on 6:53.", "Verily Allah does not look to your faces and your wealth but He looks to your heart and to your deeds"),
       difficulty: 4,
       questions: [
         { q: "What does Allah look at, per Muslim 2564?", a: "Hearts and deeds", wrong: ["Faces and bodies", "Wealth and clothes", "Family names"], why: "He looks to your hearts." },

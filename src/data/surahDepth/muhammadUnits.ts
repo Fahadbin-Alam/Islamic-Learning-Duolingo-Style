@@ -109,7 +109,7 @@ const MUHAMMAD_ONE: DeepUnit = {
       line: "In Paradise, each believer will know the way to his own home.",
       facts: ["Better than they knew their homes here", "Allah made Paradise known to them"],
       quote: q47(6),
-      source: hadith("bukhari", "6535", "Abu Sa'id al-Khudri", "Sahih", "The Prophet ﷺ said believers will be purified at a bridge, then enter Paradise, and each will know his dwelling there better than his dwelling in this world.", "everyone of them will know his dwelling in Paradise better t"),
+      source: hadith("bukhari", "6535", "Abu Sa'id al-Khudri", "Sahih", "The Prophet ﷺ said believers will be purified at a bridge, then enter Paradise, and each will know his dwelling there better than his dwelling in this world.", "everyone of them will know his dwelling in Paradise better than he knew his dwelling in this world"),
       difficulty: 2,
       questions: [
         { q: "Where are believers stopped, per Bukhari 6535?", a: "A bridge between Paradise and the Fire", wrong: ["A river", "A mountain", "A market"], why: "They will be stopped at a bridge between Paradise and Hell." },

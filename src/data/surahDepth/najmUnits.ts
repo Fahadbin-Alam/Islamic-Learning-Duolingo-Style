@@ -626,7 +626,7 @@ const NAJM_TWO: DeepUnit = {
       line: "He ﷺ changed the name Barrah, the pious, to Zaynab.",
       facts: ["Barrah: the pious one", "Allah knows the pious"],
       quote: q53(32),
-      source: hadith("muslim", "2142", "Zaynab bint Abi Salamah", "Sahih", "Zaynab said she was named Barrah, and the Prophet ﷺ said: do not hold yourselves pious, Allah knows who is pious; name her Zaynab.", "It is God alone who knows the people of piety among you"),
+      source: hadith("muslim", "2142b", "Zaynab bint Abi Salamah", "Sahih", "Zaynab said she was named Barrah, and the Prophet ﷺ said: do not hold yourselves pious, Allah knows who is pious; name her Zaynab.", "It is God alone who knows the people of piety among you"),
       difficulty: 3,
       questions: [
         { q: "What name did he ﷺ change, per Muslim 2142?", a: "Barrah", wrong: ["Fatimah", "Maryam", "Aishah"], why: "I was also called Barra, but Allah's Messenger said: Do not hold yourself to be pious." },

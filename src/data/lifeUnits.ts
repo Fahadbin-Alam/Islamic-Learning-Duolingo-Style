@@ -534,7 +534,7 @@ const SPECIAL_DAYS: DeepUnit = {
       title: "Fasting the Day of Arafah",
       line: "Fasting Arafah wipes the sins of the year before and after.",
       facts: ["It is on the 9th of Dhul-Hijjah.", "It is for those not on Hajj."],
-      source: hadith("muslim", "1162", "Abu Qatadah", "Sahih", "The Prophet ﷺ said fasting the day of Arafah expiates the sins of the year before and the year after, and fasting Ashura expiates the year before."),
+      source: hadith("muslim", "1162b", "Abu Qatadah", "Sahih", "The Prophet ﷺ said fasting the day of Arafah expiates the sins of the year before and the year after, and fasting Ashura expiates the year before."),
       difficulty: 3,
       questions: [
         { q: "Fasting the Day of Arafah expiates how much?", a: "Two years", wrong: ["One day", "One month", "Ten years"], why: "The year before and the year after." },

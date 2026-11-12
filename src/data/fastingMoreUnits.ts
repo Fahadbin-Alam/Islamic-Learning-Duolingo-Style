@@ -31,7 +31,7 @@ const FAST_MANNERS: DeepUnit = {
       title: "More generous than the wind",
       line: "In Ramadan he ﷺ was more generous than a blowing wind.",
       facts: ["Told by Ibn Abbas", "Jibril met him every night"],
-      source: hadith("bukhari", "1902", "Ibn Abbas", "Sahih", "The Prophet ﷺ was the most generous of people, and most of all in Ramadan, when Jibril met him every night and he recited the Quran to him. Then he was more generous than a fast wind.", "he used to be more generous than a fast wind"),
+      source: hadith("bukhari", "1902", "Ibn Abbas", "Sahih", "The Prophet ﷺ was the most generous of people, and most of all in Ramadan, when Jibril met him every night and he recited the Quran to him. Then he was more generous than a fast wind.", "used to be more generous than a fast wind"),
       difficulty: 1,
       questions: [
         { q: "When was he ﷺ at his most generous?", a: "In Ramadan", wrong: ["In winter", "On journeys", "During Hajj"], why: "He used to be more so in the month of Ramadan." },

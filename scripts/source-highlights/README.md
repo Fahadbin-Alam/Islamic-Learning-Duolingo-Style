@@ -32,5 +32,27 @@ opens on its own Shamela page (`src/data/shamelaPages.json`, `book:volume/page` 
   and Al-Ijma' (12445) have no fixed offset, so their ids were read off shamela.ws one by one (Tabaqat 3/54 has
   no page of its own and shares id 735 with 3/51).
 - A page not in the map falls back to the book's front page, so add new pages to the map with the line.
-- The app also shows the line under the source chip ("On the page, look for"), with the English summary for an
-  Arabic line (`src/ui/lesson/LookFor.tsx`).
+- `src/ui/lesson/LookFor.tsx` can show the line under a source chip ("On the page, look for"), with the English
+  summary for an Arabic line. The simple lesson pages (#474) leave it out, so the line shows on the page itself.
+
+## The last Sunnah.com sources (picked by hand)
+
+The 240 Sunnah.com sources `match.py` left without a line were picked one by one from the same hadith-api texts, and
+each line was checked to be on its page word for word (the books with no text there, such as Riyad as-Salihin, Hisn
+al-Muslim and al-Adab al-Mufrad, still open at the top). A line may start after a narrator's colon (Sunnah.com shows
+the narrator in a block of its own); a two-part line, `A … B`, lights A through B, so it can step over a quote, a
+bracket or an apostrophe.
+
+Sahih Muslim pages show one narration each:
+
+- `sunnah.com/muslim:2564` shows only 2564a. A line from 2564b or 2564c is not on it, so a source citing that
+  narration links `muslim:2564c` (`hadith("muslim", "2564c", …)`).
+- The letters are the hadith-api ones: `arabicnumber` 2564.03 is 2564c, and the in-book references match too.
+- Sunnah.com gives some one-line notes ("A hadith like this has been narrated…") a number of their own: muslim:1469
+  and muslim:2653a are such notes, so the famous texts are muslim:1468b and muslim:2653b.
+
+The browser lights the first place a link's words appear. A line of up to nine words is matched whole, a longer one
+by its first four and last four words, so those words should not appear earlier on the page. In bukhari:1238,
+"Anyone who dies worshipping others along with Allah will definitely enter the Fire" comes first, so the Paradise line
+starts "who dies worshipping none", not "Anyone who dies worshipping". A cut word matches nothing ("should m" lights
+no line at all), so a line always ends on a whole word.

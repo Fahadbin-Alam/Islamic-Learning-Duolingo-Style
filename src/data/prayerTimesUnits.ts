@@ -32,7 +32,7 @@ const TIMES: DeepUnit = {
       title: "Let it cool down",
       line: "In great heat, he ﷺ said: wait for Zuhr until it cools.",
       facts: ["Told by Abu Dharr", "They were on a journey", "They waited till the hills cast shadows"],
-      source: hadith("bukhari", "539", "Abu Dharr", "Sahih", "Abu Dharr said: we were with the Prophet ﷺ on a journey, and the mu'adhdhin wanted to call the adhan for Zuhr. The Prophet ﷺ said: let it become cooler. Later he wanted to call the adhan again, and he ﷺ said: let it become cooler, until we see the shadows of the hillocks. Then the Prophet ﷺ said: the fierce heat is from the raging of Hell, so when the heat is very great, pray Zuhr when it becomes cooler.", "Let it become cooler till we see the shadows of hillocks"),
+      source: hadith("bukhari", "539", "Abu Dharr", "Sahih", "Abu Dharr said: we were with the Prophet ﷺ on a journey, and the mu'adhdhin wanted to call the adhan for Zuhr. The Prophet ﷺ said: let it become cooler. Later he wanted to call the adhan again, and he ﷺ said: let it become cooler, until we see the shadows of the hillocks. Then the Prophet ﷺ said: the fierce heat is from the raging of Hell, so when the heat is very great, pray Zuhr when it becomes cooler.", "Let it become cooler till we see the shadows"),
       difficulty: 1,
       questions: [
         { q: "What did he ﷺ tell the mu'adhdhin before Zuhr?", a: "Let it become cooler", wrong: ["Call it at once", "Call it twice", "Call it from the roof"], why: "Let it become cooler till we see the shadows of the hillocks, he ﷺ said." },

@@ -640,7 +640,7 @@ const HASHR_TWO: DeepUnit = {
       line: "Stinginess destroyed people before us, the Prophet ﷺ warned.",
       facts: ["Oppression is darkness on Judgment Day", "Stinginess led to great wrongs"],
       quote: q59(9),
-      source: hadith("muslim", "2578", "Jabir ibn Abdullah", "Sahih", "The Prophet ﷺ said: beware of oppression, for it is darkness on the Day of Resurrection, and beware of stinginess, for it destroyed those before you.", "be on your guard against stinginess for stinginess destroyed those who were before you"),
+      source: hadith("muslim", "2578", "Jabir ibn Abdullah", "Sahih", "The Prophet ﷺ said: beware of oppression, for it is darkness on the Day of Resurrection, and beware of stinginess, for it destroyed those before you.", "guard against stinginess for stinginess destroyed those who were before you"),
       difficulty: 3,
       questions: [
         { q: "What destroyed those before us?", a: "Stinginess", wrong: ["Charity", "Kindness", "Prayer"], why: "Stinginess destroyed those who were before you." },

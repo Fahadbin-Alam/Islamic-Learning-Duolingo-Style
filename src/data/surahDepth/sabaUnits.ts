@@ -573,7 +573,7 @@ const SABA_TWO: DeepUnit = {
       line: "Not wealth or children, but faith and good deeds bring us near.",
       facts: ["Allah looks at hearts", "High rooms in Paradise"],
       quote: q34(37),
-      source: hadith("muslim", "2564", "Abu Hurairah", "Sahih", "Allah does not look at your faces or wealth, but at your hearts and your deeds.", "Verily Allah does not look to your faces and your wealth but He looks to your heart and to your deeds"),
+      source: hadith("muslim", "2564c", "Abu Hurairah", "Sahih", "Allah does not look at your faces or wealth, but at your hearts and your deeds.", "Verily Allah does not look to your faces and your wealth but He looks to your heart and to your deeds"),
       difficulty: 3,
       questions: [
         { q: "What brings us near Allah, in 34:37?", a: "Faith and good deeds", wrong: ["Wealth", "Children", "Fame"], why: "But only he who believes, and does righteous deeds." },

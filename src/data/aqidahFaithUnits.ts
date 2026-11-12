@@ -32,7 +32,7 @@ const FAITH: DeepUnit = {
       title: "For the sake of Allah",
       line: "Give and love for Allah's sake, and faith is made perfect.",
       facts: ["Told by Mu'adh ibn Anas al-Juhani", "Five things, all for Allah"],
-      source: hadith("tirmidhi", "2521", "Mu'adh ibn Anas al-Juhani", "Hasan (Al-Albani)", "The Prophet ﷺ said: whoever gives for the sake of Allah, holds back for the sake of Allah, loves for the sake of Allah, dislikes for the sake of Allah, and marries for the sake of Allah has perfected his faith.", "Whoever gives for the sake of Allah, withholds for the sake of Allah, loves for the sake of Allah"),
+      source: hadith("tirmidhi", "2521", "Mu'adh ibn Anas al-Juhani", "Hasan (Al-Albani)", "The Prophet ﷺ said: whoever gives for the sake of Allah, holds back for the sake of Allah, loves for the sake of Allah, dislikes for the sake of Allah, and marries for the sake of Allah has perfected his faith.", "Whoever gives for the sake of Allah, withholds for the sake of Allah, loves for the sake of Allah, hates for the sake of Allah, and marries for the sake of Allah, he has indeed perfected his faith"),
       difficulty: 2,
       questions: [
         { q: "Whose faith is made perfect, he ﷺ said?", a: "Who acts for the sake of Allah", wrong: ["Who owns the most", "Who talks the most", "Who is the strongest"], why: "Whoever gives, withholds and loves for the sake of Allah." },

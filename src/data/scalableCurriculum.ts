@@ -163,7 +163,7 @@ export function bukhari(number: number, narrator: string, title: string, summary
   return hadithSource(`hadith_bukhari_${number}`, title, `Sahih al-Bukhari ${number}`, `https://sunnah.com/bukhari:${number}`, `${narrator}; collected by Imam al-Bukhari`, "Sahih", summary);
 }
 
-export function muslim(number: number, narrator: string, title: string, summary: string): LessonSource {
+export function muslim(number: number | string, narrator: string, title: string, summary: string): LessonSource {
   return hadithSource(`hadith_muslim_${number}`, title, `Sahih Muslim ${number}`, `https://sunnah.com/muslim:${number}`, `${narrator}; collected by Imam Muslim`, "Sahih", summary);
 }
 
@@ -235,7 +235,7 @@ const LEARN_SOURCES = {
   quran_4_35: ayah("4:35", "A helper from each family", "If you fear a split between them, send one helper from his family and one from hers."),
   hadith_bukhari_432: bukhari(432, "Ibn Umar", "Pray at home", "Pray some of your prayers in your houses, and do not make them like graves."),
   quran_25_74: ayah("25:74", "A joy to our eyes", "Our Lord, give us in our spouses and children a joy to our eyes."),
-  hadith_muslim_1469: muslim(1469, "Abu Hurairah", "Remember the good", "A believer should not hate a believing wife; if he dislikes one trait in her, he will be pleased with another."),
+  hadith_muslim_1468b: muslim("1468b", "Abu Hurayrah", "Remember the good", "A believer should not hate a believing wife; if he dislikes one trait in her, he will be pleased with another."),
   quran_1_2: ayah("1:2", "All praise is for Allah", "All praise is for Allah, Lord of all the worlds."),
   quran_1_5: ayah("1:5", "You alone we worship", "You alone we worship, and You alone we ask for help."),
   quran_1_6: ayah("1:6", "The straight path", "Guide us to the straight path."),
@@ -279,7 +279,7 @@ const LEARN_SOURCES = {
   hadith_bukhari_6: bukhari(6, "Ibn Abbas", "Jibril in Ramadan", "Jibril met the Prophet ﷺ every night of Ramadan to go over the Quran with him."),
   hadith_bukhari_1521: bukhari(1521, "Abu Hurairah", "Like a newborn", "Whoever does Hajj for Allah, with no bad words and no bad deeds, comes home free of sins, like the day he was born."),
   hadith_bukhari_55: bukhari(55, "Abu Mas'ud al-Ansari", "Spending on family", "When a man spends on his family hoping for reward from Allah, it counts as charity for him."),
-  hadith_muslim_2625: muslim(2625, "Abu Dharr", "Share your soup", "The Prophet ﷺ told Abu Dharr: when you cook soup, add more water and share some with your neighbors.")
+  hadith_muslim_2625b: muslim("2625b", "Abu Dharr", "Share your soup", "The Prophet ﷺ told Abu Dharr: when you cook soup, add more water and share some with your neighbors.")
 } satisfies Record<string, LessonSource>;
 
 const SOURCE_LIBRARY = {
@@ -2483,7 +2483,7 @@ SECTION_SEEDS.push(
           alt: ["worry", "trouble"]
         }),
         seed("patience-and-growth", "Seeing the good", "Marriage requires patience with imperfection while still moving toward improvement.", 4, {
-          source: "hadith_muslim_1469",
+          source: "hadith_muslim_1468b",
           line: "If one habit bothers you, remember the [good] ones.",
           alt: ["bad", "loud"],
           why: "The Prophet ﷺ said: if you dislike one trait, you will like another."
@@ -3117,7 +3117,7 @@ SECTION_SEEDS.push(
           why: "Sadaqah can be given any time, even a smile."
         }),
         seed("care-for-neighbors", "Share with neighbors", "Islamic generosity makes you notice the needs of people around you.", 3, {
-          source: "hadith_muslim_2625",
+          source: "hadith_muslim_2625b",
           line: "When you cook soup, add water and share with your neighbors.",
           ask: ["Who did the Prophet ﷺ say to share soup with?", "Your neighbors", "No one", "Only the rich"],
           myth: "When you cook soup, add water and keep it all yourself.",

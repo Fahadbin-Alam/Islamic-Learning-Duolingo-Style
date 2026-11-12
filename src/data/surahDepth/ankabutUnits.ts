@@ -164,7 +164,7 @@ const ANKABUT_ONE: DeepUnit = {
       line: "Sa'd's mother refused food so he would leave Islam; he stayed.",
       facts: ["Firm faith with gentle manners", "Allah answered Sa'd's trial"],
       quote: q29(8),
-      source: hadith("muslim", "1748", "Sa'd", "Sahih", "Sa'd's mother swore not to eat, drink or speak until he left Islam. Allah revealed 29:8: be kind to parents, but do not obey them in shirk.", "she neither ate nor drank"),
+      source: hadith("muslim", "1748c", "Sa'd", "Sahih", "Sa'd's mother swore not to eat, drink or speak until he left Islam. Allah revealed 29:8: be kind to parents, but do not obey them in shirk.", "she neither ate nor drank"),
       difficulty: 4,
       questions: [
         { q: "What did Sa'd's mother refuse, in the hadith?", a: "To eat or drink", wrong: ["To travel", "To sleep", "To buy"], why: "She neither ate nor drank." },

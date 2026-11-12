@@ -3,9 +3,9 @@ import type { Lesson, LessonSource } from "../types";
 /**
  * The exact words on a source's page that say what the lesson teaches, for the Quran.com Tafsir Ibn Kathir pages
  * and Sunnah.com hadith pages that had none: the source then opens scrolled to them, highlighted
- * (src/services/sourceLink.ts). Picked by scripts/source-highlights/match.py from the same English texts those
- * pages show (Tafsir Ibn Kathir abridged, the Sunnah.com translations), each checked to be on the page word for
- * word. Keyed by the page's url and a hash of the source's summary, since one page can back several lessons.
+ * (src/services/sourceLink.ts). Picked by scripts/source-highlights/match.py (the last Sunnah.com ones by hand, see
+ * its README) from the same English texts those pages show (Tafsir Ibn Kathir abridged, the Sunnah.com
+ * translations), each checked to be on the page word for word. Keyed by the page's url and a hash of the source's summary, since one page can back several lessons.
  */
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const HIGHLIGHTS: Record<string, string> = require("./sourceHighlights.json");

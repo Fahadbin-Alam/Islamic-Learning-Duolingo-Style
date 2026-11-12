@@ -83,7 +83,7 @@ const WORLD: DeepUnit = {
       title: "Bring your need to Allah",
       line: "Bring your need to Allah, and He will send provision.",
       facts: ["Told by Abdullah ibn Mas'ud", "Sooner or later, Allah provides"],
-      source: hadith("tirmidhi", "2326", "Abdullah ibn Mas'ud", "Sahih (Al-Albani)", "The Prophet ﷺ said: whoever is struck by need and takes it to people, his need is not ended; whoever takes it to Allah, Allah will send him provision, sooner or later.", "whoever suffers from destitution and he beseeches Allah for it, Allah will send provisions to him, sooner or later"),
+      source: hadith("tirmidhi", "2326", "Abdullah ibn Mas'ud", "Sahih (Al-Albani)", "The Prophet ﷺ said: whoever is struck by need and takes it to people, his need is not ended; whoever takes it to Allah, Allah will send him provision, sooner or later.", "And whoever suffers from destitution and he beseeches Allah for it, Allah will send provisions to him, sooner or later"),
       difficulty: 2,
       questions: [
         { q: "To whom should you bring your need, he ﷺ said?", a: "To Allah, not to people", wrong: ["To people, not to Allah", "To no one at all", "To the richest man"], why: "Whoever beseeches the people for it, his destitution shall not end." },

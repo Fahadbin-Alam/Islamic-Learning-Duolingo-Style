@@ -347,7 +347,7 @@ const ALAQ_TWO: DeepUnit = {
       line: "Muhammad ﷺ made sujud when he recited 96:19.",
       facts: ["Sajdat at-tilawah", "84:21 too"],
       quote: q96(19),
-      source: hadith("muslim", "578", "Abu Hurairah", "Sahih", "Abu Hurairah said they made sujud with the Messenger of Allah ﷺ when he recited Al-Inshiqaq and Al-Alaq.", "We performed prostration along with the Messenger of Allah"),
+      source: hadith("muslim", "578c", "Abu Hurairah", "Sahih", "Abu Hurairah said they made sujud with the Messenger of Allah ﷺ when he recited Al-Inshiqaq and Al-Alaq.", "We performed prostration along with the Messenger of Allah"),
       difficulty: 3,
       questions: [
         { q: "What did they do at Al-Alaq with him?", a: "Made sujud", wrong: ["Stood up", "Clapped", "Stopped reciting"], why: "We performed prostration along with the Messenger of Allah." },

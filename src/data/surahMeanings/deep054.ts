@@ -50,7 +50,7 @@ export const DEEP_054: Record<string, PassageDeep> = {
       "The mindful will be among gardens and rivers, in a seat of truth near a King, All-Powerful."
     ],
     story: "The Prophet ﷺ said: Allah wrote the measures of all creation fifty thousand years before He created the heavens and the earth.",
-    hadith: { collection: "muslim", number: 2653, narrator: "Abdullah ibn Amr", text: "Allah wrote down the measures of the creation fifty thousand years before He created the heavens and the earth." },
+    hadith: { collection: "muslim", number: "2653b", narrator: "Abdullah ibn Amr", text: "Allah wrote down the measures of the creation fifty thousand years before He created the heavens and the earth." },
     takeaway: "Nothing happens by chance: trust Allah's plan for you.",
     q: [
       ["Ayah 49: how did Allah create everything?", "By a set measure", "By chance", "Without a plan", "In a hurry"],

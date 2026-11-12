@@ -73,7 +73,7 @@ const JUMUAH: DeepUnit = {
       title: "No stepping over people",
       line: "He ﷺ told a man stepping over people at Jumu'ah: sit down.",
       facts: ["Told by Abdullah ibn Busr", "During the khutbah on a Friday", "He ﷺ told the man: sit down"],
-      source: hadith("abudawud", "1118", "Abdullah ibn Busr", "Sahih (Al-Albani)", "Abdullah ibn Busr said: a man came stepping over people while the Prophet ﷺ was giving the khutbah on Friday. The Prophet ﷺ said: sit down, you have bothered people.", "A man came and stepped over the people while the Prophet"),
+      source: hadith("abudawud", "1118", "Abdullah ibn Busr", "Sahih (Al-Albani)", "Abdullah ibn Busr said: a man came stepping over people while the Prophet ﷺ was giving the khutbah on Friday. The Prophet ﷺ said: sit down, you have bothered people.", "A man came and stepped over the people while"),
       difficulty: 1,
       questions: [
         { q: "What did the man do while he ﷺ gave the khutbah?", a: "Stepped over people", wrong: ["Slept by the door", "Sold some dates", "Swept the floor"], why: "A man came and stepped over the people while the Prophet ﷺ was giving the khutbah." },

@@ -142,7 +142,7 @@ const SAYINGS: Saying[] = [
   {
     ref: "muslim:2564c",
     reference: "Sahih Muslim 2564c",
-    narrator: "Abu Hurayrah",
+    narrator: "Abu Hurairah",
     title: "Allah sees the heart",
     line: "Allah looks at your heart and deeds, not your looks.",
     quote: "Verily Allah does not look to your faces and your wealth but He looks to your heart and to your deeds.",

@@ -2555,7 +2555,7 @@ const ADHAN: DeepUnit = {
       title: "The imam's mistake",
       line: "If the imam errs, you keep your reward; the error is his.",
       facts: ["Follow the imam", "Told by Abu Hurairah"],
-      source: hadith("bukhari", "694", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: if the imam leads well, you both get the reward; if he errs, you still get your reward and the sin is his.", "you will receive the reward for the prayer and the sin will be his"),
+      source: hadith("bukhari", "694", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: if the imam leads well, you both get the reward; if he errs, you still get your reward and the sin is his.", "then you will receive the reward for the prayer and the sin will be his"),
       difficulty: 2,
       questions: [
         { q: "If the imam makes a mistake, who loses?", a: "Only the imam", wrong: ["Everyone", "Only the first row", "The muadhin"], why: "You receive the reward and the sin is his." },
@@ -2658,7 +2658,7 @@ const FUNERALS: DeepUnit = {
       title: "How you die matters",
       line: "Whoever dies worshipping none but Allah enters Paradise.",
       facts: ["Shirk at death leads to the Fire", "Told by Ibn Mas'ud"],
-      source: hadith("bukhari", "1238", "Abdullah ibn Mas'ud", "Sahih", "The Prophet ﷺ said: whoever dies worshipping others with Allah enters the Fire. Ibn Mas'ud said: so whoever dies worshipping none with Allah enters Paradise.", "Anyone who dies worshipping none along with Allah will definitely enter Paradise"),
+      source: hadith("bukhari", "1238", "Abdullah ibn Mas'ud", "Sahih", "The Prophet ﷺ said: whoever dies worshipping others with Allah enters the Fire. Ibn Mas'ud said: so whoever dies worshipping none with Allah enters Paradise.", "who dies worshipping none along with Allah will definitely enter Paradise"),
       difficulty: 1,
       questions: [
         { q: "Who enters Paradise, by this hadith?", a: "One who dies on tawhid", wrong: ["One who dies rich", "One who dies old", "One who dies famous"], why: "Anyone who dies worshipping none along with Allah enters Paradise." },

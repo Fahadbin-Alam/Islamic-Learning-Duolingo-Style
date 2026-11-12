@@ -584,7 +584,7 @@ const HUJURAT_TWO: DeepUnit = {
       line: "Allah does not look at looks or wealth, but at hearts.",
       facts: ["Piety is in the heart", "He pointed to his chest"],
       quote: q49(13),
-      source: hadith("muslim", "2564", "Abu Hurairah", "Sahih", "The Prophet ﷺ said Allah does not look at your bodies or faces, but at your hearts, and pointed to his chest: piety is here.", "Allah does not look to your bodies nor to your faces but He looks to your hearts"),
+      source: hadith("muslim", "2564b", "Abu Hurairah", "Sahih", "The Prophet ﷺ said Allah does not look at your bodies or faces, but at your hearts, and pointed to his chest: piety is here.", "Allah does not look to your bodies nor to your faces but He looks to your hearts"),
       difficulty: 1,
       questions: [
         { q: "What does Allah look at, per Muslim 2564?", a: "Our hearts", wrong: ["Our faces", "Our clothes", "Our houses"], why: "Verily Allah does not look to your bodies nor to your faces but He looks to your hearts." },

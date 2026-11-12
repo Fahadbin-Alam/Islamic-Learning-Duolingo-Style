@@ -583,7 +583,7 @@ const MAARIJ_FOUR: DeepUnit = {
       line: "Izin means scattered groups, right and left.",
       facts: ["Izin: groups apart", "Unity in rows"],
       quote: q70(37),
-      source: hadith("muslim", "430", "Jabir ibn Samurah", "Sahih", "The Prophet ﷺ saw people sitting in circles and said: How is it that I see you in separate groups? He told them to form rows like the angels.", "How is it that I see you in separate groups"),
+      source: hadith("muslim", "430", "Jabir ibn Samurah", "Sahih", "The Prophet ﷺ saw people sitting in circles and said: How is it that I see you in separate groups? He told them to form rows like the angels.", "is it that I see you in separate groups"),
       difficulty: 3,
       questions: [
         { q: "What did Ibn Abbas say Al-Izin is?", a: "A group among the people", wrong: ["A tall tree", "A long road", "A deep well"], why: "Ibn Abbas said, Al-Izin is a group among the people." },

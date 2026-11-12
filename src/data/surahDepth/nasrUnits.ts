@@ -137,7 +137,7 @@ const NASR_TWO: DeepUnit = {
       line: "When the promised sign came, he praised and sought pardon.",
       facts: ["A promised sign", "Subhan Allah wa bihamdihi"],
       quote: q110(3),
-      source: hadith("muslim", "484", "Aishah", "Sahih", "He said his Lord told him he would see a sign in his Ummah, and when he saw it he would glorify and seek forgiveness.", "My Lord informed me that I would soon see a sign in my Ummah"),
+      source: hadith("muslim", "484d", "Aishah", "Sahih", "He said his Lord told him he would see a sign in his Ummah, and when he saw it he would glorify and seek forgiveness.", "My Lord informed me that I would soon see a sign in my Ummah"),
       difficulty: 3,
       questions: [
         { q: "What did his Lord tell him he would see?", a: "A sign in his Ummah", wrong: ["A new star", "A great flood", "A golden city"], why: "My Lord informed me that I would soon see a sign in my Ummah." },

@@ -19,7 +19,7 @@ const EARLY: DeepUnit = {
       title: "Born on a Monday",
       line: "He ﷺ was born on a Monday, the day revelation began too.",
       facts: ["In Makkah", "On a Monday"],
-      source: hadith("muslim", "1162", "Abu Qatadah", "Sahih", "Asked about fasting on Monday, the Prophet ﷺ said: that is the day I was born, and the day revelation was first sent to me."),
+      source: hadith("muslim", "1162e", "Abu Qatadah", "Sahih", "Asked about fasting on Monday, the Prophet ﷺ said: that is the day I was born, and the day revelation was first sent to me."),
       difficulty: 1,
       questions: [
         { q: "On which day of the week was he ﷺ born?", a: "Monday", wrong: ["Friday", "Saturday", "Wednesday"], why: "He ﷺ said so when asked about fasting on Mondays." },

@@ -277,7 +277,7 @@ const ADIYAT_TWO: DeepUnit = {
       line: "Allah looks at our hearts and deeds, not our looks or wealth.",
       facts: ["Taqwa is in the heart", "Deeds matter, not looks"],
       quote: q100(10),
-      source: hadith("muslim", "2564", "Abu Hurairah", "Sahih", "Allah does not look at your faces or wealth, but at your hearts and your deeds.", "He looks to your heart and to your deeds"),
+      source: hadith("muslim", "2564c", "Abu Hurairah", "Sahih", "Allah does not look at your faces or wealth, but at your hearts and your deeds.", "He looks to your heart and to your deeds"),
       difficulty: 3,
       questions: [
         { q: "What does Allah look at, per the hadith?", a: "Hearts and deeds", wrong: ["Faces and wealth", "Clothes and homes", "Names and tribes"], why: "But He looks to your heart and to your deeds." },

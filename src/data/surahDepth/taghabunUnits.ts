@@ -165,7 +165,7 @@ const TAGHABUN_ONE: DeepUnit = {
       line: "Allah looks not at faces or wealth, but hearts and deeds.",
       facts: ["Looks do not raise you", "A pure heart does"],
       quote: q64(4),
-      source: hadith("muslim", "2564", "Abu Hurairah", "Sahih", "The Prophet ﷺ said Allah does not look at your faces and wealth but at your hearts and deeds.", "Verily Allah does not look to your faces and your wealth but He looks to your heart and to your deeds"),
+      source: hadith("muslim", "2564c", "Abu Hurairah", "Sahih", "The Prophet ﷺ said Allah does not look at your faces and wealth but at your hearts and deeds.", "Verily Allah does not look to your faces and your wealth but He looks to your heart and to your deeds"),
       difficulty: 2,
       questions: [
         { q: "What does Allah look at, per the hadith?", a: "Hearts and deeds", wrong: ["Faces and wealth", "Clothes and homes", "Names and tribes"], why: "Allah does not look to your faces and your wealth but He looks to your heart and to your deeds." },

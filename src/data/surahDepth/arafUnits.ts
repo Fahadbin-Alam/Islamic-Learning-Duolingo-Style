@@ -1520,7 +1520,7 @@ const ARAF_FIVE: DeepUnit = {
       line: "See wrong? Change it by hand, then tongue, else hate it.",
       facts: ["Hand, tongue, heart", "The weakest faith"],
       quote: q7(165),
-      source: hadith("muslim", "49", "Abu Sa'id al-Khudri", "Sahih", "The Prophet ﷺ said: whoever of you sees something wrong, let him change it with his hand; if he cannot, then with his tongue; if he cannot, then with his heart, and that is the weakest of faith.", "He who amongst you sees something abominable should m"),
+      source: hadith("muslim", "49", "Abu Sa'id al-Khudri", "Sahih", "The Prophet ﷺ said: whoever of you sees something wrong, let him change it with his hand; if he cannot, then with his tongue; if he cannot, then with his heart, and that is the weakest of faith.", "He who amongst you sees something abominable should modify it with the help of his hand"),
       difficulty: 5,
       questions: [
         { q: "What is the first way to change a wrong, in Muslim 49?", a: "With the hand", wrong: ["With silence", "With money", "By leaving"], why: "Let him change it with his hand." },

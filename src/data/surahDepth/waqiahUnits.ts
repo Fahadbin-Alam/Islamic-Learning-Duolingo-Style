@@ -1828,7 +1828,7 @@ const WAQIAH_FOUR: DeepUnit = {
       line: "None of you should die except hoping good from Allah.",
       facts: ["He ﷺ said it three days before he passed", "Hope in Allah's mercy always"],
       quote: q56(91),
-      source: hadith("muslim", "2877", "Jabir ibn Abdullah", "Sahih", "Jabir heard the Prophet ﷺ say three days before his death: none of you should die except hoping only good from Allah.", "None of you should die but hoping only good from Allah"),
+      source: hadith("muslim", "2877c", "Jabir ibn Abdullah", "Sahih", "Jabir heard the Prophet ﷺ say three days before his death: none of you should die except hoping only good from Allah.", "None of you should die but hoping only good from Allah"),
       difficulty: 2,
       questions: [
         { q: "How should a believer die, per Muslim 2877?", a: "Hoping good from Allah", wrong: ["In fear only", "Without thought", "In anger"], why: "None of you should die but hoping only good from Allah." },
@@ -1912,7 +1912,7 @@ const WAQIAH_FOUR: DeepUnit = {
       line: "The words Allah loves most: Subhan Allah wa bihamdihi.",
       facts: ["Glory be to Allah and praise to Him", "Allah chose them for His angels"],
       quote: q56(96),
-      source: hadith("muslim", "2731", "Abu Dharr", "Sahih", "The Prophet ﷺ said the words liked most by Allah are: Glory be to Allah and praise is due to Him.", "the words liked most by Allah are"),
+      source: hadith("muslim", "2731b", "Abu Dharr", "Sahih", "The Prophet ﷺ said the words liked most by Allah are: Glory be to Allah and praise is due to Him.", "the words liked most by Allah are"),
       difficulty: 2,
       questions: [
         { q: "Which words does Allah like most, per Muslim 2731?", a: "Subhan Allah wa bihamdihi", wrong: ["Any poem", "Long speeches", "Loud shouts"], why: "Verily, the words liked most by Allah are: hallowed be Allah and praise is due to Him." },
