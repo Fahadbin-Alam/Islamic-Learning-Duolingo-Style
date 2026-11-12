@@ -69,7 +69,6 @@ export const DEEP_022: Record<string, PassageDeep> = {
   },
   "39-48": {
     meaning: [
-      "Allah defends those who believe; He does not love the treacherous and ungrateful.",
       "Those driven from their homes only for saying 'Our Lord is Allah' were allowed to defend themselves.",
       "It is not the eyes that are blind, but the hearts within the chests."
     ],

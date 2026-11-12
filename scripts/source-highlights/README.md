@@ -71,5 +71,6 @@ often on a later ayah's page than the passage's first. `src/data/surahMeanings/k
 (`surah:from-to`) to the ayah whose page has its line, and `tafsirSource` opens there (as-Sa'di's Arabic pages still
 open at the passage's start). The lines, in `sourceHighlights.json` keyed by that ayah's url, were picked from the
 same spa5k text, and each was checked to light exactly its words, with its first four words found nowhere earlier on
-its page. Al-Hajj 39-48 has no line: its first meaning line ("Allah defends those who believe") is ayah 38, which
-Ibn Kathir explains on the page before the passage.
+its page. Al-Hajj 39-48's card began with a line about ayah 38 ("Allah defends those who believe"), which Ibn Kathir
+explains on the page before the passage, so the card now begins with ayahs 39-40 (ayah 38 keeps its own lesson in the
+Al-Hajj unit).
