@@ -1013,5 +1013,7 @@
   "Each ayah 3 times": "প্রতিটি আয়াত ৩ বার",
   "Which surah is it?": "এটি কোন সূরা?",
   "Hear an ayah, tap its surah": "একটি আয়াত শোনো, তার সূরা বেছে নাও",
-  "Every surah right!": "সব সূরা ঠিক!"
+  "Every surah right!": "সব সূরা ঠিক!",
+  "Surah complete!": "সূরা সম্পূর্ণ!",
+  "{count} of {total} surahs complete": "{total}টির মধ্যে {count}টি সূরা সম্পূর্ণ"
 }

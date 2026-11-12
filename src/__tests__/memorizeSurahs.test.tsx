@@ -272,7 +272,9 @@ describe("memorize surahs (Practice tab)", () => {
 
     expect(await screen.findByTestId("lesson-complete")).toBeTruthy();
     expect(screen.getByText("Every ayah right!")).toBeTruthy();
-    expect(screen.getByText("Surah Al-Ikhlas")).toBeTruthy();
+    // The card's title, and its gold badge's: this practice made Al-Ikhlas complete.
+    expect(screen.getAllByText("Surah Al-Ikhlas")).toHaveLength(2);
+    expect(screen.getByTestId("complete-surah")).toBeTruthy();
     expect(memorizeStars()).toEqual({ "112": 3 });
     expect(savedUser().hearts.current).toBe(0);
     expect(savedUser().totalXp).toBe(100 + questions.length * PRACTICE_XP_PER_CORRECT_ANSWER);
@@ -285,6 +287,27 @@ describe("memorize surahs (Practice tab)", () => {
     expect(screen.getByTestId("memorize-sheet")).toBeTruthy();
     expect(screen.getByTestId("memorize-112").props.accessibilityLabel).toContain("3 of 3 stars");
     expect(screen.getByTestId("practice-memorize-done")).toBeTruthy();
+  });
+
+  // A guest is asked to save their progress after a few minutes, but nothing pops up over a Practice sheet: not over
+  // the surahs, nor over a surah's page while the reciter recites.
+  it("keeps the save-your-progress card for after the surahs are closed", async () => {
+    jest.useFakeTimers({ doNotFake: ["nextTick", "setImmediate", "queueMicrotask"] });
+    setStoredItem("sira-path-age-group", "18+");
+    try {
+      // A language picked already, so the first-launch language card is not open.
+      await openSurahs(makeUser({ preferredLanguage: "en" }));
+      await act(async () => {
+        jest.advanceTimersByTime(181000);
+      });
+      expect(screen.getByTestId("memorize-sheet")).toBeTruthy();
+      expect(screen.queryByText("Save your progress!")).toBeNull();
+      await press("memorize-sheet-close");
+      expect(screen.getByText("Save your progress!")).toBeTruthy();
+    } finally {
+      jest.useRealTimers();
+      removeStoredItem("sira-path-age-group");
+    }
   });
 
   it("needs the reciter: with no internet, a surah not saved on the phone does not start", async () => {

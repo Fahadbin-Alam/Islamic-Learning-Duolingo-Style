@@ -454,6 +454,12 @@ export function memorizeSurahNumbers(): number[] {
   return [...new Set(memorizeParts().map((part) => part.surah))];
 }
 
+/** The surahs to memorize that are complete: every part of each has been practised to the end (has stars), in order. */
+export function completeSurahs(stars: Readonly<Record<string, number>>): number[] {
+  const parts = memorizeParts();
+  return memorizeSurahNumbers().filter((surah) => parts.every((part) => part.surah !== surah || (stars[part.id] ?? 0) > 0));
+}
+
 /**
  * The ayahs of a surah to memorize that "Which surah is it?" can play: two words or more, and none that another of
  * those surahs has too (the same letters, or held in one of its ayahs, or holding one), so only one name is right.
