@@ -1010,5 +1010,8 @@
   "Ayah {number} of {count}": "الآية {number} من {count}",
   "Every ayah right!": "كل الآيات صحيحة!",
   "Listen and say each ayah after the reciter, then practice.": "استمع إلى القارئ وردّد كل آية بعده، ثم تدرّب.",
-  "Each ayah 3 times": "كل آية 3 مرات"
+  "Each ayah 3 times": "كل آية 3 مرات",
+  "Which surah is it?": "أيّ سورة هذه؟",
+  "Hear an ayah, tap its surah": "استمع إلى آية واختر سورتها",
+  "Every surah right!": "كل السور صحيحة!"
 }

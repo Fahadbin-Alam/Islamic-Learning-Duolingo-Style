@@ -447,6 +447,11 @@ export interface Challenge {
      * Memorizing a surah in Practice, `ayahs` is the surah's number of ayahs: the card says which one this is.
      */
     recite?: { key: string; gap: number; next?: { key: string; text: string; recitation: string }; ayahs?: number };
+    /**
+     * "Which surah is it?" (Memorize surahs): the ayah played ("112:3") and its surah's number of ayahs; the answers
+     * are surahs' names.
+     */
+    which?: { key: string; ayahs: number };
   };
 }
 
@@ -564,6 +569,8 @@ export interface LessonSession {
   reviewDeck?: boolean;
   /** "Memorize surahs" (mode "lesson_practice"): the surah, or part of it (`part` "92:1-11"), gone through ayah by ayah. */
   memorize?: { part: string; surah: number; from: number; to: number; ayahs: number };
+  /** "Which surah is it?" in Memorize surahs (mode "lesson_practice"): an ayah of a surah, and its name to tap. */
+  whichSurah?: boolean;
 }
 
 export interface ShopItem {

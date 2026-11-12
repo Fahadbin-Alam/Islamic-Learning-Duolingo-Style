@@ -73,7 +73,7 @@ import {
 } from "./sheetFit";
 import { scaleFont, textScaled } from "../textScale";
 import { TapToPlay } from "./Teacher";
-import { ReciteCard } from "./ReciteCard";
+import { ReciteCard, WhichSurahCard } from "./ReciteCard";
 
 // Arabic letters only: honorific signs like ﷺ (U+FDF0-U+FDFF) stay part of the English line.
 const AR = "؀-ۿݐ-ݿࢠ-ࣿﭐ-﴿ﵐ-﷎ﹰ-﻿";
@@ -442,12 +442,14 @@ export type ExerciseViewProps = {
    * A listening question: a big speaker under the prompt plays the Arabic; tap again to stop. With `recite` (the
    * Quran's listening questions), the ayah shows instead, with a gap for the answer and a speaker of its own
    * (ReciteCard): its last word ("How does the ayah end?", the answers are words in the Quran's face) or, with `next`,
-   * the ayah after it ("Which ayah comes next?", the answers are whole ayahs).
+   * the ayah after it ("Which ayah comes next?", the answers are whole ayahs). With `which` ("Which surah is it?", the
+   * answers are surahs' names), the ayah is heard and not read: its words are beads until the answer (WhichSurahCard).
    */
   listen?: {
     onPlay: () => void;
     playing: boolean;
     recite?: { text: string; ayahKey: string; url: string; gap: number; next?: { text: string; ayahKey: string; url: string }; ayahs?: number };
+    which?: { text: string; ayahKey: string; url: string; ayahs?: number };
   };
   bottomInset?: number;
   testID?: string;
@@ -1326,6 +1328,8 @@ export function ExerciseView({
             </View>
             {listen?.recite ? (
               <ReciteCard {...listen.recite} onPlay={listen.onPlay} playing={listen.playing} answered={checked} accent={accent} />
+            ) : listen?.which ? (
+              <WhichSurahCard {...listen.which} onPlay={listen.onPlay} playing={listen.playing} answered={checked} accent={accent} />
             ) : listen ? (
               <ListenButton onPlay={listen.onPlay} playing={listen.playing} accent={accent} />
             ) : null}
