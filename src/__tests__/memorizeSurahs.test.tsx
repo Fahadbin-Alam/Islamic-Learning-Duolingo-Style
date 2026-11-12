@@ -47,7 +47,7 @@ import { memorizeStars, recordMemorized, resetMemorizeForTests } from "../servic
 import { resetNetworkForTests, setOnline } from "../services/network";
 import type { Challenge, UserProfile } from "../types";
 import { ReciteCard } from "../ui/lesson/ReciteCard";
-import { hifzChallenges, memorizeParts, nextAyahChallenge, RECITE_NEXT_PROMPT, RECITE_PROMPT, type HifzPart } from "../ui/lesson/reciteQuestion";
+import { hifzAyahs, hifzChallenges, memorizeParts, nextAyahChallenge, RECITE_NEXT_PROMPT, RECITE_PROMPT, type HifzPart } from "../ui/lesson/reciteQuestion";
 import { MemorizeSheet } from "../ui/screens/MemorizeSheet";
 import { makeUser } from "./testUtils";
 
@@ -210,17 +210,21 @@ describe("memorize surahs (on screen)", () => {
     expect(screen.queryByTestId("recite-place")).toBeNull();
   });
 
-  it("the sheet lists the surahs with their stars and starts the one tapped", async () => {
+  it("the sheet lists the surahs with their stars, and a surah's Practice starts it", async () => {
     const onStart = jest.fn();
     const rows = [
-      { id: "1", surah: 1, title: "Surah Al-Fatihah", arabic: "سُورَةُ الْفَاتِحَةِ", line: "7 ayahs", stars: 3 },
-      { id: "92:1-11", surah: 92, title: "Surah Al-Layl", line: "Ayahs 1-11", stars: 0 }
+      { id: "1", surah: 1, title: "Surah Al-Fatihah", arabic: "سُورَةُ الْفَاتِحَةِ", line: "7 ayahs", stars: 3, ayahs: hifzAyahs(part("1")), surahAyahs: 7 },
+      { id: "92:1-11", surah: 92, title: "Surah Al-Layl", line: "Ayahs 1-11", stars: 0, ayahs: hifzAyahs(part("92:1-11")), surahAyahs: 21 }
     ];
     await render(<MemorizeSheet visible onClose={() => undefined} rows={rows} onStart={onStart} />);
     expect(screen.getByTestId("memorize-1").props.accessibilityLabel).toBe("Surah Al-Fatihah, 7 ayahs, 3 of 3 stars");
     expect(screen.getByTestId("memorize-92:1-11").props.accessibilityLabel).toBe("Surah Al-Layl, Ayahs 1-11");
     expect(screen.getByText("سُورَةُ الْفَاتِحَةِ")).toBeTruthy();
+    // A row opens the surah's page, to listen first; Practice there starts its questions.
     await press("memorize-92:1-11");
+    expect(onStart).not.toHaveBeenCalled();
+    expect(screen.getByTestId("memorize-ayah-1")).toBeTruthy();
+    await press("memorize-practice");
     expect(onStart).toHaveBeenCalledWith("92:1-11");
   });
 });
@@ -248,6 +252,7 @@ describe("memorize surahs (Practice tab)", () => {
     await openSurahs(user);
     expect(screen.queryByTestId("practice-memorize-done")).toBeNull();
     await press("memorize-112");
+    await press("memorize-practice");
     expect(screen.getByTestId("exercise-view")).toBeTruthy();
 
     for (let step = 0; step < questions.length; step += 1) {
@@ -280,6 +285,7 @@ describe("memorize surahs (Practice tab)", () => {
     await openSurahs(makeUser());
     await act(async () => setOnline(false));
     await press("memorize-114");
+    await press("memorize-practice");
     expect(screen.queryByTestId("exercise-view")).toBeNull();
     expect(await screen.findByText("No internet. This is not saved on your phone yet.")).toBeTruthy();
   });

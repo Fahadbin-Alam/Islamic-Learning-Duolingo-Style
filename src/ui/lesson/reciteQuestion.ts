@@ -400,6 +400,16 @@ export function hifzChallenges(part: HifzPart): Challenge[] | undefined {
   return questions.map((question) => ({ ...question, listen: { ...question.listen!, recite: { ...question.listen!.recite!, ayahs: part.ayahs } } }));
 }
 
+/** The part's ayahs in order, each with its Quran text and recitation, to listen to before practising them. */
+export function hifzAyahs(part: HifzPart): Array<{ key: string; text: string; url: string }> {
+  const ayahs: Array<{ key: string; text: string; url: string }> = [];
+  for (let ayah = part.from; ayah <= part.to; ayah += 1) {
+    const at = ayahAt(part.surah, ayah);
+    if (at) ayahs.push({ key: `${part.surah}:${ayah}`, text: at.text, url: at.recitation });
+  }
+  return ayahs;
+}
+
 /** The surahs (a longer one in parts) to memorize, in order: only those whose every part can be asked. */
 let hifzParts: HifzPart[] | undefined;
 export function memorizeParts(): HifzPart[] {
