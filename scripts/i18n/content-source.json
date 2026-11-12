@@ -1425,6 +1425,18 @@
   },
   {
     "kind": "course",
+    "text": "Steady on the straight path"
+  },
+  {
+    "kind": "course",
+    "text": "A parable of the path, a plant that bends, the hardest illness, hidden showing off, hope with fear, and bad whispers in the heart."
+  },
+  {
+    "kind": "arabic",
+    "text": "Faith that stays steady"
+  },
+  {
+    "kind": "course",
     "text": "Only Allah"
   },
   {
@@ -1842,6 +1854,30 @@
   {
     "kind": "course",
     "text": "No spot without an angel"
+  },
+  {
+    "kind": "course",
+    "text": "A parable of the path"
+  },
+  {
+    "kind": "course",
+    "text": "A plant that bends"
+  },
+  {
+    "kind": "course",
+    "text": "The hardest illness"
+  },
+  {
+    "kind": "course",
+    "text": "The hidden shirk"
+  },
+  {
+    "kind": "course",
+    "text": "Hope and fear together"
+  },
+  {
+    "kind": "course",
+    "text": "Bad whispers in the heart"
   },
   {
     "kind": "course",
@@ -35537,6 +35573,18 @@
   },
   {
     "kind": "course",
+    "text": "Someone people can trust"
+  },
+  {
+    "kind": "course",
+    "text": "Advice is a trust, trusted by all, borrow only to pay back, don't keep them waiting, say thank you, and weigh a little more."
+  },
+  {
+    "kind": "arabic",
+    "text": "Being trustworthy"
+  },
+  {
+    "kind": "course",
     "text": "Stories the Prophet ﷺ told"
   },
   {
@@ -35898,6 +35946,30 @@
   {
     "kind": "course",
     "text": "A pat on the cheek"
+  },
+  {
+    "kind": "course",
+    "text": "Advice is a trust"
+  },
+  {
+    "kind": "course",
+    "text": "Trusted by everyone"
+  },
+  {
+    "kind": "course",
+    "text": "Borrow only to pay back"
+  },
+  {
+    "kind": "course",
+    "text": "Don't keep them waiting"
+  },
+  {
+    "kind": "course",
+    "text": "Pay back, and say thank you"
+  },
+  {
+    "kind": "course",
+    "text": "Weigh a little more"
   },
   {
     "kind": "course",
@@ -38069,6 +38141,14 @@
   },
   {
     "kind": "course",
+    "text": "The Book of the Beginning of Creation"
+  },
+  {
+    "kind": "course",
+    "text": "From al-Bukhari's Book of the Beginning of Creation: a long talk, the Holy Spirit, Jibril leading the prayer, three knots, and sheep on the hills."
+  },
+  {
+    "kind": "course",
     "text": "Faith has many branches"
   },
   {
@@ -39130,6 +39210,30 @@
   {
     "kind": "course",
     "text": "Not to wear, but to give"
+  },
+  {
+    "kind": "course",
+    "text": "From the start of creation"
+  },
+  {
+    "kind": "course",
+    "text": "Helped by the Holy Spirit"
+  },
+  {
+    "kind": "course",
+    "text": "Jibril led the prayer"
+  },
+  {
+    "kind": "course",
+    "text": "Three knots on a sleeper"
+  },
+  {
+    "kind": "course",
+    "text": "Rinse the nose on waking"
+  },
+  {
+    "kind": "course",
+    "text": "Sheep on the mountain tops"
   },
   {
     "kind": "course",
@@ -72737,6 +72841,426 @@
   },
   {
     "kind": "lesson",
+    "text": "Open doors line the path: the limits Allah has set."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by An-Nawwas ibn Sam'an"
+  },
+  {
+    "kind": "lesson",
+    "text": "Walls stand on both sides of the path"
+  },
+  {
+    "kind": "lesson",
+    "text": "Each open door has a curtain over it"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 2859"
+  },
+  {
+    "kind": "question",
+    "text": "In the parable, what hangs over each open door?"
+  },
+  {
+    "kind": "question",
+    "text": "A curtain"
+  },
+  {
+    "kind": "question",
+    "text": "A lamp"
+  },
+  {
+    "kind": "question",
+    "text": "A bell"
+  },
+  {
+    "kind": "question",
+    "text": "Walls with open doors, each door having a curtain, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "What are the open doors at the sides of the path?"
+  },
+  {
+    "kind": "question",
+    "text": "The limits Allah has set"
+  },
+  {
+    "kind": "question",
+    "text": "Shops in a market"
+  },
+  {
+    "kind": "question",
+    "text": "Gates of a city"
+  },
+  {
+    "kind": "question",
+    "text": "Doors of a house"
+  },
+  {
+    "kind": "question",
+    "text": "The doors on the sides of the path are the Hudud, the limits, of Allah, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Callers call out on the straight path."
+  },
+  {
+    "kind": "question",
+    "text": "There is a caller at the head of the path calling, and a caller above it calling."
+  },
+  {
+    "kind": "lesson",
+    "text": "A believer bends in trials like a plant, then stands again."
+  },
+  {
+    "kind": "lesson",
+    "text": "The wind bends a fresh plant, then stops"
+  },
+  {
+    "kind": "lesson",
+    "text": "A hard tree stands stiff until it breaks"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 5644"
+  },
+  {
+    "kind": "question",
+    "text": "What is the believer like, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "A fresh, soft plant"
+  },
+  {
+    "kind": "question",
+    "text": "A tall stone tower"
+  },
+  {
+    "kind": "question",
+    "text": "A dry old branch"
+  },
+  {
+    "kind": "question",
+    "text": "A heavy iron gate"
+  },
+  {
+    "kind": "question",
+    "text": "The example of a believer is that of a fresh tender plant, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "What does the plant do when the wind stops?"
+  },
+  {
+    "kind": "question",
+    "text": "Breaks in two"
+  },
+  {
+    "kind": "question",
+    "text": "Falls to the ground"
+  },
+  {
+    "kind": "question",
+    "text": "Dries up"
+  },
+  {
+    "kind": "question",
+    "text": "Stands straight again"
+  },
+  {
+    "kind": "question",
+    "text": "When the wind becomes quiet, it becomes straight again, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Being bent by trials means a believer has lost his faith."
+  },
+  {
+    "kind": "question",
+    "text": "A believer bends like a tender plant, then stands straight again, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "No one suffered from illness more than he ﷺ did."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Aishah, Mother of the Believers"
+  },
+  {
+    "kind": "lesson",
+    "text": "She saw his ﷺ illness herself"
+  },
+  {
+    "kind": "lesson",
+    "text": "Pain is no sign of Allah's anger"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 5646"
+  },
+  {
+    "kind": "question",
+    "text": "Who suffered most from illness, Aishah said?"
+  },
+  {
+    "kind": "question",
+    "text": "The old men"
+  },
+  {
+    "kind": "question",
+    "text": "The young men"
+  },
+  {
+    "kind": "question",
+    "text": "The Messenger of Allah ﷺ"
+  },
+  {
+    "kind": "question",
+    "text": "The Bedouins"
+  },
+  {
+    "kind": "question",
+    "text": "I never saw anybody suffering so much from sickness as Allah's Messenger ﷺ, she said."
+  },
+  {
+    "kind": "question",
+    "text": "You fall very ill. What should you remember?"
+  },
+  {
+    "kind": "question",
+    "text": "No one else gets ill"
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ was ill even more"
+  },
+  {
+    "kind": "question",
+    "text": "Allah has left you"
+  },
+  {
+    "kind": "question",
+    "text": "Faith is of no use"
+  },
+  {
+    "kind": "question",
+    "text": "Aishah never saw anybody suffer so much from sickness as the Messenger of Allah ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "Strong faith means a person will never feel pain."
+  },
+  {
+    "kind": "question",
+    "text": "Aishah never saw anybody suffering so much from sickness as Allah's Messenger ﷺ."
+  },
+  {
+    "kind": "lesson",
+    "text": "Praying well only because someone watches is hidden shirk."
+  },
+  {
+    "kind": "lesson",
+    "text": "They were talking about the Dajjal"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ feared this for us even more"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Ibn Majah 4204"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ fear for us more than the Dajjal?"
+  },
+  {
+    "kind": "question",
+    "text": "Hidden shirk"
+  },
+  {
+    "kind": "question",
+    "text": "Hunger"
+  },
+  {
+    "kind": "question",
+    "text": "Cold winters"
+  },
+  {
+    "kind": "question",
+    "text": "Wild animals"
+  },
+  {
+    "kind": "question",
+    "text": "What I fear more for you than the Dajjal is hidden shirk, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "What hidden shirk did he ﷺ describe?"
+  },
+  {
+    "kind": "question",
+    "text": "Praying in the masjid"
+  },
+  {
+    "kind": "question",
+    "text": "Praying well because someone watches"
+  },
+  {
+    "kind": "question",
+    "text": "Praying with others"
+  },
+  {
+    "kind": "question",
+    "text": "When a man stands to pray and makes it look good because he sees a man looking at him."
+  },
+  {
+    "kind": "question",
+    "text": "Making our prayer look good only for people is fine."
+  },
+  {
+    "kind": "question",
+    "text": "Making the prayer look good because a man is looking is hidden shirk, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hope in Allah, and fear your sins, right to the end."
+  },
+  {
+    "kind": "lesson",
+    "text": "A young man was close to death"
+  },
+  {
+    "kind": "lesson",
+    "text": "He hoped in Allah and feared his sins"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 983"
+  },
+  {
+    "kind": "question",
+    "text": "What two things were in the young man's heart?"
+  },
+  {
+    "kind": "question",
+    "text": "Anger and worry"
+  },
+  {
+    "kind": "question",
+    "text": "Pride and joy"
+  },
+  {
+    "kind": "question",
+    "text": "Doubt and sadness"
+  },
+  {
+    "kind": "question",
+    "text": "Hope in Allah and fear of his sins"
+  },
+  {
+    "kind": "question",
+    "text": "I hope in Allah and I fear from my sins, the young man said."
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah give one who has both, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "Wealth and fame"
+  },
+  {
+    "kind": "question",
+    "text": "What he hopes, and safety from his fears"
+  },
+  {
+    "kind": "question",
+    "text": "Allah will grant him what he hopes and make him safe from what he fears, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ visited the young man when he was dying."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ entered upon a young man while he was dying, Anas said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hating a bad thought? Say Allahu akbar: Shaytan only whispers."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abdullah ibn Abbas"
+  },
+  {
+    "kind": "lesson",
+    "text": "The man hated his thoughts very much"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ said Allahu akbar three times"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 5112"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ say three times on hearing this?"
+  },
+  {
+    "kind": "question",
+    "text": "SubhanAllah"
+  },
+  {
+    "kind": "question",
+    "text": "Allah is Most Great, Allah is Most Great, Allah is Most Great, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "What had Shaytan's plot been brought down to?"
+  },
+  {
+    "kind": "question",
+    "text": "A great army"
+  },
+  {
+    "kind": "question",
+    "text": "A strong rope"
+  },
+  {
+    "kind": "question",
+    "text": "A locked door"
+  },
+  {
+    "kind": "question",
+    "text": "Mere whispers"
+  },
+  {
+    "kind": "question",
+    "text": "Praise be to Allah Who has reduced the guile of the devil to evil prompting."
+  },
+  {
+    "kind": "question",
+    "text": "The man would rather burn to charcoal than speak his bad thoughts."
+  },
+  {
+    "kind": "question",
+    "text": "He would rather be reduced to charcoal than speak about them, the man said."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about steady on the straight path!"
+  },
+  {
+    "kind": "lesson",
     "text": "Al-Fatihah is also called Umm al-Kitab, the Mother of the Book."
   },
   {
@@ -81665,10 +82189,6 @@
   },
   {
     "kind": "question",
-    "text": "The Bedouins"
-  },
-  {
-    "kind": "question",
     "text": "The people of Ta'if"
   },
   {
@@ -83410,10 +83930,6 @@
   {
     "kind": "question",
     "text": "Enemies"
-  },
-  {
-    "kind": "question",
-    "text": "Hunger"
   },
   {
     "kind": "question",
@@ -91706,10 +92222,6 @@
   {
     "kind": "question",
     "text": "A water jug"
-  },
-  {
-    "kind": "question",
-    "text": "A lamp"
   },
   {
     "kind": "question",
@@ -138465,10 +138977,6 @@
   },
   {
     "kind": "question",
-    "text": "The Messenger of Allah ﷺ"
-  },
-  {
-    "kind": "question",
     "text": "The best camels"
   },
   {
@@ -140938,10 +141446,6 @@
   {
     "kind": "question",
     "text": "Her own family"
-  },
-  {
-    "kind": "question",
-    "text": "Wild animals"
   },
   {
     "kind": "question",
@@ -148662,6 +149166,402 @@
   {
     "kind": "lesson",
     "text": "The last test: everything about children who knew him ﷺ!"
+  },
+  {
+    "kind": "lesson",
+    "text": "When a friend asks your advice, give your honest best."
+  },
+  {
+    "kind": "lesson",
+    "text": "Counsel: advice that someone asks you for"
+  },
+  {
+    "kind": "lesson",
+    "text": "Entrusted: given something to look after"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 2822"
+  },
+  {
+    "kind": "question",
+    "text": "When someone asks you for advice, what are you given?"
+  },
+  {
+    "kind": "question",
+    "text": "A secret code"
+  },
+  {
+    "kind": "question",
+    "text": "A test paper"
+  },
+  {
+    "kind": "question",
+    "text": "The one whose counsel is sought is entrusted, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "A friend asks which choice is best. What do you do?"
+  },
+  {
+    "kind": "question",
+    "text": "Give honest, careful advice"
+  },
+  {
+    "kind": "question",
+    "text": "Say anything quickly"
+  },
+  {
+    "kind": "question",
+    "text": "Laugh at the question"
+  },
+  {
+    "kind": "question",
+    "text": "Tell others his problem"
+  },
+  {
+    "kind": "question",
+    "text": "The one asked for counsel is trusted with it, so give him your honest best."
+  },
+  {
+    "kind": "question",
+    "text": "Giving bad advice on purpose breaks a trust."
+  },
+  {
+    "kind": "question",
+    "text": "The one whose counsel is sought is entrusted, the Messenger of Allah ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "People trust a believer with their lives and what they own."
+  },
+  {
+    "kind": "lesson",
+    "text": "Wealth: the money and things people own"
+  },
+  {
+    "kind": "lesson",
+    "text": "People feel safe leaving things with him"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 2627"
+  },
+  {
+    "kind": "question",
+    "text": "Whom do people trust with their lives and wealth?"
+  },
+  {
+    "kind": "question",
+    "text": "The loudest man"
+  },
+  {
+    "kind": "question",
+    "text": "The strongest man"
+  },
+  {
+    "kind": "question",
+    "text": "The believer is the one with whom the people trust their blood and their wealth."
+  },
+  {
+    "kind": "question",
+    "text": "Your friend leaves his bag with you. What do you do?"
+  },
+  {
+    "kind": "question",
+    "text": "Look through it"
+  },
+  {
+    "kind": "question",
+    "text": "Use what is inside"
+  },
+  {
+    "kind": "question",
+    "text": "Leave it anywhere"
+  },
+  {
+    "kind": "question",
+    "text": "Keep it safe and give it back"
+  },
+  {
+    "kind": "question",
+    "text": "A believer is one whom people trust with their wealth, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "A believer keeps safe what people leave with him."
+  },
+  {
+    "kind": "question",
+    "text": "The believer is the one with whom the people trust their wealth, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Borrow only meaning to pay back, and Allah will help you."
+  },
+  {
+    "kind": "lesson",
+    "text": "Intention: what you mean to do"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah helps the one who means to repay"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 2387"
+  },
+  {
+    "kind": "question",
+    "text": "What should you mean to do when you borrow?"
+  },
+  {
+    "kind": "question",
+    "text": "Pay it back"
+  },
+  {
+    "kind": "question",
+    "text": "Lose it somewhere"
+  },
+  {
+    "kind": "question",
+    "text": "Whoever takes the money of the people with the intention of repaying it, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Who helps the one who means to repay?"
+  },
+  {
+    "kind": "question",
+    "text": "The shop owner"
+  },
+  {
+    "kind": "question",
+    "text": "A rich friend"
+  },
+  {
+    "kind": "question",
+    "text": "With the intention of repaying it, Allah will repay it on his behalf, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Borrowing with no plan to give it back is fine."
+  },
+  {
+    "kind": "question",
+    "text": "Whoever borrows to waste it and not give it back, Allah will spoil him, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "If you can pay back now, don't make them wait."
+  },
+  {
+    "kind": "lesson",
+    "text": "Delay: putting off what you should do"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ called this delay wrongdoing"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 2400"
+  },
+  {
+    "kind": "question",
+    "text": "One who can pay back but delays is doing what?"
+  },
+  {
+    "kind": "question",
+    "text": "A kindness"
+  },
+  {
+    "kind": "question",
+    "text": "A clever thing"
+  },
+  {
+    "kind": "question",
+    "text": "A good deed"
+  },
+  {
+    "kind": "question",
+    "text": "Wrongdoing"
+  },
+  {
+    "kind": "question",
+    "text": "Delay in repaying debts by a wealthy person is injustice, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "You borrowed a book and finished it. What now?"
+  },
+  {
+    "kind": "question",
+    "text": "Wait until they ask twice"
+  },
+  {
+    "kind": "question",
+    "text": "Lend it to someone else"
+  },
+  {
+    "kind": "question",
+    "text": "Give it back soon"
+  },
+  {
+    "kind": "question",
+    "text": "Keep it a while more"
+  },
+  {
+    "kind": "question",
+    "text": "Delay in repaying by one who is able is injustice, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Making someone wait for what you owe, when you can pay, is fine."
+  },
+  {
+    "kind": "question",
+    "text": "When one who can pay delays it, that is injustice, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "When you pay back a loan, thank the one who lent it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abdullah ibn Abi Rabi'ah"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ borrowed forty thousand from him"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ asked Allah to bless his family and wealth"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan an-Nasa'i 4683"
+  },
+  {
+    "kind": "question",
+    "text": "What is the reward for lending, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "Extra money"
+  },
+  {
+    "kind": "question",
+    "text": "A big feast"
+  },
+  {
+    "kind": "question",
+    "text": "Thanks and being paid back"
+  },
+  {
+    "kind": "question",
+    "text": "The reward for lending is praise and repayment, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ say as he paid the man back?"
+  },
+  {
+    "kind": "question",
+    "text": "May Allah bless your family and wealth"
+  },
+  {
+    "kind": "question",
+    "text": "Do not lend again"
+  },
+  {
+    "kind": "question",
+    "text": "Now we are even"
+  },
+  {
+    "kind": "question",
+    "text": "Count it twice"
+  },
+  {
+    "kind": "question",
+    "text": "May Allah bless your family and your wealth for you, he ﷺ said as he repaid."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ paid back what he had borrowed."
+  },
+  {
+    "kind": "question",
+    "text": "Some wealth came to him, and he paid me back, Abdullah ibn Abi Rabi'ah said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Weighing for someone? Give a little extra, not less."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Suwayd ibn Qays"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ bought trousers from them"
+  },
+  {
+    "kind": "lesson",
+    "text": "A man weighed out the payment"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 3336"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ tell the man who was weighing?"
+  },
+  {
+    "kind": "question",
+    "text": "Do not weigh at all"
+  },
+  {
+    "kind": "question",
+    "text": "Weigh it only once"
+  },
+  {
+    "kind": "question",
+    "text": "Weigh, and give a little more"
+  },
+  {
+    "kind": "question",
+    "text": "Weigh, and keep some back"
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ said to him: weigh out and give overweight, Suwayd ibn Qays said."
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ buy from Suwayd and Makhrafah?"
+  },
+  {
+    "kind": "question",
+    "text": "Trousers"
+  },
+  {
+    "kind": "question",
+    "text": "He bargained with us for some trousers, and we sold them to him, Suwayd said."
+  },
+  {
+    "kind": "question",
+    "text": "When paying someone, giving a little less than you owe is fine."
+  },
+  {
+    "kind": "question",
+    "text": "Weigh out and give overweight, he ﷺ told the man paying for him."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about someone people can trust!"
   },
   {
     "kind": "lesson",
@@ -162185,10 +163085,6 @@
   },
   {
     "kind": "question",
-    "text": "A secret code"
-  },
-  {
-    "kind": "question",
     "text": "Its signs"
   },
   {
@@ -169933,10 +170829,6 @@
   },
   {
     "kind": "question",
-    "text": "Cold winters"
-  },
-  {
-    "kind": "question",
     "text": "I am afraid that worldly wealth will be given to you in abundance, he ﷺ said."
   },
   {
@@ -177049,10 +177941,6 @@
   },
   {
     "kind": "question",
-    "text": "A bell"
-  },
-  {
-    "kind": "question",
     "text": "I heard the noise of steps."
   },
   {
@@ -181961,10 +182849,6 @@
   },
   {
     "kind": "question",
-    "text": "A big feast"
-  },
-  {
-    "kind": "question",
     "text": "His last will and testament written and kept ready with him."
   },
   {
@@ -184642,6 +185526,338 @@
   {
     "kind": "lesson",
     "text": "The last test: everything about the Book of Gifts!"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ told of all things, from creation to Paradise."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ stood and spoke for a long time"
+  },
+  {
+    "kind": "lesson",
+    "text": "Some remembered it, and some forgot"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3192"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ start telling them about that day?"
+  },
+  {
+    "kind": "question",
+    "text": "The price of dates"
+  },
+  {
+    "kind": "question",
+    "text": "The names of the stars"
+  },
+  {
+    "kind": "question",
+    "text": "The beginning of creation"
+  },
+  {
+    "kind": "question",
+    "text": "He informed us about the beginning of creation and talked of it in detail, Umar said."
+  },
+  {
+    "kind": "question",
+    "text": "Where did his ﷺ long talk end?"
+  },
+  {
+    "kind": "question",
+    "text": "People going into Paradise and the Fire"
+  },
+  {
+    "kind": "question",
+    "text": "The building of the masjid"
+  },
+  {
+    "kind": "question",
+    "text": "A trip to the market"
+  },
+  {
+    "kind": "question",
+    "text": "The first rain of winter"
+  },
+  {
+    "kind": "question",
+    "text": "Till he mentioned how the people of Paradise and of Hell will enter their places."
+  },
+  {
+    "kind": "question",
+    "text": "Everyone who heard him ﷺ that day remembered all of it."
+  },
+  {
+    "kind": "question",
+    "text": "Some remembered what he had said, and some forgot it, Umar said."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ asked Allah to help Hassan with the Holy Spirit."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hassan ibn Thabit answered for him ﷺ in poetry"
+  },
+  {
+    "kind": "lesson",
+    "text": "The Holy Spirit is the angel Jibril"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3212"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ ask Allah to support Hassan with?"
+  },
+  {
+    "kind": "question",
+    "text": "The Holy Spirit"
+  },
+  {
+    "kind": "question",
+    "text": "O Allah, support him with the Holy Spirit, Abu Hurairah heard him ﷺ say."
+  },
+  {
+    "kind": "question",
+    "text": "Whom did Hassan ask to say what he had heard?"
+  },
+  {
+    "kind": "question",
+    "text": "Hassan turned to Abu Hurairah and asked him by Allah, and Abu Hurairah said: yes."
+  },
+  {
+    "kind": "question",
+    "text": "The Holy Spirit in his ﷺ du'a for Hassan is the angel Jibril."
+  },
+  {
+    "kind": "question",
+    "text": "Support him with the Holy Spirit, he ﷺ said, and the Holy Spirit is Jibril."
+  },
+  {
+    "kind": "lesson",
+    "text": "Jibril came down and led him ﷺ in the five prayers."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Ibn Shihab az-Zuhri"
+  },
+  {
+    "kind": "lesson",
+    "text": "Urwa told it to Umar ibn Abd al-Aziz"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ counted five prayers on his fingers"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3221"
+  },
+  {
+    "kind": "question",
+    "text": "Who came down and led him ﷺ in the prayer?"
+  },
+  {
+    "kind": "question",
+    "text": "Gabriel descended and led the prayer in front of the Prophet ﷺ, Urwa said."
+  },
+  {
+    "kind": "question",
+    "text": "How many prayers did he ﷺ count on his fingers?"
+  },
+  {
+    "kind": "question",
+    "text": "I prayed with him again and again, he ﷺ said, counting five prayers on his fingers."
+  },
+  {
+    "kind": "question",
+    "text": "Umar ibn Abd al-Aziz asked Urwa to be sure of what he said."
+  },
+  {
+    "kind": "question",
+    "text": "Be sure of what you say, Urwa, Umar told him, so Urwa named who he heard it from."
+  },
+  {
+    "kind": "lesson",
+    "text": "Dhikr, wudu and prayer undo Shaytan's three knots."
+  },
+  {
+    "kind": "lesson",
+    "text": "Shaytan ties three knots on a sleeper"
+  },
+  {
+    "kind": "lesson",
+    "text": "He whispers: the night is long, sleep on"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3269"
+  },
+  {
+    "kind": "question",
+    "text": "How many knots does Shaytan tie on a sleeper?"
+  },
+  {
+    "kind": "question",
+    "text": "During your sleep, Satan knots three knots at the back of the head, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "What undoes all of the knots?"
+  },
+  {
+    "kind": "question",
+    "text": "Turning over"
+  },
+  {
+    "kind": "question",
+    "text": "Getting up to pray"
+  },
+  {
+    "kind": "question",
+    "text": "Sleeping longer"
+  },
+  {
+    "kind": "question",
+    "text": "Eating breakfast"
+  },
+  {
+    "kind": "question",
+    "text": "When he prays, all the knots are undone, and he wakes up lively, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Remembering Allah on waking undoes one knot."
+  },
+  {
+    "kind": "question",
+    "text": "If he wakes up and celebrates the praises of Allah, one knot is undone, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Waking up for wudu? Rinse your nose three times."
+  },
+  {
+    "kind": "lesson",
+    "text": "Breathe water in, then blow it out"
+  },
+  {
+    "kind": "lesson",
+    "text": "Shaytan stays the night in the nose"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3295"
+  },
+  {
+    "kind": "question",
+    "text": "Waking up and making wudu, how many times do you rinse the nose?"
+  },
+  {
+    "kind": "question",
+    "text": "He should wash his nose by putting water in it and then blowing it out thrice."
+  },
+  {
+    "kind": "question",
+    "text": "Why rinse the nose on waking, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "Shaytan spent the night in it"
+  },
+  {
+    "kind": "question",
+    "text": "The air is cold"
+  },
+  {
+    "kind": "question",
+    "text": "The water is fresh"
+  },
+  {
+    "kind": "question",
+    "text": "The night was long"
+  },
+  {
+    "kind": "question",
+    "text": "Because Satan has stayed in the upper part of his nose all the night, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Rinsing the nose means breathing water in, then blowing it out."
+  },
+  {
+    "kind": "question",
+    "text": "Wash the nose by putting water in it and then blowing it out, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "A time will come when a man's best wealth is his sheep."
+  },
+  {
+    "kind": "lesson",
+    "text": "He grazes them on the mountain tops"
+  },
+  {
+    "kind": "lesson",
+    "text": "He flees to keep his faith from trials"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3300"
+  },
+  {
+    "kind": "question",
+    "text": "What will be a man's best wealth in that time?"
+  },
+  {
+    "kind": "question",
+    "text": "Sheep"
+  },
+  {
+    "kind": "question",
+    "text": "There will come a time when the best property of a man will be sheep, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Why will he take his sheep up the mountains?"
+  },
+  {
+    "kind": "question",
+    "text": "To hide from the rain"
+  },
+  {
+    "kind": "question",
+    "text": "To keep his faith safe from trials"
+  },
+  {
+    "kind": "question",
+    "text": "To sell them in the city"
+  },
+  {
+    "kind": "question",
+    "text": "To find a cooler house"
+  },
+  {
+    "kind": "question",
+    "text": "Escaping to protect his religion from afflictions, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "He grazes his sheep where the rain falls."
+  },
+  {
+    "kind": "question",
+    "text": "On the tops of mountains and the places where rain falls, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about the Book of Creation!"
   },
   {
     "kind": "lesson",
@@ -238465,10 +239681,6 @@
   },
   {
     "kind": "question",
-    "text": "Wealth and fame"
-  },
-  {
-    "kind": "question",
     "text": "The first two perfect yourself, says as-Sa'di."
   },
   {
@@ -252134,10 +253346,6 @@
   {
     "kind": "question",
     "text": "A prayer"
-  },
-  {
-    "kind": "question",
-    "text": "A good deed"
   },
   {
     "kind": "question",
@@ -268298,10 +269506,6 @@
   {
     "kind": "lesson",
     "text": "Rahmah wasi'ah"
-  },
-  {
-    "kind": "lesson",
-    "text": "Hope and fear together"
   },
   {
     "kind": "source",
@@ -290877,10 +292081,6 @@
   },
   {
     "kind": "question",
-    "text": "A great army"
-  },
-  {
-    "kind": "question",
     "text": "Tell me, if I have a clear proof from my Lord."
   },
   {
@@ -300058,10 +301258,6 @@
   {
     "kind": "question",
     "text": "A hand stretched for far water"
-  },
-  {
-    "kind": "question",
-    "text": "A strong rope"
   },
   {
     "kind": "question",
@@ -386366,10 +387562,6 @@
   {
     "kind": "question",
     "text": "A heavy rock"
-  },
-  {
-    "kind": "question",
-    "text": "A locked door"
   },
   {
     "kind": "question",
@@ -473285,10 +474477,6 @@
   },
   {
     "kind": "question",
-    "text": "The loudest man"
-  },
-  {
-    "kind": "question",
     "text": "The tallest man"
   },
   {
@@ -488330,10 +489518,6 @@
   {
     "kind": "question",
     "text": "The date of the Hour"
-  },
-  {
-    "kind": "question",
-    "text": "The price of dates"
   },
   {
     "kind": "question",
@@ -510105,10 +511289,6 @@
   },
   {
     "kind": "question",
-    "text": "Gates of a city"
-  },
-  {
-    "kind": "question",
     "text": "Roads of trade"
   },
   {
@@ -522477,10 +523657,6 @@
   },
   {
     "kind": "question",
-    "text": "SubhanAllah"
-  },
-  {
-    "kind": "question",
     "text": "How must it be said to earn the reward?"
   },
   {
@@ -529382,10 +530558,6 @@
   {
     "kind": "question",
     "text": "Young horses"
-  },
-  {
-    "kind": "question",
-    "text": "Sheep"
   },
   {
     "kind": "question",
@@ -539710,10 +540882,6 @@
   {
     "kind": "question",
     "text": "Who will be close to him in Paradise?"
-  },
-  {
-    "kind": "question",
-    "text": "The strongest man"
   },
   {
     "kind": "question",
