@@ -528,7 +528,7 @@ const DUKHAN_TWO: DeepUnit = {
       line: "The heavens and the earth did not weep for them.",
       facts: ["They left no good deeds", "No places of worship missed them"],
       quote: q44(29),
-      source: ik(29, "Ibn Kathir says they had no good deeds rising to the heavens and no places of worship on earth to miss them.", "the heavens and the earth did not weep for them"),
+      source: ik(29, "Ibn Kathir says they had no good deeds rising to the heavens and no places of worship on earth to miss them.", "heavens and the earth did not weep for them"),
       difficulty: 3,
       questions: [
         { q: "What did not weep, in 44:29?", a: "The heavens and the earth", wrong: ["Their children", "Their slaves", "Their soldiers"], why: "And the heavens and the earth wept not for them." },
@@ -598,7 +598,7 @@ const DUKHAN_TWO: DeepUnit = {
       line: "Allah chose them, knowingly, above the nations of their time.",
       facts: ["Chosen above people of their own time", "Every age has people chosen"],
       quote: q44(32),
-      source: ik(32, "Qatadah said they were chosen above other people of their own time, and every period has people chosen above others.", "They were chosen above the other people of their own time"),
+      source: ik(32, "Qatadah said they were chosen above other people of their own time, and every period has people chosen above others.", "were chosen above the other people of their own time"),
       difficulty: 3,
       questions: [
         { q: "How did Allah choose them, in 44:32?", a: "With knowledge", wrong: ["By chance", "By lottery", "For their wealth"], why: "And We chose them above the nations with knowledge." },

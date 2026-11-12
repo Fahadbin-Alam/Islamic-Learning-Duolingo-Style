@@ -445,7 +445,7 @@ const SHUARA_TWO: DeepUnit = {
       line: "Allah gives life and death, and only He forgives sins.",
       facts: ["Ibrahim hoped for forgiveness", "The Day of Recompense"],
       quote: q26(82),
-      source: ik(82, "Allah causes death and then gives life again; no one else can. Ibrahim hoped Allah would forgive his faults on the Day of Recompense, because no one can forgive sins in this world or the next except Him.", "no one is able to forgive sins in this world or the Hereafter except Him"),
+      source: ik(82, "Allah causes death and then gives life again; no one else can. Ibrahim hoped Allah would forgive his faults on the Day of Recompense, because no one can forgive sins in this world or the next except Him.", "is able to forgive sins in this world or the Hereafter except Him"),
       difficulty: 3,
       questions: [
         { q: "Who can forgive sins, per Ibn Kathir?", a: "Only Allah", wrong: ["Any Prophet", "Any scholar", "The idols"], why: "No one is able to forgive sins in this world or the Hereafter except Him." },
@@ -738,7 +738,7 @@ const SHUARA_THREE: DeepUnit = {
       line: "The people of Al-Aykah were the people of Madyan, sent Shu'ayb.",
       facts: ["Al-Aykah was a worshipped tree", "One nation, two names"],
       quote: q26(176),
-      source: ik(176, "The companions of Al-Aykah were the people of Madyan, per the most correct view. Aykah was a tree, or thicket, they worshipped. So Shu'ayb is not called their brother here, since the name was tied to their idol.", "The companions of Al-Aykah were the people of Madyan, according to the most correct view"),
+      source: ik(176, "The companions of Al-Aykah were the people of Madyan, per the most correct view. Aykah was a tree, or thicket, they worshipped. So Shu'ayb is not called their brother here, since the name was tied to their idol.", "companions of Al-Aykah were the people of Madyan, according to the most correct view"),
       difficulty: 3,
       questions: [
         { q: "Who were the people of Al-Aykah?", a: "The people of Madyan", wrong: ["The people of 'Ad", "Fir'awn's people", "The people of Lut"], why: "The companions of Al-Aykah were the people of Madyan, according to the most correct view." },

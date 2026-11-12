@@ -118,6 +118,9 @@ import { DEEP_114 } from "./deep114";
 import { surahLearningRank } from "../importedNotes";
 import { LESSON_SOURCES } from "../questionSources";
 
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const KATHIR_AYAHS: Record<string, number> = require("./kathirAyahs.json");
+
 export type { Passage, PassageDeep, SurahMeaning } from "./types";
 
 /** The surahs taught in depth, passage by passage, by surah number: Al-Baqarah first, the rest to follow. */
@@ -181,17 +184,22 @@ function meaningSource(surah: number, at: string, line: string): LessonSource {
   };
 }
 
-/** A tafsir book on one passage, on Quran.com: it opens at the passage's first ayah. */
+/**
+ * A tafsir book on one passage, on Quran.com: it opens at the passage's first ayah. Tafsir Ibn Kathir explains a
+ * passage a few ayahs at a time, one page each, so where the words of its first meaning line are explained on a
+ * later ayah's page, it opens there instead (kathirAyahs.json, "surah:passage" to that ayah).
+ */
 export function tafsirSource(book: "ibn-kathir" | "saadi", surah: number, at: string, summary: string): LessonSource {
   const [from] = passageAyahs(at);
   const kathir = book === "ibn-kathir";
   const name = kathir ? "Tafsir Ibn Kathir" : "Tafsir as-Sa'di";
+  const opens = (kathir ? KATHIR_AYAHS[`${surah}:${at}`] : undefined) ?? from;
   return {
     id: `surah_deep_${kathir ? "ibn_kathir" : "saadi"}_${surah}_${at.replace("-", "_")}`,
     site: "Quran.com",
     category: "tafsir",
     title: `${name} on ${SURAH_NAMES[surah - 1]} ${surah}:${at}`,
-    url: `https://quran.com/${surah}:${from}/tafsirs/${kathir ? "en-tafisr-ibn-kathir" : "ar-tafseer-al-saddi"}`,
+    url: `https://quran.com/${surah}:${opens}/tafsirs/${kathir ? "en-tafisr-ibn-kathir" : "ar-tafseer-al-saddi"}`,
     reference: `${name} ${surah}:${at}`,
     from: kathir ? "Tafsir Ibn Kathir (abridged English), on Quran.com" : "Tafsir as-Sa'di (Arabic), on Quran.com",
     grade: "Tafsir",

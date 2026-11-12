@@ -81,7 +81,7 @@ const DHARIYAT_ONE: DeepUnit = {
       line: "The angels carry and distribute Allah's commands.",
       facts: ["They come down with His orders", "Highest of the oaths"],
       quote: q51(4),
-      source: ik(4, "Ibn Kathir says the angels distribute by Allah's order and descend with His commands and decrees.", "the angels who distribute by Allah"),
+      source: ik(4, "Ibn Kathir says the angels distribute by Allah's order and descend with His commands and decrees.", "the angels who distribute by … order are above that"),
       difficulty: 2,
       questions: [
         { q: "Who are the distributors of command, per Ali?", a: "The angels", wrong: ["The kings", "The prophets", "The scholars"], why: "And the distributors of command? Ali said, it refers to The angels." },
@@ -724,7 +724,7 @@ const DHARIYAT_TWO: DeepUnit = {
       line: "The blast seized Thamud; none could stand or help himself.",
       facts: ["Sa'iqah: the blast", "No escape from Allah's decree"],
       quote: q51(45),
-      source: ik(45, "Ibn Kathir says they could not escape or save themselves when the punishment came.", "they were unable to escape and run away from it"),
+      source: ik(45, "Ibn Kathir says they could not escape or save themselves when the punishment came.", "they were unable to escape and run away"),
       difficulty: 2,
       questions: [
         { q: "What could they not do, in 51:45?", a: "Rise up or help themselves", wrong: ["Speak", "Eat", "Sleep"], why: "Then they were unable to rise up, nor could they help themselves." },
@@ -974,7 +974,7 @@ const DHARIYAT_THREE: DeepUnit = {
       line: "Wrongdoers get a share like those before; do not rush it.",
       facts: ["Like the nations before", "The promise will come"],
       quote: q51(59),
-      source: ik(59, "Ibn Kathir says the wrongdoers will receive their due share, so let them not ask for it to be rushed, for it will surely come.", "let them not ask that the punishment is rushed to them, for it will surely come"),
+      source: ik(59, "Ibn Kathir says the wrongdoers will receive their due share, so let them not ask for it to be rushed, for it will surely come.", "them not ask that the punishment is rushed to them, for it will surely come"),
       difficulty: 2,
       questions: [
         { q: "Like whose share is theirs, in 51:59?", a: "Their likes of old", wrong: ["The believers", "The angels", "The prophets"], why: "There is a portion of torment like to the evil portion of torment which came for their likes of old." },

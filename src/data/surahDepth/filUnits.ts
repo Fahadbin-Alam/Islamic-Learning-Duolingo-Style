@@ -96,7 +96,7 @@ const FIL_ONE: DeepUnit = {
       line: "Facing Makkah, the elephant knelt and would not move.",
       facts: ["Knelt toward Makkah", "Walked toward Yemen"],
       quote: q105(2),
-      source: ik(2, "Whenever they turned the elephant toward Makkah it knelt, yet it walked quickly toward Yemen, Ash-Sham and the east.", "Then they turned him towards Makkah and he knelt down again"),
+      source: ik(2, "Whenever they turned the elephant toward Makkah it knelt, yet it walked quickly toward Yemen, Ash-Sham and the east.", "turned him towards Makkah and he knelt down again"),
       difficulty: 2,
       questions: [
         { q: "What did the elephant do facing Makkah?", a: "Knelt down", wrong: ["Ran forward", "Broke the gate", "Fell asleep"], why: "They turned him towards Makkah and he knelt down again." },

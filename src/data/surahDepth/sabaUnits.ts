@@ -686,7 +686,7 @@ const SABA_TWO: DeepUnit = {
       line: "No earlier book or warner had come to the Arabs.",
       facts: ["They wished for one", "Then they denied him"],
       quote: q34(44),
-      source: ik(44, "The Arabs wished for a warner or book, saying they would be better guided, but when it came they rejected it.", "Allah did not reveal any Book to the Arabs before the Qur"),
+      source: ik(44, "The Arabs wished for a warner or book, saying they would be better guided, but when it came they rejected it.", "Allah did not reveal any Book to the Arabs"),
       difficulty: 3,
       questions: [
         { q: "What had the Arabs not been given, in 34:44?", a: "Scriptures to study", wrong: ["Rain", "Camels", "Trade"], why: "And We had not given them Scriptures that they could study." },

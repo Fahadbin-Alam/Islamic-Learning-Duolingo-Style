@@ -375,7 +375,7 @@ const MUJADILA_ONE: DeepUnit = {
       line: "Scholars agree Allah is with them by His knowledge.",
       facts: ["He hears every word they say", "He sees wherever they are"],
       quote: q58(7),
-      source: ik(7, "Ibn Kathir says there is a consensus among the scholars that this with refers to Allah's knowledge, along with His hearing and sight.", "there is a consensus among the scholars that this…refers to Allah"),
+      source: ik(7, "Ibn Kathir says there is a consensus among the scholars that this with refers to Allah's knowledge, along with His hearing and sight.", "there is a consensus among the scholars that this … knowledge"),
       difficulty: 3,
       questions: [
         { q: "What does Allah is with them mean, per scholars?", a: "With them by His knowledge", wrong: ["Sitting with them", "Living with them", "Only watching kings"], why: "There is a consensus among the scholars that this with refers to Allah's knowledge." },
@@ -710,7 +710,7 @@ const MUJADILA_TWO: DeepUnit = {
       line: "Allah raises in ranks the believers and those given knowledge.",
       facts: ["Faith raises a person", "Knowledge raises a person more"],
       quote: q58(11),
-      source: ik(11, "Ibn Kathir quotes 58:11: Allah will exalt in degrees those of you who believe, and those who have been granted knowledge.", "Allah will exalt in degrees those of you who believe, and those who have been granted knowledge"),
+      source: ik(11, "Ibn Kathir quotes 58:11: Allah will exalt in degrees those of you who believe, and those who have been granted knowledge.", "will exalt in degrees those of you who believe, and those who have been granted knowledge"),
       difficulty: 2,
       questions: [
         { q: "Whom does Allah raise in degrees, in 58:11?", a: "Believers and people of knowledge", wrong: ["The tallest", "The richest", "The fastest"], why: "Allah will exalt in degrees those of you who believe, and those who have been granted knowledge." },
@@ -1003,7 +1003,7 @@ const MUJADILA_THREE: DeepUnit = {
       line: "They will even swear falsely to Allah on that Day.",
       facts: ["They claim they were guided", "They think their oaths will help"],
       quote: q58(18),
-      source: ik(18, "Ibn Kathir says they will swear to Allah that they followed the guidance, just as they swore to the believers in this life.", "they will swear to Allah the Exalted and Most Honored that they were following the guidance"),
+      source: ik(18, "Ibn Kathir says they will swear to Allah that they followed the guidance, just as they swore to the believers in this life.", "will swear to Allah the Exalted and Most Honored that they were following the guidance"),
       difficulty: 3,
       questions: [
         { q: "What will they swear to Allah?", a: "That they were guided", wrong: ["That they were kings", "That they never lived", "That they forgot"], why: "That they were following the guidance and the correct path." },
@@ -1129,7 +1129,7 @@ const MUJADILA_THREE: DeepUnit = {
       line: "A believer gives no loyalty to those at war with Allah.",
       facts: ["Not even close relatives who oppose Allah", "Loyalty to Allah comes first"],
       quote: q58(22),
-      source: ik(22, "Ibn Kathir says this means do not befriend the deniers who oppose Allah, even if they are among the closest relatives.", "do not befriend the deniers, even if they are among the closest relatives"),
+      source: ik(22, "Ibn Kathir says this means do not befriend the deniers who oppose Allah, even if they are among the closest relatives.", "not befriend the deniers, even if they are among the closest relatives"),
       difficulty: 3,
       questions: [
         { q: "Whom do true believers not befriend?", a: "Those who oppose Allah", wrong: ["Their neighbors", "All strangers", "Other Muslims"], why: "Making friendship with those who oppose Allah and His Messenger." },
@@ -1171,7 +1171,7 @@ const MUJADILA_THREE: DeepUnit = {
       line: "Allah wrote faith in their hearts and made it dear to them.",
       facts: ["As-Suddi: He placed faith there", "Happiness lives in such hearts"],
       quote: q58(22),
-      source: ik(22, "Ibn Kathir quotes As-Suddi that He has placed faith in their hearts, and says Allah made faith dear to their hearts.", "He has placed faith in their hearts…made faith dear to their hearts"),
+      source: ik(22, "Ibn Kathir quotes As-Suddi that He has placed faith in their hearts, and says Allah made faith dear to their hearts.", "He has placed faith in their hearts"),
       difficulty: 3,
       questions: [
         { q: "What did Allah write in their hearts?", a: "Faith", wrong: ["Fear of people", "Love of money", "Their names"], why: "For such He has written faith in their hearts." },

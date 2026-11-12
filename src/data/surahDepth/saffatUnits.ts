@@ -500,7 +500,7 @@ const SAFFAT_TWO: DeepUnit = {
       line: "We led you astray because we were astray ourselves.",
       facts: ["They called to their own path", "The followers answered"],
       quote: q37(32),
-      source: ik(32, "They say: we called you to follow the path we were on, and you responded.", "we called you to follow the path which we were on, and you responded"),
+      source: ik(32, "They say: we called you to follow the path we were on, and you responded.", "called you to follow the path which we were on, and you responded"),
       difficulty: 2,
       questions: [
         { q: "Why did they mislead others, in 37:32?", a: "They were astray themselves", wrong: ["For money", "By mistake", "Out of love"], why: "So we led you astray because we were ourselves astray." },
@@ -668,7 +668,7 @@ const SAFFAT_TWO: DeepUnit = {
       line: "In the Gardens of Delight.",
       facts: ["Their home forever", "Joy beyond imagining"],
       quote: q37(43),
-      source: ik(43, "The sincere servants will be in the Gardens of Delight, facing one another on thrones.", "In the Gardens of Delight, facing one another on thrones"),
+      source: ik(43, "The sincere servants will be in the Gardens of Delight, facing one another on thrones.", "the Gardens of Delight, facing one another on thrones"),
       difficulty: 1,
       questions: [
         { q: "Where are they, in 37:43?", a: "Gardens of Delight", wrong: ["A desert", "A city", "A cave"], why: "In the Gardens of Delight." },
@@ -682,7 +682,7 @@ const SAFFAT_TWO: DeepUnit = {
       line: "On thrones, facing one another.",
       facts: ["No one sees another's back", "Warm company"],
       quote: q37(44),
-      source: ik(44, "Mujahid said none of them will look at another's back.", "One of them will not look at one another"),
+      source: ik(44, "Mujahid said none of them will look at another's back.", "One of them will not look"),
       difficulty: 2,
       questions: [
         { q: "How do they sit, in 37:44?", a: "Facing one another", wrong: ["Back to back", "Alone", "In a line"], why: "Facing one another on thrones." },
@@ -934,7 +934,7 @@ const SAFFAT_TWO: DeepUnit = {
       line: "For the like of this, let the workers work.",
       facts: ["Work in this world", "Reach it in the Hereafter"],
       quote: q37(61),
-      source: ik(61, "Ibn Jarir said: for the like of this pleasure and success, let people work in this world to attain it.", "let the workers work in this world, so that they may attain it in the Hereafter"),
+      source: ik(61, "Ibn Jarir said: for the like of this pleasure and success, let people work in this world to attain it.", "the workers work in this world, so that they may attain it in the Hereafter"),
       difficulty: 2,
       questions: [
         { q: "What should workers work for, in 37:61?", a: "The like of this", wrong: ["Fame", "Gold", "Praise"], why: "For the like of this let the workers work." },
@@ -1031,7 +1031,7 @@ const SAFFAT_THREE: DeepUnit = {
       line: "On top of it, they are given a boiling drink.",
       facts: ["After eating, then drinking", "No relief in it"],
       quote: q37(67),
-      source: ik(67, "Ibn Abbas said they will be given boiling Hamim to drink after eating from Zaqqum.", "they will be given boiling Hamim to drink after they have eaten from Zaqqum"),
+      source: ik(67, "Ibn Abbas said they will be given boiling Hamim to drink after eating from Zaqqum.", "given boiling Hamim to drink after they have eaten from Zaqqum"),
       difficulty: 2,
       questions: [
         { q: "What are they given, in 37:67?", a: "Boiling Hamim", wrong: ["Cool water", "Milk", "Honey"], why: "Then on the top of that they will be given boiling Hamim." },
@@ -2708,7 +2708,7 @@ const SAFFAT_SIX: DeepUnit = {
       line: "Do they want Allah's punishment to come faster?",
       facts: ["They mocked the warning", "Stubborn disbelief"],
       quote: q37(176),
-      source: ik(176, "They seek to hasten the punishment because they disbelieve in the Prophet ﷺ.", "they seek to hasten on the punishment because they disbelieve in you"),
+      source: ik(176, "They seek to hasten the punishment because they disbelieve in the Prophet ﷺ.", "seek to hasten on the punishment because they disbelieve"),
       difficulty: 2,
       questions: [
         { q: "What do they hasten, in 37:176?", a: "Allah's punishment", wrong: ["Their meals", "Their travels", "Their trade"], why: "Do they seek to hasten on Our torment?" },

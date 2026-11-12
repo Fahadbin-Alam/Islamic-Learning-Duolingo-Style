@@ -736,7 +736,7 @@ const NAML_FIVE: DeepUnit = {
       line: "Deniers called rising again old tales they had heard for ages.",
       facts: ["They doubted rising from dust", "They called it old stories"],
       quote: q27(68),
-      source: ik(68, "The idol worshippers thought it unlikely that bodies would be made again after becoming dust. They said: we and our forefathers have heard this for a long time and never seen it happen.", "we and our forefathers have been hearing this for a long time"),
+      source: ik(68, "The idol worshippers thought it unlikely that bodies would be made again after becoming dust. They said: we and our forefathers have heard this for a long time and never seen it happen.", "and our forefathers have been hearing this for a long time"),
       difficulty: 2,
       questions: [
         { q: "What did deniers doubt, in 27:67?", a: "Being raised from dust", wrong: ["That rain falls", "That the sun rises", "That trees grow"], why: "When we have become dust, shall we really be brought forth?" },

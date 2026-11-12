@@ -429,7 +429,7 @@ const MUTAFFIFIN_FOUR: DeepUnit = {
       line: "They went home happy and joking, yet never thanked Allah.",
       facts: ["Fakihin: jesting, pleased", "Gratitude, not mockery"],
       quote: q83(31),
-      source: ik(31, "Ibn Kathir says they returned home pleased with all they had, yet still were not grateful to Allah.", "they still are not grateful for Allah"),
+      source: ik(31, "Ibn Kathir says they returned home pleased with all they had, yet still were not grateful to Allah.", "they still are not grateful"),
       difficulty: 2,
       questions: [
         { q: "How did they return home, per 83:31?", a: "Jesting", wrong: ["Weeping", "Fasting", "Repenting"], why: "And when they returned to their own people, they would return jesting." },

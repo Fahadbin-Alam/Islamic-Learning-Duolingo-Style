@@ -903,7 +903,7 @@ const QALAM_FIVE: DeepUnit = {
       line: "On the Day of Judgement, all will be called to prostrate.",
       facts: ["A Day of great matters", "Believers will prostrate"],
       quote: q68(42),
-      source: ik(42, "Ibn Kathir says 68:42 is about the Day of Judgement and the great matters that will happen on it.", "the Day of Judgement and the horrors, earthquakes, trials, tests and great matters"),
+      source: ik(42, "Ibn Kathir says 68:42 is about the Day of Judgement and the great matters that will happen on it.", "Day of Judgement and the horrors, earthquakes, trials, tests and great matters"),
       difficulty: 2,
       questions: [
         { q: "Which Day does 68:42 describe?", a: "The Day of Judgement", wrong: ["A market day", "A wedding", "A holiday"], why: "Meaning, the Day of Judgement and the great matters that will occur during it." },
@@ -1140,7 +1140,7 @@ const QALAM_SIX: DeepUnit = {
       line: "The Quran is nothing but a Reminder to all the worlds.",
       facts: ["Dhikr: a reminder", "For every people"],
       quote: q68(52),
-      source: ik(52, "Ibn Kathir ends Al-Qalam with 68:52: it is nothing else but a Reminder to all the creatures.", "But it is nothing else but a Reminder to all the creatures"),
+      source: ik(52, "Ibn Kathir ends Al-Qalam with 68:52: it is nothing else but a Reminder to all the creatures.", "is nothing else but a Reminder to all the creatures"),
       difficulty: 1,
       questions: [
         { q: "What is the Quran, per 68:52?", a: "A Reminder to all", wrong: ["A poem", "A history book", "A song"], why: "But it is nothing else than a Reminder to all the creatures." },

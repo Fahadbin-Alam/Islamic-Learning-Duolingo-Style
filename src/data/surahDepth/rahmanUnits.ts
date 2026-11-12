@@ -612,7 +612,7 @@ const RAHMAN_TWO: DeepUnit = {
       line: "If you can pass beyond the heavens and earth, then pass!",
       facts: ["None can escape Allah's rule", "Only with His command"],
       quote: q55(33),
-      source: ik(33, "Ibn Kathir says you will never escape Allah's orders and decrees; they surround you wherever you are.", "you will never be able to escape Allah"),
+      source: ik(33, "Ibn Kathir says you will never escape Allah's orders and decrees; they surround you wherever you are.", "you will never be able to escape"),
       difficulty: 2,
       questions: [
         { q: "Who is challenged, in 55:33?", a: "Jinn and men", wrong: ["Only birds", "Only angels", "Only kings"], why: "O assembly of Jinn and men!" },
@@ -1045,7 +1045,7 @@ const RAHMAN_THREE: DeepUnit = {
       line: "Reward for good is His bounty: which favor will you deny?",
       facts: ["Deeds alone do not earn it", "His favor and bounty do"],
       quote: q55(61),
-      source: ik(61, "Ibn Kathir says these great blessings are not earned merely by deeds, but by Allah's favor and bounty.", "cannot be earned merely by good deeds, but by Allah"),
+      source: ik(61, "Ibn Kathir says these great blessings are not earned merely by deeds, but by Allah's favor and bounty.", "cannot be earned merely by good deeds, but by … favor and bounty"),
       difficulty: 2,
       questions: [
         { q: "How are the blessings earned, per Ibn Kathir?", a: "By Allah's favor and bounty", wrong: ["By deeds alone", "By wealth", "By family"], why: "Tremendous blessings that cannot be earned merely by good deeds, but by Allah's favor and bounty." },

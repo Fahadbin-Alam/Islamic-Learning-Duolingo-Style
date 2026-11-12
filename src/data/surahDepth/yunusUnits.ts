@@ -793,7 +793,7 @@ const YUNUS_THREE: DeepUnit = {
       line: "Do not grieve at their words; all honor belongs to Allah.",
       facts: ["He hears and knows", "Night to rest, day to see"],
       quote: q10(65),
-      source: ik(65, "The Prophet ﷺ is told not to grieve at the idolators' words but to trust Allah. All might and honor belong to Allah, His Messenger and the believers.", "All might and honor belong to Him, His Messenger and the believers"),
+      source: ik(65, "The Prophet ﷺ is told not to grieve at the idolators' words but to trust Allah. All might and honor belong to Allah, His Messenger and the believers.", "might and honor belong to Him, His Messenger and the believers"),
       difficulty: 5,
       questions: [
         { q: "To whom does all honor belong, in 10:65?", a: "Allah", wrong: ["The rich", "The loud", "The many"], why: "For all power and honor belong to Allah." },
@@ -1141,7 +1141,7 @@ const YUNUS_FIVE: DeepUnit = {
       line: "Had Allah willed, all would believe; faith is never forced.",
       facts: ["The duty: convey", "Guidance is Allah's"],
       quote: q10(99),
-      source: ik(99, "Had Allah willed, everyone on earth would believe, but He has wisdom. Forcing people to believe is not for the Prophet, nor was he commanded to do it.", "it is not for you to do that. You are not commanded to do that either"),
+      source: ik(99, "Had Allah willed, everyone on earth would believe, but He has wisdom. Forcing people to believe is not for the Prophet, nor was he commanded to do it.", "is not for you to do that. You are not commanded to do that either"),
       difficulty: 3,
       questions: [
         { q: "Will you compel mankind to believe, asks 10:99?", a: "No, that is not your role", wrong: ["Yes, by force", "Yes, with money", "Yes, with threats"], why: "So, will you then compel mankind, until they become believers?" },

@@ -501,7 +501,7 @@ const ANBIYA_TWO: DeepUnit = {
       line: "Why worship what can neither help you nor harm you?",
       facts: ["They looked down", "Ibrahim won the argument"],
       quote: q21(66),
-      source: ik(66, "The people looked down and admitted the idols cannot speak. Ibrahim asked: then why worship, instead of Allah, things that can neither help nor harm you? Have you no sense?", "if they cannot speak and they can neither benefit you nor harm you, then why do you worship them instead of Allah"),
+      source: ik(66, "The people looked down and admitted the idols cannot speak. Ibrahim asked: then why worship, instead of Allah, things that can neither help nor harm you? Have you no sense?", "cannot speak and they can neither benefit you nor harm you, then why do you worship them instead of Allah"),
       difficulty: 4,
       questions: [
         { q: "What did the people admit, in 21:65?", a: "These idols do not speak", wrong: ["The idols are angry", "Ibrahim lied", "The idols ran"], why: "Indeed you know well that these speak not!" },
@@ -807,7 +807,7 @@ const ANBIYA_THREE: DeepUnit = {
       line: "The people of ruined towns will not return to this world.",
       facts: ["Life comes once", "Use your time well"],
       quote: q21(95),
-      source: ik(95, "Ibn Abbas said it is decreed that people of each destroyed town will never return to this world before the Day of Resurrection.", "will never return to this world before the Day of Resurrection"),
+      source: ik(95, "Ibn Abbas said it is decreed that people of each destroyed town will never return to this world before the Day of Resurrection.", "return to this world before the Day of Resurrection"),
       difficulty: 3,
       questions: [
         { q: "What is laid on every destroyed town, in 21:95?", a: "A ban on returning", wrong: ["A new king", "A tax", "A wall of gold"], why: "And a ban is laid on every town which We have destroyed that they shall not return." },

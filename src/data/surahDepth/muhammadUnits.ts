@@ -416,7 +416,7 @@ const MUHAMMAD_TWO: DeepUnit = {
       line: "Better for them: obey, speak well, and be true to Allah.",
       facts: ["Sincerity matters", "Listen and obey"],
       quote: q47(21),
-      source: ik(21, "Ibn Kathir says it would have been better for them to listen and obey, with sincere intentions for Allah.", "it would have been better for them to listen and obey in that present situation"),
+      source: ik(21, "Ibn Kathir says it would have been better for them to listen and obey, with sincere intentions for Allah.", "better for them to listen and obey in that present situation"),
       difficulty: 2,
       questions: [
         { q: "What was better for them, in 47:21?", a: "Obedience and good words", wrong: ["Running away", "Arguing", "Hiding"], why: "Obedience and good words." },

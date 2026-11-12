@@ -180,7 +180,7 @@ const FATIR_ONE: DeepUnit = {
       line: "Honour belongs to Allah; good words and good deeds rise to Him.",
       facts: ["Seek honour by obeying Allah", "Showing off will fail"],
       quote: q35(10),
-      source: ik(10, "Good words are dhikr, Quran and dua; whoever wants honour should seek it by obeying Allah.", "words of remembrance, recitation of Qur"),
+      source: ik(10, "Good words are dhikr, Quran and dua; whoever wants honour should seek it by obeying Allah.", "words of remembrance, recitation of … and supplications"),
       difficulty: 4,
       questions: [
         { q: "To whom does all honour belong, in 35:10?", a: "To Allah", wrong: ["To the rich", "To the strong", "To poets"], why: "Whosoever desires Al-Izzah, then to Allah belongs all Al-Izzah." },
@@ -476,7 +476,7 @@ const FATIR_TWO: DeepUnit = {
       line: "Reciting, praying and giving is a trade that will never fail.",
       facts: ["Give secretly and openly", "Learn and teach the Quran"],
       quote: q35(29),
-      source: hadith("bukhari", "5027", "Uthman ibn Affan", "Sahih", "The Prophet ﷺ said: the best among you are those who learn the Quran and teach it.", "The best among you (Muslims) are those who learn the Qur"),
+      source: hadith("bukhari", "5027", "Uthman ibn Affan", "Sahih", "The Prophet ﷺ said: the best among you are those who learn the Quran and teach it.", "The best among you (Muslims) are those who learn … and teach it"),
       difficulty: 3,
       questions: [
         { q: "What three deeds are named, in 35:29?", a: "Recite, pray and spend", wrong: ["Sleep, eat, rest", "Trade, travel, build", "Hunt, fish, farm"], why: "Those who recite the Book of Allah, and perform the Salah, and spend." },
@@ -504,7 +504,7 @@ const FATIR_TWO: DeepUnit = {
       line: "The Quran is the truth, confirming the Books before it.",
       facts: ["Earlier Books foretold it", "Allah sees all His servants"],
       quote: q35(31),
-      source: ik(31, "The Quran confirms the earlier Books, just as they foretold that it would come.", "It confirms them just as they bore witness to the coming of the Qur"),
+      source: ik(31, "The Quran confirms the earlier Books, just as they foretold that it would come.", "It confirms them just as they bore witness to the coming"),
       difficulty: 3,
       questions: [
         { q: "What does the Quran confirm, in 35:31?", a: "The Books before it", wrong: ["Old poems", "Fortune tellers", "Nothing"], why: "It is the very truth confirming that which was revealed before it." },

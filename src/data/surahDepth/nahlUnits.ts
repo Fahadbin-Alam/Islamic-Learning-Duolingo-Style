@@ -151,7 +151,7 @@ const NAHL_ONE: DeepUnit = {
       line: "Allah shows the straight path, while other paths go astray.",
       facts: ["From travel to the path to Allah", "He could guide all"],
       quote: q16(9),
-      source: ik(9, "After animals for journeys, Allah speaks of the journey to Him. He makes clear the straight path and the paths that stray, and had He willed He would have guided everyone.", "It is up to Allah to clarify, to explain the guidance and misguidance"),
+      source: ik(9, "After animals for journeys, Allah speaks of the journey to Him. He makes clear the straight path and the paths that stray, and had He willed He would have guided everyone.", "to Allah to clarify, to explain the guidance and misguidance"),
       difficulty: 3,
       questions: [
         { q: "Whose is it to show the right way, in 16:9?", a: "Allah's", wrong: ["The kings'", "The poets'", "The stars'"], why: "And it is up to Allah to show the right way." },
@@ -499,7 +499,7 @@ const NAHL_THREE: DeepUnit = {
       line: "The emigrants were patient and put their trust in their Lord.",
       facts: ["They bore hard treatment", "Allah made their end good"],
       quote: q16(42),
-      source: ik(42, "The emigrants bore their people's harsh treatment with patience and trusted Allah, and He made their end good in this world and the next.", "they bore their people"),
+      source: ik(42, "The emigrants bore their people's harsh treatment with patience and trusted Allah, and He made their end good in this world and the next.", "they bore their … persecution with patience, putting their trust in Allah"),
       difficulty: 2,
       questions: [
         { q: "How are the emigrants described, in 16:42?", a: "Patient and trusting their Lord", wrong: ["Angry and proud", "Rich and famous", "Weak and lost"], why: "Those who remained patient, and put their trust in their Lord." },
@@ -541,7 +541,7 @@ const NAHL_THREE: DeepUnit = {
       line: "The Quran came to the Prophet ﷺ so he explains it to people.",
       facts: ["He details what is brief", "So people reflect"],
       quote: q16(44),
-      source: ik(44, "Allah revealed the Quran to the Prophet ﷺ so he would explain it to people, detailing what is brief and making clear what is unclear, so they reflect and are guided.", "So that you may explain in detail what has been mentioned in brief, and explain what is not clear"),
+      source: ik(44, "Allah revealed the Quran to the Prophet ﷺ so he would explain it to people, detailing what is brief and making clear what is unclear, so they reflect and are guided.", "that you may explain in detail what has been mentioned in brief, and explain what is not clear"),
       difficulty: 3,
       questions: [
         { q: "Why was the Dhikr revealed to the Prophet ﷺ, in 16:44?", a: "To explain it clearly to people", wrong: ["To hide it", "To sell it", "To keep it secret"], why: "So that you may clearly explain to men what was revealed to them." },
@@ -840,7 +840,7 @@ const NAHL_FOUR: DeepUnit = {
       line: "Honey of many colors comes from bees, and it has healing.",
       facts: ["Colors depend on what bees eat", "A sign for those who reflect"],
       quote: q16(69),
-      source: ik(69, "Honey comes out white, yellow, red or other colors, depending on what the bees eat, and in it there is a cure for diseases people suffer from.", "there is a cure in honey for diseases that people suffer from"),
+      source: ik(69, "Honey comes out white, yellow, red or other colors, depending on what the bees eat, and in it there is a cure for diseases people suffer from.", "is a cure in honey for diseases that people suffer"),
       difficulty: 3,
       questions: [
         { q: "What comes from the bees, in 16:69?", a: "A drink of varying colors", wrong: ["Milk", "Water", "Oil"], why: "There comes forth from their bellies, a drink of varying colors." },
@@ -854,7 +854,7 @@ const NAHL_FOUR: DeepUnit = {
       line: "The Prophet ﷺ said honey again and again, and the man was cured.",
       facts: ["Allah has said the truth", "Keep trusting the cure"],
       quote: q16(69),
-      source: hadith("bukhari", "5684", "Abu Sa'id al-Khudri", "Sahih", "A man said his brother had stomach trouble. The Prophet ﷺ told him to give honey, again and again, saying Allah has said the truth, until the brother was cured.", "Allah has said the truth, but your brother"),
+      source: hadith("bukhari", "5684", "Abu Sa'id al-Khudri", "Sahih", "A man said his brother had stomach trouble. The Prophet ﷺ told him to give honey, again and again, saying Allah has said the truth, until the brother was cured.", "Allah has said the truth, but your brother … has told a lie"),
       difficulty: 4,
       questions: [
         { q: "What did the Prophet ﷺ tell the man to give, in the hadith?", a: "Honey", wrong: ["Milk", "Dates", "Water"], why: "The Prophet ﷺ said to him, Let him drink honey." },
@@ -1353,7 +1353,7 @@ const NAHL_SIX: DeepUnit = {
       line: "Shaytan has no power over those who trust their Lord.",
       facts: ["Only over those who follow him", "Trust Allah alone"],
       quote: q16(99),
-      source: ik(99, "Shaytan has no power over those who believe and put their trust in Allah. Ath-Thawri said he cannot make them commit a sin they will not repent from. His power is only over those who obey him.", "He has no power to make them commit a sin they will not repent from"),
+      source: ik(99, "Shaytan has no power over those who believe and put their trust in Allah. Ath-Thawri said he cannot make them commit a sin they will not repent from. His power is only over those who obey him.", "has no power to make them commit a sin they will not repent"),
       difficulty: 4,
       questions: [
         { q: "Over whom has Shaytan no power, in 16:99?", a: "Believers who trust their Lord", wrong: ["Everyone", "No one", "Only kings"], why: "Verily, he has no power over those who believe and put their trust only in their Lord." },

@@ -277,7 +277,7 @@ const ABASA_TWO: DeepUnit = {
       line: "Every meal is a gift, and a sign that life returns.",
       facts: ["Ta'am: food", "Life from dead earth"],
       quote: q80(24),
-      source: ik(24, "Ibn Kathir says looking at our food calls us to reflect on Allah's favour, and plants rising from dead earth prove the dead will rise.", "This is a call to reflect upon Allah"),
+      source: ik(24, "Ibn Kathir says looking at our food calls us to reflect on Allah's favour, and plants rising from dead earth prove the dead will rise.", "This is a call to reflect"),
       difficulty: 1,
       questions: [
         { q: "What should man look at, per 80:24?", a: "His food", wrong: ["His clothes", "His house", "His money"], why: "Then let man look at his food." },

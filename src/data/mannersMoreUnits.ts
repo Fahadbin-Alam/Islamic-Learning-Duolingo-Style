@@ -238,7 +238,7 @@ const GIFTS: DeepUnit = {
       title: "Even a small gift",
       line: "He ﷺ would accept an invitation even for a sheep's foot.",
       facts: ["Told by Abu Huraira", "Never too small"],
-      source: hadith("bukhari", "2568", "Abu Huraira", "Sahih", "I would accept an invitation even to a meal of a sheep's foot, and I would accept a gift even if it were a sheep's arm or foot.", "I shall accept the invitation even if I were invited to a meal of a sheep"),
+      source: hadith("bukhari", "2568", "Abu Huraira", "Sahih", "I would accept an invitation even to a meal of a sheep's foot, and I would accept a gift even if it were a sheep's arm or foot.", "I shall accept the invitation even if I were invited to a meal of a sheep … trotter"),
       difficulty: 1,
       questions: [
         { q: "Would he ﷺ accept a very small gift?", a: "Yes, even a sheep's foot", wrong: ["No, only gold", "Only from kings", "Only big feasts"], why: "I shall accept the gift even if it were a trotter of a sheep." },

@@ -235,7 +235,7 @@ const TAKWIR_TWO: DeepUnit = {
       line: "The Fire is kindled and Jannah is brought close to its people.",
       facts: ["Su'irat: kindled", "Uzlifat: brought near"],
       quote: q81(13),
-      source: ik(13, "Ad-Dahhak, Qatadah and others said Paradise will be brought near to its people; As-Suddi said Hell is heated.", "This means it will be brought near to its inhabitants"),
+      source: ik(13, "Ad-Dahhak, Qatadah and others said Paradise will be brought near to its people; As-Suddi said Hell is heated.", "means it will be brought near to its inhabitants"),
       difficulty: 2,
       questions: [
         { q: "What is brought near, per 81:13?", a: "Paradise", wrong: ["The sea", "The moon", "A city"], why: "And when Paradise is brought near." },

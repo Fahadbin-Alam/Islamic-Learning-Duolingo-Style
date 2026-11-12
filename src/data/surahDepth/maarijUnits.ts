@@ -68,7 +68,7 @@ const MAARIJ_ONE: DeepUnit = {
       line: "Allah is Lord of Al-Ma'arij, the ways up to the heavens.",
       facts: ["Al-Ma'arij: ways of ascent", "Allah is Most High"],
       quote: q70(3),
-      source: ik(3, "Ibn Abbas said it means loftiness and abundance; Mujahid said it means the ways of ascension into the heavens.", "Lord of the ways of ascent means the ways of ascension into the heavens"),
+      source: ik(3, "Ibn Abbas said it means loftiness and abundance; Mujahid said it means the ways of ascension into the heavens.", "of ascent means the ways of ascension into the heavens"),
       difficulty: 2,
       questions: [
         { q: "What did Mujahid say Al-Ma'arij means?", a: "Ways up into the heavens", wrong: ["Rivers of milk", "Gates of a city", "Roads of trade"], why: "Mujahid said, Lord of the ways of ascent means the ways of ascension into the heavens." },
@@ -96,7 +96,7 @@ const MAARIJ_ONE: DeepUnit = {
       line: "The Day of Judgement is as long as fifty thousand years.",
       facts: ["For deniers it is long", "Prepare for that Day"],
       quote: q70(4),
-      source: ik(4, "Ibn Abbas said the Day of fifty thousand years is the Day of Judgement, made that long for the disbelievers; Ibn Kathir calls the chain authentic.", "It is the Day of Judgement that Allah has made to be the measure of fifty thousand years for the disbelievers"),
+      source: ik(4, "Ibn Abbas said the Day of fifty thousand years is the Day of Judgement, made that long for the disbelievers; Ibn Kathir calls the chain authentic.", "Day of Judgement that Allah has made to be the measure of fifty thousand years for the disbelievers"),
       difficulty: 2,
       questions: [
         { q: "How long is that Day, per 70:4?", a: "Fifty thousand years", wrong: ["One day", "One thousand years", "Forty days"], why: "In a Day the measure whereof is fifty thousand years." },
@@ -110,7 +110,7 @@ const MAARIJ_ONE: DeepUnit = {
       line: "Be patient with a beautiful patience, without complaint.",
       facts: ["Sabr Jamil: good patience", "Bear rejection calmly"],
       quote: q70(5),
-      source: ik(5, "Ibn Kathir says Allah told the Prophet ﷺ to be patient with his people rejecting him and asking to hasten the punishment.", "be patient, O Muhammad, with your people"),
+      source: ik(5, "Ibn Kathir says Allah told the Prophet ﷺ to be patient with his people rejecting him and asking to hasten the punishment.", "be patient, O Muhammad, with your … rejection and their seeking to hasten the torment"),
       difficulty: 2,
       questions: [
         { q: "What kind of patience is asked for in 70:5?", a: "A good patience", wrong: ["A short patience", "An angry patience", "No patience"], why: "So be patient, with a good patience." },
@@ -639,7 +639,7 @@ const MAARIJ_FOUR: DeepUnit = {
       line: "Making the heavens is greater than making people again.",
       facts: ["Look at the sky", "Allah is able"],
       quote: q70(40),
-      source: ik(40, "Ibn Kathir cites 40:57: the creation of the heavens and earth is greater than the creation of mankind.", "The creation of the heavens and the earth is indeed greater than the creation of mankind"),
+      source: ik(40, "Ibn Kathir cites 40:57: the creation of the heavens and earth is greater than the creation of mankind.", "and the earth is indeed greater than the creation of mankind"),
       difficulty: 2,
       questions: [
         { q: "What is greater than creating mankind?", a: "Creating heavens and earth", wrong: ["Building a house", "Writing a book", "Planting a tree"], why: "The creation of the heavens and the earth is indeed greater than the creation of mankind. (40:57)" },

@@ -179,7 +179,7 @@ const WAQIAH_ONE: DeepUnit = {
       line: "Those on the left get their book in their left hand.",
       facts: ["They are the people of the Fire", "We ask Allah to save us from their deeds"],
       quote: q56(9),
-      source: ik(9, "Ibn Kathir says this group will be given their Books of Records in their left hands, and he asks Allah to save us from their actions.", "This category will be given their Books of Records in their left hands"),
+      source: ik(9, "Ibn Kathir says this group will be given their Books of Records in their left hands, and he asks Allah to save us from their actions.", "given their Books of Records in their left hands"),
       difficulty: 1,
       questions: [
         { q: "In which hand do they get their book?", a: "The left hand", wrong: ["The right hand", "Both hands", "On their heads"], why: "This category will be given their Books of Records in their left hands." },
@@ -766,7 +766,7 @@ const WAQIAH_TWO: DeepUnit = {
       line: "Many of those on the right are from the earlier generations.",
       facts: ["Those on the right are very many", "They come from early and late times"],
       quote: q56(39),
-      source: ik(39, "Ibn Kathir says a multitude of those on the right will come from the earlier generations and a multitude from the latter generations.", "a multitude of those on the right will come from the earlier generations"),
+      source: ik(39, "Ibn Kathir says a multitude of those on the right will come from the earlier generations and a multitude from the latter generations.", "multitude of those on the right will come from the earlier generations"),
       difficulty: 2,
       questions: [
         { q: "How many on the right are from the first, in 56:39?", a: "A multitude", wrong: ["A few", "None", "Exactly ten"], why: "A multitude of those will be from the first generation." },
@@ -1772,7 +1772,7 @@ const WAQIAH_FOUR: DeepUnit = {
       line: "Whoever loves to meet Allah, Allah loves to meet him.",
       facts: ["The believer gets good news at death", "Then nothing is dearer than meeting Allah"],
       quote: q56(89),
-      source: hadith("bukhari", "6507", "Ubadah ibn as-Samit", "Sahih", "The Prophet ﷺ said whoever loves to meet Allah, Allah loves to meet him; when death comes, the believer receives the good news of Allah's pleasure and loves to meet Him.", "he receives the good news of Allah"),
+      source: hadith("bukhari", "6507", "Ubadah ibn as-Samit", "Sahih", "The Prophet ﷺ said whoever loves to meet Allah, Allah loves to meet him; when death comes, the believer receives the good news of Allah's pleasure and loves to meet Him.", "he receives the good news of … pleasure with him and His blessings upon him"),
       difficulty: 3,
       questions: [
         { q: "Who does Allah love to meet, per Bukhari 6507?", a: "Who loves to meet Allah", wrong: ["Who is rich", "Who is famous", "Who is strong"], why: "Who-ever loves to meet Allah, Allah (too) loves to meet him." },
@@ -1842,7 +1842,7 @@ const WAQIAH_FOUR: DeepUnit = {
       line: "The third group: those who denied and went astray.",
       facts: ["They denied the truth", "They strayed from guidance"],
       quote: q56(92),
-      source: ik(92, "Ibn Kathir says this is the dying person who was one of those who denied the truth, who were led astray from guidance.", "who denied the truth, who were led astray from guidance"),
+      source: ik(92, "Ibn Kathir says this is the dying person who was one of those who denied the truth, who were led astray from guidance.", "denied the truth, who were led astray from guidance"),
       difficulty: 1,
       questions: [
         { q: "Who is the third group, in 56:92?", a: "The denying, the erring", wrong: ["The foremost", "The patient", "The thankful"], why: "But if he be of the denying, the erring." },

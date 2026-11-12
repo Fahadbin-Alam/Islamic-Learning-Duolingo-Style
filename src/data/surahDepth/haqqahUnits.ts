@@ -333,7 +333,7 @@ const HAQQAH_TWO: DeepUnit = {
       line: "On that Day, eight angels will carry the Throne of Allah.",
       facts: ["Al-Arsh: the Throne", "Angels of great size"],
       quote: q69(17),
-      source: ik(17, "Ibn Kathir says on the Day of Judgement eight angels will carry the Throne of your Lord above them.", "on the Day of Judgement eight angels will carry the Throne"),
+      source: ik(17, "Ibn Kathir says on the Day of Judgement eight angels will carry the Throne of your Lord above them.", "Day of Judgement eight angels will carry the Throne"),
       difficulty: 2,
       questions: [
         { q: "How many angels carry the Throne that Day?", a: "Eight", wrong: ["Two", "Four", "Seven"], why: "Eight angels will, that Day, bear the Throne of your Lord above them." },

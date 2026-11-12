@@ -430,7 +430,7 @@ const ZUMAR_TWO: DeepUnit = {
       line: "The Prophet ﷺ was told to worship Allah with sincere religion.",
       facts: ["Worship Allah alone", "Lead by example"],
       quote: q39(11),
-      source: ik(11, "Ibn Kathir says the Prophet ﷺ was commanded to worship Allah alone in all sincerity, with no partner.", "I am commanded to worship Allah alone in all sincerity"),
+      source: ik(11, "Ibn Kathir says the Prophet ﷺ was commanded to worship Allah alone in all sincerity, with no partner.", "am commanded to worship Allah alone in all sincerity"),
       difficulty: 2,
       questions: [
         { q: "What was he commanded, in 39:11?", a: "To worship Allah sincerely", wrong: ["To build a palace", "To gather wealth", "To write poems"], why: "Say: Verily, I am commanded to worship Allah, making religion sincerely for Him." },
@@ -444,7 +444,7 @@ const ZUMAR_TWO: DeepUnit = {
       line: "He was commanded to be the first of the Muslims.",
       facts: ["He led by example", "He obeyed before calling others"],
       quote: q39(12),
-      source: ik(12, "Ibn Kathir says the Prophet ﷺ was commanded to worship Allah alone, and to be the first of the Muslims.", "I am commanded to worship Allah alone in all sincerity, with no partner or associate"),
+      source: ik(12, "Ibn Kathir says the Prophet ﷺ was commanded to worship Allah alone, and to be the first of the Muslims.", "to worship Allah alone in all sincerity, with no partner or associate"),
       difficulty: 2,
       questions: [
         { q: "What should he be, in 39:12?", a: "The first of the Muslims", wrong: ["The last to obey", "A king", "A merchant"], why: "And I am commanded this in order that I may be the first of the Muslims." },
@@ -738,7 +738,7 @@ const ZUMAR_TWO: DeepUnit = {
       line: "Allah gave every kind of example in the Quran so we remember.",
       facts: ["Parables make meaning close", "Plain Arabic, no crookedness"],
       quote: q39(27),
-      source: ik(27, "Ibn Kathir says parables bring the meaning closer to people's minds.", "Because parables bring the meaning closer to people"),
+      source: ik(27, "Ibn Kathir says parables bring the meaning closer to people's minds.", "Because parables bring the meaning closer"),
       difficulty: 1,
       questions: [
         { q: "What did Allah put forth, in 39:27?", a: "Every kind of parable", wrong: ["Only laws", "Only names", "Only numbers"], why: "And indeed We have put forth for men, in this Quran every kind of parable in order that they may remember." },
@@ -891,7 +891,7 @@ const ZUMAR_THREE: DeepUnit = {
       line: "Is not Allah enough for His servant?",
       facts: ["Enough for those who rely on Him", "Idols cannot scare a believer"],
       quote: q39(36),
-      source: ik(36, "Ibn Kathir says Allah is sufficient for the one who worships Him and relies upon Him.", "Allah is Sufficient for the one who worships Him and relies upon Him"),
+      source: ik(36, "Ibn Kathir says Allah is sufficient for the one who worships Him and relies upon Him.", "is Sufficient for the one who worships Him and relies upon Him"),
       difficulty: 1,
       questions: [
         { q: "Who is sufficient for His servant, in 39:36?", a: "Allah", wrong: ["Wealth", "Idols", "Kings"], why: "Is not Allah Sufficient for His servant?" },
@@ -1268,7 +1268,7 @@ const ZUMAR_FOUR: DeepUnit = {
       line: "Follow the best your Lord sent down, before it is too late.",
       facts: ["The best is the Quran", "Death may come suddenly"],
       quote: q39(55),
-      source: ik(55, "Ibn Kathir says the best sent down is the Quran, and the torment may come without you realizing it.", "before the torment comes on you suddenly while you perceive not"),
+      source: ik(55, "Ibn Kathir says the best sent down is the Quran, and the torment may come without you realizing it.", "the torment comes on you suddenly while you perceive not"),
       difficulty: 2,
       questions: [
         { q: "What should we follow, in 39:55?", a: "The best of what is sent down", wrong: ["Old habits", "The crowd", "Our whims"], why: "And follow the best of that which is sent down to you from your Lord." },

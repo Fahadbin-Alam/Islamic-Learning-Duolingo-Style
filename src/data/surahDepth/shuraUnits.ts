@@ -193,7 +193,7 @@ const SHURA_ONE: DeepUnit = {
       line: "Allah holds the keys of all things and measures provision.",
       facts: ["He controls and governs them", "He knows everything"],
       quote: q42(12),
-      source: ik(12, "Ibn Kathir says having the keys means He is the One Who controls and governs the heavens and the earth.", "He is the One Who is controlling and governing them"),
+      source: ik(12, "Ibn Kathir says having the keys means He is the One Who controls and governs the heavens and the earth.", "is the One Who is controlling and governing them"),
       difficulty: 2,
       questions: [
         { q: "What belongs to Allah, in 42:12?", a: "The keys of the heavens and earth", wrong: ["Only the seas", "Only the hills", "Only the stars"], why: "To Him belong the keys of the heavens and the earth." },

@@ -54,7 +54,7 @@ const MURSALAT_ONE: DeepUnit = {
       line: "Umm al-Fadl last heard him ﷺ recite it at Maghrib.",
       facts: ["Umm al-Fadl: Ibn Abbas's mother", "Recited in Maghrib"],
       quote: q77(1),
-      source: hadith("bukhari", "763", "Ibn Abbas", "Sahih", "Umm al-Fadl heard her son Ibn Abbas recite Al-Mursalat and said it was the last surah she heard from the Messenger of Allah, in the Maghrib prayer.", "it was the last Sura I heard from Allah"),
+      source: hadith("bukhari", "763", "Ibn Abbas", "Sahih", "Umm al-Fadl heard her son Ibn Abbas recite Al-Mursalat and said it was the last surah she heard from the Messenger of Allah, in the Maghrib prayer.", "it was the last Sura I heard from … Messenger"),
       difficulty: 2,
       questions: [
         { q: "In which prayer did he recite it, per Umm al-Fadl?", a: "Maghrib", wrong: ["Fajr", "Dhuhr", "Isha"], why: "He recited it in the Maghrib prayer." },

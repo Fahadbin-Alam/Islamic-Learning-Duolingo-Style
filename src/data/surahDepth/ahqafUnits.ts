@@ -81,7 +81,7 @@ const AHQAF_ONE: DeepUnit = {
       line: "Show me one thing on earth that your idols have created.",
       facts: ["They own nothing at all", "Not even a date seed skin"],
       quote: q46(4),
-      source: ik(4, "Ibn Kathir says they are not partners in anything in the heavens or earth, and do not own even the thin skin on a date seed.", "They do not own even the thin membrane covering a date"),
+      source: ik(4, "Ibn Kathir says they are not partners in anything in the heavens or earth, and do not own even the thin skin on a date seed.", "They do not own even the thin membrane covering a … pit"),
       difficulty: 2,
       questions: [
         { q: "What challenge is given in 46:4?", a: "Show what the idols created", wrong: ["Build a tower", "Count the stars", "Cross the sea"], why: "Show me what have they created of the earth?" },

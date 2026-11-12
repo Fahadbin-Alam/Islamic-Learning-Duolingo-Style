@@ -1111,7 +1111,7 @@ const ABU_TALHAH: DeepUnit = {
       line: "Abu Talhah gave his most loved garden for Allah.",
       facts: ["Bayruha was his favorite garden, facing the masjid.", "When 3:92 came, he gave it in charity.", "The Prophet ﷺ told him to give it to his relatives."],
       quote: quranQuote(3, 92),
-      source: hadith("bukhari", "1461", "Anas ibn Malik", "Sahih", "Abu Talhah's most loved property was Bayruha garden, facing the masjid. When 'you will not attain righteousness until you spend from what you love' came down, he gave it for Allah, and the Prophet ﷺ told him to give it to his relatives.", "So I want to give it in charity in Allah"),
+      source: hadith("bukhari", "1461", "Anas ibn Malik", "Sahih", "Abu Talhah's most loved property was Bayruha garden, facing the masjid. When 'you will not attain righteousness until you spend from what you love' came down, he gave it for Allah, and the Prophet ﷺ told him to give it to his relatives.", "So I want to give it in charity"),
       difficulty: 3,
       questions: [
         { q: "Which ayah made Abu Talhah give his garden?", a: "Spend from what you love", wrong: ["The ayah of the veil", "The ayah of fasting", "The ayah of Hajj"], why: "Righteousness comes by spending from what you love, Quran 3:92." },
@@ -1396,7 +1396,7 @@ const USAMAH: DeepUnit = {
       title: "Riding behind the Prophet ﷺ",
       line: "On Hajj, Usamah rode behind the Prophet ﷺ from Arafah.",
       facts: ["It was the Farewell Hajj.", "Usamah rode behind him from Arafah to Muzdalifah.", "Al-Fadl rode behind him from Muzdalifah to Mina."],
-      source: hadith("bukhari", "1544", "Ibn Abbas", "Sahih", "Usamah rode behind the Prophet ﷺ from Arafah to Muzdalifah, then Al-Fadl rode behind him from Muzdalifah to Mina, and he kept saying the talbiyah.", "Usama rode behind Allah"),
+      source: hadith("bukhari", "1544", "Ibn Abbas", "Sahih", "Usamah rode behind the Prophet ﷺ from Arafah to Muzdalifah, then Al-Fadl rode behind him from Muzdalifah to Mina, and he kept saying the talbiyah.", "Usama rode behind … Messenger"),
       difficulty: 3,
       questions: [
         { q: "Where did Usamah ride behind the Prophet ﷺ?", a: "From Arafah to Muzdalifah", wrong: ["From Makkah to Taif", "From Madinah to Uhud", "From Mina to Yemen"], why: "Usamah rode behind him from Arafah to Muzdalifah." },
@@ -1628,7 +1628,7 @@ const ABU_AYYUB: DeepUnit = {
       title: "The Prophet's ﷺ host",
       line: "In Madinah, the Prophet ﷺ stayed in Abu Ayyub's house.",
       facts: ["After the Hijrah, the Prophet ﷺ stayed with Abu Ayyub.", "The Prophet ﷺ lived downstairs; Abu Ayyub upstairs.", "Abu Ayyub could not bear walking above him, so they swapped."],
-      source: hadith("muslim", "2053c", "Aflah, freed slave of Abu Ayyub", "Sahih", "The Prophet ﷺ stayed in Abu Ayyub's house on the lower floor. Abu Ayyub said: we walk above the head of the Messenger of Allah ﷺ! He would not live above him, so the Prophet ﷺ moved upstairs.", "that we walk above the head of Allah"),
+      source: hadith("muslim", "2053c", "Aflah, freed slave of Abu Ayyub", "Sahih", "The Prophet ﷺ stayed in Abu Ayyub's house on the lower floor. Abu Ayyub said: we walk above the head of the Messenger of Allah ﷺ! He would not live above him, so the Prophet ﷺ moved upstairs.", "that we walk above the head of … Messenger"),
       difficulty: 2,
       questions: [
         { q: "Where did the Prophet ﷺ stay when he came to Madinah?", a: "In Abu Ayyub's house", wrong: ["In a tent", "In Umar's house", "In the market"], why: "He alighted in the house of Abu Ayyub." },
@@ -1654,7 +1654,7 @@ const ABU_AYYUB: DeepUnit = {
       title: "Respect for the qiblah",
       line: "Abu Ayyub taught not to face the qiblah in the toilet.",
       facts: ["The Prophet ﷺ said: do not face or turn your back to the qiblah when relieving yourself.", "In Sham, some toilets faced the qiblah.", "Abu Ayyub turned away and asked Allah's forgiveness."],
-      source: hadith("bukhari", "394", "Abu Ayyub al-Ansari", "Sahih", "The Prophet ﷺ said: when relieving yourself, do not face the qiblah or turn your back to it. Abu Ayyub said: in Sham we found toilets facing the qiblah, so we turned aside and asked Allah's forgiveness.", "we turned ourselves while using them and asked for Allah"),
+      source: hadith("bukhari", "394", "Abu Ayyub al-Ansari", "Sahih", "The Prophet ﷺ said: when relieving yourself, do not face the qiblah or turn your back to it. Abu Ayyub said: in Sham we found toilets facing the qiblah, so we turned aside and asked Allah's forgiveness.", "we turned ourselves while using them and asked for … forgiveness"),
       difficulty: 3,
       questions: [
         { q: "What did the Prophet ﷺ teach about the toilet?", a: "Do not face the qiblah", wrong: ["Face the qiblah", "Pray there", "Recite Quran there"], why: "Neither face nor turn your back to the qiblah." },
@@ -1928,7 +1928,7 @@ const ABU_SAID: DeepUnit = {
       line: "Abu Sa'id taught that Al-Ikhlas equals a third of the Quran.",
       facts: ["A man kept reciting Qul huwa Allahu ahad.", "Another thought that was too little.", "The Prophet ﷺ said: it equals a third of the Quran."],
       quote: quranQuote(112, 1),
-      source: hadith("bukhari", "5013", "Abu Sa'id al-Khudri", "Sahih", "A man heard another reciting Say: He is Allah, One, again and again, and thought it was little. The Prophet ﷺ said: by Him in Whose hand is my soul, it equals a third of the Quran.", "this Surah is equal to one-third of the Qur"),
+      source: hadith("bukhari", "5013", "Abu Sa'id al-Khudri", "Sahih", "A man heard another reciting Say: He is Allah, One, again and again, and thought it was little. The Prophet ﷺ said: by Him in Whose hand is my soul, it equals a third of the Quran.", "this Surah is equal to one-third"),
       difficulty: 2,
       questions: [
         { q: "Which surah equals a third of the Quran?", a: "Al-Ikhlas", wrong: ["Al-Fatihah", "An-Nas", "Al-Kawthar"], why: "This surah is equal to one-third of the Quran." },
@@ -2043,7 +2043,7 @@ const ABU_DARDA: DeepUnit = {
       title: "One of four",
       line: "Abu ad-Darda was one of four who gathered the whole Quran.",
       facts: ["Anas named four Ansar who had gathered the Quran.", "They were Abu ad-Darda, Mu'adh, Zayd ibn Thabit and Abu Zayd.", "He knew the whole Quran in the Prophet's ﷺ lifetime."],
-      source: hadith("bukhari", "5004", "Anas ibn Malik", "Sahih", "When the Prophet ﷺ died, none had collected the Quran but four: Abu ad-Darda, Mu'adh ibn Jabal, Zayd ibn Thabit and Abu Zayd.", "none had collected the Qur"),
+      source: hadith("bukhari", "5004", "Anas ibn Malik", "Sahih", "When the Prophet ﷺ died, none had collected the Quran but four: Abu ad-Darda, Mu'adh ibn Jabal, Zayd ibn Thabit and Abu Zayd.", "none had collected … but four persons"),
       difficulty: 2,
       questions: [
         { q: "What had Abu ad-Darda gathered?", a: "The whole Quran", wrong: ["Gold coins", "An army", "Camels"], why: "None had collected the Quran but four." },
@@ -2069,7 +2069,7 @@ const ABU_DARDA: DeepUnit = {
       title: "Heaviest on the Scale",
       line: "Abu ad-Darda taught: good character is heaviest on the Scale.",
       facts: ["On the Day of Judgment, deeds are weighed.", "Nothing weighs more than good character.", "Allah dislikes the rude, foul-mouthed person."],
-      source: hadith("tirmidhi", "2002", "Abu Darda", "Sahih (Al-Albani)", "Nothing is heavier on the believer's Scale on the Day of Judgment than good character, and Allah is angered by the shameless, obscene person.", "Nothing is heavier on the believer"),
+      source: hadith("tirmidhi", "2002", "Abu Darda", "Sahih (Al-Albani)", "Nothing is heavier on the believer's Scale on the Day of Judgment than good character, and Allah is angered by the shameless, obscene person.", "Nothing is heavier on the … Scale on the Day of Judgment than good character"),
       difficulty: 2,
       questions: [
         { q: "What is heaviest on the believer's Scale?", a: "Good character", wrong: ["Prayer at night", "Fasting", "Charity"], why: "Nothing is heavier than good character." },
@@ -2469,7 +2469,7 @@ const IBN_SALAM: DeepUnit = {
       title: "A bowl he drank from",
       line: "Ibn Salam served guests from a bowl the Prophet ﷺ used.",
       facts: ["Abu Burdah visited him in Madinah.", "He served him sawiq and dates.", "He let him drink from a bowl the Prophet ﷺ drank from."],
-      source: hadith("bukhari", "7342", "Abu Burdah", "Sahih", "When I came to Madinah, Abdullah ibn Salam said: come to my house so I can give you a drink from a bowl the Prophet ﷺ drank from, and you can pray in the masjid he prayed in. He gave me sawiq and dates, then I prayed in his masjid.", "drink from a bowl from which Allah"),
+      source: hadith("bukhari", "7342", "Abu Burdah", "Sahih", "When I came to Madinah, Abdullah ibn Salam said: come to my house so I can give you a drink from a bowl the Prophet ﷺ drank from, and you can pray in the masjid he prayed in. He gave me sawiq and dates, then I prayed in his masjid.", "drink from a bowl from which … used to drink"),
       difficulty: 2,
       questions: [
         { q: "What did he serve his guest?", a: "Sawiq and dates", wrong: ["Roast meat", "Honey cakes", "Nothing"], why: "He made me drink Sawiq and gave me dates." },

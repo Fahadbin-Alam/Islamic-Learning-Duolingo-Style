@@ -207,7 +207,7 @@ const MUMTAHANAH_ONE: DeepUnit = {
       line: "Siding with Allah's enemies leads off the straight path.",
       facts: ["A clear warning", "Loyalty to Allah keeps us on track"],
       quote: q60(1),
-      source: ik(1, "Ibn Kathir says whoever does this has gone astray from the straight path.", "then indeed he has gone astray from the straight path"),
+      source: ik(1, "Ibn Kathir says whoever does this has gone astray from the straight path.", "indeed he has gone astray from the straight path"),
       difficulty: 2,
       questions: [
         { q: "What happens to whoever does this, in 60:1?", a: "He goes astray", wrong: ["He gets rich", "He is praised", "Nothing"], why: "Then indeed he has gone astray from the straight path." },
@@ -416,7 +416,7 @@ const MUMTAHANAH_TWO: DeepUnit = {
       line: "They said: to You we repent, and to You we all return.",
       facts: ["Tawbah: turning back to Allah", "Every journey ends with Him"],
       quote: q60(4),
-      source: ik(4, "Ibn Kathir explains: and to You is the final Return in the Hereafter.", "and to You is the final Return in the Hereafter"),
+      source: ik(4, "Ibn Kathir explains: and to You is the final Return in the Hereafter.", "to You is the final Return in the Hereafter"),
       difficulty: 2,
       questions: [
         { q: "To whom did they turn in repentance?", a: "Allah", wrong: ["Their elders", "Their idols", "No one"], why: "And to You we turn in repentance." },
@@ -639,7 +639,7 @@ const MUMTAHANAH_THREE: DeepUnit = {
       line: "Be kind and fair to non-Muslims who do not fight you.",
       facts: ["60:8 allows kindness", "Justice is for everyone"],
       quote: q60(8),
-      source: ik(8, "Ibn Kathir says Allah does not forbid you from being kind to the disbelievers who do not fight you because of the religion.", "Allah does not forbid you from being kind to the disbelievers who do not fight you because of the religion"),
+      source: ik(8, "Ibn Kathir says Allah does not forbid you from being kind to the disbelievers who do not fight you because of the religion.", "not forbid you from being kind to the disbelievers who do not fight you because of the religion"),
       difficulty: 1,
       questions: [
         { q: "To whom may Muslims be kind, in 60:8?", a: "Those who do not fight them", wrong: ["No one outside Islam", "Only rich people", "Only relatives"], why: "Allah does not forbid you to deal justly and kindly with those who fought not against you." },
@@ -932,7 +932,7 @@ const MUMTAHANAH_FOUR: DeepUnit = {
       line: "The believers obeyed Allah's ruling even when others did not.",
       facts: ["Az-Zuhri reported it", "60:11 settled what was owed"],
       quote: q60(11),
-      source: ik(11, "Ibn Kathir reports Az-Zuhri: the believers abided by Allah's decree and paid what they owed, but the idolators refused.", "The believers abided by Allah"),
+      source: ik(11, "Ibn Kathir reports Az-Zuhri: the believers abided by Allah's decree and paid what they owed, but the idolators refused.", "The believers abided by … decree and paid what they owed the idolators"),
       difficulty: 4,
       questions: [
         { q: "Who abided by Allah's ruling, per Az-Zuhri?", a: "The believers", wrong: ["The idolators", "No one", "Only traders"], why: "The believers abided by Allah's decree and paid what they owed." },
@@ -946,7 +946,7 @@ const MUMTAHANAH_FOUR: DeepUnit = {
       line: "60:11 ends: fear Allah, the One in Whom you believe.",
       facts: ["Faith brings Taqwa", "Taqwa keeps us fair"],
       quote: q60(11),
-      source: ik(11, "Ibn Kathir quotes the end of 60:11: and have Taqwa of Allah, the One in Whom you are believers.", "And have Taqwa of Allah, the One in Whom your are believers"),
+      source: ik(11, "Ibn Kathir quotes the end of 60:11: and have Taqwa of Allah, the One in Whom you are believers.", "And have Taqwa of Allah, the One in Whom you are believers"),
       difficulty: 1,
       questions: [
         { q: "How does 60:11 end?", a: "Have Taqwa of Allah", wrong: ["Go to sleep", "Count your wealth", "Leave the city"], why: "And have Taqwa of Allah, the One in Whom you are believers." },

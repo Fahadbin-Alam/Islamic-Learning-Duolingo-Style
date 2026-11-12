@@ -325,7 +325,7 @@ const ISLAMIC_YEAR: DeepUnit = {
         "He ﷺ fasted a whole month only in Ramadan.",
         "Fasting in Sha'ban gets you ready for Ramadan."
       ],
-      source: hadith("bukhari", "1969", "Aishah", "Sahih", "Aishah said: I never saw the Prophet ﷺ fast a whole month except Ramadan, and I did not see him fast in any month more than in Sha'ban.", "did not see him fasting in any month more than in the month of Sha"),
+      source: hadith("bukhari", "1969", "Aishah", "Sahih", "Aishah said: I never saw the Prophet ﷺ fast a whole month except Ramadan, and I did not see him fast in any month more than in Sha'ban.", "did not see him fasting in any month more than in the month of"),
       difficulty: 1,
       questions: [
         { q: "After Ramadan, in which month did he ﷺ fast the most?", a: "Sha'ban", wrong: ["Muharram", "Rajab", "Safar"], why: "I did not see him fasting in any month more than in Sha'ban." },

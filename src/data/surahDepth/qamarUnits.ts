@@ -179,7 +179,7 @@ const QAMAR_ONE: DeepUnit = {
       line: "They come out of their graves like locusts spreading out.",
       facts: ["Eyes lowered in shame", "Huge crowds in a hurry"],
       quote: q54(7),
-      source: ik(7, "Ibn Kathir says they rush to the place of Reckoning in crowds, like locusts spreading everywhere.", "as if they were crowds of locusts spreading all about"),
+      source: ik(7, "Ibn Kathir says they rush to the place of Reckoning in crowds, like locusts spreading everywhere.", "if they were crowds of locusts spreading all about"),
       difficulty: 2,
       questions: [
         { q: "What are people compared to, in 54:7?", a: "Spreading locusts", wrong: ["Birds", "Fish", "Ants"], why: "As if they were locusts spread abroad." },
@@ -472,7 +472,7 @@ const QAMAR_TWO: DeepUnit = {
       line: "Allah repeats: the Quran is made easy, so who will remember?",
       facts: ["The same ayah as 54:17", "A call after every story"],
       quote: q54(22),
-      source: ik(22, "Ibn Kathir closes the story of Ad with the repeated ayah: the Quran is easy to remember.", "We have indeed made the Qur"),
+      source: ik(22, "Ibn Kathir closes the story of Ad with the repeated ayah: the Quran is easy to remember.", "We have indeed made the … easy to understand and remember"),
       difficulty: 1,
       questions: [
         { q: "Which earlier ayah does 54:22 repeat?", a: "54:17", wrong: ["54:1", "54:9", "54:49"], why: "And We have indeed made the Quran easy to understand and remember; then is there any that will remember?" },

@@ -56,3 +56,20 @@ by its first four and last four words, so those words should not appear earlier 
 "Anyone who dies worshipping others along with Allah will definitely enter the Fire" comes first, so the Paradise line
 starts "who dies worshipping none", not "Anyone who dies worshipping". A cut word matches nothing ("should m" lights
 no line at all), so a line always ends on a whole word.
+
+A word joined by an apostrophe is one word to the browser (Chrome and Edge, tested in Chromium), so a link that
+stops at "Allah" of "Allah's" or "Qur" of "Qur'an" lights nothing. Stop a word earlier, or use a two-part line whose
+second part starts after the joined word ("Usama rode behind … Messenger"). A colon or a full stop between letters
+does not join them. Brackets and "(ﷺ)" match only where the page has them, so never add ﷺ to a line from a page that
+has none.
+
+## Tafsir Ibn Kathir on the surah passages (picked by hand)
+
+The deep surah passages (`src/data/surahMeanings`) each cite Tafsir Ibn Kathir, with the passage's first meaning line
+as the source's summary. Quran.com shows Ibn Kathir a few ayahs per page, so the words that explain that line are
+often on a later ayah's page than the passage's first. `src/data/surahMeanings/kathirAyahs.json` maps a passage
+(`surah:from-to`) to the ayah whose page has its line, and `tafsirSource` opens there (as-Sa'di's Arabic pages still
+open at the passage's start). The lines, in `sourceHighlights.json` keyed by that ayah's url, were picked from the
+same spa5k text, and each was checked to light exactly its words, with its first four words found nowhere earlier on
+its page. Al-Hajj 39-48 has no line: its first meaning line ("Allah defends those who believe") is ayah 38, which
+Ibn Kathir explains on the page before the passage.

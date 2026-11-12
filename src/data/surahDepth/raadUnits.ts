@@ -531,7 +531,7 @@ const RAAD_THREE: DeepUnit = {
       line: "Those who break Allah's covenant and cut ties face a bad home.",
       facts: ["The opposite of the believers", "They spread mischief"],
       quote: q13(25),
-      source: ik(25, "The wretched ones are the opposite of the believers. They break Allah's covenant, cut what Allah ordered joined, and spread mischief, so they are far from His mercy.", "their characteristics were to the opposite of the believer"),
+      source: ik(25, "The wretched ones are the opposite of the believers. They break Allah's covenant, cut what Allah ordered joined, and spread mischief, so they are far from His mercy.", "their characteristics were to the opposite"),
       difficulty: 3,
       questions: [
         { q: "What do the wretched ones break, in 13:25?", a: "The covenant of Allah", wrong: ["Their idols", "Their chains", "Their fast"], why: "And those who break the covenant of Allah, after its ratification." },
@@ -730,7 +730,7 @@ const RAAD_FOUR: DeepUnit = {
       line: "Messengers before were mocked too; Allah gave the mockers time.",
       facts: ["A comfort for the Prophet ﷺ", "Respite, then reckoning"],
       quote: q13(32),
-      source: ik(32, "Allah comforted the Prophet ﷺ: Messengers before him were mocked too, so he has an example in them. Allah gave the deniers time, then held them to account.", "comforting him in facing his people"),
+      source: ik(32, "Allah comforted the Prophet ﷺ: Messengers before him were mocked too, so he has an example in them. Allah gave the deniers time, then held them to account.", "comforting him in facing his … denial of him"),
       difficulty: 3,
       questions: [
         { q: "What happened to Messengers before, in 13:32?", a: "They were mocked", wrong: ["They were made kings", "They were never sent", "They were all obeyed"], why: "And indeed (many) Messengers were mocked at before you." },
@@ -875,7 +875,7 @@ const RAAD_FOUR: DeepUnit = {
       line: "People before plotted, but all planning belongs to Allah.",
       facts: ["He knows what every soul earns", "The good end is for the godfearing"],
       quote: q13(42),
-      source: ik(42, "Nations before plotted to drive out their Messengers, but Allah's plan won and the good end went to those who fear Him. He knows every secret and will judge each person by their deeds.", "the followers of the Messengers will earn the good end in this life and the Hereafter"),
+      source: ik(42, "Nations before plotted to drive out their Messengers, but Allah's plan won and the good end went to those who fear Him. He knows every secret and will judge each person by their deeds.", "of the Messengers will earn the good end in this life and the Hereafter"),
       difficulty: 4,
       questions: [
         { q: "Whose is all planning, in 13:42?", a: "Allah's", wrong: ["The plotters'", "The kings'", "No one's"], why: "But all planning is Allah's." },

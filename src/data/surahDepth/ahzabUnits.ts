@@ -729,7 +729,7 @@ const AHZAB_TWO: DeepUnit = {
       line: "Give believers the good news of a great bounty from Allah.",
       facts: ["Good news for believers", "Warning for those who deny"],
       quote: q33(47),
-      source: ik(47, "He gives believers good news of a great reward, and warns the disbelievers of a great punishment.", "a bearer of glad tidings to the believers of a great reward"),
+      source: ik(47, "He gives believers good news of a great reward, and warns the disbelievers of a great punishment.", "of glad tidings to the believers of a great reward"),
       difficulty: 2,
       questions: [
         { q: "What news is given to believers, in 33:47?", a: "A great bounty", wrong: ["A hard trial", "A new tax", "A long war"], why: "That they will have from Allah a great bounty." },
@@ -771,7 +771,7 @@ const AHZAB_TWO: DeepUnit = {
       line: "Some marriage rules were for the Prophet ﷺ alone.",
       facts: ["A privilege for him only", "Others must give a dowry"],
       quote: q33(50),
-      source: hadith("bukhari", "5135", "Sahl bin Sa'd", "Sahih", "A poor man had not even an iron ring for a dowry, so the Prophet ﷺ married him with the Quran he knew.", "We have married her to you for what you know of the Qur"),
+      source: hadith("bukhari", "5135", "Sahl bin Sa'd", "Sahih", "A poor man had not even an iron ring for a dowry, so the Prophet ﷺ married him with the Quran he knew.", "We have married her to you for what you know … by heart"),
       difficulty: 4,
       questions: [
         { q: "Whom was the privilege for, in 33:50?", a: "The Prophet ﷺ only", wrong: ["All believers", "All leaders", "The Ansar"], why: "A privilege for you only, not for the (rest of) the believers." },

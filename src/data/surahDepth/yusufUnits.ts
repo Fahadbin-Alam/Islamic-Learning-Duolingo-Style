@@ -124,7 +124,7 @@ const YUSUF_ONE: DeepUnit = {
       line: "The brothers envied Yusuf and Binyamin for their father's love.",
       facts: ["Signs for those who ask", "They planned to repent after"],
       quote: q12(8),
-      source: ik(7, "The brothers said Yusuf and his full brother Binyamin were dearer to their father. They wanted Yusuf gone so the father's love would be theirs alone.", "Remove Yusuf, who competes with you for your father"),
+      source: ik(7, "The brothers said Yusuf and his full brother Binyamin were dearer to their father. They wanted Yusuf gone so the father's love would be theirs alone.", "Remove Yusuf, who competes with you for your father … love"),
       difficulty: 2,
       questions: [
         { q: "Who was Yusuf's full brother?", a: "Binyamin", wrong: ["Rubil", "Yahudha", "Sham'un"], why: "Yusuf and his brother Binyamin, Yusuf's full brother." },
@@ -514,7 +514,7 @@ const YUSUF_THREE: DeepUnit = {
       line: "Sow for seven years and store the grain left in its ears.",
       facts: ["Eat only a little", "Then seven hard years"],
       quote: q12(47),
-      source: ik(43, "Yusuf said the cows were years. Seven good years would come, so store the harvest in its ears to keep it fresh and eat little, for seven hard years would follow.", "leave it in the ears so as to preserve it better"),
+      source: ik(43, "Yusuf said the cows were years. Seven good years would come, so store the harvest in its ears to keep it fresh and eat little, for seven hard years would follow.", "leave it in the ears so as to preserve"),
       difficulty: 4,
       questions: [
         { q: "What did the cows stand for, per Yusuf?", a: "Years", wrong: ["Kings", "Rivers", "Cities"], why: "He interpreted the cows to be years." },
@@ -709,7 +709,7 @@ const YUSUF_FOUR: DeepUnit = {
       line: "Yusuf asked them to bring their other brother next time.",
       facts: ["Full measure, the best host", "No grain without him"],
       quote: q12(59),
-      source: ik(58, "Yusuf gave them what they needed and told them to bring the brother they had mentioned. If they came without him, there would be no grain for them.", "Bring me your brother from your father"),
+      source: ik(58, "Yusuf gave them what they needed and told them to bring the brother they had mentioned. If they came without him, there would be no grain for them.", "Bring me your brother from your father … side whom you mentioned"),
       difficulty: 4,
       questions: [
         { q: "Whom did Yusuf ask them to bring, in 12:59?", a: "Their brother from their father", wrong: ["Their mother", "Their cousins", "A camel"], why: "Bring me a brother of yours from your father." },
@@ -807,7 +807,7 @@ const YUSUF_FOUR: DeepUnit = {
       line: "Yusuf had the king's cup placed in Binyamin's bag.",
       facts: ["Used to measure grain", "A camel load as reward"],
       quote: q12(70),
-      source: ik(70, "Yusuf had the king's cup, used to drink and to measure grain, placed in Binyamin's bag. A caller cried out that the caravan had stolen, offering a camel load to whoever returned it.", "Yusuf had the bowl placed in Binyamin"),
+      source: ik(70, "Yusuf had the king's cup, used to drink and to measure grain, placed in Binyamin's bag. A caller cried out that the caravan had stolen, offering a camel load to whoever returned it.", "Yusuf had the bowl placed in … bag while they were unaware"),
       difficulty: 5,
       questions: [
         { q: "Where was the cup placed, in 12:70?", a: "In Binyamin's bag", wrong: ["In the eldest's bag", "Under a tent", "On a camel"], why: "He put the bowl in his brother's bag." },
@@ -1044,7 +1044,7 @@ const YUSUF_FIVE: DeepUnit = {
       line: "In Egypt the family bowed; Yusuf's childhood dream came true.",
       facts: ["Eleven brothers and his parents", "Raised to his seat of honor"],
       quote: q12(100),
-      source: ik(99, "Yusuf welcomed his family to Egypt in safety and raised his parents to his seat. They bowed before him, and he said: this is the meaning of my dream; my Lord made it come true.", "in reference to the dream that he narrated to his father before"),
+      source: ik(99, "Yusuf welcomed his family to Egypt in safety and raised his parents to his seat. They bowed before him, and he said: this is the meaning of my dream; my Lord made it come true.", "reference to the dream that he narrated to his father"),
       difficulty: 5,
       questions: [
         { q: "What did Yusuf say when they bowed, in 12:100?", a: "This is the meaning of my dream", wrong: ["Stand up now", "Go home", "Bring the cup"], why: "O my father! This is the interpretation of my dream aforetime!" },
@@ -1127,7 +1127,7 @@ const YUSUF_SIX: DeepUnit = {
       line: "The Prophet ﷺ asked no pay; the Quran is a reminder for all.",
       facts: ["For mankind and jinn", "Sincere advice for Allah"],
       quote: q12(104),
-      source: ik(102, "The Prophet ﷺ asked no price for his call. He gave sincere advice seeking Allah's Face. The Quran is a reminder for all the worlds.", "you do so seeking Allah"),
+      source: ik(102, "The Prophet ﷺ asked no price for his call. He gave sincere advice seeking Allah's Face. The Quran is a reminder for all the worlds.", "Rather, you do so seeking … Face and to deliver good and sincere advice to His creatures"),
       difficulty: 5,
       questions: [
         { q: "What did the Prophet ﷺ ask for his call, in 12:104?", a: "No reward at all", wrong: ["Gold", "A palace", "Land"], why: "And no reward you ask of them for it." },

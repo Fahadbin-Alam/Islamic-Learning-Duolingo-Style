@@ -179,7 +179,7 @@ const TAKATHUR_TWO: DeepUnit = {
       line: "Sure knowledge would stop us chasing wealth over the Hereafter.",
       facts: ["Ilm al-yaqin: sure knowledge", "Knowledge changes actions"],
       quote: q102(5),
-      source: ik(5, "If you knew with true knowledge, you would not be distracted by rivalry for wealth from seeking the Hereafter.", "if you knew with true knowledge, you would not be diverted by rivalry for wealth"),
+      source: ik(5, "If you knew with true knowledge, you would not be distracted by rivalry for wealth from seeking the Hereafter.", "you knew with true knowledge, you would not be diverted by rivalry for wealth"),
       difficulty: 1,
       questions: [
         { q: "What kind of knowledge does 102:5 mention?", a: "Sure knowledge", wrong: ["Old knowledge", "Secret knowledge", "Half knowledge"], why: "Nay! If you knew with a sure knowledge." },

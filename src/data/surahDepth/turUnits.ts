@@ -207,7 +207,7 @@ const TUR_ONE: DeepUnit = {
       line: "Woe on that Day to those who denied the truth.",
       facts: ["Woe from Allah's punishment", "They chose to deny"],
       quote: q52(11),
-      source: ik(11, "Ibn Kathir says woe will be theirs that Day from Allah's punishment.", "woe to them that Day as a result of Allah"),
+      source: ik(11, "Ibn Kathir says woe will be theirs that Day from Allah's punishment.", "woe to them that Day as a result of … torment, punishment and affliction"),
       difficulty: 1,
       questions: [
         { q: "Who faces woe, in 52:11?", a: "Those who denied", wrong: ["Those who prayed", "The angels", "The orphans"], why: "Then woe that Day to those who denied." },
@@ -681,7 +681,7 @@ const TUR_THREE: DeepUnit = {
       line: "They called angels Allah's daughters; He is far above that.",
       facts: ["Angels are not His children", "A false claim answered"],
       quote: q52(39),
-      source: ik(39, "Ibn Kathir says they claimed the angels were Allah's daughters and worshipped them, while they preferred sons for themselves.", "they made the angels Allah"),
+      source: ik(39, "Ibn Kathir says they claimed the angels were Allah's daughters and worshipped them, while they preferred sons for themselves.", "they made the angels … daughters and worshipped them besides Allah"),
       difficulty: 3,
       questions: [
         { q: "What did the idolators claim about the angels?", a: "That they are Allah's daughters", wrong: ["That they are prophets", "That they are jinn", "That they are kings"], why: "Allah admonishes them regarding their claim that He has daughters and that the angels are females!" },
@@ -849,7 +849,7 @@ const TUR_THREE: DeepUnit = {
       line: "Glorify Allah at night, and as the stars fade before dawn.",
       facts: ["Night prayer and Quran", "Two rakahs before Fajr"],
       quote: q52(49),
-      source: ik(49, "Ibn Kathir says this means night prayer and Quran, and the two rakahs before Fajr as the stars set.", "the two voluntary Rak"),
+      source: ik(49, "Ibn Kathir says this means night prayer and Quran, and the two rakahs before Fajr as the stars set.", "the two voluntary … before the Dawn prayer"),
       difficulty: 2,
       questions: [
         { q: "When else should he ﷺ glorify Allah, in 52:49?", a: "In the nighttime", wrong: ["Only at noon", "Only on Friday", "Only at Asr"], why: "And in the nighttime also glorify His praises." },

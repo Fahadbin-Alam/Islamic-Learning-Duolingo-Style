@@ -245,7 +245,7 @@ const QURAN_AND_PROPHET: DeepUnit = {
         "Learning even one short surah is a start.",
         "Teaching what you know, even to one person, counts too."
       ],
-      source: hadith("bukhari", "5027", "Uthman ibn Affan", "Sahih", "The Prophet ﷺ said: The best among you are those who learn the Quran and teach it.", "The best among you (Muslims) are those who learn the Qur"),
+      source: hadith("bukhari", "5027", "Uthman ibn Affan", "Sahih", "The Prophet ﷺ said: The best among you are those who learn the Quran and teach it.", "The best among you (Muslims) are those who learn … and teach it"),
       difficulty: 1,
       questions: [
         { q: "Who are the best people, by this saying?", a: "Those who learn and teach the Quran", wrong: ["The richest people", "The strongest people", "The oldest people"], why: "The best among you are those who learn the Quran and teach it." },
