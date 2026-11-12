@@ -23,6 +23,8 @@ import {
   createLessonPracticeSession,
   createMemorizeSession,
   createReviewSession,
+  createWhichSurahSession,
+  WHICH_SURAH_ID,
   recordLessonAnswer,
   reviewDueCount,
   createTestOutSession,
@@ -2063,8 +2065,8 @@ export default function TopicApp() {
     if (listen.recitation) {
       const active = ayahNow.url === listen.recitation && (ayahNow.status === "playing" || ayahNow.status === "loading");
       if (active) stopAyah(listen.recitation);
-      // "How does the ayah end?" plays the ayah once from its start, even with Repeat on.
-      else playAyah(listen.recitation, { once: Boolean(listen.recite) });
+      // The Quran's listening questions play the ayah once from its start, even with Repeat on.
+      else playAyah(listen.recitation, { once: Boolean(listen.recite || listen.which) });
       return;
     }
     try {
@@ -2201,6 +2203,29 @@ export default function TopicApp() {
 
     memorizeTriesRef.current.set(part.id, attempt + 1);
     setMemorizeFocus(part.id);
+    setMemorizeVisible(false);
+    challengeStartedAtRef.current = Date.now();
+    dispatch({ type: "start_lesson", session });
+  }
+
+  // "Which surah is it?" in Memorize surahs: an ayah from each of 8 surahs, each try the next 8, its surah to tap.
+  function startWhichSurah() {
+    if (!state.user) {
+      return;
+    }
+
+    const attempt = memorizeTriesRef.current.get(WHICH_SURAH_ID) ?? 0;
+    const session = createWhichSurahSession(state.user, attempt);
+    if (!session) {
+      return;
+    }
+    if (!online && !session.lesson.challenges.every((item) => item.listen?.recitation && localAyahUri(item.listen.recitation))) {
+      void notify(t("No internet. This is not saved on your phone yet."), undefined, { mood: "think" });
+      return;
+    }
+
+    memorizeTriesRef.current.set(WHICH_SURAH_ID, attempt + 1);
+    setMemorizeFocus(WHICH_SURAH_ID);
     setMemorizeVisible(false);
     challengeStartedAtRef.current = Date.now();
     dispatch({ type: "start_lesson", session });
@@ -2472,18 +2497,26 @@ export default function TopicApp() {
 
       const practiceQuests = finishQuests(false, xp);
       const memorize = state.activeSession.memorize;
+      const whichSurah = state.activeSession.whichSurah;
       const stars = lessonStars(state.sessionMistakes);
-      // A memorized surah keeps its best stars on this phone, for its row in Memorize surahs.
+      // A memorized surah keeps its best stars on this phone, for its row in Memorize surahs; so does "Which surah is it?".
       if (memorize) recordMemorized(memorize.part, stars);
+      if (whichSurah) recordMemorized(WHICH_SURAH_ID, stars);
+      const allRight = state.sessionMistakes === 0;
       setLessonCompleteSummary({
         questsDone: practiceQuests,
-        headline: memorize && state.sessionMistakes === 0 ? t("Every ayah right!") : t("Practice done!"),
-        title: memorize ? memorizeTitle(memorize, currentLanguage) : t(state.activeSession.reviewDeck ? "Review" : "My lessons"),
+        headline: memorize && allRight ? t("Every ayah right!") : whichSurah && allRight ? t("Every surah right!") : t("Practice done!"),
+        title: memorize
+          ? memorizeTitle(memorize, currentLanguage)
+          : whichSurah
+            ? t("Which surah is it?")
+            : t(state.activeSession.reviewDeck ? "Review" : "My lessons"),
         xp,
         streakExtended: didExtendStreak(user, nextUser),
         stars,
         streakDays: nextUser.streakDays,
-        memorize: Boolean(memorize)
+        // Back to Memorize surahs after it.
+        memorize: Boolean(memorize || whichSurah)
       });
       const xpSummary = await learningApi.getXpSummaries(nextUser);
       dispatch({ type: "finish_lesson", user: nextUser, xpSummary });
@@ -4262,6 +4295,10 @@ export default function TopicApp() {
                                   : undefined,
                                 ayahs: challenge.listen.recite.ayahs
                               }
+                            : undefined,
+                        which:
+                          challenge.listen.which && challenge.listen.recitation
+                            ? { text: challenge.listen.ar, ayahKey: challenge.listen.which.key, url: challenge.listen.recitation, ayahs: challenge.listen.which.ayahs }
                             : undefined
                       }
                     : undefined
@@ -4559,7 +4596,14 @@ export default function TopicApp() {
           />
         )}
         {!inLesson && (
-          <MemorizeSheet visible={memorizeVisible} onClose={() => setMemorizeVisible(false)} rows={memorizeRows} onStart={startMemorize} focusId={memorizeFocus} />
+          <MemorizeSheet
+            visible={memorizeVisible}
+            onClose={() => setMemorizeVisible(false)}
+            rows={memorizeRows}
+            onStart={startMemorize}
+            which={{ stars: memorizeStarsNow[WHICH_SURAH_ID] ?? 0, onStart: startWhichSurah }}
+            focusId={memorizeFocus}
+          />
         )}
         {!inLesson && (
           <QuizSheet

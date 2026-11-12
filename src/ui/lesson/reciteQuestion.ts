@@ -1,5 +1,6 @@
 import { LESSONS_BY_ID, allNodes } from "../../data/course";
 import { QURAN_AYAHS } from "../../data/quranAyahs";
+import { SURAH_NAMES } from "../../data/surahMeanings";
 import { arabicLetters } from "../../services/arabicVoice";
 import { ayahPieces, ayahWordTimes } from "../../services/ayahWords";
 import { parseQuranReference, quranAudioUrl } from "../../services/quranAudio";
@@ -21,6 +22,7 @@ import { isArabicOnly } from "../ArabicText";
 
 export const RECITE_PROMPT = "Listen, then tap how the ayah ends.";
 export const RECITE_NEXT_PROMPT = "Listen, then tap the ayah that comes next.";
+export const WHICH_SURAH_PROMPT = "Listen, then tap the surah it is from.";
 const WRONG_CHOICES = 2;
 /** The reciter reaches the last word within this many seconds, so the learner never waits long for the question. */
 const MAX_WAIT_S = 10;
@@ -420,4 +422,95 @@ export function memorizeParts(): HifzPart[] {
     });
   }
   return hifzParts;
+}
+
+/** A seed whose bits are all stirred, so seeds of names that differ by one letter still fall far apart. */
+function stirred(text: string) {
+  let hash = seedOf(text);
+  hash = Math.imul(hash ^ (hash >>> 16), 0x45d9f3b) >>> 0;
+  hash = Math.imul(hash ^ (hash >>> 16), 0x45d9f3b) >>> 0;
+  return (hash ^ (hash >>> 16)) >>> 0;
+}
+
+/** How many ayahs one round of "Which surah is it?" plays, each from another surah. */
+export const WHICH_SURAH_QUESTIONS = 8;
+
+/** The surahs to memorize, each once, in the order they are learned (Al-Fatihah, then An-Nas back). */
+export function memorizeSurahNumbers(): number[] {
+  return [...new Set(memorizeParts().map((part) => part.surah))];
+}
+
+/**
+ * The ayahs of a surah to memorize that "Which surah is it?" can play: two words or more, and none that another of
+ * those surahs has too (the same letters, or held in one of its ayahs, or holding one), so only one name is right.
+ */
+let whichAyahs: Map<number, number[]> | undefined;
+export function whichSurahAyahs(surah: number): number[] {
+  if (!whichAyahs) {
+    const surahs = memorizeSurahNumbers();
+    const letters = new Map(surahs.map((each) => [each, ayahsOf(each).map((ayah) => arabicLetters(QURAN_AYAHS[`${each}:${ayah}`]))]));
+    whichAyahs = new Map(
+      surahs.map((each) => {
+        const others = surahs.filter((other) => other !== each).flatMap((other) => letters.get(other) ?? []);
+        const fair = ayahsOf(each).filter((ayah) => {
+          const text = QURAN_AYAHS[`${each}:${ayah}`];
+          if (ayahPieces(text).words < 2 || !quranAudioUrl(`Quran ${each}:${ayah}`)) return false;
+          const mine = arabicLetters(text);
+          return !others.some((other) => other.includes(mine) || mine.includes(other));
+        });
+        return [each, fair];
+      })
+    );
+  }
+  return whichAyahs.get(surah) ?? [];
+}
+
+/** The wrong names: two of the four surahs nearest in the list (they sound most alike), a different two by seed. */
+function wrongSurahs(surah: number, seed: number, count = WRONG_CHOICES) {
+  const list = memorizeSurahNumbers();
+  const at = list.indexOf(surah);
+  const near = list
+    .filter((other) => other !== surah)
+    .sort((a, b) => Math.abs(list.indexOf(a) - at) - Math.abs(list.indexOf(b) - at) || list.indexOf(a) - list.indexOf(b))
+    .slice(0, count * 2);
+  const turn = seed % near.length;
+  return [...near.slice(turn), ...near.slice(0, turn)].slice(0, count);
+}
+
+/**
+ * "Which surah is it?" in Memorize surahs: the reciter recites an ayah of one of the surahs (the learner taps the
+ * speaker), and the learner taps the surah it is from, out of three: it and two near it in the list. A try plays one
+ * ayah from each of 8 surahs, in a mixed order; the next try goes on with the next 8 in the list (the first ones are
+ * the best known: Al-Fatihah, An-Nas, Al-Falaq...), so every surah comes round in turn, and each time a surah comes
+ * round it plays the next of its ayahs. The source is the ayah itself.
+ */
+export function whichSurahChallenges(attempt = 0, count = WHICH_SURAH_QUESTIONS): Challenge[] {
+  const surahs = memorizeSurahNumbers().filter((surah) => whichSurahAyahs(surah).length > 0);
+  if (surahs.length <= WRONG_CHOICES) return [];
+  // The surahs come one after another, try after try; `round` is how many times this one came before.
+  const picked = Array.from({ length: Math.min(count, surahs.length) }, (_, index) => {
+    const at = attempt * count + index;
+    return { surah: surahs[at % surahs.length], round: Math.floor(at / surahs.length) };
+  });
+  const name = (surah: number) => `Surah ${SURAH_NAMES[surah - 1]}`;
+  return picked
+    .map((item) => ({ ...item, seed: stirred(`which:${attempt}:${item.surah}`) }))
+    .sort((a, b) => a.seed - b.seed)
+    .map(({ surah, round, seed }) => {
+      const ayahs = whichSurahAyahs(surah);
+      // A surah starts on an ayah of its own (not always its first), then goes on through them all.
+      const ayah = ayahs[(stirred(`which:${surah}`) + round) % ayahs.length];
+      const key = `${surah}:${ayah}`;
+      const text = QURAN_AYAHS[key];
+      const id = `which_${surah}_${ayah}`;
+      return {
+        id,
+        type: "multiple_choice",
+        prompt: WHICH_SURAH_PROMPT,
+        ...turned(id, name(surah), wrongSurahs(surah, seed).map(name)),
+        explanation: `Quran ${key} is in ${name(surah)}.`,
+        source: ayahSource(surah, ayah, text),
+        listen: { ar: text, translit: "", recitation: quranAudioUrl(`Quran ${key}`) as string, which: { key, ayahs: ayahCount(surah) } }
+      } satisfies Challenge;
+    });
 }

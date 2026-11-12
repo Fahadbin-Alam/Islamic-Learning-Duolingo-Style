@@ -32,7 +32,7 @@ import type {
 } from "../types";
 import { buildGuidedLesson } from "../services/lessonGuidance";
 import { isRecallLesson } from "../ui/lesson/lessonPages";
-import { firstLessonQuoting, hifzChallenges, type HifzPart } from "../ui/lesson/reciteQuestion";
+import { firstLessonQuoting, hifzChallenges, whichSurahChallenges, type HifzPart } from "../ui/lesson/reciteQuestion";
 import { SURAH_NAMES } from "../data/surahMeanings";
 import {
   REVIEW_SESSION_SIZE,
@@ -657,6 +657,51 @@ export function createMemorizeSession(user: UserProfile, part: HifzPart, attempt
     mode: "lesson_practice",
     attempt,
     memorize: { part: part.id, surah: part.surah, from: part.from, to: part.to, ayahs: part.ayahs }
+  };
+}
+
+/** "Which surah is it?" in Memorize surahs: its title, and the id its best stars are kept under on the phone. */
+export const WHICH_SURAH_TITLE = "Which surah is it?";
+export const WHICH_SURAH_ID = "which-surah";
+
+/**
+ * "Which surah is it?" in Memorize surahs: 8 ayahs, each from another of the surahs to memorize, to name. Like a
+ * surah's practice it costs no hearts and pays practice XP; each try plays the next surahs, its tiles turned.
+ */
+export function createWhichSurahSession(user: UserProfile, attempt = 0): LessonSession | undefined {
+  const questions = whichSurahChallenges(attempt);
+  const teaching = firstLessonQuoting("1:1");
+  const nodeId = teaching ? LESSONS_BY_ID[teaching]?.nodeId : undefined;
+
+  if (!questions.length || !nodeId) {
+    return undefined;
+  }
+
+  const challenges = questions.map((question) => ({ ...question, choices: shuffleChoicesForAttempt(question, attempt) }));
+  const sources = uniqueById(challenges.flatMap((challenge) => (challenge.source ? [challenge.source] : [])));
+  const intro = "Hear an ayah, tap its surah";
+
+  return {
+    id: `session_which_surah_${attempt}_${Date.now()}`,
+    lesson: {
+      id: "memorize_which_surah",
+      nodeId,
+      title: WHICH_SURAH_TITLE,
+      intro,
+      explanationContent: intro,
+      lessonType: "review",
+      xpReward: challenges.length * PRACTICE_XP_PER_CORRECT_ANSWER,
+      sources,
+      sourceReferences: sources,
+      masteryState: "learning",
+      masteryTestEligible: false,
+      challenges
+    },
+    startedAt: new Date().toISOString(),
+    heartsAtStart: user.hearts.current,
+    mode: "lesson_practice",
+    attempt,
+    whichSurah: true
   };
 }
 

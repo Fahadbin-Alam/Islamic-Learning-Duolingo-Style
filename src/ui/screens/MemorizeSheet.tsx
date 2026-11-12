@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ActivityIndicator, Animated, Platform, ScrollView, StyleSheet, Text, View, type LayoutChangeEvent } from "react-native";
-import { t } from "../../i18n";
+import { getActiveLanguage, t } from "../../i18n";
 import { AYAH_WORD_TIMES_CREDIT } from "../../services/ayahWords";
 import { useOnline } from "../../services/network";
 import { QURAN_AUDIO_SOURCE } from "../../services/quranAudio";
@@ -44,6 +44,8 @@ export type MemorizeSheetProps = {
   rows: MemorizeSheetRow[];
   /** Practice: the surah's questions. */
   onStart: (id: string) => void;
+  /** "Which surah is it?" at the top of the list: its best stars, and its questions. */
+  which?: { stars: number; onStart: () => void };
   /** The surah (or part) practised last: the list opens scrolled to it. */
   focusId?: string;
   /** Gap above the sheet. Default 40. */
@@ -114,6 +116,62 @@ function SoundBars({ moving }: { moving: boolean }) {
         <Animated.View key={index} style={[styles.bar, { transform: [{ scaleY: bar }] }]} />
       ))}
     </View>
+  );
+}
+
+/**
+ * "Which surah is it?" at the top of the list: hear an ayah, tap its surah. Its speaker badge wears a little "?" that
+ * wobbles now and then (still with less motion), and its stars are its best try on this phone.
+ */
+function WhichSurahRow({ stars, onStart }: { stars: number; onStart: () => void }) {
+  const reduceMotion = useReduceMotion();
+  const wobble = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    if (reduceMotion) {
+      wobble.setValue(0);
+      return undefined;
+    }
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.delay(1600),
+        Animated.timing(wobble, { toValue: 1, duration: 140, useNativeDriver: true }),
+        Animated.timing(wobble, { toValue: -1, duration: 220, useNativeDriver: true }),
+        Animated.timing(wobble, { toValue: 0.5, duration: 160, useNativeDriver: true }),
+        Animated.timing(wobble, { toValue: 0, duration: 140, useNativeDriver: true })
+      ])
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [reduceMotion, wobble]);
+  const turn = wobble.interpolate({ inputRange: [-1, 1], outputRange: ["-14deg", "14deg"] });
+  const title = t("Which surah is it?");
+  const line = t("Hear an ayah, tap its surah");
+  return (
+    <Tappable
+      onPress={onStart}
+      sound="node_tap"
+      pressScale={0.97}
+      accessibilityRole="button"
+      accessibilityLabel={`${title}, ${line}${stars ? `, ${t("{count} of {max} stars", { count: stars, max: 3 })}` : ""}`}
+      testID="memorize-which"
+      style={[styles.row, styles.whichRow]}
+    >
+      <View style={styles.whichBadge}>
+        <Icon name="speaker" size={24} color={colors.white} />
+        <Animated.View style={[styles.whichMark, { transform: [{ rotate: turn }] }]}>
+          <Text style={styles.whichMarkText}>{getActiveLanguage() === "ar" || getActiveLanguage() === "ur" ? "؟" : "?"}</Text>
+        </Animated.View>
+      </View>
+      <View style={styles.rowText}>
+        <Text style={styles.rowTitle} numberOfLines={2}>
+          {title}
+        </Text>
+        <Text style={styles.rowLine} numberOfLines={2}>
+          {line}
+        </Text>
+      </View>
+      <Stars stars={stars} testID="memorize-which-stars" />
+    </Tappable>
   );
 }
 
@@ -324,12 +382,25 @@ function SurahPage({ row, onPractice, bottomInset }: { row: MemorizeSheetRow; on
   );
 }
 
-/** The surahs: each row opens its page; a row's stars are its best try on this phone. */
-function SurahList({ rows, focus, onOpen, bottomInset }: { rows: MemorizeSheetRow[]; focus?: string; onOpen: (id: string) => void; bottomInset: number }) {
+/** The surahs, under "Which surah is it?": each row opens its page; a row's stars are its best try on this phone. */
+function SurahList({
+  rows,
+  which,
+  focus,
+  onOpen,
+  bottomInset
+}: {
+  rows: MemorizeSheetRow[];
+  which?: MemorizeSheetProps["which"];
+  focus?: string;
+  onOpen: (id: string) => void;
+  bottomInset: number;
+}) {
   const list = useRef<ScrollView>(null);
   const focused = useRef(false);
   return (
     <ScrollView ref={list} style={styles.scroll} contentContainerStyle={{ paddingBottom: 32 + bottomInset }} showsVerticalScrollIndicator={false}>
+      {which ? <WhichSurahRow stars={which.stars} onStart={which.onStart} /> : null}
       <Text style={styles.line}>{t("Listen to the reciter, then tap each ayah that comes next.")}</Text>
       {rows.map((row) => (
         <View
@@ -374,9 +445,9 @@ function SurahList({ rows, focus, onOpen, bottomInset }: { rows: MemorizeSheetRo
 /**
  * Memorize surahs: Al-Fatihah and the short surahs. A surah's page lets the learner listen to it ayah by ayah with the
  * reciter; Practice then goes through it ayah by ayah ("Which ayah comes next?"), and its stars are the best try on
- * this phone.
+ * this phone. "Which surah is it?" on top plays ayahs of them all, to name each one's surah.
  */
-export function MemorizeSheet({ visible, onClose, rows, onStart, focusId, topGap = 40, bottomInset = 0 }: MemorizeSheetProps) {
+export function MemorizeSheet({ visible, onClose, rows, onStart, which, focusId, topGap = 40, bottomInset = 0 }: MemorizeSheetProps) {
   const [openId, setOpenId] = useState<string | null>(null);
   // The row the list shows when it opens: the surah just left, or the one practised last.
   const [focus, setFocus] = useState(focusId);
@@ -412,7 +483,7 @@ export function MemorizeSheet({ visible, onClose, rows, onStart, focusId, topGap
       {open ? (
         <SurahPage key={open.id} row={open} onPractice={() => onStart(open.id)} bottomInset={bottomInset} />
       ) : (
-        <SurahList rows={rows} focus={focus} onOpen={openSurah} bottomInset={bottomInset} />
+        <SurahList rows={rows} which={which} focus={focus} onOpen={openSurah} bottomInset={bottomInset} />
       )}
     </Sheet>
   );
@@ -470,6 +541,41 @@ const styles = StyleSheet.create({
     borderColor: lighten(colors.gold, 0.4),
     borderBottomColor: lighten(colors.gold, 0.1),
     backgroundColor: lighten(colors.gold, 0.9)
+  },
+  whichRow: {
+    marginBottom: 14,
+    borderColor: lighten(LISTEN_COLOR, 0.5),
+    borderBottomColor: lighten(LISTEN_COLOR, 0.2),
+    backgroundColor: lighten(LISTEN_COLOR, 0.9)
+  },
+  whichBadge: {
+    width: 46,
+    height: 46,
+    borderRadius: 23,
+    alignItems: "center",
+    justifyContent: "center",
+    borderBottomWidth: 3,
+    borderBottomColor: darken(LISTEN_COLOR, 0.22),
+    backgroundColor: LISTEN_COLOR
+  },
+  whichMark: {
+    position: "absolute",
+    top: -6,
+    right: -6,
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 2,
+    borderColor: colors.white,
+    backgroundColor: colors.gold
+  },
+  whichMarkText: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 13,
+    lineHeight: 16,
+    color: GOLD_INK
   },
   emblem: {
     width: 46,

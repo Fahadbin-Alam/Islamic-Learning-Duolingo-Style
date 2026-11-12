@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Animated, Platform, StyleSheet, Text, View } from "react-native";
+import { arabicLetters } from "../../services/arabicVoice";
 import { ayahPosition, playAyah, stopAyah } from "../../services/ayahPlayer";
 import { ayahPieces, ayahWordTimes, type AyahPiece } from "../../services/ayahWords";
 import { t } from "../../i18n";
@@ -218,6 +219,139 @@ export function ReciteCard({ text, ayahKey, url, gap, next, onPlay, playing, ans
   );
 }
 
+export type WhichSurahCardProps = {
+  /** The ayah, in the Quran's text as the app has it. */
+  text: string;
+  /** "112:3": its word timings (ayahWords.ts). */
+  ayahKey: string;
+  /** Its recitation (quranAudio.ts). */
+  url: string;
+  /** Its surah's number of ayahs: once answered, the card says which ayah of it this is ("Ayah 3 of 4"). */
+  ayahs?: number;
+  /** Plays the ayah from its start, or stops it. */
+  onPlay: () => void;
+  playing: boolean;
+  /** After CHECK: the ayah shows in place of its beads. */
+  answered: boolean;
+  accent: string;
+};
+
+/** A word of the ayah, before the answer: a bead about as long as the word. */
+type BeadState = "rest" | "on" | "heard";
+const BEAD_HEARD = lighten(colors.gold, 0.4);
+/**
+ * The beads always run right to left, as the ayah is read. In Arabic and Urdu the lesson is laid out right to left
+ * (TopicApp), where "row-reverse" would run the other way: the beads' row is set left to right, by its style on phones
+ * and by its dir attribute on the web (react-native-web follows the attribute).
+ */
+const LEFT_TO_RIGHT_WEB: object = Platform.OS === "web" ? { dir: "ltr" } : {};
+/** A bead's length: a short word's, and a long word's at most. */
+const BEAD_MIN = 10;
+const BEAD_PER_LETTER = 4;
+const BEAD_MAX = 56;
+
+function Bead({ width, state, still }: { width: number; state: BeadState; still: boolean }) {
+  const pop = useRef(new Animated.Value(state === "on" ? 1 : 0)).current;
+  useEffect(() => {
+    const to = state === "on" ? 1 : 0;
+    if (still) {
+      pop.setValue(to);
+      return undefined;
+    }
+    const animation = Animated.spring(pop, { toValue: to, friction: 5, tension: 220, useNativeDriver: true });
+    animation.start();
+    return () => animation.stop();
+  }, [pop, state, still]);
+  const motion = still
+    ? null
+    : {
+        transform: [
+          { translateY: pop.interpolate({ inputRange: [0, 1], outputRange: [0, -3] }) },
+          { scale: pop.interpolate({ inputRange: [0, 1], outputRange: [1, 1.22] }) }
+        ]
+      };
+  return (
+    <Animated.View
+      style={[styles.bead, { width, backgroundColor: state === "on" ? colors.gold : state === "heard" ? BEAD_HEARD : colors.line }, motion]}
+      testID={state === "on" ? "which-bead-on" : state === "heard" ? "which-bead-heard" : "which-bead"}
+    />
+  );
+}
+
+/**
+ * "Which surah is it?" (Memorize surahs): the ayah is heard, not read. Laid out like a voice message: Listen, and
+ * beside it each word of the ayah as a bead, about as long as the word, from right to left; the bead of the word the
+ * reciter is saying pops up in gold, and those said stay gold behind him. Once answered, the ayah shows in their
+ * place with which ayah of its surah it is, and Listen lights its words as he says them. Nothing plays by itself.
+ */
+export function WhichSurahCard({ text, ayahKey, url, ayahs, onPlay, playing, answered, accent }: WhichSurahCardProps) {
+  const reduceMotion = useReduceMotion();
+  const { pieces, words } = useMemo(() => ayahPieces(text), [text]);
+  const widths = useMemo(
+    () => pieces.filter((piece) => piece.word >= 0).map((piece) => Math.min(BEAD_MAX, BEAD_MIN + BEAD_PER_LETTER * arabicLetters(piece.text).length)),
+    [pieces]
+  );
+  const parts = useMemo(() => [{ key: ayahKey, url }], [ayahKey, url]);
+  const lit = useRecitedWord(parts, words);
+  // The last word said in this recitation: the beads up to it stay lit, all of them once it has ended.
+  const [heard, setHeard] = useState(-1);
+  const lastLit = useRef(-1);
+  useEffect(() => {
+    if (!playing) return;
+    lastLit.current = -1;
+    setHeard(-1);
+  }, [playing]);
+  useEffect(() => {
+    if (lit === undefined) return;
+    // A word before the one lit last: the recitation started again (a phone can still say, for a moment, where the
+    // last one ended).
+    const again = lit < lastLit.current;
+    lastLit.current = lit;
+    setHeard((before) => (again ? lit : Math.max(before, lit)));
+  }, [lit]);
+  // The recitation stops with the question.
+  useEffect(() => () => stopAyah(url), [url]);
+
+  const size = scaleFont(AYAH_SIZE);
+  return (
+    <View style={[styles.card, styles.whichCard, { borderColor: lighten(accent, 0.55) }]} testID="which-card">
+      <Tappable
+        onPress={onPlay}
+        pressScale={0.92}
+        style={[styles.play, { backgroundColor: accent, borderBottomColor: darken(accent, 0.22) }]}
+        accessibilityRole="button"
+        accessibilityLabel={playing ? t("Stop") : t("Listen")}
+        testID="which-play"
+      >
+        {playing ? <View style={styles.stopSquare} /> : <Icon name="speaker" size={24} color={colors.white} />}
+      </Tappable>
+      {answered ? (
+        <View style={styles.whichSide}>
+          {ayahs ? (
+            <Text style={[styles.place, { color: darken(accent, 0.25), backgroundColor: lighten(accent, 0.88) }]} testID="which-place">
+              {t("Ayah {number} of {count}", { number: Number(ayahKey.split(":")[1]), count: ayahs })}
+            </Text>
+          ) : null}
+          <ArabicText size={size} quran align="right" color={colors.ink} style={styles.ayah} testID="which-ayah">
+            {litPieces(pieces, lit)}
+          </ArabicText>
+        </View>
+      ) : (
+        <View style={styles.whichSide}>
+          <View style={styles.beads} {...LEFT_TO_RIGHT_WEB} accessibilityElementsHidden importantForAccessibility="no-hide-descendants" testID="which-beads">
+            {widths.map((width, word) => (
+              <Bead key={word} width={width} state={word === lit ? "on" : word <= heard ? "heard" : "rest"} still={reduceMotion} />
+            ))}
+          </View>
+          <Text style={[styles.hint, styles.whichHint]} testID="which-hint">
+            {playing ? t("Listening…") : t("Tap to listen")}
+          </Text>
+        </View>
+      )}
+    </View>
+  );
+}
+
 /** An ayah's pieces, with word `lit` (from 0) lit up while the reciter says it. */
 function litPieces(pieces: AyahPiece[], lit: number | undefined) {
   return pieces.map((piece, index) =>
@@ -312,5 +446,34 @@ const styles = StyleSheet.create({
     fontFamily: fonts.bodyHeavy,
     fontSize: 14,
     color: colors.inkSoft
+  },
+  whichCard: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+    paddingTop: 12
+  },
+  whichSide: {
+    flex: 1,
+    minWidth: 0
+  },
+  whichHint: {
+    marginTop: 8,
+    textAlign: "center"
+  },
+  beads: {
+    // Right to left in every language (see LEFT_TO_RIGHT_WEB).
+    direction: "ltr",
+    flexDirection: "row-reverse",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    alignItems: "center",
+    columnGap: 8,
+    rowGap: 12,
+    paddingTop: 4
+  },
+  bead: {
+    height: 14,
+    borderRadius: 7
   }
 });
