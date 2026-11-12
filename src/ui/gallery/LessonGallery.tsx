@@ -23,6 +23,9 @@ import { surahNumberForTitle, surahParts } from "../../data/surahPictures";
 import { localizeLessonContent } from "../../services/contentLocalization";
 import { setActiveLanguage } from "../../i18n";
 import { highlightWords, lessonSummary } from "../lesson/lessonPages";
+import { useAyahPlayback } from "../lesson/AyahListen";
+import { firstLessonQuoting, reciteChallenge } from "../lesson/reciteQuestion";
+import { playAyah, stopAyah } from "../../services/ayahPlayer";
 import type { Challenge, Lesson, SupportedLanguage } from "../../types";
 import { ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, QuitSheet, getLessonLine, shortWhy, type LessonHearts } from "../lesson";
 import { colors, fonts, space } from "../theme";
@@ -224,6 +227,12 @@ const SALAH_ORDER = SALAH_STEPS.map((step) => step.id);
 const FULL_HEARTS: LessonHearts = { current: 5, max: 5, unlimited: false };
 const noop = () => undefined;
 
+function ReciteDemo() {
+  const lesson = LESSONS_BY_ID[firstLessonQuoting("112:4") ?? ""];
+  const challenge = lesson ? reciteChallenge(lesson) : undefined;
+  return challenge ? <ExerciseDemo challenge={challenge} progress={0.7} /> : null;
+}
+
 function ExerciseDemo({
   challenge,
   accent = FOUNDATION_ACCENT,
@@ -247,6 +256,11 @@ function ExerciseDemo({
   const [selected, setSelected] = useState<string | undefined>(initialSelected);
   const [checked, setChecked] = useState(Boolean(checkNow));
   const [hearts, setHearts] = useState<LessonHearts>(FULL_HEARTS);
+  // "How does the ayah end?": Listen plays the ayah once from its start, or stops it, as in a lesson.
+  const playback = useAyahPlayback();
+  const recite = challenge.listen?.recite;
+  const recitation = recite ? challenge.listen?.recitation : undefined;
+  const reciting = Boolean(recitation) && playback.url === recitation && (playback.status === "playing" || playback.status === "loading");
   const correctLabel = challenge.choices.find((choice) => choice.id === challenge.correctChoiceId)?.label ?? "";
   const correct = selected === challenge.correctChoiceId;
   // What TopicApp should pass as `why`: one short, useful sentence (or nothing).
@@ -283,6 +297,15 @@ function ExerciseDemo({
         picture={choicePictures(challenge.choices) ? undefined : pictureForQuestion(challenge.prompt)}
         choicePictures={choicePictures(challenge.choices)}
         defaultWhyOpen={whyOpen}
+        listen={
+          recite && recitation
+            ? {
+                onPlay: () => (reciting ? stopAyah(recitation) : playAyah(recitation, { once: true })),
+                playing: reciting,
+                recite: { text: challenge.listen!.ar, ayahKey: recite.key, url: recitation, gap: recite.gap }
+              }
+            : undefined
+        }
         onSelect={setSelected}
         onCheck={() => {
           setChecked(true);
@@ -502,6 +525,8 @@ const STATES: State[] = [
   { id: "learn-photo", render: () => <LearnDemo lesson={photoLesson} accent={accentOf(photoLesson)} isNewWord={false} /> },
   { id: "learn-photo-arabic", render: () => <LearnDemo lesson={photoArabicLesson} accent={accentOf(photoArabicLesson)} /> },
   { id: "mc-pictures", render: () => <ExerciseDemo challenge={pictureAnswersQuestion} progress={0.5} /> },
+  // "How does the ayah end?" (reciteQuestion): Al-Ikhlas's last ayah, as its first lesson asks it.
+  { id: "recite", render: () => <ReciteDemo /> },
   { id: "mc-photo", render: () => <ExerciseDemo challenge={photoQuestion} progress={0.3} /> },
   { id: "mc", render: () => <ExerciseDemo challenge={salam.challenges[0]} progress={0.25} /> },
   { id: "mc-selected", render: () => <ExerciseDemo challenge={salam.challenges[0]} initialSelected="a" progress={0.25} /> },

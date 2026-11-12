@@ -93,10 +93,14 @@ export function withListenQuestion(lesson: Lesson, nodeId: string, recitation?: 
   return { ...lesson, challenges: [...lesson.challenges.slice(0, at), listen, ...lesson.challenges.slice(at)] };
 }
 
-/** The Why line of a listening question: the Arabic, how it is said, and its meaning in the learner's language. */
+/**
+ * The Why line of a listening question: the Arabic, how it is said, and its meaning in the learner's language. "How
+ * does the ayah end?" has none: the ayah itself, finished by the reciter on screen, and its source chip say it.
+ */
 export function listenWhy(challenge: Pick<Challenge, "listen" | "choices" | "correctChoiceId">, language: SupportedLanguage) {
   const meaning = challenge.choices.find((choice) => choice.id === challenge.correctChoiceId)?.label ?? "";
   const listen = challenge.listen;
   if (!listen) return meaning;
+  if (listen.recite) return "";
   return `${listen.ar} (${listen.translit}): ${translateStudyText(meaning, language)}.`;
 }

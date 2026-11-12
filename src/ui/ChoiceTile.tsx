@@ -42,6 +42,8 @@ export type ChoiceTileProps = {
   picture?: LessonPicture;
   /** The tile glows while the teacher reads out this part (see ReadRing): an answer, by the speaker next to CHECK. */
   readPart?: string;
+  /** Arabic in the Quran's own face, at the size of a short answer, whatever its marks: a word of an ayah. */
+  quran?: boolean;
   testID?: string;
   accessibilityLabel?: string;
 };
@@ -129,6 +131,7 @@ const TileFace = memo(function TileFace({
   smallText,
   picture,
   readPart,
+  quran: quranWord,
   testID,
   accessibilityLabel,
   rtl
@@ -189,9 +192,9 @@ const TileFace = memo(function TileFace({
       ) : null}
       {arabic ? (
         <ArabicText
-          size={isQuranText(label) || smallText ? ARABIC_LONG : compact ? ARABIC_COMPACT : ARABIC}
+          size={(!quranWord && isQuranText(label)) || smallText ? ARABIC_LONG : compact ? ARABIC_COMPACT : ARABIC}
           weight="bold"
-          quran={isQuranText(label)}
+          quran={quranWord || isQuranText(label)}
           color={look.text}
           align={square ? "center" : "right"}
           style={square ? styles.squareLabel : styles.rowLabel}
