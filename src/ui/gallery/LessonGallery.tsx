@@ -10,6 +10,8 @@ import { MapGame } from "../lesson/MapGame";
 import { mapPlacesFor } from "../lesson/mapQuestions";
 import { SkyGame } from "../lesson/SkyGame";
 import { skyTimesFor } from "../lesson/skyQuestions";
+import { SceneGame } from "../lesson/SceneGame";
+import { sceneQuestionFor } from "../lesson/sceneQuestions";
 import { MonthGame } from "../lesson/MonthGame";
 import { monthsFor } from "../lesson/monthQuestions";
 import { CardGame, CardPicture } from "../lesson/CardGame";
@@ -572,6 +574,48 @@ function SkyQuestionDemo({ lessonId, ask, pick, check }: { lessonId: string; ask
 }
 
 /**
+ * A story question asked on its living scene, from a real lesson (?lang=bn, ur or ar): the first one whose prompt has
+ * `ask`. `pick`: an answer already picked; `check`: and checked (the answer sheet up, the scene playing the moment).
+ */
+function SceneQuestionDemo({ lessonId, ask, pick, check }: { lessonId: string; ask: string; pick?: "right" | "wrong"; check?: boolean }) {
+  const query = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("lang") : null;
+  const language = (["en", "bn", "ur", "ar"].includes(query ?? "") ? query : "en") as SupportedLanguage;
+  setActiveLanguage(language);
+  const english = LESSONS_BY_ID[lessonId];
+  const index = Math.max(0, english.challenges.findIndex((challenge) => challenge.prompt.includes(ask)));
+  const challenge = localizeLessonContent(english, language).challenges[index];
+  const scene = sceneQuestionFor(english.challenges[index]);
+  const wrongId = challenge.choices.find((choice) => choice.id !== challenge.correctChoiceId)?.id;
+  const [selected, setSelected] = useState<string | undefined>(pick === "right" ? challenge.correctChoiceId : pick === "wrong" ? wrongId : undefined);
+  const [checked, setChecked] = useState(Boolean(check));
+  const correctLabel = challenge.choices.find((choice) => choice.id === challenge.correctChoiceId)?.label ?? "";
+  const correct = selected === challenge.correctChoiceId;
+  if (!scene) return <Text style={styles.caption}>No scene for this question</Text>;
+  return (
+    <LessonScreen progress={0.45} hearts={FULL_HEARTS} onClose={noop}>
+      <SceneGame
+        prompt={challenge.prompt}
+        choices={challenge.choices}
+        ask={scene}
+        correctChoiceId={challenge.correctChoiceId}
+        selectedChoiceId={selected}
+        result={checked ? { correct, correctLabel, why: shortWhy({ explanation: challenge.explanation, prompt: challenge.prompt, correctLabel }) } : undefined}
+        mascotVariant="girl"
+        accent={accentOf(english)}
+        praiseSeed={challenge.id}
+        playSound={false}
+        onSelect={setSelected}
+        onCheck={() => setChecked(true)}
+        onContinue={() => {
+          setChecked(false);
+          setSelected(undefined);
+        }}
+      />
+    </LessonScreen>
+  );
+}
+
+/**
  * The swipe sprint after forty lessons, with a best of 12 kept: #gallery-lesson-sprint (?lang=bn, ur or ar). Each
  * game is six cards, the first with a living picture when one has it, so it can be played to its end in a few taps.
  */
@@ -854,6 +898,15 @@ const STATES: State[] = [
   { id: "sky-right", render: () => <SkyQuestionDemo lessonId="lesson-deep-fast-suhur-blessing" ask="suhur eaten" pick="right" check /> },
   { id: "sky-wrong", render: () => <SkyQuestionDemo lessonId="lesson-deep-insan4-prostrate-at-night" ask="who will call" pick="wrong" check /> },
   { id: "sky-zuhr", render: () => <SkyQuestionDemo lessonId="lesson-deep-prayer-sunnah-times-the-times-of-the-five-prayers" ask="pray Zuhr" /> },
+  // Story questions on their living scene: where the ark came to rest (waiting, picked, answered: the ark settles on
+  // al-Judi); the twelve springs, answered wrong; a true-or-false on the she-camel; the ant's call; the birds held up.
+  { id: "scene", render: () => <SceneQuestionDemo lessonId="lesson-deep-prophet-nuh-judi" ask="come to rest" /> },
+  { id: "scene-picked", render: () => <SceneQuestionDemo lessonId="lesson-deep-prophet-nuh-judi" ask="come to rest" pick="right" /> },
+  { id: "scene-right", render: () => <SceneQuestionDemo lessonId="lesson-deep-prophet-nuh-judi" ask="come to rest" pick="right" check /> },
+  { id: "scene-wrong", render: () => <SceneQuestionDemo lessonId="lesson-deep-prophet-musa-twelve-springs" ask="How many springs" pick="wrong" check /> },
+  { id: "scene-true-false", render: () => <SceneQuestionDemo lessonId="lesson-deep-prophet-salih-turns" ask="was a sign" /> },
+  { id: "scene-ants", render: () => <SceneQuestionDemo lessonId="lesson-deep-prophet-sulayman-ant" ask="tell the other ants" /> },
+  { id: "scene-birds", render: () => <SceneQuestionDemo lessonId="lesson-deep-mulk-birds" ask="holds the birds" /> },
   // Month questions on the year: Ashura in Muharram; Sha'ban, answered wrong (the right month turns green, its moon full).
   { id: "month", render: () => <MonthQuestionDemo lessonId="lesson-deep-days-ashura" ask="Ashura is in" /> },
   { id: "month-picked", render: () => <MonthQuestionDemo lessonId="lesson-deep-days-ashura" ask="Ashura is in" pick="right" /> },

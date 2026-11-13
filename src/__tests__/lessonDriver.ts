@@ -4,7 +4,7 @@ import { checkCandidate, fillPiece } from "../ui/lesson/questionFormats";
 
 // Drives a lesson in the app's tests: learn pages and questions in turn, a quiz circle's matching round, and every
 // way a question can be asked (tiles, a gap to fill, a missing word in the answer, true or false, a place on the map,
-// a time in the sky, a month on the year).
+// a time in the sky, a month on the year, a moment on a living scene).
 
 async function press(testID: string) {
   await act(async () => {
@@ -20,7 +20,7 @@ export async function toQuestion() {
 }
 
 function onGame() {
-  return Boolean(screen.queryByTestId("gap-game") || screen.queryByTestId("fill-game") || screen.queryByTestId("match-game") || screen.queryByTestId("map-game") || screen.queryByTestId("sky-game") || screen.queryByTestId("month-game") || screen.queryByTestId("card-game"));
+  return Boolean(screen.queryByTestId("gap-game") || screen.queryByTestId("fill-game") || screen.queryByTestId("match-game") || screen.queryByTestId("map-game") || screen.queryByTestId("sky-game") || screen.queryByTestId("month-game") || screen.queryByTestId("card-game") || screen.queryByTestId("scene-game"));
 }
 
 function promptShown(challenge: Challenge) {
