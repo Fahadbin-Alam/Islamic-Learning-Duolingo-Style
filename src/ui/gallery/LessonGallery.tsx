@@ -947,6 +947,16 @@ const STATES: State[] = [
   { id: "scene-four-birds", render: () => <SceneQuestionDemo lessonId="lesson-deep-prophet-ibrahim-birds" ask="How many birds was he told to take" /> },
   { id: "scene-hundred-years", render: () => <SceneQuestionDemo lessonId="lesson-deep-baqarah3-hundred-years" ask="How long did the man stay dead" /> },
   { id: "scene-shirt", render: () => <SceneQuestionDemo lessonId="lesson-deep-yusuf5-the-scent-of-yusuf" ask="What did Yusuf send to his father" /> },
+  // The wonders of the stories: the roasted calf brought to Ibrahim's guests, the rain for asking forgiveness, the wind's
+  // month's journey, the scourge on Iram, Thamud and Pharaoh, the camel's load for the cup, the bird of clay, and the
+  // way lit by the lightning.
+  { id: "scene-guests", render: () => <SceneQuestionDemo lessonId="lesson-deep-hud4-ibrahims-guests" ask="What did Ibrahim bring his guests" /> },
+  { id: "scene-forgiveness", render: () => <SceneQuestionDemo lessonId="lesson-deep-hud3-repent-for-rain-and-strength" ask="What did Hud promise" /> },
+  { id: "scene-wind", render: () => <SceneQuestionDemo lessonId="lesson-deep-prophet-sulayman-wind-jinn" ask="How far did the wind carry him" /> },
+  { id: "scene-pillars", render: () => <SceneQuestionDemo lessonId="lesson-deep-fajr2-they-spread-corruption" ask="What did your Lord pour on them" /> },
+  { id: "scene-cup", render: () => <SceneQuestionDemo lessonId="lesson-deep-yusuf4-the-kings-cup" ask="What was the reward for finding it" /> },
+  { id: "scene-clay-bird", render: () => <SceneQuestionDemo lessonId="lesson-deep-maidah2-isa-miracles" ask="How did the clay bird come to life" /> },
+  { id: "scene-storm", render: () => <SceneQuestionDemo lessonId="lesson-deep-baqarah1-storm-parable" ask="What do they do when lightning flashes" /> },
   // Month questions on the year: Ashura in Muharram; Sha'ban, answered wrong (the right month turns green, its moon full).
   { id: "month", render: () => <MonthQuestionDemo lessonId="lesson-deep-days-ashura" ask="Ashura is in" /> },
   { id: "month-picked", render: () => <MonthQuestionDemo lessonId="lesson-deep-days-ashura" ask="Ashura is in" pick="right" /> },
