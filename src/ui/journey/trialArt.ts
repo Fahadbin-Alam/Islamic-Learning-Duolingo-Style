@@ -53,11 +53,11 @@ function range(ridge: [number, number][], base: number, fill: string, shade: str
 }
 
 /** A crescent moon, its middle at (x, y), `r` across to its edge: lit on the right, its inner edge `bulge` (0 to r) in. */
-const crescent = (x: number, y: number, r: number, bulge: number, fill: string) =>
+export const crescent = (x: number, y: number, r: number, bulge: number, fill: string) =>
   `<path d="M${x} ${n(y - r)} A${r} ${r} 0 0 1 ${x} ${n(y + r)} A${n(bulge)} ${r} 0 0 0 ${x} ${n(y - r)} Z" fill="${fill}"/>`;
 
 /** A flat-roofed home, its foot's middle at (x, y), `w` wide and `h` high, with its door and a window. */
-function home(x: number, y: number, w: number, h: number, wall = "#D3A872", trim = "#BC9060", dark = "#6B4A2E") {
+export function home(x: number, y: number, w: number, h: number, wall = "#D3A872", trim = "#BC9060", dark = "#6B4A2E") {
   const l = n(x - w / 2);
   const top = n(y - h);
   return (

@@ -91,12 +91,26 @@ import { bukhari, quran, type MapSource } from "./seerahMap";
  * - Ayyub's call, the ground struck and the cool spring, the golden locusts, and an excellent servant (Quran 21:83,
  *   21:84, 38:42, 38:44, Sahih al-Bukhari 279);
  * - Yusuf's dream of eleven stars, the sun and the moon bowing, kept from his brothers, and made true (Quran 12:4,
- *   12:5, 12:100).
+ *   12:5, 12:100);
+ *
+ * and Allah's commands, and the stories told with them (commandArt.ts draws them):
+ *
+ * - the measure and the balance: woe to those who give less, who take in full and give short; give full measure, and
+ *   weigh with a straight balance (Quran 83:1 to 83:3, 26:181, 26:182, 17:35);
+ * - Ibrahim's dream, his son's answer, both submitting, the call, the clear test, and the great sacrifice his son was
+ *   ransomed with (Quran 37:102 to 37:107);
+ * - the qiblah turned from Jerusalem, faced for sixteen or seventeen months in Madinah, to al-Masjid al-Haram, faced
+ *   wherever we are (Sahih al-Bukhari 40, Quran 2:144, 2:142);
+ * - the two gardens of Saba, the flood of the dam, the bitter fruit after it, and their scattering (Quran 34:15,
+ *   34:16, 34:19);
+ * - the cow Bani Isra'il were told to sacrifice: neither old nor young, bright yellow, not trained to plough or water,
+ *   sound with no blemish (Quran 2:67 to 2:69, 2:71).
  *
  * Each scene shows only what its ayahs say. Nothing in a scene is a person or an angel: only the land, the sky, the
  * sea, plants, animals and things; the people of a parable are never drawn, only their gardens, and no Prophet and no
  * one of their people is drawn in the stories: the sleepers stay inside the dark cave, an army is only its dust, a
- * staff, a plank or a wall moves by itself, the House rises stone by stone, and Hajar is only her footprints.
+ * staff, a plank or a wall moves by itself, the House rises stone by stone, and Hajar is only her footprints; and
+ * nothing of a sacrifice is ever drawn, only the great ram, and the cow in the pasture.
  */
 
 export type SignKind =
@@ -148,7 +162,12 @@ export type SignKind =
   | "qarun"
   | "madyan"
   | "ayyub"
-  | "yusuf-dream";
+  | "yusuf-dream"
+  | "measure"
+  | "ram"
+  | "qiblah"
+  | "saba"
+  | "cow";
 
 export type SignScene = {
   id: string;
@@ -480,6 +499,41 @@ export const SIGN_SCENES: readonly SignScene[] = [
     caption:
       "Yusuf told his father: I saw eleven stars, and the sun and the moon; I saw them bowing to me. His father said: do not tell your brothers about your dream. Years later, when his parents and brothers bowed before him, Yusuf said: this is the meaning of my dream of before; my Lord has made it true.",
     sources: [quran(12, 4), quran(12, 5), quran(12, 100)]
+  },
+  {
+    id: "sign-measure",
+    kind: "measure",
+    caption:
+      "Woe to those who give less than what is due: when they take a measure from people, they take it in full, but when they measure or weigh for them, they give less. Shu'ayb said: give full measure, and do not be of those who cause loss; and weigh with a straight balance. Allah tells us the same: give full measure when you measure, and weigh with a straight balance; that is better, and best in the end.",
+    sources: [quran(83, 1), quran(83, 2), quran(83, 3), quran(26, 181), quran(26, 182), quran(17, 35)]
+  },
+  {
+    id: "sign-ram",
+    kind: "ram",
+    caption:
+      "Ibrahim said: my son, I saw in a dream that I was sacrificing you, so what do you think? His son said: my father, do what you are commanded; you will find me, in sha Allah, among the patient. When they had both submitted, Allah called him: O Ibrahim, you have fulfilled the dream. That was a clear test, and Allah ransomed his son with a great sacrifice.",
+    sources: [quran(37, 102), quran(37, 103), quran(37, 104), quran(37, 105), quran(37, 106), quran(37, 107)]
+  },
+  {
+    id: "sign-qiblah",
+    kind: "qiblah",
+    caption:
+      "In Madinah, the Prophet ﷺ prayed facing Jerusalem for sixteen or seventeen months, and he wished he could face the Ka'bah. Allah said: We have seen your face turning to the sky, so We will turn you to a qiblah that will please you; turn your face toward al-Masjid al-Haram, and wherever you are, turn your faces toward it. The foolish asked what turned them from their qiblah. Say: the east and the west belong to Allah.",
+    sources: [bukhari("40"), quran(2, 144), quran(2, 142)]
+  },
+  {
+    id: "sign-saba",
+    kind: "saba",
+    caption:
+      "Saba had a sign in their land: two gardens, on the right and on the left. Eat from your Lord's provision and be grateful to Him: a good land, and a Lord who forgives. But they turned away, so Allah sent on them the flood of the dam, and changed their two gardens into gardens of bitter fruit, tamarisk and a few lote trees. They wronged themselves, so Allah made them into stories and scattered them far and wide.",
+    sources: [quran(34, 15), quran(34, 16), quran(34, 19)]
+  },
+  {
+    id: "sign-cow",
+    kind: "cow",
+    caption:
+      "Musa told his people: Allah commands you to sacrifice a cow. They asked question after question, and were told: it is neither old nor young, but in between; it is yellow, bright in color, pleasing to those who see it; it is not trained to plough the earth or to water the fields, sound, with no blemish on it. Then they sacrificed it, though they almost did not.",
+    sources: [quran(2, 67), quran(2, 68), quran(2, 69), quran(2, 71)]
   }
 ];
 
@@ -931,7 +985,49 @@ export const SIGN_LESSONS: Record<string, string> = {
   "deep-prophet-yusuf-dream-true": "sign-yusuf-dream",
   "deep-yusuf1-eleven-stars-sun-and-moon": "sign-yusuf-dream",
   "deep-yusuf1-keep-the-dream-quiet": "sign-yusuf-dream",
-  "deep-yusuf5-the-dream-comes-true": "sign-yusuf-dream"
+  "deep-yusuf5-the-dream-comes-true": "sign-yusuf-dream",
+  // The measure and the balance: taken in full and given short, then given in full and weighed straight.
+  "surah-meaning-26-176-191": "sign-measure",
+  "surah-meaning-83-1-17": "sign-measure",
+  "deep-prophet-shuaib-measure": "sign-measure",
+  "deep-araf3-full-measure": "sign-measure",
+  "deep-hud5-shuayb-and-fair-measure": "sign-measure",
+  "deep-hud5-what-allah-leaves-is-better": "sign-measure",
+  "deep-isra2-a-straight-balance": "sign-measure",
+  "deep-shuara3-give-full-measure": "sign-measure",
+  "deep-rahman1-weigh-with-justice": "sign-measure",
+  "deep-mutaffifin1-woe-to-the-cheaters": "sign-measure",
+  "deep-mutaffifin1-full-measure-for-themselves": "sign-measure",
+  "deep-mutaffifin1-give-full-measure": "sign-measure",
+  "deep-kids-trust-weigh-a-little-more": "sign-measure",
+  // Ibrahim's dream, and the great sacrifice his son was ransomed with.
+  "surah-meaning-37-75-113": "sign-ram",
+  "deep-prophet-ibrahim-dream": "sign-ram",
+  "deep-dhul-hijjah-ibrahims-dream": "sign-ram",
+  "deep-dhul-hijjah-the-ram": "sign-ram",
+  "deep-saffat4-the-dream": "sign-ram",
+  "deep-saffat4-do-what-you-are-commanded": "sign-ram",
+  "deep-saffat4-patience-with-in-sha-allah": "sign-ram",
+  "deep-saffat4-both-submitted": "sign-ram",
+  "deep-saffat4-o-ibrahim": "sign-ram",
+  "deep-saffat4-you-fulfilled-the-dream": "sign-ram",
+  "deep-saffat4-a-clear-test": "sign-ram",
+  "deep-saffat4-a-great-ransom": "sign-ram",
+  // The qiblah turned from Jerusalem to the Ka'bah.
+  "surah-meaning-2-142-147": "sign-qiblah",
+  "deep-bara-the-new-qiblah": "sign-qiblah",
+  "deep-baqarah2-fools-qiblah": "sign-qiblah",
+  "deep-baqarah2-turn-face": "sign-qiblah",
+  "deep-first-prayers-facing-the-qiblah": "sign-qiblah",
+  // The two gardens of Saba, the flood of the dam, and their scattering.
+  "deep-saba1-two-gardens-of-saba": "sign-saba",
+  "deep-saba1-the-dam-burst": "sign-saba",
+  "deep-saba1-only-the-ungrateful": "sign-saba",
+  "deep-saba1-scattered-like-saba": "sign-saba",
+  // The cow Bani Isra'il were told to sacrifice.
+  "surah-meaning-2-62-71": "sign-cow",
+  "deep-baqarah1-the-cow": "sign-cow",
+  "deep-baqarah1-too-many-questions": "sign-cow"
 };
 
 export type LessonSign = { scene: SignScene; lessonSlug: string };

@@ -106,7 +106,7 @@ function cave(): SignArt {
 }
 
 /** The Ka'bah, a black cube with its band of gold, its front's foot at (x, y), `w` wide. */
-function kabah(x: number, y: number, w: number) {
+export function kabah(x: number, y: number, w: number) {
   const d = w * 0.3;
   return (
     `<path d="M${x} ${y} L${x} ${n(y - w)} L${n(x + w)} ${n(y - w)} L${n(x + w)} ${y} Z" fill="#1E1E1E"/>` +
