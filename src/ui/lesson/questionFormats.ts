@@ -11,8 +11,9 @@ import { hasArabic } from "../ArabicText";
 //   check   true or false: "Is this the answer?" with one choice shown
 //   map     every answer a place: tap the right one where it is, on a map of the land (mapQuestions)
 //   sky     every answer a time of the day: tap the right one, and the sky plays to it (skyQuestions)
+//   month   every answer a month: tap the right one where it falls in the year, and its moon fills (monthQuestions)
 
-export type QuestionFormat = "choose" | "blank" | "fill" | "check" | "map" | "sky";
+export type QuestionFormat = "choose" | "blank" | "fill" | "check" | "map" | "sky" | "month";
 
 /**
  * Whether questions are asked in more than one way (and quiz circles open with a matching round). Always on in
@@ -33,6 +34,8 @@ export type FormatContext = {
   map?: boolean;
   /** Every answer is a time of the day (skyTimesFor): asked in the sky. */
   sky?: boolean;
+  /** Every answer is a month (monthsFor): asked on the year. */
+  month?: boolean;
 };
 
 const BLANK = /_{2,}/;
@@ -182,6 +185,8 @@ export function questionFormat(challenge: Pick<Challenge, "id" | "type" | "promp
   if (!questionVariety() || isTrueFalse(challenge) || challenge.listen) return "choose";
   // Times of the day are found in the sky, each answer with its own, the sky playing to the one picked.
   if (context.sky) return "sky";
+  // Months are found on the year, in their order, the moon of the one picked filling.
+  if (context.month) return "month";
   const roll = formatSeed(`${challenge.id}|${context.recall ? "recall" : "learn"}`) % 100;
   // Places are found on the map; places with their own photos are picture cards the other half of the time, so the
   // same question taught one way is often asked the other way later.

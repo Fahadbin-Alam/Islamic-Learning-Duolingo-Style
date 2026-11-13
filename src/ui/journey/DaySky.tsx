@@ -95,7 +95,7 @@ const rand = (seed: number, index: number) => {
 };
 
 // How low and orange the sun is: all orange by the horizon, none once it is high.
-const LOW_KEYS: readonly [number, number][] = [
+export const LOW_KEYS: readonly [number, number][] = [
   [0, 1],
   [6.5, 1],
   [8, 0],
@@ -104,7 +104,7 @@ const LOW_KEYS: readonly [number, number][] = [
   [24, 1]
 ];
 // Sunrise's warm glow in the east.
-const EAST_GLOW: readonly [number, number][] = [
+export const EAST_GLOW: readonly [number, number][] = [
   [0, 0],
   [5, 0],
   [5.6, 0.5],
@@ -114,7 +114,7 @@ const EAST_GLOW: readonly [number, number][] = [
   [24, 0]
 ];
 // The first light of dawn, white along the horizon in the east.
-const DAWN_BAND: readonly [number, number][] = [
+export const DAWN_BAND: readonly [number, number][] = [
   [0, 0],
   [4.4, 0],
   [4.95, 0.75],
@@ -123,7 +123,7 @@ const DAWN_BAND: readonly [number, number][] = [
   [6.4, 0],
   [24, 0]
 ];
-const WEST_GLOW: readonly [number, number][] = [
+export const WEST_GLOW: readonly [number, number][] = [
   [0, 0],
   [17, 0],
   [17.8, 0.6],

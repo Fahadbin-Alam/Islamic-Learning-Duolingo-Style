@@ -204,6 +204,8 @@ import { MapGame } from "./ui/lesson/MapGame";
 import { mapPlacesFor } from "./ui/lesson/mapQuestions";
 import { SkyGame } from "./ui/lesson/SkyGame";
 import { skyTimesFor } from "./ui/lesson/skyQuestions";
+import { MonthGame } from "./ui/lesson/MonthGame";
+import { monthsFor } from "./ui/lesson/monthQuestions";
 import * as Speech from "expo-speech";
 import { findArabicVoice, recitationForArabic } from "./services/arabicVoice";
 import { playAyah, stopAyah } from "./services/ayahPlayer";
@@ -303,6 +305,7 @@ import { teacherFor } from "./ui/lesson/Teacher";
 import { flowPictures, getLessonPicture, pictureForLesson, choicePictures, pictureForQuestion, pictureForText, type LessonPicture } from "./data/lessonPictures";
 import { hajjMapForLesson } from "./data/hajjMap";
 import { skyForLesson } from "./data/daySky";
+import { moonForLesson } from "./data/moonSky";
 import { journeyForLesson } from "./data/seerahMap";
 import { HajjMapBanner, HajjMapSheet } from "./ui/journey/HajjMap";
 import { DayOfPrayerBanner, DayOfPrayerSheet } from "./ui/journey/DayOfPrayer";
@@ -3970,6 +3973,9 @@ export default function TopicApp() {
   const lessonJourney = pictureLesson ? journeyForLesson(pictureLesson) ?? hajjMapForLesson(pictureLesson) : undefined;
   // A lesson about a time of the day (the prayers, suhur, iftar, the night prayer) opens on the sky at that time.
   const lessonSky = pictureLesson && !lessonJourney ? skyForLesson(pictureLesson) : undefined;
+  // A lesson about the moon or the months (the moon split, the new moon, its stages, the twelve months) opens on the
+  // moon's sky.
+  const lessonMoon = pictureLesson && !lessonJourney && !lessonSky ? moonForLesson(pictureLesson) : undefined;
   // Every page shows a big picture: what it teaches (the bridge, the ark, a market...), else the lesson's own, else
   // one that fits the topic, never the same one twice in a row (flowPictures).
   const learnQueue = state.lessonQueue.flatMap((step, index) => (isLearnStep(step) ? [{ step, index }] : []));
@@ -3981,7 +3987,7 @@ export default function TopicApp() {
           page: step.page,
           text: step.page === "teach" && step.index !== undefined && pictureLesson.challenges[step.index] ? teachText(pictureLesson.challenges[step.index]) : undefined
         })),
-        { startPicture: lessonPicture, cover: Boolean(lessonSurah) || Boolean(lessonJourney) || Boolean(lessonSky) }
+        { startPicture: lessonPicture, cover: Boolean(lessonSurah) || Boolean(lessonJourney) || Boolean(lessonSky) || Boolean(lessonMoon) }
       )
     : [];
   const shownPictureAt = learnQueue.findIndex(({ index }) => index === state.stepIndex);
@@ -3995,6 +4001,8 @@ export default function TopicApp() {
   const answerPlaces = pictureChallenge && !pictureChallenge.listen && pictureChallenge.type === "multiple_choice" ? mapPlacesFor(pictureChallenge) : undefined;
   // Every answer a time of the day (at dawn, at noon, at sunset, the last third of the night): asked in the sky.
   const answerTimes = pictureChallenge && !pictureChallenge.listen && pictureChallenge.type === "multiple_choice" ? skyTimesFor(pictureChallenge) : undefined;
+  // Every answer a month (Ramadan, Sha'ban, Muharram): asked on the year, where each falls.
+  const answerMonths = pictureChallenge && !pictureChallenge.listen && pictureChallenge.type === "multiple_choice" ? monthsFor(pictureChallenge) : undefined;
   const inTest = isTestSession(lessonSession);
   const testPassingScore = inTest && lesson ? lessonSession?.passingScore ?? testOutPassingScore(lesson.challenges.length) : 0;
   // The pages of the lesson: what the source says (when it is about this lesson), the words its questions ask
@@ -4011,7 +4019,7 @@ export default function TopicApp() {
     challenge && (challenge.isReview || (lesson && isRecallLesson(lesson)) || (lessonSession?.mode && lessonSession.mode !== "standard"))
   );
   const questionFormatNow = challenge
-    ? questionFormat(challenge, { recall: questionRecall, language: currentLanguage, pictures: Boolean(answerPictures), map: Boolean(answerPlaces), sky: Boolean(answerTimes) })
+    ? questionFormat(challenge, { recall: questionRecall, language: currentLanguage, pictures: Boolean(answerPictures), map: Boolean(answerPlaces), sky: Boolean(answerTimes), month: Boolean(answerMonths) })
     : "choose";
   const checkShown = challenge && questionFormatNow === "check" ? checkCandidate(challenge) : undefined;
   const fillNow = challenge && questionFormatNow === "fill" ? fillPiece(challenge) : undefined;
@@ -4240,6 +4248,7 @@ export default function TopicApp() {
             pagePicture={pagePicture}
             journey={lessonJourney}
             sky={lessonSky}
+            moon={lessonMoon}
             teacher={lessonTeacher}
             surah={lessonSurah}
             deeper={lesson.learnDeeper}
@@ -4274,6 +4283,16 @@ export default function TopicApp() {
                 prompt={challenge.prompt}
                 choices={challenge.choices}
                 times={answerTimes}
+                correctChoiceId={challenge.correctChoiceId}
+                {...questionShared}
+                onSelect={(choiceId) => dispatch({ type: "select_choice", choiceId })}
+              />
+            ) : questionFormatNow === "month" && answerMonths ? (
+              <MonthGame
+                key={`${challenge.id}-month-${lessonStep.attempt}`}
+                prompt={challenge.prompt}
+                choices={challenge.choices}
+                months={answerMonths}
                 correctChoiceId={challenge.correctChoiceId}
                 {...questionShared}
                 onSelect={(choiceId) => dispatch({ type: "select_choice", choiceId })}
