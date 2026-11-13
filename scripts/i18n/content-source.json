@@ -28921,6 +28921,18 @@
   },
   {
     "kind": "course",
+    "text": "Judging fairly"
+  },
+  {
+    "kind": "course",
+    "text": "Never while angry, a heavy trust, Allah with the fair judge, no bribes, more than a claim, and no post for one who asks."
+  },
+  {
+    "kind": "arabic",
+    "text": "Justice in judging"
+  },
+  {
+    "kind": "course",
     "text": "Hadith for a good heart"
   },
   {
@@ -29669,6 +29681,30 @@
   },
   {
     "kind": "course",
+    "text": "Not while angry"
+  },
+  {
+    "kind": "course",
+    "text": "A heavy trust"
+  },
+  {
+    "kind": "course",
+    "text": "With the fair judge"
+  },
+  {
+    "kind": "course",
+    "text": "Giving and taking bribes"
+  },
+  {
+    "kind": "course",
+    "text": "More than a claim"
+  },
+  {
+    "kind": "course",
+    "text": "Not for those who ask"
+  },
+  {
+    "kind": "course",
     "text": "The heart decides"
   },
   {
@@ -30285,6 +30321,18 @@
   },
   {
     "kind": "course",
+    "text": "Debts, paid with care"
+  },
+  {
+    "kind": "course",
+    "text": "Free of three, all but the debt, the debt is repaid, asking decently, Khawlah's dates, and debts he ﷺ took on."
+  },
+  {
+    "kind": "arabic",
+    "text": "Paying back a debt"
+  },
+  {
+    "kind": "course",
     "text": "What zakat is"
   },
   {
@@ -30594,6 +30642,30 @@
   {
     "kind": "course",
     "text": "Sleep as a gift from Allah"
+  },
+  {
+    "kind": "course",
+    "text": "Free of three"
+  },
+  {
+    "kind": "course",
+    "text": "All but the debt"
+  },
+  {
+    "kind": "course",
+    "text": "The debt is repaid"
+  },
+  {
+    "kind": "course",
+    "text": "Ask for it decently"
+  },
+  {
+    "kind": "course",
+    "text": "Khawlah's dates"
+  },
+  {
+    "kind": "course",
+    "text": "Debts he ﷺ took on"
   },
   {
     "kind": "course",
@@ -36757,6 +36829,14 @@
   },
   {
     "kind": "course",
+    "text": "Learning and teaching"
+  },
+  {
+    "kind": "course",
+    "text": "Teachers of good, a lesson in writing, a prayer shown on the minbar, never hiding what you know, careful answers, and a question at sea."
+  },
+  {
+    "kind": "course",
     "text": "Stories the Prophet ﷺ told"
   },
   {
@@ -37178,6 +37258,30 @@
   {
     "kind": "course",
     "text": "The owner rides in front"
+  },
+  {
+    "kind": "course",
+    "text": "Teachers of good"
+  },
+  {
+    "kind": "course",
+    "text": "She taught her to write"
+  },
+  {
+    "kind": "course",
+    "text": "Learn the way I pray"
+  },
+  {
+    "kind": "course",
+    "text": "Never hide what you know"
+  },
+  {
+    "kind": "course",
+    "text": "Careful answers"
+  },
+  {
+    "kind": "course",
+    "text": "A question at sea"
   },
   {
     "kind": "course",
@@ -96089,6 +96193,442 @@
   },
   {
     "kind": "lesson",
+    "text": "A judge must not judge between two people while angry."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abu Bakrah"
+  },
+  {
+    "kind": "lesson",
+    "text": "He wrote it to his son in Sijistan"
+  },
+  {
+    "kind": "lesson",
+    "text": "He heard the Prophet ﷺ say it"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 7158"
+  },
+  {
+    "kind": "question",
+    "text": "When must a judge not judge between two people?"
+  },
+  {
+    "kind": "question",
+    "text": "While he is smiling"
+  },
+  {
+    "kind": "question",
+    "text": "While he is sitting"
+  },
+  {
+    "kind": "question",
+    "text": "While he is travelling"
+  },
+  {
+    "kind": "question",
+    "text": "While he is angry"
+  },
+  {
+    "kind": "question",
+    "text": "A judge should not judge between two persons while he is in an angry mood, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Whom did Abu Bakrah write the advice to?"
+  },
+  {
+    "kind": "question",
+    "text": "His teacher"
+  },
+  {
+    "kind": "question",
+    "text": "His neighbor"
+  },
+  {
+    "kind": "question",
+    "text": "His son"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakrah wrote it to his son, who was in Sijistan."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakrah heard the Prophet ﷺ forbid judging in anger."
+  },
+  {
+    "kind": "question",
+    "text": "Do not judge between two persons when you are angry, Abu Bakrah told his son."
+  },
+  {
+    "kind": "lesson",
+    "text": "One made a judge has been killed without a knife, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Said of one appointed as a judge"
+  },
+  {
+    "kind": "lesson",
+    "text": "From Abu Dawud's chapters on judges"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 3571"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ say happens to one made a judge?"
+  },
+  {
+    "kind": "question",
+    "text": "Paid without working"
+  },
+  {
+    "kind": "question",
+    "text": "Honored without a test"
+  },
+  {
+    "kind": "question",
+    "text": "Killed without a knife"
+  },
+  {
+    "kind": "question",
+    "text": "Crowned without a throne"
+  },
+  {
+    "kind": "question",
+    "text": "He who has been appointed a judge has been killed without a knife, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Which post did he ﷺ describe with a knife?"
+  },
+  {
+    "kind": "question",
+    "text": "Being a trader"
+  },
+  {
+    "kind": "question",
+    "text": "Being a farmer"
+  },
+  {
+    "kind": "question",
+    "text": "Being a shepherd"
+  },
+  {
+    "kind": "question",
+    "text": "Being a judge"
+  },
+  {
+    "kind": "question",
+    "text": "He who has been appointed a judge has been killed without a knife."
+  },
+  {
+    "kind": "question",
+    "text": "One appointed a judge has been killed without a knife."
+  },
+  {
+    "kind": "question",
+    "text": "Appointed a judge, he has been killed without a knife, the Prophet ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah is with the judge as long as he is not unjust."
+  },
+  {
+    "kind": "lesson",
+    "text": "When he is unjust, Allah leaves him"
+  },
+  {
+    "kind": "lesson",
+    "text": "Then Shaitan stays with him"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 1330"
+  },
+  {
+    "kind": "question",
+    "text": "Till when is Allah with the judge?"
+  },
+  {
+    "kind": "question",
+    "text": "As long as he is rich"
+  },
+  {
+    "kind": "question",
+    "text": "As long as he is young"
+  },
+  {
+    "kind": "question",
+    "text": "As long as he is famous"
+  },
+  {
+    "kind": "question",
+    "text": "As long as he is not unjust"
+  },
+  {
+    "kind": "question",
+    "text": "Allah is with the judge as long as he is not unjust, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "What happens when the judge becomes unjust?"
+  },
+  {
+    "kind": "question",
+    "text": "Allah leaves him"
+  },
+  {
+    "kind": "question",
+    "text": "Allah rewards him"
+  },
+  {
+    "kind": "question",
+    "text": "Allah praises him"
+  },
+  {
+    "kind": "question",
+    "text": "Allah raises him"
+  },
+  {
+    "kind": "question",
+    "text": "When he is unjust, He leaves him and he is attended by Shaitan."
+  },
+  {
+    "kind": "question",
+    "text": "An unjust judge is left with Shaitan."
+  },
+  {
+    "kind": "question",
+    "text": "So when he is unjust, He leaves him and he is attended by Shaitan, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ cursed both the giver and the taker of a bribe."
+  },
+  {
+    "kind": "lesson",
+    "text": "The one who gives a bribe"
+  },
+  {
+    "kind": "lesson",
+    "text": "And the one who takes it"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 3580"
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ cursed the one who gives a bribe and who else?"
+  },
+  {
+    "kind": "question",
+    "text": "The one who warns of it"
+  },
+  {
+    "kind": "question",
+    "text": "The one who takes it"
+  },
+  {
+    "kind": "question",
+    "text": "The one who sees it"
+  },
+  {
+    "kind": "question",
+    "text": "The one who hears of it"
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ cursed the one who bribes and the one who takes bribe, said Abdullah ibn Amr."
+  },
+  {
+    "kind": "question",
+    "text": "Which two people did he ﷺ curse?"
+  },
+  {
+    "kind": "question",
+    "text": "Giver and taker of a bribe"
+  },
+  {
+    "kind": "question",
+    "text": "Buyer and seller of bread"
+  },
+  {
+    "kind": "question",
+    "text": "Teacher and student of law"
+  },
+  {
+    "kind": "question",
+    "text": "Host and guest at a meal"
+  },
+  {
+    "kind": "question",
+    "text": "The Messenger of Allah ﷺ cursed the one who bribes and the one who takes bribe."
+  },
+  {
+    "kind": "question",
+    "text": "Both sides of a bribe are cursed, not just one."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ cursed the one who bribes and the one who takes bribe, Abdullah ibn Amr said."
+  },
+  {
+    "kind": "lesson",
+    "text": "People are not given things just because they claim them."
+  },
+  {
+    "kind": "lesson",
+    "text": "Some would claim others' lives and wealth"
+  },
+  {
+    "kind": "lesson",
+    "text": "The one accused must swear an oath"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Ibn Majah 2321"
+  },
+  {
+    "kind": "question",
+    "text": "What would happen if people got whatever they claimed?"
+  },
+  {
+    "kind": "question",
+    "text": "Some would claim others' lives"
+  },
+  {
+    "kind": "question",
+    "text": "All would become honest"
+  },
+  {
+    "kind": "question",
+    "text": "None would ever argue"
+  },
+  {
+    "kind": "question",
+    "text": "All would share fairly"
+  },
+  {
+    "kind": "question",
+    "text": "Some would have claimed the lives and property of men, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Who must swear an oath, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "The judge of the case"
+  },
+  {
+    "kind": "question",
+    "text": "The oldest one present"
+  },
+  {
+    "kind": "question",
+    "text": "The first one to arrive"
+  },
+  {
+    "kind": "question",
+    "text": "The one the claim is against"
+  },
+  {
+    "kind": "question",
+    "text": "But the one the claim is made against is obliged to swear an oath, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "A claim alone is enough to take a man's property."
+  },
+  {
+    "kind": "question",
+    "text": "If people were given what they claimed, some would claim others' lives."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ did not give power to those who asked for it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Two men of his tribe asked to be governors"
+  },
+  {
+    "kind": "lesson",
+    "text": "Nor to those keen to have it"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 7149"
+  },
+  {
+    "kind": "question",
+    "text": "What did the two men ask him ﷺ for?"
+  },
+  {
+    "kind": "question",
+    "text": "To be made governors"
+  },
+  {
+    "kind": "question",
+    "text": "To be given camels"
+  },
+  {
+    "kind": "question",
+    "text": "To be taught the Quran"
+  },
+  {
+    "kind": "question",
+    "text": "To be sent to trade"
+  },
+  {
+    "kind": "question",
+    "text": "Appoint me as a governor, one of the two men said, and so did the second."
+  },
+  {
+    "kind": "question",
+    "text": "To whom does he ﷺ not give the authority of ruling?"
+  },
+  {
+    "kind": "question",
+    "text": "Those who are humble"
+  },
+  {
+    "kind": "question",
+    "text": "Those who are honest"
+  },
+  {
+    "kind": "question",
+    "text": "Those who are learned"
+  },
+  {
+    "kind": "question",
+    "text": "Those who ask for it"
+  },
+  {
+    "kind": "question",
+    "text": "We do not assign the authority of ruling to those who ask for it, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Being keen to have power does not win a post from him ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "Nor to those who are keen to have it, he ﷺ said of the authority of ruling."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about judging fairly!"
+  },
+  {
+    "kind": "lesson",
     "text": "If the heart is good, the whole body is good."
   },
   {
@@ -102869,6 +103409,386 @@
   },
   {
     "kind": "lesson",
+    "text": "Die free of pride, stolen spoils and debt, and enter Paradise."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Thawban"
+  },
+  {
+    "kind": "lesson",
+    "text": "Kibr: pride"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ghulul: taking from the spoils of war"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 1572"
+  },
+  {
+    "kind": "question",
+    "text": "Which of these is one of the three to be free of?"
+  },
+  {
+    "kind": "question",
+    "text": "Journeys"
+  },
+  {
+    "kind": "question",
+    "text": "Whoever dies free of three, Kibr, Ghulul and debt, will enter Paradise, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Which word means pride?"
+  },
+  {
+    "kind": "question",
+    "text": "Riba"
+  },
+  {
+    "kind": "question",
+    "text": "Kibr"
+  },
+  {
+    "kind": "question",
+    "text": "Ghulul"
+  },
+  {
+    "kind": "question",
+    "text": "Sabr"
+  },
+  {
+    "kind": "question",
+    "text": "Kibr means pride, and it is one of the three he ﷺ named."
+  },
+  {
+    "kind": "question",
+    "text": "Ghulul means taking from the spoils of war before they are shared."
+  },
+  {
+    "kind": "question",
+    "text": "Ghulul refers to goods taken from the spoils of war before they are divided."
+  },
+  {
+    "kind": "lesson",
+    "text": "Killed in Allah's cause, all is forgiven except the debt."
+  },
+  {
+    "kind": "lesson",
+    "text": "Patient, seeking the reward, not fleeing"
+  },
+  {
+    "kind": "lesson",
+    "text": "Jibril told him ﷺ about the debt"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 1712"
+  },
+  {
+    "kind": "question",
+    "text": "What did the man ask about being killed in Allah's cause?"
+  },
+  {
+    "kind": "question",
+    "text": "If his sins would be forgiven"
+  },
+  {
+    "kind": "question",
+    "text": "If his wealth would be shared"
+  },
+  {
+    "kind": "question",
+    "text": "If his house would be kept"
+  },
+  {
+    "kind": "question",
+    "text": "If his horse would be saved"
+  },
+  {
+    "kind": "question",
+    "text": "Yes, if you are patient, seeking the reward, not fleeing, he ﷺ answered the man."
+  },
+  {
+    "kind": "question",
+    "text": "Who told him ﷺ about the debt?"
+  },
+  {
+    "kind": "question",
+    "text": "Except debt, for Jibril said that to me, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Even a martyr must still have his debt paid."
+  },
+  {
+    "kind": "question",
+    "text": "Yes, if you are patient, seeking the reward, except debt, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "What is borrowed is returned, and a debt is repaid."
+  },
+  {
+    "kind": "lesson",
+    "text": "In his ﷺ khutbah at the Farewell Hajj"
+  },
+  {
+    "kind": "lesson",
+    "text": "The guarantor is responsible"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 1265"
+  },
+  {
+    "kind": "question",
+    "text": "When did he ﷺ say the debt is to be repaid?"
+  },
+  {
+    "kind": "question",
+    "text": "In a rain prayer"
+  },
+  {
+    "kind": "question",
+    "text": "In the Farewell Hajj khutbah"
+  },
+  {
+    "kind": "question",
+    "text": "In a Friday khutbah"
+  },
+  {
+    "kind": "question",
+    "text": "In an Eid khutbah"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Umamah heard it in the khutbah of the Farewell Pilgrimage."
+  },
+  {
+    "kind": "question",
+    "text": "What must be done with something borrowed?"
+  },
+  {
+    "kind": "question",
+    "text": "Give it back"
+  },
+  {
+    "kind": "question",
+    "text": "Keep it forever"
+  },
+  {
+    "kind": "question",
+    "text": "Hide it at home"
+  },
+  {
+    "kind": "question",
+    "text": "The borrowed is to be returned, he ﷺ said in his khutbah."
+  },
+  {
+    "kind": "question",
+    "text": "The one who guarantees a debt is responsible for it."
+  },
+  {
+    "kind": "question",
+    "text": "And the guarantor is responsible, and the debt is to be repaid, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "When you ask for what is yours, ask in a decent way."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Ibn Umar and Aishah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Whoever asks for his rights"
+  },
+  {
+    "kind": "lesson",
+    "text": "As decently as he can"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Ibn Majah 2421"
+  },
+  {
+    "kind": "question",
+    "text": "How should you ask for what someone owes you?"
+  },
+  {
+    "kind": "question",
+    "text": "In a rough manner"
+  },
+  {
+    "kind": "question",
+    "text": "In a mocking manner"
+  },
+  {
+    "kind": "question",
+    "text": "In a loud manner"
+  },
+  {
+    "kind": "question",
+    "text": "In a decent manner"
+  },
+  {
+    "kind": "question",
+    "text": "Whoever demands his rights let him do so in a decent manner, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "You may ask for a right that is yours."
+  },
+  {
+    "kind": "question",
+    "text": "Asking for your rights must always be harsh."
+  },
+  {
+    "kind": "question",
+    "text": "Whoever demands his rights should do so in a decent manner, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ borrowed Khawlah's dates to repay a Bedouin in full."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abu Sa'eed al-Khudri"
+  },
+  {
+    "kind": "lesson",
+    "text": "The Bedouin spoke harshly about his right"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ paid him back and fed him"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Ibn Majah 2426"
+  },
+  {
+    "kind": "question",
+    "text": "Whom did he ﷺ ask to lend him dates?"
+  },
+  {
+    "kind": "question",
+    "text": "Khawlah bint Qais"
+  },
+  {
+    "kind": "question",
+    "text": "Umm Sulaim bint Milhan"
+  },
+  {
+    "kind": "question",
+    "text": "Ar-Rubayyi bint Muawwidh"
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ sent word to Khawlah bint Qais: lend us dates until ours come."
+  },
+  {
+    "kind": "question",
+    "text": "What did the Bedouin say when the companions scolded him?"
+  },
+  {
+    "kind": "question",
+    "text": "I came to learn the Quran"
+  },
+  {
+    "kind": "question",
+    "text": "I only ask for my right"
+  },
+  {
+    "kind": "question",
+    "text": "I will leave it for now"
+  },
+  {
+    "kind": "question",
+    "text": "I forgive the whole debt"
+  },
+  {
+    "kind": "question",
+    "text": "I am only asking for my rights, the Bedouin said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ paid the Bedouin back and also fed him."
+  },
+  {
+    "kind": "question",
+    "text": "So she gave him a loan, and he paid back the Bedouin and fed him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Wealth goes to the heirs, and he ﷺ took on debts left behind."
+  },
+  {
+    "kind": "lesson",
+    "text": "Property left goes to the heirs"
+  },
+  {
+    "kind": "lesson",
+    "text": "A debt or dependants: we will take care of them"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 6763"
+  },
+  {
+    "kind": "question",
+    "text": "Besides a debt, what else did he ﷺ say he would take care of?"
+  },
+  {
+    "kind": "question",
+    "text": "Shops left behind"
+  },
+  {
+    "kind": "question",
+    "text": "Dependants left behind"
+  },
+  {
+    "kind": "question",
+    "text": "Houses left behind"
+  },
+  {
+    "kind": "question",
+    "text": "Camels left behind"
+  },
+  {
+    "kind": "question",
+    "text": "If he leaves a debt or dependants, we will take care of them, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Property a Muslim leaves goes to his heirs."
+  },
+  {
+    "kind": "question",
+    "text": "If somebody dies leaving some property, the property will go to his heirs, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Who narrated the saying about heirs and debts?"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Ayyub"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Hurairah narrated it: a debt or dependants, we will take care of them."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about debts paid with care!"
+  },
+  {
+    "kind": "lesson",
     "text": "Hajj is due once in a life, for those able."
   },
   {
@@ -105401,19 +106321,11 @@
   },
   {
     "kind": "question",
-    "text": "His neighbor"
-  },
-  {
-    "kind": "question",
     "text": "Nobody at all"
   },
   {
     "kind": "question",
     "text": "His mother"
-  },
-  {
-    "kind": "question",
-    "text": "His teacher"
   },
   {
     "kind": "question",
@@ -108378,10 +109290,6 @@
   {
     "kind": "question",
     "text": "Abu Talhah"
-  },
-  {
-    "kind": "question",
-    "text": "Abu Ayyub"
   },
   {
     "kind": "question",
@@ -121774,10 +122682,6 @@
   {
     "kind": "question",
     "text": "Whom did Abu Dharr send to Makkah first?"
-  },
-  {
-    "kind": "question",
-    "text": "His son"
   },
   {
     "kind": "question",
@@ -136142,10 +137046,6 @@
   {
     "kind": "question",
     "text": "What is the Arabic word for modesty?"
-  },
-  {
-    "kind": "question",
-    "text": "Sabr"
   },
   {
     "kind": "question",
@@ -161369,19 +162269,11 @@
   },
   {
     "kind": "question",
-    "text": "Give it back"
-  },
-  {
-    "kind": "question",
     "text": "Hide it well"
   },
   {
     "kind": "question",
     "text": "Break it in two"
-  },
-  {
-    "kind": "question",
-    "text": "Keep it forever"
   },
   {
     "kind": "question",
@@ -164974,6 +165866,398 @@
   {
     "kind": "lesson",
     "text": "The last test: everything about animals and good manners!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Even the ant and the fish pray for one who teaches good."
+  },
+  {
+    "kind": "lesson",
+    "text": "The scholar is above the worshipper"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah and His angels bless the teacher of good"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 2685"
+  },
+  {
+    "kind": "question",
+    "text": "Which tiny creature in its hole prays for the teacher of good?"
+  },
+  {
+    "kind": "question",
+    "text": "The cat"
+  },
+  {
+    "kind": "question",
+    "text": "The bird"
+  },
+  {
+    "kind": "question",
+    "text": "The ant"
+  },
+  {
+    "kind": "question",
+    "text": "Even the ant in his hole, even the fish, say Salat upon the one who teaches good."
+  },
+  {
+    "kind": "question",
+    "text": "Who did he ﷺ say is above the worshipper?"
+  },
+  {
+    "kind": "question",
+    "text": "The rich man"
+  },
+  {
+    "kind": "question",
+    "text": "The scholar"
+  },
+  {
+    "kind": "question",
+    "text": "The scholar is above the worshiper as he ﷺ is above the least of us."
+  },
+  {
+    "kind": "question",
+    "text": "Allah and His angels bless the one who teaches people good."
+  },
+  {
+    "kind": "question",
+    "text": "Allah, His angels and even the fish say Salat upon the one who teaches the people good."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ash-Shifa had taught Hafsah how to write."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Ash-Shifa bint Abdullah"
+  },
+  {
+    "kind": "lesson",
+    "text": "She was with Hafsah when he ﷺ came in"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ asked her to teach a healing du'a too"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 3887"
+  },
+  {
+    "kind": "question",
+    "text": "What had Ash-Shifa already taught Hafsah?"
+  },
+  {
+    "kind": "question",
+    "text": "Sewing"
+  },
+  {
+    "kind": "question",
+    "text": "Why do you not teach this one the invocation as you taught her writing, he ﷺ asked."
+  },
+  {
+    "kind": "question",
+    "text": "Who was with Ash-Shifa when he ﷺ came in?"
+  },
+  {
+    "kind": "question",
+    "text": "The Messenger of Allah ﷺ entered when I was with Hafsah, Ash-Shifa said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ wanted Hafsah to learn a healing du'a too."
+  },
+  {
+    "kind": "question",
+    "text": "Why do you not teach this one the invocation for skin eruptions, he ﷺ asked Ash-Shifa."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ prayed on the minbar so all could learn his prayer."
+  },
+  {
+    "kind": "lesson",
+    "text": "The minbar was made of tamarisk wood"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ came down to prostrate at its foot"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 917"
+  },
+  {
+    "kind": "question",
+    "text": "Why did he ﷺ pray on the minbar?"
+  },
+  {
+    "kind": "question",
+    "text": "So people could learn his prayer"
+  },
+  {
+    "kind": "question",
+    "text": "So people could hear the rain"
+  },
+  {
+    "kind": "question",
+    "text": "So people could see the city"
+  },
+  {
+    "kind": "question",
+    "text": "So people could count the rows"
+  },
+  {
+    "kind": "question",
+    "text": "I have done this so that you may follow me and learn the way I pray, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "What wood was the minbar made from?"
+  },
+  {
+    "kind": "question",
+    "text": "Cedar wood"
+  },
+  {
+    "kind": "question",
+    "text": "Tamarisk wood"
+  },
+  {
+    "kind": "question",
+    "text": "Palm wood"
+  },
+  {
+    "kind": "question",
+    "text": "Olive wood"
+  },
+  {
+    "kind": "question",
+    "text": "He made it from the tamarisk of the forest, Sahl said of the pulpit."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ came down from the minbar to prostrate on the ground."
+  },
+  {
+    "kind": "question",
+    "text": "He stepped back, got down and prostrated on the ground near the foot of the pulpit."
+  },
+  {
+    "kind": "lesson",
+    "text": "When asked what you know, do not hide it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Asked about something he knows"
+  },
+  {
+    "kind": "lesson",
+    "text": "A bridle of fire for one who hides it"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 3658"
+  },
+  {
+    "kind": "question",
+    "text": "What should you do when asked about something you know?"
+  },
+  {
+    "kind": "question",
+    "text": "Hide it from them"
+  },
+  {
+    "kind": "question",
+    "text": "Pretend you forgot"
+  },
+  {
+    "kind": "question",
+    "text": "Ask for money first"
+  },
+  {
+    "kind": "question",
+    "text": "Share it, do not hide it"
+  },
+  {
+    "kind": "question",
+    "text": "One who hides what he knows when asked will have a bridle of fire, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "What will be put on the one who hides what he knows?"
+  },
+  {
+    "kind": "question",
+    "text": "A robe of honor"
+  },
+  {
+    "kind": "question",
+    "text": "A ring of gold"
+  },
+  {
+    "kind": "question",
+    "text": "A bridle of fire"
+  },
+  {
+    "kind": "question",
+    "text": "A crown of light"
+  },
+  {
+    "kind": "question",
+    "text": "He will have a bridle of fire put on him on the Day of Resurrection, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Hiding what you know when asked is a good habit."
+  },
+  {
+    "kind": "question",
+    "text": "He who is asked something he knows and conceals it will have a bridle of fire."
+  },
+  {
+    "kind": "lesson",
+    "text": "If someone answers without knowledge, the sin is on him."
+  },
+  {
+    "kind": "lesson",
+    "text": "A fatwa: an answer about the religion"
+  },
+  {
+    "kind": "lesson",
+    "text": "The sin is on the one who gave it"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 3657"
+  },
+  {
+    "kind": "question",
+    "text": "Who carries the sin of a fatwa given without knowledge?"
+  },
+  {
+    "kind": "question",
+    "text": "The one who wrote it down"
+  },
+  {
+    "kind": "question",
+    "text": "The one who gave it"
+  },
+  {
+    "kind": "question",
+    "text": "The one who asked"
+  },
+  {
+    "kind": "question",
+    "text": "The one who heard"
+  },
+  {
+    "kind": "question",
+    "text": "The sin rests on the one who gave it, if he gave it without knowledge, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "What must a person have before giving a fatwa?"
+  },
+  {
+    "kind": "question",
+    "text": "A fine robe"
+  },
+  {
+    "kind": "question",
+    "text": "Real knowledge"
+  },
+  {
+    "kind": "question",
+    "text": "If anyone is given a legal decision ignorantly, the sin rests on the one who gave it."
+  },
+  {
+    "kind": "question",
+    "text": "Giving answers about the religion without knowledge is a sin."
+  },
+  {
+    "kind": "question",
+    "text": "The sin rests on the one who gave it, he ﷺ said of a decision given ignorantly."
+  },
+  {
+    "kind": "lesson",
+    "text": "A man asked about wudu with sea water: its water is pure."
+  },
+  {
+    "kind": "lesson",
+    "text": "Using their water for wudu would leave them thirsty"
+  },
+  {
+    "kind": "lesson",
+    "text": "Wudu: washing before the prayer"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 83"
+  },
+  {
+    "kind": "question",
+    "text": "Why did the man not want to use his water for wudu?"
+  },
+  {
+    "kind": "question",
+    "text": "The water was dirty"
+  },
+  {
+    "kind": "question",
+    "text": "They would be thirsty"
+  },
+  {
+    "kind": "question",
+    "text": "The water was salty"
+  },
+  {
+    "kind": "question",
+    "text": "The water was hot"
+  },
+  {
+    "kind": "question",
+    "text": "If we use this for ablution, we would suffer from thirst, the man said."
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ say about the water of the sea?"
+  },
+  {
+    "kind": "question",
+    "text": "Its water is only for ships"
+  },
+  {
+    "kind": "question",
+    "text": "Its water is too salty to use"
+  },
+  {
+    "kind": "question",
+    "text": "Its water is pure"
+  },
+  {
+    "kind": "question",
+    "text": "Its water is unsafe"
+  },
+  {
+    "kind": "question",
+    "text": "Its water is pure and what dies in it is lawful food, he ﷺ replied."
+  },
+  {
+    "kind": "question",
+    "text": "They could make wudu with sea water, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Can we perform ablution with sea water? Its water is pure, he ﷺ replied."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about learning and teaching!"
   },
   {
     "kind": "lesson",
@@ -178961,10 +180245,6 @@
   },
   {
     "kind": "lesson",
-    "text": "Told by Thawban"
-  },
-  {
-    "kind": "lesson",
     "text": "Thawban served the Prophet ﷺ"
   },
   {
@@ -188010,10 +189290,6 @@
   {
     "kind": "lesson",
     "text": "Oppression and cutting ties are punished in this world too."
-  },
-  {
-    "kind": "lesson",
-    "text": "Told by Abu Bakrah"
   },
   {
     "kind": "lesson",
@@ -252861,10 +254137,6 @@
   },
   {
     "kind": "question",
-    "text": "Journeys"
-  },
-  {
-    "kind": "question",
     "text": "Excuses"
   },
   {
@@ -264473,10 +265745,6 @@
   },
   {
     "kind": "question",
-    "text": "The cat"
-  },
-  {
-    "kind": "question",
     "text": "Muslim 780."
   },
   {
@@ -270934,10 +272202,6 @@
   {
     "kind": "question",
     "text": "What does Allah make grow, in 2:276?"
-  },
-  {
-    "kind": "question",
-    "text": "Riba"
   },
   {
     "kind": "question",
@@ -292142,10 +293406,6 @@
   {
     "kind": "question",
     "text": "Allah gave Shaytan what he asked for out of His wisdom."
-  },
-  {
-    "kind": "lesson",
-    "text": "Kibr: pride"
   },
   {
     "kind": "question",
@@ -322857,10 +324117,6 @@
   },
   {
     "kind": "question",
-    "text": "The rich man"
-  },
-  {
-    "kind": "question",
     "text": "The child"
   },
   {
@@ -334530,14 +335786,6 @@
   {
     "kind": "question",
     "text": "Whom did your Lord inspire, in 16:68?"
-  },
-  {
-    "kind": "question",
-    "text": "The bird"
-  },
-  {
-    "kind": "question",
-    "text": "The ant"
   },
   {
     "kind": "question",
@@ -409742,10 +410990,6 @@
   {
     "kind": "question",
     "text": "Whom do they pass words to, per Ibn Kathir?"
-  },
-  {
-    "kind": "question",
-    "text": "The scholar"
   },
   {
     "kind": "question",
