@@ -297,6 +297,19 @@ const ZUBAYR: DeepUnit = {
         { q: "What else did Uthman say about him?", a: "He was most beloved to the Prophet ﷺ", wrong: ["He was the richest", "He was the oldest", "He was the tallest"], why: "He said he was most beloved to him." },
         { q: "Where was Az-Zubayr when the mountain shook beneath them?", a: "On Mount Hira", wrong: ["On Mount Uhud", "On Mount Thawr", "On Mount Arafah"], why: "Muslim 2417 names him with the others." }
       ]
+    },
+    {
+      slug: "the-charge-at-yarmuk",
+      title: "The charge at Yarmuk",
+      line: "At Yarmuk, Az-Zubayr charged right through the enemy lines.",
+      facts: ["Told by his son Urwah", "Yarmuk was fought against the Byzantines", "Urwah played with his scars as a child"],
+      source: hadith("bukhari", "3975", "Urwah ibn az-Zubayr", "Sahih", "Urwah said: on the day of Yarmuk, the Companions of the Messenger of Allah ﷺ said to Az-Zubayr: will you charge at the enemy, so that we charge with you? So he charged at them and pierced through their lines, and went beyond them, with none of his companions with him. Then he came back, and the enemy took hold of his horse's bridle and struck him two blows on his shoulder. Between those two wounds was the scar of a blow he had received on the day of Badr. When I was a child, I used to play with those scars, putting my fingers in them.", "pierced through their lines"),
+      difficulty: 3,
+      questions: [
+        { q: "At which battle did Az-Zubayr pierce the enemy lines?", a: "Yarmuk", wrong: ["Mu'tah", "Qadisiyyah", "Nahawand"], why: "On the day of Yarmuk, Az-Zubayr charged at the enemy and broke through, Urwah said." },
+        { q: "When he turned back, what did the enemy take hold of?", a: "His horse's bridle", wrong: ["His spear", "His helmet", "His turban"], why: "Then he returned, and the enemy got hold of the bridle of his horse, Urwah said." },
+        { q: "Az-Zubayr bore an old scar from the day of Badr.", tf: true, why: "Between his two new wounds was a scar from a blow he had received at Badr, Urwah said." }
+      ]
     }
   ]
 };

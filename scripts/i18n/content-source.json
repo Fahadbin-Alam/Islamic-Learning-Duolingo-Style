@@ -32745,6 +32745,26 @@
   },
   {
     "kind": "course",
+    "text": "The name Allah gave them, their followers, a du'a for their children, and the day of Bu'ath."
+  },
+  {
+    "kind": "arabic",
+    "text": "The helpers"
+  },
+  {
+    "kind": "course",
+    "text": "Abdullah ibn Abi Awfa"
+  },
+  {
+    "kind": "course",
+    "text": "Shielding him ﷺ at Umrah, a scar from Hunayn, locusts on the campaigns, the Prophet's ﷺ son Ibrahim, and the widow and the poor."
+  },
+  {
+    "kind": "arabic",
+    "text": "He shielded him ﷺ at Umrah"
+  },
+  {
+    "kind": "course",
     "text": "Ibn Umar and more"
   },
   {
@@ -33370,6 +33390,10 @@
   {
     "kind": "course",
     "text": "\"The best of them\""
+  },
+  {
+    "kind": "course",
+    "text": "The charge at Yarmuk"
   },
   {
     "kind": "course",
@@ -34550,6 +34574,42 @@
   {
     "kind": "course",
     "text": "A debt taken on"
+  },
+  {
+    "kind": "course",
+    "text": "The name Allah gave them"
+  },
+  {
+    "kind": "course",
+    "text": "Their followers too"
+  },
+  {
+    "kind": "course",
+    "text": "Forgive the Ansar"
+  },
+  {
+    "kind": "course",
+    "text": "The day of Bu'ath"
+  },
+  {
+    "kind": "course",
+    "text": "Shielding him ﷺ at Umrah"
+  },
+  {
+    "kind": "course",
+    "text": "A scar from Hunayn"
+  },
+  {
+    "kind": "course",
+    "text": "Locusts on the campaigns"
+  },
+  {
+    "kind": "course",
+    "text": "The Prophet's ﷺ son Ibrahim"
+  },
+  {
+    "kind": "course",
+    "text": "The widow and the poor"
   },
   {
     "kind": "course",
@@ -123029,6 +123089,78 @@
   },
   {
     "kind": "lesson",
+    "text": "At Yarmuk, Az-Zubayr charged right through the enemy lines."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by his son Urwah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Yarmuk was fought against the Byzantines"
+  },
+  {
+    "kind": "lesson",
+    "text": "Urwah played with his scars as a child"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3975"
+  },
+  {
+    "kind": "question",
+    "text": "At which battle did Az-Zubayr pierce the enemy lines?"
+  },
+  {
+    "kind": "question",
+    "text": "Qadisiyyah"
+  },
+  {
+    "kind": "question",
+    "text": "Nahawand"
+  },
+  {
+    "kind": "question",
+    "text": "Yarmuk"
+  },
+  {
+    "kind": "question",
+    "text": "On the day of Yarmuk, Az-Zubayr charged at the enemy and broke through, Urwah said."
+  },
+  {
+    "kind": "question",
+    "text": "When he turned back, what did the enemy take hold of?"
+  },
+  {
+    "kind": "question",
+    "text": "His spear"
+  },
+  {
+    "kind": "question",
+    "text": "His helmet"
+  },
+  {
+    "kind": "question",
+    "text": "His turban"
+  },
+  {
+    "kind": "question",
+    "text": "His horse's bridle"
+  },
+  {
+    "kind": "question",
+    "text": "Then he returned, and the enemy got hold of the bridle of his horse, Urwah said."
+  },
+  {
+    "kind": "question",
+    "text": "Az-Zubayr bore an old scar from the day of Badr."
+  },
+  {
+    "kind": "question",
+    "text": "Between his two new wounds was a scar from a blow he had received at Badr, Urwah said."
+  },
+  {
+    "kind": "lesson",
     "text": "The last test: everything about Az-Zubayr!"
   },
   {
@@ -125766,10 +125898,6 @@
   {
     "kind": "question",
     "text": "Which battle had Murarah and Hilal fought in?"
-  },
-  {
-    "kind": "question",
-    "text": "Yarmuk"
   },
   {
     "kind": "question",
@@ -133010,10 +133138,6 @@
   {
     "kind": "question",
     "text": "Which battle did Ubadah fight in?"
-  },
-  {
-    "kind": "question",
-    "text": "Qadisiyyah"
   },
   {
     "kind": "question",
@@ -142585,6 +142709,614 @@
   },
   {
     "kind": "lesson",
+    "text": "Allah Himself gave the Ansar their name, Anas said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ghaylan ibn Jarir asked Anas"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ansar means the helpers"
+  },
+  {
+    "kind": "lesson",
+    "text": "Anas told of the Ansar's deeds"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3776"
+  },
+  {
+    "kind": "question",
+    "text": "Who gave the Ansar their name, Anas said?"
+  },
+  {
+    "kind": "question",
+    "text": "The Ansar themselves"
+  },
+  {
+    "kind": "question",
+    "text": "Did you call yourselves by it, or did Allah? Allah called us by it, Anas said."
+  },
+  {
+    "kind": "question",
+    "text": "What did Anas tell his visitors about?"
+  },
+  {
+    "kind": "question",
+    "text": "The markets of Basra"
+  },
+  {
+    "kind": "question",
+    "text": "The deeds of the Ansar"
+  },
+  {
+    "kind": "question",
+    "text": "The rivers of Iraq"
+  },
+  {
+    "kind": "question",
+    "text": "He used to tell us of the virtues and deeds of the Ansar, Ghaylan said of Anas."
+  },
+  {
+    "kind": "question",
+    "text": "The Ansar chose that name for themselves."
+  },
+  {
+    "kind": "question",
+    "text": "Asked if they named themselves, Anas said: Allah called us by it."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Ansar asked him ﷺ to pray for their followers too."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Zayd ibn Arqam"
+  },
+  {
+    "kind": "lesson",
+    "text": "Every prophet has followers"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ made the du'a they asked for"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3787"
+  },
+  {
+    "kind": "question",
+    "text": "What did the Ansar ask him ﷺ to pray for?"
+  },
+  {
+    "kind": "question",
+    "text": "That their wells stay full"
+  },
+  {
+    "kind": "question",
+    "text": "That their flocks grow large"
+  },
+  {
+    "kind": "question",
+    "text": "That their followers count as Ansar"
+  },
+  {
+    "kind": "question",
+    "text": "That their crops grow well"
+  },
+  {
+    "kind": "question",
+    "text": "Pray to Allah that our followers be counted as being from us, the Ansar asked."
+  },
+  {
+    "kind": "question",
+    "text": "What did the Ansar say every prophet has?"
+  },
+  {
+    "kind": "question",
+    "text": "His own treasure"
+  },
+  {
+    "kind": "question",
+    "text": "His own followers"
+  },
+  {
+    "kind": "question",
+    "text": "His own city"
+  },
+  {
+    "kind": "question",
+    "text": "His own soldiers"
+  },
+  {
+    "kind": "question",
+    "text": "Every prophet has his followers, and we have followed you, the Ansar said to him ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ made the du'a that the Ansar asked for."
+  },
+  {
+    "kind": "question",
+    "text": "So he invoked Allah accordingly, Zayd ibn Arqam said of the Ansar's request."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ prayed: O Allah, forgive the Ansar and their children."
+  },
+  {
+    "kind": "lesson",
+    "text": "Zayd ibn Arqam wrote it to Anas"
+  },
+  {
+    "kind": "lesson",
+    "text": "Anas was grieving for the Ansar"
+  },
+  {
+    "kind": "lesson",
+    "text": "A du'a for the Ansar's children too"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 4906"
+  },
+  {
+    "kind": "question",
+    "text": "With the Ansar, whom else did he ﷺ ask Allah to forgive?"
+  },
+  {
+    "kind": "question",
+    "text": "The children of the Ansar"
+  },
+  {
+    "kind": "question",
+    "text": "The guests of the Ansar"
+  },
+  {
+    "kind": "question",
+    "text": "The neighbours of the Ansar"
+  },
+  {
+    "kind": "question",
+    "text": "The friends of the Ansar"
+  },
+  {
+    "kind": "question",
+    "text": "O Allah, forgive the Ansar and the Ansar's children, Zayd heard him ﷺ say."
+  },
+  {
+    "kind": "question",
+    "text": "What did Zayd ibn Arqam do when he heard of Anas's grief?"
+  },
+  {
+    "kind": "question",
+    "text": "He gave a sermon"
+  },
+  {
+    "kind": "question",
+    "text": "He wrote him a letter"
+  },
+  {
+    "kind": "question",
+    "text": "He came to visit him"
+  },
+  {
+    "kind": "question",
+    "text": "He sent him a gift"
+  },
+  {
+    "kind": "question",
+    "text": "Zayd heard how great my grief was, and wrote to me, Anas said."
+  },
+  {
+    "kind": "question",
+    "text": "Zayd ibn Arqam heard this du'a from him ﷺ himself."
+  },
+  {
+    "kind": "question",
+    "text": "Zayd wrote that he had heard the Messenger of Allah ﷺ say it, Anas said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Bu'ath came about for the good of the Prophet ﷺ, Aishah said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Bu'ath was before he ﷺ came to Madinah"
+  },
+  {
+    "kind": "lesson",
+    "text": "The tribes of Madinah had lost their chiefs"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3777"
+  },
+  {
+    "kind": "question",
+    "text": "Which two tribes fought on the day of Bu'ath?"
+  },
+  {
+    "kind": "question",
+    "text": "Tamim and Asad"
+  },
+  {
+    "kind": "question",
+    "text": "The Aws and the Khazraj"
+  },
+  {
+    "kind": "question",
+    "text": "Quraysh and Thaqif"
+  },
+  {
+    "kind": "question",
+    "text": "Hawazin and Ghatafan"
+  },
+  {
+    "kind": "question",
+    "text": "Bu'ath was a day of fighting between the two tribes of the Ansar, the Aws and Khazraj."
+  },
+  {
+    "kind": "question",
+    "text": "Why did Allah bring that day about, Aishah said?"
+  },
+  {
+    "kind": "question",
+    "text": "So the Ansar would trade with Sham"
+  },
+  {
+    "kind": "question",
+    "text": "So the Ansar would grow rich"
+  },
+  {
+    "kind": "question",
+    "text": "So the Ansar would enter Islam"
+  },
+  {
+    "kind": "question",
+    "text": "So the Ansar would leave Madinah"
+  },
+  {
+    "kind": "question",
+    "text": "Allah brought it about for the good of His Messenger ﷺ, so that they would embrace Islam."
+  },
+  {
+    "kind": "question",
+    "text": "The day of Bu'ath came before he ﷺ reached Madinah."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ came to Madinah after its tribes had split and lost their chiefs, Aishah said."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about the Ansar!"
+  },
+  {
+    "kind": "lesson",
+    "text": "At Umrah, they shielded him ﷺ from the people of Makkah."
+  },
+  {
+    "kind": "lesson",
+    "text": "They made tawaf with him ﷺ"
+  },
+  {
+    "kind": "lesson",
+    "text": "Then they went to As-Safa and Al-Marwah"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1791"
+  },
+  {
+    "kind": "question",
+    "text": "They shielded him ﷺ from the people of which city?"
+  },
+  {
+    "kind": "question",
+    "text": "Najran"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Abi Awfa said: we were shielding him from the people of Makkah, lest anyone hit him."
+  },
+  {
+    "kind": "question",
+    "text": "After the tawaf, where did they go with him ﷺ?"
+  },
+  {
+    "kind": "question",
+    "text": "To As-Safa and Al-Marwah"
+  },
+  {
+    "kind": "question",
+    "text": "To Mount Arafah"
+  },
+  {
+    "kind": "question",
+    "text": "To Mina"
+  },
+  {
+    "kind": "question",
+    "text": "To the cave of Hira"
+  },
+  {
+    "kind": "question",
+    "text": "Then he came to As-Safa and Al-Marwah, and we came to them with him, Ibn Abi Awfa said."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Abi Awfa made Umrah along with him ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ performed Umrah and we performed Umrah with him, Ibn Abi Awfa said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Abi Awfa bore a scar from Hunayn on his hand."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Isma'il ibn Abi Khalid"
+  },
+  {
+    "kind": "lesson",
+    "text": "He got the blow while with him ﷺ"
+  },
+  {
+    "kind": "lesson",
+    "text": "He had fought in battles before Hunayn"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 4314"
+  },
+  {
+    "kind": "question",
+    "text": "Where was the healed blow that Isma'il saw?"
+  },
+  {
+    "kind": "question",
+    "text": "On his foot"
+  },
+  {
+    "kind": "question",
+    "text": "On his shoulder"
+  },
+  {
+    "kind": "question",
+    "text": "On his hand"
+  },
+  {
+    "kind": "question",
+    "text": "I saw the mark of a healed blow on the hand of Ibn Abi Awfa, Isma'il said."
+  },
+  {
+    "kind": "question",
+    "text": "In which battle did Ibn Abi Awfa get that blow?"
+  },
+  {
+    "kind": "question",
+    "text": "I received that blow in the battle of Hunayn, with the Prophet ﷺ, Ibn Abi Awfa said."
+  },
+  {
+    "kind": "question",
+    "text": "Hunayn was the very first battle Ibn Abi Awfa fought in."
+  },
+  {
+    "kind": "question",
+    "text": "Asked if he was at Hunayn, he said: yes, and in battles before it."
+  },
+  {
+    "kind": "lesson",
+    "text": "On the campaigns with him ﷺ, they used to eat locusts."
+  },
+  {
+    "kind": "lesson",
+    "text": "A ghazwah is a campaign he ﷺ went on"
+  },
+  {
+    "kind": "lesson",
+    "text": "They ate locusts on those journeys"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 5495"
+  },
+  {
+    "kind": "question",
+    "text": "What did Ibn Abi Awfa say they ate on those campaigns?"
+  },
+  {
+    "kind": "question",
+    "text": "Corn"
+  },
+  {
+    "kind": "question",
+    "text": "Tomatoes"
+  },
+  {
+    "kind": "question",
+    "text": "Locusts"
+  },
+  {
+    "kind": "question",
+    "text": "Potatoes"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Abi Awfa said: on the campaigns, we used to eat locusts with him ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "What is a ghazwah?"
+  },
+  {
+    "kind": "question",
+    "text": "A visit to a tribe"
+  },
+  {
+    "kind": "question",
+    "text": "A campaign he ﷺ went on"
+  },
+  {
+    "kind": "question",
+    "text": "A trade journey"
+  },
+  {
+    "kind": "question",
+    "text": "A trip for Hajj"
+  },
+  {
+    "kind": "question",
+    "text": "Ghazawat are the campaigns that he ﷺ himself went out on with his Companions."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Abi Awfa went out on campaigns with him ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Abi Awfa said they went out with him ﷺ on six or seven campaigns."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Abi Awfa spoke of Ibrahim, the son of the Prophet ﷺ."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibrahim died as a little child"
+  },
+  {
+    "kind": "lesson",
+    "text": "There is no prophet after him ﷺ"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 6194"
+  },
+  {
+    "kind": "question",
+    "text": "What did Isma'il ask Ibn Abi Awfa?"
+  },
+  {
+    "kind": "question",
+    "text": "If he had seen Ibrahim"
+  },
+  {
+    "kind": "question",
+    "text": "If he had been at Badr"
+  },
+  {
+    "kind": "question",
+    "text": "If he had met Bilal"
+  },
+  {
+    "kind": "question",
+    "text": "If he had been to Yemen"
+  },
+  {
+    "kind": "question",
+    "text": "Did you see Ibrahim, the son of the Prophet ﷺ? Isma'il asked Ibn Abi Awfa."
+  },
+  {
+    "kind": "question",
+    "text": "At what age did Ibrahim die, Ibn Abi Awfa said?"
+  },
+  {
+    "kind": "question",
+    "text": "As a young man"
+  },
+  {
+    "kind": "question",
+    "text": "As a grown man"
+  },
+  {
+    "kind": "question",
+    "text": "As an old man"
+  },
+  {
+    "kind": "question",
+    "text": "As a little child"
+  },
+  {
+    "kind": "question",
+    "text": "He died in his early childhood, Ibn Abi Awfa said of Ibrahim."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Abi Awfa said there is no prophet after him ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "Had there been a prophet after him ﷺ, his son would have lived; but there is none."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ walked with the widow and the poor, to help them."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ spoke little idle talk"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ was never too proud to help"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan an-Nasa'i 1414"
+  },
+  {
+    "kind": "question",
+    "text": "Whom would he ﷺ walk with, to see to their needs?"
+  },
+  {
+    "kind": "question",
+    "text": "A soldier or a rider"
+  },
+  {
+    "kind": "question",
+    "text": "A guard or a scribe"
+  },
+  {
+    "kind": "question",
+    "text": "A trader or a farmer"
+  },
+  {
+    "kind": "question",
+    "text": "He would not refrain from walking with a widow or poor person and tending to their needs."
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ do a great deal of, Ibn Abi Awfa said?"
+  },
+  {
+    "kind": "question",
+    "text": "Making dhikr"
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ used to recite a great deal of remembrance and engage little in idle talk."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ made the prayer long and the khutbah short."
+  },
+  {
+    "kind": "question",
+    "text": "He used to make the prayer long and keep the khutbah short, Ibn Abi Awfa said."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Abdullah ibn Abi Awfa!"
+  },
+  {
+    "kind": "lesson",
     "text": "Allah told the angels He would place a successor on earth."
   },
   {
@@ -147113,10 +147845,6 @@
   },
   {
     "kind": "question",
-    "text": "His turban"
-  },
-  {
-    "kind": "question",
     "text": "Quran 20:12."
   },
   {
@@ -148786,10 +149514,6 @@
   {
     "kind": "question",
     "text": "What ruined the field in the case?"
-  },
-  {
-    "kind": "question",
-    "text": "Locusts"
   },
   {
     "kind": "question",
@@ -170162,10 +170886,6 @@
   {
     "kind": "question",
     "text": "Which place did ash-Shafi'i govern?"
-  },
-  {
-    "kind": "question",
-    "text": "Najran"
   },
   {
     "kind": "question",
@@ -207505,10 +208225,6 @@
   },
   {
     "kind": "lesson",
-    "text": "Told by Zayd ibn Arqam"
-  },
-  {
-    "kind": "lesson",
     "text": "Al-Baqarah 2:238: guard the prayers"
   },
   {
@@ -220014,14 +220730,6 @@
   {
     "kind": "question",
     "text": "Rome and Persia"
-  },
-  {
-    "kind": "question",
-    "text": "The Aws and the Khazraj"
-  },
-  {
-    "kind": "question",
-    "text": "Quraysh and Thaqif"
   },
   {
     "kind": "question",
@@ -506973,10 +507681,6 @@
   },
   {
     "kind": "lesson",
-    "text": "Ansar means the helpers"
-  },
-  {
-    "kind": "lesson",
     "text": "They hosted the Muhajirin"
   },
   {
@@ -518050,10 +518754,6 @@
   {
     "kind": "question",
     "text": "What did Allah call the hypocrites?"
-  },
-  {
-    "kind": "question",
-    "text": "The helpers"
   },
   {
     "kind": "question",
@@ -588526,10 +589226,6 @@
   {
     "kind": "question",
     "text": "What breaks the fast if done on purpose?"
-  },
-  {
-    "kind": "question",
-    "text": "Making dhikr"
   },
   {
     "kind": "question",
