@@ -120,7 +120,27 @@ import { bukhari, quran, type MapSource } from "./seerahMap";
  * - the town fallen on its roofs, the hundred years, the food and drink unchanged, and the donkey's bones raised and
  *   clothed with flesh (Quran 2:259);
  * - Yusuf's shirt: sent from Egypt with the caravan, its scent found far away, and his father's sight come back (Quran
- *   12:93, 12:94, 12:96).
+ *   12:93, 12:94, 12:96);
+ *
+ * and more wonders of the stories (wonderArt.ts draws them):
+ *
+ * - Ibrahim's honored guests: their greeting of peace, the roasted calf he brought and set near them, their hands not
+ *   reaching for it, "do not fear", and the good news of a knowing son, Ishaq, and after Ishaq, Ya'qub (Quran 11:69,
+ *   51:26 to 51:28, 11:70, 11:71);
+ * - asking forgiveness, and what Nuh and Hud told their peoples it brings: rain in abundance, more wealth, gardens and
+ *   rivers (Quran 71:10 to 71:12, 11:52);
+ * - the wind made to serve Sulayman, a month's journey in the morning and a month's journey in the evening, gently,
+ *   wherever he willed, the spring of molten copper, and "work, family of Dawud, in thanks" (Quran 34:12, 21:81, 38:36,
+ *   34:13);
+ * - Iram of the pillars, Thamud who carved the rocks in the valley, and Pharaoh, owner of the stakes: they spread much
+ *   corruption, so a scourge of punishment was poured on them; your Lord is ever watchful (Quran 89:6 to 89:14);
+ * - the drinking cup put in a bag of the caravan, the call "O caravan, you are thieves", the camel's load promised for
+ *   it, and the bags searched until it was brought out of his brother's bag (Quran 12:70, 12:72, 12:76);
+ * - the bird Isa shaped from clay, which became a bird by Allah's permission when he breathed into it, and what they
+ *   ate and stored in their homes (Quran 3:49, 5:110);
+ * - the parable of one who kindled a fire, whose light Allah took away, and of the rainstorm, with its darkness,
+ *   thunder and lightning: when it lights the way they walk, and when it is dark they stand still (Quran 2:17, 2:19,
+ *   2:20).
  *
  * Each scene shows only what its ayahs say. Nothing in a scene is a person or an angel: only the land, the sky, the
  * sea, plants, animals and things; the people of a parable are never drawn, only their gardens, and no Prophet and no
@@ -128,7 +148,9 @@ import { bukhari, quran, type MapSource } from "./seerahMap";
  * staff, a plank or a wall moves by itself, the House rises stone by stone, and Hajar is only her footprints; and
  * nothing of a sacrifice is ever drawn, only the great ram, and the cow in the pasture; the people of Lut, of Pharaoh
  * and of the Sabbath town are not drawn, nor what befell them, only their land; the one who slept a hundred years is
- * neither drawn nor named, and four birds are never drawn cut apart.
+ * neither drawn nor named, and four birds are never drawn cut apart; Ibrahim's guests are only their greeting and the
+ * meal they did not touch, those who worked for Sulayman are not drawn, nothing is drawn for Pharaoh's stakes, and the
+ * one who kindled the fire is not drawn, only his fire.
  */
 
 export type SignKind =
@@ -192,7 +214,14 @@ export type SignKind =
   | "west-east"
   | "four-birds"
   | "hundred-years"
-  | "shirt";
+  | "shirt"
+  | "guests"
+  | "forgiveness"
+  | "wind"
+  | "pillars"
+  | "cup"
+  | "clay-bird"
+  | "storm";
 
 export type SignScene = {
   id: string;
@@ -608,6 +637,55 @@ export const SIGN_SCENES: readonly SignScene[] = [
     caption:
       "Yusuf told his brothers: go with this shirt of mine and cast it over my father's face; he will see again. When the caravan left Egypt, their father said: I find the scent of Yusuf. When the bearer of good news came, he cast the shirt over his face, and he could see again.",
     sources: [quran(12, 93), quran(12, 94), quran(12, 96)]
+  },
+  {
+    id: "sign-guests",
+    kind: "guests",
+    caption:
+      "The angels came to Ibrahim as his honored guests and said: Peace. He said: Peace. He went quietly to his household and, without delay, brought a fat calf, roasted, and set it near them. He said: will you not eat? When he saw their hands not reaching for it, he felt fear of them. They said: do not fear, and gave him good news of a knowing son. His wife was given the good news of Ishaq, and after Ishaq, Ya'qub.",
+    sources: [quran(11, 69), quran(51, 26), quran(51, 27), quran(51, 28), quran(11, 70), quran(11, 71)]
+  },
+  {
+    id: "sign-forgiveness",
+    kind: "forgiveness",
+    caption:
+      "Nuh told his people: ask your Lord's forgiveness; He is ever forgiving. He will send the sky upon you with rain in abundance, give you more wealth and children, and make gardens for you and make rivers for you. Hud told his people the same: ask your Lord's forgiveness, then turn to Him; He will send the sky upon you with rain in abundance, and add strength to your strength.",
+    sources: [quran(71, 10), quran(71, 11), quran(71, 12), quran(11, 52)]
+  },
+  {
+    id: "sign-wind",
+    kind: "wind",
+    caption:
+      "Allah made the wind serve Sulayman: its morning course was a month's journey, and its evening course a month's journey. It blew by his command, gently, wherever he willed, to the land Allah had blessed. Allah made a spring of molten copper flow for him, and the jinn made for him what he willed, among it basins like reservoirs and cauldrons fixed in place. Work, family of Dawud, in thanks; and few of My servants are thankful.",
+    sources: [quran(34, 12), quran(21, 81), quran(38, 36), quran(34, 13)]
+  },
+  {
+    id: "sign-pillars",
+    kind: "pillars",
+    caption:
+      "Have you not seen how your Lord dealt with 'Ad: Iram of the pillars, whose like was never made in the lands; and Thamud, who carved the rocks in the valley; and Pharaoh, owner of the stakes? They transgressed in the lands and spread much corruption there, so your Lord poured on them a scourge of punishment. Your Lord is ever watchful.",
+    sources: [quran(89, 6), quran(89, 7), quran(89, 9), quran(89, 10), quran(89, 12), quran(89, 13), quran(89, 14)]
+  },
+  {
+    id: "sign-cup",
+    kind: "cup",
+    caption:
+      "When Yusuf had given his brothers their supplies, he put the drinking cup in his brother's bag. Then a caller called out: O caravan, you are thieves! They said: we are missing the king's measure; whoever brings it shall have a camel's load. He began with their bags before his brother's bag, then brought it out of his brother's bag. So did Allah plan for Yusuf.",
+    sources: [quran(12, 70), quran(12, 72), quran(12, 76)]
+  },
+  {
+    id: "sign-clay-bird",
+    kind: "clay-bird",
+    caption:
+      "Isa said: I have come to you with a sign from your Lord: I make for you out of clay the shape of a bird, then I breathe into it, and it becomes a bird by Allah's permission. I heal the blind and the leper and give life to the dead, by Allah's permission, and I tell you what you eat and what you store in your homes. In that is a sign for you, if you believe.",
+    sources: [quran(3, 49), quran(5, 110)]
+  },
+  {
+    id: "sign-storm",
+    kind: "storm",
+    caption:
+      "The hypocrites are like one who kindled a fire: when it lit up all around him, Allah took away their light and left them in darkness, unable to see. Or like a rainstorm from the sky, in it darkness, thunder and lightning. The lightning almost snatches away their sight: whenever it lights the way for them, they walk in it, and when it grows dark over them, they stand still.",
+    sources: [quran(2, 17), quran(2, 19), quran(2, 20)]
   }
 ];
 
@@ -811,6 +889,9 @@ export const SIGN_LESSONS: Record<string, string> = {
   "deep-qamar2-the-she-camel": "sign-she-camel",
   "deep-qamar2-they-harmed-the-camel": "sign-she-camel",
   "deep-shams3-the-she-camel-of-allah": "sign-she-camel",
+  "deep-araf3-homes-in-mountains": "sign-she-camel",
+  "deep-hijr4-homes-in-the-mountains": "sign-she-camel",
+  "deep-shuara3-houses-in-the-mountains": "sign-she-camel",
   // The ant who warned the others, and Sulayman's thanks.
   "prophets-power-and-deliverance-sulayman-and-gratitude": "sign-ants",
   "deep-prophet-sulayman-ant": "sign-ants",
@@ -1141,7 +1222,61 @@ export const SIGN_LESSONS: Record<string, string> = {
   "deep-baqarah3-hundred-years": "sign-hundred-years",
   // Yusuf's shirt, its scent, and his father's sight.
   "deep-yusuf5-the-scent-of-yusuf": "sign-shirt",
-  "deep-yusuf5-his-sight-returns": "sign-shirt"
+  "deep-yusuf5-his-sight-returns": "sign-shirt",
+  // Ibrahim's honored guests, the roasted calf, and the good news of Ishaq and Ya'qub.
+  "deep-prophet-ibrahim-guests": "sign-guests",
+  "deep-prophet-ishaq-yaqub-good-news": "sign-guests",
+  "deep-quranwomen-sarah-smiled": "sign-guests",
+  "surah-meaning-11-69-83": "sign-guests",
+  "surah-meaning-15-45-60": "sign-guests",
+  "surah-meaning-51-24-46": "sign-guests",
+  "deep-hud4-ibrahims-guests": "sign-guests",
+  "deep-hud4-honour-your-guest": "sign-guests",
+  "deep-hud4-hands-did-not-reach": "sign-guests",
+  "deep-hud4-good-news-of-ishaq": "sign-guests",
+  "deep-hud4-do-you-wonder-at-allahs-decree": "sign-guests",
+  "deep-hijr3-ibrahims-guests": "sign-guests",
+  "deep-hijr3-news-of-a-son": "sign-guests",
+  "deep-hijr3-never-despair": "sign-guests",
+  "deep-dhariyat2-ibrahims-honored-guests": "sign-guests",
+  "deep-dhariyat2-a-better-greeting": "sign-guests",
+  "deep-dhariyat2-the-best-food-quickly": "sign-guests",
+  "deep-dhariyat2-manners-with-guests": "sign-guests",
+  "deep-dhariyat2-good-news-of-a-son": "sign-guests",
+  "deep-dhariyat2-an-old-woman-amazed": "sign-guests",
+  // Asking forgiveness, and the rain, wealth, gardens and rivers it brings.
+  "deep-prophet-nuh-istighfar": "sign-forgiveness",
+  "surah-meaning-11-50-60": "sign-forgiveness",
+  "surah-meaning-71-10-20": "sign-forgiveness",
+  "deep-hud3-repent-for-rain-and-strength": "sign-forgiveness",
+  "deep-nuh2-ask-forgiveness": "sign-forgiveness",
+  "deep-nuh2-rain-from-istighfar": "sign-forgiveness",
+  "deep-nuh2-wealth-children-gardens": "sign-forgiveness",
+  // The wind made to serve Sulayman, and the spring of molten copper.
+  "deep-prophet-sulayman-wind-jinn": "sign-wind",
+  "deep-anbiya3-wind-for-sulayman": "sign-wind",
+  "deep-saba1-the-wind-for-sulayman": "sign-wind",
+  "deep-saba1-work-with-thanks": "sign-wind",
+  "deep-sad2-the-wind-obeyed": "sign-wind",
+  // Iram of the pillars, Thamud who carved the rocks, Pharaoh, and the scourge poured on them.
+  "surah-meaning-89-1-14": "sign-pillars",
+  "deep-fajr2-iram-of-the-pillars": "sign-pillars",
+  "deep-fajr2-thamud-who-carved-rocks": "sign-pillars",
+  "deep-fajr2-firawn-and-his-armies": "sign-pillars",
+  "deep-fajr2-they-spread-corruption": "sign-pillars",
+  "deep-fajr2-ever-watchful": "sign-pillars",
+  // The cup put in a bag of the caravan, and brought out of his brother's bag.
+  "surah-meaning-12-69-79": "sign-cup",
+  "deep-yusuf4-the-kings-cup": "sign-cup",
+  "deep-yusuf4-by-their-own-ruling": "sign-cup",
+  // The bird of clay, a bird by Allah's permission.
+  "deep-prophet-isa-miracles": "sign-clay-bird",
+  "deep-imran1-by-allahs-leave": "sign-clay-bird",
+  "deep-maidah2-isa-miracles": "sign-clay-bird",
+  // The fire that went out, and the storm.
+  "surah-meaning-2-8-20": "sign-storm",
+  "deep-baqarah1-fire-parable": "sign-storm",
+  "deep-baqarah1-storm-parable": "sign-storm"
 };
 
 export type LessonSign = { scene: SignScene; lessonSlug: string };
