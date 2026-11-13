@@ -62,12 +62,25 @@ import { bukhari, quran, type MapSource } from "./seerahMap";
  *   Ya'juj and Ma'juj unable to climb over it (Quran 18:93 to 18:97);
  * - Yunus: the laden ship, the great fish, the darknesses, the open shore, the gourd plant, and his people who believed
  *   (Quran 37:140 to 37:148, 21:87, 21:88);
- * - the palm tree in a place far away, the stream beneath Maryam and the fresh ripe dates (Quran 19:22 to 19:26).
+ * - the palm tree in a place far away, the stream beneath Maryam and the fresh ripe dates (Quran 19:22 to 19:26);
+ *
+ * and Allah's favors to His Prophets (favorArt.ts draws them):
+ *
+ * - the mountains and the birds glorifying Allah with Dawud, the iron made soft for him and the coats of mail with
+ *   their rings just right (Quran 21:79, 21:80, 34:10, 34:11, 38:18, 38:19);
+ * - the House raised in a valley without crops, with the prayer: our Lord, accept from us; and the call to Hajj, and
+ *   the camels coming from every distant path (Quran 14:37, 2:127, 22:26, 22:27);
+ * - Safa and Marwah, the seven times between them, the water of Zamzam, and the bird circling over it (Quran 2:158,
+ *   Sahih al-Bukhari 3364);
+ * - the queen's throne, brought before the glance returned, disguised, and the palace paved with glass (Quran 27:38,
+ *   27:40, 27:41, 27:44);
+ * - the provision Zakariyya found with Maryam in the mihrab, and his call to his Lord there (Quran 3:37, 3:38);
+ * - the great fire made coolness and safety for Ibrahim (Quran 21:68 to 21:70, 37:97).
  *
  * Each scene shows only what its ayahs say. Nothing in a scene is a person or an angel: only the land, the sky, the
  * sea, plants, animals and things; the people of a parable are never drawn, only their gardens, and no Prophet and no
- * one of their people is drawn in the stories: the sleepers stay inside the dark cave, an army is only its dust, and
- * a staff, a plank or a wall moves by itself.
+ * one of their people is drawn in the stories: the sleepers stay inside the dark cave, an army is only its dust, a
+ * staff, a plank or a wall moves by itself, the House rises stone by stone, and Hajar is only her footprints.
  */
 
 export type SignKind =
@@ -107,7 +120,13 @@ export type SignKind =
   | "khidr"
   | "barrier"
   | "yunus"
-  | "maryam";
+  | "maryam"
+  | "dawud"
+  | "house"
+  | "zamzam"
+  | "throne"
+  | "mihrab"
+  | "cool-fire";
 
 export type SignScene = {
   id: string;
@@ -356,6 +375,47 @@ export const SIGN_SCENES: readonly SignScene[] = [
     caption:
       "Maryam withdrew to a place far away, and the pains of birth drove her to the trunk of a palm tree. She was told not to grieve: her Lord had made a stream beneath her, and if she shook the trunk of the palm tree toward her, fresh ripe dates would fall. So eat, drink and be glad.",
     sources: [quran(19, 22), quran(19, 23), quran(19, 24), quran(19, 25), quran(19, 26)]
+  },
+  {
+    id: "sign-dawud",
+    kind: "dawud",
+    caption:
+      "Allah gave Dawud a favor from Him: the mountains glorified Allah with him, evening and morning, and so did the birds, gathered to him. Allah made iron soft for him and taught him to make coats of mail, with their rings just right, to protect people in battle.",
+    sources: [quran(21, 79), quran(21, 80), quran(34, 10), quran(34, 11), quran(38, 18), quran(38, 19)]
+  },
+  {
+    id: "sign-house",
+    kind: "house",
+    caption:
+      "Allah showed Ibrahim the place of His House, in a valley without crops, where Ibrahim had settled some of his family. Ibrahim and Ismail raised its foundations, praying: our Lord, accept from us. Then Ibrahim was told to proclaim the Hajj to the people: they would come on foot and on lean camels, from every distant path.",
+    sources: [quran(14, 37), quran(2, 127), quran(22, 26), quran(22, 27)]
+  },
+  {
+    id: "sign-zamzam",
+    kind: "zamzam",
+    caption:
+      "Safa and Marwah are among the signs of Allah. Hajar went between them seven times, looking for water for her baby, Ismail, and then the water of Zamzam came out. Later, people of Jurhum saw a bird circling and knew it was over water, so they came to live there.",
+    sources: [quran(2, 158), bukhari("3364")]
+  },
+  {
+    id: "sign-throne",
+    kind: "throne",
+    caption:
+      "Sulayman asked who would bring him the queen's throne from Saba. One who had knowledge of the Book said: I will bring it to you before your glance returns. When Sulayman saw it set before him, he said: this is from the favor of my Lord, to test me. Her throne was disguised for her, and she was shown into a palace paved smooth with glass, over water.",
+    sources: [quran(27, 38), quran(27, 40), quran(27, 41), quran(27, 44)]
+  },
+  {
+    id: "sign-mihrab",
+    kind: "mihrab",
+    caption:
+      "Zakariyya took care of Maryam. Each time he came in to her in the mihrab, he found provision with her. He asked where it came from, and she said: it is from Allah; Allah provides for whom He wills without measure. There, Zakariyya called on his Lord for a good child.",
+    sources: [quran(3, 37), quran(3, 38)]
+  },
+  {
+    id: "sign-cool-fire",
+    kind: "cool-fire",
+    caption: "Ibrahim's people built a great fire and threw him into it. Allah said: O fire, be coolness and safety for Ibrahim. They wanted to harm him, but Allah made them the losers.",
+    sources: [quran(21, 68), quran(21, 69), quran(21, 70), quran(37, 97)]
   }
 ];
 
@@ -364,7 +424,7 @@ export const SIGN_SCENES: readonly SignScene[] = [
  * Left out: lessons that only touch a sign among other things (a whole passage of a surah), stories of people at sea,
  * and the Day of Judgment's seas and mountains. The gardens of the parables are drawn, never their owners. For the
  * stories, the lessons on the moment a scene shows; not the ones on what came before or after it (Pharaoh drowning,
- * Nuh's son, the queen's throne, the shining hand, the parting from al-Khidr, Ya'juj and Ma'juj let loose at the end),
+ * Nuh's son, the shining hand, the parting from al-Khidr, Ya'juj and Ma'juj let loose at the end),
  * nor the reviews, nor the lessons on the twelve paths through the sea (its scene shows the one dry path of 20:77),
  * nor the ones on a hadith about a story (the virtue of Yunus's dua, the gourd he ﷺ liked).
  */
@@ -681,7 +741,57 @@ export const SIGN_LESSONS: Record<string, string> = {
   "deep-maryam1-by-the-palm-tree": "sign-maryam",
   "deep-maryam1-dates-and-a-stream": "sign-maryam",
   "deep-prophet-isa-palm-tree": "sign-maryam",
-  "deep-quranwomen-maryam-palm": "sign-maryam"
+  "deep-quranwomen-maryam-palm": "sign-maryam",
+  // Dawud: the mountains and the birds glorifying Allah with him, the iron made soft, and the coats of mail.
+  "surah-meaning-38-15-26": "sign-dawud",
+  "deep-prophet-dawud-mountains-birds": "sign-dawud",
+  "deep-anbiya3-mountains-birds-dawud": "sign-dawud",
+  "deep-anbiya3-dawud-armor": "sign-dawud",
+  "deep-saba1-mountains-sang-with-dawud": "sign-dawud",
+  "deep-saba1-perfect-coats-of-mail": "sign-dawud",
+  "deep-sad2-the-mountains-glorify": "sign-dawud",
+  "deep-sad2-the-birds-assembled": "sign-dawud",
+  // The House raised in a valley without crops, and the call to Hajj.
+  "prophets-family-and-sacrifice-ismail-and-submission": "sign-house",
+  "surah-meaning-2-122-129": "sign-house",
+  "surah-meaning-22-26-33": "sign-house",
+  "deep-hajj-house-raising": "sign-house",
+  "deep-hajj-house-valley": "sign-house",
+  "deep-hajj-house-proclaim": "sign-house",
+  "deep-prophet-ismail-valley": "sign-house",
+  "deep-prophet-ismail-building": "sign-house",
+  "deep-baqarah2-raising-house": "sign-house",
+  "deep-ibrahim4-a-valley-without-crops": "sign-house",
+  "deep-hajj2-site-of-the-house": "sign-house",
+  "deep-hajj2-proclaim-the-hajj": "sign-house",
+  // Safa and Marwah, the seven times between them, and the water of Zamzam.
+  "hajj-rites-sai": "sign-zamzam",
+  "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-hajar": "sign-zamzam",
+  "deep-hajj-kabah-safa-marwah": "sign-zamzam",
+  "deep-prophet-ismail-jurhum": "sign-zamzam",
+  "deep-quranwomen-hajar-safa-marwah": "sign-zamzam",
+  "deep-baqarah2-safa-marwah": "sign-zamzam",
+  // The queen's throne, brought in the blink of an eye and disguised, and the palace paved with glass.
+  "surah-meaning-27-32-44": "sign-throne",
+  "deep-prophet-sulayman-queen": "sign-throne",
+  "deep-quranwomen-saba-submits": "sign-throne",
+  "deep-naml2-the-throne-in-a-blink": "sign-throne",
+  "deep-naml2-as-though-it-were": "sign-throne",
+  "deep-naml2-the-glass-palace": "sign-throne",
+  // The provision with Maryam in the mihrab, and Zakariyya's call to his Lord there.
+  "deep-prophet-zakariyya-maryam": "sign-mihrab",
+  "deep-prophet-zakariyya-good-offspring": "sign-mihrab",
+  "deep-quranwomen-maryam-provision": "sign-mihrab",
+  "deep-imran1-from-allah": "sign-mihrab",
+  "deep-imran1-zakariyya-dua": "sign-mihrab",
+  // The fire made coolness and safety for Ibrahim.
+  "surah-meaning-21-51-75": "sign-cool-fire",
+  "deep-prophet-ibrahim-fire": "sign-cool-fire",
+  "deep-anbiya2-o-fire-be-cool": "sign-cool-fire",
+  "deep-anbiya2-allah-is-sufficient-for-us": "sign-cool-fire",
+  "deep-ankabut2-saved-from-the-fire": "sign-cool-fire",
+  "deep-saffat3-into-the-fire": "sign-cool-fire",
+  "deep-saffat3-made-the-lowest": "sign-cool-fire"
 };
 
 export type LessonSign = { scene: SignScene; lessonSlug: string };
