@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import { LESSONS_BY_ID } from "../../data/course";
+import { DAY_SKY_LESSONS, SKY_STOPS, skyForLesson } from "../../data/daySky";
 import { HAJJ_MAP_LESSONS, HAJJ_STOPS, hajjMapForLesson } from "../../data/hajjMap";
 import { pictureForLesson } from "../../data/lessonPictures";
 import { journeyForLesson, SEERAH_JOURNEYS } from "../../data/seerahMap";
@@ -9,6 +10,8 @@ import { localizeLessonContent } from "../../services/contentLocalization";
 import type { Lesson, SupportedLanguage } from "../../types";
 import { LearnCard, LessonScreen, getLessonLine } from "../lesson";
 import { teacherFor } from "../lesson/Teacher";
+import { DayOfPrayerBanner, DayOfPrayerSheet } from "../journey/DayOfPrayer";
+import { DaySky } from "../journey/DaySky";
 import { HajjMapBanner, HajjMapSheet } from "../journey/HajjMap";
 import { JourneyMap } from "../journey/JourneyMap";
 import { LifeMapBanner, LifeMapSheet } from "../journey/LifeMap";
@@ -17,9 +20,11 @@ import { colors, fonts, space } from "../theme";
 /**
  * The Seerah and Hajj maps (src/ui/journey), for checking them by eye on the web:
  * #gallery-journey: every scene, with each lesson's own roads and touches (?still=0 lets them move);
- * #gallery-journey-lesson:<lesson id>: a Seerah or Hajj lesson's first page as the app shows it (?lang=bn, ur or ar);
+ * #gallery-journey-lesson:<lesson id>: a Seerah, Hajj or sky lesson's first page as the app shows it (?lang=bn, ur or ar);
  * #gallery-journey-life: the map of his life ﷺ, playing;
- * #gallery-journey-hajj: the map of Hajj, playing.
+ * #gallery-journey-hajj: the map of Hajj, playing;
+ * #gallery-journey-prayer: the day of prayer in the sky, playing;
+ * #gallery-journey-skies: every sky at its end (?still=0 plays them).
  */
 
 const noop = () => undefined;
@@ -35,6 +40,7 @@ function LessonStart({ lessonId }: { lessonId: string }) {
   setActiveLanguage(language());
   const english = (LESSONS_BY_ID[lessonId] ?? LESSONS_BY_ID["lesson-deep-seerah-hijrah-quba"]) as Lesson;
   const hajj = english.nodeId in HAJJ_MAP_LESSONS;
+  const sky = english.nodeId in DAY_SKY_LESSONS;
   const lesson = localizeLessonContent(english, language());
   return (
     <LessonScreen progress={0.06} hearts={HEARTS} onClose={noop}>
@@ -46,7 +52,8 @@ function LessonStart({ lessonId }: { lessonId: string }) {
         learnSource={lesson.learnSource}
         picture={pictureForLesson(english)}
         journey={journeyForLesson(english) ?? hajjMapForLesson(english)}
-        teacher={teacherFor(hajj ? "hajj" : "prophets")}
+        sky={skyForLesson(english)}
+        teacher={teacherFor(hajj ? "hajj" : sky ? "prayer" : "prophets")}
         mascotVariant="boy"
         accent={ACCENT}
         onContinue={noop}
@@ -82,6 +89,37 @@ function HajjDemo() {
   );
 }
 
+function PrayerDemo() {
+  setActiveLanguage(language());
+  const [open, setOpen] = useState(true);
+  return (
+    <View style={styles.full}>
+      <View style={styles.pad}>
+        <DayOfPrayerBanner accent={ACCENT} onOpen={() => setOpen(true)} />
+      </View>
+      <DayOfPrayerSheet visible={open} onClose={() => setOpen(false)} accent={ACCENT} topGap={24} />
+    </View>
+  );
+}
+
+/** Every sky, at its end (or playing, with ?still=0). */
+function AllSkies() {
+  setActiveLanguage(language());
+  const moving = Platform.OS === "web" && typeof window !== "undefined" && new URLSearchParams(window.location.search).get("still") === "0";
+  return (
+    <ScrollView style={styles.full} contentContainerStyle={styles.wall}>
+      {SKY_STOPS.map((stop) => (
+        <View key={stop.scene.id} style={styles.wallItem} testID={`sky-${stop.scene.id}`}>
+          <Text style={styles.caption}>{stop.scene.id}</Text>
+          <View style={styles.mapBox}>
+            <DaySky scene={stop.scene} width={360} height={270} still={!moving} />
+          </View>
+        </View>
+      ))}
+    </ScrollView>
+  );
+}
+
 /** Every scene, and again for each lesson that adds its own road, note or touch; then the Hajj stops. */
 function AllScenes() {
   setActiveLanguage(language());
@@ -112,6 +150,8 @@ export default function JourneyGallery({ hash }: { hash: string }) {
   if (hash.startsWith("#gallery-journey-lesson")) return <LessonStart key={hash} lessonId={decodeURIComponent(hash.split(":")[1] ?? "")} />;
   if (hash.startsWith("#gallery-journey-life")) return <LifeDemo />;
   if (hash.startsWith("#gallery-journey-hajj")) return <HajjDemo />;
+  if (hash.startsWith("#gallery-journey-prayer")) return <PrayerDemo />;
+  if (hash.startsWith("#gallery-journey-skies")) return <AllSkies />;
   return <AllScenes />;
 }
 

@@ -10,8 +10,9 @@ import { hasArabic } from "../ArabicText";
 //   fill    the answer with its key word missing: tap the missing word from a few choices
 //   check   true or false: "Is this the answer?" with one choice shown
 //   map     every answer a place: tap the right one where it is, on a map of the land (mapQuestions)
+//   sky     every answer a time of the day: tap the right one, and the sky plays to it (skyQuestions)
 
-export type QuestionFormat = "choose" | "blank" | "fill" | "check" | "map";
+export type QuestionFormat = "choose" | "blank" | "fill" | "check" | "map" | "sky";
 
 /**
  * Whether questions are asked in more than one way (and quiz circles open with a matching round). Always on in
@@ -30,6 +31,8 @@ export type FormatContext = {
   pictures?: boolean;
   /** Every answer is a place on the map (mapPlacesFor): asked on the map, or (with pictures too) half the time. */
   map?: boolean;
+  /** Every answer is a time of the day (skyTimesFor): asked in the sky. */
+  sky?: boolean;
 };
 
 const BLANK = /_{2,}/;
@@ -177,6 +180,8 @@ export function canCheck(challenge: Pick<Challenge, "choices" | "correctChoiceId
 export function questionFormat(challenge: Pick<Challenge, "id" | "type" | "prompt" | "choices" | "correctChoiceId" | "listen">, context: FormatContext = {}): QuestionFormat {
   // A listening question is heard, then its meaning picked from the tiles.
   if (!questionVariety() || isTrueFalse(challenge) || challenge.listen) return "choose";
+  // Times of the day are found in the sky, each answer with its own, the sky playing to the one picked.
+  if (context.sky) return "sky";
   const roll = formatSeed(`${challenge.id}|${context.recall ? "recall" : "learn"}`) % 100;
   // Places are found on the map; places with their own photos are picture cards the other half of the time, so the
   // same question taught one way is often asked the other way later.

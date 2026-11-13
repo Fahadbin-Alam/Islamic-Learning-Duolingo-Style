@@ -21,11 +21,11 @@ const MAP_ASPECT = 4 / 3;
 /** A lesson's map: a Seerah lesson's (with his years under it) or a Hajj lesson's (with the days of Hajj). */
 export type LessonMap = LessonJourney | HajjLessonMap;
 
-/** Where the map's roads and notes come from, each opening its page (sunnah.com, quran.com). */
-export function MapSources({ sources, onOpen = openWebPage, testID }: { sources: MapSource[]; onOpen?: (url: string) => void; testID?: string }) {
+/** Where the map's roads and notes (or the sky's times) come from, each opening its page (sunnah.com, quran.com). */
+export function MapSources({ sources, onOpen = openWebPage, testID, lead }: { sources: MapSource[]; onOpen?: (url: string) => void; testID?: string; lead?: string }) {
   return (
     <View style={styles.sources} testID={testID}>
-      <Text style={styles.sourcesLead}>{t("Map from")}</Text>
+      <Text style={styles.sourcesLead}>{lead ?? t("Map from")}</Text>
       {sources.map((source) => (
         <Tappable key={source.reference} onPress={() => onOpen(source.url)} accessibilityRole="link" accessibilityLabel={t(source.reference)} hitSlop={6} sound={false} style={styles.sourceTap}>
           <Text style={styles.sourceText} numberOfLines={1}>

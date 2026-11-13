@@ -1022,5 +1022,11 @@
   "Review it again tomorrow": "কাল আবার রিভিউ করো",
   "Review it again in {count} days": "{count} দিন পরে আবার রিভিউ করো",
   "Map of Hajj": "হজের মানচিত্র",
-  "Where each step of Hajj happens, in order.": "হজের প্রতিটি ধাপ কোথায় হয়, ধারাবাহিকভাবে।"
+  "Where each step of Hajj happens, in order.": "হজের প্রতিটি ধাপ কোথায় হয়, ধারাবাহিকভাবে।",
+  "Times from": "সময়ের সূত্র",
+  "Plays the sky again": "আকাশটি আবার দেখায়",
+  "The day of prayer": "নামাজের দিন",
+  "Each prayer in its time, in the sky from dawn to night.": "প্রতিটি নামাজ তার সময়ে, আকাশে ভোর থেকে রাত পর্যন্ত।",
+  "Tap the time of day": "দিনের সময়টিতে চাপো",
+  "Shows this time in the sky": "এই সময়ের আকাশ দেখায়"
 }

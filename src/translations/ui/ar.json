@@ -1022,5 +1022,11 @@
   "Review it again tomorrow": "راجعها مرة أخرى غدًا",
   "Review it again in {count} days": "راجعها مرة أخرى بعد {count} أيام",
   "Map of Hajj": "خريطة الحج",
-  "Where each step of Hajj happens, in order.": "أين تكون كل خطوة من الحج، بالترتيب."
+  "Where each step of Hajj happens, in order.": "أين تكون كل خطوة من الحج، بالترتيب.",
+  "Times from": "مصدر المواقيت",
+  "Plays the sky again": "يعرض السماء مرة أخرى",
+  "The day of prayer": "يوم الصلاة",
+  "Each prayer in its time, in the sky from dawn to night.": "كل صلاة في وقتها، في السماء من الفجر إلى الليل.",
+  "Tap the time of day": "اضغط على وقت اليوم",
+  "Shows this time in the sky": "يعرض هذا الوقت في السماء"
 }

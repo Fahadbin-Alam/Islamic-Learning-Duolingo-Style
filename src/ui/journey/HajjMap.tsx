@@ -3,7 +3,7 @@ import { Text, View } from "react-native";
 import { HAJJ_STOPS } from "../../data/hajjMap";
 import { t } from "../../i18n";
 import { HajjDaysBar, HajjWhen, hajjStopColor } from "./HajjDays";
-import { MapBanner, MapPlayerSheet, playerBox, type PlayerStop } from "./MapPlayer";
+import { MapBanner, MapPlayerSheet, mapStop, playerBox, type PlayerStop } from "./MapPlayer";
 
 /**
  * "Map of Hajj", on the Hajj path: Hajj played in order on the map, as Jabir told of his Hajj ﷺ (Sahih Muslim 1218a):
@@ -11,7 +11,7 @@ import { MapBanner, MapPlayerSheet, playerBox, type PlayerStop } from "./MapPlay
  * the 10th, the days at Mina, and the farewell tawaf; then all of it together. The days of Hajj are under each map.
  */
 
-const PLAYER_STOPS: readonly PlayerStop[] = HAJJ_STOPS.map((stop) => ({ key: stop.scene.id, scene: stop.scene, title: stop.title, color: hajjStopColor(stop) }));
+const PLAYER_STOPS: readonly PlayerStop[] = HAJJ_STOPS.map((stop) => mapStop(stop.scene.id, stop.scene, stop.title, hajjStopColor(stop)));
 
 export function HajjMapBanner({ accent, onOpen }: { accent: string; onOpen: () => void }) {
   return <MapBanner title={t("Map of Hajj")} line={t("Where each step of Hajj happens, in order.")} accent={accent} onOpen={onOpen} testID="hajj-map-banner" />;
