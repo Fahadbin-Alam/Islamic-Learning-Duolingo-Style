@@ -10,7 +10,7 @@ import { dayHour } from "../journey/skyArt";
  *
  * An answer counts only when it is written in one of the ways below, each of which means one time and no other.
  * "The morning" or "early in the morning" can mean dawn or after sunrise, and "until night" ends at sunset, so those
- * questions stay tiles.
+ * questions stay tiles. A prayer named by its time ("The dawn prayer", "Asr, the afternoon prayer") is that time.
  */
 const TIME_OF_ANSWER: Record<string, DayMoment> = {
   // Dawn: the first light, before the sun rises (the time of Fajr).
@@ -21,6 +21,8 @@ const TIME_OF_ANSWER: Record<string, DayMoment> = {
   "at dawn, before fajr's fard": "dawn",
   "after fajr": "dawn",
   "from dawn until sunrise": "dawn",
+  "the dawn prayer": "dawn",
+  "fajr, the dawn prayer": "dawn",
   // Sunrise.
   "at sunrise": "sunrise",
   "right at sunrise": "sunrise",
@@ -33,11 +35,14 @@ const TIME_OF_ANSWER: Record<string, DayMoment> = {
   "noon only": "midday",
   "at midday": "midday",
   "when the sun passed midday": "midday",
+  "the noon prayer": "midday",
   // The afternoon (the time of Asr).
   "in the afternoon": "afternoon",
   "at asr": "afternoon",
   "at asr time": "afternoon",
   "after asr": "afternoon",
+  "the afternoon prayer": "afternoon",
+  "asr, the afternoon prayer": "afternoon",
   // Sunset, and the twilight after it (the time of Maghrib), when night first falls.
   "at sunset": "sunset",
   "it is sunset": "sunset",
@@ -47,6 +52,8 @@ const TIME_OF_ANSWER: Record<string, DayMoment> = {
   "soon after sunset": "sunset",
   "after maghrib": "sunset",
   "when night first falls": "sunset",
+  "the sunset prayer": "sunset",
+  "maghrib, the sunset prayer": "sunset",
   // The night, once the twilight has gone (the time of Isha).
   midnight: "night",
   "at night": "night",
@@ -58,6 +65,9 @@ const TIME_OF_ANSWER: Record<string, DayMoment> = {
   "in the depths of the night": "night",
   "after isha": "night",
   "right after isha": "night",
+  "the isha prayer": "night",
+  "the night prayer": "night",
+  "isha, the night prayer": "night",
   // The last third of the night, up to dawn (the time of suhur).
   "the last third of the night": "lastThird",
   "before dawn": "lastThird",
@@ -74,6 +84,28 @@ const TIME_OF_ANSWER: Record<string, DayMoment> = {
  * the English gives as "at daybreak" and the answer as "At dawn"; a sky at the first light could be the wrong one.
  */
 const LEFT_AS_TILES = new Set(["At what time did he ﷺ say the journey du'a?"]);
+
+/**
+ * The five prayers by name, each at its time: Fajr at dawn, Zuhr just past midday, Asr in the afternoon, Maghrib at
+ * sunset and Isha at night (Sahih Muslim 612d).
+ */
+const PRAYER_OF_ANSWER: Record<string, DayMoment> = { fajr: "dawn", zuhr: "midday", dhuhr: "midday", asr: "afternoon", maghrib: "sunset", isha: "night" };
+
+/**
+ * The questions asked by a prayer's name alone ("Maghrib"), each read to check that its words give no time away. Each
+ * answer's small sky shows the time of its prayer, so "Which prayer is before sunrise?" or "The prayer day begins with
+ * ____ at dawn" stay as tiles (the sky would answer them), while "In which prayer did he ﷺ recite At-Tur?" is asked in
+ * the sky: tap a prayer, and the sky plays to its time.
+ */
+const ASKED_BY_PRAYER = new Set([
+  "Which prayer had they just prayed with him ﷺ?",
+  "After which prayer did the good news come?",
+  "Which prayer did they wait to pray with him ﷺ?",
+  "Which prayer had two before and two after?",
+  "In which prayer did he ﷺ recite At-Tur, per Bukhari 765?",
+  "Which prayer was being recited when they heard?",
+  "In which prayer did he recite it, per Umm al-Fadl?"
+]);
 
 /** An answer as the table above writes it: lower case, plain quotes, no stop at the end. */
 export function timeKey(label: string) {
@@ -92,19 +124,29 @@ export function timeOfAnswer(label: string): DayMoment | undefined {
 
 /**
  * Each answer's time (choice id -> time of the day), when the question can be asked in the sky: at least three
- * answers, each a different time. Read on the English question.
+ * answers, each a different time (a prayer's name alone counts only in the questions read for it, ASKED_BY_PRAYER).
+ * Read on the English question.
  */
 export function skyTimesFor(challenge: Pick<Challenge, "choices" | "type" | "prompt">): Record<string, DayMoment> | undefined {
   if (challenge.type === "true_false" || challenge.choices.length < 3 || LEFT_AS_TILES.has(challenge.prompt)) return undefined;
+  const byName = ASKED_BY_PRAYER.has(challenge.prompt);
   const times: Record<string, DayMoment> = {};
   const seen = new Set<DayMoment>();
   for (const choice of challenge.choices) {
-    const time = timeOfAnswer(choice.label);
+    const time = timeOfAnswer(choice.label) ?? (byName ? PRAYER_OF_ANSWER[timeKey(choice.label)] : undefined);
     if (!time || seen.has(time)) return undefined;
     seen.add(time);
     times[choice.id] = time;
   }
   return times;
+}
+
+/** Every answer is a prayer ("Maghrib", "The noon prayer"), so the sky question asks for the prayer, not the time. */
+export function answersArePrayers(challenge: Pick<Challenge, "choices">) {
+  return challenge.choices.every((choice) => {
+    const key = timeKey(choice.label);
+    return Boolean(PRAYER_OF_ANSWER[key]) || (/ prayer$/.test(key) && Boolean(TIME_OF_ANSWER[key]));
+  });
 }
 
 /**

@@ -23,7 +23,8 @@ import { openingTime, timeColor, tripTo } from "./skyQuestions";
 /**
  * A time question asked in the sky (see skyQuestions.ts): each answer is a tile with a small picture of its time of
  * the day, and the big sky above plays to the time the learner picks: the sun climbing or setting, the stars coming
- * out. Before a pick, the sky stands at a time no answer is, so it gives nothing away. CHECK and the answer sheet
+ * out. A question on a prayer ("In which prayer did he ﷺ recite At-Tur?") is asked the same way, each prayer at its
+ * time, and the prayer's name comes into the sky as the sky reaches it. Before a pick, the sky stands at a time no answer is, so it gives nothing away. CHECK and the answer sheet
  * work as for every other way of asking, so the lesson scores it, takes a heart and shows the source as usual. A
  * right answer throws sparkles and turns green; a wrong one shakes and turns red, the right one turns green, and the
  * sky plays on to the right time.
@@ -37,6 +38,8 @@ export type SkyGameProps = {
   choices: ExerciseChoice[];
   /** Each answer's time of the day (choice id -> time, from skyTimesFor on the English question). */
   times: Record<string, DayMoment>;
+  /** The answers are prayers ("Maghrib"), each at its time: the learner taps the prayer (answersArePrayers). */
+  byPrayer?: boolean;
   correctChoiceId: string;
   selectedChoiceId?: string;
   result?: ExerciseResult;
@@ -95,7 +98,7 @@ export function SkyGame(props: SkyGameProps) {
 }
 
 /** Inside the game's frame, so it can keep the sky in sight once the answer sheet is up. */
-function SkyBody({ prompt, choices, times, correctChoiceId, selectedChoiceId, result, onSelect, mascotVariant, accent, review, attempt }: SkyGameProps) {
+function SkyBody({ prompt, choices, times, byPrayer, correctChoiceId, selectedChoiceId, result, onSelect, mascotVariant, accent, review, attempt }: SkyGameProps) {
   const { compact } = useLessonCompact();
   const still = useReduceMotion();
   const room = useGameRoom();
@@ -118,7 +121,14 @@ function SkyBody({ prompt, choices, times, correctChoiceId, selectedChoiceId, re
   useEffect(() => {
     setTrip((was) => (was.time === target ? was : { id: was.id + 1, time: target, ...tripTo(was.to, target) }));
   }, [target]);
-  const scene = useMemo<SkyScene>(() => ({ id: `sky-question-${trip.id}`, from: trip.from, to: trip.to, caption: "", sources: [] }), [trip]);
+  // On a prayer question, the prayer's name comes into the sky as it reaches the prayer's time: the one picked, or the
+  // right one after a wrong pick.
+  const named = byPrayer ? choices.find((choice) => choice.id === (result && !result.correct ? correctChoiceId : selectedChoiceId)) : undefined;
+  const markLabel = named && times[named.id] === trip.time ? named.label : undefined;
+  const scene = useMemo<SkyScene>(
+    () => ({ id: `sky-question-${trip.id}`, from: trip.from, to: trip.to, caption: "", sources: [], marks: markLabel ? [{ hour: trip.to, label: markLabel }] : undefined }),
+    [trip, markLabel]
+  );
 
   const toneOf = (id: string): Tone => {
     const mine = selectedChoiceId === id;
@@ -150,7 +160,7 @@ function SkyBody({ prompt, choices, times, correctChoiceId, selectedChoiceId, re
 
   return (
     <>
-      <GameCue label={t("Tap the time of day")} review={review} attempt={attempt} accent={accent} />
+      <GameCue label={t(byPrayer ? "Tap the prayer" : "Tap the time of day")} review={review} attempt={attempt} accent={accent} />
       <QuestionBubble prompt={prompt} mascotVariant={mascotVariant} accent={accent} mood={mood} hideMascot={compact} pick={selectedChoiceId} />
       <View style={styles.skyWrap} onLayout={onPlace}>
         <PopIn from="up" delay={120}>

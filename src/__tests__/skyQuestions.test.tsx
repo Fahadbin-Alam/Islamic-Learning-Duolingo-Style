@@ -38,13 +38,14 @@ import type { Challenge, LearningNodeView, Lesson } from "../types";
 import { SkyGame } from "../ui/lesson/SkyGame";
 import { mapPlacesFor } from "../ui/lesson/mapQuestions";
 import { questionFormat } from "../ui/lesson/questionFormats";
-import { openingTime, skyTimesFor, timeOfAnswer, tripTo } from "../ui/lesson/skyQuestions";
+import { answersArePrayers, openingTime, skyTimesFor, timeOfAnswer, tripTo } from "../ui/lesson/skyQuestions";
 import { colors } from "../ui/theme";
 import { finishMatch, pickRight, questionOnScreen, toQuestion } from "./lessonDriver";
 import { makeUser } from "./testUtils";
 
 // Fahad: more interactive questions, with living pictures. A question whose answers are all times of the day ("At
-// dawn", "At noon", "The last third of the night") is answered in the sky: tap a time and the sky plays to it.
+// dawn", "At noon", "The last third of the night") is answered in the sky: tap a time and the sky plays to it. So is a
+// question on a prayer whose words give no time away ("In which prayer did he ﷺ recite At-Tur?"): each prayer at its time.
 
 const variety = (on: boolean) => ((globalThis as { __QUESTION_VARIETY__?: boolean }).__QUESTION_VARIETY__ = on);
 const question = (prompt: string, labels: string[], right = 0, type: Challenge["type"] = "multiple_choice"): Challenge => ({
@@ -79,7 +80,19 @@ const REVIEWED: Record<string, string> = {
   "When was Lut's family saved, in 54:34?": "lastThird",
   "When does Allah call to His servants, per the hadith?": "lastThird",
   "When does Allah ask who will call on Him?": "lastThird",
-  "When do they charge, per 100:3?": "dawn"
+  "When do they charge, per 100:3?": "dawn",
+  // Prayers named by their time.
+  "Which prayer was Jabir praying when it was so hot?": "midday",
+  "Before which prayer are these four rak'ahs?": "afternoon",
+  "Which prayer did he ﷺ name in these words?": "dawn",
+  // Prayers by name alone, in questions whose words give no time away.
+  "Which prayer had they just prayed with him ﷺ?": "sunset",
+  "After which prayer did the good news come?": "dawn",
+  "Which prayer did they wait to pray with him ﷺ?": "night",
+  "Which prayer had two before and two after?": "midday",
+  "In which prayer did he ﷺ recite At-Tur, per Bukhari 765?": "sunset",
+  "Which prayer was being recited when they heard?": "dawn",
+  "In which prayer did he recite it, per Umm al-Fadl?": "sunset"
 };
 
 async function press(testID: string) {
@@ -105,8 +118,28 @@ describe("which questions are asked in the sky", () => {
     expect(timeOfAnswer("Soon after sunset")).toBe("sunset");
     expect(timeOfAnswer("In the dark of night")).toBe("night");
     expect(timeOfAnswer("Before dawn")).toBe("lastThird");
-    // "The morning" can be dawn or after sunrise; the fast lasts "until night", which begins at sunset.
+    // A prayer named by its time is that time.
+    expect(timeOfAnswer("The dawn prayer")).toBe("dawn");
+    expect(timeOfAnswer("The noon prayer")).toBe("midday");
+    expect(timeOfAnswer("Asr, the afternoon prayer")).toBe("afternoon");
+    expect(timeOfAnswer("Maghrib, the sunset prayer")).toBe("sunset");
+    expect(timeOfAnswer("The Isha prayer")).toBe("night");
+    // "The morning" can be dawn or after sunrise; the fast lasts "until night", which begins at sunset. A prayer's
+    // name alone counts only in a question read for it (below).
     for (const unclear of ["The early morning", "In the morning", "Early in the morning", "Until night", "Fajr", "Maghrib"]) expect([unclear, timeOfAnswer(unclear)]).toEqual([unclear, undefined]);
+  });
+
+  it("asks a prayer by its name in the sky only where the question's words give no time away", () => {
+    const prayers = ["Maghrib", "Fajr", "Zuhr", "Asr"];
+    expect(skyTimesFor(question("Which prayer had they just prayed with him ﷺ?", prayers))).toEqual({ a: "sunset", b: "dawn", c: "midday", d: "afternoon" });
+    // Each answer's small sky would answer these: the time is in their words.
+    expect(skyTimesFor(question("Which prayer is before sunrise, per Ibn Kathir?", ["Asr", "Maghrib", "Isha", "Fajr"], 3))).toBeUndefined();
+    expect(skyTimesFor(question("The prayer day begins with ____ at dawn.", ["Isha", "Asr", "Fajr"], 2))).toBeUndefined();
+    expect(skyTimesFor(question("Which comes first?", ["Isha", "Fajr", "Asr"], 1))).toBeUndefined();
+    // The learner taps the prayer when every answer is one.
+    expect(answersArePrayers(question("?", prayers))).toBe(true);
+    expect(answersArePrayers(question("?", ["The sunset prayer", "The noon prayer", "The dawn prayer", "The night prayer"]))).toBe(true);
+    expect(answersArePrayers(suhur)).toBe(false);
   });
 
   it("puts each answer at its time, and leaves questions with two answers at one time, or too few, to the tiles", () => {
@@ -117,7 +150,7 @@ describe("which questions are asked in the sky", () => {
     expect(skyTimesFor(question("Suhur is before dawn.", ["True", "False"], 0, "true_false"))).toBeUndefined();
   });
 
-  it("asks the course's 20 time questions in the sky, each one read and checked", () => {
+  it("asks the course's 30 time and prayer questions in the sky, each one read and checked", () => {
     const asked: Record<string, string> = {};
     for (const lesson of Object.values(LESSONS_BY_ID) as Lesson[]) {
       for (const challenge of lesson.challenges) {
@@ -201,6 +234,23 @@ describe("the sky question", () => {
     expect(skyGoesTo()).toEqual(["lastThird"]);
     expect(screen.getByTestId("feedback-sheet")).toBeTruthy();
     expect(screen.getByTestId("choice-a")).toBeDisabled();
+  });
+
+  it("asks for the prayer when the answers are prayers, each at its time", async () => {
+    const tur = (Object.values(LESSONS_BY_ID) as Lesson[]).flatMap((lesson) => lesson.challenges).find((challenge) => challenge.prompt === "In which prayer did he ﷺ recite At-Tur, per Bukhari 765?")!;
+    const times = skyTimesFor(tur)!;
+    expect(answersArePrayers(tur)).toBe(true);
+    const maghrib = tur.choices.find((choice) => choice.label === "Maghrib")!;
+    await render(<SkyGame {...shared} prompt={tur.prompt} choices={tur.choices} times={times} byPrayer correctChoiceId={tur.correctChoiceId} selectedChoiceId={maghrib.id} onSelect={jest.fn()} />);
+    expect(screen.getByText("Tap the prayer")).toBeTruthy();
+    expect(screen.queryByText("Tap the time of day")).toBeNull();
+    // Maghrib's tile shows the sunset, and picking it plays the sky to the sunset, where its name comes into the sky.
+    expect(screen.getByTestId(`sky-tile-${maghrib.id}-sunset`)).toBeTruthy();
+    expect(skyGoesTo()).toEqual(["sunset"]);
+    expect(screen.getByTestId("sky-mark-0", ALL)).toHaveTextContent("Maghrib");
+    // A time question names no prayer in the sky.
+    await render(<SkyGame {...shared} prompt={suhur.prompt} choices={suhur.choices} times={skyTimesFor(suhur)!} correctChoiceId="d" selectedChoiceId="d" onSelect={jest.fn()} />);
+    expect(screen.queryByTestId("sky-mark-0", ALL)).toBeNull();
   });
 
   it("speaks the learner's language", async () => {
