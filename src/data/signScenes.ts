@@ -75,7 +75,23 @@ import { bukhari, quran, type MapSource } from "./seerahMap";
  * - the queen's throne, brought before the glance returned, disguised, and the palace paved with glass (Quran 27:38,
  *   27:40, 27:41, 27:44);
  * - the provision Zakariyya found with Maryam in the mihrab, and his call to his Lord there (Quran 3:37, 3:38);
- * - the great fire made coolness and safety for Ibrahim (Quran 21:68 to 21:70, 37:97).
+ * - the great fire made coolness and safety for Ibrahim (Quran 21:68 to 21:70, 37:97);
+ *
+ * and the trials of the Prophets and of their peoples (trialArt.ts draws them):
+ *
+ * - 'Ad's towers on every high place, the cloud they took for rain, and the wind sent on them for seven nights and
+ *   eight days, after which nothing was seen but their homes; the west wind, the Prophet ﷺ said (Quran 26:128, 46:24,
+ *   69:7, 46:25, Sahih al-Bukhari 1035);
+ * - the chest Musa's mother cast into the river, his sister following it, the shore by Pharaoh's palace, and Allah
+ *   returning him to his mother (Quran 20:39, 28:7 to 28:11, 28:13);
+ * - Qarun's treasure, whose keys were a heavy load for strong men, his finery, and the earth swallowing him and his
+ *   home (Quran 28:76, 28:78, 28:79, 28:81);
+ * - the well of Madyan, the flock held back until the shepherds had gone, watered for the two women, and the shade
+ *   where Musa said: my Lord, I am in need (Quran 28:23, 28:24);
+ * - Ayyub's call, the ground struck and the cool spring, the golden locusts, and an excellent servant (Quran 21:83,
+ *   21:84, 38:42, 38:44, Sahih al-Bukhari 279);
+ * - Yusuf's dream of eleven stars, the sun and the moon bowing, kept from his brothers, and made true (Quran 12:4,
+ *   12:5, 12:100).
  *
  * Each scene shows only what its ayahs say. Nothing in a scene is a person or an angel: only the land, the sky, the
  * sea, plants, animals and things; the people of a parable are never drawn, only their gardens, and no Prophet and no
@@ -126,7 +142,13 @@ export type SignKind =
   | "zamzam"
   | "throne"
   | "mihrab"
-  | "cool-fire";
+  | "cool-fire"
+  | "ad-wind"
+  | "river"
+  | "qarun"
+  | "madyan"
+  | "ayyub"
+  | "yusuf-dream";
 
 export type SignScene = {
   id: string;
@@ -416,6 +438,48 @@ export const SIGN_SCENES: readonly SignScene[] = [
     kind: "cool-fire",
     caption: "Ibrahim's people built a great fire and threw him into it. Allah said: O fire, be coolness and safety for Ibrahim. They wanted to harm him, but Allah made them the losers.",
     sources: [quran(21, 68), quran(21, 69), quran(21, 70), quran(37, 97)]
+  },
+  {
+    id: "sign-ad-wind",
+    kind: "ad-wind",
+    caption:
+      "'Ad built towers on every high place to show off. When they saw a cloud coming toward their valleys, they said it would bring them rain, but it was a wind with a painful punishment. Allah sent it on them for seven nights and eight days, and afterwards nothing was seen but their homes. The Prophet ﷺ said: I was helped by the east wind, and 'Ad were destroyed by the west wind.",
+    sources: [quran(26, 128), quran(46, 24), quran(69, 7), quran(46, 25), bukhari("1035")]
+  },
+  {
+    id: "sign-river",
+    kind: "river",
+    caption:
+      "Allah inspired Musa's mother: put him into a chest and cast it into the river; do not fear and do not grieve, for We will return him to you. Her heart became empty, and she told his sister to follow him. The river cast the chest on the shore, where Pharaoh's family picked it up, and Pharaoh's wife said: do not kill him. So Allah returned Musa to his mother, to comfort her.",
+    sources: [quran(20, 39), quran(28, 7), quran(28, 10), quran(28, 11), quran(28, 8), quran(28, 9), quran(28, 13)]
+  },
+  {
+    id: "sign-qarun",
+    kind: "qarun",
+    caption:
+      "Qarun had such treasures that their keys were a heavy load for a band of strong men, and he said he was given it all because of his own knowledge. He went out before his people in his finery. Then Allah made the earth swallow him and his home, and no band could help him against Allah.",
+    sources: [quran(28, 76), quran(28, 78), quran(28, 79), quran(28, 81)]
+  },
+  {
+    id: "sign-madyan",
+    kind: "madyan",
+    caption:
+      "When Musa came to the water of Madyan, he found many people watering their flocks, and apart from them two women holding back their flock until the shepherds had gone, for their father was very old. So he watered their flock for them, then turned to the shade and said: my Lord, I am in need of whatever good You send down to me.",
+    sources: [quran(28, 23), quran(28, 24)]
+  },
+  {
+    id: "sign-ayyub",
+    kind: "ayyub",
+    caption:
+      "Ayyub called on his Lord: harm has touched me, and You are the Most Merciful of the merciful. Allah answered him and removed his harm: strike the ground with your foot; here is cool water to wash in and to drink. Once, as he bathed, golden locusts fell on him, and he gathered them, for no one can do without Allah's blessing. Allah found him patient: what an excellent servant; he always turned back to Allah.",
+    sources: [quran(21, 83), quran(21, 84), quran(38, 42), bukhari("279"), quran(38, 44)]
+  },
+  {
+    id: "sign-yusuf-dream",
+    kind: "yusuf-dream",
+    caption:
+      "Yusuf told his father: I saw eleven stars, and the sun and the moon; I saw them bowing to me. His father said: do not tell your brothers about your dream. Years later, when his parents and brothers bowed before him, Yusuf said: this is the meaning of my dream of before; my Lord has made it true.",
+    sources: [quran(12, 4), quran(12, 5), quran(12, 100)]
   }
 ];
 
@@ -791,7 +855,83 @@ export const SIGN_LESSONS: Record<string, string> = {
   "deep-anbiya2-allah-is-sufficient-for-us": "sign-cool-fire",
   "deep-ankabut2-saved-from-the-fire": "sign-cool-fire",
   "deep-saffat3-into-the-fire": "sign-cool-fire",
-  "deep-saffat3-made-the-lowest": "sign-cool-fire"
+  "deep-saffat3-made-the-lowest": "sign-cool-fire",
+  // 'Ad's towers, the cloud they took for rain, and the wind of seven nights and eight days.
+  "surah-meaning-26-123-140": "sign-ad-wind",
+  "surah-meaning-46-21-26": "sign-ad-wind",
+  "deep-prophet-hud-towers": "sign-ad-wind",
+  "deep-prophet-hud-cloud": "sign-ad-wind",
+  "deep-prophet-hud-winds": "sign-ad-wind",
+  "deep-prophet-hud-ahqaf": "sign-ad-wind",
+  "deep-araf3-the-west-wind": "sign-ad-wind",
+  "deep-hud3-aad-and-the-wind": "sign-ad-wind",
+  "deep-shuara2-building-to-show-off": "sign-ad-wind",
+  "deep-fussilat1-the-sarsar-wind": "sign-ad-wind",
+  "deep-ahqaf2-the-brother-of-ad": "sign-ad-wind",
+  "deep-ahqaf2-a-cloud-they-misread": "sign-ad-wind",
+  "deep-dhariyat2-the-barren-wind": "sign-ad-wind",
+  "deep-dhariyat2-the-east-wind-helped": "sign-ad-wind",
+  "deep-qamar2-a-cold-wind": "sign-ad-wind",
+  "deep-qamar2-east-wind-and-west-wind": "sign-ad-wind",
+  "deep-qamar2-like-uprooted-palms": "sign-ad-wind",
+  "deep-haqqah1-ad-and-the-wind": "sign-ad-wind",
+  "deep-haqqah1-east-and-west-wind": "sign-ad-wind",
+  "deep-haqqah1-seven-nights-eight-days": "sign-ad-wind",
+  "deep-fajr2-the-people-of-ad": "sign-ad-wind",
+  "deep-najm3-the-former-ad": "sign-ad-wind",
+  // The chest cast into the river, his sister following it, and Musa returned to his mother.
+  "women-mother-musa": "sign-river",
+  "women-quran-depth-mother-of-musa-and-trust": "sign-river",
+  "women-virtues-and-legacy-courage-under-pressure": "sign-river",
+  "surah-meaning-28-1-13": "sign-river",
+  "deep-prophet-musa-river": "sign-river",
+  "deep-prophet-musa-returned": "sign-river",
+  "deep-quranwomen-musa-mother-promise": "sign-river",
+  "deep-quranwomen-musa-mother-heart": "sign-river",
+  "deep-quranwomen-musa-sister": "sign-river",
+  "deep-quranwomen-asiyah-dont-kill": "sign-river",
+  "deep-taha1-under-my-eye": "sign-river",
+  "deep-qasas1-the-mother-of-musa-is-inspired": "sign-river",
+  "deep-qasas1-the-box-on-the-nile": "sign-river",
+  "deep-qasas1-an-empty-heart": "sign-river",
+  "deep-qasas1-his-sister-follows": "sign-river",
+  "deep-qasas1-no-nurse-but-his-mother": "sign-river",
+  // Qarun's treasure, his finery, and the earth swallowing him and his home.
+  "surah-meaning-28-76-88": "sign-qarun",
+  "deep-prophet-musa-qarun": "sign-qarun",
+  "deep-qasas7-qarun-and-his-treasure": "sign-qarun",
+  "deep-qasas7-do-not-exult": "sign-qarun",
+  "deep-qasas7-because-of-my-knowledge": "sign-qarun",
+  "deep-qasas7-qarun-shows-off": "sign-qarun",
+  "deep-qasas7-the-earth-took-him": "sign-qarun",
+  "deep-zumar3-like-qarun": "sign-qarun",
+  // The well of Madyan, the flock watered for the two women, and the shade.
+  "surah-meaning-28-22-28": "sign-madyan",
+  "deep-prophet-musa-madyan": "sign-madyan",
+  "deep-quranwomen-madyan-sisters": "sign-madyan",
+  "deep-qasas2-two-women-at-the-well": "sign-madyan",
+  "deep-qasas2-i-am-in-need": "sign-madyan",
+  // Ayyub's call, the cool spring, and the golden locusts.
+  "notes-prophets-prophets-from-your-notes-1-ayyub": "sign-ayyub",
+  "surah-meaning-38-41-64": "sign-ayyub",
+  "deep-prophet-ayyub-called": "sign-ayyub",
+  "deep-prophet-ayyub-spring": "sign-ayyub",
+  "deep-prophet-ayyub-excellent": "sign-ayyub",
+  "deep-prophet-ayyub-locusts": "sign-ayyub",
+  "deep-dua-prophets-ayyub-harm": "sign-ayyub",
+  "deep-anbiya3-ayyub-patience": "sign-ayyub",
+  "deep-sad3-ayyub-calls-his-lord": "sign-ayyub",
+  "deep-sad3-the-most-merciful": "sign-ayyub",
+  "deep-sad3-strike-the-ground": "sign-ayyub",
+  "deep-sad3-servant-in-ease-and-hardship": "sign-ayyub",
+  // Yusuf's dream of eleven stars, the sun and the moon, and the dream made true.
+  "surah-meaning-12-1-6": "sign-yusuf-dream",
+  "surah-meaning-12-94-104": "sign-yusuf-dream",
+  "deep-prophet-yusuf-dream": "sign-yusuf-dream",
+  "deep-prophet-yusuf-dream-true": "sign-yusuf-dream",
+  "deep-yusuf1-eleven-stars-sun-and-moon": "sign-yusuf-dream",
+  "deep-yusuf1-keep-the-dream-quiet": "sign-yusuf-dream",
+  "deep-yusuf5-the-dream-comes-true": "sign-yusuf-dream"
 };
 
 export type LessonSign = { scene: SignScene; lessonSlug: string };
