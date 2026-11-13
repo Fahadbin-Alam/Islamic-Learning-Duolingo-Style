@@ -21,6 +21,7 @@ import { SignSceneView } from "../ui/journey/SignScene";
 import { fitsTwoLines } from "../ui/journey/moonArt";
 import { SIGN_ART, SIGN_BOX, keyAt, signArt, signWords, type SignPart } from "../ui/journey/signArt";
 import type { Lesson, LessonSource } from "../types";
+import type { TestInstance } from "test-renderer";
 
 // The scene's frame on phones 320, 360, 375, 390 and 412 px wide, on a lesson's first page; and on the gallery's wall.
 const FRAMES = [
@@ -89,7 +90,13 @@ const ABOUT: Record<string, RegExp[]> = {
   "sign-dream": [/\bcows?\b|dream/i, /dream|seven|ears|grain|lean|fat|rain/i],
   "sign-cave": [/cave|sleep|slept|asleep|young men/i, /sun|sleep|slept|dog|youth|young|years|centuries|mercy|sign/i],
   "sign-elephant": [/elephant|Abrahah?|Ababil|Sijjil|105:\d|bird/i, /Ka'?bah|bird|stone|Makkah|army|straw|Fil\b|sign|Abrahah?/i],
-  "sign-journeys": [/journey|caravan|travel|Quraysh|hunger|fear/i, /winter|summer|hunger|fed|food|safe|safety|House/i]
+  "sign-journeys": [/journey|caravan|travel|Quraysh|hunger|fear/i, /winter|summer|hunger|fed|food|safe|safety|House/i],
+  "sign-tur": [/fire|Tuwa|valley|bush|snake/i, /Musa|mount|Tur|valley|bush|tree|snake|sandals|shoes/i],
+  "sign-staff": [/staff|stick|rope/i, /swallow|magic|sorcer|trick|rope/i],
+  "sign-khidr": [/Khidr|two seas|fish|boat|wall/i, /Musa|sea|fish|boat|wall|treasure|orphan|knowledge/i],
+  "sign-barrier": [/barrier|wall/i, /Dhul-Qarnayn|mountain|iron|copper|Ya'?juj/i],
+  "sign-yunus": [/Yunus|Dhun-Nun|fish|whale|gourd/i, /fish|whale|ship|dark|gourd|shore|believed|town/i],
+  "sign-maryam": [/palm|far/i, /Maryam/i]
 };
 
 const SOURCES: Record<string, string[]> = {
@@ -123,7 +130,13 @@ const SOURCES: Record<string, string[]> = {
   "sign-dream": ["Quran 12:43", "Quran 12:47", "Quran 12:48", "Quran 12:49"],
   "sign-cave": ["Quran 18:10", "Quran 18:11", "Quran 18:17", "Quran 18:18"],
   "sign-elephant": ["Quran 105:1", "Quran 105:2", "Quran 105:3", "Quran 105:4", "Quran 105:5", "Sahih al-Bukhari 2731"],
-  "sign-journeys": ["Quran 106:1", "Quran 106:2", "Quran 106:3", "Quran 106:4"]
+  "sign-journeys": ["Quran 106:1", "Quran 106:2", "Quran 106:3", "Quran 106:4"],
+  "sign-tur": ["Quran 20:10", "Quran 20:12", "Quran 20:20", "Quran 27:7", "Quran 28:29", "Quran 28:30"],
+  "sign-staff": ["Quran 7:117", "Quran 7:118", "Quran 20:66", "Quran 26:44", "Quran 26:45"],
+  "sign-khidr": ["Quran 18:60", "Quran 18:61", "Quran 18:63", "Quran 18:71", "Quran 18:77", "Quran 18:79", "Quran 18:82"],
+  "sign-barrier": ["Quran 18:93", "Quran 18:94", "Quran 18:96", "Quran 18:97"],
+  "sign-yunus": ["Quran 37:140", "Quran 37:142", "Quran 21:87", "Quran 21:88", "Quran 37:145", "Quran 37:146", "Quran 37:147", "Quran 37:148"],
+  "sign-maryam": ["Quran 19:22", "Quran 19:23", "Quran 19:24", "Quran 19:25", "Quran 19:26"]
 };
 
 const part = (kind: SignKind, name: string): SignPart => {
@@ -147,7 +160,7 @@ describe("the signs in creation, alive", () => {
   });
 
   test("every lesson with a scene is a real lesson about its sign, and opens on it", () => {
-    expect(Object.keys(SIGN_LESSONS).length).toBe(212);
+    expect(Object.keys(SIGN_LESSONS).length).toBe(275);
     for (const [nodeId, id] of Object.entries(SIGN_LESSONS)) {
       const lesson = LESSONS_BY_ID[`lesson-${nodeId}`] as Lesson | undefined;
       expect([nodeId, Boolean(lesson)]).toEqual([nodeId, true]);
@@ -483,6 +496,70 @@ describe("the signs in creation, alive", () => {
     expect(signArt("journeys").words.map((word) => word.text)).toEqual(["The winter journey", "The summer journey", "Fed against hunger", "Safe from fear"]);
   });
 
+  test("the Prophets' scenes show each moment in its order, and draw no Prophet and no person", () => {
+    const prophets: SignKind[] = ["tur", "staff", "khidr", "barrier", "yunus", "maryam"];
+    for (const kind of prophets) {
+      for (const each of signArt(kind).parts) {
+        const person = /\b(prophet|man|men|woman|women|person|people|king|soldiers?|sorcerers?|magicians?|helper|servant|angels?|child|children|boy|girl|baby|face|hand)\b/i;
+        expect([kind, each.name, person.test(each.name)]).toEqual([kind, each.name, false]);
+      }
+    }
+    const words = (kind: SignKind) => signArt(kind).words.map((word) => word.text);
+    // At Tur: a cold, dark night; a fire far off on the side of the mount; near, the fire in the green tree he was
+    // called from; the holy valley lit; and the staff thrown down there becomes a snake.
+    expect(words("tur")).toEqual(["A cold, dark night", "A fire on the side of the mountain", "Called from the tree", "The holy valley of Tuwa", "The staff became a snake"]);
+    expect([shown("tur", "far fire", 0.1), shown("tur", "far fire", 0.3), shown("tur", "fire in the bush", 0.3), shown("tur", "far fire", 0.5), shown("tur", "fire in the bush", 0.5)]).toEqual([0, 1, 0, 0, 1]);
+    expect([value("tur", "green bush", "scale", 0.3) < 0.5, value("tur", "green bush", "scale", 0.5), shown("tur", "holy valley lit", 0.5), shown("tur", "holy valley lit", 0.7)]).toEqual([true, 1, 0, 1]);
+    expect([shown("tur", "staff", 0.84), shown("tur", "snake", 0.84), shown("tur", "staff", 1), shown("tur", "snake", 1)]).toEqual([1, 0, 0, 1]);
+    // The staff: their ropes and staffs thrown down, then seeming to move; Musa's staff thrown, the serpent it became
+    // swallowing all on the right, then all on the left; and the truth stands.
+    expect(words("staff")).toEqual(["Their ropes and staffs", "They seemed to move", "Musa threw down his staff", "It swallowed what they faked", "The truth stood firm"]);
+    const sides = (t: number) => ["ropes and staffs thrown, left", "ropes and staffs thrown, right", "seeming to move, left", "seeming to move, right"].map((name) => shown("staff", name, t));
+    expect([sides(0.15), sides(0.35), sides(0.6)]).toEqual([
+      [1, 1, 0, 0],
+      [0, 0, 1, 1],
+      [0, 0, 1, 1]
+    ]);
+    expect([shown("staff", "Musa's staff", 0.49), shown("staff", "great serpent", 0.49), shown("staff", "Musa's staff", 0.6), shown("staff", "great serpent", 0.6)]).toEqual([1, 0, 0, 1]);
+    expect([value("staff", "great serpent", "x", 0.71), sides(0.71), value("staff", "great serpent", "x", 0.78), value("staff", "great serpent", "scaleX", 0.78), sides(0.8)]).toEqual([34, [0, 0, 1, 0], -40, -1, [0, 0, 0, 0]]);
+    expect([value("staff", "great serpent", "x", 1), value("staff", "great serpent", "scaleX", 1), shown("staff", "the truth stands", 0.8), shown("staff", "the truth stands", 1)]).toEqual([0, 1, 0, 1]);
+    // Where the two seas meet: the fish on the rock, then into the sea along its tunnel; the boat, its plank pulled out
+    // and a hole left; the town, its wall leaning about to fall, set straight; and the orphans' treasure beneath it.
+    expect(words("khidr")).toEqual(["Where the two seas meet", "The fish took its way into the sea", "A hole in the boat", "A wall about to fall", "It was set straight", "The orphans' treasure beneath"]);
+    expect([value("khidr", "the fish", "x", 0.1), shown("khidr", "tunnel in the sea", 0.1), value("khidr", "the fish", "x", 0.3) > 38, shown("khidr", "tunnel in the sea", 0.3), shown("khidr", "the fish", 0.4)]).toEqual([0, 0, true, 1, 0]);
+    expect([shown("khidr", "boat", 0.44), shown("khidr", "plank pulled out", 0.44), shown("khidr", "hole in the boat", 0.44), shown("khidr", "plank pulled out", 0.52), shown("khidr", "hole in the boat", 0.52)]).toEqual([1, 1, 0, 0, 1]);
+    expect([shown("khidr", "the town", 0.5), shown("khidr", "the town", 0.6), value("khidr", "wall about to fall", "rotate", 0.6), shown("khidr", "cracks", 0.6)]).toEqual([0, 1, 8, 1]);
+    expect([value("khidr", "wall about to fall", "rotate", 0.8), shown("khidr", "cracks", 0.8), shown("khidr", "the orphans' treasure", 0.8), shown("khidr", "the orphans' treasure", 1)]).toEqual([0, 0, 0, 1]);
+    // The barrier: the gap between two mountains, filled row by row with iron, blown upon until like fire, molten
+    // copper poured over it from both sides, and it stands.
+    expect(words("barrier")).toEqual(["Between two mountains", "Blocks of iron", "Blown until it was like fire", "Molten copper poured over it", "They could not climb over it"]);
+    const rows = (t: number) => [1, 2, 3, 4].map((row) => shown("barrier", `blocks of iron, row ${row}`, t));
+    expect([rows(0.19), rows(0.27), rows(0.36)]).toEqual([
+      [0, 0, 0, 0],
+      [1, 1, 0, 0],
+      [1, 1, 1, 1]
+    ]);
+    expect([shown("barrier", "iron like fire", 0.36), shown("barrier", "iron like fire", 0.5), shown("barrier", "fires at the foot", 0.5), shown("barrier", "molten copper", 0.5)]).toEqual([0, 1, 1, 0]);
+    expect([value("barrier", "left pot", "rotate", 0.7) > 0, value("barrier", "right pot", "rotate", 0.7) < 0, shown("barrier", "molten copper", 0.74), value("barrier", "molten copper", "scaleY", 0.74)]).toEqual([true, true, 1, 1]);
+    expect(["iron like fire", "molten copper", "left pot", "barrier of iron and copper", "shine"].map((name) => shown("barrier", name, 1))).toEqual([0, 0, 0, 1, 1]);
+    // Yunus: the laden ship; the great fish rising by it; the darknesses, the fish deep down; then the open shore it
+    // comes to, the gourd plant growing there, and far off the town of his people, who believed.
+    expect(words("yunus")).toEqual(["The laden ship", "A great fish", "In the darknesses", "Cast on the open shore", "A gourd plant grew", "His people believed"]);
+    expect([shown("yunus", "laden ship", 0.1), shown("yunus", "great fish", 0.1), shown("yunus", "great fish", 0.26), shown("yunus", "laden ship", 0.26)]).toEqual([1, 0, 1, 1]);
+    expect([shown("yunus", "the darknesses", 0.45), value("yunus", "great fish", "y", 0.45), shown("yunus", "laden ship", 0.45), shown("yunus", "open shore", 0.45)]).toEqual([0.8, 16, 0, 0]);
+    expect([shown("yunus", "the darknesses", 0.6), shown("yunus", "open shore", 0.6), value("yunus", "great fish", "x", 0.6), shown("yunus", "gourd plant", 0.6)]).toEqual([0, 1, 56, 0]);
+    expect([shown("yunus", "great fish", 0.8), shown("yunus", "gourd plant", 0.8), value("yunus", "gourd plant", "scale", 0.8), shown("yunus", "far town", 0.8), shown("yunus", "far town", 1)]).toEqual([0, 1, 1, 0, 1]);
+    // Maryam: the palm tree in a place far away; a stream beneath; the trunk shaken, and fresh ripe dates fall to the
+    // ground by it.
+    expect(words("maryam")).toEqual(["A place far away", "By the trunk of a palm tree", "A stream beneath", "Fresh ripe dates fell", "Eat, drink and be glad"]);
+    expect([shown("maryam", "stream beneath", 0.3), shown("maryam", "stream beneath", 0.5), value("maryam", "stream beneath", "scaleX", 0.6), shown("maryam", "green by the stream", 0.6)]).toEqual([0, 1, 1, 1]);
+    const dates = signArt("maryam").parts.filter((each) => /^falling date \d$/.test(each.name));
+    expect(dates.length).toBe(4);
+    expect([shown("maryam", "ripe dates", 0.5), shown("maryam", "ripe dates", 0.62), value("maryam", "palm tree", "rotate", 0.5), value("maryam", "palm tree", "rotate", 0.61) !== 0]).toEqual([0, 1, 0, true]);
+    expect(dates.map((each) => [value("maryam", each.name, "y", 0.6), value("maryam", each.name, "y", 0.8) > 40])).toEqual(dates.map(() => [0, true]));
+    expect([shown("maryam", "a calm light", 0.8), shown("maryam", "a calm light", 1)]).toEqual([0, 1]);
+  });
+
   test("every word and caption is translated in every language", () => {
     const words = [...SIGN_SCENES.map((each) => each.caption), ...signWords(), "Source", "Plays the scene again"];
     expect(words.length).toBeGreaterThan(45);
@@ -524,6 +601,19 @@ describe("the signs in creation, alive", () => {
     setActiveLanguage("ar");
     await render(<SignSceneView scene={scene("sign-seas")} width={292} height={178} still />);
     expect(screen.getByText("بينهما حاجز", ALL)).toBeTruthy();
+  });
+
+  test("with less motion, a swimming fish or snake stands at an end of its way, facing it, not turned edge-on", async () => {
+    const facing = (kind: SignKind, name: string) => {
+      const index = signArt(kind).parts.findIndex((each) => each.name === name);
+      const picture = screen.getByTestId(`sign-scene-part-${index}`, ALL).children[0] as TestInstance;
+      const transform = (StyleSheet.flatten(picture.props.style).transform ?? []) as Record<string, number>[];
+      return transform.find((each) => "scaleX" in each)?.scaleX;
+    };
+    await render(<SignSceneView scene={scene("sign-seas")} width={362} height={271} still />);
+    expect([facing("seas", "river fish")! > 0.9, facing("seas", "sea fish")! < -0.9]).toEqual([true, true]);
+    await render(<SignSceneView scene={scene("sign-tur")} width={362} height={271} still />);
+    expect(Math.abs(facing("tur", "snake")!)).toBeGreaterThan(0.9);
   });
 
   test("a scene plays its story once, again when asked, and not at all with less motion", async () => {

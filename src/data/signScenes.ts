@@ -48,11 +48,26 @@ import { bukhari, quran, type MapSource } from "./seerahMap";
  *   18:18);
  * - the elephant held back from Makkah, and the birds in flocks with their stones of baked clay (Quran 105:1 to
  *   105:5, Sahih al-Bukhari 2731);
- * - the winter and summer journeys of Quraysh, fed against hunger and safe from fear (Quran 106:1 to 106:4).
+ * - the winter and summer journeys of Quraysh, fed against hunger and safe from fear (Quran 106:1 to 106:4);
+ *
+ * and the signs in the stories of the Prophets (prophetArt.ts draws them):
+ *
+ * - the fire Musa saw by the mount on a dark night, the call from the tree in the holy valley of Tuwa, and his staff
+ *   that became a moving snake (Quran 20:10, 20:12, 20:20, 27:7, 28:29, 28:30);
+ * - the sorcerers' ropes and staffs that seemed to move, swallowed by Musa's staff, and the truth that stood firm
+ *   (Quran 7:117, 7:118, 20:66, 26:44, 26:45);
+ * - Musa's journey to where the two seas meet: the fish that took its way into the sea like a tunnel, the hole made in
+ *   the boat, the wall about to fall set straight, and the orphans' treasure beneath it (Quran 18:60 to 18:82);
+ * - the barrier between two mountains: blocks of iron, blown upon until like fire, molten copper poured over it, and
+ *   Ya'juj and Ma'juj unable to climb over it (Quran 18:93 to 18:97);
+ * - Yunus: the laden ship, the great fish, the darknesses, the open shore, the gourd plant, and his people who believed
+ *   (Quran 37:140 to 37:148, 21:87, 21:88);
+ * - the palm tree in a place far away, the stream beneath Maryam and the fresh ripe dates (Quran 19:22 to 19:26).
  *
  * Each scene shows only what its ayahs say. Nothing in a scene is a person or an angel: only the land, the sky, the
  * sea, plants, animals and things; the people of a parable are never drawn, only their gardens, and no Prophet and no
- * one of their people is drawn in the stories: the sleepers stay inside the dark cave, and an army is only its dust.
+ * one of their people is drawn in the stories: the sleepers stay inside the dark cave, an army is only its dust, and
+ * a staff, a plank or a wall moves by itself.
  */
 
 export type SignKind =
@@ -86,7 +101,13 @@ export type SignKind =
   | "dream"
   | "cave"
   | "elephant"
-  | "journeys";
+  | "journeys"
+  | "tur"
+  | "staff"
+  | "khidr"
+  | "barrier"
+  | "yunus"
+  | "maryam";
 
 export type SignScene = {
   id: string;
@@ -293,6 +314,48 @@ export const SIGN_SCENES: readonly SignScene[] = [
     kind: "journeys",
     caption: "Allah made the winter and summer journeys easy for Quraysh. So let them worship the Lord of this House, who fed them against hunger and made them safe from fear.",
     sources: [quran(106, 1), quran(106, 2), quran(106, 3), quran(106, 4)]
+  },
+  {
+    id: "sign-tur",
+    kind: "tur",
+    caption:
+      "Traveling with his family on a dark night, Musa saw a fire on the side of the mount and went to it, hoping for warmth or guidance. When he came to it, he was called from the tree, in the holy valley of Tuwa. He was told to throw down his staff, and it became a moving snake.",
+    sources: [quran(20, 10), quran(20, 12), quran(20, 20), quran(27, 7), quran(28, 29), quran(28, 30)]
+  },
+  {
+    id: "sign-staff",
+    kind: "staff",
+    caption:
+      "The sorcerers threw down their ropes and their staffs, and by their magic they seemed to move. Then Musa threw down his staff, and it swallowed up what they had faked. So the truth stood firm, and what they had done came to nothing.",
+    sources: [quran(7, 117), quran(7, 118), quran(20, 66), quran(26, 44), quran(26, 45)]
+  },
+  {
+    id: "sign-khidr",
+    kind: "khidr",
+    caption:
+      "Musa set out with his young helper for the place where the two seas meet. There, by the rock, the fish they had forgotten took its way into the sea like a tunnel. With the servant of Allah he went to learn from, he saw a hole made in a boat, to save it from a king who seized every good boat, and a wall about to fall set straight, for beneath it was a treasure for two orphans.",
+    sources: [quran(18, 60), quran(18, 61), quran(18, 63), quran(18, 71), quran(18, 77), quran(18, 79), quran(18, 82)]
+  },
+  {
+    id: "sign-barrier",
+    kind: "barrier",
+    caption:
+      "Dhul-Qarnayn came to a people between two mountains, who asked him for a barrier against Ya'juj and Ma'juj. He had blocks of iron brought until the gap between the mountain sides was filled, had it blown upon until it was like fire, then poured molten copper over it. They could not climb over it, nor dig through it.",
+    sources: [quran(18, 93), quran(18, 94), quran(18, 96), quran(18, 97)]
+  },
+  {
+    id: "sign-yunus",
+    kind: "yunus",
+    caption:
+      "Yunus went to the laden ship, and a great fish swallowed him. In the darknesses he called out to Allah, glorifying Him, and Allah saved him from his distress. He was cast on the open shore, unwell, and a gourd plant was made to grow over him. Then he was sent to his people, a hundred thousand or more, and they believed.",
+    sources: [quran(37, 140), quran(37, 142), quran(21, 87), quran(21, 88), quran(37, 145), quran(37, 146), quran(37, 147), quran(37, 148)]
+  },
+  {
+    id: "sign-maryam",
+    kind: "maryam",
+    caption:
+      "Maryam withdrew to a place far away, and the pains of birth drove her to the trunk of a palm tree. She was told not to grieve: her Lord had made a stream beneath her, and if she shook the trunk of the palm tree toward her, fresh ripe dates would fall. So eat, drink and be glad.",
+    sources: [quran(19, 22), quran(19, 23), quran(19, 24), quran(19, 25), quran(19, 26)]
   }
 ];
 
@@ -301,8 +364,9 @@ export const SIGN_SCENES: readonly SignScene[] = [
  * Left out: lessons that only touch a sign among other things (a whole passage of a surah), stories of people at sea,
  * and the Day of Judgment's seas and mountains. The gardens of the parables are drawn, never their owners. For the
  * stories, the lessons on the moment a scene shows; not the ones on what came before or after it (Pharaoh drowning,
- * Nuh's son, the queen's throne), nor the reviews, nor the lessons on the twelve paths through the sea (its scene
- * shows the one dry path of 20:77).
+ * Nuh's son, the queen's throne, the shining hand, the parting from al-Khidr, Ya'juj and Ma'juj let loose at the end),
+ * nor the reviews, nor the lessons on the twelve paths through the sea (its scene shows the one dry path of 20:77),
+ * nor the ones on a hadith about a story (the virtue of Yunus's dua, the gourd he ﷺ liked).
  */
 export const SIGN_LESSONS: Record<string, string> = {
   // Rain on a dead land, which comes to life.
@@ -548,7 +612,76 @@ export const SIGN_LESSONS: Record<string, string> = {
   "deep-quraysh1-honored-travelers": "sign-journeys",
   "deep-quraysh2-fed-against-hunger": "sign-journeys",
   "deep-quraysh2-safe-from-fear": "sign-journeys",
-  "deep-quraysh2-worship-the-lord-of-the-house": "sign-journeys"
+  "deep-quraysh2-worship-the-lord-of-the-house": "sign-journeys",
+  // Musa and the fire by the mount, the call in the holy valley of Tuwa, and the staff that became a snake.
+  "surah-meaning-20-1-24": "sign-tur",
+  "deep-taha1-musa-sees-a-fire": "sign-tur",
+  "deep-taha1-take-off-your-shoes": "sign-tur",
+  "deep-taha1-the-staff-became-a-snake": "sign-tur",
+  "surah-meaning-27-1-14": "sign-tur",
+  "deep-naml1-musa-sees-a-fire": "sign-tur",
+  "deep-naml1-the-green-bush": "sign-tur",
+  "surah-meaning-28-29-42": "sign-tur",
+  "deep-qasas3-a-fire-on-a-cold-night": "sign-tur",
+  "deep-qasas3-i-am-allah": "sign-tur",
+  "deep-naziat2-the-valley-of-tuwa": "sign-tur",
+  "deep-prophet-musa-tuwa": "sign-tur",
+  // The sorcerers' ropes and staffs, swallowed by Musa's staff.
+  "surah-meaning-7-109-126": "sign-staff",
+  "deep-araf4-staff-swallows": "sign-staff",
+  "surah-meaning-20-55-76": "sign-staff",
+  "deep-taha2-you-throw-first": "sign-staff",
+  "deep-taha2-it-swallowed-their-tricks": "sign-staff",
+  "surah-meaning-26-34-52": "sign-staff",
+  "deep-shuara1-the-sorcerers-bow-down": "sign-staff",
+  // Musa's journey to where the two seas meet: the fish, the boat, the wall and the orphans' treasure.
+  "quran-surah-kahf-knowledge-and-khidr": "sign-khidr",
+  "surah-meaning-18-60-70": "sign-khidr",
+  "surah-meaning-18-71-82": "sign-khidr",
+  "deep-kahf3-musa-will-not-give-up": "sign-khidr",
+  "deep-kahf3-the-fish-was-the-sign": "sign-khidr",
+  "deep-kahf3-a-servant-given-knowledge": "sign-khidr",
+  "deep-kahf3-the-damaged-boat": "sign-khidr",
+  "deep-kahf3-the-boat-was-saved": "sign-khidr",
+  "deep-kahf3-the-wall-set-straight": "sign-khidr",
+  "deep-kahf3-the-orphans-treasure": "sign-khidr",
+  "deep-prophet-musa-khidr": "sign-khidr",
+  "deep-prophet-yusha-helper": "sign-khidr",
+  "deep-prophet-yusha-fish-forgot": "sign-khidr",
+  "deep-ubayy-musa-and-khidr": "sign-khidr",
+  // The barrier of iron and copper between two mountains.
+  "quran-surah-kahf-power-and-dhulqarnayn": "sign-barrier",
+  "surah-meaning-18-83-101": "sign-barrier",
+  "deep-kahf4-the-people-between-two-mountains": "sign-barrier",
+  "deep-kahf4-the-iron-barrier": "sign-barrier",
+  // Yunus: the laden ship, the great fish, the darknesses, the shore and the gourd plant, and his people who believed.
+  "notes-prophets-prophets-from-your-notes-3-yunus": "sign-yunus",
+  "deep-prophet-yunus-ship": "sign-yunus",
+  "deep-prophet-yunus-fish": "sign-yunus",
+  "deep-prophet-yunus-darkness": "sign-yunus",
+  "deep-prophet-yunus-shore": "sign-yunus",
+  "deep-prophet-yunus-town-believed": "sign-yunus",
+  "deep-dua-quran-yunus": "sign-yunus",
+  "surah-meaning-10-94-103": "sign-yunus",
+  "surah-meaning-37-139-182": "sign-yunus",
+  "surah-meaning-68-48-52": "sign-yunus",
+  "deep-yunus5-people-of-yunus": "sign-yunus",
+  "deep-anbiya3-yunus-in-darkness": "sign-yunus",
+  "deep-saffat5-the-laden-ship": "sign-yunus",
+  "deep-saffat5-the-great-fish": "sign-yunus",
+  "deep-saffat5-he-glorified-allah": "sign-yunus",
+  "deep-saffat5-the-gourd-plant": "sign-yunus",
+  "deep-saffat5-they-believed": "sign-yunus",
+  "deep-qalam6-companion-of-the-fish": "sign-yunus",
+  "deep-qalam6-distressed-in-the-dark": "sign-yunus",
+  "deep-qalam6-the-dua-of-yunus": "sign-yunus",
+  // Maryam by the palm tree: the stream beneath her and the fresh dates.
+  "surah-meaning-19-16-26": "sign-maryam",
+  "deep-maryam1-a-far-place": "sign-maryam",
+  "deep-maryam1-by-the-palm-tree": "sign-maryam",
+  "deep-maryam1-dates-and-a-stream": "sign-maryam",
+  "deep-prophet-isa-palm-tree": "sign-maryam",
+  "deep-quranwomen-maryam-palm": "sign-maryam"
 };
 
 export type LessonSign = { scene: SignScene; lessonSlug: string };
