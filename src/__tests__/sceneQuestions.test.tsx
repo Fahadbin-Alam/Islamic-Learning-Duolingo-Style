@@ -79,7 +79,7 @@ describe("which questions are asked on a scene", () => {
     const asks = sceneAsks();
     // Each one was read with its scene: its right answer is what the moment shows, and the scene before it does not
     // show it. A question changed in the course fails here until it is read again.
-    expect(asks.length).toBe(409);
+    expect(asks.length).toBe(475);
     let places = 0;
     for (const ask of asks) {
       const found = ALL_CHALLENGES.filter(({ challenge }) => challenge.prompt === ask.prompt && rightOf(challenge) === ask.answer);
@@ -97,7 +97,7 @@ describe("which questions are asked on a scene", () => {
         ]);
       }
     }
-    expect(places).toBe(574);
+    expect(places).toBe(664);
   });
 
   it("finds a question by its prompt and its right answer, so another question with the same prompt is not asked on it", () => {
@@ -146,13 +146,13 @@ describe("where the scene waits and where it stops", () => {
   });
 
   // A part's keyed value at `t` of its scene's story (its resting value when it has no such key).
-  const value = (kind: SignKind, name: string, key: "opacity" | "rotate" | "x" | "y" | "scaleX" | "scaleY", t: number) => {
+  const value = (kind: SignKind, name: string, key: "opacity" | "rotate" | "x" | "y" | "scale" | "scaleX" | "scaleY", t: number) => {
     const keys = signArt(kind).parts.find((each) => each.name === name)!.keys;
     const values = keys?.[key];
-    return keys && values ? keyAt(keys.at, values, t) : key === "opacity" || key === "scaleX" || key === "scaleY" ? 1 : 0;
+    return keys && values ? keyAt(keys.at, values, t) : key === "opacity" || key === "scale" || key === "scaleX" || key === "scaleY" ? 1 : 0;
   };
   // A part's keyed value while the question waits, and once it is answered.
-  const moved = (prompt: string, name: string, key: "rotate" | "x" | "y" | "scaleX" | "scaleY") => {
+  const moved = (prompt: string, name: string, key: "rotate" | "x" | "y" | "scale" | "scaleX" | "scaleY") => {
     const { kind, pause, reveal } = asked(prompt);
     return [value(kind, name, key, pause), value(kind, name, key, reveal)];
   };
@@ -362,6 +362,118 @@ describe("where the scene waits and where it stops", () => {
       [1, 0, 0],
       [0, 1, 1]
     ]);
+  });
+
+  it("waits on the stories told with Allah's commands before anything of the answer shows, and shows it once answered, standing still", () => {
+    // What the cheaters do: both sacks low; then their own sack filled and heaped, the other filled short, and the
+    // measure standing upright by it.
+    expect(["their own sack", "the other sack"].map((name) => moved("What do the cheaters do?", name, "scaleY"))).toEqual([
+      [0.62, 1],
+      [0.62, 0.7]
+    ]);
+    expect(shown("What do the cheaters do?", ["grain heaped in their own sack", "grain heaped in the other sack"])).toEqual([
+      [0, 0],
+      [1, 0]
+    ]);
+    // Full measure: the other sack short, under a dim sky; then filled and heaped, the sky clear.
+    expect(moved("How should we measure, in 17:35?", "the other sack", "scaleY")).toEqual([0.7, 1]);
+    expect(shown("How should we measure, in 17:35?", ["dim over the market", "grain heaped in the other sack"])).toEqual([
+      [1, 0],
+      [0, 1]
+    ]);
+    // A straight balance: tilted; then level, with its light.
+    expect(moved("What must the balance be, in 26:182?", "beam of the balance", "rotate")).toEqual([-9, 0]);
+    expect(shown("What must the balance be, in 26:182?", ["light of the straight balance"])).toEqual([[0], [1]]);
+    // Wherever a question on the measure waits or stops, the measure stands upright and still, its grain poured.
+    const streams = ["grain poured into their own sack", "grain poured short into the other sack", "grain poured in full into the other sack"];
+    const still = (t: number) => (["x", "y", "rotate"] as const).every((key) => value("measure", "the measure", key, Math.max(0, t - 0.004)) === value("measure", "the measure", key, Math.min(1, t + 0.004)));
+    const stops = sceneAsks()
+      .filter((ask) => ask.sceneId === "sign-measure")
+      .flatMap((ask) => Object.values(sceneMoment("measure", ask.from, ask.to)!));
+    for (const t of new Set(stops)) {
+      expect([t, value("measure", "the measure", "rotate", t), still(t), streams.map((name) => value("measure", name, "opacity", t))]).toEqual([t, 0, true, [0, 0, 0]]);
+    }
+    // The son's answer: the dream; then dawn, and the way up the hill.
+    expect(shown("What did the son say?", ["the dream", "dawn", "the way up the hill"])).toEqual([
+      [1, 0, 0],
+      [0, 1, 1]
+    ]);
+    // Both submitted: the way up the hill; then the morning, and the light on the hilltop.
+    expect(shown("What did both do, in 37:103?", ["the way up the hill", "morning", "light on the hilltop"])).toEqual([
+      [1, 0, 0],
+      [0, 1, 1]
+    ]);
+    // Who called him: no light from the sky yet; then the light.
+    expect(shown("Who called Ibrahim, in 37:104?", ["light from the sky", "the great ram"])).toEqual([
+      [0, 0],
+      [1, 0]
+    ]);
+    // The ransom: no ram yet; then the great white ram, in its light.
+    expect(shown("What did he see when he turned, per Ibn Abbas?", ["the great ram", "light of the great sacrifice"])).toEqual([
+      [0, 0],
+      [1, 1]
+    ]);
+    // The first qiblah: no arrow yet; then the arrow and the way toward Jerusalem.
+    expect(shown("Which way did Muslims first pray in Madinah?", ["the arrow of the qiblah", "the way toward Jerusalem"])).toEqual([
+      [0, 0],
+      [1, 1]
+    ]);
+    expect(moved("Which way did Muslims first pray in Madinah?", "the arrow of the qiblah", "rotate")).toEqual([0, 0]);
+    // The turn: the arrow toward Jerusalem; then turned right round, toward the Ka'bah, lit.
+    expect(moved("Which way did the qiblah turn to?", "the arrow of the qiblah", "rotate")).toEqual([0, 180]);
+    expect(shown("Which way did the qiblah turn to?", ["the way toward Jerusalem", "the way toward the Ka'bah", "the Ka'bah lit"])).toEqual([
+      [1, 0, 0],
+      [0, 1, 1]
+    ]);
+    // Everywhere: only Madinah's arrow, turned; then the others too, each turned toward the Ka'bah.
+    const others = signArt("qiblah")
+      .parts.filter((each) => each.name.startsWith("the qiblah of "))
+      .map((each) => each.name);
+    expect([others.length, shown("Do Muslims everywhere face the same Ka'bah?", others), others.map((name) => moved("Do Muslims everywhere face the same Ka'bah?", name, "rotate"))]).toEqual([
+      3,
+      [
+        [0, 0, 0],
+        [1, 1, 1]
+      ],
+      [
+        [0, 180],
+        [0, 180],
+        [0, 180]
+      ]
+    ]);
+    // Saba's gardens: none yet; then the two, grown.
+    expect(shown("What did Saba have, in 34:15?", ["the garden on the left", "the garden on the right"])).toEqual([
+      [0, 0],
+      [1, 1]
+    ]);
+    // Eat and be grateful: no fruit yet; then the fruit on both.
+    expect(shown("What were they told, in 34:15?", ["fruit of the garden on the left", "fruit of the garden on the right", "plenty"])).toEqual([
+      [0, 0, 0],
+      [1, 1, 1]
+    ]);
+    // The flood: the dam and the gardens; then the dam gone, and the flood over all the valley.
+    expect(shown("What did Allah send, in 34:16?", ["the dam", "the flood of the dam", "the garden on the left", "the garden on the right"])).toEqual([
+      [1, 0, 1, 1],
+      [0, 1, 0, 0]
+    ]);
+    expect(moved("What did Allah send, in 34:16?", "the flood of the dam", "scale")).toEqual([0.1, 1]);
+    // What the gardens became: the flood; then bitter fruit, tamarisk and lote trees.
+    expect(shown("What did the gardens become, in 34:16?", ["the flood of the dam", "bitter fruit, tamarisk and a few lote trees"])).toEqual([
+      [1, 0],
+      [0, 1]
+    ]);
+    // Scattered: no camel yet; then their camels gone off apart, one each way.
+    const camels = ["camel going away, left", "camel going away, right"];
+    expect(camels.map((name) => moved("What happened to them, in 34:19?", name, "x").map(Math.sign))).toEqual([
+      [0, -1],
+      [0, 1]
+    ]);
+    // The cow's color: the cows that are not yellow, and no yellow cow; then they are gone, and the yellow cow has come.
+    expect(shown("What color was the cow?", ["black and white cow", "brown cow", "the yellow cow", "pleasing to see"])).toEqual([
+      [1, 1, 0, 0],
+      [0, 0, 1, 1]
+    ]);
+    expect(moved("What color was the cow?", "the yellow cow", "x")).toEqual([-90, 0]);
   });
 
   it("goes quickly up to the moment, and plays the moment at the story's pace, never too long", () => {

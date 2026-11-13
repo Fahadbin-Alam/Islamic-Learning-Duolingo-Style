@@ -748,7 +748,7 @@ describe("the signs in creation, alive", () => {
       [0, 0, 0]
     ]);
     expect([value("measure", "the measure", "x", 0.37), value("measure", "the measure", "x", 0.54), value("measure", "the measure", "x", 0.75), value("measure", "the measure", "x", 0.9)]).toEqual([-105, 27, 27, 0]);
-    expect([shown("measure", "grain poured into their own sack", 0.37), shown("measure", "grain poured short into the other sack", 0.54), shown("measure", "grain poured in full into the other sack", 0.75), shown("measure", "grain poured into their own sack", 0.5)]).toEqual([1, 1, 1, 0]);
+    expect([shown("measure", "grain poured into their own sack", 0.345), shown("measure", "grain poured short into the other sack", 0.545), shown("measure", "grain poured in full into the other sack", 0.74), shown("measure", "grain poured into their own sack", 0.5)]).toEqual([1, 1, 1, 0]);
     const own = (t: number) => value("measure", "their own sack", "scaleY", t);
     const other = (t: number) => value("measure", "the other sack", "scaleY", t);
     expect([own(0.3), own(0.42), other(0.5), other(0.6), other(0.8)]).toEqual([0.62, 1, 0.62, 0.7, 1]);
@@ -775,7 +775,8 @@ describe("the signs in creation, alive", () => {
     expect(words("saba")).toEqual(["Two gardens, right and left", "Eat, and be grateful to Him", "The flood of the dam", "Bitter fruit and tamarisk", "Scattered far and wide"]);
     const gardens = ["the garden on the left", "the garden on the right"];
     const fruit = ["fruit of the garden on the left", "fruit of the garden on the right"];
-    expect([gardens.map((name) => shown("saba", name, 0.1)), fruit.map((name) => shown("saba", name, 0.1)), fruit.map((name) => shown("saba", name, 0.3))]).toEqual([
+    expect([gardens.map((name) => shown("saba", name, 0)), gardens.map((name) => shown("saba", name, 0.15)), fruit.map((name) => shown("saba", name, 0.15)), fruit.map((name) => shown("saba", name, 0.3))]).toEqual([
+      [0, 0],
       [1, 1],
       [0, 0],
       [1, 1]
@@ -785,15 +786,19 @@ describe("the signs in creation, alive", () => {
     expect([shown("saba", "bitter fruit, tamarisk and a few lote trees", 0.55), shown("saba", "bitter fruit, tamarisk and a few lote trees", 0.7), shown("saba", "their tall houses", 0.7), shown("saba", "their tall houses", 1)]).toEqual([0, 1, 1, 0.3]);
     const camels = names("saba", /^camel going away/);
     expect([camels.length, camels.map((name) => shown("saba", name, 0.7)), camels.map((name) => shown("saba", name, 0.9)), camels.map((name) => Math.sign(value("saba", name, "x", 0.98)))]).toEqual([2, [0, 0], [1, 1], [-1, 1]]);
-    // The cow: five cows in the pasture; the old one and the calf go; then the ones that are not yellow; the plough
-    // and the water wheel stand idle; and the yellow cow, with no spot on it, shines.
+    // The cow: four cows in the pasture; the old one and the calf go; then the ones that are not yellow, as the yellow
+    // cow comes; the plough and the water wheel stand idle; and the yellow cow, with no spot on it, shines.
     expect(words("cow")).toEqual(["Allah commands you to sacrifice a cow", "Neither old nor young", "Bright yellow, pleasing to see", "Not trained to plough or water", "Sound, with no blemish"]);
     const herd = ["old cow", "young calf", "black and white cow", "brown cow", "the yellow cow"];
     expect([herd.map((name) => shown("cow", name, 0.1)), herd.map((name) => shown("cow", name, 0.4)), herd.map((name) => shown("cow", name, 0.6))]).toEqual([
-      [1, 1, 1, 1, 1],
-      [0, 0, 1, 1, 1],
+      [1, 1, 1, 1, 0],
+      [0, 0, 1, 1, 0],
       [0, 0, 0, 0, 1]
     ]);
+    // Each cow walks off the way it faces (a card's cow faces right; turned, it faces left), and the yellow one walks in.
+    const facesLeft = (name: string) => part("cow", name).svg.includes("scale(-");
+    const walks = (name: string) => Math.sign(value("cow", name, "x", 1) - value("cow", name, "x", 0));
+    expect(herd.map((name) => (facesLeft(name) ? -1 : 1) === walks(name))).toEqual([true, true, true, true, true]);
     expect([shown("cow", "pleasing to see", 0.38), shown("cow", "pleasing to see", 0.55), shown("cow", "the plough left idle", 0.55), shown("cow", "the plough left idle", 0.7), shown("cow", "the water wheel left still", 0.7)]).toEqual([0, 1, 0, 1, 1]);
     expect([shown("cow", "sound, with no blemish", 0.75), shown("cow", "sound, with no blemish", 0.9)]).toEqual([0, 1]);
     const yellow = part("cow", "the yellow cow").svg;

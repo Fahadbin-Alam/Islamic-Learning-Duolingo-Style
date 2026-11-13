@@ -400,6 +400,87 @@ const ASKS: Record<string, readonly Ask[]> = {
     ["What did the eleven stars stand for, as the story ends?", "His eleven brothers", "My Lord has made it true"],
     ["Whom did the sun and the moon stand for?", "His father and mother", "My Lord has made it true"]
   ],
+  // Fair measure: taken in full, given less, then given in full, and weighed with a straight balance (83:1-3, 26:181-182, 17:35).
+  "sign-measure": [
+    ["What do the cheaters do?", "Take in full, give less", "When they take, they take in full", "When they give, they give less"],
+    ["Ayahs 1-17 say: Woe to cheaters who take in full but give short.", "True", "When they take, they take in full", "When they give, they give less"],
+    ["Ayahs 1-17: what are they about?", "Cheating in measure", "When they take, they take in full", "When they give, they give less"],
+    ["What did Madyan do wrong in trade?", "Cheated on measure and weight", "When they take, they take in full", "When they give, they give less"],
+    ["What were they doing, per Ibn Kathir?", "Cheating in buying and selling", "When they take, they take in full", "When they give, they give less"],
+    ["How did they cheat, per Ibn Kathir?", "In weights and measures", "When they take, they take in full", "When they give, they give less"],
+    ["What do they demand when receiving, per 83:2?", "Full measure", "When they take, they take in full"],
+    ["Ayah 3: what do the cheats do when they give?", "They give less", "When they give, they give less"],
+    ["What do they do when giving, per 83:3?", "Give less than due", "When they give, they give less"],
+    ["What wrong did Shu'ayb forbid, in 11:84?", "Short measure and weight", "When they give, they give less"],
+    ["What is Tatfif, per Ibn Kathir?", "Being stingy in measure and weight", "When they give, they give less"],
+    ["What did Shu'ayb teach about trade, in Ash-Shu'ara?", "Give full, fair measure", "Give full measure"],
+    ["Ayahs 176-191: what are they about?", "Shu'ayb and fair measure", "Give full measure"],
+    ["How should we measure, in 17:35?", "Give full measure", "Give full measure"],
+    ["What is the rule of fair trade, per Ibn Kathir?", "Give as you take", "Give full measure"],
+    ["What did Madinah's traders do after it came down?", "They gave good measure", "Give full measure"],
+    ["Full measure is a command for justice in trade.", "True", "Give full measure"],
+    ["What did Shu'ayb ask them to give?", "Full measure and weight", "Give full measure", "Weigh with a straight balance"],
+    ["What did Shu'ayb tell Madyan, in 7:85?", "Give full measure and weight", "Give full measure", "Weigh with a straight balance"],
+    ["What did Shu'ayb tell the people of Madyan, in Al-A'raf?", "Give full measure and weight", "Give full measure", "Weigh with a straight balance"],
+    ["What must they give, in 11:85?", "Full measure and weight", "Give full measure", "Weigh with a straight balance"],
+    ["What did Allah command, per Ibn Kathir?", "Give measure and weight in full", "Give full measure", "Weigh with a straight balance"],
+    ["Ayah 152: what must we give in trade?", "Full measure and weight", "Give full measure", "Weigh with a straight balance"],
+    ["Ayah 182: with what kind of balance should we weigh?", "An honest, straight balance", "Weigh with a straight balance"],
+    ["What must the balance be, in 26:182?", "True and straight", "Weigh with a straight balance"],
+    ["What does a straight balance mean, per Ibn Kathir?", "Scales that are not distorted", "Weigh with a straight balance"]
+  ],
+  // Ibrahim's dream: the dream, the son's answer, both submitting, the call, and the great ram (37:102-107).
+  "sign-ram": [
+    ["What did the son say?", "Do as you are commanded", "Do what you are commanded"],
+    ["What did the son answer?", "Do as you are commanded", "Do what you are commanded"],
+    ["Ayah 102: what did the son tell his father?", "Do as you are told", "Do what you are commanded"],
+    ["What did the son say, in 37:102?", "Do what you are commanded", "Do what you are commanded"],
+    ["What did both do, in 37:103?", "Submit to Allah", "When they had both submitted"],
+    ["Who called Ibrahim, in 37:104?", "Allah", "O Ibrahim, you have fulfilled the dream"],
+    ["What did Ibrahim fulfil, in 37:105?", "The dream", "O Ibrahim, you have fulfilled the dream"],
+    ["Allah stopped the sacrifice of the son.", "True", "O Ibrahim, you have fulfilled the dream", "We ransomed him with a great sacrifice"],
+    ["Ibrahim's son was harmed in the end.", "False", "O Ibrahim, you have fulfilled the dream", "We ransomed him with a great sacrifice"],
+    ["Ayahs 75-113 say: Ibrahim was ready to sacrifice his son; Allah ransomed him.", "True", "When they had both submitted", "We ransomed him with a great sacrifice"],
+    ["What did Allah give in his son's place?", "A great sacrifice", "We ransomed him with a great sacrifice"],
+    ["What did Allah send in place of Ibrahim's son?", "A great sacrifice, a ram", "We ransomed him with a great sacrifice"],
+    ["What did Allah give in place of Ibrahim's son?", "A great sacrifice", "We ransomed him with a great sacrifice"],
+    ["Ayah 107: what did Allah ransom the son with?", "A great sacrifice", "We ransomed him with a great sacrifice"],
+    ["How was the son ransomed, in 37:107?", "With a great sacrifice", "We ransomed him with a great sacrifice"],
+    ["What did he see when he turned, per Ibn Abbas?", "A horned white ram", "We ransomed him with a great sacrifice"],
+    ["Ayahs 75-113: what are they about?", "Ibrahim's sacrifice", "We ransomed him with a great sacrifice"]
+  ],
+  // The qiblah: toward Jerusalem at first, the face turning to the sky, turned toward the Ka'bah, and everywhere (Bukhari 40, 2:144).
+  "sign-qiblah": [
+    ["Which way did Muslims first pray in Madinah?", "Toward Jerusalem", "Facing Jerusalem at first"],
+    ["Before the Ka'bah, which way did Muslims face?", "Jerusalem", "Facing Jerusalem at first"],
+    ["Which way did the Muslims face before the Ka'bah?", "Jerusalem (Bayt al-Maqdis)", "Facing Jerusalem at first"],
+    ["Why did he ﷺ keep looking to the sky?", "Hoping the qiblah would change", "Your face turning to the sky", "Turn toward al-Masjid al-Haram"],
+    ["Why did the Prophet ﷺ keep looking at the sky?", "He hoped for a new qiblah", "Your face turning to the sky", "Turn toward al-Masjid al-Haram"],
+    ["Which way did the qiblah turn to?", "The Sacred Mosque in Makkah", "Turn toward al-Masjid al-Haram"],
+    ["Ayahs 142-147 say: Allah turned the qiblah toward the Sacred Mosque in Makkah.", "True", "Turn toward al-Masjid al-Haram"],
+    ["Ayahs 142-147: what are they about?", "The new qiblah", "Turn toward al-Masjid al-Haram"],
+    ["Which way do Muslims face in prayer since 2:144?", "The Ka'bah in Makkah", "Turn toward al-Masjid al-Haram"],
+    ["What did foolish people question, in 2:142?", "The change of qiblah", "Turn toward al-Masjid al-Haram"],
+    ["Which way do Muslims face to pray?", "Toward the Kaaba", "Turn toward al-Masjid al-Haram", "Wherever you are, turn to it"],
+    ["Only people in Makkah must face the Kaaba.", "False", "Turn toward al-Masjid al-Haram", "Wherever you are, turn to it"],
+    ["Muslims from every country face one ____ together.", "Ka'bah", "Turn toward al-Masjid al-Haram", "Wherever you are, turn to it"],
+    ["Do Muslims everywhere face the same Ka'bah?", "Yes, wherever they are", "Wherever you are, turn to it"]
+  ],
+  // Saba: two gardens, eat and be grateful, the flood of the dam, bitter fruit and tamarisk, scattered (34:15-19).
+  "sign-saba": [
+    ["What did Saba have, in 34:15?", "Two gardens", "Two gardens, right and left"],
+    ["What were they told, in 34:15?", "Eat and be grateful", "Eat, and be grateful to Him"],
+    ["What did Allah send, in 34:16?", "A flood from the dam", "The flood of the dam"],
+    ["Why is it called Surah Saba?", "The people of Saba, who lost their gardens", "The flood of the dam", "Bitter fruit and tamarisk"],
+    ["What did the gardens become, in 34:16?", "Bitter fruit gardens", "Bitter fruit and tamarisk"],
+    ["What happened to them, in 34:19?", "They were dispersed", "Scattered far and wide"]
+  ],
+  // The cow: the old one and the calf go, then the ones that are not yellow, as the bright yellow cow comes (2:67-71).
+  "sign-cow": [
+    ["What color was the cow?", "Yellow", "Bright yellow, pleasing to see"],
+    ["What colour was the cow, in ayah 69?", "Bright yellow", "Bright yellow, pleasing to see"],
+    ["What color was the cow, in 2:69?", "Bright yellow", "Bright yellow, pleasing to see"]
+  ],
   // Rain on a dead land (7:57, 35:9, 16:65).
   "sign-rain": [
     ["What does Allah send down to grow our food?", "Rain", "The winds bring the clouds", "The rain falls"],

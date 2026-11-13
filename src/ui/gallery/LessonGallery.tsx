@@ -931,6 +931,13 @@ const STATES: State[] = [
   { id: "scene-madyan", render: () => <SceneQuestionDemo lessonId="lesson-deep-prophet-musa-madyan" ask="How did Musa help the two women" /> },
   { id: "scene-ayyub", render: () => <SceneQuestionDemo lessonId="lesson-deep-prophet-ayyub-locusts" ask="What fell on Ayyub after his cure" /> },
   { id: "scene-yusuf-dream", render: () => <SceneQuestionDemo lessonId="lesson-deep-prophet-yusuf-dream" ask="How many stars did Yusuf see in his dream" /> },
+  // Allah's commands and the stories told with them: the measure given in full, the great ram, the qiblah turned toward
+  // the Ka'bah, the flood of Saba's dam, the yellow cow.
+  { id: "scene-measure", render: () => <SceneQuestionDemo lessonId="lesson-deep-isra2-a-straight-balance" ask="How should we measure" /> },
+  { id: "scene-ram", render: () => <SceneQuestionDemo lessonId="lesson-deep-saffat4-o-ibrahim" ask="What did he see when he turned" /> },
+  { id: "scene-qiblah", render: () => <SceneQuestionDemo lessonId="lesson-surah-meaning-2-142-147" ask="Which way did the qiblah turn to" /> },
+  { id: "scene-saba", render: () => <SceneQuestionDemo lessonId="lesson-deep-saba1-the-dam-burst" ask="What did Allah send" /> },
+  { id: "scene-cow", render: () => <SceneQuestionDemo lessonId="lesson-surah-meaning-2-62-71" ask="What color was the cow?" /> },
   // Month questions on the year: Ashura in Muharram; Sha'ban, answered wrong (the right month turns green, its moon full).
   { id: "month", render: () => <MonthQuestionDemo lessonId="lesson-deep-days-ashura" ask="Ashura is in" /> },
   { id: "month-picked", render: () => <MonthQuestionDemo lessonId="lesson-deep-days-ashura" ask="Ashura is in" pick="right" /> },
