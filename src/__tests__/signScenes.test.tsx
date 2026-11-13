@@ -108,7 +108,12 @@ const ABOUT: Record<string, RegExp[]> = {
   "sign-qarun": [/Qarun/i, /treasure|keys|wealth|riches|swallow|earth|finery|boast|exult/i],
   "sign-madyan": [/Musa/i, /Madyan|well|water|flock|shade|in need|watered/i],
   "sign-ayyub": [/Ayyub/i, /harm|hardship|illness|patien|spring|strike|water|locust|servant|merciful|distress|trial/i],
-  "sign-yusuf-dream": [/Yusuf/i, /dream|stars?\b|sun\b|moon|bow/i]
+  "sign-yusuf-dream": [/Yusuf/i, /dream|stars?\b|sun\b|moon|bow/i],
+  "sign-measure": [/measure|weigh|balance|scales?\b/i, /full|fair|just|less|cheat|short|woe|straight|honest|extra|more/i],
+  "sign-ram": [/Ibrahim|\bfather\b|\bson\b/i, /dream|\bram\b|ransom|sacrific|submit|test|command/i],
+  "sign-qiblah": [/qiblah?\b|Ka'?a?bah|al-Masjid al-Haram|Sacred Mosque|Jerusalem/i, /turn|fac(e|ing)|chang|sky/i],
+  "sign-saba": [/Saba|Ma'?a?rib|\b34:1[5-9]\b/i, /garden|dam\b|flood|grateful|thank|scatter|journey|requite/i],
+  "sign-cow": [/\bcow\b/i, /sacrific|yellow|\bold\b|young|questions?|colou?r/i]
 };
 
 const SOURCES: Record<string, string[]> = {
@@ -160,7 +165,12 @@ const SOURCES: Record<string, string[]> = {
   "sign-qarun": ["Quran 28:76", "Quran 28:78", "Quran 28:79", "Quran 28:81"],
   "sign-madyan": ["Quran 28:23", "Quran 28:24"],
   "sign-ayyub": ["Quran 21:83", "Quran 21:84", "Quran 38:42", "Sahih al-Bukhari 279", "Quran 38:44"],
-  "sign-yusuf-dream": ["Quran 12:4", "Quran 12:5", "Quran 12:100"]
+  "sign-yusuf-dream": ["Quran 12:4", "Quran 12:5", "Quran 12:100"],
+  "sign-measure": ["Quran 83:1", "Quran 83:2", "Quran 83:3", "Quran 26:181", "Quran 26:182", "Quran 17:35"],
+  "sign-ram": ["Quran 37:102", "Quran 37:103", "Quran 37:104", "Quran 37:105", "Quran 37:106", "Quran 37:107"],
+  "sign-qiblah": ["Sahih al-Bukhari 40", "Quran 2:144", "Quran 2:142"],
+  "sign-saba": ["Quran 34:15", "Quran 34:16", "Quran 34:19"],
+  "sign-cow": ["Quran 2:67", "Quran 2:68", "Quran 2:69", "Quran 2:71"]
 };
 
 const part = (kind: SignKind, name: string): SignPart => {
@@ -184,7 +194,7 @@ describe("the signs in creation, alive", () => {
   });
 
   test("every lesson with a scene is a real lesson about its sign, and opens on it", () => {
-    expect(Object.keys(SIGN_LESSONS).length).toBe(389);
+    expect(Object.keys(SIGN_LESSONS).length).toBe(426);
     for (const [nodeId, id] of Object.entries(SIGN_LESSONS)) {
       const lesson = LESSONS_BY_ID[`lesson-${nodeId}`] as Lesson | undefined;
       expect([nodeId, Boolean(lesson)]).toEqual([nodeId, true]);
@@ -713,6 +723,81 @@ describe("the signs in creation, alive", () => {
     expect([bowing.map((name) => value("yusuf-dream", name, "y", 0.46)), bowing.map((name) => value("yusuf-dream", name, "y", 0.6) > 0 && value("yusuf-dream", name, "scale", 0.6) < 1)]).toEqual([bowing.map(() => 0), bowing.map(() => true)]);
     expect([shown("yusuf-dream", "night at their home", 0.6), shown("yusuf-dream", "night at their home", 0.76), value("yusuf-dream", "shutter closing, left", "scaleX", 0.72), value("yusuf-dream", "shutter closing, right", "scaleX", 0.82)]).toEqual([0, 1, 0, 1]);
     expect([shown("yusuf-dream", "morning", 0.8), shown("yusuf-dream", "morning", 0.95), shown("yusuf-dream", "the dream made true", 0.84), shown("yusuf-dream", "the dream made true", 1), bowing.map((name) => shown("yusuf-dream", name, 1))]).toEqual([0, 1, 0, 1, bowing.map(() => 0)]);
+  });
+
+  test("the scenes of Allah's commands show each moment in its order, and draw no Prophet, no person and nothing of a sacrifice", () => {
+    const commands: SignKind[] = ["measure", "ram", "qiblah", "saba", "cow"];
+    for (const kind of commands) {
+      for (const each of signArt(kind).parts) {
+        const person = /\b(prophet|man|men|woman|women|person|people|king|queen|soldiers?|helper|servant|angels?|jinn|child|children|boy|girl|baby|mother|father|son|sister|brothers?|face|hand|feet|foot|knife|blade|blood)\b/i;
+        expect([kind, each.name, person.test(each.name)]).toEqual([kind, each.name, false]);
+      }
+    }
+    const words = (kind: SignKind) => signArt(kind).words.map((word) => word.text);
+    const names = (kind: SignKind, pattern: RegExp) => signArt(kind).parts.filter((each) => pattern.test(each.name)).map((each) => each.name);
+    // The measure: a tilted balance under a dim sky; the measure heaped and poured into their own sack; scooped short
+    // and poured into the other; then full, into the other, as the sky clears; and the balance weighed straight.
+    expect(words("measure")).toEqual(["Woe to those who give less", "When they take, they take in full", "When they give, they give less", "Give full measure", "Weigh with a straight balance"]);
+    expect([value("measure", "beam of the balance", "rotate", 0.1), value("measure", "pan with the weight", "y", 0.1) > 0, value("measure", "pan with the grain", "y", 0.1) < 0, shown("measure", "dim over the market", 0.1)]).toEqual([-9, true, true, 1]);
+    const measured = (t: number) => ["measure heaped", "measure short", "measure full"].map((name) => shown("measure", name, t));
+    expect([measured(0.2), measured(0.3), measured(0.5), measured(0.7), measured(0.9)]).toEqual([
+      [0, 0, 0],
+      [1, 0, 0],
+      [0, 1, 0],
+      [0, 0, 1],
+      [0, 0, 0]
+    ]);
+    expect([value("measure", "the measure", "x", 0.37), value("measure", "the measure", "x", 0.54), value("measure", "the measure", "x", 0.75), value("measure", "the measure", "x", 0.9)]).toEqual([-105, 27, 27, 0]);
+    expect([shown("measure", "grain poured into their own sack", 0.37), shown("measure", "grain poured short into the other sack", 0.54), shown("measure", "grain poured in full into the other sack", 0.75), shown("measure", "grain poured into their own sack", 0.5)]).toEqual([1, 1, 1, 0]);
+    const own = (t: number) => value("measure", "their own sack", "scaleY", t);
+    const other = (t: number) => value("measure", "the other sack", "scaleY", t);
+    expect([own(0.3), own(0.42), other(0.5), other(0.6), other(0.8)]).toEqual([0.62, 1, 0.62, 0.7, 1]);
+    expect([shown("measure", "dim over the market", 0.8), shown("measure", "a little more grain on the pan", 0.84), shown("measure", "a little more grain on the pan", 0.9), shown("measure", "light of the straight balance", 0.85)]).toEqual([0, 0, 1, 0]);
+    expect([value("measure", "beam of the balance", "rotate", 1), value("measure", "pan with the weight", "y", 1), value("measure", "pan with the grain", "y", 1), shown("measure", "light of the straight balance", 1)]).toEqual([0, 0, 0, 1]);
+    // Ibrahim's dream: a night by their tent, and the dream; dawn, and the way up the hill; the light on the hilltop;
+    // the light from the sky; and, in the morning, the great ram.
+    expect(words("ram")).toEqual(["I saw in a dream", "Do what you are commanded", "When they had both submitted", "O Ibrahim, you have fulfilled the dream", "We ransomed him with a great sacrifice"]);
+    expect([shown("ram", "stars", 0.1), shown("ram", "the dream", 0.15), shown("ram", "lamp in the tent", 0.1), shown("ram", "dawn", 0.1), value("ram", "the sun rising", "y", 0.1)]).toEqual([1, 1, 1, 0, 34]);
+    expect([shown("ram", "stars", 0.35), shown("ram", "the dream", 0.35), shown("ram", "dawn", 0.35), shown("ram", "the way up the hill", 0.35), shown("ram", "the way up the hill", 0.5)]).toEqual([0, 0, 1, 1, 0]);
+    expect([shown("ram", "light on the hilltop", 0.4), shown("ram", "light on the hilltop", 0.55), shown("ram", "light from the sky", 0.55), shown("ram", "light from the sky", 0.7), value("ram", "the sun rising", "y", 0.6)]).toEqual([0, 1, 0, 1, 0]);
+    expect([shown("ram", "the great ram", 0.76), shown("ram", "the great ram", 0.9), shown("ram", "light of the great sacrifice", 0.9), shown("ram", "morning", 1)]).toEqual([0, 1, 1, 1]);
+    // The qiblah: the arrow toward Jerusalem; the light from the sky; the arrow turned right round, toward the Ka'bah;
+    // and the others turning toward it too, one after another.
+    expect(words("qiblah")).toEqual(["Facing Jerusalem at first", "Your face turning to the sky", "Turn toward al-Masjid al-Haram", "Wherever you are, turn to it"]);
+    expect([value("qiblah", "the arrow of the qiblah", "rotate", 0.2), shown("qiblah", "the way toward Jerusalem", 0.15), shown("qiblah", "the way toward the Ka'bah", 0.15), shown("qiblah", "light from the sky", 0.2)]).toEqual([0, 1, 0, 0]);
+    expect([shown("qiblah", "light from the sky", 0.35), value("qiblah", "the arrow of the qiblah", "rotate", 0.44), shown("qiblah", "light from the sky", 0.55)]).toEqual([1, 0, 0]);
+    expect([value("qiblah", "the arrow of the qiblah", "rotate", 0.6), shown("qiblah", "the way toward Jerusalem", 0.55), shown("qiblah", "the way toward the Ka'bah", 0.65), shown("qiblah", "the Ka'bah lit", 0.5), shown("qiblah", "the Ka'bah lit", 0.7)]).toEqual([180, 0, 1, 0, 1]);
+    const others = names("qiblah", /^the qiblah of /);
+    const turned = others.map((name) => part("qiblah", name).keys!.at[1]);
+    expect([others.length, others.map((name) => value("qiblah", name, "rotate", 0.7)), turned.every((time, i) => i === 0 || time > turned[i - 1]), others.map((name) => value("qiblah", name, "rotate", 1))]).toEqual([3, [0, 0, 0], true, [180, 180, 180]]);
+    // Saba: the two gardens; their fruit; the dam cracks and bursts, its lake gone, its flood over the valley; bitter
+    // fruit, tamarisk and lote trees in their place; and their camels going off apart, their houses left faded.
+    expect(words("saba")).toEqual(["Two gardens, right and left", "Eat, and be grateful to Him", "The flood of the dam", "Bitter fruit and tamarisk", "Scattered far and wide"]);
+    const gardens = ["the garden on the left", "the garden on the right"];
+    const fruit = ["fruit of the garden on the left", "fruit of the garden on the right"];
+    expect([gardens.map((name) => shown("saba", name, 0.1)), fruit.map((name) => shown("saba", name, 0.1)), fruit.map((name) => shown("saba", name, 0.3))]).toEqual([
+      [1, 1],
+      [0, 0],
+      [1, 1]
+    ]);
+    expect([shown("saba", "the dam", 0.4), shown("saba", "the dam cracking", 0.43), shown("saba", "the flood of the dam", 0.4), shown("saba", "the dam", 0.5), shown("saba", "the lake behind the dam", 0.55)]).toEqual([1, 1, 0, 0, 0]);
+    expect([shown("saba", "the flood of the dam", 0.53), value("saba", "the flood of the dam", "scale", 0.53), shown("saba", "the flood of the dam", 0.7), gardens.map((name) => shown("saba", name, 0.6))]).toEqual([1, 1, 0, [0, 0]]);
+    expect([shown("saba", "bitter fruit, tamarisk and a few lote trees", 0.55), shown("saba", "bitter fruit, tamarisk and a few lote trees", 0.7), shown("saba", "their tall houses", 0.7), shown("saba", "their tall houses", 1)]).toEqual([0, 1, 1, 0.3]);
+    const camels = names("saba", /^camel going away/);
+    expect([camels.length, camels.map((name) => shown("saba", name, 0.7)), camels.map((name) => shown("saba", name, 0.9)), camels.map((name) => Math.sign(value("saba", name, "x", 0.98)))]).toEqual([2, [0, 0], [1, 1], [-1, 1]]);
+    // The cow: five cows in the pasture; the old one and the calf go; then the ones that are not yellow; the plough
+    // and the water wheel stand idle; and the yellow cow, with no spot on it, shines.
+    expect(words("cow")).toEqual(["Allah commands you to sacrifice a cow", "Neither old nor young", "Bright yellow, pleasing to see", "Not trained to plough or water", "Sound, with no blemish"]);
+    const herd = ["old cow", "young calf", "black and white cow", "brown cow", "the yellow cow"];
+    expect([herd.map((name) => shown("cow", name, 0.1)), herd.map((name) => shown("cow", name, 0.4)), herd.map((name) => shown("cow", name, 0.6))]).toEqual([
+      [1, 1, 1, 1, 1],
+      [0, 0, 1, 1, 1],
+      [0, 0, 0, 0, 1]
+    ]);
+    expect([shown("cow", "pleasing to see", 0.38), shown("cow", "pleasing to see", 0.55), shown("cow", "the plough left idle", 0.55), shown("cow", "the plough left idle", 0.7), shown("cow", "the water wheel left still", 0.7)]).toEqual([0, 1, 0, 1, 1]);
+    expect([shown("cow", "sound, with no blemish", 0.75), shown("cow", "sound, with no blemish", 0.9)]).toEqual([0, 1]);
+    const yellow = part("cow", "the yellow cow").svg;
+    expect([yellow.includes("#F4C531"), yellow.includes("#3A3A3A"), yellow.includes("M30 30 C36 29")]).toEqual([true, false, false]);
   });
 
   test("every word and caption is translated in every language", () => {
