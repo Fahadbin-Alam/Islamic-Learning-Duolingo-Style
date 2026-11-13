@@ -1,17 +1,17 @@
 import { hadith, type DeepUnit } from "./deepKit";
 
 // Two more Sahabah units, from Sahih al-Bukhari and Sunan an-Nasa'i. The Ansar: the name Allah gave them, their
-// followers counted with them, his ﷺ du'a for them and their children, and the day of Bu'ath. Abdullah ibn Abi Awfa:
-// shielding him ﷺ at Umrah, a scar from Hunayn, locusts on the campaigns, the Prophet's ﷺ son Ibrahim, and walking
-// with the widow and the poor. Every card is one sahih or hasan hadith with its number, narrator and grade, and its
-// exact English words to highlight. Details that differ between narrations are not asked, and none of these hadith is
-// taught anywhere else in the app.
+// followers counted with them, his ﷺ du'a for them and their children, the day of Bu'ath, and what he ﷺ said of them
+// from the pulpit in his last illness. Abdullah ibn Abi Awfa: shielding him ﷺ at Umrah, a scar from Hunayn, locusts
+// on the campaigns, the Prophet's ﷺ son Ibrahim, and walking with the widow and the poor. Every card is one sahih or
+// hasan hadith with its number, narrator and grade, and its exact English words to highlight. Details that differ
+// between narrations are not asked, and none of these hadith is taught anywhere else in the app.
 
 const ANSAR: DeepUnit = {
   key: "ansar",
   topicId: "sahabah",
   branchId: "sahabi-ansar",
-  branch: { title: "The Ansar", description: "The name Allah gave them, their followers, a du'a for their children, and the day of Bu'ath." },
+  branch: { title: "The Ansar", description: "The name Allah gave them, their followers, a du'a for their children, the day of Bu'ath, and his ﷺ words in his last illness." },
   name: "the Ansar",
   kind: "story",
   lessonType: "story",
@@ -66,6 +66,19 @@ const ANSAR: DeepUnit = {
         { q: "Which two tribes fought on the day of Bu'ath?", a: "The Aws and the Khazraj", wrong: ["Quraysh and Thaqif", "Hawazin and Ghatafan", "Tamim and Asad"], why: "Bu'ath was a day of fighting between the two tribes of the Ansar, the Aws and Khazraj." },
         { q: "Why did Allah bring that day about, Aishah said?", a: "So the Ansar would enter Islam", wrong: ["So the Ansar would leave Madinah", "So the Ansar would trade with Sham", "So the Ansar would grow rich"], why: "Allah brought it about for the good of His Messenger ﷺ, so that they would embrace Islam." },
         { q: "The day of Bu'ath came before he ﷺ reached Madinah.", tf: true, why: "He ﷺ came to Madinah after its tribes had split and lost their chiefs, Aishah said." }
+      ]
+    },
+    {
+      slug: "like-salt-in-food",
+      title: "Like salt in food",
+      line: "He ﷺ said the Ansar would become few, like salt in food.",
+      facts: ["Told by Ibn Abbas", "He ﷺ said it in his last illness", "Accept the good of their good-doers, he ﷺ said"],
+      source: hadith("bukhari", "3800", "Ibn Abbas", "Sahih", "Ibn Abbas said: in his last illness, the Messenger of Allah ﷺ came out wrapped in a sheet, with an oily cloth tied round his head, and sat on the pulpit. He praised Allah, then said: O people, the people will grow in number and the Ansar will grow fewer, until they are like salt in food. So whoever of you takes charge of a matter in which he can harm or help someone, let him accept the good of those of them who do good, and pass over the faults of those who do wrong.", "till they become just like salt in a meal"),
+      difficulty: 2,
+      questions: [
+        { q: "What did he ﷺ say the Ansar would become like?", a: "Salt in a meal", wrong: ["Sand in the desert", "Drops of rain", "Leaves on a tree"], why: "The Ansar will decrease till they become just like salt in a meal, he ﷺ said." },
+        { q: "Where did he ﷺ sit to say it, in his last illness?", a: "On the minbar", wrong: ["At the door", "On his camel", "Under a tree"], why: "He ﷺ came out wrapped in a sheet till he sat on the pulpit, Ibn Abbas said." },
+        { q: "He ﷺ said the Ansar would grow fewer while people grew many.", tf: true, why: "The people will go on increasing, but the Ansar will go on decreasing, he ﷺ said." }
       ]
     }
   ]
