@@ -299,6 +299,107 @@ const ASKS: Record<string, readonly Ask[]> = {
     ["How did Allah save him, per Ibn Kathir?", "Made the fire cool and safe", "O fire, be coolness", "And safety for Ibrahim"],
     ["What did Allah do for Ibrahim, per Ibn Kathir?", "Saved him from the fire", "O fire, be coolness", "And safety for Ibrahim"]
   ],
+  // 'Ad: their towers on every high place, the cloud facing their valleys, the wind of seven nights and eight days, only their homes left (26:128, 46:24, 69:7, 46:25; Sahih al-Bukhari 1035).
+  "sign-ad-wind": [
+    ["What did 'Ad build on every high place?", "Landmarks to show off", "Towers on every high place"],
+    ["Ayahs 123-140 say: Hud warned Ad not to build monuments in vanity.", "True", "Towers on every high place"],
+    ["Ayah 128: why did Ad build monuments?", "Just to show off", "Towers on every high place"],
+    ["Why did 'Ad build their landmarks?", "To show off their strength", "Towers on every high place"],
+    ["What did 'Ad think the cloud was?", "Rain", "A cloud facing their valleys"],
+    ["What did Ad think the coming cloud was?", "A rain cloud", "A cloud facing their valleys"],
+    ["What did 'Ad think the cloud was, in 46:24?", "A cloud bringing rain", "A cloud facing their valleys"],
+    ["What was it really, in 46:24?", "A wind with a painful torment", "A wind with a painful punishment"],
+    ["Which wind took 'Ad?", "The west wind", "A wind with a painful punishment"],
+    ["What destroyed 'Ad, in Bukhari 1035?", "The west wind", "A wind with a painful punishment"],
+    ["What destroyed 'Ad, per the hadith?", "A wind", "A wind with a painful punishment"],
+    ["Which wind ended Ad, per Bukhari 1035?", "Ad-Dabur, the west wind", "A wind with a painful punishment"],
+    ["Which wind destroyed Ad?", "Ad-Dabur, the westerly", "A wind with a painful punishment"],
+    ["Which wind destroyed Ad?", "Ad-Dabur, the west wind", "A wind with a painful punishment"],
+    ["What was sent upon Ad, in 41:16?", "A Sarsar wind", "A wind with a painful punishment"],
+    ["What was sent against Ad, in 51:41?", "The barren wind", "A wind with a painful punishment"],
+    ["What did Allah send on Ad, in 54:19?", "A violently cold wind", "A wind with a painful punishment"],
+    ["The wind sent on Ad was a gentle breeze.", "False", "A wind with a painful punishment"],
+    ["How long did the wind blow?", "Seven nights and eight days", "Seven nights and eight days"],
+    ["How long did it last, per 69:7?", "Seven nights and eight days", "Seven nights and eight days"],
+    ["How long did the wind last, in 69:7?", "Seven nights, eight days", "Seven nights and eight days"],
+    ["How long did the wind blow on Ad?", "Seven nights and eight days", "Seven nights and eight days"],
+    ["What does Husum mean?", "In succession", "Seven nights and eight days"],
+    ["The wind on Ad stopped after one night.", "False", "Seven nights and eight days"],
+    ["How were they destroyed, per 69:7?", "A furious wind for 7 nights and 8 days", "A wind with a painful punishment", "Seven nights and eight days"],
+    ["Ayah 25: what was left of Ad after the wind?", "Only their homes", "Nothing seen but their homes"]
+  ],
+  // Musa's mother: the chest cast into the river, do not fear, his sister following him, and Musa returned to her (20:39, 28:7, 28:11, 28:13).
+  "sign-river": [
+    ["Where did Musa's mother put baby Musa?", "In the river", "Cast it into the river"],
+    ["Allah told Musa's mother to put baby Musa in a cave.", "False", "Cast it into the river"],
+    ["Where did Musa's mother put her baby?", "In the river", "Cast it into the river"],
+    ["Where did Musa's mother place him?", "In the river", "Cast it into the river"],
+    ["Ayah 7: where was Musa's mother told to put him?", "In the river", "Cast it into the river"],
+    ["What was she told to do if she feared, in 28:7?", "Put him in the river", "Cast it into the river"],
+    ["Where was baby Musa put, in 20:39?", "In a box on the river", "Put him into the chest", "Cast it into the river"],
+    ["Allah told her not to fear and not to grieve.", "True", "Do not fear, do not grieve"],
+    ["Allah told her to feel afraid and sad.", "False", "Do not fear, do not grieve"],
+    ["What did Musa's mother tell his sister to do?", "Follow him", "Follow him"],
+    ["Whom did the mother send, in 28:11?", "His sister", "Follow him"],
+    ["How did the sister watch him?", "From afar, quietly", "Follow him"],
+    ["Ayahs 1-13 say: Musa's mother put him in the river; Allah brought him back.", "True", "Cast it into the river", "We returned him to his mother"],
+    ["Allah brought baby Musa back to his ____.", "mother", "We returned him to his mother"],
+    ["Who nursed Musa in the end?", "His own mother", "We returned him to his mother"],
+    ["Who alone was to nurse him?", "His own mother", "We returned him to his mother"],
+    ["Ayah 13: why did Allah return Musa to his mother?", "So her eyes would be cooled", "We returned him to his mother"]
+  ],
+  // Qarun: the keys of his treasures, a load for strong men, his going out in his finery, the earth swallowing him and his home (28:76, 28:79, 28:81).
+  "sign-qarun": [
+    ["How heavy were Qarun's keys?", "Too heavy for strong men", "Treasures with heavy keys"],
+    ["Ayah 76: what was heavy even for strong men?", "Qarun's keys", "Treasures with heavy keys"],
+    ["What was heavy for strong men?", "The keys to his treasures", "Treasures with heavy keys"],
+    ["How did Qarun go out, in 28:79?", "In his finery", "He went out in his finery"],
+    ["What happened to Qarun and his home?", "The earth swallowed them", "The earth swallowed his home"],
+    ["What happened to Qarun?", "The earth swallowed him", "The earth swallowed his home"],
+    ["What happened to Qarun, in 28:81?", "The earth swallowed him", "The earth swallowed his home"],
+    ["Could his wealth save him?", "No, it could not", "The earth swallowed his home"],
+    ["No group could help him against Allah.", "True", "No one could help him"]
+  ],
+  // The well of Madyan: two women holding back their flock, Musa watering for them, then his call in the shade (28:23, 28:24).
+  "sign-madyan": [
+    ["Why were the two sisters waiting at the well?", "Until the shepherds left", "Two women held back their flock"],
+    ["Why were the women waiting, in 28:23?", "For the shepherds to finish", "Two women held back their flock"],
+    ["How did Musa help the two women?", "He watered their flock", "So he watered for them"],
+    ["What did Musa do for them?", "Watered their flock", "So he watered for them"],
+    ["What did Musa do at the well of Madyan?", "Helped two women water their flock", "So he watered for them"],
+    ["Ayahs 22-28 say: At Madyan's well, Musa helped two women water their flock.", "True", "So he watered for them"],
+    ["What did Musa say in the shade?", "My Lord, I am in need", "My Lord, I am in need"],
+    ["Ayah 24: what did Musa pray in the shade?", "I need any good You send", "My Lord, I am in need"],
+    ["What did Musa say, in 28:24?", "I am in need of Your good", "My Lord, I am in need"]
+  ],
+  // Ayyub: the ground struck with his foot, the cool water to wash and drink, the golden locusts, an excellent servant (38:42, 38:44; Sahih al-Bukhari 279).
+  "sign-ayyub": [
+    ["What was Ayyub told to strike?", "The ground, with his foot", "Strike the ground with your foot"],
+    ["Ayah 42: what did Ayyub strike the ground with?", "His foot", "Strike the ground with your foot"],
+    ["What was Ayyub told, in 38:42?", "Strike the ground with your foot", "Strike the ground with your foot"],
+    ["What came out for him?", "Cool water to wash and drink", "Cool water to wash and drink"],
+    ["What happened after washing, per Ibn Kathir?", "His bodily pain left", "Cool water to wash and drink"],
+    ["What fell on Ayyub after his cure?", "Golden locusts", "Golden locusts fell"],
+    ["Why did Ayyub gather them, though he was rich?", "He always needs Allah's blessing", "Golden locusts fell"],
+    ["What did Allah find Ayyub to be?", "Patient", "What an excellent servant!"],
+    ["What did Allah call him?", "An excellent servant", "What an excellent servant!"],
+    ["Ayah 44: what did Allah call Ayyub?", "An excellent servant", "What an excellent servant!"],
+    ["Why did Allah call Ayyub an excellent servant, per as-Sa'di?", "He served Allah in ease and hardship", "What an excellent servant!"]
+  ],
+  // Yusuf's dream: eleven stars, the sun and the moon, bowing to him, kept from his brothers, then made true (12:4, 12:5, 12:100).
+  "sign-yusuf-dream": [
+    ["How many stars did Yusuf see in his dream?", "Eleven", "Eleven stars"],
+    ["Ayah 4: how many stars bowed in Yusuf's dream?", "Eleven stars", "Eleven stars"],
+    ["How many stars did Yusuf see, in 12:4?", "Eleven", "Eleven stars"],
+    ["Ayahs 1-6 say: Yusuf dreamed eleven stars, the sun and the moon bowing to him.", "True", "Eleven stars", "I saw them bowing to me"],
+    ["What did Ya'qub tell him about the dream?", "Do not tell your brothers", "Do not tell your brothers"],
+    ["Ayah 5: whom did Yaqub tell Yusuf not to tell?", "His brothers", "Do not tell your brothers"],
+    ["Whom should Yusuf not tell, in 12:5?", "His brothers", "Do not tell your brothers"],
+    ["What did Yusuf say when they bowed, in 12:100?", "This is the meaning of my dream", "My Lord has made it true"],
+    ["Ayahs 94-104: what are they about?", "The dream comes true", "My Lord has made it true"],
+    ["What did the eleven stars stand for, as the story ends?", "His eleven brothers", "My Lord has made it true"],
+    ["Whom did the sun and the moon stand for?", "His father and mother", "My Lord has made it true"]
+  ],
   // Rain on a dead land (7:57, 35:9, 16:65).
   "sign-rain": [
     ["What does Allah send down to grow our food?", "Rain", "The winds bring the clouds", "The rain falls"],

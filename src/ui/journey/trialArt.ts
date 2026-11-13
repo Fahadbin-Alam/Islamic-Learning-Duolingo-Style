@@ -98,9 +98,10 @@ function adWind(): SignArt {
     `<path d="M14 100 C30 98 44 101 60 99"/><path d="M96 62 C110 60 122 62 136 60"/><path d="M120 106 C134 104 146 107 158 105"/></g>`;
   // Seven nights and eight days, in turn: a day first, then a night, and so on, ending on the eighth day.
   const count = Array.from({ length: 15 }, (_, i) => 38 + i * 6);
-  const slots = `<rect x="32.5" y="107.6" width="95" height="8.8" rx="4.4" fill="#000000" opacity="0.14"/>` + count.map((x) => `<circle cx="${x}" cy="112" r="1.9" fill="#F8EBD2" stroke="#B48C5A" stroke-width="0.5"/>`).join("");
-  const dayMark = (x: number) => `<circle cx="${x}" cy="112" r="1.9" fill="#FFC93C"/>`;
-  const nightMark = (x: number) => `<circle cx="${x}" cy="112" r="1.9" fill="#2E3A66"/><path d="M${n(x + 0.4)} 110.5 A1.5 1.5 0 1 0 ${n(x + 0.4)} 113.5 A1.2 1.2 0 1 1 ${n(x + 0.4)} 110.5 Z" fill="#F4F1DE"/>`;
+  // Low on the sand below their homes, still inside what a question's frame shows (y 11 to 109).
+  const slots = `<rect x="32.5" y="101.4" width="95" height="7.2" rx="3.6" fill="#000000" opacity="0.14"/>` + count.map((x) => `<circle cx="${x}" cy="105" r="1.7" fill="#F8EBD2" stroke="#B48C5A" stroke-width="0.5"/>`).join("");
+  const dayMark = (x: number) => `<circle cx="${x}" cy="105" r="1.7" fill="#FFC93C"/>`;
+  const nightMark = (x: number) => `<circle cx="${x}" cy="105" r="1.7" fill="#2E3A66"/><path d="M${n(x + 0.4)} 103.65 A1.35 1.35 0 1 0 ${n(x + 0.4)} 106.35 A1.08 1.08 0 1 1 ${n(x + 0.4)} 103.65 Z" fill="#F4F1DE"/>`;
   const drifts = `<path d="M33 100.4 C38 96.6 46 96.4 52 100.4 Z M88 99.4 C94 95.6 104 95.4 112 99.4 Z M133 101.4 C137 98.4 143 98.4 149 101.4 Z" fill="#E2BE85"/>`;
   const motes = `<g fill="#FFFFFF" opacity="0.75"><circle cx="30" cy="60" r="0.7"/><circle cx="64" cy="52" r="0.6"/><circle cx="96" cy="66" r="0.7"/><circle cx="132" cy="56" r="0.6"/><circle cx="112" cy="82" r="0.6"/></g>`;
   return {
@@ -299,12 +300,16 @@ function qarun(): SignArt {
         return { name: `key ${i + 1}`, svg: treasureKey(x, y, s, turn), keys: { at: [0, from, at3(from + 0.02), 0.5, 0.56, 0.7], opacity: [0, 0, 1, 1, 1, 1], y: [0, 0, 0, 0, 6, 44] } };
       }),
       { name: "the ground", svg: ground },
+      // One after another out of his door, walking slowly to the left so all three are seen while he goes out in his
+      // finery; then gone, as the moment ends.
       ...finery.map(([kind, cloth, s], i) => {
-        const from = at3(0.26 + i * 0.03);
+        const from = at3(0.26 + i * 0.07);
+        const out = at3(from + 0.03);
+        const far = n(-8 - 2.6 * Math.round((0.46 - out) * 100));
         return {
           name: `${kind} in finery, ${i + 1}`,
-          svg: deckedAt(kind, cloth, 70, n(110 - 73 * s), s, true),
-          keys: { at: [0, from, at3(from + 0.03), at3(from + 0.19)], opacity: [0, 0, 1, 1], x: [0, 0, -8, -112] },
+          svg: deckedAt(kind, cloth, 70, n(104 - 73 * s), s, true),
+          keys: { at: [0, from, out, 0.46, 0.48], opacity: [0, 0, 1, 1, 0], x: [0, 0, -8, far, n(far - 5)] },
           loop: { move: "bob" as const, ms: 620, y: 0.5, phase: i * 0.3 }
         };
       }),
@@ -370,9 +375,9 @@ function madyan(): SignArt {
     ["sheep", 145, 0.2, true]
   ];
   const held: [number, number][] = [
-    [1, 96],
-    [14, 97.6],
-    [27, 96.4]
+    [1, 89],
+    [14, 90.6],
+    [27, 89.4]
   ];
   return {
     kind: "madyan",
@@ -520,14 +525,14 @@ function star(x: number, y: number, r: number, fill: string) {
 function yusufDream(): SignArt {
   const dreamSky = sky("#3F3A7A", "#6A64AE", 70);
   const faint = stars([
-    [10, 50],
+    [6, 28],
     [40, 60],
     [70, 46],
     [100, 62],
-    [128, 44],
+    [154, 30],
     [152, 58],
-    [56, 72],
-    [116, 76]
+    [60, 84],
+    [104, 86]
   ]);
   const ground = "M0 98 C30 92 60 95 80 94 C100 93 130 96 160 92 L160 120 L0 120 Z";
   const dreamHill = `<path d="${ground}" fill="#2E2A5A"/>`;
@@ -551,12 +556,12 @@ function yusufDream(): SignArt {
   const windowLight = `${glow(89, 82.5, 13, "#FFD27A", 0.12)}<rect x="84" y="79" width="10" height="7" fill="#FFD27A"/><path d="M89 79 L89 86 M84 82.5 L94 82.5" stroke="#C99A4A" stroke-width="0.6"/>`;
   const shutter = (x: number) =>
     `<rect x="${x}" y="78.6" width="5.2" height="7.8" fill="#6B5A3A"/><path d="M${n(x + 0.8)} 80.6 L${n(x + 4.4)} 80.6 M${n(x + 0.8)} 82.5 L${n(x + 4.4)} 82.5 M${n(x + 0.8)} 84.4 L${n(x + 4.4)} 84.4" stroke="#55472D" stroke-width="0.5"/>`;
-  const closing = { at: [0, 0.72, 0.74, 0.8, 0.84, 0.9], opacity: [0, 0, 1, 1, 1, 0], scaleX: [0, 0, 0, 1, 1, 1] };
+  const closing = { at: [0, 0.72, 0.74, 0.78, 0.84, 0.9], opacity: [0, 0, 1, 1, 1, 0], scaleX: [0, 0, 0, 1, 1, 1] };
   const morning = sky("#F7CF8E", "#FCE7C0", 70) + `<path d="M0 96 C30 92 60 95 80 94 C100 93 130 96 160 92 L160 120 L0 120 Z" fill="#D9C08C"/>` + palm(22, 100, 16) + palm(138, 98, 18);
   // The eleven stars on an arc, the moon and the sun under it; bowing, each comes down and in, low over the land.
   const places = Array.from({ length: 11 }, (_, i) => {
     const x = n(14 + i * 13.2);
-    const y = n(34 - 14 * Math.sin((Math.PI * i) / 10));
+    const y = n(46 - 12 * Math.sin((Math.PI * i) / 10));
     const to = { x: n(80 + (x - 80) * 0.62), y: n(66 + 9 * (1 - Math.sin((Math.PI * i) / 10))) };
     return { x, y, dx: n(to.x - x), dy: n(to.y - y) };
   });
@@ -575,8 +580,8 @@ function yusufDream(): SignArt {
     }
     return `${glow(x, y, 14 * s, "#FFE7A0", 0.14)}<circle cx="${x}" cy="${y}" r="${n(6.6 * s)}" fill="${fill}"/><path d="${rays.trim()}" stroke="${fill}" stroke-width="${n(1.2 * s)}" stroke-linecap="round"/>`;
   };
-  const sun = sunAt(130, 56, 1, "#FFC93C");
-  const moon = `${glow(30, 56, 12, "#F4F1DE", 0.12)}${crescent(30, 56, 6.4, 3.4, "#F4F1DE")}`;
+  const sun = sunAt(130, 60, 1, "#FFC93C");
+  const moon = `${glow(30, 60, 12, "#F4F1DE", 0.12)}${crescent(30, 60, 6.4, 3.4, "#F4F1DE")}`;
   // In the morning, the dream made true: the same eleven stars, the sun and the moon, where they bowed.
   const madeTrue =
     places.map(({ x, y, dx, dy }) => star(n(x + dx), n(y + dy), n(3.2 * 0.82), "#E39A2A")).join("") +
@@ -596,8 +601,8 @@ function yusufDream(): SignArt {
       { name: "morning", svg: morning, keys: showFrom(0.84, 0.9) },
       { name: "morning light", svg: glow(80, 74, 60, "#FFF1C8", 0.06), keys: showFrom(0.86, 0.94), loop: { move: "twinkle", ms: 2600, low: 0.6 } },
       { name: "the dream made true", svg: madeTrue, keys: showFrom(0.86, 0.94), loop: { move: "twinkle", ms: 1800, low: 0.75 } },
-      { name: "the moon", svg: moon, origin: { x: 30, y: 56 }, keys: bows(0.3, 18, 22) },
-      { name: "the sun", svg: sun, origin: { x: 130, y: 56 }, keys: bows(0.28, -18, 22) },
+      { name: "the moon", svg: moon, origin: { x: 30, y: 60 }, keys: bows(0.3, 18, 18) },
+      { name: "the sun", svg: sun, origin: { x: 130, y: 60 }, keys: bows(0.28, -18, 18) },
       ...places.map(({ x, y, dx, dy }, i) => ({
         name: `star ${i + 1}`,
         svg: star(x, y, 3.2, "#FFE58A"),

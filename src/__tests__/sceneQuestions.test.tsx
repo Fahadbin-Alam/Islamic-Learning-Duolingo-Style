@@ -79,7 +79,7 @@ describe("which questions are asked on a scene", () => {
     const asks = sceneAsks();
     // Each one was read with its scene: its right answer is what the moment shows, and the scene before it does not
     // show it. A question changed in the course fails here until it is read again.
-    expect(asks.length).toBe(326);
+    expect(asks.length).toBe(409);
     let places = 0;
     for (const ask of asks) {
       const found = ALL_CHALLENGES.filter(({ challenge }) => challenge.prompt === ask.prompt && rightOf(challenge) === ask.answer);
@@ -97,7 +97,7 @@ describe("which questions are asked on a scene", () => {
         ]);
       }
     }
-    expect(places).toBe(449);
+    expect(places).toBe(574);
   });
 
   it("finds a question by its prompt and its right answer, so another question with the same prompt is not asked on it", () => {
@@ -146,10 +146,15 @@ describe("where the scene waits and where it stops", () => {
   });
 
   // A part's keyed value at `t` of its scene's story (its resting value when it has no such key).
-  const value = (kind: SignKind, name: string, key: "opacity" | "rotate", t: number) => {
+  const value = (kind: SignKind, name: string, key: "opacity" | "rotate" | "x" | "y" | "scaleX" | "scaleY", t: number) => {
     const keys = signArt(kind).parts.find((each) => each.name === name)!.keys;
     const values = keys?.[key];
-    return keys && values ? keyAt(keys.at, values, t) : key === "opacity" ? 1 : 0;
+    return keys && values ? keyAt(keys.at, values, t) : key === "opacity" || key === "scaleX" || key === "scaleY" ? 1 : 0;
+  };
+  // A part's keyed value while the question waits, and once it is answered.
+  const moved = (prompt: string, name: string, key: "rotate" | "x" | "y" | "scaleX" | "scaleY") => {
+    const { kind, pause, reveal } = asked(prompt);
+    return [value(kind, name, key, pause), value(kind, name, key, reveal)];
   };
   // The scene a story question is asked on, where it waits, and where it stops once answered.
   const asked = (prompt: string) => {
@@ -248,6 +253,112 @@ describe("where the scene waits and where it stops", () => {
     expect(shown("What did Zakariyya find each time he entered her room?", ["provision with her"])).toEqual([[0], [1]]);
     // What Allah told the fire: blazing, not yet cool; then cool, and safe.
     expect(shown("What did Allah tell the fire?", ["the blazing fire", "the fire made cool", "safety"])).toEqual([
+      [1, 0, 0],
+      [0, 1, 1]
+    ]);
+  });
+
+  it("waits on the stories of the Prophets' trials and their peoples before anything of the answer shows, and shows it once answered", () => {
+    // What 'Ad built: the sandhills, no tower yet; then a tower risen on each high place.
+    expect([1, 2, 3].map((each) => moved("What did 'Ad build on every high place?", `tower on a high place, ${each}`, "scaleY"))).toEqual([
+      [0, 1],
+      [0, 1],
+      [0, 1]
+    ]);
+    // What they took the cloud for: no cloud yet; then the cloud facing their valleys, and no wind yet.
+    expect(shown("What did 'Ad think the cloud was?", ["the cloud", "the wind"])).toEqual([
+      [0, 0],
+      [1, 0]
+    ]);
+    // Which wind: the cloud, no wind yet; then the storm, the wind and the sand blowing.
+    expect(shown("Which wind took 'Ad?", ["the cloud", "darkness of the storm", "the wind", "blowing sand"])).toEqual([
+      [1, 0, 0, 0],
+      [0, 1, 1, 1]
+    ]);
+    // How long: none counted yet; then all seven nights and eight days.
+    const turns = [1, 2, 3, 4, 5, 6, 7, 8].flatMap((each) => (each < 8 ? [`day ${each}`, `night ${each}`] : [`day ${each}`]));
+    expect(shown("How long did the wind blow on Ad?", turns)).toEqual([turns.map(() => 0), turns.map(() => 1)]);
+    // What was left: the storm still blowing, the towers and palms gone; then the storm gone, and only their homes.
+    expect(shown("Ayah 25: what was left of Ad after the wind?", ["the wind", "darkness of the storm", "tower on a high place, 1", "palm trees", "their homes", "sand drifted at their homes"])).toEqual([
+      [1, 1, 0, 0, 1, 0],
+      [0, 0, 0, 0, 1, 1]
+    ]);
+    // Where she put him: the chest on the bank; then the chest in the river.
+    const [bank, river] = moved("Where did Musa's mother put baby Musa?", "the chest", "y");
+    expect([bank, river > 4]).toEqual([0, true]);
+    // Do not fear: no light yet; then the chest sailing under His care.
+    expect(shown("Allah told her not to fear and not to grieve.", ["under His care"])).toEqual([[0], [1]]);
+    // What his sister was told: no footprints yet; then her footprints following the chest.
+    const steps = [1, 2, 3, 4, 5].map((each) => `footprints following the chest, step ${each}`);
+    expect(shown("What did Musa's mother tell his sister to do?", steps)).toEqual([steps.map(() => 0), steps.map(() => 1)]);
+    // Who nursed him: the chest on the shore by the palace; then it is gone, and the light is in their home.
+    expect(shown("Who nursed Musa in the end?", ["the chest", "evening", "light in their home"])).toEqual([
+      [1, 0, 0],
+      [0, 1, 1]
+    ]);
+    // His keys: not one yet; then all eight.
+    const keys = [1, 2, 3, 4, 5, 6, 7, 8].map((each) => `key ${each}`);
+    expect(shown("How heavy were Qarun's keys?", keys)).toEqual([keys.map(() => 0), keys.map(() => 1)]);
+    // How he went out: nothing yet; then his beasts in their finery, all three going out.
+    expect(shown("How did Qarun go out, in 28:79?", ["horse in finery, 1", "camel in finery, 2", "horse in finery, 3"])).toEqual([
+      [0, 0, 0],
+      [1, 1, 1]
+    ]);
+    // What happened to him: his home and treasure standing; then sunk into the earth, the earth cracked.
+    expect(["his home", "his treasure", "key 1"].map((name) => moved("What happened to Qarun?", name, "y"))).toEqual([
+      [0, 44],
+      [0, 44],
+      [0, 44]
+    ]);
+    expect(shown("What happened to Qarun?", ["the earth cracking", "where it was swallowed"])).toEqual([
+      [0, 0],
+      [1, 1]
+    ]);
+    // Why the women waited: the shepherds' flocks drinking, none held back yet; then their flock, held back.
+    const held = [1, 2, 3].map((each) => `flock held back, ${each}`);
+    expect(shown("Why were the women waiting, in 28:23?", held)).toEqual([held.map(() => 0), held.map(() => 1)]);
+    // How he helped: the bucket in the well, their flock apart; then the bucket poured, and their flock at the trough.
+    expect([moved("How did Musa help the two women?", "the bucket", "rotate"), ...held.map((name) => moved("How did Musa help the two women?", name, "x"))]).toEqual([
+      [0, 60],
+      [0, 58],
+      [0, 58],
+      [0, 58]
+    ]);
+    expect(shown("How did Musa help the two women?", ["water poured"])).toEqual([[0], [1]]);
+    // What he said: no light in the shade yet; then the light in the shade.
+    expect(shown("What did Musa say in the shade?", ["turned to the shade"])).toEqual([[0], [1]]);
+    // What Ayyub struck: the dry land, still; then the rings of the ground struck, and it opening.
+    const [still, struck] = shown("What was Ayyub told to strike?", ["strike the ground, 3", "the ground opening"]);
+    expect([still, struck.every((each) => each > 0.5)]).toEqual([[0, 0], true]);
+    // What came out: the dry land; then the spring and the cool water, the wilted plant gone.
+    expect(shown("What came out for him?", ["spring coming out", "the cool water", "wilted plant"])).toEqual([
+      [0, 0, 1],
+      [1, 1, 0]
+    ]);
+    // What fell on him: nothing yet; then the golden locusts, falling and fallen.
+    expect(shown("What fell on Ayyub after his cure?", ["golden locusts falling", "golden locusts on the ground"])).toEqual([
+      [0, 0],
+      [1, 1]
+    ]);
+    // What Allah called him: no light yet; then the light of his patience.
+    expect(shown("What did Allah call him?", ["light of his patience"])).toEqual([[0], [1]]);
+    // How many stars: not one yet; then all eleven, and not yet the sun and the moon.
+    const stars = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((each) => `star ${each}`);
+    expect(shown("How many stars did Yusuf see in his dream?", [...stars, "the sun", "the moon"])).toEqual([
+      [...stars.map(() => 0), 0, 0],
+      [...stars.map(() => 1), 0, 0]
+    ]);
+    // Whom not to tell: the dream; then their home at night, its window's shutters closed.
+    expect(shown("Whom should Yusuf not tell, in 12:5?", ["night at their home", "star 1", "the sun"])).toEqual([
+      [0, 1, 1],
+      [1, 0, 0]
+    ]);
+    expect(["left", "right"].map((side) => moved("Whom should Yusuf not tell, in 12:5?", `shutter closing, ${side}`, "scaleX"))).toEqual([
+      [0, 1],
+      [0, 1]
+    ]);
+    // What the eleven stars stood for: the night; then the morning, and the dream made true.
+    expect(shown("What did the eleven stars stand for, as the story ends?", ["night at their home", "morning", "the dream made true"])).toEqual([
       [1, 0, 0],
       [0, 1, 1]
     ]);

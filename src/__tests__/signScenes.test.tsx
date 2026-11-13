@@ -679,7 +679,11 @@ describe("the signs in creation, alive", () => {
     const keys = names("qarun", /^key \d+$/);
     expect([keys.length, keys.map((name) => shown("qarun", name, 0.02)), keys.map((name) => shown("qarun", name, 0.24))]).toEqual([8, keys.map(() => 0), keys.map(() => 1)]);
     const finery = names("qarun", /in finery/);
-    expect([finery.length, finery.map((name) => shown("qarun", name, 0.24)), finery.map((name) => shown("qarun", name, 0.4)), finery.map((name) => value("qarun", name, "x", 0.7))]).toEqual([3, [0, 0, 0], [1, 1, 1], [-112, -112, -112]]);
+    // All three are in view, out of his door and not yet past the left edge, as the moment of his going out ends, the
+    // first one out farthest along; then gone with it.
+    const going = finery.map((name) => value("qarun", name, "x", 0.45));
+    expect([finery.length, finery.map((name) => shown("qarun", name, 0.24)), finery.map((name) => shown("qarun", name, 0.45)), going.every((x) => x > -62 && x < -8), finery.map((name) => shown("qarun", name, 0.5))]).toEqual([3, [0, 0, 0], [1, 1, 1], true, [0, 0, 0]]);
+    expect(going).toEqual([...going].sort((a, b) => a - b));
     const order = signArt("qarun").parts.map((each) => each.name);
     expect(["his home", "his treasure", ...keys].every((name) => order.indexOf(name) < order.indexOf("the ground"))).toBe(true);
     expect(["his home", "his treasure", ...keys].map((name) => [value("qarun", name, "y", 0.5), value("qarun", name, "y", 0.74)])).toEqual(["his home", "his treasure", ...keys].map(() => [0, 44]));
