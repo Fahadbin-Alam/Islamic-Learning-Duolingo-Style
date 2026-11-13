@@ -32,10 +32,27 @@ import { bukhari, quran, type MapSource } from "./seerahMap";
  * - the rain on three lands: good, hard and barren (Sahih al-Bukhari 79; the good land, Quran 7:58);
  * - the deeds of those who reject their Lord, like ashes in a stormy wind (Quran 14:18);
  * - the garden struck in the night, black and bare by the morning (Quran 68:17 to 68:24);
- * - the two gardens of grapes, with palms around and crops between, whose fruit was destroyed (Quran 18:32 to 18:42).
+ * - the two gardens of grapes, with palms around and crops between, whose fruit was destroyed (Quran 18:32 to 18:42);
+ *
+ * and the signs in the stories of the Quran (storyArt.ts and historyArt.ts draw them):
+ *
+ * - Nuh's ark, built of planks and nails, two of each kind carried in it, sailing on waves like mountains and coming to
+ *   rest on al-Judi (Quran 11:37 to 11:44, 54:11 to 54:13);
+ * - the sea split for Musa, each side like a great mountain, with a dry path through it (Quran 26:61, 26:63, 20:77);
+ * - the clouds' shade, the manna and the quails, and the twelve springs from the rock (Quran 2:57, 2:60, 7:160);
+ * - the she-camel of Salih, with her day to drink and theirs (Quran 26:149, 26:155, 26:156, 91:13);
+ * - the ant who warned the others in their valley (Quran 27:18, 27:19);
+ * - the hoopoe, missing, then back with news from Saba, then off with the letter (Quran 27:20, 27:22, 27:23, 27:28);
+ * - the king's dream of seven fat cows and seven lean ones, and its meaning (Quran 12:43, 12:47 to 12:49);
+ * - the cave, where the sun turned away from the sleepers and their dog lay at the entrance (Quran 18:10, 18:11, 18:17,
+ *   18:18);
+ * - the elephant held back from Makkah, and the birds in flocks with their stones of baked clay (Quran 105:1 to
+ *   105:5, Sahih al-Bukhari 2731);
+ * - the winter and summer journeys of Quraysh, fed against hunger and safe from fear (Quran 106:1 to 106:4).
  *
  * Each scene shows only what its ayahs say. Nothing in a scene is a person or an angel: only the land, the sky, the
- * sea, plants, animals and things; the people of a parable are never drawn, only their gardens.
+ * sea, plants, animals and things; the people of a parable are never drawn, only their gardens, and no Prophet and no
+ * one of their people is drawn in the stories: the sleepers stay inside the dark cave, and an army is only its dust.
  */
 
 export type SignKind =
@@ -59,7 +76,17 @@ export type SignKind =
   | "lands"
   | "ashes"
   | "garden"
-  | "twoGardens";
+  | "twoGardens"
+  | "ark"
+  | "sea"
+  | "springs"
+  | "sheCamel"
+  | "ants"
+  | "hoopoe"
+  | "dream"
+  | "cave"
+  | "elephant"
+  | "journeys";
 
 export type SignScene = {
   id: string;
@@ -197,13 +224,84 @@ export const SIGN_SCENES: readonly SignScene[] = [
     caption:
       "A man had two gardens of grapes, with palms all around them, crops between them and a river flowing between them. But he grew proud and forgot his Lord, and all his fruit was destroyed, his vines fallen on their trellises.",
     sources: [quran(18, 32), quran(18, 33), quran(18, 35), quran(18, 42)]
+  },
+  {
+    id: "sign-ark",
+    kind: "ark",
+    caption:
+      "Nuh built the ark as Allah taught him, of planks and nails, and two of each kind were carried in it. The gates of the sky opened with pouring water and the earth burst with springs. The ark sailed on waves like mountains, and when the water was swallowed up, it came to rest on al-Judi.",
+    sources: [quran(11, 37), quran(11, 40), quran(11, 42), quran(11, 44), quran(54, 11), quran(54, 12), quran(54, 13)]
+  },
+  {
+    id: "sign-sea",
+    kind: "sea",
+    caption:
+      "With Pharaoh's army behind them and the sea before them, Allah told Musa to strike the sea with his staff. It split apart, each side like a great mountain, and a dry path opened through the sea, so they crossed without fear.",
+    sources: [quran(26, 61), quran(26, 63), quran(20, 77)]
+  },
+  {
+    id: "sign-springs",
+    kind: "springs",
+    caption:
+      "In the desert, Allah shaded the Children of Israel with clouds and sent down manna and quails for them. When Musa asked for water for his people, Allah told him to strike the rock with his staff, and twelve springs gushed out of it: each tribe knew its own drinking place.",
+    sources: [quran(2, 57), quran(2, 60), quran(7, 160)]
+  },
+  {
+    id: "sign-she-camel",
+    kind: "sheCamel",
+    caption:
+      "Thamud carved homes out of the mountains with skill. Allah sent them a she-camel as a sign: she had her day to drink and they had theirs, each on a known day, and Salih told them not to touch her with harm.",
+    sources: [quran(26, 149), quran(26, 155), quran(26, 156), quran(91, 13)]
+  },
+  {
+    id: "sign-ants",
+    kind: "ants",
+    caption:
+      "When Sulayman and his army came to the valley of the ants, an ant called out to the others to go into their homes, so that they would not be crushed without the army knowing. He smiled at her words and thanked Allah.",
+    sources: [quran(27, 18), quran(27, 19)]
+  },
+  {
+    id: "sign-hoopoe",
+    kind: "hoopoe",
+    caption:
+      "Sulayman looked over the birds and found the hoopoe missing. It soon came back with sure news from Saba, where a woman ruled the people. So he sent it back with his letter, to deliver it to them and see what they would answer.",
+    sources: [quran(27, 20), quran(27, 22), quran(27, 23), quran(27, 28)]
+  },
+  {
+    id: "sign-dream",
+    kind: "dream",
+    caption:
+      "The king dreamed of seven fat cows eaten by seven lean ones, and of seven green ears of grain and others dry. Yusuf told its meaning: sow for seven years and leave the harvest in its ears; then seven hard years will eat what was stored; then a year of rain will come.",
+    sources: [quran(12, 43), quran(12, 47), quran(12, 48), quran(12, 49)]
+  },
+  {
+    id: "sign-cave",
+    kind: "cave",
+    caption:
+      "The young believers took shelter in the cave and asked Allah for mercy, and He made them sleep there for years. The rising sun turned away from their cave and the setting sun passed them by, and their dog lay stretched out at the entrance.",
+    sources: [quran(18, 10), quran(18, 11), quran(18, 17), quran(18, 18)]
+  },
+  {
+    id: "sign-elephant",
+    kind: "elephant",
+    caption:
+      "An army came with an elephant to destroy the Ka'bah, but Allah held the elephant back from Makkah. He sent against them birds in flocks, throwing stones of baked clay, and made them like straw eaten by cattle.",
+    sources: [quran(105, 1), quran(105, 2), quran(105, 3), quran(105, 4), quran(105, 5), bukhari("2731")]
+  },
+  {
+    id: "sign-journeys",
+    kind: "journeys",
+    caption: "Allah made the winter and summer journeys easy for Quraysh. So let them worship the Lord of this House, who fed them against hunger and made them safe from fear.",
+    sources: [quran(106, 1), quran(106, 2), quran(106, 3), quran(106, 4)]
   }
 ];
 
 /**
  * The lessons that open on a scene, each read to check that it teaches what its scene shows (by the lesson's nodeId).
  * Left out: lessons that only touch a sign among other things (a whole passage of a surah), stories of people at sea,
- * and the Day of Judgment's seas and mountains. The gardens of the parables are drawn, never their owners.
+ * and the Day of Judgment's seas and mountains. The gardens of the parables are drawn, never their owners. For the
+ * stories, the lessons on the moment a scene shows; not the ones on what came before or after it (Pharaoh drowning,
+ * Nuh's son, the queen's throne), nor the reviews.
  */
 export const SIGN_LESSONS: Record<string, string> = {
   // Rain on a dead land, which comes to life.
@@ -341,7 +439,117 @@ export const SIGN_LESSONS: Record<string, string> = {
   "deep-kahf2-the-two-gardens": "sign-two-gardens",
   "deep-kahf2-the-garden-ruined": "sign-two-gardens",
   "surah-meaning-18-32-44": "sign-two-gardens",
-  "quran-surah-kahf-wealth-and-gardens": "sign-two-gardens"
+  "quran-surah-kahf-wealth-and-gardens": "sign-two-gardens",
+  // Nuh's ark: built, boarded, carried on the flood, at rest on al-Judi.
+  "prophets-early-messengers-nuh-and-patience": "sign-ark",
+  "intro-nuh": "sign-ark",
+  "deep-prophet-nuh-mocked": "sign-ark",
+  "deep-prophet-nuh-flood": "sign-ark",
+  "deep-prophet-nuh-judi": "sign-ark",
+  "surah-meaning-11-25-49": "sign-ark",
+  "surah-meaning-23-23-32": "sign-ark",
+  "surah-meaning-26-105-122": "sign-ark",
+  "deep-araf3-the-ark": "sign-ark",
+  "deep-yunus4-saved-in-the-ark": "sign-ark",
+  "deep-hud2-build-the-ship": "sign-ark",
+  "deep-hud2-they-mocked-the-ship": "sign-ark",
+  "deep-hud2-no-mountain-saves": "sign-ark",
+  "deep-hud2-the-ship-rests-on-judi": "sign-ark",
+  "deep-muminun1-dua-of-the-ark": "sign-ark",
+  "deep-shuara2-the-laden-ship": "sign-ark",
+  "deep-ankabut2-the-ark-a-sign": "sign-ark",
+  "deep-yasin2-the-laden-ship": "sign-ark",
+  "deep-qamar1-planks-and-nails": "sign-ark",
+  "deep-qamar1-under-our-protection": "sign-ark",
+  "deep-qamar1-gates-of-heaven-open": "sign-ark",
+  "deep-haqqah1-carried-in-the-ship": "sign-ark",
+  // The sea split for Musa, with a dry path through it.
+  "deep-prophet-musa-sea": "sign-sea",
+  "surah-meaning-26-53-69": "sign-sea",
+  "surah-meaning-2-47-59": "sign-sea",
+  "deep-baqarah1-sea-parted": "sign-sea",
+  "deep-yunus4-the-sea-split": "sign-sea",
+  "deep-taha2-a-dry-path-in-the-sea": "sign-sea",
+  "deep-shuara1-the-sea-parts": "sign-sea",
+  "deep-dukhan2-leave-the-sea-calm": "sign-sea",
+  // The clouds' shade, the manna and the quails, and the twelve springs.
+  "deep-prophet-musa-twelve-springs": "sign-springs",
+  "surah-meaning-2-60-61": "sign-springs",
+  "deep-baqarah1-manna": "sign-springs",
+  "deep-baqarah1-springs": "sign-springs",
+  "deep-baqarah1-onions": "sign-springs",
+  "deep-araf5-twelve-springs": "sign-springs",
+  // The she-camel of Salih among Thamud's homes carved in the mountains.
+  "prophets-early-messengers-hud-and-salih": "sign-she-camel",
+  "deep-prophet-salih-rock-homes": "sign-she-camel",
+  "deep-prophet-salih-turns": "sign-she-camel",
+  "deep-prophet-salih-wretched": "sign-she-camel",
+  "surah-meaning-11-61-68": "sign-she-camel",
+  "surah-meaning-26-141-159": "sign-she-camel",
+  "surah-meaning-91-11-15": "sign-she-camel",
+  "deep-araf3-salih-camel": "sign-she-camel",
+  "deep-hud3-the-she-camel-of-allah": "sign-she-camel",
+  "deep-hijr4-dwellers-of-al-hijr": "sign-she-camel",
+  "deep-shuara3-the-she-camel": "sign-she-camel",
+  "deep-shuara3-touch-her-not": "sign-she-camel",
+  "deep-qamar2-the-she-camel": "sign-she-camel",
+  "deep-qamar2-they-harmed-the-camel": "sign-she-camel",
+  "deep-shams3-the-she-camel-of-allah": "sign-she-camel",
+  // The ant who warned the others, and Sulayman's thanks.
+  "prophets-power-and-deliverance-sulayman-and-gratitude": "sign-ants",
+  "deep-prophet-sulayman-ant": "sign-ants",
+  "deep-dua-prophets-sulayman-thanks": "sign-ants",
+  "deep-naml1-valley-of-the-ants": "sign-ants",
+  "deep-naml1-a-smile-not-a-roar": "sign-ants",
+  "surah-meaning-27-15-31": "sign-ants",
+  // The hoopoe's news from Saba, and the letter.
+  "deep-prophet-sulayman-hoopoe": "sign-hoopoe",
+  "deep-quranwomen-saba-queen": "sign-hoopoe",
+  "deep-naml2-the-missing-hoopoe": "sign-hoopoe",
+  "deep-naml2-a-clear-reason": "sign-hoopoe",
+  "deep-naml2-news-from-saba": "sign-hoopoe",
+  "deep-naml2-the-noble-letter": "sign-hoopoe",
+  // The king's dream of seven cows and seven ears, and its meaning.
+  "deep-prophet-yusuf-kings-dream": "sign-dream",
+  "surah-meaning-12-43-49": "sign-dream",
+  "deep-yusuf3-seven-fat-cows": "sign-dream",
+  "deep-yusuf3-store-it-in-the-ear": "sign-dream",
+  "deep-yusuf3-a-year-of-relief": "sign-dream",
+  // The cave: the sun turning away, the dog at the entrance, the years of sleep.
+  "quran-surah-kahf-faith-under-trial": "sign-cave",
+  "surah-meaning-18-1-12": "sign-cave",
+  "surah-meaning-18-13-17": "sign-cave",
+  "surah-meaning-18-18-22": "sign-cave",
+  "deep-kahf1-the-young-mens-dua": "sign-cave",
+  "deep-dua-believers-cave-mercy": "sign-cave",
+  "deep-kahf1-the-sun-passed-them-by": "sign-cave",
+  "deep-kahf1-asleep-yet-seeming-awake": "sign-cave",
+  "deep-kahf1-a-sign-among-many": "sign-cave",
+  "deep-kahf1-a-day-or-part-of-a-day": "sign-cave",
+  // The elephant held back, and the birds with their stones of baked clay.
+  "surah-meaning-105-1-2": "sign-elephant",
+  "surah-meaning-105-3-5": "sign-elephant",
+  "deep-fil1-the-owners-of-the-elephant": "sign-elephant",
+  "deep-fil1-the-great-elephant": "sign-elephant",
+  "deep-fil1-the-house-has-its-lord": "sign-elephant",
+  "deep-fil1-the-elephant-kneels": "sign-elephant",
+  "deep-fil1-their-plot-went-astray": "sign-elephant",
+  "deep-fil2-held-back-from-makkah": "sign-elephant",
+  "deep-fil2-birds-in-flocks": "sign-elephant",
+  "deep-fil2-three-small-stones": "sign-elephant",
+  "deep-fil2-stones-of-sijjil": "sign-elephant",
+  "deep-fil2-like-eaten-straw": "sign-elephant",
+  "deep-fil2-they-gained-no-good": "sign-elephant",
+  "deep-fil2-the-year-of-his-birth": "sign-elephant",
+  // The winter and summer journeys of Quraysh.
+  "surah-meaning-106-1-2": "sign-journeys",
+  "surah-meaning-106-3-4": "sign-journeys",
+  "deep-quraysh1-winter-and-summer-journeys": "sign-journeys",
+  "deep-quraysh1-ilaf-bringing-together": "sign-journeys",
+  "deep-quraysh1-honored-travelers": "sign-journeys",
+  "deep-quraysh2-fed-against-hunger": "sign-journeys",
+  "deep-quraysh2-safe-from-fear": "sign-journeys",
+  "deep-quraysh2-worship-the-lord-of-the-house": "sign-journeys"
 };
 
 export type LessonSign = { scene: SignScene; lessonSlug: string };
