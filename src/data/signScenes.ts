@@ -104,13 +104,31 @@ import { bukhari, quran, type MapSource } from "./seerahMap";
  * - the two gardens of Saba, the flood of the dam, the bitter fruit after it, and their scattering (Quran 34:15,
  *   34:16, 34:19);
  * - the cow Bani Isra'il were told to sacrifice: neither old nor young, bright yellow, not trained to plough or water,
- *   sound with no blemish (Quran 2:67 to 2:69, 2:71).
+ *   sound with no blemish (Quran 2:67 to 2:69, 2:71);
+ *
+ * and Allah's power in the stories (powerArt.ts draws them):
+ *
+ * - Lut's town: the way out by night, the morning, the town turned upside down, the stones of baked clay, layer on
+ *   layer and marked, and the clear sign left of it (Quran 11:81 to 11:83, 29:35);
+ * - the signs on Pharaoh's people: years of drought, then the flood, the locusts, the lice, the frogs and the blood, one
+ *   after another, each lifted in turn (Quran 7:130, 7:133, 7:135);
+ * - the town by the sea, whose fish came on their Sabbath, showing on the water, and not on the other days: a test
+ *   (Quran 7:163);
+ * - Dhul-Qarnayn given the means to all things, his way to where the sun sets in a murky spring, and to where it rises
+ *   on a land with no shelter from it (Quran 18:84 to 18:86, 18:89, 18:90);
+ * - Ibrahim's four birds: taken, put on each hill, called, and coming back in haste (Quran 2:260);
+ * - the town fallen on its roofs, the hundred years, the food and drink unchanged, and the donkey's bones raised and
+ *   clothed with flesh (Quran 2:259);
+ * - Yusuf's shirt: sent from Egypt with the caravan, its scent found far away, and his father's sight come back (Quran
+ *   12:93, 12:94, 12:96).
  *
  * Each scene shows only what its ayahs say. Nothing in a scene is a person or an angel: only the land, the sky, the
  * sea, plants, animals and things; the people of a parable are never drawn, only their gardens, and no Prophet and no
  * one of their people is drawn in the stories: the sleepers stay inside the dark cave, an army is only its dust, a
  * staff, a plank or a wall moves by itself, the House rises stone by stone, and Hajar is only her footprints; and
- * nothing of a sacrifice is ever drawn, only the great ram, and the cow in the pasture.
+ * nothing of a sacrifice is ever drawn, only the great ram, and the cow in the pasture; the people of Lut, of Pharaoh
+ * and of the Sabbath town are not drawn, nor what befell them, only their land; the one who slept a hundred years is
+ * neither drawn nor named, and four birds are never drawn cut apart.
  */
 
 export type SignKind =
@@ -167,7 +185,14 @@ export type SignKind =
   | "ram"
   | "qiblah"
   | "saba"
-  | "cow";
+  | "cow"
+  | "overturned"
+  | "five-signs"
+  | "sabbath"
+  | "west-east"
+  | "four-birds"
+  | "hundred-years"
+  | "shirt";
 
 export type SignScene = {
   id: string;
@@ -534,6 +559,55 @@ export const SIGN_SCENES: readonly SignScene[] = [
     caption:
       "Musa told his people: Allah commands you to sacrifice a cow. They asked question after question, and were told: it is neither old nor young, but in between; it is yellow, bright in color, pleasing to those who see it; it is not trained to plough the earth or to water the fields, sound, with no blemish on it. Then they sacrificed it, though they almost did not.",
     sources: [quran(2, 67), quran(2, 68), quran(2, 69), quran(2, 71)]
+  },
+  {
+    id: "sign-overturned",
+    kind: "overturned",
+    caption:
+      "The angels told Lut: leave with your family in a part of the night; their appointed time is the morning, and is not the morning near? When Allah's command came, He turned the town upside down and rained on it stones of baked clay, layer on layer, marked by your Lord. And Allah left of it a clear sign for people who understand.",
+    sources: [quran(11, 81), quran(11, 82), quran(11, 83), quran(29, 35)]
+  },
+  {
+    id: "sign-five-signs",
+    kind: "five-signs",
+    caption:
+      "Allah seized Pharaoh's people with years of drought and too little fruit, so that they might remember. Then He sent on them the flood, the locusts, the lice, the frogs and the blood: signs made clear, one after another. But they were arrogant, and each time the torment was lifted from them, they broke their word.",
+    sources: [quran(7, 130), quran(7, 133), quran(7, 135), quran(43, 50)]
+  },
+  {
+    id: "sign-sabbath",
+    kind: "sabbath",
+    caption:
+      "Ask them about the town by the sea, when they broke the Sabbath: their fish came to them on their Sabbath day, showing on the water, and on the days that were not their Sabbath, they did not come. Thus Allah tested them, because they were disobedient.",
+    sources: [quran(7, 163)]
+  },
+  {
+    id: "sign-west-east",
+    kind: "west-east",
+    caption:
+      "Allah established Dhul-Qarnayn in the land and gave him the means to all things. He followed a way until he reached where the sun sets, and found it setting in a murky spring. Then he followed a way until he reached where the sun rises, and found it rising on a people for whom Allah had made no shelter from it.",
+    sources: [quran(18, 84), quran(18, 85), quran(18, 86), quran(18, 89), quran(18, 90)]
+  },
+  {
+    id: "sign-four-birds",
+    kind: "four-birds",
+    caption:
+      "Ibrahim said: my Lord, show me how You give life to the dead. Allah said: do you not believe? He said: yes, but so that my heart may be at rest. Allah said: take four birds and draw them to you, then put a part of them on each hill, then call them: they will come to you in haste. And know that Allah is Almighty, All-Wise.",
+    sources: [quran(2, 260)]
+  },
+  {
+    id: "sign-hundred-years",
+    kind: "hundred-years",
+    caption:
+      "A man passed by a town fallen down on its roofs, and said: how will Allah give it life after its death? So Allah made him die for a hundred years, then raised him. Look at your food and your drink: they have not changed. Look at your donkey, and look at the bones, how Allah raises them and clothes them with flesh. When it became clear to him, he said: I know that Allah is able to do all things.",
+    sources: [quran(2, 259)]
+  },
+  {
+    id: "sign-shirt",
+    kind: "shirt",
+    caption:
+      "Yusuf told his brothers: go with this shirt of mine and cast it over my father's face; he will see again. When the caravan left Egypt, their father said: I find the scent of Yusuf. When the bearer of good news came, he cast the shirt over his face, and he could see again.",
+    sources: [quran(12, 93), quran(12, 94), quran(12, 96)]
   }
 ];
 
@@ -542,9 +616,10 @@ export const SIGN_SCENES: readonly SignScene[] = [
  * Left out: lessons that only touch a sign among other things (a whole passage of a surah), stories of people at sea,
  * and the Day of Judgment's seas and mountains. The gardens of the parables are drawn, never their owners. For the
  * stories, the lessons on the moment a scene shows; not the ones on what came before or after it (Pharaoh drowning,
- * Nuh's son, the shining hand, the parting from al-Khidr, Ya'juj and Ma'juj let loose at the end),
- * nor the reviews, nor the lessons on the twelve paths through the sea (its scene shows the one dry path of 20:77),
- * nor the ones on a hadith about a story (the virtue of Yunus's dua, the gourd he ﷺ liked).
+ * Nuh's son, the shining hand, the parting from al-Khidr, Ya'juj and Ma'juj let loose at the end, Lut's guests and his
+ * wife, the Sabbath-breakers made like apes, Dhul-Qarnayn's rulings), nor the reviews, nor the lessons on the twelve
+ * paths through the sea (its scene shows the one dry path of 20:77), nor the ones on a hadith about a story (the virtue
+ * of Yunus's dua, the gourd he ﷺ liked).
  */
 export const SIGN_LESSONS: Record<string, string> = {
   // Rain on a dead land, which comes to life.
@@ -1027,7 +1102,46 @@ export const SIGN_LESSONS: Record<string, string> = {
   // The cow Bani Isra'il were told to sacrifice.
   "surah-meaning-2-62-71": "sign-cow",
   "deep-baqarah1-the-cow": "sign-cow",
-  "deep-baqarah1-too-many-questions": "sign-cow"
+  "deep-baqarah1-too-many-questions": "sign-cow",
+  // Lut's town: the way out by night, the morning, the town turned upside down, the stones, and the sign left.
+  "deep-prophet-lut-stones": "sign-overturned",
+  "deep-hud4-leave-by-night": "sign-overturned",
+  "deep-hud4-the-town-overturned": "sign-overturned",
+  "deep-hijr3-leave-by-night": "sign-overturned",
+  "deep-hijr3-ruins-on-the-highroad": "sign-overturned",
+  "deep-shuara3-lut-is-saved": "sign-overturned",
+  "deep-ankabut3-for-their-rebellion": "sign-overturned",
+  "deep-ankabut3-a-clear-sign-left": "sign-overturned",
+  "deep-saffat5-lut-saved": "sign-overturned",
+  "deep-saffat5-the-rest-destroyed": "sign-overturned",
+  "deep-saffat5-you-pass-by-them": "sign-overturned",
+  "deep-dhariyat2-stones-marked-by-allah": "sign-overturned",
+  "deep-dhariyat2-marked-by-your-lord": "sign-overturned",
+  "deep-dhariyat2-a-sign-left-behind": "sign-overturned",
+  "deep-najm3-the-overturned-cities": "sign-overturned",
+  "deep-najm3-what-covered-them": "sign-overturned",
+  "deep-qamar2-saved-before-dawn": "sign-overturned",
+  "deep-qamar2-seized-in-the-morning": "sign-overturned",
+  // The signs on Pharaoh's people, one after another.
+  "surah-meaning-7-127-141": "sign-five-signs",
+  "deep-araf4-years-of-drought": "sign-five-signs",
+  "deep-araf4-five-signs": "sign-five-signs",
+  "deep-zukhruf3-each-sign-greater": "sign-five-signs",
+  "deep-zukhruf3-they-broke-their-word": "sign-five-signs",
+  // The town by the sea, and its fish on the Sabbath.
+  "deep-araf5-sabbath-town": "sign-sabbath",
+  // Dhul-Qarnayn's ways, to where the sun sets and to where it rises.
+  "deep-kahf4-dhul-qarnayn-given-power": "sign-west-east",
+  "deep-kahf4-journey-to-the-west": "sign-west-east",
+  "deep-kahf4-journey-to-the-east": "sign-west-east",
+  // Ibrahim's four birds.
+  "deep-prophet-ibrahim-birds": "sign-four-birds",
+  "deep-baqarah3-four-birds": "sign-four-birds",
+  // The town fallen on its roofs, the hundred years, and the donkey.
+  "deep-baqarah3-hundred-years": "sign-hundred-years",
+  // Yusuf's shirt, its scent, and his father's sight.
+  "deep-yusuf5-the-scent-of-yusuf": "sign-shirt",
+  "deep-yusuf5-his-sight-returns": "sign-shirt"
 };
 
 export type LessonSign = { scene: SignScene; lessonSlug: string };
