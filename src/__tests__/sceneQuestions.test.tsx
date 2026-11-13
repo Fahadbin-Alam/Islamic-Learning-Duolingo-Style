@@ -79,7 +79,7 @@ describe("which questions are asked on a scene", () => {
     const asks = sceneAsks();
     // Each one was read with its scene: its right answer is what the moment shows, and the scene before it does not
     // show it. A question changed in the course fails here until it is read again.
-    expect(asks.length).toBe(277);
+    expect(asks.length).toBe(326);
     let places = 0;
     for (const ask of asks) {
       const found = ALL_CHALLENGES.filter(({ challenge }) => challenge.prompt === ask.prompt && rightOf(challenge) === ask.answer);
@@ -97,7 +97,7 @@ describe("which questions are asked on a scene", () => {
         ]);
       }
     }
-    expect(places).toBe(377);
+    expect(places).toBe(449);
   });
 
   it("finds a question by its prompt and its right answer, so another question with the same prompt is not asked on it", () => {
@@ -145,22 +145,25 @@ describe("where the scene waits and where it stops", () => {
     }
   });
 
+  // A part's keyed value at `t` of its scene's story (its resting value when it has no such key).
+  const value = (kind: SignKind, name: string, key: "opacity" | "rotate", t: number) => {
+    const keys = signArt(kind).parts.find((each) => each.name === name)!.keys;
+    const values = keys?.[key];
+    return keys && values ? keyAt(keys.at, values, t) : key === "opacity" ? 1 : 0;
+  };
+  // The scene a story question is asked on, where it waits, and where it stops once answered.
+  const asked = (prompt: string) => {
+    const ask = sceneAsks().find((each) => each.prompt === prompt)!;
+    const kind = SIGN_SCENES.find((each) => each.id === ask.sceneId)!.kind;
+    return { kind, ...sceneMoment(kind, ask.from, ask.to)! };
+  };
+  // How much of each part shows while the question waits, and once it is answered.
+  const shown = (prompt: string, names: string[]) => {
+    const { kind, pause, reveal } = asked(prompt);
+    return [names.map((name) => value(kind, name, "opacity", pause)), names.map((name) => value(kind, name, "opacity", reveal))];
+  };
+
   it("waits on the Prophets' stories before anything of the answer shows, and shows it once answered", () => {
-    // A part's keyed value at `t` of its scene's story (its resting value when it has no such key).
-    const value = (kind: SignKind, name: string, key: "opacity" | "rotate", t: number) => {
-      const keys = signArt(kind).parts.find((each) => each.name === name)!.keys;
-      const values = keys?.[key];
-      return keys && values ? keyAt(keys.at, values, t) : key === "opacity" ? 1 : 0;
-    };
-    const asked = (prompt: string) => {
-      const ask = sceneAsks().find((each) => each.prompt === prompt)!;
-      const kind = SIGN_SCENES.find((each) => each.id === ask.sceneId)!.kind;
-      return { kind, ...sceneMoment(kind, ask.from, ask.to)! };
-    };
-    const shown = (prompt: string, names: string[]) => {
-      const { kind, pause, reveal } = asked(prompt);
-      return [names.map((name) => value(kind, name, "opacity", pause)), names.map((name) => value(kind, name, "opacity", reveal))];
-    };
     // Where the fire burned: only the far fire while it waits; then, near, the green bush on fire.
     expect(shown("Where was the fire burning, per Ibn Kathir?", ["far fire", "green bush", "fire in the bush"])).toEqual([
       [1, 0, 0],
@@ -197,6 +200,56 @@ describe("where the scene waits and where it stops", () => {
     expect(shown("What fell from the palm, in 19:25?", ["ripe dates", "falling date 1", "falling date 4"])).toEqual([
       [0, 0, 0],
       [1, 1, 1]
+    ]);
+  });
+
+  it("waits on the stories of Allah's favors to His Prophets before anything of the answer shows, and shows it once answered", () => {
+    // What Dawud made from the iron: the iron bending, no coat yet; then the coat of mail, every row of its rings joined.
+    expect(shown("What did Dawud make from the iron?", ["iron bending", "coat of mail", "rings of the coat, band 1", "rings of the coat, band 4"])).toEqual([
+      [1, 0, 0, 0],
+      [0, 1, 1, 1]
+    ]);
+    // What the birds did: none yet; then gathered with him, from both sides.
+    expect(shown("What did the birds do, per Ibn Kathir?", ["birds gathered, left", "birds gathered, right"])).toEqual([
+      [0, 0],
+      [1, 1]
+    ]);
+    // What Ismail helped build: the dry valley, not a stone yet; then the House, every course of it.
+    expect(shown("Ismail helped his father Ibrahim build the ____.", [1, 2, 3, 4, 5].map((course) => `stones of the House, course ${course}`))).toEqual([
+      [0, 0, 0, 0, 0],
+      [1, 1, 1, 1, 1]
+    ]);
+    // How the pilgrims would come: no path and no camel yet; then the camels on the paths, from both sides.
+    expect(shown("How would the pilgrims come?", ["paths to the House", "camel coming, left", "camel coming, right"])).toEqual([
+      [0, 0, 0],
+      [1, 1, 1]
+    ]);
+    // How many times between Safa and Marwah: none counted yet; then all seven.
+    const times = [1, 2, 3, 4, 5, 6, 7].map((time) => `time ${time}`);
+    expect(shown("How many times did Hajar go between Safa and Marwah?", times)).toEqual([times.map(() => 0), times.map(() => 1)]);
+    // What came out: the footsteps, no water yet; then the water of Zamzam.
+    expect(shown("What came out at the spot of Zamzam?", ["footsteps between them", "the water of Zamzam", "water coming out"])).toEqual([
+      [1, 0, 0],
+      [0, 1, 1]
+    ]);
+    // How they found the water: no bird yet; then a bird circling over it.
+    expect(shown("How did they find the water?", ["a bird circling over the water"])).toEqual([[0], [1]]);
+    // How fast her throne was brought: far off in Saba; then here, in the hall.
+    expect(shown("How fast was her throne brought?", ["her throne, far off", "her throne, here"])).toEqual([
+      [1, 0],
+      [0, 1]
+    ]);
+    // What was under the glass floor: no glass yet; then the glass, with water under it.
+    expect(shown("What was under the glass floor?", ["the glass", "water under the glass"])).toEqual([
+      [0, 0],
+      [1, 1]
+    ]);
+    // What Zakariyya found: nothing yet; then the provision with her.
+    expect(shown("What did Zakariyya find each time he entered her room?", ["provision with her"])).toEqual([[0], [1]]);
+    // What Allah told the fire: blazing, not yet cool; then cool, and safe.
+    expect(shown("What did Allah tell the fire?", ["the blazing fire", "the fire made cool", "safety"])).toEqual([
+      [1, 0, 0],
+      [0, 1, 1]
     ]);
   });
 

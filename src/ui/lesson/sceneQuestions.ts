@@ -232,6 +232,73 @@ const ASKS: Record<string, readonly Ask[]> = {
     ["What is Sariy, per Ibn Abbas?", "A river or stream", "A stream beneath"],
     ["What fell from the palm, in 19:25?", "Fresh ripe dates", "Fresh ripe dates fell"]
   ],
+  // Dawud: the birds gathered with him, and the coats of mail he made from the iron, their rings just right (21:79, 21:80, 34:10, 34:11, 38:19).
+  "sign-dawud": [
+    ["What did Dawud make from the iron?", "Coats of armor", "Make coats of mail"],
+    ["What did the birds do, per Ibn Kathir?", "Hovered and repeated after him", "And the birds, gathered"],
+    ["What did Allah teach Dawud to make, in 21:80?", "Coats of mail", "Make coats of mail"],
+    ["Dawud was the first to make armor of linked rings, per Qatadah.", "True", "Make coats of mail", "The rings just right"],
+    ["What was Dawud told to make, in 34:11?", "Coats of mail", "Make coats of mail"],
+    ["How should the rings be, per Mujahid?", "Just right", "Make coats of mail", "The rings just right"],
+    ["What did a passing bird do, per Ibn Kathir?", "Hovered and glorified Allah", "And the birds, gathered"]
+  ],
+  // The House: its foundations raised, our Lord, accept from us, the call to Hajj, the camels from every distant path (2:127, 22:26, 22:27).
+  "sign-house": [
+    ["Ismail helped his father Ibrahim build the ____.", "Ka'bah", "Raising the foundations of the House"],
+    ["Ismail helped his father Ibrahim build the ark.", "False", "Raising the foundations of the House"],
+    ["What did they ask while building?", "Our Lord, accept from us", "Our Lord, accept from us"],
+    ["How would the pilgrims come?", "On foot and on camels", "From every distant path"],
+    ["Pilgrims come from every distant place.", "True", "From every distant path"],
+    ["What did they ask while building?", "Our Lord, accept this from us", "Our Lord, accept from us"],
+    ["Ayahs 122-129: what are they about?", "Building the Kabah", "Raising the foundations of the House"],
+    ["Ayahs 122-129 say: Ibrahim and Ismail built the Kabah and asked Allah to accept.", "True", "Raising the foundations of the House", "Our Lord, accept from us"],
+    ["What did Ibrahim and Ismail ask while building?", "Our Lord, accept from us", "Our Lord, accept from us"],
+    ["Ayahs 26-33: what are they about?", "The call to Hajj", "Proclaim the Hajj to the people"],
+    ["Ayah 27: how will people come to Hajj?", "On foot and on lean camels", "From every distant path"],
+    ["What did they pray while working?", "Our Lord, accept from us", "Our Lord, accept from us"],
+    ["After a good deed, what does their dua teach?", "Ask Allah to accept it", "Our Lord, accept from us"],
+    ["What was Ibrahim told to proclaim, in 22:27?", "The Hajj", "Proclaim the Hajj to the people"],
+    ["How will people come, in 22:27?", "On foot and lean camels", "From every distant path"],
+    ["What was Ibrahim told when he worried his voice was weak?", "Call, and Allah conveys it", "Proclaim the Hajj to the people", "From every distant path"]
+  ],
+  // Safa and Marwah: the seven times between them, the water of Zamzam, the bird circling over it (2:158; Sahih al-Bukhari 3364).
+  "sign-zamzam": [
+    ["____ is walking between Safa and Marwah seven times.", "Sa'i", "Seven times between them"],
+    ["What is Hajar known for?", "She was Ismail's mother and ran between Safa and Marwah.", "Seven times between them"],
+    ["How many times did Hajar go between Safa and Marwah?", "Seven", "Seven times between them"],
+    ["What was she looking for?", "Someone to help, and water", "Seven times between them", "The water of Zamzam"],
+    ["What came out at the spot of Zamzam?", "Water", "The water of Zamzam"],
+    ["How did they find the water?", "Birds circling over it", "A bird circling over the water"]
+  ],
+  // The queen's throne: brought before the glance returns, the favor of his Lord, the palace paved with glass over water (27:40, 27:44).
+  "sign-throne": [
+    ["How fast was her throne brought?", "In the blink of an eye", "Before your glance returns"],
+    ["What did Sulayman call it when he saw the throne?", "A favor from my Lord, to test me", "From the favor of my Lord"],
+    ["Ayah 40: what did Sulayman call the throne's swift arrival?", "My Lord's favour, to test me", "From the favor of my Lord"],
+    ["How fast was the throne brought, in 27:40?", "In the blink of an eye", "Before your glance returns"],
+    ["What did Sulayman call it?", "The grace of my Lord", "From the favor of my Lord"],
+    ["What was under the glass floor?", "Flowing water", "A palace paved with glass"],
+    ["What did she think it was?", "A pool", "A palace paved with glass"]
+  ],
+  // The mihrab: the provision Zakariyya found with Maryam, from Allah, and his call to his Lord there (3:37, 3:38).
+  "sign-mihrab": [
+    ["What did Zakariyya find with Maryam?", "Food from Allah", "He found provision with her", "It is from Allah"],
+    ["Zakariyya made his du'a when he saw Allah's provision with Maryam.", "True", "He found provision with her", "There, Zakariyya called on his Lord"],
+    ["What did Zakariyya find each time he entered her room?", "Food", "He found provision with her"],
+    ["What did Maryam answer when asked where it came from?", "It is from Allah", "It is from Allah"],
+    ["What did Zakariyya find with her?", "Food from Allah", "He found provision with her", "It is from Allah"]
+  ],
+  // The fire made coolness and safety for Ibrahim (21:69, 29:24, 37:98).
+  "sign-cool-fire": [
+    ["What did Allah tell the fire?", "Be cool and safe for Ibrahim", "O fire, be coolness", "And safety for Ibrahim"],
+    ["The fire harmed Ibrahim a little.", "False", "O fire, be coolness", "And safety for Ibrahim"],
+    ["What did Allah tell the fire to be for Ibrahim?", "Cool and safe", "O fire, be coolness", "And safety for Ibrahim"],
+    ["Ayahs 51-75 say: Ibrahim broke the idols; Allah made the fire cool and safe.", "True", "O fire, be coolness", "And safety for Ibrahim"],
+    ["Ayah 69: what did Allah tell the fire to be?", "Cool and safe", "O fire, be coolness", "And safety for Ibrahim"],
+    ["What did Allah command the fire, in 21:69?", "Be cool and safe", "O fire, be coolness", "And safety for Ibrahim"],
+    ["How did Allah save him, per Ibn Kathir?", "Made the fire cool and safe", "O fire, be coolness", "And safety for Ibrahim"],
+    ["What did Allah do for Ibrahim, per Ibn Kathir?", "Saved him from the fire", "O fire, be coolness", "And safety for Ibrahim"]
+  ],
   // Rain on a dead land (7:57, 35:9, 16:65).
   "sign-rain": [
     ["What does Allah send down to grow our food?", "Rain", "The winds bring the clouds", "The rain falls"],

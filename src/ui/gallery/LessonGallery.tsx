@@ -915,6 +915,14 @@ const STATES: State[] = [
   { id: "scene-barrier", render: () => <SceneQuestionDemo lessonId="lesson-deep-kahf4-the-iron-barrier" ask="How high did the blocks go" /> },
   { id: "scene-yunus", render: () => <SceneQuestionDemo lessonId="lesson-deep-saffat5-the-gourd-plant" ask="What grew over him" /> },
   { id: "scene-maryam", render: () => <SceneQuestionDemo lessonId="lesson-deep-maryam1-dates-and-a-stream" ask="What fell from the palm" /> },
+  // Allah's favors to His Prophets: Dawud's coat of mail, the camels coming to the House, the seven times between Safa
+  // and Marwah, the glass floor, the provision in the mihrab, the fire made cool.
+  { id: "scene-dawud", render: () => <SceneQuestionDemo lessonId="lesson-deep-prophet-dawud-mountains-birds" ask="What did Dawud make from the iron" /> },
+  { id: "scene-house", render: () => <SceneQuestionDemo lessonId="lesson-deep-hajj-house-proclaim" ask="How would the pilgrims come" /> },
+  { id: "scene-zamzam", render: () => <SceneQuestionDemo lessonId="lesson-deep-quranwomen-hajar-safa-marwah" ask="How many times did Hajar go" /> },
+  { id: "scene-throne", render: () => <SceneQuestionDemo lessonId="lesson-deep-naml2-the-glass-palace" ask="What was under the glass floor" /> },
+  { id: "scene-mihrab", render: () => <SceneQuestionDemo lessonId="lesson-deep-quranwomen-maryam-provision" ask="What did Zakariyya find each time" /> },
+  { id: "scene-cool-fire", render: () => <SceneQuestionDemo lessonId="lesson-deep-prophet-ibrahim-fire" ask="What did Allah tell the fire" /> },
   // Month questions on the year: Ashura in Muharram; Sha'ban, answered wrong (the right month turns green, its moon full).
   { id: "month", render: () => <MonthQuestionDemo lessonId="lesson-deep-days-ashura" ask="Ashura is in" /> },
   { id: "month-picked", render: () => <MonthQuestionDemo lessonId="lesson-deep-days-ashura" ask="Ashura is in" pick="right" /> },
