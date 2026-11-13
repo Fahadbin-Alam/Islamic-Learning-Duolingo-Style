@@ -69,6 +69,13 @@ const ABOUT: Record<string, RegExp[]> = {
   "sky-last-third": [/last third/i],
   "sky-sleep": [/sleep|bed|wak(e|ing)|lie down|lying down/i],
   "sky-qadr": [/qadr|thousand months|last ten|(that|this|which|odd) night/i],
+  "sky-dawn-oath": [/dawn|fajr|night/i],
+  "sky-twilight": [/twilight|shafaq|night/i],
+  "sky-sun-oath": [/sun|day|night/i],
+  "sky-duha-oath": [/forenoon|duha|morning|night/i],
+  "sky-night-day": [/night/i, /day/i],
+  "sky-shadows": [/shadow/i],
+  "sky-workers": [/asr/i, /sunset/i],
   "sky-suhur": [/suhur|sahur|(eat|drink).*(dawn|fajr)/i],
   "sky-thread": [/thread/i],
   "sky-fast": [/fast/i],
@@ -98,7 +105,14 @@ const SOURCES: Record<string, string[]> = {
   "sky-night-prayer": ["Sahih al-Bukhari 1137", "Sahih al-Bukhari 998"],
   "sky-stand-night": ["Quran 73:2", "Quran 73:3", "Quran 73:4"],
   "sky-sleep": ["Quran 25:47"],
-  "sky-qadr": ["Quran 97:3", "Quran 97:5"]
+  "sky-qadr": ["Quran 97:3", "Quran 97:5"],
+  "sky-dawn-oath": ["Quran 89:1", "Quran 89:4", "Quran 74:33", "Quran 74:34"],
+  "sky-twilight": ["Quran 84:16", "Quran 84:17"],
+  "sky-sun-oath": ["Quran 91:1", "Quran 91:4", "Quran 92:1", "Quran 92:2"],
+  "sky-duha-oath": ["Quran 93:1", "Quran 93:2"],
+  "sky-night-day": ["Quran 22:61", "Quran 25:62"],
+  "sky-shadows": ["Quran 13:15", "Quran 16:48"],
+  "sky-workers": ["Sahih al-Bukhari 557"]
 };
 
 describe("each prayer's time in the sky: its data", () => {
@@ -153,6 +167,24 @@ describe("each prayer's time in the sky: its data", () => {
     expect(stop("sky-sleep").scene.from < SKY_HOURS.sunset && end("sky-sleep") > 24 + SKY_HOURS.sunrise).toBe(true);
     // Laylat al-Qadr from sunset, peace until dawn rises (97:5): it ends once dawn has come, before the sun is up.
     expect(stop("sky-qadr").scene.from > SKY_HOURS.sunset && end("sky-qadr") > SKY_HOURS.nextDawn && end("sky-qadr") < 24 + SKY_HOURS.sunrise).toBe(true);
+    // The Quran's oaths: the night leaving and the dawn brightening (89:1, 89:4, 74:33-34), from the last third of the
+    // night until dawn has come, before the sun is up; the twilight from before sunset, its glow still in the west as
+    // the night draws in (84:16-17); the sun high in the forenoon, through the day, until the night has covered it
+    // (91:1-4, 92:1-2); and the still night until the forenoon (93:1-2).
+    expect(stop("sky-dawn-oath").scene.from > LAST_THIRD && end("sky-dawn-oath") > SKY_HOURS.nextDawn && end("sky-dawn-oath") < 24 + SKY_HOURS.sunrise).toBe(true);
+    expect(stop("sky-twilight").scene.from < SKY_HOURS.sunset && end("sky-twilight") > SKY_HOURS.sunset + 0.5 && end("sky-twilight") < SKY_HOURS.dusk).toBe(true);
+    expect(stop("sky-sun-oath").scene.from > SKY_HOURS.sunrise + 2 && stop("sky-sun-oath").scene.from < SKY_HOURS.midday && end("sky-sun-oath") > SKY_HOURS.dusk).toBe(true);
+    expect(stop("sky-duha-oath").scene.from > SKY_HOURS.dusk && stop("sky-duha-oath").scene.from < MIDDLE).toBe(true);
+    expect(end("sky-duha-oath") > 24 + SKY_HOURS.sunrise + 2 && end("sky-duha-oath") < 24 + SKY_HOURS.midday).toBe(true);
+    // Night and day in turn: one whole turn, from a day to the next (22:61, 25:62).
+    expect(end("sky-night-day") - stop("sky-night-day").scene.from).toBe(24);
+    // The shadows from sunrise to sunset, while the sun is up: long to the west in the morning, long to the east in the
+    // evening (13:15, 16:48).
+    expect(stop("sky-shadows").scene.from > SKY_HOURS.sunrise && end("sky-shadows") < SKY_HOURS.sunset).toBe(true);
+    for (const hour of [stop("sky-shadows").scene.from, end("sky-shadows")]) expect([hour, sunHeight(hour) > 4 && sunHeight(hour) < 15]).toEqual([hour, true]);
+    // Our time from Asr until sunset (Sahih al-Bukhari 557): Asr's name comes in at its own time.
+    expect(stop("sky-workers").scene.from < end("sky-asr") && end("sky-workers") > SKY_HOURS.sunset && end("sky-workers") < SKY_HOURS.dusk).toBe(true);
+    expect(stop("sky-workers").scene.marks!.map((mark) => [mark.label, mark.hour])).toEqual([["Asr", end("sky-asr")]]);
     // The fast from the first light of dawn until the sun has set (Quran 2:187, 1954); iftar as the sun sets.
     expect(stop("sky-fast").scene.from <= SKY_HOURS.dawn && end("sky-fast") > SKY_HOURS.sunset).toBe(true);
     expect(stop("sky-iftar").scene.from < SKY_HOURS.sunset && end("sky-iftar") > SKY_HOURS.sunset).toBe(true);
@@ -181,10 +213,17 @@ describe("each prayer's time in the sky: its data", () => {
     expect(litMoments(stop("sky-stand-night"))).toEqual(["night", "lastThird"]);
     expect(litMoments(stop("sky-sleep"))).toEqual(["night", "sunrise"]);
     expect(litMoments(stop("sky-qadr"))).toEqual(["night", "lastThird", "dawn"]);
+    expect(litMoments(stop("sky-dawn-oath"))).toEqual(["lastThird", "dawn"]);
+    expect(litMoments(stop("sky-twilight"))).toEqual(["sunset", "night"]);
+    expect(litMoments(stop("sky-sun-oath"))).toEqual(["forenoon", "midday", "afternoon", "sunset", "night"]);
+    expect(litMoments(stop("sky-duha-oath"))).toEqual(["night", "lastThird", "dawn", "sunrise", "forenoon"]);
+    expect([...litMoments(stop("sky-night-day"))].sort()).toEqual(DAY_TIMES.map((time) => time.key).sort());
+    expect(litMoments(stop("sky-shadows"))).toEqual(["sunrise", "forenoon", "midday", "afternoon", "sunset"]);
+    expect(litMoments(stop("sky-workers"))).toEqual(["afternoon", "sunset"]);
   });
 
   test("every lesson with a sky is a real lesson about that time, and opens on it", () => {
-    expect(Object.keys(DAY_SKY_LESSONS).length).toBe(193);
+    expect(Object.keys(DAY_SKY_LESSONS).length).toBe(233);
     for (const [nodeId, id] of Object.entries(DAY_SKY_LESSONS)) {
       const lesson = LESSONS_BY_ID[`lesson-${nodeId}`] as Lesson | undefined;
       expect([nodeId, Boolean(lesson)]).toEqual([nodeId, true]);
@@ -220,14 +259,18 @@ describe("each prayer's time in the sky: its data", () => {
     }
     // What a sky shows beyond the sun and the stars is from its sources: the white thread (Quran 2:187), the young
     // camels in the forenoon (Sahih Muslim 748a), the heat and the hills' shadows (539), the arrow (559), night
-    // coming from the east (1954), and the night as a covering (Quran 25:47).
+    // coming from the east (1954), the night as a covering (Quran 25:47), the night drawing in after the twilight
+    // (84:17) and covering the day (91:4, 92:1), and night passing into day (22:61).
     expect(SKY_STOPS.filter((each) => each.scene.touches?.length).map((each) => [each.scene.id, each.scene.touches])).toEqual([
       ["sky-duha", ["camels"]],
       ["sky-cool", ["heat"]],
       ["sky-arrow", ["arrow"]],
       ["sky-thread", ["thread"]],
       ["sky-iftar", ["nightFalls"]],
-      ["sky-sleep", ["nightFalls"]]
+      ["sky-sleep", ["nightFalls"]],
+      ["sky-twilight", ["nightFalls"]],
+      ["sky-sun-oath", ["nightFalls"]],
+      ["sky-night-day", ["nightFalls"]]
     ]);
   });
 
@@ -235,7 +278,7 @@ describe("each prayer's time in the sky: its data", () => {
     for (const [width, height] of [...LESSON_FRAMES, ...SHEET_FRAMES]) {
       const frame = skyFrame(width, height);
       const pole = starPole(frame);
-      for (const id of ["sky-night-prayer", "sky-sleep", "sky-fajr", "sky-isha"]) {
+      for (const id of ["sky-night-prayer", "sky-sleep", "sky-fajr", "sky-isha", "sky-duha-oath", "sky-night-day"]) {
         const scene = stop(id).scene;
         const stars = skyStars(frame, scene, 22);
         // The same sky always draws the same stars.
@@ -338,6 +381,17 @@ describe("the skies on screen", () => {
     await draw("sky-qadr");
     expect(screen.getByTestId("sky-stars")).toBeTruthy();
     expect(screen.queryByTestId("sky-night-falls")).toBeNull();
+    // The Quran's oaths: the night drawing in after the twilight; the shadows of the day, with no stars; and Asr's
+    // name over our time until sunset.
+    await draw("sky-twilight");
+    expect(screen.getByTestId("sky-night-falls")).toBeTruthy();
+    await draw("sky-shadows");
+    expect(screen.getByTestId("sky-palm-shadow")).toBeTruthy();
+    expect(screen.getByTestId("sky-hill-shadows")).toBeTruthy();
+    expect(screen.queryByTestId("sky-stars")).toBeNull();
+    await draw("sky-workers");
+    expect(screen.getByTestId("sky-mark-0")).toHaveTextContent("Asr");
+    expect(screen.queryByTestId("sky-mark-1")).toBeNull();
     await draw("sky-zuhr");
     expect(screen.queryByTestId("sky-stars")).toBeNull();
     await draw("sky-five");
