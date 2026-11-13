@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef } from "react";
 import { Animated, Easing, StyleSheet, Text, View } from "react-native";
 import { SvgXml } from "react-native-svg";
 import type { MoonScene } from "../../data/moonSky";
-import { t } from "../../i18n";
+import { isRtlLanguage, t } from "../../i18n";
 import { useLiteMotion } from "../liteMotion";
 import { fonts } from "../theme";
 import { DAWN_BAND, EAST_GLOW, LOW_KEYS, WEST_GLOW } from "./DaySky";
@@ -450,9 +450,13 @@ function Ibrahim({ frame, by }: { frame: Frame; by: By }) {
   );
 }
 
-/** The twelve months, lit one by one as the year goes by; the four sacred ones in gold, and the lesson's own month. */
+/**
+ * The twelve months, lit one by one as the year goes by; the four sacred ones in gold, and the lesson's own month. In
+ * Urdu and Arabic they are read from the right, each with its moon on the right.
+ */
 function Months({ frame, by, month, still }: { frame: Frame; by: By; month?: number; still: boolean }) {
-  const cells = monthCells(frame);
+  const rtl = isRtlLanguage();
+  const cells = monthCells(frame, rtl);
   const moons = useMemo(() => {
     const size = monthCellLook(cells[0].rect).moon;
     return { size, plain: moonSvg(size, 4.2, { shade: 0.5, tilt: 0 }), full: moonSvg(size, 14.77, { shade: 0 }) };
@@ -469,6 +473,7 @@ function Months({ frame, by, month, still }: { frame: Frame; by: By; month?: num
             style={[
               styles.abs,
               styles.cell,
+              rtl ? styles.cellRtl : null,
               cell.sacred ? styles.cellSacred : null,
               mine ? styles.cellMine : null,
               {
@@ -492,7 +497,7 @@ function Months({ frame, by, month, still }: { frame: Frame; by: By; month?: num
               {t(cell.name)}
             </Text>
             {cell.sacred ? (
-              <View style={styles.goldStar} pointerEvents="none">
+              <View style={[styles.goldStar, rtl ? styles.goldStarRtl : null]} pointerEvents="none">
                 <SvgXml xml={GOLD_STAR} width={10} height={10} />
               </View>
             ) : null}
@@ -518,10 +523,12 @@ const styles = StyleSheet.create({
     borderColor: "rgba(160,176,255,0.28)",
     backgroundColor: "rgba(20,28,74,0.72)"
   },
+  cellRtl: { flexDirection: "row-reverse" },
   cellSacred: { borderColor: "#E6B847", backgroundColor: "rgba(84,64,20,0.5)" },
   cellMine: { borderColor: "#7BE495", backgroundColor: "rgba(34,120,70,0.62)", borderWidth: 2 },
   monthName: { flex: 1, fontFamily: fonts.bodyHeavy },
   goldStar: { position: "absolute", top: 2, right: 3 },
+  goldStarRtl: { right: undefined, left: 3 },
   wordBox: { position: "absolute", justifyContent: "center" },
   word: {
     borderRadius: 9,

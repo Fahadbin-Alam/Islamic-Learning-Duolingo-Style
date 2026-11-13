@@ -267,17 +267,21 @@ export const coursesMoonP = (t: number) => (moonHour("courses", t) - 18) / 12;
 
 // The months: twelve in four rows of three, each a small moon and its name beside it.
 
-export function monthCells(frame: SkyFrame) {
+/** The months' cells, in the order they are read: from the left, or from the right in Urdu and Arabic (`rtl`). */
+export function monthCells(frame: SkyFrame, rtl = false) {
   const padX = Math.round(clamp(frame.width * 0.02, 5, 12));
   const padY = Math.round(clamp(frame.height * 0.04, 5, 12));
   const w = (frame.width - padX * 2) / 3;
   const h = (frame.height - padY * 2) / 4;
-  return MONTHS.map((month, index) => ({
-    index,
-    name: month.name,
-    sacred: month.sacred,
-    rect: { x: Math.round(padX + (index % 3) * w), y: Math.round(padY + Math.floor(index / 3) * h), w: Math.floor(w), h: Math.floor(h) }
-  }));
+  return MONTHS.map((month, index) => {
+    const column = rtl ? 2 - (index % 3) : index % 3;
+    return {
+      index,
+      name: month.name,
+      sacred: month.sacred,
+      rect: { x: Math.round(padX + column * w), y: Math.round(padY + Math.floor(index / 3) * h), w: Math.floor(w), h: Math.floor(h) }
+    };
+  });
 }
 
 /**

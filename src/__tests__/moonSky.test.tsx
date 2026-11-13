@@ -4,6 +4,7 @@ jest.mock("../services/gameAudio", () => ({
 }));
 
 import React from "react";
+import { StyleSheet } from "react-native";
 import { act, fireEvent, render, screen } from "@testing-library/react-native";
 import { LESSONS_BY_ID } from "../data/course";
 import { DAY_SKY_LESSONS } from "../data/daySky";
@@ -336,7 +337,7 @@ describe("the moon in the sky", () => {
     expect(fitsTwoLines("Dhul-Qa'dah", 45, 11)).toBe(true);
     for (const language of LANGUAGES) {
       for (const [width, height] of FRAMES) {
-        for (const cell of monthCells(skyFrame(width, height))) {
+        for (const cell of monthCells(skyFrame(width, height), language === "ur" || language === "ar")) {
           const look = monthCellLook(cell.rect);
           const name = t(cell.name, undefined, language);
           const where = `${language} ${width}x${height} ${cell.name} (${name})`;
@@ -391,11 +392,18 @@ describe("the moon on screen", () => {
     expect(screen.queryByTestId(/-mine$/)).toBeNull();
   });
 
-  test("the months are named in the learner's language", async () => {
+  test("the months are named in the learner's language, and read from the right in Urdu and Arabic", async () => {
+    const left = (testID: string) => StyleSheet.flatten(screen.getByTestId(testID).props.style).left as number;
+    await render(<MoonSky scene={scene("months-year")} width={332} height={201} still />);
+    expect(left("moon-month-0-sacred")).toBeLessThan(left("moon-month-1"));
+    expect(left("moon-month-1")).toBeLessThan(left("moon-month-2"));
     setActiveLanguage("ar");
     await render(<MoonSky scene={scene("months-year")} width={332} height={201} still />);
     expect(screen.getByTestId("moon-month-10-sacred")).toHaveTextContent("ذو القعدة");
     expect(screen.getByTestId("moon-month-5")).toHaveTextContent("جمادى الآخرة");
+    expect(left("moon-month-0-sacred")).toBeGreaterThan(left("moon-month-1"));
+    expect(left("moon-month-1")).toBeGreaterThan(left("moon-month-2"));
+    expect(left("moon-month-3")).toBe(left("moon-month-0-sacred"));
     setActiveLanguage("bn");
     await render(<MoonSky scene={scene("moon-split")} width={332} height={201} still />);
     expect(screen.getByTestId("moon-word-hira")).toHaveTextContent("হেরা");
