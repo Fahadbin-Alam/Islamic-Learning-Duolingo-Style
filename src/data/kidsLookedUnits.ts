@@ -2,15 +2,15 @@ import { hadith, type DeepUnit } from "./deepKit";
 
 // One more unit on the kids' Hadith path: how he ﷺ looked and sat, from Sahih al-Bukhari and Sunan Abi Dawud. A face
 // as bright as the moon, a few white hairs below his lower lip, big hands, leaning forwards as he walked, sitting by the
-// Ka'bah with his hand round his legs, and sitting cross-legged after Fajr until the sun was well up. Told only in words:
-// nothing here draws him ﷺ. Every card is one sahih hadith with its number, narrator and grade, and its exact English
-// words to highlight, and none of them is taught anywhere else in the app.
+// Ka'bah with his hand round his legs, and sitting among his Companions so that a stranger could not tell him apart.
+// Told only in words: nothing here draws him ﷺ. Every card is one sahih hadith with its number, narrator and grade, and
+// its exact English words to highlight, and none of them is taught anywhere else in the app.
 
 const LOOKED: DeepUnit = {
   key: "kids-how-he-looked",
   topicId: "hadith",
   branchId: "hadith-how-he-looked",
-  branch: { title: "How he ﷺ looked and sat", description: "A face like the moon, a few white hairs, big hands, his walk, sitting with his hand round his legs, and sitting cross-legged after Fajr." },
+  branch: { title: "How he ﷺ looked and sat", description: "A face like the moon, a few white hairs, big hands, his walk, sitting with his hand round his legs, and sitting among his Companions." },
   name: "how he ﷺ looked and sat",
   kind: "skill",
   lessonType: "skill",
@@ -81,16 +81,16 @@ const LOOKED: DeepUnit = {
       ]
     },
     {
-      slug: "after-fajr",
-      title: "Sitting after Fajr",
-      line: "After Fajr, he ﷺ sat cross-legged until the sun was well up.",
-      facts: ["Told by Jabir ibn Samurah", "He ﷺ stayed where he had prayed", "Until the sun had come well up"],
-      source: hadith("abudawud", "4850", "Jabir ibn Samurah", "Sahih (Al-Albani)", "Jabir ibn Samurah said: when the Prophet ﷺ prayed the dawn prayer, he sat cross-legged where he was till the sun had come well up.", "he sat cross-legged where he was till the sun had come well up"),
+      slug: "among-his-companions",
+      title: "Sitting among them",
+      line: "He ﷺ sat among his Companions, not apart from them.",
+      facts: ["Told by Abu Dharr and Abu Hurairah", "A stranger had to ask which was him ﷺ", "Terrace of soil: a low seat of earth"],
+      source: hadith("abudawud", "4698", "Abu Dharr and Abu Hurairah", "Sahih (Al-Albani)", "Abu Dharr and Abu Hurairah said: the Messenger of Allah ﷺ used to sit among his Companions. A stranger would come and not recognize him until he asked. So we asked him to let us make him a place to sit, so that a stranger would know him, and we built a terrace of soil for him to sit on, and we sat beside him.", "A stranger would come and not recognize him"),
       difficulty: 2,
       questions: [
-        { q: "Until when did he ﷺ sit after Fajr?", a: "Until the sun was well up", wrong: ["Until the Zuhr prayer", "Until the Asr prayer", "Until the Isha prayer"], why: "He ﷺ sat cross-legged where he was till the sun had come well up, Jabir said." },
-        { q: "Who told how he ﷺ sat after Fajr?", a: "Jabir ibn Samurah", wrong: ["Ammar ibn Yasir", "Bilal ibn Rabah", "Sa'id ibn Zayd"], why: "Jabir ibn Samurah said: he ﷺ sat cross-legged where he was after the dawn prayer." },
-        { q: "He ﷺ sat cross-legged where he had prayed.", tf: true, why: "When he ﷺ prayed the dawn prayer, he sat where he was till the sun had come well up." }
+        { q: "What did a stranger have to do, to know which one was him ﷺ?", a: "Ask which one he was", wrong: ["Wait until he spoke", "Look for a crown", "Look for a throne"], why: "He ﷺ used to sit among his Companions, so a stranger had to ask which was him." },
+        { q: "What did the Companions build for him ﷺ to sit on?", a: "A terrace of soil", wrong: ["A seat of carved stone", "A chair of glass", "A bench of marble"], why: "So we built a terrace of soil on which he would sit, and we sat beside him." },
+        { q: "He ﷺ used to sit among his Companions.", tf: true, why: "Abu Dharr and Abu Hurairah said a stranger would come and not know which was him ﷺ." }
       ]
     }
   ]

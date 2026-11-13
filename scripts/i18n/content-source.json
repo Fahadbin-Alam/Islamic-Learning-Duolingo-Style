@@ -193,6 +193,18 @@
   },
   {
     "kind": "course",
+    "text": "Foods he ﷺ ate"
+  },
+  {
+    "kind": "course",
+    "text": "Melon and cucumber with fresh dates, chicken, cheese at Tabuk, butter and dates, and old dates looked over."
+  },
+  {
+    "kind": "arabic",
+    "text": "The Prophet's ﷺ food"
+  },
+  {
+    "kind": "course",
     "text": "As-salamu alaykum"
   },
   {
@@ -562,6 +574,30 @@
   {
     "kind": "course",
     "text": "A nap after Jumu'ah"
+  },
+  {
+    "kind": "course",
+    "text": "Melon with fresh dates"
+  },
+  {
+    "kind": "course",
+    "text": "Dates with cucumber"
+  },
+  {
+    "kind": "course",
+    "text": "Sit down and eat"
+  },
+  {
+    "kind": "course",
+    "text": "Cheese at Tabuk"
+  },
+  {
+    "kind": "course",
+    "text": "Butter and dates"
+  },
+  {
+    "kind": "course",
+    "text": "Old dates, looked over"
   },
   {
     "kind": "course",
@@ -36873,7 +36909,7 @@
   },
   {
     "kind": "course",
-    "text": "A face like the moon, a few white hairs, big hands, his walk, sitting with his hand round his legs, and sitting cross-legged after Fajr."
+    "text": "A face like the moon, a few white hairs, big hands, his walk, sitting with his hand round his legs, and sitting among his Companions."
   },
   {
     "kind": "arabic",
@@ -37349,7 +37385,7 @@
   },
   {
     "kind": "course",
-    "text": "Sitting after Fajr"
+    "text": "Sitting among them"
   },
   {
     "kind": "course",
@@ -68177,6 +68213,422 @@
   },
   {
     "kind": "lesson",
+    "text": "He ﷺ ate melon with fresh dates."
+  },
+  {
+    "kind": "lesson",
+    "text": "Melon and fresh dates together"
+  },
+  {
+    "kind": "lesson",
+    "text": "The heat of one, the coolness of the other"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 3836"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ eat with fresh dates, Aishah said?"
+  },
+  {
+    "kind": "question",
+    "text": "Beans"
+  },
+  {
+    "kind": "question",
+    "text": "Melon"
+  },
+  {
+    "kind": "question",
+    "text": "Rice"
+  },
+  {
+    "kind": "question",
+    "text": "Lentils"
+  },
+  {
+    "kind": "question",
+    "text": "The Messenger of Allah ﷺ used to eat melon with fresh dates, Aishah said."
+  },
+  {
+    "kind": "question",
+    "text": "What breaks the heat of the one, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "The sweetness of the other"
+  },
+  {
+    "kind": "question",
+    "text": "The smell of the other"
+  },
+  {
+    "kind": "question",
+    "text": "The coolness of the other"
+  },
+  {
+    "kind": "question",
+    "text": "The salt of the other"
+  },
+  {
+    "kind": "question",
+    "text": "And the coolness of the one is broken by the heat of the other, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ ate melon together with fresh dates."
+  },
+  {
+    "kind": "question",
+    "text": "Aishah said he ﷺ used to eat melon with fresh dates, each one with the other."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ ate fresh dates with cucumber."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abdullah ibn Ja'far"
+  },
+  {
+    "kind": "lesson",
+    "text": "Fresh dates: soft and ripe"
+  },
+  {
+    "kind": "lesson",
+    "text": "Snake cucumber: a long, thin cucumber"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 5447"
+  },
+  {
+    "kind": "question",
+    "text": "What did Abdullah ibn Ja'far see him ﷺ eat with fresh dates?"
+  },
+  {
+    "kind": "question",
+    "text": "Fish"
+  },
+  {
+    "kind": "question",
+    "text": "Eggs"
+  },
+  {
+    "kind": "question",
+    "text": "Carrots"
+  },
+  {
+    "kind": "question",
+    "text": "Cucumber"
+  },
+  {
+    "kind": "question",
+    "text": "I saw the Prophet ﷺ eating fresh dates with snake cucumbers, Abdullah ibn Ja'far said."
+  },
+  {
+    "kind": "question",
+    "text": "Who saw him ﷺ eat fresh dates with snake cucumbers?"
+  },
+  {
+    "kind": "question",
+    "text": "Abdullah ibn Ja'far"
+  },
+  {
+    "kind": "question",
+    "text": "Abdullah ibn Ja'far saw it and told it, in Sahih al-Bukhari 5447."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ ate fresh dates with snake cucumbers."
+  },
+  {
+    "kind": "question",
+    "text": "Abdullah ibn Ja'far said: I saw the Prophet ﷺ eating them together."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Musa ate chicken, for he had seen him ﷺ eat it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Zahdam al-Jarmi"
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Musa al-Ash'ari was eating"
+  },
+  {
+    "kind": "lesson",
+    "text": "Sit and eat, he told Zahdam"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 1826"
+  },
+  {
+    "kind": "question",
+    "text": "What was Abu Musa eating when Zahdam came in?"
+  },
+  {
+    "kind": "question",
+    "text": "Camel meat"
+  },
+  {
+    "kind": "question",
+    "text": "Chicken"
+  },
+  {
+    "kind": "question",
+    "text": "Lamb"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Musa was eating chicken, and he told Zahdam al-Jarmi: sit and eat."
+  },
+  {
+    "kind": "question",
+    "text": "Why did Abu Musa say to Zahdam: sit and eat?"
+  },
+  {
+    "kind": "question",
+    "text": "It was a day of Eid"
+  },
+  {
+    "kind": "question",
+    "text": "The food would soon spoil"
+  },
+  {
+    "kind": "question",
+    "text": "He had seen him ﷺ eat it"
+  },
+  {
+    "kind": "question",
+    "text": "The food was a gift"
+  },
+  {
+    "kind": "question",
+    "text": "Sit and eat, for I saw the Messenger of Allah ﷺ eating it, Abu Musa said."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Musa saw him ﷺ eat chicken."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Musa told Zahdam: I saw the Messenger of Allah ﷺ eating it, so sit and eat."
+  },
+  {
+    "kind": "lesson",
+    "text": "At Tabuk, he ﷺ said Allah's name and cut a piece of cheese."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Ibn Umar"
+  },
+  {
+    "kind": "lesson",
+    "text": "Tabuk: far to the north of Madinah"
+  },
+  {
+    "kind": "lesson",
+    "text": "He called for a knife"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 3819"
+  },
+  {
+    "kind": "question",
+    "text": "What was brought to him ﷺ at Tabuk?"
+  },
+  {
+    "kind": "question",
+    "text": "A basket of figs"
+  },
+  {
+    "kind": "question",
+    "text": "A piece of cheese"
+  },
+  {
+    "kind": "question",
+    "text": "A piece of honeycomb"
+  },
+  {
+    "kind": "question",
+    "text": "A bowl of soup"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ was brought a piece of cheese in Tabuk, Ibn Umar said."
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ call for, to cut it?"
+  },
+  {
+    "kind": "question",
+    "text": "A plate"
+  },
+  {
+    "kind": "question",
+    "text": "A cup"
+  },
+  {
+    "kind": "question",
+    "text": "A knife"
+  },
+  {
+    "kind": "question",
+    "text": "A spoon"
+  },
+  {
+    "kind": "question",
+    "text": "He called for a knife, mentioned Allah's name and cut it, Ibn Umar said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ said Allah's name before he cut the cheese."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Umar said: he ﷺ mentioned Allah's name and then cut it, at Tabuk."
+  },
+  {
+    "kind": "lesson",
+    "text": "On a visit, he ﷺ was offered butter and dates, which he liked."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abdullah ibn Busr"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ came to visit them"
+  },
+  {
+    "kind": "lesson",
+    "text": "He liked butter and dates"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 3837"
+  },
+  {
+    "kind": "question",
+    "text": "What did Abdullah ibn Busr's family offer him ﷺ?"
+  },
+  {
+    "kind": "question",
+    "text": "Meat and rice"
+  },
+  {
+    "kind": "question",
+    "text": "Figs and grapes"
+  },
+  {
+    "kind": "question",
+    "text": "Fish and lentils"
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ came to visit us and we offered him butter and dates, Abdullah ibn Busr said."
+  },
+  {
+    "kind": "question",
+    "text": "Why did they offer him ﷺ butter and dates?"
+  },
+  {
+    "kind": "question",
+    "text": "They were cheap that year"
+  },
+  {
+    "kind": "question",
+    "text": "Nothing else was ripe"
+  },
+  {
+    "kind": "question",
+    "text": "A guest had sent them"
+  },
+  {
+    "kind": "question",
+    "text": "We offered him butter and dates, for he ﷺ liked them, Abdullah ibn Busr said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ came to visit the family of Abdullah ibn Busr."
+  },
+  {
+    "kind": "question",
+    "text": "Abdullah ibn Busr said: the Messenger of Allah ﷺ came to visit us."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ looked over old dates and took the worms out."
+  },
+  {
+    "kind": "lesson",
+    "text": "Old dates can have worms"
+  },
+  {
+    "kind": "lesson",
+    "text": "He looked them over first"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 3832"
+  },
+  {
+    "kind": "question",
+    "text": "Who told how he ﷺ looked over old dates?"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakrah"
+  },
+  {
+    "kind": "question",
+    "text": "Anas ibn Malik told it, in Sunan Abi Dawud 3832, graded sahih by Al-Albani."
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ take out of the old dates?"
+  },
+  {
+    "kind": "question",
+    "text": "The worms"
+  },
+  {
+    "kind": "question",
+    "text": "The sand"
+  },
+  {
+    "kind": "question",
+    "text": "The salt"
+  },
+  {
+    "kind": "question",
+    "text": "The honey"
+  },
+  {
+    "kind": "question",
+    "text": "He began to examine them and remove the worms from them, Anas said."
+  },
+  {
+    "kind": "question",
+    "text": "When old dates were brought, he ﷺ looked them over."
+  },
+  {
+    "kind": "question",
+    "text": "When he ﷺ was brought some old dates, he began to examine them, Anas said."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about foods he ﷺ ate!"
+  },
+  {
+    "kind": "lesson",
     "text": "Uthman showed wudu: hands, mouth, nose, face, arms, head, feet."
   },
   {
@@ -70650,10 +71102,6 @@
   {
     "kind": "lesson",
     "text": "In Madinah, Bilal was told to stand and call the adhan."
-  },
-  {
-    "kind": "lesson",
-    "text": "Told by Ibn Umar"
   },
   {
     "kind": "lesson",
@@ -73890,10 +74338,6 @@
   {
     "kind": "lesson",
     "text": "He ﷺ told a man stepping over people at Jumu'ah: sit down."
-  },
-  {
-    "kind": "lesson",
-    "text": "Told by Abdullah ibn Busr"
   },
   {
     "kind": "lesson",
@@ -86426,10 +86870,6 @@
   {
     "kind": "question",
     "text": "Who narrated this hadith of the greatest sins?"
-  },
-  {
-    "kind": "question",
-    "text": "Abu Bakrah"
   },
   {
     "kind": "question",
@@ -122697,10 +123137,6 @@
   },
   {
     "kind": "question",
-    "text": "Rice"
-  },
-  {
-    "kind": "question",
     "text": "Leaves of trees"
   },
   {
@@ -134661,10 +135097,6 @@
   },
   {
     "kind": "question",
-    "text": "Fish"
-  },
-  {
-    "kind": "question",
     "text": "Silq roots with barley"
   },
   {
@@ -140494,10 +140926,6 @@
   {
     "kind": "question",
     "text": "All meat"
-  },
-  {
-    "kind": "question",
-    "text": "Camel meat"
   },
   {
     "kind": "question",
@@ -164721,10 +165149,6 @@
   },
   {
     "kind": "question",
-    "text": "A basket of figs"
-  },
-  {
-    "kind": "question",
     "text": "Loaves of barley bread"
   },
   {
@@ -166977,63 +167401,79 @@
   },
   {
     "kind": "lesson",
-    "text": "After Fajr, he ﷺ sat cross-legged until the sun was well up."
+    "text": "He ﷺ sat among his Companions, not apart from them."
   },
   {
     "kind": "lesson",
-    "text": "He ﷺ stayed where he had prayed"
+    "text": "Told by Abu Dharr and Abu Hurairah"
   },
   {
     "kind": "lesson",
-    "text": "Until the sun had come well up"
+    "text": "A stranger had to ask which was him ﷺ"
+  },
+  {
+    "kind": "lesson",
+    "text": "Terrace of soil: a low seat of earth"
   },
   {
     "kind": "source",
-    "text": "Sunan Abi Dawud 4850"
+    "text": "Sunan Abi Dawud 4698"
   },
   {
     "kind": "question",
-    "text": "Until when did he ﷺ sit after Fajr?"
+    "text": "What did a stranger have to do, to know which one was him ﷺ?"
   },
   {
     "kind": "question",
-    "text": "Until the Asr prayer"
+    "text": "Wait until he spoke"
   },
   {
     "kind": "question",
-    "text": "Until the Isha prayer"
+    "text": "Look for a crown"
   },
   {
     "kind": "question",
-    "text": "Until the sun was well up"
+    "text": "Look for a throne"
   },
   {
     "kind": "question",
-    "text": "Until the Zuhr prayer"
+    "text": "Ask which one he was"
   },
   {
     "kind": "question",
-    "text": "He ﷺ sat cross-legged where he was till the sun had come well up, Jabir said."
+    "text": "He ﷺ used to sit among his Companions, so a stranger had to ask which was him."
   },
   {
     "kind": "question",
-    "text": "Who told how he ﷺ sat after Fajr?"
+    "text": "What did the Companions build for him ﷺ to sit on?"
   },
   {
     "kind": "question",
-    "text": "Jabir ibn Samurah"
+    "text": "A terrace of soil"
   },
   {
     "kind": "question",
-    "text": "Jabir ibn Samurah said: he ﷺ sat cross-legged where he was after the dawn prayer."
+    "text": "A seat of carved stone"
   },
   {
     "kind": "question",
-    "text": "He ﷺ sat cross-legged where he had prayed."
+    "text": "A chair of glass"
   },
   {
     "kind": "question",
-    "text": "When he ﷺ prayed the dawn prayer, he sat where he was till the sun had come well up."
+    "text": "A bench of marble"
+  },
+  {
+    "kind": "question",
+    "text": "So we built a terrace of soil on which he would sit, and we sat beside him."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ used to sit among his Companions."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Dharr and Abu Hurairah said a stranger would come and not know which was him ﷺ."
   },
   {
     "kind": "lesson",
@@ -191526,10 +191966,6 @@
   {
     "kind": "question",
     "text": "He ﷺ said he won't enter the Fire till what returns to the udder?"
-  },
-  {
-    "kind": "question",
-    "text": "The honey"
   },
   {
     "kind": "question",
@@ -229298,10 +229734,6 @@
   {
     "kind": "question",
     "text": "The trees"
-  },
-  {
-    "kind": "question",
-    "text": "The sand"
   },
   {
     "kind": "question",
@@ -505817,10 +506249,6 @@
   },
   {
     "kind": "question",
-    "text": "Figs and grapes"
-  },
-  {
-    "kind": "question",
     "text": "Olives"
   },
   {
@@ -541666,10 +542094,6 @@
   {
     "kind": "question",
     "text": "The scale"
-  },
-  {
-    "kind": "question",
-    "text": "A cup"
   },
   {
     "kind": "question",
@@ -584086,14 +584510,6 @@
   {
     "kind": "question",
     "text": "Which meat does the ayah forbid?"
-  },
-  {
-    "kind": "question",
-    "text": "Lamb"
-  },
-  {
-    "kind": "question",
-    "text": "Chicken"
   },
   {
     "kind": "question",
