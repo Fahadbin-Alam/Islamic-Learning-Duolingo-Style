@@ -96,13 +96,14 @@ function zakat(): SignArt {
   );
   const land = `<rect y="71" width="160" height="49" fill="#DCC694"/><path d="M0 71 L160 71" stroke="#C9B07C" stroke-width="0.7"/>` + [30, 70, 112, 150].map((x, i) => tuft(x, i % 2 ? 76 : 78, "#A8B46A", 4)).join("");
   const poorHome = home(11, 100, 13, 9, "#CDB086", "#B39368", "#5E432A");
-  // Five camels, each walking in from the right to its place.
+  // Five camels, each walking in from the right to its place: four, and once their words are read, the fifth.
   const slots = [30, 50, 70, 90, 110];
-  const arrive = [0.07, 0.11, 0.15, 0.19, 0.26];
+  const start = [0.005, 0.03, 0.055, 0.075, 0.16];
+  const arrive = [0.055, 0.08, 0.105, 0.125, 0.2];
   const camels = slots.map((x, i) => ({
     name: `camel ${i + 1}`,
     svg: animalAt("camel", x, 72, 0.19, true),
-    keys: { at: [0, at3(arrive[i] - 0.06), arrive[i], 0.36, 0.4], x: [170 - x, 170 - x, 0, 0, 0], opacity: [1, 1, 1, 1, 0] },
+    keys: { at: [0, start[i], arrive[i], 0.305, 0.325], x: [170 - x, 170 - x, 0, 0, 0], opacity: [1, 1, 1, 1, 0] },
     origin: { x: x + 9, y: 86 },
     loop: { move: "bob" as const, ms: 900, y: -0.5, rotate: 0.8, phase: i / 5 }
   }));
@@ -122,17 +123,19 @@ function zakat(): SignArt {
       .filter((c) => !(r === 4 && c === 7))
       .map((c) => coin(coinX(c), coinY(r)))
       .join(""),
-    keys: { at: [0, at3(0.4 + r * 0.03), at3(0.42 + r * 0.03), 0.6, 0.63], opacity: [0, 0, 1, 1, 0], y: [-6, -6, 0, 0, 0] }
+    keys: { at: [0, at3(0.33 + r * 0.014), at3(0.342 + r * 0.014), 0.505, 0.52], opacity: [0, 0, 1, 1, 0], y: [-6, -6, 0, 0, 0] }
   }));
   // Two fields: the first under the rain, by a river; the second watered by a camel drawing from a well.
   const fields =
     `<rect x="24" y="77" width="52" height="17" fill="#A98458"/><rect x="84" y="77" width="52" height="17" fill="#A98458"/>` +
     [80, 84, 88, 92].map((y) => `<path d="M25 ${y} L75 ${y} M85 ${y} L135 ${y}" stroke="#94704A" stroke-width="0.5"/>`).join("");
   const river = `<path d="M0 74.2 C20 73 40 75.4 60 74 C68 73.4 74 74.6 80 74 L80 76.4 C72 77 66 75.8 58 76.4 C40 77.6 20 75.4 0 76.6 Z" fill="#5EA9DA"/>`;
+  // The first field grows under the rain; the second only once the camel has drawn water for it.
   const green = cropRow(28, 73, 81, "#6FAF4C") + cropRow(28, 73, 87, "#6FAF4C") + cropRow(28, 73, 93, "#6FAF4C");
   const greenRight = cropRow(88, 133, 81, "#6FAF4C") + cropRow(88, 133, 87, "#6FAF4C") + cropRow(88, 133, 93, "#6FAF4C");
   const gold = cropRow(28, 73, 81, "#D9B44A") + cropRow(28, 73, 87, "#D9B44A") + cropRow(28, 73, 93, "#D9B44A");
   const goldRight = cropRow(88, 133, 81, "#D9B44A") + cropRow(88, 133, 87, "#D9B44A") + cropRow(88, 133, 93, "#D9B44A");
+  const shown = [0, 0.505, 0.525];
   const well =
     `<rect x="139" y="78" width="14" height="6" fill="#A89276"/><path d="M139 80.4 L153 80.4 M143 78 L143 80.4 M149 80.4 L149 84 M146 78 L146 80.4" stroke="#8A7458" stroke-width="0.5"/>` +
     `<path d="M139 78 A7 1.8 0 0 0 153 78" stroke="#6E5A44" stroke-width="0.9" fill="none"/>`;
@@ -140,7 +143,7 @@ function zakat(): SignArt {
   const frame = `<path d="M140 78 L140 66 M152 78 L152 66 M139 66 L153 66" stroke="#7A5A3A" stroke-width="1.1" stroke-linecap="round"/><circle cx="146" cy="67.6" r="1.6" fill="#8A6A44" stroke="#5E432A" stroke-width="0.5"/>`;
   const channel = `<path d="M139 82 C137 84 136 85 134 86" stroke="#5EA9DA" stroke-width="1.2" fill="none" stroke-linecap="round"/>`;
   // The camel at the well walks away to draw the bucket up, and back to let it down: three times.
-  const pull = [0.66, 0.7, 0.74, 0.78, 0.82, 0.86, 0.9];
+  const pull = [0.76, 0.78, 0.8, 0.82, 0.84, 0.86, 0.88];
   const away = [0, -12, 0, -12, 0, -12, 0];
   const wellCamel = animalAt("camel", 110, 63.5, 0.15, true);
   const rope = `<path d="M124 67.6 L146 67.6" stroke="#8A6A44" stroke-width="0.5"/>`;
@@ -156,65 +159,72 @@ function zakat(): SignArt {
     ms: 12000,
     parts: [
       { name: "sky", svg: sky("#BFE3FA", "#DDF1FC", 60) },
-      { name: "the sun", svg: `${glow(134, 26, 14, "#FFF0C0", 0.12)}<circle cx="134" cy="26" r="6" fill="#FFE07A"/>`, keys: { at: [0, 0.62, 0.66], opacity: [1, 1, 0] } },
+      { name: "the sun", svg: `${glow(134, 26, 14, "#FFF0C0", 0.12)}<circle cx="134" cy="26" r="6" fill="#FFE07A"/>`, keys: { at: [0, 0.505, 0.53], opacity: [1, 1, 0] } },
       { name: "clouds", svg: cloud(40, 22, 0.8, "#FFFFFF", 0.85) + cloud(100, 14, 0.7, "#FFFFFF", 0.8), loop: { move: "slide", ms: 12000 } },
       { name: "the hills", svg: hills },
       { name: "the land", svg: land },
       { name: "the home of the poor", svg: poorHome },
       // The camels, and the five marks of their count.
-      { name: "five marks of the count", svg: pipRings, keys: { at: [0, 0.01, 0.03, 0.36, 0.4], opacity: [0, 0, 1, 1, 0] } },
+      { name: "five marks of the count", svg: pipRings, keys: { at: [0, 0.01, 0.03, 0.305, 0.325], opacity: [0, 0, 1, 1, 0] } },
       ...slots.map((_, i) => ({
         name: `mark ${i + 1} of the count`,
         svg: `<circle cx="${pip(i)}" cy="18" r="1.8" fill="#E0A63A"/>`,
-        keys: { at: [0, at3(arrive[i] - 0.004), arrive[i], 0.36, 0.4], opacity: [0, 0, 1, 1, 0] }
+        keys: { at: [0, at3(arrive[i] - 0.004), arrive[i], 0.305, 0.325], opacity: [0, 0, 1, 1, 0] }
       })),
-      { name: "five: zakat is due", svg: glow(80, 18, 22, "#FFE7A8", 0.18), keys: showWhile(0.26, 0.28, 0.36, 0.4), loop: { move: "twinkle", ms: 1100, low: 0.55 } },
-      { name: "the flock", svg: flock, keys: { at: [0, 0.36, 0.4], opacity: [1, 1, 0] }, loop: { move: "bob", ms: 1600, y: -0.4 } },
+      { name: "five: zakat is due", svg: glow(80, 18, 22, "#FFE7A8", 0.18), keys: showWhile(0.2, 0.21, 0.305, 0.325), loop: { move: "twinkle", ms: 1100, low: 0.55 } },
+      { name: "the flock", svg: flock, keys: { at: [0, 0.305, 0.325], opacity: [1, 1, 0] }, loop: { move: "bob", ms: 1600, y: -0.4 } },
       ...camels,
-      { name: "the way to the home of the poor", svg: toPoor, keys: showWhile(0.27, 0.29, 0.6, 0.63) },
+      { name: "the way to the home of the poor", svg: toPoor, keys: showWhile(0.2, 0.21, 0.505, 0.52) },
       {
         name: "one sheep, given",
         svg: animalAt("sheep", 124, 96, 0.12, true),
-        keys: { at: [0, 0.28, 0.35, 0.37, 0.4], x: [0, 0, -98, -98, -98], y: [0, 0, -2, -2, -2], opacity: [1, 1, 1, 1, 0] },
+        keys: { at: [0, 0.21, 0.26, 0.305, 0.325], x: [0, 0, -98, -98, -98], y: [0, 0, -2, -2, -2], opacity: [1, 1, 1, 1, 0] },
         origin: { x: 130, y: 104 },
         loop: { move: "bob", ms: 700, y: -0.6 }
       },
       // Silver: one part in forty.
-      { name: "a cloth for the silver", svg: cloth, keys: showWhile(0.37, 0.4, 0.6, 0.63) },
+      { name: "a cloth for the silver", svg: cloth, keys: showWhile(0.315, 0.33, 0.505, 0.52) },
       ...rows,
       {
         name: "the fortieth coin, given",
         svg: coin(coinX(7), coinY(4)),
-        keys: { at: [0, 0.52, 0.54, 0.55, 0.6, 0.62, 0.63], opacity: [0, 0, 1, 1, 1, 1, 0], x: [0, 0, 0, 0, -96, -96, -96], y: [-6, -6, 0, 0, 0, 0, 0] }
+        keys: { at: [0, 0.386, 0.398, 0.41, 0.455, 0.505, 0.52], opacity: [0, 0, 1, 1, 1, 1, 0], x: [0, 0, 0, 0, -96, -96, -96], y: [-6, -6, 0, 0, 0, 0, 0] }
       },
-      { name: "light on the fortieth coin", svg: `${glow(coinX(7), coinY(4), 6, "#FFFFFF", 0.4)}${sparkle(coinX(7), n(coinY(4) - 3.4), 2, "#FFFFFF")}`, keys: { at: [0, 0.53, 0.54, 0.55, 0.6, 0.62, 0.63], opacity: [0, 0, 1, 1, 1, 1, 0], x: [0, 0, 0, 0, -96, -96, -96] } },
-      // The crops: a tenth, and half a tenth.
-      { name: "the river by the first field", svg: river, keys: showFrom(0.62, 0.66), loop: { move: "twinkle", ms: 1800, low: 0.8 } },
-      { name: "the two fields", svg: fields, keys: showFrom(0.62, 0.66) },
-      { name: "rain clouds", svg: cloud(26, 30, 1.2, "#8A96A6") + cloud(50, 34, 1, "#7D8896"), keys: { at: [0, 0.63, 0.67, 0.8, 0.84], opacity: [0, 0, 1, 1, 0.3] } },
-      { name: "rain on the first field", svg: rain, keys: { at: [0, 0.64, 0.66, 0.78, 0.82], opacity: [0, 0, 1, 1, 0] }, loop: { move: "fall", ms: 700, period: 50 }, clip: { x: 20, y: 34, w: 60, h: 44 } },
-      { name: "the mouth of the well", svg: wellMouth, keys: showFrom(0.62, 0.66) },
-      { name: "the bucket", svg: bucket, keys: { at: [0, 0.63, ...pull], opacity: [0, 0, 1, 1, 1, 1, 1, 1, 1], y: [0, 0, 0, -8, 0, -8, 0, -8, 0] } },
-      { name: "the well", svg: well, keys: showFrom(0.62, 0.66) },
-      { name: "the well's frame", svg: frame, keys: showFrom(0.62, 0.66) },
-      { name: "the rope", svg: rope, keys: { at: [0, 0.63, ...pull], opacity: [0, 0, 1, 1, 1, 1, 1, 1, 1], scaleX: [1, 1, 1, 1.55, 1, 1.55, 1, 1.55, 1] }, origin: { x: 146, y: 67.6 } },
-      { name: "the camel drawing water", svg: wellCamel, keys: { at: [0, 0.63, ...pull], opacity: [0, 0, 1, 1, 1, 1, 1, 1, 1], x: [0, 0, ...away] }, origin: { x: 118, y: 74 } },
-      { name: "water to the second field", svg: channel, keys: showFrom(0.7, 0.72), loop: { move: "twinkle", ms: 900, low: 0.6 } },
-      { name: "green crops", svg: green + greenRight, keys: { at: [0, 0.66, 0.74, 0.77, 0.8], opacity: [0, 0, 1, 1, 0], scaleY: [0.15, 0.15, 1, 1, 1] }, origin: { x: 80, y: 94 } },
-      { name: "ripe crops", svg: gold + goldRight, keys: showFrom(0.76, 0.8), origin: { x: 80, y: 94 }, loop: { move: "sway", ms: 2400, angle: 0.4 } },
-      { name: "ten sacks from the first field", svg: sackRow(32, 100) + sackRow(32, 107, 0), keys: showFrom(0.78, 0.8) },
-      { name: "ten sacks from the second field", svg: sackRow(92, 100) + sackRow(92, 107, 4), keys: showFrom(0.78, 0.8) },
-      { name: "a tenth, given", svg: sack(32, 107, 0.85), keys: { at: [0, 0.78, 0.8, 0.81, 0.85], opacity: [0, 0, 1, 1, 1], x: [0, 0, 0, 0, -16], y: [0, 0, 0, 0, -6] } },
-      { name: "the last sack of the second field", svg: sack(128, 107, 0.85), keys: { at: [0, 0.78, 0.8, 0.88, 0.9], opacity: [0, 0, 1, 1, 1], scaleY: [1, 1, 1, 1, 0.5] }, origin: { x: 128, y: 107 } },
-      { name: "half a tenth, given", svg: sack(128, 107, 0.85), keys: { at: [0, 0.88, 0.9, 0.91, 0.97], opacity: [0, 0, 1, 1, 1], scaleY: [0.5, 0.5, 0.5, 0.5, 0.5], x: [0, 0, 0, 0, -112], y: [0, 0, 0, 0, -6] }, origin: { x: 128, y: 107 } },
-      { name: "light over the home of the poor", svg: glow(11, 92, 16, "#FFF1C4", 0.16), keys: { at: [0, 0.34, 0.36, 0.4, 0.6, 0.62, 0.66, 0.83, 0.85], opacity: [0, 0, 1, 0, 0, 1, 0, 0, 1] }, loop: { move: "twinkle", ms: 2000, low: 0.7 } }
+      { name: "light on the fortieth coin", svg: `${glow(coinX(7), coinY(4), 6, "#FFFFFF", 0.4)}${sparkle(coinX(7), n(coinY(4) - 3.4), 2, "#FFFFFF")}`, keys: { at: [0, 0.398, 0.403, 0.41, 0.455, 0.505, 0.52], opacity: [0, 0, 1, 1, 1, 1, 0], x: [0, 0, 0, 0, -96, -96, -96] } },
+      // The crops: a tenth from the field under the rain, then half a tenth from the field the camel waters.
+      { name: "the river by the first field", svg: river, keys: showFrom(0.505, 0.525), loop: { move: "twinkle", ms: 1800, low: 0.8 } },
+      { name: "the two fields", svg: fields, keys: showFrom(0.505, 0.525) },
+      { name: "rain clouds", svg: cloud(26, 30, 1.2, "#8A96A6") + cloud(50, 34, 1, "#7D8896"), keys: { at: [0, 0.51, 0.54, 0.64, 0.67], opacity: [0, 0, 1, 1, 0.3] } },
+      { name: "rain on the first field", svg: rain, keys: { at: [0, 0.53, 0.55, 0.63, 0.66], opacity: [0, 0, 1, 1, 0] }, loop: { move: "fall", ms: 700, period: 50 }, clip: { x: 20, y: 34, w: 60, h: 44 } },
+      { name: "the mouth of the well", svg: wellMouth, keys: showFrom(0.505, 0.525) },
+      { name: "the bucket", svg: bucket, keys: { at: [...shown, ...pull], opacity: [0, 0, 1, 1, 1, 1, 1, 1, 1, 1], y: [0, 0, 0, 0, -8, 0, -8, 0, -8, 0] } },
+      { name: "the well", svg: well, keys: showFrom(0.505, 0.525) },
+      { name: "the well's frame", svg: frame, keys: showFrom(0.505, 0.525) },
+      { name: "the rope", svg: rope, keys: { at: [...shown, ...pull], opacity: [0, 0, 1, 1, 1, 1, 1, 1, 1, 1], scaleX: [1, 1, 1, 1, 1.55, 1, 1.55, 1, 1.55, 1] }, origin: { x: 146, y: 67.6 } },
+      { name: "the camel drawing water", svg: wellCamel, keys: { at: [...shown, ...pull], opacity: [0, 0, 1, 1, 1, 1, 1, 1, 1, 1], x: [0, 0, 0, ...away] }, origin: { x: 118, y: 74 } },
+      { name: "green crops of the first field", svg: green, keys: { at: [0, 0.55, 0.6, 0.61, 0.635], opacity: [0, 0, 1, 1, 0], scaleY: [0.15, 0.15, 1, 1, 1] }, origin: { x: 50, y: 94 } },
+      { name: "ripe crops of the first field", svg: gold, keys: showFrom(0.6, 0.635), origin: { x: 50, y: 94 }, loop: { move: "sway", ms: 2400, angle: 0.4 } },
+      { name: "ten sacks from the first field", svg: sackRow(32, 100) + sackRow(32, 107, 0), keys: showFrom(0.635, 0.65) },
+      { name: "a tenth, given", svg: sack(32, 107, 0.85), keys: { at: [0, 0.635, 0.65, 0.66, 0.69], opacity: [0, 0, 1, 1, 1], x: [0, 0, 0, 0, -16], y: [0, 0, 0, 0, -6] } },
+      { name: "water to the second field", svg: channel, keys: showFrom(0.77, 0.785), loop: { move: "twinkle", ms: 900, low: 0.6 } },
+      { name: "green crops of the second field", svg: greenRight, keys: { at: [0, 0.78, 0.84, 0.855, 0.875], opacity: [0, 0, 1, 1, 0], scaleY: [0.15, 0.15, 1, 1, 1] }, origin: { x: 110, y: 94 } },
+      { name: "ripe crops of the second field", svg: goldRight, keys: showFrom(0.85, 0.875), origin: { x: 110, y: 94 }, loop: { move: "sway", ms: 2400, angle: 0.4 } },
+      { name: "ten sacks from the second field", svg: sackRow(92, 100) + sackRow(92, 107, 4), keys: showFrom(0.875, 0.89) },
+      { name: "the last sack of the second field", svg: sack(128, 107, 0.85), keys: { at: [0, 0.875, 0.89, 0.895, 0.91], opacity: [0, 0, 1, 1, 1], scaleY: [1, 1, 1, 1, 0.5] }, origin: { x: 128, y: 107 } },
+      { name: "half a tenth, given", svg: sack(128, 107, 0.85), keys: { at: [0, 0.91, 0.912, 0.915, 0.96], opacity: [0, 0, 1, 1, 1], scaleY: [0.5, 0.5, 0.5, 0.5, 0.5], x: [0, 0, 0, 0, -112], y: [0, 0, 0, 0, -6] }, origin: { x: 128, y: 107 } },
+      {
+        name: "light over the home of the poor",
+        svg: glow(11, 92, 16, "#FFF1C4", 0.16),
+        keys: { at: [0, 0.26, 0.265, 0.31, 0.325, 0.455, 0.46, 0.505, 0.52, 0.69, 0.695, 0.745, 0.76, 0.96, 0.965], opacity: [0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1] },
+        loop: { move: "twinkle", ms: 2000, low: 0.7 }
+      }
     ],
     words: [
-      { text: "Fewer than five camels: nothing is due", from: 0.02, to: 0.2 },
-      { text: "Five camels: one sheep", from: 0.22, to: 0.36 },
-      { text: "On silver: one part in forty", from: 0.38, to: 0.6 },
-      { text: "Watered by rain: a tenth", from: 0.62, to: 0.84 },
-      { text: "Watered by a camel: half a tenth", from: 0.86, to: 1 }
+      { text: "Fewer than five camels: nothing is due", from: 0.02, to: 0.16 },
+      { text: "Five camels: one sheep", from: 0.18, to: 0.3 },
+      { text: "On silver: one part in forty", from: 0.32, to: 0.5 },
+      { text: "Watered by rain: a tenth", from: 0.52, to: 0.74 },
+      { text: "Watered by a camel: half a tenth", from: 0.76, to: 1 }
     ]
   };
 }
@@ -246,9 +256,9 @@ function yemen(): SignArt {
   const poor = home(26, 102, 12, 8, "#C9AE84", "#B09468", "#5E432A") + home(44, 105, 11, 7, "#C4A87E", "#AA8E62", "#5E432A") + home(60, 102, 10, 7, "#CBB088", "#B2966A", "#5E432A");
   const fromNorth = ["M0 58 C10 60 18 62 26 66", "M26 66 C38 70 52 74 66 78", "M66 78 C76 81 86 83 96 84"];
   const lamps = [58, 69, 80, 91, 102];
-  const lampAt = [0.47, 0.545, 0.58, 0.625, 0.665];
+  const lampAt = [0.47, 0.535, 0.565, 0.615, 0.645];
   const sunKeys: SignKeys = {
-    at: [0, 0.44, 0.46, 0.48, 0.5, 0.54, 0.58, 0.62, 0.64],
+    at: [0, 0.445, 0.455, 0.475, 0.49, 0.53, 0.57, 0.6, 0.61],
     x: [-30, -30, -66, -66, -56, 0, 42, 66, 66],
     y: [10, 10, 44, 44, 26, 0, 12, 40, 48],
     opacity: [1, 1, 0, 0, 1, 1, 1, 1, 0]
@@ -268,12 +278,12 @@ function yemen(): SignArt {
       { name: "homes of the poor", svg: poor },
       ...fromNorth.map((d, i) => ({ name: `the way from the north, part ${i + 1}`, svg: way(d), keys: { at: [0, at3(0.04 + i * 0.05), at3(0.07 + i * 0.05), 0.22, 0.28], opacity: [0, 0, 1, 1, 0.35] } })),
       { name: "light of the testimony", svg: glow(92, 66, 30, "#FFF4D0", 0.09), keys: { at: [0, 0.24, 0.32, 0.44, 0.48], opacity: [0, 0, 1, 1, 0], scale: [0.2, 0.2, 1, 1, 1] }, origin: { x: 92, y: 66 }, loop: { move: "twinkle", ms: 2600, low: 0.75 } },
-      { name: "a spark of the testimony", svg: sparkle(92, 56, 4.4, "#FFE7A0"), keys: showWhile(0.26, 0.3, 0.42, 0.46), loop: { move: "twinkle", ms: 1200, low: 0.5 } },
-      { name: "before dawn", svg: `<rect width="160" height="120" fill="#22305A" opacity="0.5"/>`, keys: showWhile(0.44, 0.46, 0.48, 0.51) },
-      { name: "night", svg: `<rect width="160" height="120" fill="#0F1C3A" opacity="0.62"/>`, keys: { at: [0, 0.61, 0.645, 0.68, 0.72], opacity: [0, 0, 1, 1, 0] } },
-      { name: "the moon", svg: crescent(128, 18, 4.4, 2, "#FFF3C4"), keys: { at: [0, 0.62, 0.65, 0.68, 0.71], opacity: [0, 0, 1, 1, 0] } },
-      { name: "stars", svg: stars([[22, 12], [44, 22], [66, 10], [104, 16], [148, 26], [140, 8]]), keys: { at: [0, 0.62, 0.65, 0.68, 0.71], opacity: [0, 0, 1, 1, 0] }, loop: { move: "twinkle", ms: 1400, low: 0.4 } },
-      { name: "the sun again", svg: `${glow(80, 14, 13, "#FFF0C0", 0.12)}<circle cx="80" cy="14" r="5.6" fill="#FFE07A"/>`, keys: { at: [0, 0.69, 0.73], opacity: [0, 0, 1], x: [-66, -66, -36], y: [40, 40, 8] } },
+      { name: "a spark of the testimony", svg: sparkle(92, 56, 4.4, "#FFE7A0"), keys: showWhile(0.26, 0.3, 0.445, 0.46), loop: { move: "twinkle", ms: 1200, low: 0.5 } },
+      { name: "before dawn", svg: `<rect width="160" height="120" fill="#22305A" opacity="0.5"/>`, keys: showWhile(0.445, 0.455, 0.475, 0.49) },
+      { name: "night", svg: `<rect width="160" height="120" fill="#0F1C3A" opacity="0.62"/>`, keys: { at: [0, 0.6, 0.625, 0.675, 0.69], opacity: [0, 0, 1, 1, 0] } },
+      { name: "the moon", svg: crescent(128, 18, 4.4, 2, "#FFF3C4"), keys: { at: [0, 0.61, 0.635, 0.675, 0.69], opacity: [0, 0, 1, 1, 0] } },
+      { name: "stars", svg: stars([[22, 12], [44, 22], [66, 10], [104, 16], [148, 26], [140, 8]]), keys: { at: [0, 0.61, 0.635, 0.675, 0.69], opacity: [0, 0, 1, 1, 0] }, loop: { move: "twinkle", ms: 1400, low: 0.4 } },
+      { name: "the sun again", svg: `${glow(80, 14, 13, "#FFF0C0", 0.12)}<circle cx="80" cy="14" r="5.6" fill="#FFE07A"/>`, keys: { at: [0, 0.675, 0.695], opacity: [0, 0, 1], x: [-66, -66, -36], y: [40, 40, 8] } },
       ...lamps.map((x, i) => ({
         name: `lamp of prayer ${i + 1}`,
         svg: `${glow(x, 44, 5, "#FFFFFF", 0.3)}${sparkle(x, 44, 2.6, "#FFD25A")}`,
@@ -281,19 +291,19 @@ function yemen(): SignArt {
         origin: { x, y: 44 },
         loop: { move: "twinkle" as const, ms: 1600, low: 0.7, phase: i / 5 }
       })),
-      { name: "the way down to the poor", svg: down, keys: showFrom(0.78, 0.8) },
+      { name: "the way down to the poor", svg: down, keys: showFrom(0.76, 0.78) },
       ...[
-        { name: "a sack of grain from the tall houses", svg: sack(112, 86, 0.9), at: 0.8, dx: -62, dy: 19 },
-        { name: "a second sack", svg: sack(122, 86, 0.9, "#BF9A5E"), at: 0.84, dx: -56, dy: 16 },
-        { name: "a sheep from the tall houses", svg: animalAt("sheep", 126, 77, 0.11, true), at: 0.88, dx: -92, dy: 17 }
+        { name: "a sack of grain from the tall houses", svg: sack(112, 86, 0.9), at: 0.87, dx: -62, dy: 19 },
+        { name: "a second sack", svg: sack(122, 86, 0.9, "#BF9A5E"), at: 0.885, dx: -56, dy: 16 },
+        { name: "a sheep from the tall houses", svg: animalAt("sheep", 126, 77, 0.11, true), at: 0.9, dx: -92, dy: 17 }
       ].map((each, i) => ({
         name: each.name,
         svg: each.svg,
-        keys: { at: [0, 0.72, 0.75, each.at, at3(each.at + 0.09)], opacity: [0, 0, 1, 1, 1], x: [0, 0, 0, 0, each.dx], y: [0, 0, 0, 0, each.dy] },
+        keys: { at: [0, 0.72, 0.75, each.at, at3(each.at + 0.06)], opacity: [0, 0, 1, 1, 1], x: [0, 0, 0, 0, each.dx], y: [0, 0, 0, 0, each.dy] },
         origin: { x: 116, y: 86 },
         ...(i === 2 ? { loop: { move: "bob" as const, ms: 700, y: -0.5 } } : {})
       })),
-      { name: "light over the homes of the poor", svg: glow(44, 98, 24, "#FFF1C4", 0.16), keys: showFrom(0.92, 0.97), loop: { move: "twinkle", ms: 2000, low: 0.65 } }
+      { name: "light over the homes of the poor", svg: glow(44, 98, 24, "#FFF1C4", 0.08), keys: showFrom(0.96, 0.975), loop: { move: "twinkle", ms: 2000, low: 0.65 } }
     ],
     words: [
       { text: "Sent to Yemen", from: 0.02, to: 0.22 },
@@ -364,21 +374,21 @@ function bayruha(): SignArt {
       { name: "ripe dates", svg: dates, keys: { at: [0, 0.05, 0.12], opacity: [0, 0, 1], scale: [0.6, 0.6, 1] }, origin: { x: 44, y: 68 } },
       { name: "the garden's wall", svg: gardenWall },
       { name: "birds over the garden", svg: [[22, 40], [30, 36], [60, 44]].map(([x, y]) => `<path d="M${x} ${y} q1.8 -1.5 3.6 0 q1.8 -1.5 3.6 0" stroke="#5A5A5A" stroke-width="0.6" fill="none" stroke-linecap="round"/>`).join(""), loop: { move: "bob", ms: 2600, x: 4, y: -1.5 } },
-      { name: "light on the masjid", svg: glow(123, 78, 20, "#FFF4D0", 0.09), keys: showWhile(0.22, 0.27, 0.4, 0.44), loop: { move: "twinkle", ms: 1800, low: 0.6 } },
-      { name: "the garden, loved", svg: glow(42, 80, 30, "#FFE9C4", 0.09), keys: showWhile(0.44, 0.5, 0.6, 0.64), loop: { move: "twinkle", ms: 1600, low: 0.6 } },
-      { name: "light over the garden, given", svg: glow(42, 80, 24, "#FFF4D0", 0.1), keys: showWhile(0.64, 0.7, 0.8, 0.84), loop: { move: "twinkle", ms: 1300, low: 0.6 } },
+      { name: "light on the masjid", svg: glow(123, 78, 20, "#FFF4D0", 0.09), keys: showWhile(0.22, 0.27, 0.425, 0.44), loop: { move: "twinkle", ms: 1800, low: 0.6 } },
+      { name: "the garden, loved", svg: glow(42, 80, 30, "#FFE9C4", 0.09), keys: showWhile(0.44, 0.5, 0.625, 0.64), loop: { move: "twinkle", ms: 1600, low: 0.6 } },
+      { name: "light over the garden, given", svg: glow(42, 80, 24, "#FFF4D0", 0.1), keys: showWhile(0.64, 0.7, 0.805, 0.82), loop: { move: "twinkle", ms: 1300, low: 0.6 } },
       // Sparks of the gift rise from the garden, one after another.
       ...[24, 36, 48, 60, 42].map((x, i) => {
-        const start = at3(0.65 + i * 0.025);
+        const start = at3(0.645 + i * 0.015);
         return {
           name: `a spark of the gift, rising ${i + 1}`,
           svg: sparkle(x, 70, i % 2 ? 2.2 : 2.8, "#FFE7A0"),
-          keys: { at: [0, start, at3(start + 0.02), at3(start + 0.08), at3(start + 0.1)], opacity: [0, 0, 1, 1, 0], y: [0, 0, -6, -30, -36] },
+          keys: { at: [0, start, at3(start + 0.01), at3(start + 0.05), at3(start + 0.06)], opacity: [0, 0, 1, 1, 0], y: [0, 0, -6, -30, -36] },
           loop: { move: "twinkle" as const, ms: 1000, low: 0.5, phase: i / 5 }
         };
       }),
       { name: "homes of his relatives", svg: homes },
-      ...ways.map((svg, i) => ({ name: `the way to a relative's home ${i + 1}`, svg, keys: showFrom(at3(0.82 + i * 0.02), at3(0.84 + i * 0.02)) })),
+      ...ways.map((svg, i) => ({ name: `the way to a relative's home ${i + 1}`, svg, keys: showFrom(at3(0.825 + i * 0.02), at3(0.845 + i * 0.02)) })),
       ...relatives.map((each, i) => ({
         name: `a basket of dates for a relative ${i + 1}`,
         svg: basketOfDates(70, 99),
@@ -423,31 +433,33 @@ function fitr(): SignArt {
   const grains: ("dates" | "barley")[] = ["dates", "dates", "dates", "barley", "barley"];
   // The first three go to the first home of the poor, the last two to the second.
   const dest = (i: number) => (i < 3 ? { x: 106 + i * 6, y: 92 } : { x: 133 + (i - 3) * 6, y: 96 });
-  const goAt = (i: number) => (i < 3 ? 0.62 : 0.7);
+  // Each sa' comes in turn, the last before the night's first words end; at dawn the first three go, then the last two.
+  const comeAt = [0.03, 0.06, 0.09, 0.12, 0.145];
+  const goAt = (i: number) => (i < 3 ? 0.62 : 0.68);
   return {
     kind: "fitr",
     ms: 12000,
     parts: [
       { name: "night before Eid", svg: night },
-      { name: "dawn", svg: dawn, keys: { at: [0, 0.38, 0.5, 0.8, 0.86], opacity: [0, 0, 1, 1, 0] } },
+      { name: "dawn", svg: dawn, keys: { at: [0, 0.385, 0.5, 0.8, 0.86], opacity: [0, 0, 1, 1, 0] } },
       { name: "morning", svg: day, keys: showFrom(0.8, 0.88) },
-      { name: "stars", svg: stars([[16, 12], [40, 22], [62, 8], [92, 18], [118, 10], [142, 24], [150, 8]]), keys: { at: [0, 0.36, 0.46], opacity: [1, 1, 0] }, loop: { move: "twinkle", ms: 1600, low: 0.4 } },
-      { name: "the thin moon", svg: crescent(30, 22, 3.4, 1.2, "#FFF3C4"), keys: { at: [0, 0.36, 0.46], opacity: [1, 1, 0] } },
+      { name: "stars", svg: stars([[16, 12], [40, 22], [62, 8], [92, 18], [118, 10], [142, 24], [150, 8]]), keys: { at: [0, 0.385, 0.46], opacity: [1, 1, 0] }, loop: { move: "twinkle", ms: 1600, low: 0.4 } },
+      { name: "the thin moon", svg: crescent(30, 22, 3.4, 1.2, "#FFF3C4"), keys: { at: [0, 0.385, 0.46], opacity: [1, 1, 0] } },
       { name: "the sun rising", svg: `${glow(148, 62, 14, "#FFF0C0", 0.14)}<circle cx="148" cy="62" r="6" fill="#FFD25A"/>`, keys: { at: [0, 0.82, 0.92], opacity: [0, 0, 1], y: [10, 10, -18] } },
       { name: "the hills", svg: hills },
       { name: "the land", svg: land },
       { name: "the open prayer ground, far away", svg: ground + spear(148, 74, 6) },
       { name: "light over the prayer ground", svg: glow(148, 70, 16, "#FFF4D0", 0.12), keys: showFrom(0.88, 0.94), loop: { move: "twinkle", ms: 1800, low: 0.6 } },
-      { name: "night over the land", svg: `<rect y="71" width="160" height="49" fill="#0F1C3A" opacity="0.5"/>`, keys: { at: [0, 0.38, 0.5], opacity: [1, 1, 0] } },
+      { name: "night over the land", svg: `<rect y="71" width="160" height="49" fill="#0F1C3A" opacity="0.5"/>`, keys: { at: [0, 0.385, 0.5], opacity: [1, 1, 0] } },
       { name: "the home", svg: house },
       { name: "homes of the poor", svg: poor },
-      { name: "lamp in the home", svg: `${glow(43, 85, 6, "#FFD27A", 0.3)}<rect x="41.6" y="83.6" width="2.8" height="2.6" fill="#FFD27A"/>`, keys: { at: [0, 0.5, 0.6], opacity: [1, 1, 0] }, loop: { move: "twinkle", ms: 900, low: 0.6 } },
+      { name: "lamp in the home", svg: `${glow(43, 85, 6, "#FFD27A", 0.3)}<rect x="41.6" y="83.6" width="2.8" height="2.6" fill="#FFD27A"/>`, keys: { at: [0, 0.555, 0.57], opacity: [1, 1, 0] }, loop: { move: "twinkle", ms: 900, low: 0.6 } },
       { name: "the way to the poor", svg: way("M54 101 C74 103 92 100 104 94 M86 100 C100 102 118 101 132 98", "#F4E3BC", 1.1), keys: showFrom(0.6, 0.63) },
       ...slots.map((x, i) => {
         const to = dest(i);
         const go = goAt(i);
         const keys: SignKeys = {
-          at: [0, at3(0.03 + i * 0.04), at3(0.05 + i * 0.04), at3(go + (i % 3) * 0.02), at3(go + 0.06 + (i % 3) * 0.02)],
+          at: [0, comeAt[i], at3(comeAt[i] + 0.02), at3(go + (i % 3) * 0.02), at3(go + 0.06 + (i % 3) * 0.02)],
           opacity: [0, 0, 1, 1, 1],
           scale: [0.2, 0.2, 1, 1, 1],
           x: [0, 0, 0, 0, n(to.x - x)],
@@ -464,12 +476,12 @@ function fitr(): SignArt {
           {
             name: `one for each: a spark over the sa' ${i + 1}`,
             svg: sparkle(x, 92, 2.2, "#FFE7A0"),
-            keys: showWhile(at3(0.23 + i * 0.025), at3(0.24 + i * 0.025), 0.36, 0.38),
+            keys: showWhile(at3(0.23 + i * 0.025), at3(0.24 + i * 0.025), 0.36, 0.375),
             loop: { move: "twinkle" as const, ms: 1000, low: 0.4, phase: i / 5 }
           }
         ];
       }).flat(),
-      { name: "light over the homes of the poor", svg: glow(124, 90, 22, "#FFF1C4", 0.12), keys: showFrom(0.7, 0.8), loop: { move: "twinkle", ms: 2000, low: 0.65 } }
+      { name: "light over the homes of the poor", svg: glow(124, 90, 22, "#FFF1C4", 0.08), keys: showFrom(0.76, 0.765), loop: { move: "twinkle", ms: 2000, low: 0.65 } }
     ],
     words: [
       { text: "A sa' for every one", from: 0.02, to: 0.2 },
@@ -512,28 +524,28 @@ function eid(): SignArt {
     ms: 12000,
     parts: [
       { name: "early sky", svg: sky("#F6D2A8", "#FBE6C8", 60) },
-      { name: "morning sky", svg: sky("#BFE3FA", "#DDF1FC", 60), keys: showFrom(0.06, 0.2) },
-      { name: "the sun rising", svg: `${glow(138, 40, 14, "#FFF0C0", 0.14)}<circle cx="138" cy="40" r="6" fill="#FFD25A"/>`, keys: { at: [0, 0.02, 0.2], y: [16, 16, -14] } },
-      { name: "birds of the morning", svg: [[30, 18], [37, 14], [86, 16], [112, 13]].map(([x, y]) => `<path d="M${x} ${y} q1.8 -1.5 3.6 0 q1.8 -1.5 3.6 0" stroke="#5A5A5A" stroke-width="0.6" fill="none" stroke-linecap="round"/>`).join(""), keys: showFrom(0.08, 0.14), loop: { move: "slide", ms: 11000 } },
+      { name: "morning sky", svg: sky("#BFE3FA", "#DDF1FC", 60), keys: showFrom(0.03, 0.12) },
+      { name: "the sun rising", svg: `${glow(138, 40, 14, "#FFF0C0", 0.14)}<circle cx="138" cy="40" r="6" fill="#FFD25A"/>`, keys: { at: [0, 0.02, 0.12], y: [16, 16, -14] } },
+      { name: "birds of the morning", svg: [[30, 18], [37, 14], [86, 16], [112, 13]].map(([x, y]) => `<path d="M${x} ${y} q1.8 -1.5 3.6 0 q1.8 -1.5 3.6 0" stroke="#5A5A5A" stroke-width="0.6" fill="none" stroke-linecap="round"/>`).join(""), keys: showFrom(0.08, 0.12), loop: { move: "slide", ms: 11000 } },
       { name: "the hills", svg: hills },
       { name: "the land", svg: land },
       { name: "the open prayer ground", svg: ground },
       { name: "palms of Madinah", svg: palms, origin: { x: 80, y: 74 }, loop: { move: "sway", ms: 3400, angle: 0.6 } },
       { name: "homes of Madinah", svg: homes },
-      { name: "a plate by the door", svg: plate, keys: { at: [0, 0.16, 0.18, 0.34, 0.36], opacity: [0, 0, 1, 1, 0] } },
+      { name: "a plate by the door", svg: plate, keys: { at: [0, 0.165, 0.18, 0.345, 0.36], opacity: [0, 0, 1, 1, 0] } },
       ...[20, 25, 30].map((x, i) => ({
         name: `date ${i + 1} of three`,
         svg: dateAt(x),
-        keys: { at: [0, 0.17, 0.19, at3(0.24 + i * 0.03), at3(0.26 + i * 0.03)], opacity: [0, 0, 1, 1, 0], y: [0, 0, 0, 0, -3] }
+        keys: { at: [0, 0.17, 0.185, at3(0.22 + i * 0.025), at3(0.24 + i * 0.025)], opacity: [0, 0, 1, 1, 0], y: [0, 0, 0, 0, -3] }
       })),
-      { name: "an odd number: three", svg: sparkle(25, 91.5, 2.8, "#FFE7A0"), keys: showWhile(0.3, 0.31, 0.34, 0.36), loop: { move: "twinkle", ms: 700, low: 0.4 } },
-      ...going.map((d, i) => ({ name: `the way out, part ${i + 1}`, svg: way(d), keys: { at: [0, at3(0.37 + i * 0.04), at3(0.4 + i * 0.04), 0.76, 0.82], opacity: [0, 0, 1, 1, 0.3] } })),
-      { name: "the short spear, planted", svg: spear(122, 84, 10), keys: { at: [0, 0.48, 0.52], opacity: [0, 0, 1], scaleY: [0.1, 0.1, 1] }, origin: { x: 122, y: 84 } },
-      { name: "calm of the prayer", svg: glow(122, 84, 26, "#FFF4D0", 0.1), keys: showWhile(0.54, 0.58, 0.64, 0.66), loop: { move: "twinkle", ms: 2200, low: 0.7 } },
+      { name: "an odd number: three", svg: sparkle(25, 91.5, 2.8, "#FFE7A0"), keys: showWhile(0.29, 0.295, 0.34, 0.355), loop: { move: "twinkle", ms: 700, low: 0.4 } },
+      ...going.map((d, i) => ({ name: `the way out, part ${i + 1}`, svg: way(d), keys: { at: [0, at3(0.365 + i * 0.025), at3(0.39 + i * 0.025), 0.765, 0.8], opacity: [0, 0, 1, 1, 0.3] } })),
+      { name: "the short spear, planted", svg: spear(122, 84, 10), keys: { at: [0, 0.445, 0.475], opacity: [0, 0, 1], scaleY: [0.1, 0.1, 1] }, origin: { x: 122, y: 84 } },
+      { name: "calm of the prayer", svg: glow(122, 84, 26, "#FFF4D0", 0.1), keys: showWhile(0.54, 0.58, 0.62, 0.635), loop: { move: "twinkle", ms: 2200, low: 0.7 } },
       ...[5, 9, 13].map((r, i) => ({
         name: `the khutbah, ring ${i + 1}`,
         svg: ring(122, 66, r),
-        keys: showWhile(0.65, 0.67, 0.73, 0.75),
+        keys: showWhile(0.635, 0.65, 0.715, 0.73),
         loop: { move: "twinkle" as const, ms: 1100, low: 0.1, phase: i / 3 }
       })),
       ...coming.map((d, i) => ({ name: `the way home, another way, part ${i + 1}`, svg: way(d, "#FFE7A0", 1.3), keys: showFrom(at3(0.77 + i * 0.05), at3(0.8 + i * 0.05)) })),

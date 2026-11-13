@@ -791,6 +791,65 @@ const ASKS: Record<string, readonly Ask[]> = {
     ["What were the two gardens of, in 18:32?", "Grapes, with date palms around", "Two gardens of grapes", "Palms around, crops between"],
     ["What flowed between the gardens, in 18:33?", "A river", "A river flowing between"],
     ["What happened to his fruits, in 18:42?", "They were ruined", "Then all the fruit was ruined"]
+  ],
+  // What zakat is due on: nothing on fewer than five camels; one part in forty of silver; a tenth of what the rain
+  // waters, and half a tenth of what a camel at the well waters (Sahih al-Bukhari 1459, 1454; Sahih Muslim 981).
+  "sign-zakat": [
+    ["Is zakat due on fewer than five camels?", "No", "Fewer than five camels: nothing is due"],
+    ["Zakat on savings is ____ percent each year.", "2.5", "On silver: one part in forty"],
+    ["Crops watered by rain give...?", "A tenth", "Watered by rain: a tenth"],
+    ["Crops watered with camel work give...?", "A twentieth", "Watered by a camel: half a tenth"],
+    ["Hard work to water lowers the zakat share.", "True", "Watered by rain: a tenth", "Watered by a camel: half a tenth"]
+  ],
+  // Mu'adh sent to Yemen: first the shahadah, then the five prayers of the day and the night, then zakat, taken from
+  // their rich and given to their poor (Sahih al-Bukhari 1395, 1496).
+  "sign-yemen": [
+    ["What was Mu'adh to teach first?", "The testimony of faith", "First: the shahadah"],
+    ["What did Mu'adh teach first?", "The shahadah", "First: the shahadah"],
+    ["What came right after the shahadah?", "The five daily prayers", "Then five prayers, day and night"],
+    ["Who is zakat taken from?", "Those with enough wealth", "Then zakat from their rich"],
+    ["In Yemen, zakat went to Yemen's own poor.", "True", "Given to their poor"],
+    ["Zakat is taken from the poor and given to the rich.", "False", "Then zakat from their rich", "Given to their poor"]
+  ],
+  // Bayruha: the garden Abu Talhah loved most; when the ayah came, he gave it for Allah, and it was shared among his
+  // relatives (Quran 3:92, Sahih al-Bukhari 1461).
+  "sign-bayruha": [
+    ["Bayruha was the garden Abu Talhah loved least.", "False", "Bayruha, the garden he loved most"],
+    ["To reach true goodness, what should we give?", "Something we love", "Spend from what you love"],
+    ["What made him give it?", "The ayah about giving what you love", "Spend from what you love"],
+    ["Which ayah made Abu Talhah give his garden?", "Spend from what you love", "Spend from what you love"],
+    ["How do we reach true righteousness, in Ali 'Imran?", "By giving what we love", "Spend from what you love"],
+    ["Ayahs 81-101: what are they about?", "Give what you love", "Spend from what you love"],
+    ["How do you reach al-birr, in 3:92?", "By giving from what you love", "Spend from what you love"],
+    ["Ayah 3:92 says we reach righteousness by spending what we love.", "True", "Spend from what you love"],
+    ["Abu Talhah obeyed 3:92 right away.", "True", "Spend from what you love", "He gave it for Allah"],
+    ["Whom did the Prophet ﷺ tell him to give it to?", "His relatives", "Shared among his relatives"]
+  ],
+  // Zakat al-Fitr: a sa' for every one, young or old, of dates or barley, given before the Eid prayer (Sahih al-Bukhari
+  // 1503, 1506).
+  "sign-fitr": [
+    ["Who is zakat al-Fitr given for?", "Every Muslim, young or old", "A sa' for every one", "Young or old"],
+    ["Who is it due for?", "Every Muslim, even a baby", "A sa' for every one", "Young or old"],
+    ["A baby's zakat al-Fitr is paid too.", "True", "Young or old"],
+    ["What is it paid in, in this hadith?", "A sa' of dates or barley", "Of dates or barley"],
+    ["What is it paid in, in the hadith?", "Food, like dates or barley", "Of dates or barley"],
+    ["What did the Companions give as zakat al-Fitr?", "A sa' of everyday food", "Of dates or barley"],
+    ["A sa' is a measure of food.", "True", "Of dates or barley"],
+    ["When should zakat al-Fitr be paid?", "Before the Eid prayer", "Given before the Eid prayer"],
+    ["When must zakat al-Fitr be paid?", "Before the Eid prayer", "Given before the Eid prayer"]
+  ],
+  // The morning of Eid: dates first, an odd number; out to the open prayer ground, a short spear planted there; the
+  // prayer first, then the khutbah; and home by another way (Sahih al-Bukhari 953, 494, 956, 986).
+  "sign-eid": [
+    ["What did he eat before the Eid al-Fitr prayer?", "Dates", "Dates first, an odd number"],
+    ["How many dates fit this Sunnah?", "Three", "Dates first, an odd number"],
+    ["What did the Prophet ﷺ eat before the Eid prayer?", "Some dates", "Dates first, an odd number"],
+    ["On Eid al-Fitr, he went to pray before eating anything.", "False", "Dates first, an odd number"],
+    ["What was planted in front of him ﷺ on Eid?", "A short spear", "Out to the open prayer ground"],
+    ["Where did he pray Eid?", "At an open prayer ground", "Out to the open prayer ground"],
+    ["What came first on Eid?", "The Eid prayer", "The prayer first, then the khutbah"],
+    ["On Friday the khutbah comes first; on Eid the prayer does.", "True", "The prayer first, then the khutbah"],
+    ["What did he do on the way back from Eid prayer?", "Took a different road", "Home by another way"]
   ]
 };
 
