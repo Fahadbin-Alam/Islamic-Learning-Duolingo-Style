@@ -79,7 +79,7 @@ describe("which questions are asked on a scene", () => {
     const asks = sceneAsks();
     // Each one was read with its scene: its right answer is what the moment shows, and the scene before it does not
     // show it. A question changed in the course fails here until it is read again.
-    expect(asks.length).toBe(572);
+    expect(asks.length).toBe(611);
     let places = 0;
     for (const ask of asks) {
       const found = ALL_CHALLENGES.filter(({ challenge }) => challenge.prompt === ask.prompt && rightOf(challenge) === ask.answer);
@@ -97,7 +97,7 @@ describe("which questions are asked on a scene", () => {
         ]);
       }
     }
-    expect(places).toBe(801);
+    expect(places).toBe(857);
   });
 
   it("finds a question by its prompt and its right answer, so another question with the same prompt is not asked on it", () => {
@@ -686,6 +686,155 @@ describe("where the scene waits and where it stops", () => {
     expect(shown("What do they do when lightning flashes?", ["the way, lit at a flash", "the way, lit at the next flash"])).toEqual([
       [0, 0],
       [1, 1]
+    ]);
+  });
+
+  it("waits on the scenes of zakat, giving and Eid before anything of the answer shows, and shows it once answered, at rest", () => {
+    // Wherever a question on these scenes waits or stops, nothing is halfway through moving or coming into sight.
+    const giving = ["sign-zakat", "sign-yemen", "sign-bayruha", "sign-fitr", "sign-eid"];
+    const asks = sceneAsks().filter((each) => giving.includes(each.sceneId));
+    expect(asks.length).toBe(39);
+    for (const ask of asks) {
+      const kind = SIGN_SCENES.find((each) => each.id === ask.sceneId)!.kind;
+      for (const t of Object.values(sceneMoment(kind, ask.from, ask.to)!)) {
+        for (const part of signArt(kind).parts) {
+          for (const [key, values] of Object.entries(part.keys ?? {})) {
+            if (key === "at") continue;
+            const at = (time: number) => keyAt(part.keys!.at, values as number[], Math.min(1, Math.max(0, time)));
+            expect([ask.prompt, t, part.name, key, at(t) === at(t - 0.004) || at(t) === at(t + 0.004)]).toEqual([ask.prompt, t, part.name, key, true]);
+          }
+        }
+      }
+    }
+    // What zakat is due on. Fewer than five: no camel yet; then four come and stand, and the fifth has not come, so no
+    // mark of it and nothing due.
+    const camels = ["camel 1", "camel 2", "camel 3", "camel 4", "camel 5"];
+    expect(camels.map((name) => moved("Is zakat due on fewer than five camels?", name, "x"))).toEqual([
+      [140, 0],
+      [120, 0],
+      [100, 0],
+      [80, 0],
+      [60, 60]
+    ]);
+    expect(shown("Is zakat due on fewer than five camels?", ["mark 4 of the count", "mark 5 of the count", "five: zakat is due"])).toEqual([
+      [0, 0, 0],
+      [1, 0, 0]
+    ]);
+    // Silver: the sheep given, and no coin yet; then forty coins, and the fortieth gone to the home of the poor.
+    expect(shown("Zakat on savings is ____ percent each year.", ["silver coins, row 1", "silver coins, row 5", "the fortieth coin, given", "one sheep, given"])).toEqual([
+      [0, 0, 0, 1],
+      [1, 1, 1, 0]
+    ]);
+    expect(moved("Zakat on savings is ____ percent each year.", "the fortieth coin, given", "x")).toEqual([0, -96]);
+    // The crops: no field yet; then the rain on the first, ripe, and a tenth given, while the second has not grown.
+    expect(shown("Crops watered by rain give...?", ["the two fields", "ripe crops of the first field", "a tenth, given", "green crops of the second field", "ripe crops of the second field"])).toEqual([
+      [0, 0, 0, 0, 0],
+      [1, 1, 1, 0, 0]
+    ]);
+    expect(moved("Crops watered by rain give...?", "a tenth, given", "x")).toEqual([0, -16]);
+    // Then the camel draws water for the second field, and only half of its last sack is given.
+    expect(shown("Crops watered with camel work give...?", ["ripe crops of the second field", "half a tenth, given"])).toEqual([
+      [0, 0],
+      [1, 1]
+    ]);
+    expect([moved("Crops watered with camel work give...?", "half a tenth, given", "x"), moved("Crops watered with camel work give...?", "the last sack of the second field", "scaleY")]).toEqual([
+      [0, -112],
+      [1, 0.5]
+    ]);
+    expect(shown("Hard work to water lowers the zakat share.", ["a tenth, given", "half a tenth, given"])).toEqual([
+      [0, 0],
+      [1, 1]
+    ]);
+    // Mu'adh sent to Yemen: the way from the north, nothing taught yet; then the light of the shahadah, and no lamp of
+    // prayer yet. Then the five lamps, lit through the day and the night.
+    expect(shown("What was Mu'adh to teach first?", ["light of the testimony", "a spark of the testimony", "lamp of prayer 1"])).toEqual([
+      [0, 0, 0],
+      [1, 1, 0]
+    ]);
+    expect(shown("What came right after the shahadah?", ["lamp of prayer 1", "lamp of prayer 5", "night"])).toEqual([
+      [0, 0, 0],
+      [1, 1, 1]
+    ]);
+    // Zakat from their rich: nothing yet; then sacks and a sheep at the tall houses, still there. Then they go down to the
+    // homes of the poor.
+    const goods = ["a sack of grain from the tall houses", "a sheep from the tall houses"];
+    expect([shown("Who is zakat taken from?", [...goods, "the way down to the poor"]), moved("Who is zakat taken from?", goods[0], "x")]).toEqual([
+      [
+        [0, 0, 0],
+        [1, 1, 1]
+      ],
+      [0, 0]
+    ]);
+    expect([goods.map((name) => moved("In Yemen, zakat went to Yemen's own poor.", name, "x")), shown("In Yemen, zakat went to Yemen's own poor.", ["light over the homes of the poor"])]).toEqual([
+      [
+        [0, -62],
+        [0, -92]
+      ],
+      [[0], [1]]
+    ]);
+    // Bayruha: no dates yet; then ripe. Facing the masjid, its light; then the ayah, and the garden loved. Then given:
+    // the light of the gift, its sparks gone up. Then its dates go to the homes of his relatives.
+    expect(shown("Bayruha was the garden Abu Talhah loved least.", ["ripe dates"])).toEqual([[0], [1]]);
+    expect(shown("Which ayah made Abu Talhah give his garden?", ["light on the masjid", "the garden, loved"])).toEqual([
+      [1, 0],
+      [0, 1]
+    ]);
+    expect([shown("Abu Talhah obeyed 3:92 right away.", ["the garden, loved", "light over the garden, given"]), moved("Abu Talhah obeyed 3:92 right away.", "a spark of the gift, rising 5", "y")]).toEqual([
+      [
+        [0, 0],
+        [0, 1]
+      ],
+      [0, -36]
+    ]);
+    const baskets = ["a basket of dates for a relative 1", "a basket of dates for a relative 3"];
+    expect([shown("Whom did the Prophet ﷺ tell him to give it to?", [...baskets, "the way to a relative's home 1"]), moved("Whom did the Prophet ﷺ tell him to give it to?", baskets[1], "x")]).toEqual([
+      [
+        [0, 0, 0],
+        [1, 1, 1]
+      ],
+      [0, 70]
+    ]);
+    // Zakat al-Fitr: no sa' yet; then one for each, all of one size, a spark over each. In the night, empty; then at dawn,
+    // dates and barley. Then all of them given before the sun is up.
+    expect(shown("Who is zakat al-Fitr given for?", ["a sa' for one in the home 1", "a sa' for one in the home 5", "one for each: a spark over the sa' 5"])).toEqual([
+      [0, 0, 0],
+      [1, 1, 1]
+    ]);
+    expect(shown("A baby's zakat al-Fitr is paid too.", ["one for each: a spark over the sa' 1", "one for each: a spark over the sa' 5"])).toEqual([
+      [0, 0],
+      [1, 1]
+    ]);
+    expect(shown("What is it paid in, in this hadith?", ["dates in the sa' 1", "barley in the sa' 5", "stars", "dawn"])).toEqual([
+      [0, 0, 1, 0],
+      [1, 1, 0, 1]
+    ]);
+    expect([moved("When should zakat al-Fitr be paid?", "a sa' for one in the home 1", "x"), shown("When should zakat al-Fitr be paid?", ["light over the homes of the poor", "the sun rising"])]).toEqual([
+      [0, 88],
+      [
+        [0, 0],
+        [1, 0]
+      ]
+    ]);
+    // The morning of Eid: no plate yet; then the three dates taken, an odd number, and not yet the way out. No spear yet;
+    // then the way out, and the spear planted. The prayer, then the rings of the khutbah. Then home by another way.
+    expect(shown("What did he eat before the Eid al-Fitr prayer?", ["a plate by the door", "date 1 of three", "date 3 of three", "an odd number: three", "the way out, part 1"])).toEqual([
+      [0, 0, 0, 0, 0],
+      [1, 0, 0, 1, 0]
+    ]);
+    expect([shown("What was planted in front of him ﷺ on Eid?", ["the short spear, planted", "the way out, part 3"]), moved("What was planted in front of him ﷺ on Eid?", "the short spear, planted", "scaleY")]).toEqual([
+      [
+        [0, 0],
+        [1, 1]
+      ],
+      [0.1, 1]
+    ]);
+    expect(shown("What came first on Eid?", ["calm of the prayer", "the khutbah, ring 1"])).toEqual([
+      [0, 0],
+      [0, 1]
+    ]);
+    expect(shown("What did he do on the way back from Eid prayer?", ["the way home, another way, part 1", "the way home, another way, part 3", "light over the home"])).toEqual([
+      [0, 0, 0],
+      [1, 1, 1]
     ]);
   });
 

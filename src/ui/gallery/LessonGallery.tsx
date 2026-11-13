@@ -961,6 +961,13 @@ const STATES: State[] = [
   { id: "scene-cup", render: () => <SceneQuestionDemo lessonId="lesson-deep-yusuf4-the-kings-cup" ask="What was the reward for finding it" /> },
   { id: "scene-clay-bird", render: () => <SceneQuestionDemo lessonId="lesson-deep-maidah2-isa-miracles" ask="How did the clay bird come to life" /> },
   { id: "scene-storm", render: () => <SceneQuestionDemo lessonId="lesson-deep-baqarah1-storm-parable" ask="What do they do when lightning flashes" /> },
+  // Zakat, giving and Eid: a tenth of what the rain waters, the five prayers after the shahadah, the ayah that made Abu
+  // Talhah give his garden, zakat al-Fitr given before the prayer, and the three dates before the Eid prayer.
+  { id: "scene-zakat", render: () => <SceneQuestionDemo lessonId="lesson-deep-book-zakat-zakat-on-crops" ask="Crops watered by rain give" /> },
+  { id: "scene-yemen", render: () => <SceneQuestionDemo lessonId="lesson-deep-fresh-start-what-comes-first" ask="What came right after the shahadah" /> },
+  { id: "scene-bayruha", render: () => <SceneQuestionDemo lessonId="lesson-deep-abu-talhah-bayruha" ask="Which ayah made Abu Talhah give his garden" /> },
+  { id: "scene-fitr", render: () => <SceneQuestionDemo lessonId="lesson-deep-zakat-fitr-before-prayer" ask="When should zakat al-Fitr be paid" /> },
+  { id: "scene-eid", render: () => <SceneQuestionDemo lessonId="lesson-deep-eid-fitr-dates" ask="How many dates fit this Sunnah" /> },
   // Month questions on the year: Ashura in Muharram; Sha'ban, answered wrong (the right month turns green, its moon full).
   { id: "month", render: () => <MonthQuestionDemo lessonId="lesson-deep-days-ashura" ask="Ashura is in" /> },
   { id: "month-picked", render: () => <MonthQuestionDemo lessonId="lesson-deep-days-ashura" ask="Ashura is in" pick="right" /> },
