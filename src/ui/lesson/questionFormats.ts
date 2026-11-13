@@ -14,8 +14,10 @@ import { hasArabic } from "../ArabicText";
 //   month   every answer a month: tap the right one where it falls in the year, and its moon fills (monthQuestions)
 //   cards   every answer an animal or a thing that is drawn (dates, the rain, iron): tap the right one on picture
 //           cards, each drawn in its place and moving its own way (cardQuestions)
+//   scene   a question on a moment of a story or a sign that a lesson opens on (the ark coming to rest on al-Judi):
+//           asked on its living scene, which plays up to the moment and waits, then plays it (sceneQuestions)
 
-export type QuestionFormat = "choose" | "blank" | "fill" | "check" | "map" | "sky" | "month" | "cards";
+export type QuestionFormat = "choose" | "blank" | "fill" | "check" | "map" | "sky" | "month" | "cards" | "scene";
 
 /**
  * Whether questions are asked in more than one way (and quiz circles open with a matching round). Always on in
@@ -40,6 +42,8 @@ export type FormatContext = {
   month?: boolean;
   /** Every answer is an animal or a thing that is drawn (cardsFor): asked on picture cards, each drawn and moving. */
   cards?: boolean;
+  /** The question is on a moment of a living scene (sceneQuestionFor): asked on the scene, true or false ones too. */
+  scene?: boolean;
 };
 
 const BLANK = /_{2,}/;
@@ -186,7 +190,11 @@ export function canCheck(challenge: Pick<Challenge, "choices" | "correctChoiceId
  */
 export function questionFormat(challenge: Pick<Challenge, "id" | "type" | "prompt" | "choices" | "correctChoiceId" | "listen">, context: FormatContext = {}): QuestionFormat {
   // A listening question is heard, then its meaning picked from the tiles.
-  if (!questionVariety() || isTrueFalse(challenge) || challenge.listen) return "choose";
+  if (!questionVariety() || challenge.listen) return "choose";
+  // A question on a moment of a story or a sign is asked on its scene, which plays the moment once it is answered
+  // (unless its answers are times, months, places or drawn things: those have their own pictures).
+  if (context.scene && !context.sky && !context.month && !context.cards && !context.map && !context.pictures) return "scene";
+  if (isTrueFalse(challenge)) return "choose";
   // Times of the day are found in the sky, each answer with its own, the sky playing to the one picked.
   if (context.sky) return "sky";
   // Months are found on the year, in their order, the moon of the one picked filling.

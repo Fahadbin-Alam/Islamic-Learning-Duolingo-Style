@@ -208,6 +208,8 @@ import { MonthGame } from "./ui/lesson/MonthGame";
 import { monthsFor } from "./ui/lesson/monthQuestions";
 import { CardGame } from "./ui/lesson/CardGame";
 import { cardsFor } from "./ui/lesson/cardQuestions";
+import { SceneGame } from "./ui/lesson/SceneGame";
+import { sceneQuestionFor } from "./ui/lesson/sceneQuestions";
 import * as Speech from "expo-speech";
 import { findArabicVoice, recitationForArabic } from "./services/arabicVoice";
 import { playAyah, stopAyah } from "./services/ayahPlayer";
@@ -4012,6 +4014,9 @@ export default function TopicApp() {
   // Every answer an animal or a thing that is drawn (the hoopoe, the crow; dates, milk, honey; the rain, the wind):
   // asked on picture cards, each drawn in its place and moving.
   const answerCards = pictureChallenge && !pictureChallenge.listen && pictureChallenge.type === "multiple_choice" ? cardsFor(pictureChallenge) : undefined;
+  // A question on a moment of a story or a sign (the ark at rest on al-Judi, the twelve springs): asked on its living
+  // scene, which plays up to the moment and waits, then plays it once answered.
+  const answerScene = pictureChallenge && !pictureChallenge.listen ? sceneQuestionFor(pictureChallenge) : undefined;
   const inTest = isTestSession(lessonSession);
   const testPassingScore = inTest && lesson ? lessonSession?.passingScore ?? testOutPassingScore(lesson.challenges.length) : 0;
   // The pages of the lesson: what the source says (when it is about this lesson), the words its questions ask
@@ -4028,7 +4033,7 @@ export default function TopicApp() {
     challenge && (challenge.isReview || (lesson && isRecallLesson(lesson)) || (lessonSession?.mode && lessonSession.mode !== "standard"))
   );
   const questionFormatNow = challenge
-    ? questionFormat(challenge, { recall: questionRecall, language: currentLanguage, pictures: Boolean(answerPictures), map: Boolean(answerPlaces), sky: Boolean(answerTimes), month: Boolean(answerMonths), cards: Boolean(answerCards) })
+    ? questionFormat(challenge, { recall: questionRecall, language: currentLanguage, pictures: Boolean(answerPictures), map: Boolean(answerPlaces), sky: Boolean(answerTimes), month: Boolean(answerMonths), cards: Boolean(answerCards), scene: Boolean(answerScene) })
     : "choose";
   const checkShown = challenge && questionFormatNow === "check" ? checkCandidate(challenge) : undefined;
   const fillNow = challenge && questionFormatNow === "fill" ? fillPiece(challenge) : undefined;
@@ -4313,6 +4318,16 @@ export default function TopicApp() {
                 prompt={challenge.prompt}
                 choices={challenge.choices}
                 kinds={answerCards}
+                correctChoiceId={challenge.correctChoiceId}
+                {...questionShared}
+                onSelect={(choiceId) => dispatch({ type: "select_choice", choiceId })}
+              />
+            ) : questionFormatNow === "scene" && answerScene ? (
+              <SceneGame
+                key={`${challenge.id}-scene-${lessonStep.attempt}`}
+                prompt={challenge.prompt}
+                choices={challenge.choices}
+                ask={answerScene}
                 correctChoiceId={challenge.correctChoiceId}
                 {...questionShared}
                 onSelect={(choiceId) => dispatch({ type: "select_choice", choiceId })}
