@@ -17,7 +17,7 @@ import { DayBar } from "../ui/journey/DayBar";
 import { DayOfPrayerSheet } from "../ui/journey/DayOfPrayer";
 import { DaySky, skyDuration } from "../ui/journey/DaySky";
 import type { Rect } from "../ui/journey/JourneyMap";
-import { skyLayout, sunAt, sunHeight, skyFrame } from "../ui/journey/skyArt";
+import { skyLayout, sunAt, sunHeight, skyFrame, skyStars, starAt, starPole } from "../ui/journey/skyArt";
 import type { Lesson } from "../types";
 
 const stop = (id: string) => SKY_STOPS.find((each) => each.scene.id === id)!;
@@ -37,14 +37,15 @@ const SHEET_FRAMES = [
   [358, 279],
   [380, 296]
 ];
+const dayHourOf = (hour: number) => ((hour % 24) + 24) % 24;
 const overlap = (a: Rect, b: Rect) => Math.max(0, Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x)) * Math.max(0, Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y));
 // The middle of the night, and where its last third begins: from sunset to the next dawn.
 const MIDDLE = (SKY_HOURS.sunset + SKY_HOURS.nextDawn) / 2;
 const LAST_THIRD = SKY_HOURS.sunset + ((SKY_HOURS.nextDawn - SKY_HOURS.sunset) * 2) / 3;
 
-/** What a lesson says, from its title to its lines. */
+/** What a lesson says, from its title to its lines and its questions. */
 function lessonText(lesson: Lesson) {
-  return [lesson.title, lesson.intro, lesson.learnLine, lesson.quote?.text, ...(lesson.learnFacts ?? []), lesson.explanationContent, lesson.keyTakeaway, lesson.storyMoment]
+  return [lesson.title, lesson.intro, lesson.learnLine, lesson.quote?.text, ...(lesson.learnFacts ?? []), lesson.explanationContent, lesson.keyTakeaway, lesson.storyMoment, ...lesson.challenges.map((each) => each.prompt)]
     .filter(Boolean)
     .join(" ");
 }
@@ -64,7 +65,10 @@ const ABOUT: Record<string, RegExp[]> = {
   "sky-midnight": [/isha/i],
   "sky-isha-fajr": [/isha/i, /fajr/i],
   "sky-night-prayer": [/night|witr|tahajjud/i],
+  "sky-stand-night": [/night/i],
   "sky-last-third": [/last third/i],
+  "sky-sleep": [/sleep|bed|wak(e|ing)|lie down|lying down/i],
+  "sky-qadr": [/qadr|thousand months|last ten|(that|this|which|odd) night/i],
   "sky-suhur": [/suhur|sahur|(eat|drink).*(dawn|fajr)/i],
   "sky-thread": [/thread/i],
   "sky-fast": [/fast/i],
@@ -91,7 +95,10 @@ const SOURCES: Record<string, string[]> = {
   "sky-fajr-asr": ["Sahih al-Bukhari 554"],
   "sky-isha-fajr": ["Sahih Muslim 612d"],
   "sky-midnight": ["Sahih al-Bukhari 567"],
-  "sky-night-prayer": ["Sahih al-Bukhari 1137", "Sahih al-Bukhari 998"]
+  "sky-night-prayer": ["Sahih al-Bukhari 1137", "Sahih al-Bukhari 998"],
+  "sky-stand-night": ["Quran 73:2", "Quran 73:3", "Quran 73:4"],
+  "sky-sleep": ["Quran 25:47"],
+  "sky-qadr": ["Quran 97:3", "Quran 97:5"]
 };
 
 describe("each prayer's time in the sky: its data", () => {
@@ -139,6 +146,13 @@ describe("each prayer's time in the sky: its data", () => {
     // The night prayer from Isha, its witr before dawn (998).
     expect(stop("sky-night-prayer").scene.from).toBe(end("sky-isha"));
     expect(end("sky-night-prayer") > LAST_THIRD && end("sky-night-prayer") < SKY_HOURS.nextDawn).toBe(true);
+    // Standing at night, from Isha into the last third, before dawn (Quran 73:2-4).
+    expect(stop("sky-stand-night").scene.from).toBe(end("sky-isha"));
+    expect(end("sky-stand-night") > LAST_THIRD && end("sky-stand-night") < SKY_HOURS.nextDawn).toBe(true);
+    // Sleep and waking: from before sunset, through the night, to the next day's sunrise (25:47).
+    expect(stop("sky-sleep").scene.from < SKY_HOURS.sunset && end("sky-sleep") > 24 + SKY_HOURS.sunrise).toBe(true);
+    // Laylat al-Qadr from sunset, peace until dawn rises (97:5): it ends once dawn has come, before the sun is up.
+    expect(stop("sky-qadr").scene.from > SKY_HOURS.sunset && end("sky-qadr") > SKY_HOURS.nextDawn && end("sky-qadr") < 24 + SKY_HOURS.sunrise).toBe(true);
     // The fast from the first light of dawn until the sun has set (Quran 2:187, 1954); iftar as the sun sets.
     expect(stop("sky-fast").scene.from <= SKY_HOURS.dawn && end("sky-fast") > SKY_HOURS.sunset).toBe(true);
     expect(stop("sky-iftar").scene.from < SKY_HOURS.sunset && end("sky-iftar") > SKY_HOURS.sunset).toBe(true);
@@ -164,10 +178,13 @@ describe("each prayer's time in the sky: its data", () => {
     expect(litMoments(stop("sky-suhur"))).toEqual(["lastThird", "dawn"]);
     expect(litMoments(stop("sky-isha-fajr"))).toEqual(["night", "dawn"]);
     expect(litMoments(stop("sky-cool"))).toEqual(["midday"]);
+    expect(litMoments(stop("sky-stand-night"))).toEqual(["night", "lastThird"]);
+    expect(litMoments(stop("sky-sleep"))).toEqual(["night", "sunrise"]);
+    expect(litMoments(stop("sky-qadr"))).toEqual(["night", "lastThird", "dawn"]);
   });
 
   test("every lesson with a sky is a real lesson about that time, and opens on it", () => {
-    expect(Object.keys(DAY_SKY_LESSONS).length).toBe(63);
+    expect(Object.keys(DAY_SKY_LESSONS).length).toBe(193);
     for (const [nodeId, id] of Object.entries(DAY_SKY_LESSONS)) {
       const lesson = LESSONS_BY_ID[`lesson-${nodeId}`] as Lesson | undefined;
       expect([nodeId, Boolean(lesson)]).toEqual([nodeId, true]);
@@ -202,15 +219,48 @@ describe("each prayer's time in the sky: its data", () => {
       }
     }
     // What a sky shows beyond the sun and the stars is from its sources: the white thread (Quran 2:187), the young
-    // camels in the forenoon (Sahih Muslim 748a), the heat and the hills' shadows (539), the arrow (559), and night
-    // coming from the east (1954).
+    // camels in the forenoon (Sahih Muslim 748a), the heat and the hills' shadows (539), the arrow (559), night
+    // coming from the east (1954), and the night as a covering (Quran 25:47).
     expect(SKY_STOPS.filter((each) => each.scene.touches?.length).map((each) => [each.scene.id, each.scene.touches])).toEqual([
       ["sky-duha", ["camels"]],
       ["sky-cool", ["heat"]],
       ["sky-arrow", ["arrow"]],
       ["sky-thread", ["thread"]],
-      ["sky-iftar", ["nightFalls"]]
+      ["sky-iftar", ["nightFalls"]],
+      ["sky-sleep", ["nightFalls"]]
     ]);
+  });
+
+  test("the stars turn with the night: they rise in the east, cross high and set in the west, about as many at once", () => {
+    for (const [width, height] of [...LESSON_FRAMES, ...SHEET_FRAMES]) {
+      const frame = skyFrame(width, height);
+      const pole = starPole(frame);
+      for (const id of ["sky-night-prayer", "sky-sleep", "sky-fajr", "sky-isha"]) {
+        const scene = stop(id).scene;
+        const stars = skyStars(frame, scene, 22);
+        // The same sky always draws the same stars.
+        expect(skyStars(frame, scene, 22)).toEqual(stars);
+        // Wherever the night is, about as many stars are in the sky at once.
+        for (const hour of [scene.from, (scene.from + scene.to) / 2, scene.to].filter((each) => dayHourOf(each) >= 19.5 || dayHourOf(each) <= 4.6)) {
+          const shown = stars.filter((star) => {
+            const at = starAt(frame, star, hour);
+            return at.x >= 0 && at.x <= frame.width && at.y >= 0 && at.y <= frame.horizon;
+          }).length;
+          expect([id, width, hour, shown >= 10 && shown <= 40]).toEqual([id, width, hour, true]);
+        }
+        // A moment on: over the pole they have moved west (right); on the east side they have risen, on the west set.
+        for (const star of stars) {
+          const a = starAt(frame, star, scene.from);
+          const b = starAt(frame, star, scene.from + 0.02);
+          if (a.y < pole.y) expect(b.x).toBeGreaterThan(a.x);
+          if (a.x < pole.x - 1) expect(b.y).toBeLessThan(a.y);
+          if (a.x > pole.x + 1) expect(b.y).toBeGreaterThan(a.y);
+        }
+      }
+      // A sky of the day has none, and a slow phone draws fewer.
+      expect(skyStars(frame, stop("sky-zuhr").scene, 22)).toEqual([]);
+      expect(skyStars(frame, stop("sky-isha").scene, 10).length).toBeLessThan(skyStars(frame, stop("sky-isha").scene, 22).length);
+    }
   });
 
   test("every word in the skies is translated in every language", () => {
@@ -281,6 +331,15 @@ describe("the skies on screen", () => {
     await draw("sky-iftar");
     expect(screen.getByTestId("sky-night-falls")).toBeTruthy();
     expect(screen.queryByTestId("sky-arrow")).toBeNull();
+    // The night's covering over the sky while it sleeps, and the stars turning over the night.
+    await draw("sky-sleep");
+    expect(screen.getByTestId("sky-night-falls")).toBeTruthy();
+    expect(screen.getByTestId("sky-stars")).toBeTruthy();
+    await draw("sky-qadr");
+    expect(screen.getByTestId("sky-stars")).toBeTruthy();
+    expect(screen.queryByTestId("sky-night-falls")).toBeNull();
+    await draw("sky-zuhr");
+    expect(screen.queryByTestId("sky-stars")).toBeNull();
     await draw("sky-five");
     for (const [index, label] of ["Fajr", "Zuhr", "Asr", "Maghrib", "Isha"].entries()) expect(screen.getByTestId(`sky-mark-${index}`)).toHaveTextContent(label);
     expect(screen.queryByTestId("sky-mark-5")).toBeNull();

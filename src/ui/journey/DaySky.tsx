@@ -16,7 +16,6 @@ import {
   MOON,
   PALM,
   SMALL_PALM,
-  STAR,
   STAR_KEYS,
   SUN_KEYS,
   WORD,
@@ -35,7 +34,11 @@ import {
   skyKeysFor,
   skyLayerSvg,
   skyLayout,
+  skyStars,
   smallPalmAt,
+  starPole,
+  starSetSvg,
+  starTurn,
   sunAt,
   sunHeight,
   sunSvg,
@@ -47,7 +50,8 @@ import {
 /**
  * The day's sky over the sand near Madinah, facing south: the sun rises in the east on the left and sets in the west
  * on the right. A scene plays the sky from one hour to another, the sun moving along its arc and the sky's colours
- * changing with it, the stars and the moon coming out at night, the palm's shadow and the hills' shadows turning with
+ * changing with it, the stars and the moon coming out at night (the stars turning slowly from east to west as the
+ * night goes on), the palm's shadow and the hills' shadows turning with
  * the sun; then its touches (the white thread of dawn, the midday heat, the young camels, the arrow after Maghrib,
  * night coming from the east) and the prayers' names as the day reaches each. Nothing in it is a person or an angel.
  *
@@ -87,12 +91,6 @@ function useLoop(ms: number, still: boolean) {
   }, [ms, still, value]);
   return value;
 }
-
-/** A small, steady random number for the `index`th star of a sky. */
-const rand = (seed: number, index: number) => {
-  const x = Math.sin(seed * 12.9898 + index * 78.233) * 43758.5453;
-  return x - Math.floor(x);
-};
 
 // How low and orange the sun is: all orange by the horizon, none once it is high.
 export const LOW_KEYS: readonly [number, number][] = [
@@ -167,11 +165,12 @@ const HEAT_KEYS: readonly [number, number][] = [
   [13.8, 0],
   [24, 0]
 ];
-// Night coming from the east as the sun goes down in the west (Sahih al-Bukhari 1954, 1956).
+// Night coming from the east as the sun goes down in the west (Sahih al-Bukhari 1954, 1956), over the sky like a
+// covering all night (Quran 25:47), lifting as dawn breaks.
 const VEIL_KEYS: readonly [number, number][] = [
   [0, 0.85],
-  [6, 0.85],
-  [6.5, 0],
+  [4.4, 0.85],
+  [5.4, 0],
   [17.2, 0],
   [18.2, 0.85],
   [24, 0.85]
@@ -293,15 +292,15 @@ export function DaySky({ scene, width, height, still = false, play = 0, delay = 
   const sunShown = by(SUN_KEYS);
   const lowSun = hour.interpolate(overHours(scene.from, scene.to, (h) => keyed(SUN_KEYS, h) * keyed(LOW_KEYS, h)));
 
-  // The stars, the fewer on a slow phone.
-  const starCount = lite ? 10 : 22;
-  const seed = scene.id.length * 7 + 3;
-  const stars = Array.from({ length: starCount }, (_, index) => ({
-    x: Math.round(rand(seed, index) * (frame.width - 8)),
-    y: Math.round(4 + rand(seed, index + 40) * (frame.horizon - 26)),
-    size: 4 + Math.round(rand(seed, index + 80) * 4),
-    shift: rand(seed, index + 120)
-  }));
+  // The stars (the fewer on a slow phone), turning with the night around the pole under the sand, in three sets that
+  // twinkle in turn.
+  const pole = useMemo(() => starPole(frame), [frame]);
+  const starSide = pole.r * 2;
+  const starSets = useMemo(() => {
+    const stars = skyStars(frame, { id: scene.id, from: scene.from, to: scene.to }, lite ? 10 : 22);
+    return stars.length ? [0, 1, 2].map((set) => starSetSvg(stars, set, starSide)) : [];
+  }, [frame, scene.id, scene.from, scene.to, lite, starSide]);
+  const starsTurn = hour.interpolate({ inputRange: [scene.from, scene.to], outputRange: [`${starTurn(scene.from).toFixed(2)}deg`, `${starTurn(scene.to).toFixed(2)}deg`] });
   const starsShown = by(STAR_KEYS);
 
   // The palm, its shadow turning with the sun, and dark at night.
@@ -334,7 +333,9 @@ export function DaySky({ scene, width, height, still = false, play = 0, delay = 
   }, [frame]);
 
   const threadGrow = hour.interpolate(overHours(scene.from, scene.to, (h) => 0.12 + 0.88 * Math.min(1, Math.max(0, (dayHour(h) - 4) / 0.9))));
-  const veilIn = hour.interpolate(overHours(scene.from, scene.to, (h) => -frame.width * 0.7 * (1 - Math.min(1, Math.max(0, (dayHour(h) - 17.2) / 1)))));
+  // The night's veil slides in from the east between 17.2 and 18.2, then stays over the sky through the night (a sky
+  // that plays on past midnight keeps it where it came to).
+  const veilIn = hour.interpolate(overHours(scene.from, scene.to, (h) => -frame.width * 0.7 * (1 - Math.min(1, Math.max(0, h - 17.2)))));
 
   return (
     <View style={[styles.frame, { width, height }]} pointerEvents="none" testID={testID}>
@@ -361,21 +362,18 @@ export function DaySky({ scene, width, height, still = false, play = 0, delay = 
         </Animated.View>
       ) : null}
       <Animated.View style={[StyleSheet.absoluteFill, { opacity: starsShown }]}>
-        {stars.map((star, index) => (
-          <Animated.View
-            key={index}
-            style={[
-              styles.abs,
-              {
-                left: star.x,
-                top: star.y,
-                opacity: still ? 0.85 : Animated.modulo(Animated.add(slow, star.shift), 1).interpolate({ inputRange: [0, 0.5, 1], outputRange: [0.95, 0.35, 0.95] })
-              }
-            ]}
-          >
-            <SvgXml xml={STAR} width={star.size} height={star.size} />
+        {starSets.length ? (
+          <Animated.View style={[styles.abs, { left: pole.x - pole.r, top: pole.y - pole.r, width: starSide, height: starSide, transform: [{ rotate: starsTurn }] }]} testID="sky-stars">
+            {starSets.map((xml, set) => (
+              <Animated.View
+                key={set}
+                style={[StyleSheet.absoluteFill, { opacity: still ? 0.85 : Animated.modulo(Animated.add(slow, set / 3), 1).interpolate({ inputRange: [0, 0.5, 1], outputRange: [0.95, 0.35, 0.95] }) }]}
+              >
+                <SvgXml xml={xml} width={starSide} height={starSide} />
+              </Animated.View>
+            ))}
           </Animated.View>
-        ))}
+        ) : null}
         <View style={[styles.abs, { left: frame.moon.x - frame.moon.r * 1.6, top: frame.moon.y - frame.moon.r * 1.6 }]}>
           <SvgXml xml={MOON} width={frame.moon.r * 3.2} height={frame.moon.r * 3.2} />
         </View>
