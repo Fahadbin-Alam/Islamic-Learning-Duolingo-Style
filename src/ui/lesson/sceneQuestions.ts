@@ -541,6 +541,86 @@ const ASKS: Record<string, readonly Ask[]> = {
     ["What did Yusuf send to make his father see again?", "His shirt", "Take this shirt of mine"],
     ["What happened when the shirt touched his face, in 12:96?", "His sight returned", "He could see again"]
   ],
+  // Ibrahim's honored guests: the greeting, the roasted calf, "will you not eat?", and the good news of Ishaq, and after
+  // him Ya'qub (11:69 to 11:71, 51:25 to 51:28).
+  "sign-guests": [
+    ["Ibrahim answered their greeting with peace too.", "True", "They said Peace; he said Peace"],
+    ["What did the guests say on entering, in 15:52?", "Salam, peace", "They said Peace; he said Peace"],
+    ["What did Ibrahim reply, in 51:25?", "Salamun", "They said Peace; he said Peace"],
+    ["Ayahs 45-60: what are they about?", "Ibrahim's guests", "They said Peace; he said Peace", "He brought a roasted calf"],
+    ["Ayahs 24-46: what are they about?", "Ibrahim's guests", "They said Peace; he said Peace", "He brought a roasted calf"],
+    ["What did Ibrahim serve his guests?", "A fat roasted calf", "He brought a roasted calf"],
+    ["What did Ibrahim serve his guests?", "A roasted calf", "He brought a roasted calf"],
+    ["Ayah 69: what did Ibrahim serve his guests?", "A roasted calf", "He brought a roasted calf"],
+    ["Ayah 26: what did Ibrahim serve his guests?", "A roasted calf", "He brought a roasted calf"],
+    ["What did Ibrahim bring his guests, in 11:69?", "A roasted calf", "He brought a roasted calf"],
+    ["What did Ibrahim bring, in 51:26?", "A roasted calf", "He brought a roasted calf"],
+    ["What did Ibrahim say to his guests, in 51:27?", "Will you not eat?", "Will you not eat?"],
+    ["What good news did they bring?", "A knowledgeable son", "Good news of a knowing son"],
+    ["What good news did Ibrahim's guests bring, in Al-Hijr?", "A knowing son", "Good news of a knowing son"],
+    ["Ayah 53: what good news did the guests bring Ibrahim?", "A wise son", "Good news of a knowing son"],
+    ["Ayah 28: what news did the guests give Ibrahim?", "A knowing son", "Good news of a knowing son"],
+    ["What news did the angels bring, in 15:53?", "A boy with much knowledge", "Good news of a knowing son"],
+    ["What news did they give, in 51:28?", "A son having knowledge", "Good news of a knowing son"],
+    ["What news did Sarah receive?", "A son, Ishaq", "Good news of a knowing son", "Ishaq, and after him Ya'qub"],
+    ["Whose birth was announced to Ibrahim's wife, in Hud?", "Ishaq", "Good news of a knowing son", "Ishaq, and after him Ya'qub"],
+    ["Which son was promised, in 11:71?", "Ishaq", "Good news of a knowing son", "Ishaq, and after him Ya'qub"],
+    ["Who was the boy, per Ibn Kathir?", "Ishaq", "Good news of a knowing son", "Ishaq, and after him Ya'qub"],
+    ["Who was the son, per Ibn Kathir?", "Ishaq", "Good news of a knowing son", "Ishaq, and after him Ya'qub"],
+    ["Ayahs 69-83: what are they about?", "News of Ishaq", "Good news of a knowing son", "Ishaq, and after him Ya'qub"],
+    ["Who would come after Ishaq, in the same good news?", "Ya'qub", "Ishaq, and after him Ya'qub"],
+    ["Who would come after Ishaq?", "Ya'qub", "Ishaq, and after him Ya'qub"],
+    ["Ayah 71: who would come after Ishaq?", "Yaqub", "Ishaq, and after him Ya'qub"],
+    ["Who would come after Ishaq, in 11:71?", "Ya'qub", "Ishaq, and after him Ya'qub"]
+  ],
+  // Asking forgiveness: the rain in abundance, more wealth, gardens and rivers (71:10 to 71:12, 11:52).
+  "sign-forgiveness": [
+    ["What did Nuh tell his people to ask Allah for?", "Forgiveness", "Ask your Lord's forgiveness"],
+    ["Ayahs 10-20: what are they about?", "Ask forgiveness", "Ask your Lord's forgiveness"],
+    ["What did Nuh tell them to do in 71:10?", "Ask forgiveness from their Lord", "Ask your Lord's forgiveness"],
+    ["What brings these blessings, per Ibn Kathir?", "Repenting and obeying Allah", "Ask your Lord's forgiveness"],
+    ["Ayahs 50-60 say: Hud told Ad: ask forgiveness, and Allah will send rain.", "True", "Ask your Lord's forgiveness", "He will send rain in abundance"],
+    ["Which is a blessing Nuh promised for istighfar?", "Abundant rain", "He will send rain in abundance"],
+    ["What did Hud say Allah would send if Ad repented?", "Abundant rain", "He will send rain in abundance"],
+    ["Ayahs 50-60: what are they about?", "Hud and the rain", "He will send rain in abundance"],
+    ["What did Hud promise if they repented, in 11:52?", "Abundant rain", "He will send rain in abundance"],
+    ["What did Nuh say asking forgiveness brings?", "Rain, wealth and children", "He will send rain in abundance", "And give you more wealth"],
+    ["What does 71:12 promise?", "Wealth, children, gardens, rivers", "And give you more wealth", "And make rivers for you"]
+  ],
+  // The wind for Sulayman: a month's journey each way, gently wherever he willed, and work in thanks (34:12, 34:13, 38:36).
+  "sign-wind": [
+    ["How far did the wind carry him in a morning?", "A month's journey", "Its morning course, a month's journey"],
+    ["The wind's morning trip was a month's journey.", "True", "Its morning course, a month's journey"],
+    ["Where did it go, per Ibn Kathir?", "Wherever in the world he wanted", "Gently, wherever he willed"],
+    ["How should Dawud's family work, in 34:13?", "With thanks", "Work, family of Dawud, in thanks"]
+  ],
+  // Iram of the pillars, Thamud and Pharaoh, their corruption, the scourge poured on them; your Lord is ever watchful
+  // (89:6 to 89:14).
+  "sign-pillars": [
+    ["Ayahs 1-14: what are they about?", "Ad, Thamud and Pharaoh", "Iram of the pillars", "Pharaoh, owner of the stakes"],
+    ["How is Fir'awn described in 89:10?", "With Al-Awtad", "Pharaoh, owner of the stakes"],
+    ["What did they do, per 89:11?", "Transgressed beyond bounds", "They spread much corruption"],
+    ["What did they make much of, per 89:12?", "Mischief", "They spread much corruption"],
+    ["Ayahs 1-14 say: Allah punished Ad, Thamud and Pharaoh for their wrongdoing.", "True", "They spread much corruption", "A scourge of punishment"],
+    ["What did your Lord pour on them, per 89:13?", "Kinds of severe torment", "A scourge of punishment"],
+    ["Their great strength saved them from Allah.", "False", "A scourge of punishment"],
+    ["What does 89:14 say about your Lord?", "He is Ever Watchful", "Your Lord is ever watchful"]
+  ],
+  // The cup put in his brother's bag, the camel's load for whoever brings it, and the bags searched (12:70, 12:72, 12:76).
+  "sign-cup": [
+    ["Ayah 70: where was the king's cup placed?", "In Binyamin's bag", "He put the cup in his brother's bag"],
+    ["What was the reward for finding it, in 12:72?", "A camel load", "Whoever brings it gets a camel's load"],
+    ["Whose bags were searched first, in 12:76?", "The other brothers'", "He began with their bags"],
+    ["Ayahs 69-79 say: Yusuf kept his brother near through a planned search.", "True", "He began with their bags", "Out of his brother's bag"]
+  ],
+  // The bird of clay, a bird by Allah's permission (3:49, 5:110).
+  "sign-clay-bird": [
+    ["How did Isa do his miracles?", "By Allah's permission", "It becomes a bird, by Allah's permission"],
+    ["Whose permission made Isa's miracles happen?", "Allah's", "It becomes a bird, by Allah's permission"],
+    ["How did the clay bird come to life, in 5:110?", "By Allah's permission", "It becomes a bird, by Allah's permission"]
+  ],
+  // The storm: whenever the lightning lights the way for them, they walk in it (2:20).
+  "sign-storm": [["What do they do when lightning flashes?", "Walk a little in its light", "When it lights the way, they walk"]],
   // Rain on a dead land (7:57, 35:9, 16:65).
   "sign-rain": [
     ["What does Allah send down to grow our food?", "Rain", "The winds bring the clouds", "The rain falls"],

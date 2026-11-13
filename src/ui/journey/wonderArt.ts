@@ -174,10 +174,10 @@ function forgiveness(): SignArt {
     `<path d="M26 78 L30 0 L36 0 Z" fill="#FFF6DC" opacity="0.3"/>`;
   const rainCloud = (x: number, y: number) => cloud(x, y, 1.5, "#7D8896") + cloud(x + 18, y + 4, 1.2, "#6E7986");
   const flocks = [
-    { kind: "sheep" as const, x: 100, y: 110, s: 0.13 },
-    { kind: "sheep" as const, x: 114, y: 114, s: 0.12 },
-    { kind: "sheep" as const, x: 128, y: 109, s: 0.13 },
-    { kind: "sheep" as const, x: 142, y: 113, s: 0.12 },
+    { kind: "sheep" as const, x: 100, y: 107.5, s: 0.13 },
+    { kind: "sheep" as const, x: 114, y: 108.6, s: 0.12 },
+    { kind: "sheep" as const, x: 128, y: 105.6, s: 0.13 },
+    { kind: "sheep" as const, x: 142, y: 108.2, s: 0.12 },
     { kind: "camel" as const, x: 104, y: 76, s: 0.17 },
     { kind: "camel" as const, x: 126, y: 74, s: 0.16 }
   ];
@@ -529,7 +529,7 @@ function cup(): SignArt {
       })),
       {
         name: "a camel's load, the reward",
-        svg: `${glow(15, 106, 14, "#FFF0B0", 0.16)}${animalAt("camel", 4, n(117 - 73 * 0.2), 0.2)}${grainBag(9.4, 107, "#D8B87A")}${grainBag(18.6, 107, "#D8B87A")}${grainBag(14, 103.4, "#E0C488")}`,
+        svg: `${glow(15, 97.6, 14, "#FFF0B0", 0.16)}${animalAt("camel", 4, n(108.4 - 73 * 0.2), 0.2)}${grainBag(9.4, 98.6, "#D8B87A")}${grainBag(18.6, 98.6, "#D8B87A")}${grainBag(14, 95, "#E0C488")}`,
         keys: showFrom(0.39, 0.44),
         loop: { move: "twinkle", ms: 1600, low: 0.85 }
       },
@@ -683,7 +683,7 @@ function storm(): SignArt {
     .join("");
   const smoke = `<path d="M56 98 c-2 -2.4 2 -4.8 0 -7.2 c-2 -2.4 2 -4.8 0 -7.2" stroke="#8A8A92" stroke-width="1.4" fill="none" stroke-linecap="round" opacity="0.7"/>`;
   const clouds = cloud(4, 30, 2.2, "#2A3042") + cloud(54, 26, 2.4, "#252B3C") + cloud(108, 30, 2.2, "#2A3042");
-  const way = (x1: number, x2: number) => `<path d="M${x1} 112 L${x2} 112" stroke="#E8D9B0" stroke-width="1.2" stroke-dasharray="2.4 2.2" stroke-linecap="round"/>`;
+  const way = (x1: number, x2: number) => `<path d="M${x1} 104 L${x2} 104" stroke="#E8D9B0" stroke-width="1.2" stroke-dasharray="2.4 2.2" stroke-linecap="round"/>`;
   const flashes = litDuring([
     [0.63, 0.64],
     [0.67, 0.68],

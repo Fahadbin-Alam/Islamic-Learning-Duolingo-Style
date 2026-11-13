@@ -79,7 +79,7 @@ describe("which questions are asked on a scene", () => {
     const asks = sceneAsks();
     // Each one was read with its scene: its right answer is what the moment shows, and the scene before it does not
     // show it. A question changed in the course fails here until it is read again.
-    expect(asks.length).toBe(513);
+    expect(asks.length).toBe(572);
     let places = 0;
     for (const ask of asks) {
       const found = ALL_CHALLENGES.filter(({ challenge }) => challenge.prompt === ask.prompt && rightOf(challenge) === ask.answer);
@@ -97,7 +97,7 @@ describe("which questions are asked on a scene", () => {
         ]);
       }
     }
-    expect(places).toBe(720);
+    expect(places).toBe(801);
   });
 
   it("finds a question by its prompt and its right answer, so another question with the same prompt is not asked on it", () => {
@@ -156,15 +156,16 @@ describe("where the scene waits and where it stops", () => {
     const { kind, pause, reveal } = asked(prompt);
     return [value(kind, name, key, pause), value(kind, name, key, reveal)];
   };
-  // The scene a story question is asked on, where it waits, and where it stops once answered.
-  const asked = (prompt: string) => {
-    const ask = sceneAsks().find((each) => each.prompt === prompt)!;
+  // The scene a story question is asked on, where it waits, and where it stops once answered (its right answer, when
+  // another question has the same prompt).
+  const asked = (prompt: string, answer?: string) => {
+    const ask = sceneAsks().find((each) => each.prompt === prompt && (answer === undefined || each.answer === answer))!;
     const kind = SIGN_SCENES.find((each) => each.id === ask.sceneId)!.kind;
     return { kind, ...sceneMoment(kind, ask.from, ask.to)! };
   };
   // How much of each part shows while the question waits, and once it is answered.
-  const shown = (prompt: string, names: string[]) => {
-    const { kind, pause, reveal } = asked(prompt);
+  const shown = (prompt: string, names: string[], answer?: string) => {
+    const { kind, pause, reveal } = asked(prompt, answer);
     return [names.map((name) => value(kind, name, "opacity", pause)), names.map((name) => value(kind, name, "opacity", reveal))];
   };
 
@@ -566,6 +567,125 @@ describe("where the scene waits and where it stops", () => {
     expect(shown("What happened when the shirt touched his face, in 12:96?", ["good news at the home", "light come back in the home", "sight come back"])).toEqual([
       [1, 0, 0],
       [1, 1, 1]
+    ]);
+  });
+
+  it("waits on the wonders of the stories before anything of the answer shows, and shows it once answered, at rest", () => {
+    // Wherever a question on these scenes waits or stops, nothing is halfway through moving or coming into sight.
+    const wonders = ["sign-guests", "sign-forgiveness", "sign-wind", "sign-pillars", "sign-cup", "sign-clay-bird", "sign-storm"];
+    const asks = sceneAsks().filter((each) => wonders.includes(each.sceneId));
+    expect(asks.length).toBe(59);
+    for (const ask of asks) {
+      const kind = SIGN_SCENES.find((each) => each.id === ask.sceneId)!.kind;
+      for (const t of Object.values(sceneMoment(kind, ask.from, ask.to)!)) {
+        for (const part of signArt(kind).parts) {
+          for (const [key, values] of Object.entries(part.keys ?? {})) {
+            if (key === "at") continue;
+            const at = (time: number) => keyAt(part.keys!.at, values as number[], Math.min(1, Math.max(0, time)));
+            expect([ask.prompt, t, part.name, key, at(t) === at(t - 0.004) || at(t) === at(t + 0.004)]).toEqual([ask.prompt, t, part.name, key, true]);
+          }
+        }
+      }
+    }
+    // Ibrahim's guests: no greeting yet; then its rings. No fire and no meal yet; then the roasted calf, set near them
+    // as he asks them to eat. No light yet; then the good news over the tent, and the second light after it.
+    expect(shown("What did the guests say on entering, in 15:52?", ["the greeting, ring 1"])).toEqual([[0], [1]]);
+    expect(shown("What did Ibrahim bring his guests, in 11:69?", ["the roasted calf on its platter", "the fire"])).toEqual([
+      [0, 0],
+      [1, 1]
+    ]);
+    expect(moved("What did Ibrahim say to his guests, in 51:27?", "the roasted calf on its platter", "x")).toEqual([0, 52]);
+    const lights = ["good news: a light over the tent", "a second light, after it"];
+    expect(shown("What good news did they bring?", lights)).toEqual([
+      [0, 0],
+      [1, 0]
+    ]);
+    expect(shown("Which son was promised, in 11:71?", lights)).toEqual([
+      [0, 0],
+      [1, 1]
+    ]);
+    expect(shown("Who would come after Ishaq?", lights)).toEqual([
+      [1, 0],
+      [1, 1]
+    ]);
+    // Asking forgiveness: the dry land; then the light of asking, the rain on a watered land, the flocks, the gardens and
+    // the river.
+    expect(shown("What did Nuh tell his people to ask Allah for?", ["light of asking, going up"])).toEqual([[0], [1]]);
+    expect(shown("What did Hud promise if they repented, in 11:52?", ["the hot sun", "cracks in the dry land", "rain", "the land, watered"])).toEqual([
+      [1, 1, 0, 0],
+      [0, 0, 1, 1]
+    ]);
+    expect(shown("What did Nuh say asking forgiveness brings?", ["the land, watered", "a sheep of the flocks, 1", "a camel of the flocks, 5"])).toEqual([
+      [0, 0, 0],
+      [1, 1, 1]
+    ]);
+    expect(shown("What does 71:12 promise?", ["a sheep of the flocks, 1", "fields", "fruit on the trees", "the river"])).toEqual([
+      [0, 0, 0, 0],
+      [1, 1, 1, 1]
+    ]);
+    // The wind for Sulayman: the morning's month's journey not made yet; then made, the sun gone up to the top of the
+    // sky. The wind coming back; then gentle, everywhere. Then thanks going up from his city.
+    expect([shown("How far did the wind carry him in a morning?", ["a month's journey, going", "the wind going"]), moved("How far did the wind carry him in a morning?", "the sun", "x")]).toEqual([
+      [
+        [0, 0],
+        [1, 1]
+      ],
+      [0, 64]
+    ]);
+    expect(shown("Where did it go, per Ibn Kathir?", ["the wind coming back", "the wind, gentle"])).toEqual([
+      [1, 0],
+      [0, 1]
+    ]);
+    expect(shown("How should Dawud's family work, in 34:13?", ["thanks, going up from the city"])).toEqual([[0], [1]]);
+    // Iram, Thamud and Pharaoh: each place in the dark, unlit; then each lit in its turn. Their corruption; the scourge,
+    // their lights gone out; the night over the empty places.
+    expect(
+      shown(
+        "Ayahs 1-14: what are they about?",
+        ["Iram in the dark", "the valley in the dark", "the palace in the dark", "lamps of Iram", "lamps in the carved homes", "lamps of the palace"],
+        "Ad, Thamud and Pharaoh"
+      )
+    ).toEqual([
+      [1, 1, 1, 0, 0, 0],
+      [0, 0, 0, 1, 1, 1]
+    ]);
+    expect(shown("How is Fir'awn described in 89:10?", ["the palace in the dark", "lamps of the palace"])).toEqual([
+      [1, 0],
+      [0, 1]
+    ]);
+    expect(shown("What did they make much of, per 89:12?", ["dark haze of corruption", "a dark red sky"])).toEqual([
+      [0, 0],
+      [1, 1]
+    ]);
+    expect(shown("What did your Lord pour on them, per 89:13?", ["a darkened sky, over them", "lamps of Iram", "dust over the empty places"])).toEqual([
+      [0, 1, 0],
+      [1, 0, 1]
+    ]);
+    expect(shown("What does 89:14 say about your Lord?", ["night", "stars"])).toEqual([
+      [0, 0],
+      [1, 1]
+    ]);
+    // Yusuf's cup: put in the last bag. No reward yet; then the camel's load. No bag opened yet; then theirs, one by one,
+    // and at last his brother's, the cup brought out of it.
+    expect(moved("Ayah 70: where was the king's cup placed?", "the cup, put in the last bag", "x")).toEqual([0, 106]);
+    expect(shown("What was the reward for finding it, in 12:72?", ["a camel's load, the reward"])).toEqual([[0], [1]]);
+    const bags = ["bag 1, opened", "bag 2, opened", "bag 3, opened", "the last bag, searched", "the cup, brought out of the last bag"];
+    expect(shown("Whose bags were searched first, in 12:76?", bags)).toEqual([
+      [0, 0, 0, 0, 0],
+      [1, 1, 1, 0, 0]
+    ]);
+    expect(shown("Ayahs 69-79 say: Yusuf kept his brother near through a planned search.", bags)).toEqual([
+      [0, 0, 0, 0, 0],
+      [1, 1, 1, 1, 1]
+    ]);
+    // The bird of clay: still clay; then a bird, flying. The storm: the way not lit; then lit at the flashes.
+    expect(shown("How did the clay bird come to life, in 5:110?", ["the shape of a bird, of clay", "the bird, flying"])).toEqual([
+      [1, 0],
+      [0, 1]
+    ]);
+    expect(shown("What do they do when lightning flashes?", ["the way, lit at a flash", "the way, lit at the next flash"])).toEqual([
+      [0, 0],
+      [1, 1]
     ]);
   });
 
