@@ -1,4 +1,4 @@
-import { bukhari, quran, type MapSource } from "./seerahMap";
+import { bukhari, muslim, quran, type MapSource } from "./seerahMap";
 
 /**
  * The signs in creation, alive. The lessons about the ayahs that ask us to look at Allah's signs in the world open on
@@ -140,7 +140,21 @@ import { bukhari, quran, type MapSource } from "./seerahMap";
  *   ate and stored in their homes (Quran 3:49, 5:110);
  * - the parable of one who kindled a fire, whose light Allah took away, and of the rainstorm, with its darkness,
  *   thunder and lightning: when it lights the way they walk, and when it is dark they stand still (Quran 2:17, 2:19,
- *   2:20).
+ *   2:20);
+ *
+ * and zakat, giving and the morning of Eid (giveArt.ts draws them):
+ *
+ * - what zakat is due on: nothing on fewer than five camels, and one sheep on five; one part in forty of silver; a
+ *   tenth of crops watered by rain and rivers, and half a tenth of crops watered by a camel's work (Sahih al-Bukhari
+ *   1459, 1454, Sahih Muslim 981);
+ * - Mu'adh sent to Yemen: first the shahadah, then the five prayers of each day and night, then zakat taken from their
+ *   rich and given to their poor (Sahih al-Bukhari 1395, 1496);
+ * - Bayruha, the garden Abu Talhah loved most, facing the masjid, given for Allah when the ayah came down on spending
+ *   from what you love, and shared among his relatives (Quran 3:92, Sahih al-Bukhari 1461);
+ * - zakat al-Fitr: a sa' of dates or of barley for every one, young or old, given before the Eid prayer (Sahih
+ *   al-Bukhari 1503, 1506);
+ * - the morning of Eid: dates first, an odd number; out to the open prayer ground, a short spear planted before him;
+ *   the prayer first, then the khutbah; and home by another way (Sahih al-Bukhari 953, 494, 956, 986).
  *
  * Each scene shows only what its ayahs say. Nothing in a scene is a person or an angel: only the land, the sky, the
  * sea, plants, animals and things; the people of a parable are never drawn, only their gardens, and no Prophet and no
@@ -150,7 +164,8 @@ import { bukhari, quran, type MapSource } from "./seerahMap";
  * and of the Sabbath town are not drawn, nor what befell them, only their land; the one who slept a hundred years is
  * neither drawn nor named, and four birds are never drawn cut apart; Ibrahim's guests are only their greeting and the
  * meal they did not touch, those who worked for Sulayman are not drawn, nothing is drawn for Pharaoh's stakes, and the
- * one who kindled the fire is not drawn, only his fire.
+ * one who kindled the fire is not drawn, only his fire; and no one who gives or receives is drawn, only what is given,
+ * going along a dashed way.
  */
 
 export type SignKind =
@@ -221,7 +236,12 @@ export type SignKind =
   | "pillars"
   | "cup"
   | "clay-bird"
-  | "storm";
+  | "storm"
+  | "zakat"
+  | "yemen"
+  | "bayruha"
+  | "fitr"
+  | "eid";
 
 export type SignScene = {
   id: string;
@@ -686,6 +706,40 @@ export const SIGN_SCENES: readonly SignScene[] = [
     caption:
       "The hypocrites are like one who kindled a fire: when it lit up all around him, Allah took away their light and left them in darkness, unable to see. Or like a rainstorm from the sky, in it darkness, thunder and lightning. The lightning almost snatches away their sight: whenever it lights the way for them, they walk in it, and when it grows dark over them, they stand still.",
     sources: [quran(2, 17), quran(2, 19), quran(2, 20)]
+  },
+  {
+    id: "sign-zakat",
+    kind: "zakat",
+    caption:
+      "No zakat is due on fewer than five camels, and on five camels one sheep is given. On silver that reaches the nisab, one part in forty is given. Crops watered by rain or by rivers give a tenth, and crops watered by a camel's work, half a tenth.",
+    sources: [bukhari("1459"), bukhari("1454"), muslim("981")]
+  },
+  {
+    id: "sign-yemen",
+    kind: "yemen",
+    caption:
+      "He ﷺ sent Mu'adh to Yemen: first call them to bear witness that none has the right to be worshipped but Allah, and that Muhammad is the Messenger of Allah; then teach them the five prayers of each day and night; then that zakat is taken from their rich and given to their poor.",
+    sources: [bukhari("1395"), bukhari("1496")]
+  },
+  {
+    id: "sign-bayruha",
+    kind: "bayruha",
+    caption:
+      "Bayruha, facing the masjid, was the garden Abu Talhah loved most, and he ﷺ would drink of its sweet water. When the ayah came down on spending from what you love, Abu Talhah gave it for Allah, and shared it among his relatives as he ﷺ advised.",
+    sources: [quran(3, 92), bukhari("1461")]
+  },
+  {
+    id: "sign-fitr",
+    kind: "fitr",
+    caption: "Zakat al-Fitr is a sa' of dates or a sa' of barley for every Muslim, young or old, given before the people go out to the Eid prayer.",
+    sources: [bukhari("1503"), bukhari("1506")]
+  },
+  {
+    id: "sign-eid",
+    kind: "eid",
+    caption:
+      "On the morning of Eid al-Fitr he ﷺ ate an odd number of dates before going out. At the open prayer ground a short spear was planted before him; he began with the prayer, then gave the khutbah, and came home by another way.",
+    sources: [bukhari("953"), bukhari("494"), bukhari("956"), bukhari("986")]
   }
 ];
 
@@ -1276,7 +1330,42 @@ export const SIGN_LESSONS: Record<string, string> = {
   // The fire that went out, and the storm.
   "surah-meaning-2-8-20": "sign-storm",
   "deep-baqarah1-fire-parable": "sign-storm",
-  "deep-baqarah1-storm-parable": "sign-storm"
+  "deep-baqarah1-storm-parable": "sign-storm",
+  // What zakat is due on: camels, silver and crops.
+  "deep-book-zakat-the-nisab": "sign-zakat",
+  "deep-book-zakat-zakat-on-crops": "sign-zakat",
+  "zakat-meaning-and-duty-obligation-and-seriousness": "sign-zakat",
+  "zakat-meaning-and-duty-nisab-and-threshold": "sign-zakat",
+  // Mu'adh sent to Yemen: the shahadah, the prayers, then zakat from their rich to their poor.
+  "deep-zakat-pillar-rich-to-poor": "sign-yemen",
+  "deep-fresh-start-what-comes-first": "sign-yemen",
+  "deep-muadh-first-things-first": "sign-yemen",
+  // Bayruha, given for Allah.
+  "deep-zakat-spend-bayruha": "sign-bayruha",
+  "deep-abu-talhah-bayruha": "sign-bayruha",
+  "surah-meaning-3-81-101": "sign-bayruha",
+  "deep-zakat-spend-what-you-love": "sign-bayruha",
+  "deep-imran2-what-you-love": "sign-bayruha",
+  // Zakat al-Fitr: a sa' for every one, before the Eid prayer.
+  "deep-zakat-fitr-everyone": "sign-fitr",
+  "deep-zakat-fitr-before-prayer": "sign-fitr",
+  "deep-zakat-fitr-two-purposes": "sign-fitr",
+  "deep-zakat-fitr-foods": "sign-fitr",
+  "deep-zakat-fitr-final-quiz": "sign-fitr",
+  "deep-eid-zakat-fitr": "sign-fitr",
+  // The morning of Eid.
+  "deep-eid-fitr-dates": "sign-eid",
+  "ramadan-eid-morning": "sign-eid",
+  "deep-eid-prayer-first": "sign-eid",
+  "deep-eid-other-way": "sign-eid",
+  "deep-prayer-sutrah-a-spear-in-front-of-him": "sign-eid",
+  "deep-eid-order-no-adhan": "sign-eid",
+  "deep-eid-order-two-rakahs": "sign-eid",
+  "deep-eid-order-a-boy-at-eid": "sign-eid",
+  "deep-eid-everyone-out": "sign-eid",
+  "deep-eid-order-final-quiz": "sign-eid",
+  "deep-qaf1-recited-on-eid": "sign-eid",
+  "deep-qamar1-recited-on-eid": "sign-eid"
 };
 
 export type LessonSign = { scene: SignScene; lessonSlug: string };

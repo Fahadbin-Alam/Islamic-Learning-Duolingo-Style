@@ -405,7 +405,7 @@ function qiblah(): SignArt {
 }
 
 /** A tall house of Saba, of mud brick and stone, its foot's middle at (x, y): its windows framed in white. */
-function towerHouse(x: number, y: number, w: number, h: number) {
+export function towerHouse(x: number, y: number, w: number, h: number) {
   const l = n(x - w / 2);
   let windows = "";
   for (let yy = y - h + 3; yy < y - 4; yy += 5) windows += `<rect x="${n(x - 1.4)}" y="${n(yy)}" width="2.8" height="2.6" fill="#5A3E28" stroke="#FFFFFF" stroke-width="0.5"/>`;
