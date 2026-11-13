@@ -215,10 +215,10 @@ describe("Hadith topic", () => {
 
   it("is a child's path: Hadith for kids, units of short sayings and stories, then Safe with Allah, and no unit waits behind a gate", () => {
     const branches = hadith().branches;
-    expect(branches.map((branch) => branch.title)).toEqual(["Hadith for kids", "Words that please Allah", "Small deeds, big rewards", "Kindness at home", "Good friends", "Kind to animals", "Everyday manners", "Helping people", "Good names", "His ﷺ kind ways", "At the table", "Signs Allah gave him ﷺ", "Children who knew him ﷺ", "Someone people can trust", "Animals and good manners", "Stories the Prophet ﷺ told", "Allah says: hadith qudsi", "Allah forgives", "Allah says: more hadith qudsi", "Safe with Allah"]);
+    expect(branches.map((branch) => branch.title)).toEqual(["Hadith for kids", "Words that please Allah", "Small deeds, big rewards", "Kindness at home", "Good friends", "Kind to animals", "Everyday manners", "Helping people", "Good names", "His ﷺ kind ways", "At the table", "Signs Allah gave him ﷺ", "Children who knew him ﷺ", "Someone people can trust", "Animals and good manners", "Learning and teaching", "Stories the Prophet ﷺ told", "Allah says: hadith qudsi", "Allah forgives", "Allah says: more hadith qudsi", "Safe with Allah"]);
     expect(branches.some((branch) => branch.gated)).toBe(false);
     // Unit ids stay those of the imported units, so saved progress still counts.
-    expect(branches.map((branch) => branch.id)).toEqual([HADITH_BASICS_BRANCH_ID, "hadith-dhikr", "hadith-small-deeds", "hadith-kindness", "hadith-friends", "hadith-animals", "hadith-manners", "hadith-helping", "hadith-names", "hadith-kind-ways", "hadith-table", "hadith-signs", "hadith-children", "hadith-trust", "hadith-animal-manners", "hadith-stories", "hadith-qudsi", "hadith-forgives", "hadith-qudsi-more", "notes-hadith-hadith-from-your-notes-1"]);
+    expect(branches.map((branch) => branch.id)).toEqual([HADITH_BASICS_BRANCH_ID, "hadith-dhikr", "hadith-small-deeds", "hadith-kindness", "hadith-friends", "hadith-animals", "hadith-manners", "hadith-helping", "hadith-names", "hadith-kind-ways", "hadith-table", "hadith-signs", "hadith-children", "hadith-trust", "hadith-animal-manners", "hadith-learning", "hadith-stories", "hadith-qudsi", "hadith-forgives", "hadith-qudsi-more", "notes-hadith-hadith-from-your-notes-1"]);
   });
 
   it("teaches the hadith about marriage only as the last unit of the Marriage topic, in order", () => {

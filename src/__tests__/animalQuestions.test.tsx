@@ -97,7 +97,8 @@ const REVIEWED: Record<string, AnimalKind> = {
   "What animal is a hypocrite compared to?": "sheep",
   "What were they compared to in 74:50?": "donkey",
   "Which animal claims its right?": "sheep",
-  "What was he asked about?": "donkey"
+  "What was he asked about?": "donkey",
+  "Which tiny creature in its hole prays for the teacher of good?": "ant"
 };
 
 // Their answers are all animals, but one is the apes people were turned into (2:65): not drawn, so they stay tiles.
@@ -161,7 +162,7 @@ describe("which questions are asked on picture cards", () => {
       expect([challenge.prompt, mapPlacesFor(challenge), skyTimesFor(challenge), monthsFor(challenge), choicePictures(challenge.choices)]).toEqual([challenge.prompt, undefined, undefined, undefined, undefined]);
     }
     expect(asked).toEqual(REVIEWED);
-    expect(places).toBe(40);
+    expect(places).toBe(41);
     // The apes question stays as tiles: people were turned into apes, and a drawing could make light of it.
     for (const prompt of LEFT_AS_TILES) {
       const found = allChallenges().filter(({ challenge }) => challenge.prompt === prompt);
