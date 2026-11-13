@@ -923,6 +923,14 @@ const STATES: State[] = [
   { id: "scene-throne", render: () => <SceneQuestionDemo lessonId="lesson-deep-naml2-the-glass-palace" ask="What was under the glass floor" /> },
   { id: "scene-mihrab", render: () => <SceneQuestionDemo lessonId="lesson-deep-quranwomen-maryam-provision" ask="What did Zakariyya find each time" /> },
   { id: "scene-cool-fire", render: () => <SceneQuestionDemo lessonId="lesson-deep-prophet-ibrahim-fire" ask="What did Allah tell the fire" /> },
+  // The Prophets' trials and their peoples: the wind of seven nights and eight days on 'Ad, the chest cast into the
+  // river, Qarun's home swallowed, the flock watered at Madyan, the golden locusts on Ayyub, Yusuf's eleven stars.
+  { id: "scene-ad-wind", render: () => <SceneQuestionDemo lessonId="lesson-deep-haqqah1-seven-nights-eight-days" ask="How long did the wind blow on Ad" /> },
+  { id: "scene-river", render: () => <SceneQuestionDemo lessonId="lesson-deep-prophet-musa-river" ask="Where did Musa's mother put her baby" /> },
+  { id: "scene-qarun", render: () => <SceneQuestionDemo lessonId="lesson-deep-qasas7-the-earth-took-him" ask="What happened to Qarun, in 28:81" /> },
+  { id: "scene-madyan", render: () => <SceneQuestionDemo lessonId="lesson-deep-prophet-musa-madyan" ask="How did Musa help the two women" /> },
+  { id: "scene-ayyub", render: () => <SceneQuestionDemo lessonId="lesson-deep-prophet-ayyub-locusts" ask="What fell on Ayyub after his cure" /> },
+  { id: "scene-yusuf-dream", render: () => <SceneQuestionDemo lessonId="lesson-deep-prophet-yusuf-dream" ask="How many stars did Yusuf see in his dream" /> },
   // Month questions on the year: Ashura in Muharram; Sha'ban, answered wrong (the right month turns green, its moon full).
   { id: "month", render: () => <MonthQuestionDemo lessonId="lesson-deep-days-ashura" ask="Ashura is in" /> },
   { id: "month-picked", render: () => <MonthQuestionDemo lessonId="lesson-deep-days-ashura" ask="Ashura is in" pick="right" /> },
