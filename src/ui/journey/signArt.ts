@@ -4,6 +4,7 @@ import { HISTORY_ART } from "./historyArt";
 import { PARABLE_ART } from "./parableArt";
 import { PROPHET_ART } from "./prophetArt";
 import { STORY_ART } from "./storyArt";
+import { TRIAL_ART } from "./trialArt";
 import { DAY_SKY, GUSTS, animalAt, camelAt, cloud, dateBunch, flame, flower, glow, n, nightSky, palm, peaks, rainStreaks, sky, stars, tuft, type SignArt, type SignPart } from "./signDraw";
 
 export { SIGN_BOX, type SignArt, type SignKeys, type SignLoop, type SignPart, type SignWord } from "./signDraw";
@@ -886,7 +887,7 @@ function shade(): SignArt {
   };
 }
 
-export const SIGN_ART: Record<SignKind, () => SignArt> = { rain, clouds, fade, seed, seas, ships, mountains, bee, spider, tree, look, birds, sow, water, fire, shade, ...PARABLE_ART, ...STORY_ART, ...HISTORY_ART, ...PROPHET_ART, ...FAVOR_ART };
+export const SIGN_ART: Record<SignKind, () => SignArt> = { rain, clouds, fade, seed, seas, ships, mountains, bee, spider, tree, look, birds, sow, water, fire, shade, ...PARABLE_ART, ...STORY_ART, ...HISTORY_ART, ...PROPHET_ART, ...FAVOR_ART, ...TRIAL_ART };
 
 const drawn = new Map<SignKind, SignArt>();
 
