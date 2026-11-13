@@ -16,15 +16,15 @@ const waterTo = (top: number, fill: string, edge: string) =>
   `<path d="M0 ${top} C10 ${top - 1.6} 20 ${top - 1.6} 30 ${top} C40 ${top + 1.6} 50 ${top + 1.6} 60 ${top} C70 ${top - 1.6} 80 ${top - 1.6} 90 ${top} C100 ${top + 1.6} 110 ${top + 1.6} 120 ${top} C130 ${top - 1.6} 140 ${top - 1.6} 150 ${top} C155 ${top + 0.8} 158 ${top + 0.8} 160 ${top} L160 120 L0 120 Z" fill="${fill}"/>` +
   `<path d="M0 ${top} C10 ${top - 1.6} 20 ${top - 1.6} 30 ${top} C40 ${top + 1.6} 50 ${top + 1.6} 60 ${top} C70 ${top - 1.6} 80 ${top - 1.6} 90 ${top} C100 ${top + 1.6} 110 ${top + 1.6} 120 ${top} C130 ${top - 1.6} 140 ${top - 1.6} 150 ${top} C155 ${top + 0.8} 158 ${top + 0.8} 160 ${top}" stroke="${edge}" stroke-width="1.2" fill="none"/>`;
 /** Little waves: short curls along a row, `y` down, every `gap` across. */
-const curls = (y: number, gap: number, color: string, width = 1, from = 4) => {
+export const curls = (y: number, gap: number, color: string, width = 1, from = 4) => {
   let d = "";
   for (let x = from; x < 160; x += gap) d += `M${n(x)} ${y} q3 -2.2 6 0 q3 2.2 6 0 `;
   return `<path d="${d.trim()}" stroke="${color}" stroke-width="${width}" fill="none" stroke-linecap="round"/>`;
 };
 /** A time through the story, kept to three places (n() keeps one, for drawing). */
-const at3 = (value: number) => Math.round(value * 1000) / 1000;
+export const at3 = (value: number) => Math.round(value * 1000) / 1000;
 /** Keys that hold a part out of sight until `from`, show it by `to`, and keep it. */
-const showFrom = (from: number, to: number): SignKeys => ({ at: [0, from, to], opacity: [0, 0, 1] });
+export const showFrom = (from: number, to: number): SignKeys => ({ at: [0, from, to], opacity: [0, 0, 1] });
 
 // Nuh's ark: built of planks and nails on dry land, the animals boarding two of each kind, the gates of the sky opened
 // with pouring water and the earth bursting with springs, the ark sailing on waves like mountains, then the water

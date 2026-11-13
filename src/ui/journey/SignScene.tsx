@@ -46,6 +46,8 @@ const wrap = (svg: string) => `<svg xmlns="http://www.w3.org/2000/svg" width="${
 
 /** Where a still loop stands, a quarter of the way round: a bobbing part at its side, a twinkle half lit. */
 const STILL_LOOP = 0.25;
+/** How far past each end of its way a swimming part turns, in radians of its round. */
+const SWIM_TURN = 0.2;
 
 const TAU = Math.PI * 2;
 
@@ -250,9 +252,13 @@ function loopStyle(spec: SignLoop, loop: Animated.Value, frame: Frame, dx: numbe
     case "sway":
       return { transform: about(dx, dy, [{ rotate: round(loop, phase, (q) => spec.angle * Math.sin(TAU * q)).interpolate({ inputRange: [-360, 360], outputRange: ["-360deg", "360deg"] }) }]) };
     case "swim":
-      // There and back, turning at each end (the turn is a quick flip through its edge).
+      // There and back, turning just after each end (the turn is a quick flip through its edge): standing still a
+      // quarter of the way round (with less motion), it is at an end of its way, still facing it, not edge-on.
       return {
-        transform: [{ translateX: round(loop, phase, (q) => spec.x * s * Math.sin(TAU * q), 32) }, ...about(dx, dy, [{ scaleX: round(loop, phase, (q) => Math.max(-1, Math.min(1, 5 * Math.cos(TAU * q))), 32) }])]
+        transform: [
+          { translateX: round(loop, phase, (q) => spec.x * s * Math.sin(TAU * q), 32) },
+          ...about(dx, dy, [{ scaleX: round(loop, phase, (q) => Math.max(-1, Math.min(1, 5 * Math.cos(TAU * q - SWIM_TURN))), 32) }])
+        ]
       };
     case "drip":
       return { opacity: round(loop, phase, fade), transform: [{ translateY: round(loop, phase, (q) => spec.distance * s * q) }] };
