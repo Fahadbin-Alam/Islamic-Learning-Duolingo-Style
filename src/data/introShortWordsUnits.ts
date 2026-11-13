@@ -1,16 +1,16 @@
 import { hadith, type DeepUnit } from "./deepKit";
 
-// One more unit for people new to Islam: short words of his ﷺ to live by, from Sunan Ibn Majah, Jami at-Tirmidhi and
-// Sunan Abi Dawud. Regret that is repentance, silence that saves, the protection of the morning prayer, what your
-// neighbors say about you, giving the salam first, and staying away from astrology. Every card is one sahih or hasan
-// hadith with its number, narrator and grade, and its exact English words to highlight, and none of them is taught
-// anywhere else in the app.
+// One more unit for people new to Islam: short words of his ﷺ to live by, from Sahih al-Bukhari, Sunan Ibn Majah, Jami
+// at-Tirmidhi and Sunan Abi Dawud. Regret that is repentance, silence that saves, the protection of the morning prayer,
+// what your neighbors say about you, giving the salam first, staying away from astrology, and people who are like a
+// hundred camels, with hardly one fit to ride. Every card is one sahih or hasan hadith with its number, narrator and
+// grade, and its exact English words to highlight, and none of them is taught anywhere else in the app.
 
 const SHORT_WORDS: DeepUnit = {
   key: "intro-short-words-to-live-by",
   topicId: "intro",
   branchId: "intro-short-words-to-live-by",
-  branch: { title: "Short words to live by", description: "Regret that is repentance, silence that saves, the morning prayer's protection, what your neighbors say, giving salam first, and keeping away from astrology." },
+  branch: { title: "Short words to live by", description: "Regret that is repentance, silence that saves, the morning prayer's protection, what your neighbors say, giving salam first, keeping away from astrology, and a hundred camels." },
   name: "short words to live by",
   kind: "skill",
   lessonType: "skill",
@@ -91,6 +91,19 @@ const SHORT_WORDS: DeepUnit = {
         { q: "What is learning astrology, he ﷺ said?", a: "A branch of magic", wrong: ["A branch of medicine", "A branch of poetry", "A branch of trade"], why: "Anyone who acquires knowledge of astrology acquires a branch of magic, he ﷺ said." },
         { q: "What happens the longer one keeps at it?", a: "He gets more of the magic", wrong: ["He gets less of it", "He learns the unseen", "He becomes wise"], why: "He gets more as long as he continues to do so, he ﷺ said." },
         { q: "Astrology is a harmless study, by his ﷺ words.", tf: false, why: "No. Astrology is a branch of magic, and the more one learns, the more magic he gets." }
+      ]
+    },
+    {
+      slug: "one-in-a-hundred",
+      title: "One in a hundred",
+      line: "People are like a hundred camels, with hardly one fit to ride.",
+      facts: ["Told by Abdullah ibn Umar", "He heard the Prophet ﷺ say it", "Fit to ride: strong enough for a long journey"],
+      source: hadith("bukhari", "6498", "Abdullah ibn Umar", "Sahih", "Abdullah ibn Umar said: I heard the Messenger of Allah ﷺ say: people are just like camels; out of a hundred, you can hardly find one fit to ride.", "out of one hundred, one can hardly find a single camel suitable to ride"),
+      difficulty: 2,
+      questions: [
+        { q: "Among how many camels can you hardly find one fit to ride?", a: "One hundred camels", wrong: ["Fifty camels", "Twenty camels", "Five camels"], why: "Out of one hundred, one can hardly find a single camel suitable to ride, he ﷺ said." },
+        { q: "What is hard to find among the hundred camels?", a: "One fit to ride", wrong: ["One that is white", "One that is old", "One with a calf"], why: "One can hardly find a single camel suitable to ride, Ibn Umar heard him ﷺ say." },
+        { q: "He ﷺ likened people to camels.", tf: true, why: "People are just like camels, Abdullah ibn Umar heard the Messenger of Allah ﷺ say." }
       ]
     }
   ]

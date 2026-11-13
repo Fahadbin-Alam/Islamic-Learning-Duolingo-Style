@@ -1,8 +1,9 @@
 import { hadith, type DeepUnit } from "./deepKit";
 
 // One more Zakat unit: sadaqah that everyone can give, rich or poor. Every card is one sahih hadith of al-Bukhari
-// (number as sunnah.com gives it), with its exact English words to highlight. None of these hadith is taught
-// anywhere else in the app, so the unit is all new.
+// (number as sunnah.com gives it), or of Sunan Abi Dawud with its grade (the bunch of dates hung in the masjid for
+// the poor), with its exact English words to highlight. None of these hadith is taught anywhere else in the app, so
+// the unit is all new.
 
 const ANYONE: DeepUnit = {
   key: "zakat-anyone",
@@ -89,6 +90,19 @@ const ANYONE: DeepUnit = {
         { q: "Why give charity now, says Bukhari 1411?", a: "A time will come when no one takes it", wrong: ["Charity will be banned", "Money will vanish", "Only kings will give"], why: "A time will come upon you when a person will not find anybody to accept it." },
         { q: "What will the man offered charity say?", a: "I would have taken it yesterday", wrong: ["Give me double", "Come back next week", "I never take gifts"], why: "If you had brought it yesterday, I would have taken it." },
         { q: "There will always be someone to give to, so we can wait.", tf: false, why: "Give in charity, as a time will come when no one accepts it." }
+      ]
+    },
+    {
+      slug: "dates-for-the-poor",
+      title: "Dates hung for the poor",
+      line: "He ﷺ told farmers to hang dates in the masjid for the poor.",
+      facts: ["Told by Jabir ibn Abdullah", "For whoever picks ten wasqs of dates", "A wasq: a large measure of dates"],
+      source: hadith("abudawud", "1662", "Jabir ibn Abdullah", "Sahih (Al-Albani)", "Jabir ibn Abdullah said: the Prophet ﷺ commanded that whoever picks ten wasqs of dates from his palms should hang a bunch of dates in the masjid for the poor.", "should hang a bunch of dates in the mosque for the poor"),
+      difficulty: 2,
+      questions: [
+        { q: "Where was the bunch of dates to be hung?", a: "In the masjid", wrong: ["In the market", "On his own door", "By the city gate"], why: "He should hang a bunch of dates in the mosque for the poor, Jabir said." },
+        { q: "Who was the bunch of dates for?", a: "For the poor", wrong: ["For the traders", "For the rich", "For the rulers"], why: "Hang a bunch of dates in the mosque for the poor, he ﷺ commanded, Jabir said." },
+        { q: "The command was for whoever picked ten wasqs of dates.", tf: true, why: "He who plucks ten wasqs of dates from date palms should hang a bunch, Jabir said." }
       ]
     }
   ]

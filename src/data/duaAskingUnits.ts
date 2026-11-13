@@ -1,16 +1,17 @@
 import { hadith, type DeepUnit } from "./deepKit";
 
-// One more Du'as unit: asking Allah well, from Sunan Abi Dawud, Jami at-Tirmidhi and Sunan Ibn Majah. Du'as that
-// gather much good, a du'a for all that is good, three du'as that are answered, the time between the adhan and the
-// iqamah, asking for pardon and well-being, and asking for knowledge that benefits. Every card is one sahih or
-// hasan hadith with its number, narrator and grade, and its exact English words to highlight. Points the schools
-// differ on are left out, and none of these hadith is taught anywhere else in the app.
+// One more Du'as unit: asking Allah well, from Sunan Abi Dawud, Jami at-Tirmidhi and Sunan Ibn Majah. Du'as that gather
+// much good, a du'a for all that is good, three du'as that are answered, the time between the adhan and the iqamah,
+// asking for pardon and well-being, asking for knowledge that benefits, and asking with the palms of the hands (no card
+// asks about the backs of the hands, which some scholars say face up when asking Allah to lift a trial). Every card is
+// one sahih or hasan hadith with its number, narrator and grade, and its exact English words to highlight. Points the
+// schools differ on are left out, and none of these hadith is taught anywhere else in the app.
 
 const ASKING: DeepUnit = {
   key: "duas-asking-allah-well",
   topicId: "duas",
   branchId: "duas-asking-allah-well",
-  branch: { title: "Asking Allah well", description: "Du'as that gather much good, asking for all that is good, three du'as that are answered, the wait for the iqamah, pardon and well-being, and useful knowledge." },
+  branch: { title: "Asking Allah well", description: "Du'as that gather much good, asking for all that is good, three du'as that are answered, the wait for the iqamah, pardon and well-being, useful knowledge, and open palms." },
   name: "asking Allah well",
   kind: "skill",
   lessonType: "skill",
@@ -91,6 +92,19 @@ const ASKING: DeepUnit = {
         { q: "What kind of knowledge should we ask Allah for?", a: "Knowledge that benefits", wrong: ["Knowledge to show off", "Knowledge of magic", "Knowledge to win arguments"], why: "Ask Allah for beneficial knowledge, the Messenger of Allah ﷺ said." },
         { q: "What should we seek refuge with Allah from?", a: "Knowledge of no benefit", wrong: ["Learning the Quran", "Reading good books", "Teaching others"], why: "Seek refuge with Allah from knowledge that is of no benefit, he ﷺ said." },
         { q: "We can ask Allah to make our learning useful.", tf: true, why: "Ask Allah for beneficial knowledge and seek refuge from knowledge of no benefit." }
+      ]
+    },
+    {
+      slug: "ask-with-open-palms",
+      title: "Ask with open palms",
+      line: "When you ask Allah, ask with the palms of your hands.",
+      facts: ["Told by Malik ibn Yasar as-Sakuni", "For when you make requests to Allah", "Palms: the inside of the hands"],
+      source: hadith("abudawud", "1486", "Malik ibn Yasar as-Sakuni", "Hasan Sahih (Al-Albani)", "Malik ibn Yasar as-Sakuni said: the Prophet ﷺ said: when you make requests to Allah, do so with the palms of your hands, and not with their backs.", "When you make requests to Allah, do so with the palms of your hands"),
+      difficulty: 1,
+      questions: [
+        { q: "Which part of the hands did he ﷺ say to ask Allah with?", a: "The palms", wrong: ["The knuckles", "The thumbs", "The fingernails"], why: "Do so with the palms of your hands, he ﷺ said, as Malik ibn Yasar told." },
+        { q: "When did he ﷺ say to hold up the palms of your hands?", a: "When making requests to Allah", wrong: ["When walking in the market", "When sitting down to eat", "When going out of the house"], why: "When you make requests to Allah, do so with the palms of your hands, he ﷺ said." },
+        { q: "He ﷺ taught us to ask Allah with the palms of our hands.", tf: true, why: "Malik ibn Yasar as-Sakuni heard him ﷺ say: ask Allah with the palms of your hands." }
       ]
     }
   ]
