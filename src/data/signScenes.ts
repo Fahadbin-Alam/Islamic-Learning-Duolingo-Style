@@ -301,7 +301,8 @@ export const SIGN_SCENES: readonly SignScene[] = [
  * Left out: lessons that only touch a sign among other things (a whole passage of a surah), stories of people at sea,
  * and the Day of Judgment's seas and mountains. The gardens of the parables are drawn, never their owners. For the
  * stories, the lessons on the moment a scene shows; not the ones on what came before or after it (Pharaoh drowning,
- * Nuh's son, the queen's throne), nor the reviews.
+ * Nuh's son, the queen's throne), nor the reviews, nor the lessons on the twelve paths through the sea (its scene
+ * shows the one dry path of 20:77).
  */
 export const SIGN_LESSONS: Record<string, string> = {
   // Rain on a dead land, which comes to life.
@@ -468,9 +469,7 @@ export const SIGN_LESSONS: Record<string, string> = {
   "surah-meaning-26-53-69": "sign-sea",
   "surah-meaning-2-47-59": "sign-sea",
   "deep-baqarah1-sea-parted": "sign-sea",
-  "deep-yunus4-the-sea-split": "sign-sea",
   "deep-taha2-a-dry-path-in-the-sea": "sign-sea",
-  "deep-shuara1-the-sea-parts": "sign-sea",
   "deep-dukhan2-leave-the-sea-calm": "sign-sea",
   // The clouds' shade, the manna and the quails, and the twelve springs.
   "deep-prophet-musa-twelve-springs": "sign-springs",
