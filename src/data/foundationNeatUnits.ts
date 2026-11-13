@@ -2,15 +2,15 @@ import { hadith, type DeepUnit } from "./deepKit";
 
 // One more Foundations unit: sunnahs of looking neat, from Sunan Abi Dawud, Jami at-Tirmidhi and Sunan an-Nasa'i.
 // Combed hair and washed clothes, caring for your hair, white clothes, showing the trace of Allah's blessings, the
-// siwak, and musk as the best of perfumes. Every card is one sahih or hasan hadith with its number, narrator and
-// grade, and its exact English words to highlight. Points the schools differ on are left out, and none of these
-// hadith is taught anywhere else in the app.
+// siwak, musk as the best of perfumes, and giving the siwak to the elder of two men. Every card is one sahih or hasan
+// hadith with its number, narrator and grade, and its exact English words to highlight. Points the schools differ on
+// are left out, and none of these hadith is taught anywhere else in the app.
 
 const NEAT: DeepUnit = {
   key: "found-looking-neat",
   topicId: "foundation",
   branchId: "foundation-looking-neat",
-  branch: { title: "Sunnahs of looking neat", description: "Combed hair and washed clothes, caring for your hair, white clothes, the trace of Allah's blessings, the siwak, and the best of perfumes." },
+  branch: { title: "Sunnahs of looking neat", description: "Combed hair and washed clothes, caring for your hair, white clothes, the trace of Allah's blessings, the siwak, the best of perfumes, and honoring the elder." },
   name: "sunnahs of looking neat",
   kind: "skill",
   lessonType: "skill",
@@ -91,6 +91,19 @@ const NEAT: DeepUnit = {
         { q: "What did he ﷺ call the best of our perfumes?", a: "Musk", wrong: ["Rose", "Saffron", "Amber"], why: "He ﷺ was asked about musk and said: it is the best of your perfumes." },
         { q: "What kind of thing is musk?", a: "A perfume", wrong: ["A fruit", "A cloth", "A stone"], why: "It is the best of your perfumes, he ﷺ said when asked about musk." },
         { q: "He ﷺ called musk the best of perfumes.", tf: true, why: "It is the best of your perfumes, he ﷺ said when asked about musk." }
+      ]
+    },
+    {
+      slug: "give-it-to-the-elder",
+      title: "Give it to the elder",
+      line: "He ﷺ was told to give the siwak to the older man.",
+      facts: ["Told by Aishah", "Two men were with him, one older", "A revelation came about the siwak"],
+      source: hadith("abudawud", "50", "Aishah", "Sahih (Al-Albani)", "Aishah said: the Messenger of Allah ﷺ was using the siwak, and two men were with him, one older than the other. A revelation came to him about the merit of the siwak: honor the elder, and give the siwak to the older of the two.", "He was asked to show proper respect and give it to the elder of the two"),
+      difficulty: 1,
+      questions: [
+        { q: "To whom was he ﷺ told to give the siwak?", a: "The older one", wrong: ["The younger one", "The taller one", "The stronger one"], why: "He was asked to show proper respect and give it to the elder of the two, Aishah said." },
+        { q: "What came to him ﷺ about the siwak?", a: "A revelation", wrong: ["A letter", "A gift", "A guest"], why: "A revelation came to him about the merit of using the tooth-stick, Aishah said." },
+        { q: "He ﷺ was told to honor the elder of the two men.", tf: true, why: "A revelation came, and he ﷺ was asked to give the siwak to the elder, Aishah said." }
       ]
     }
   ]

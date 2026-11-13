@@ -2,7 +2,8 @@ import { hadith, type DeepUnit } from "./deepKit";
 
 // One more Du'as unit: du'as and the prayer, from Jami at-Tirmidhi, Sunan Abi Dawud, Sunan an-Nasa'i and Sahih
 // al-Bukhari. Words to say on hearing the mu'adhdhin, his ﷺ du'a for the imams and the mu'adhdhins, what Umm Sulaim
-// was taught to say in her prayer, a du'a for light, the istikharah, and mercy for one who prays four before Asr. Every
+// was taught to say in her prayer, a du'a for light, the istikharah, mercy for one who prays four before Asr, and the
+// Mu'awwidhat after every prayer (how many surahs they are is not asked: the narrations count them differently). Every
 // card is one sahih or hasan hadith with its number, narrator and grade, and its exact English words to highlight.
 // None of these hadith is taught anywhere else in the app.
 
@@ -10,7 +11,7 @@ const DUA_PRAYER: DeepUnit = {
   key: "duas-and-the-prayer",
   topicId: "duas",
   branchId: "duas-and-the-prayer",
-  branch: { title: "Du'as and the prayer", description: "On hearing the mu'adhdhin, a du'a for the imams, Umm Sulaim's words, a du'a for light, the istikharah, and four before Asr." },
+  branch: { title: "Du'as and the prayer", description: "On hearing the mu'adhdhin, a du'a for the imams, Umm Sulaim's words, a du'a for light, the istikharah, four before Asr, and the Mu'awwidhat." },
   name: "du'as and the prayer",
   kind: "skill",
   lessonType: "skill",
@@ -91,6 +92,19 @@ const DUA_PRAYER: DeepUnit = {
         { q: "Before which prayer are these four rak'ahs?", a: "Asr, the afternoon prayer", wrong: ["Fajr, the dawn prayer", "Maghrib, the sunset prayer", "Isha, the night prayer"], why: "Who prays four rak'ahs before the afternoon prayer, he ﷺ said." },
         { q: "What did he ﷺ ask Allah for, for that man?", a: "Mercy", wrong: ["Riches", "A long life", "A big house"], why: "May Allah show mercy to a man who prays four rak'ahs before the afternoon prayer." },
         { q: "Four rak'ahs before Asr bring his ﷺ du'a for mercy.", tf: true, why: "May Allah show mercy to a man who prays four rak'ahs before the afternoon prayer." }
+      ]
+    },
+    {
+      slug: "the-muawwidhat-after-prayer",
+      title: "The Mu'awwidhat after prayer",
+      line: "He ﷺ told Uqbah to recite the Mu'awwidhat after every prayer.",
+      facts: ["Told by Uqbah ibn Amir", "Mu'awwidhat: surahs of seeking refuge", "Recited once the prayer is over"],
+      source: hadith("abudawud", "1523", "Uqbah ibn Amir", "Sahih (Al-Albani)", "Uqbah ibn Amir said: the Messenger of Allah ﷺ commanded me to recite the Mu'awwidhat after every prayer.", "commanded me to recite"),
+      difficulty: 1,
+      questions: [
+        { q: "When was Uqbah told to recite the Mu'awwidhat?", a: "After every prayer", wrong: ["Only on Friday", "Only in Ramadan", "Only on Eid"], why: "The Messenger of Allah ﷺ commanded me to recite them after every prayer, Uqbah said." },
+        { q: "Who said he was told to recite them after every prayer?", a: "Uqbah ibn Amir", wrong: ["Zayd ibn Thabit", "Salman al-Farisi", "Bilal ibn Rabah"], why: "The Messenger of Allah ﷺ commanded me to recite the Mu'awwidhat, Uqbah ibn Amir said." },
+        { q: "The Mu'awwidhat are recited after every prayer.", tf: true, why: "Recite the Mu'awwidhat after every prayer, he ﷺ commanded Uqbah ibn Amir." }
       ]
     }
   ]

@@ -228,6 +228,19 @@ const MOTHERS: DeepUnit = {
       ]
     },
     {
+      slug: "aishah-umm-abdullah",
+      title: "Umm Abdullah",
+      line: "He ﷺ gave Aishah the kunyah Umm Abdullah.",
+      facts: ["Told by Aishah", "A kunyah is a name like Umm or Abu", "Each of her co-wives had a kunyah"],
+      source: hadith("ibnmajah", "3739", "Aishah", "Sahih (Darussalam)", "Aishah said to the Prophet ﷺ: all of your wives have a kunyah except me. He said: then you are Umm Abdullah.", "All of your wives have a Kunyah except me"),
+      difficulty: 2,
+      questions: [
+        { q: "What kunyah did he ﷺ give Aishah?", a: "Umm Abdullah", wrong: ["Umm Salamah", "Umm Habibah", "Umm Ayman"], why: "You are Umm Abdullah, he ﷺ said, when she told him the other wives had a kunyah." },
+        { q: "What did Aishah say all his other wives had?", a: "A kunyah", wrong: ["A camel", "A tent", "A lamp"], why: "Aishah told him: all of your wives have a kunyah except me." },
+        { q: "Aishah said she was the only wife without a kunyah.", tf: true, why: "All of your wives have a kunyah except me, she said; he ﷺ named her Umm Abdullah." }
+      ]
+    },
+    {
       slug: "aishah-last-days",
       title: "In Aishah's house",
       line: "The Prophet ﷺ passed away in Aishah's house, resting on her.",

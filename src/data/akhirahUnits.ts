@@ -264,6 +264,19 @@ const MINOR_SIGNS: DeepUnit = {
         { q: "What won't two traders manage to do?", a: "Finish their sale", wrong: ["Say hello", "Count to ten", "See the sky"], why: "Bukhari 6506." },
         { q: "What is the best way to be ready for something sudden?", a: "Be doing good all the time", wrong: ["Do good only at the end", "Guess the date", "Ignore it"], why: "No one gets a warning." }
       ]
+    },
+    {
+      slug: "a-fire-from-hijaz",
+      title: "A fire from Hijaz",
+      line: "Before the Hour, a fire will come out of Hijaz.",
+      facts: ["Told by Abu Hurairah", "The camels at Busra will be lit by it", "Busra is a town in Sham, far to the north"],
+      source: hadith("bukhari", "7118", "Abu Hurairah", "Sahih", "The Messenger of Allah ﷺ said: the Hour will not come until a fire comes out of the land of Hijaz, lighting up the necks of the camels at Busra.", "fire will come out of the land of Hijaz"),
+      difficulty: 3,
+      questions: [
+        { q: "From which land will the fire come out?", a: "Hijaz", wrong: ["Egypt", "Abyssinia", "India"], why: "A fire will come out of the land of Hijaz before the Hour, he ﷺ said." },
+        { q: "What will its light fall on at Busra?", a: "The necks of the camels", wrong: ["The walls of the houses", "The tops of the palms", "The faces of the people"], why: "The fire will throw light on the necks of the camels at Busra, he ﷺ said." },
+        { q: "The fire's light will reach as far as Busra.", tf: true, why: "The fire from Hijaz will light up the necks of the camels at Busra, he ﷺ said." }
+      ]
     }
   ]
 };

@@ -412,6 +412,19 @@ const HUMILITY: DeepUnit = {
         { q: "Whom does Allah not love, in the ayah?", a: "The proud who boast", wrong: ["The quiet", "The poor", "The young"], why: "Allah does not love anyone proud and boastful." },
         { q: "Turning your face away from people in pride is good.", tf: false, why: "Do not turn your cheek away from people in pride." }
       ]
+    },
+    {
+      slug: "no-pride-in-him",
+      title: "No pride in him",
+      line: "Whoever rides a donkey and milks sheep has no pride in him.",
+      facts: ["Told by Jubayr ibn Mut'im", "He also wore a cloak", "The Prophet ﷺ told him this"],
+      source: hadith("tirmidhi", "2001", "Jubayr ibn Mut'im", "Sahih (Darussalam)", "Jubayr ibn Mut'im said: people say I am proud, yet I have ridden a donkey, worn a cloak and milked the sheep, and the Messenger of Allah ﷺ said to me: whoever does these, there is no pride in him.", "while I rode a donkey, wore a cloak, and I milked the sheep"),
+      difficulty: 2,
+      questions: [
+        { q: "What did he ﷺ say of one who does these things?", a: "There is no pride in him", wrong: ["He will grow rich", "He will be famous", "He will have many friends"], why: "Whoever does these, then there is no pride in him, he ﷺ told Jubayr ibn Mut'im." },
+        { q: "What did Jubayr say he rode?", a: "A donkey", wrong: ["A fine horse", "A fast camel", "A strong mule"], why: "I rode a donkey, wore a cloak, and I milked the sheep, Jubayr ibn Mut'im said." },
+        { q: "Jubayr said he milked the sheep.", tf: true, why: "Jubayr ibn Mut'im rode a donkey, wore a cloak and milked the sheep, he said." }
+      ]
     }
   ]
 };
