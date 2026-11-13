@@ -185,6 +185,7 @@ const REVIEWED_THINGS: Record<string, CardKind> = {
   "What did Iblis say Adam was made from?": "clay",
   "What did Ibrahim see first that night?": "star",
   "What did Isa shape from clay, in 3:49?": "bird",
+  "What did Jabir cool in his hand to prostrate on?": "stone",
   "What did Jabir love ever since that day?": "vinegar",
   "What did Maymunah send him ﷺ?": "milk",
   "What did Musa see before Allah spoke to him, in Taha?": "fire",
@@ -360,7 +361,7 @@ describe("which questions are asked on picture cards", () => {
     }
     expect(animals).toEqual(REVIEWED_ANIMALS);
     expect(things).toEqual(REVIEWED_THINGS);
-    expect(places).toEqual({ animals: 41, things: 201 });
+    expect(places).toEqual({ animals: 41, things: 202 });
     // The apes question stays as tiles: people were turned into apes, and a drawing could make light of it.
     for (const prompt of LEFT_AS_TILES) {
       const found = allChallenges().filter(({ challenge }) => challenge.prompt === prompt);

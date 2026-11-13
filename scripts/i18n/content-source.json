@@ -925,6 +925,14 @@
   },
   {
     "kind": "course",
+    "text": "Rain, cold and heat"
+  },
+  {
+    "kind": "course",
+    "text": "Pray in your homes on a stormy night, a muddy Friday, praying in place in the rain, early in the cold, and clothes and pebbles in the heat."
+  },
+  {
+    "kind": "course",
     "text": "What wudu is"
   },
   {
@@ -1790,6 +1798,30 @@
   {
     "kind": "course",
     "text": "His camel as a sutrah"
+  },
+  {
+    "kind": "course",
+    "text": "Pray in your homes"
+  },
+  {
+    "kind": "course",
+    "text": "Mud and slush"
+  },
+  {
+    "kind": "course",
+    "text": "Pray where you are"
+  },
+  {
+    "kind": "course",
+    "text": "Early in the cold"
+  },
+  {
+    "kind": "course",
+    "text": "Prostrating on clothes"
+  },
+  {
+    "kind": "course",
+    "text": "Cooling the pebbles"
   },
   {
     "kind": "course",
@@ -36837,6 +36869,18 @@
   },
   {
     "kind": "course",
+    "text": "How he ﷺ looked and sat"
+  },
+  {
+    "kind": "course",
+    "text": "A face like the moon, a few white hairs, big hands, his walk, sitting with his hand round his legs, and sitting cross-legged after Fajr."
+  },
+  {
+    "kind": "arabic",
+    "text": "His ﷺ looks and ways"
+  },
+  {
+    "kind": "course",
     "text": "Stories the Prophet ﷺ told"
   },
   {
@@ -37282,6 +37326,30 @@
   {
     "kind": "course",
     "text": "A question at sea"
+  },
+  {
+    "kind": "course",
+    "text": "Bright like the moon"
+  },
+  {
+    "kind": "course",
+    "text": "A few white hairs"
+  },
+  {
+    "kind": "course",
+    "text": "His ﷺ big hands"
+  },
+  {
+    "kind": "course",
+    "text": "How he ﷺ walked"
+  },
+  {
+    "kind": "course",
+    "text": "Sitting by the Ka'bah"
+  },
+  {
+    "kind": "course",
+    "text": "Sitting after Fajr"
   },
   {
     "kind": "course",
@@ -76077,6 +76145,394 @@
   },
   {
     "kind": "lesson",
+    "text": "On cold, rainy nights, he ﷺ had the caller say: pray at home."
+  },
+  {
+    "kind": "lesson",
+    "text": "A very cold and stormy night"
+  },
+  {
+    "kind": "lesson",
+    "text": "Mu'adhdhin: the one who calls the adhan"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 666"
+  },
+  {
+    "kind": "question",
+    "text": "On what kind of night did Ibn Umar say: pray in your homes?"
+  },
+  {
+    "kind": "question",
+    "text": "A very cold, stormy night"
+  },
+  {
+    "kind": "question",
+    "text": "A hot, still night"
+  },
+  {
+    "kind": "question",
+    "text": "A clear, warm night"
+  },
+  {
+    "kind": "question",
+    "text": "A calm, dry night"
+  },
+  {
+    "kind": "question",
+    "text": "Nafi said: once on a very cold and stormy night, Ibn Umar called the adhan for the prayer."
+  },
+  {
+    "kind": "question",
+    "text": "Whom did he ﷺ tell to say: pray in your homes?"
+  },
+  {
+    "kind": "question",
+    "text": "The traders"
+  },
+  {
+    "kind": "question",
+    "text": "The children"
+  },
+  {
+    "kind": "question",
+    "text": "The water carriers"
+  },
+  {
+    "kind": "question",
+    "text": "The mu'adhdhin"
+  },
+  {
+    "kind": "question",
+    "text": "On very cold and rainy nights he ﷺ told the mu'adhdhin to say so, Ibn Umar said."
+  },
+  {
+    "kind": "question",
+    "text": "On very cold, rainy nights, people could pray in their homes."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Umar said he ﷺ used to tell the mu'adhdhin to say so on such nights."
+  },
+  {
+    "kind": "lesson",
+    "text": "On a rainy Friday, Ibn Abbas spared people walking in mud."
+  },
+  {
+    "kind": "lesson",
+    "text": "A rainy day of Jumu'ah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Pray in your houses"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 901"
+  },
+  {
+    "kind": "question",
+    "text": "What did Ibn Abbas not want people to walk through?"
+  },
+  {
+    "kind": "question",
+    "text": "Sand and dust"
+  },
+  {
+    "kind": "question",
+    "text": "Thorns and stones"
+  },
+  {
+    "kind": "question",
+    "text": "Grass and leaves"
+  },
+  {
+    "kind": "question",
+    "text": "I dislike to bring you out walking in mud and slush, Ibn Abbas said on that rainy day."
+  },
+  {
+    "kind": "question",
+    "text": "Who told his mu'adhdhin to say on a rainy day: pray in your houses?"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Amr"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn az-Zubayr"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Masud"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Abbas did so on a rainy Friday, saying one much better than he had done it."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Abbas said one much better than he had done the same."
+  },
+  {
+    "kind": "question",
+    "text": "One much better than I, the Prophet ﷺ, did it, Ibn Abbas said."
+  },
+  {
+    "kind": "lesson",
+    "text": "When rain fell on a journey, they could pray where they were."
+  },
+  {
+    "kind": "lesson",
+    "text": "On a journey, in the rain"
+  },
+  {
+    "kind": "lesson",
+    "text": "Whoever wishes"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 409"
+  },
+  {
+    "kind": "question",
+    "text": "Where were they when the rain started?"
+  },
+  {
+    "kind": "question",
+    "text": "At a funeral"
+  },
+  {
+    "kind": "question",
+    "text": "At a wedding feast"
+  },
+  {
+    "kind": "question",
+    "text": "Jabir and others were with him ﷺ on a journey when it started to rain on them."
+  },
+  {
+    "kind": "question",
+    "text": "On that journey, everyone had to pray together in the rain."
+  },
+  {
+    "kind": "question",
+    "text": "When rain fell on the journey, he ﷺ said: whoever wishes, let him pray in his place."
+  },
+  {
+    "kind": "question",
+    "text": "Who could pray in his place, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "Whoever wished"
+  },
+  {
+    "kind": "question",
+    "text": "Only the old men"
+  },
+  {
+    "kind": "question",
+    "text": "Only the sick men"
+  },
+  {
+    "kind": "question",
+    "text": "Only the young men"
+  },
+  {
+    "kind": "question",
+    "text": "Whoever wishes, let him perform Salat in his place, he ﷺ said on the journey."
+  },
+  {
+    "kind": "lesson",
+    "text": "In very cold weather, he ﷺ offered the prayer early."
+  },
+  {
+    "kind": "lesson",
+    "text": "When it was very cold"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ offered the prayer earlier"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 906"
+  },
+  {
+    "kind": "question",
+    "text": "What weather made him ﷺ offer the prayer earlier?"
+  },
+  {
+    "kind": "question",
+    "text": "Very dry weather"
+  },
+  {
+    "kind": "question",
+    "text": "Very cold weather"
+  },
+  {
+    "kind": "question",
+    "text": "Very hot weather"
+  },
+  {
+    "kind": "question",
+    "text": "Very windy weather"
+  },
+  {
+    "kind": "question",
+    "text": "If it was very cold, he ﷺ used to offer the prayer earlier, Anas said."
+  },
+  {
+    "kind": "question",
+    "text": "In very cold weather, he ﷺ used to offer the prayer earlier."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ used to offer the prayer earlier if it was very cold, Anas ibn Malik said."
+  },
+  {
+    "kind": "question",
+    "text": "Who told how he ﷺ prayed when it was very cold?"
+  },
+  {
+    "kind": "question",
+    "text": "Talhah ibn Ubaydullah"
+  },
+  {
+    "kind": "question",
+    "text": "Anas ibn Malik said he ﷺ used to offer the prayer earlier if it was very cold."
+  },
+  {
+    "kind": "lesson",
+    "text": "In scorching heat, some spread their clothes to prostrate on."
+  },
+  {
+    "kind": "lesson",
+    "text": "Praying with him ﷺ in scorching heat"
+  },
+  {
+    "kind": "lesson",
+    "text": "Too hot to put the face on the earth"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1208"
+  },
+  {
+    "kind": "question",
+    "text": "Why could some not put their face on the earth?"
+  },
+  {
+    "kind": "question",
+    "text": "Because of the heat"
+  },
+  {
+    "kind": "question",
+    "text": "Because of the rain"
+  },
+  {
+    "kind": "question",
+    "text": "Because of the cold"
+  },
+  {
+    "kind": "question",
+    "text": "Because of the mud"
+  },
+  {
+    "kind": "question",
+    "text": "Anas prayed with him ﷺ in scorching heat, when the earth was too hot."
+  },
+  {
+    "kind": "question",
+    "text": "Anas prayed with him ﷺ even in scorching heat."
+  },
+  {
+    "kind": "question",
+    "text": "If one of them could not put his face on the earth, he spread his clothes, Anas said."
+  },
+  {
+    "kind": "question",
+    "text": "What did some spread on the hot earth to prostrate on?"
+  },
+  {
+    "kind": "question",
+    "text": "Their saddle cloths"
+  },
+  {
+    "kind": "question",
+    "text": "Their water skins"
+  },
+  {
+    "kind": "question",
+    "text": "Their clothes"
+  },
+  {
+    "kind": "question",
+    "text": "Their shields"
+  },
+  {
+    "kind": "question",
+    "text": "He would spread his clothes and prostrate over them, Anas said of the scorching heat."
+  },
+  {
+    "kind": "lesson",
+    "text": "Jabir cooled pebbles in his hand to prostrate on them."
+  },
+  {
+    "kind": "lesson",
+    "text": "At the noon prayer, in great heat"
+  },
+  {
+    "kind": "lesson",
+    "text": "Pebbles: small stones"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 399"
+  },
+  {
+    "kind": "question",
+    "text": "What did Jabir cool in his hand to prostrate on?"
+  },
+  {
+    "kind": "question",
+    "text": "Stones"
+  },
+  {
+    "kind": "question",
+    "text": "He took a handful of small stones so they might become cold in his hand, Jabir said."
+  },
+  {
+    "kind": "question",
+    "text": "Which prayer was Jabir praying when it was so hot?"
+  },
+  {
+    "kind": "question",
+    "text": "The sunset prayer"
+  },
+  {
+    "kind": "question",
+    "text": "The noon prayer"
+  },
+  {
+    "kind": "question",
+    "text": "Jabir would offer his noon prayer with the Messenger of Allah ﷺ in the intense heat."
+  },
+  {
+    "kind": "question",
+    "text": "Jabir cooled the pebbles because of the intense heat."
+  },
+  {
+    "kind": "question",
+    "text": "He placed them so he could put his forehead on them when he prostrated, Jabir said."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about praying in rain, cold and heat!"
+  },
+  {
+    "kind": "lesson",
     "text": "Allah's right on His servants: worship Him and join no partner."
   },
   {
@@ -86268,14 +86724,6 @@
     "text": "The soldiers"
   },
   {
-    "kind": "question",
-    "text": "The traders"
-  },
-  {
-    "kind": "question",
-    "text": "The children"
-  },
-  {
     "kind": "lesson",
     "text": "Cooking soup? Add water and share some with your neighbors."
   },
@@ -88002,10 +88450,6 @@
   {
     "kind": "question",
     "text": "What did the Prophet ﷺ find inside the heap of food?"
-  },
-  {
-    "kind": "question",
-    "text": "Stones"
   },
   {
     "kind": "question",
@@ -110109,10 +110553,6 @@
   },
   {
     "kind": "question",
-    "text": "At a funeral"
-  },
-  {
-    "kind": "question",
     "text": "When the Prophet ﷺ congratulated a man on his marriage."
   },
   {
@@ -129162,10 +129602,6 @@
   {
     "kind": "question",
     "text": "Their faces"
-  },
-  {
-    "kind": "question",
-    "text": "Their clothes"
   },
   {
     "kind": "question",
@@ -166261,6 +166697,350 @@
   },
   {
     "kind": "lesson",
+    "text": "His ﷺ face was bright like the moon, not like a sword."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Bara was asked about his ﷺ face"
+  },
+  {
+    "kind": "lesson",
+    "text": "Bright as the moon, not a sword"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3552"
+  },
+  {
+    "kind": "question",
+    "text": "What was his ﷺ face as bright as?"
+  },
+  {
+    "kind": "question",
+    "text": "A jewel"
+  },
+  {
+    "kind": "question",
+    "text": "A shiny sword"
+  },
+  {
+    "kind": "question",
+    "text": "Asked if it was as bright as a sword, Al-Bara said: no, as bright as a moon."
+  },
+  {
+    "kind": "question",
+    "text": "Who was asked about his ﷺ face?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Bara was asked if the face of the Prophet ﷺ was as bright as a sword, Abu Ishaq said."
+  },
+  {
+    "kind": "question",
+    "text": "His ﷺ face was bright like the moon."
+  },
+  {
+    "kind": "question",
+    "text": "Asked if it was like a sword, Al-Bara said: no, but as bright as a moon."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Juhayfah saw some white hairs below his ﷺ lower lip."
+  },
+  {
+    "kind": "lesson",
+    "text": "Below his ﷺ lower lip"
+  },
+  {
+    "kind": "lesson",
+    "text": "Above the chin"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3545"
+  },
+  {
+    "kind": "question",
+    "text": "Where did Abu Juhayfah see some white hair?"
+  },
+  {
+    "kind": "question",
+    "text": "On his ﷺ arms"
+  },
+  {
+    "kind": "question",
+    "text": "On his ﷺ hands"
+  },
+  {
+    "kind": "question",
+    "text": "On his ﷺ feet"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Juhayfah saw them just above the chin, below his ﷺ lower lip."
+  },
+  {
+    "kind": "question",
+    "text": "Who saw the white hairs below his ﷺ lower lip?"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Juhayfah"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Juhayfah said he saw some white hair there, above the chin."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Juhayfah saw lots of white hair on his ﷺ face."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Juhayfah saw some white hair, just below his ﷺ lower lip."
+  },
+  {
+    "kind": "lesson",
+    "text": "His ﷺ hands were big, and Anas never saw anyone like him."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ had big hands"
+  },
+  {
+    "kind": "lesson",
+    "text": "Nobody like him after him"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 5906"
+  },
+  {
+    "kind": "question",
+    "text": "What kind of hands did he ﷺ have?"
+  },
+  {
+    "kind": "question",
+    "text": "Small hands"
+  },
+  {
+    "kind": "question",
+    "text": "Thin hands"
+  },
+  {
+    "kind": "question",
+    "text": "Weak hands"
+  },
+  {
+    "kind": "question",
+    "text": "Big hands"
+  },
+  {
+    "kind": "question",
+    "text": "Anas said the Prophet ﷺ had big hands, and he never saw anybody like him."
+  },
+  {
+    "kind": "question",
+    "text": "Who said he never saw anybody like him ﷺ after him?"
+  },
+  {
+    "kind": "question",
+    "text": "Abdullah ibn Masud"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ had big hands, and I have never seen anybody like him, Anas said."
+  },
+  {
+    "kind": "question",
+    "text": "Anas had seen many people just like him ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "Anas said: I have never seen anybody like him after him."
+  },
+  {
+    "kind": "lesson",
+    "text": "When he ﷺ walked, he seemed to lean forward."
+  },
+  {
+    "kind": "lesson",
+    "text": "When he ﷺ walked"
+  },
+  {
+    "kind": "lesson",
+    "text": "As if he bent forwards"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 4863"
+  },
+  {
+    "kind": "question",
+    "text": "Which way did he ﷺ seem to lean as he walked?"
+  },
+  {
+    "kind": "question",
+    "text": "Upward"
+  },
+  {
+    "kind": "question",
+    "text": "Forward"
+  },
+  {
+    "kind": "question",
+    "text": "Backward"
+  },
+  {
+    "kind": "question",
+    "text": "Sideways"
+  },
+  {
+    "kind": "question",
+    "text": "When he ﷺ walked, it looked as if he bent forwards, Anas said."
+  },
+  {
+    "kind": "question",
+    "text": "Who told how he ﷺ walked?"
+  },
+  {
+    "kind": "question",
+    "text": "Zayd ibn Arqam"
+  },
+  {
+    "kind": "question",
+    "text": "Anas told it: when the Prophet ﷺ walked, he seemed to bend forwards."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ seemed to bend forwards when he walked."
+  },
+  {
+    "kind": "question",
+    "text": "When the Prophet ﷺ walked, it looked as if he bent forwards, Anas said."
+  },
+  {
+    "kind": "lesson",
+    "text": "By the Ka'bah, he ﷺ sat with his hand round his legs."
+  },
+  {
+    "kind": "lesson",
+    "text": "In the courtyard of the Ka'bah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ihtiba: sitting with arms round the legs"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 6272"
+  },
+  {
+    "kind": "question",
+    "text": "Where did Ibn Umar see him ﷺ sit with his hand round his legs?"
+  },
+  {
+    "kind": "question",
+    "text": "On the hill of Uhud"
+  },
+  {
+    "kind": "question",
+    "text": "In the market of Madinah"
+  },
+  {
+    "kind": "question",
+    "text": "In the town of Taif"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Umar saw him ﷺ in the ihtiba posture in the courtyard of the Ka'bah."
+  },
+  {
+    "kind": "question",
+    "text": "What is sitting with your arms round your legs called?"
+  },
+  {
+    "kind": "question",
+    "text": "Ihtiba"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Umar saw him ﷺ sit in ihtiba, putting his hand round his legs like this."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ put his hand round his legs as he sat."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Umar saw him ﷺ sitting in the ihtiba posture in the courtyard of the Ka'bah."
+  },
+  {
+    "kind": "lesson",
+    "text": "After Fajr, he ﷺ sat cross-legged until the sun was well up."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ stayed where he had prayed"
+  },
+  {
+    "kind": "lesson",
+    "text": "Until the sun had come well up"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 4850"
+  },
+  {
+    "kind": "question",
+    "text": "Until when did he ﷺ sit after Fajr?"
+  },
+  {
+    "kind": "question",
+    "text": "Until the Asr prayer"
+  },
+  {
+    "kind": "question",
+    "text": "Until the Isha prayer"
+  },
+  {
+    "kind": "question",
+    "text": "Until the sun was well up"
+  },
+  {
+    "kind": "question",
+    "text": "Until the Zuhr prayer"
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ sat cross-legged where he was till the sun had come well up, Jabir said."
+  },
+  {
+    "kind": "question",
+    "text": "Who told how he ﷺ sat after Fajr?"
+  },
+  {
+    "kind": "question",
+    "text": "Jabir ibn Samurah"
+  },
+  {
+    "kind": "question",
+    "text": "Jabir ibn Samurah said: he ﷺ sat cross-legged where he was after the dawn prayer."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ sat cross-legged where he had prayed."
+  },
+  {
+    "kind": "question",
+    "text": "When he ﷺ prayed the dawn prayer, he sat where he was till the sun had come well up."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about how he ﷺ looked and sat!"
+  },
+  {
+    "kind": "lesson",
     "text": "A rock trapped three men in a cave, so they prayed."
   },
   {
@@ -188817,10 +189597,6 @@
   },
   {
     "kind": "lesson",
-    "text": "Mu'adhdhin: the one who calls the adhan"
-  },
-  {
-    "kind": "lesson",
     "text": "Five times a day, he calls people to pray"
   },
   {
@@ -193218,10 +193994,6 @@
   {
     "kind": "question",
     "text": "Leaning back"
-  },
-  {
-    "kind": "question",
-    "text": "Abu Juhayfah"
   },
   {
     "kind": "question",
@@ -199030,10 +199802,6 @@
   {
     "kind": "question",
     "text": "And this month, meaning Ramadan."
-  },
-  {
-    "kind": "question",
-    "text": "Ibn Masud"
   },
   {
     "kind": "lesson",
@@ -212694,10 +213462,6 @@
   {
     "kind": "question",
     "text": "In the funeral prayer"
-  },
-  {
-    "kind": "question",
-    "text": "At a wedding feast"
   },
   {
     "kind": "question",
@@ -252812,10 +253576,6 @@
     "text": "The prayer at night"
   },
   {
-    "kind": "question",
-    "text": "The noon prayer"
-  },
-  {
     "kind": "lesson",
     "text": "Be patient with deniers; Pharaoh disobeyed and was seized."
   },
@@ -253954,10 +254714,6 @@
   {
     "kind": "question",
     "text": "In which prayer was it the last surah Umm al-Fadl heard?"
-  },
-  {
-    "kind": "question",
-    "text": "The sunset prayer"
   },
   {
     "kind": "lesson",
@@ -323770,10 +324526,6 @@
   {
     "kind": "question",
     "text": "How do the valleys flow, in 13:17?"
-  },
-  {
-    "kind": "question",
-    "text": "Upward"
   },
   {
     "kind": "question",
@@ -404333,10 +405085,6 @@
   },
   {
     "kind": "question",
-    "text": "Sand and dust"
-  },
-  {
-    "kind": "question",
     "text": "Wind and air"
   },
   {
@@ -452273,10 +453021,6 @@
   },
   {
     "kind": "question",
-    "text": "Because of the cold"
-  },
-  {
-    "kind": "question",
     "text": "Because of the wind"
   },
   {
@@ -457098,10 +457842,6 @@
   {
     "kind": "question",
     "text": "Down"
-  },
-  {
-    "kind": "question",
-    "text": "Sideways"
   },
   {
     "kind": "question",
@@ -469449,10 +470189,6 @@
   },
   {
     "kind": "question",
-    "text": "Backward"
-  },
-  {
-    "kind": "question",
     "text": "Steadily, with ease"
   },
   {
@@ -476797,10 +477533,6 @@
   },
   {
     "kind": "question",
-    "text": "Forward"
-  },
-  {
-    "kind": "question",
     "text": "Right or left"
   },
   {
@@ -480558,10 +481290,6 @@
   {
     "kind": "question",
     "text": "Who recited the ayah before him ﷺ?"
-  },
-  {
-    "kind": "question",
-    "text": "Abdullah ibn Masud"
   },
   {
     "kind": "question",
