@@ -32,14 +32,14 @@ import TopicApp from "../TopicApp";
 import { learningApi, localDateKey } from "../api/islamicLearningApi";
 import { COURSE, LESSONS_BY_ID } from "../data/course";
 import { choicePictures } from "../data/lessonPictures";
-import { SIGN_SCENES } from "../data/signScenes";
+import { SIGN_SCENES, type SignKind } from "../data/signScenes";
 import { setActiveLanguage } from "../i18n";
 import { localizeLessonContent } from "../services/contentLocalization";
 import { setStoredItem } from "../services/appStorage";
 import type { Challenge, LearningNodeView, Lesson } from "../types";
 import { SignSceneView } from "../ui/journey/SignScene";
 import { leadMs, momentMs } from "../ui/journey/SignScene";
-import { signArt } from "../ui/journey/signArt";
+import { keyAt, signArt } from "../ui/journey/signArt";
 import { SceneGame } from "../ui/lesson/SceneGame";
 import { cardsFor } from "../ui/lesson/cardQuestions";
 import { mapPlacesFor } from "../ui/lesson/mapQuestions";
@@ -79,7 +79,7 @@ describe("which questions are asked on a scene", () => {
     const asks = sceneAsks();
     // Each one was read with its scene: its right answer is what the moment shows, and the scene before it does not
     // show it. A question changed in the course fails here until it is read again.
-    expect(asks.length).toBe(209);
+    expect(asks.length).toBe(277);
     let places = 0;
     for (const ask of asks) {
       const found = ALL_CHALLENGES.filter(({ challenge }) => challenge.prompt === ask.prompt && rightOf(challenge) === ask.answer);
@@ -97,7 +97,7 @@ describe("which questions are asked on a scene", () => {
         ]);
       }
     }
-    expect(places).toBe(289);
+    expect(places).toBe(377);
   });
 
   it("finds a question by its prompt and its right answer, so another question with the same prompt is not asked on it", () => {
@@ -143,6 +143,61 @@ describe("where the scene waits and where it stops", () => {
       expect([ask.prompt, words[last].from < moment.reveal, moment.reveal <= words[last].to]).toEqual([ask.prompt, true, true]);
       expect([ask.prompt, moment.reveal === 1 || moment.reveal <= words[last].to - 0.025]).toEqual([ask.prompt, true]);
     }
+  });
+
+  it("waits on the Prophets' stories before anything of the answer shows, and shows it once answered", () => {
+    // A part's keyed value at `t` of its scene's story (its resting value when it has no such key).
+    const value = (kind: SignKind, name: string, key: "opacity" | "rotate", t: number) => {
+      const keys = signArt(kind).parts.find((each) => each.name === name)!.keys;
+      const values = keys?.[key];
+      return keys && values ? keyAt(keys.at, values, t) : key === "opacity" ? 1 : 0;
+    };
+    const asked = (prompt: string) => {
+      const ask = sceneAsks().find((each) => each.prompt === prompt)!;
+      const kind = SIGN_SCENES.find((each) => each.id === ask.sceneId)!.kind;
+      return { kind, ...sceneMoment(kind, ask.from, ask.to)! };
+    };
+    const shown = (prompt: string, names: string[]) => {
+      const { kind, pause, reveal } = asked(prompt);
+      return [names.map((name) => value(kind, name, "opacity", pause)), names.map((name) => value(kind, name, "opacity", reveal))];
+    };
+    // Where the fire burned: only the far fire while it waits; then, near, the green bush on fire.
+    expect(shown("Where was the fire burning, per Ibn Kathir?", ["far fire", "green bush", "fire in the bush"])).toEqual([
+      [1, 0, 0],
+      [0, 1, 1]
+    ]);
+    // What the stick became: no staff and no snake yet; then the snake.
+    expect(shown("What did the stick become, in 20:20?", ["staff", "snake"])).toEqual([
+      [0, 0],
+      [0, 1]
+    ]);
+    // What the staff did: the serpent by their ropes and staffs, none swallowed yet; then all of them gone.
+    expect(shown("What did the staff do, in 7:117?", ["great serpent", "seeming to move, left", "seeming to move, right"])).toEqual([
+      [1, 1, 1],
+      [1, 0, 0]
+    ]);
+    // What al-Khidr fixed: the boat with its hole, no town and no wall yet; then the wall, set straight.
+    const wall = asked("What did Al-Khidr fix, in 18:77?");
+    expect(shown("What did Al-Khidr fix, in 18:77?", ["hole in the boat", "the town", "wall about to fall"])).toEqual([
+      [1, 0, 0],
+      [1, 1, 1]
+    ]);
+    expect([value(wall.kind, "wall about to fall", "rotate", 0.6), value(wall.kind, "wall about to fall", "rotate", wall.reveal)]).toEqual([8, 0]);
+    // How high the iron went: none yet; then all four rows, up to the mountains' tops.
+    expect(shown("How high did the blocks go, per Ibn Kathir?", [1, 2, 3, 4].map((row) => `blocks of iron, row ${row}`))).toEqual([
+      [0, 0, 0, 0],
+      [1, 1, 1, 1]
+    ]);
+    // What grew over Yunus: the open shore, bare; then the gourd plant.
+    expect(shown("What grew over him, in 37:146?", ["open shore", "gourd plant"])).toEqual([
+      [1, 0],
+      [1, 1]
+    ]);
+    // What fell from the palm: no dates yet; then the dates, fallen by its foot.
+    expect(shown("What fell from the palm, in 19:25?", ["ripe dates", "falling date 1", "falling date 4"])).toEqual([
+      [0, 0, 0],
+      [1, 1, 1]
+    ]);
   });
 
   it("goes quickly up to the moment, and plays the moment at the story's pace, never too long", () => {

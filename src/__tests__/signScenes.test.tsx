@@ -521,7 +521,7 @@ describe("the signs in creation, alive", () => {
       [0, 0, 1, 1]
     ]);
     expect([shown("staff", "Musa's staff", 0.49), shown("staff", "great serpent", 0.49), shown("staff", "Musa's staff", 0.6), shown("staff", "great serpent", 0.6)]).toEqual([1, 0, 0, 1]);
-    expect([value("staff", "great serpent", "x", 0.71), sides(0.71), value("staff", "great serpent", "x", 0.78), value("staff", "great serpent", "scaleX", 0.78), sides(0.8)]).toEqual([34, [0, 0, 1, 0], -40, -1, [0, 0, 0, 0]]);
+    expect([value("staff", "great serpent", "x", 0.69), sides(0.69), value("staff", "great serpent", "x", 0.77), value("staff", "great serpent", "scaleX", 0.77), sides(0.77)]).toEqual([34, [0, 0, 1, 0], -40, -1, [0, 0, 0, 0]]);
     expect([value("staff", "great serpent", "x", 1), value("staff", "great serpent", "scaleX", 1), shown("staff", "the truth stands", 0.8), shown("staff", "the truth stands", 1)]).toEqual([0, 1, 0, 1]);
     // Where the two seas meet: the fish on the rock, then into the sea along its tunnel; the boat, its plank pulled out
     // and a hole left; the town, its wall leaning about to fall, set straight; and the orphans' treasure beneath it.
@@ -542,6 +542,10 @@ describe("the signs in creation, alive", () => {
     expect([shown("barrier", "iron like fire", 0.36), shown("barrier", "iron like fire", 0.5), shown("barrier", "fires at the foot", 0.5), shown("barrier", "molten copper", 0.5)]).toEqual([0, 1, 1, 0]);
     expect([value("barrier", "left pot", "rotate", 0.7) > 0, value("barrier", "right pot", "rotate", 0.7) < 0, shown("barrier", "molten copper", 0.74), value("barrier", "molten copper", "scaleY", 0.74)]).toEqual([true, true, 1, 1]);
     expect(["iron like fire", "molten copper", "left pot", "barrier of iron and copper", "shine"].map((name) => shown("barrier", name, 1))).toEqual([0, 0, 0, 1, 1]);
+    // Filled level with the two mountains, up to their tops (18:96, as Ibn Kathir explains it, and the lesson teaches):
+    // the top row of iron starts where the mountains' inner sides do, at their tops (y 50, their ridges at 49 to 51).
+    const mountains = part("barrier", "two mountains").svg;
+    expect([part("barrier", "blocks of iron, row 4").svg.startsWith('<path d="M44 50 L116 50 '), mountains.includes("44 50 L64 96"), mountains.includes("116 50 L96 96")]).toEqual([true, true, true]);
     // Yunus: the laden ship; the great fish rising by it; the darknesses, the fish deep down; then the open shore it
     // comes to, the gourd plant growing there, and far off the town of his people, who believed.
     expect(words("yunus")).toEqual(["The laden ship", "A great fish", "In the darknesses", "Cast on the open shore", "A gourd plant grew", "His people believed"]);

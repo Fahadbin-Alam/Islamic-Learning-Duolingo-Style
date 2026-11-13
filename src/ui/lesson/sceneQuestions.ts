@@ -146,6 +146,92 @@ const ASKS: Record<string, readonly Ask[]> = {
     ["What did Allah save them from, per 106:4?", "Hunger", "Fed against hunger"],
     ["What did Allah make them safe from?", "Fear", "Safe from fear"]
   ],
+  // Musa at Tur: the fire on the side of the mount, the call from the tree, the holy valley of Tuwa, the staff a snake (20:10 to 20:20, 27:7, 28:29, 28:30, 79:16).
+  "sign-tur": [
+    ["What was the valley called?", "Tuwa", "The holy valley of Tuwa"],
+    ["Ayahs 1-24: what are they about?", "Musa at the valley", "The holy valley of Tuwa"],
+    ["Ayahs 1-24 say: Musa saw a fire; Allah spoke to him in the holy valley.", "True", "A fire on the side of the mountain", "The holy valley of Tuwa"],
+    ["Ayahs 1-14: what are they about?", "Musa and the fire", "A fire on the side of the mountain"],
+    ["Ayahs 29-42: what are they about?", "The fire on the mountain", "A fire on the side of the mountain"],
+    ["What did Musa see, in 20:10?", "A fire", "A fire on the side of the mountain"],
+    ["What is Tuwa, per Ibn Abbas?", "The name of the valley", "The holy valley of Tuwa"],
+    ["What did the stick become, in 20:20?", "A moving snake", "The staff became a snake"],
+    ["Where was the fire burning, per Ibn Kathir?", "In a green bush", "Called from the tree"],
+    ["Where did Musa see the fire, in 28:29?", "Toward At-Tur", "A fire on the side of the mountain"],
+    ["Where did the call come from, in 28:30?", "The tree in the blessed place", "Called from the tree"],
+    ["Where was the fire burning?", "In a green bush", "Called from the tree"],
+    ["Allah told Musa: I am Allah, Lord of all that exists.", "True", "Called from the tree"],
+    ["Where did Allah call Musa, per 79:16?", "In the holy valley of Tuwa", "The holy valley of Tuwa"],
+    ["Tuwa is the name of a valley.", "True", "The holy valley of Tuwa"]
+  ],
+  // The staff and the sorcerers: their ropes and staffs, seeming to move, the staff swallowing what they faked (7:117, 7:118, 20:66 to 20:69, 26:44, 26:45).
+  "sign-staff": [
+    ["What did Musa's staff swallow, in Al-A'raf?", "The magicians' tricks", "It swallowed what they faked"],
+    ["Ayahs 109-126: what are they about?", "The staff swallows", "It swallowed what they faked"],
+    ["Ayahs 109-126 say: Musa's staff swallowed the magicians' tricks, and they believed.", "True", "It swallowed what they faked", "The truth stood firm"],
+    ["Ayahs 55-76 say: Musa's staff beat the magicians' tricks, and they believed.", "True", "It swallowed what they faked", "The truth stood firm"],
+    ["Ayah 45: what did Musa's staff swallow?", "All their tricks", "It swallowed what they faked"],
+    ["What did the staff do, in 7:117?", "Swallowed their tricks", "It swallowed what they faked"],
+    ["Who threw first, in 20:66?", "The magicians", "Their ropes and staffs"],
+    ["Did the ropes really move, in 20:66?", "No, they only seemed to", "They seemed to move"],
+    ["What did the staff do, in 20:69?", "Swallowed what they made", "It swallowed what they faked"],
+    ["The magician will never succeed, whatever his skill, per 20:69.", "True", "It swallowed what they faked", "The truth stood firm"],
+    ["What did Musa's stick do, in 26:45?", "Swallowed what they faked", "It swallowed what they faked"],
+    ["Faith and falsehood never meet without faith winning.", "True", "It swallowed what they faked", "The truth stood firm"]
+  ],
+  // Al-Khidr's journey: the fish taking its way into the sea, the wall set straight, the orphans' treasure beneath it (18:61, 18:63, 18:77, 18:82).
+  "sign-khidr": [
+    ["Whose treasure was under the wall?", "Two orphan boys'", "The orphans' treasure beneath"],
+    ["What did the fish do at the rock?", "Slipped into the sea", "The fish took its way into the sea"],
+    ["The place the fish was lost was where they would find al-Khidr.", "True", "The fish took its way into the sea"],
+    ["Ayah 63: what was the sign of the place?", "Their fish slipped into the sea", "The fish took its way into the sea"],
+    ["Why was the wall rebuilt, in Al-Kahf?", "To keep two orphans' treasure safe", "The orphans' treasure beneath"],
+    ["Ayah 82: what was under the wall?", "Two orphans' treasure", "The orphans' treasure beneath"],
+    ["How did the fish go into the sea, in 18:61?", "As in a tunnel", "The fish took its way into the sea"],
+    ["What did Al-Khidr fix, in 18:77?", "A wall about to fall", "A wall about to fall", "It was set straight"],
+    ["What was under the wall, in 18:82?", "A treasure for two orphans", "The orphans' treasure beneath"]
+  ],
+  // The barrier between two mountains: blocks of iron up to their tops, molten copper poured over it (18:96).
+  "sign-barrier": [
+    ["Dhul-Qarnayn was a strong ruler who built a great ____.", "wall", "Blocks of iron", "Molten copper poured over it"],
+    ["What did Dhul-Qarnayn build the barrier from, in Al-Kahf?", "Iron and copper", "Blocks of iron", "Molten copper poured over it"],
+    ["Ayahs 83-101: what are they about?", "Dhul-Qarnayn's barrier", "Blocks of iron", "Molten copper poured over it"],
+    ["Ayahs 83-101 say: Dhul-Qarnayn built a barrier of iron and molten copper.", "True", "Blocks of iron", "Molten copper poured over it"],
+    ["Ayah 96: what did Dhul-Qarnayn build the barrier from?", "Iron and melted copper", "Blocks of iron", "Molten copper poured over it"],
+    ["What did he ask for first, in 18:96?", "Pieces of iron", "Blocks of iron"],
+    ["What is Qitran, per Ibn Kathir?", "Copper", "Molten copper poured over it"],
+    ["How high did the blocks go, per Ibn Kathir?", "To the tops of the mountains", "Blocks of iron"]
+  ],
+  // Yunus: the great fish, the darknesses, the open shore, the gourd plant, his people who believed (37:142 to 37:148, 21:87, 10:98).
+  "sign-yunus": [
+    ["What swallowed Yunus?", "A great fish", "A great fish"],
+    ["What is Yunus called in Quran 21:87?", "The man of the fish", "A great fish"],
+    ["Where did Yunus make his dua?", "In the darkness", "In the darknesses"],
+    ["What grew over him on the shore?", "A gourd plant", "A gourd plant grew"],
+    ["Which people were saved because they believed in time?", "The people of Yunus", "His people believed"],
+    ["Where was Yunus when he made this dua?", "In the darkness, inside the whale", "A great fish", "In the darknesses"],
+    ["Which people believed in time and were spared, in Yunus?", "Yunus's people", "His people believed"],
+    ["Ayahs 94-103: what are they about?", "Yunus's people", "His people believed"],
+    ["Ayahs 94-103 say: Yunus's people believed in time, so the punishment was lifted.", "True", "His people believed"],
+    ["Ayahs 139-182: what are they about?", "Yunus and the whale", "A great fish"],
+    ["Ayahs 139-182 say: Yunus glorified Allah in the whale, and Allah saved him.", "True", "A great fish", "Cast on the open shore"],
+    ["Which people were spared after believing, in 10:98?", "The people of Yunus", "His people believed"],
+    ["Which three darknesses, per Ibn Mas'ud?", "Fish, sea and night", "In the darknesses"],
+    ["What does the name Dhun-Nun mean?", "The one of the fish", "A great fish"],
+    ["What swallowed Yunus, in 37:142?", "A big fish", "A great fish"],
+    ["What grew over him, in 37:146?", "A gourd plant", "A gourd plant grew"],
+    ["What did his people do, in 37:148?", "They believed", "His people believed"]
+  ],
+  // Maryam's palm tree: the stream beneath her, the fresh ripe dates (19:24, 19:25).
+  "sign-maryam": [
+    ["What fell from the palm tree?", "Fresh ripe dates", "Fresh ripe dates fell"],
+    ["What did Allah give her below her?", "A stream", "A stream beneath"],
+    ["What would fall when she shook the trunk?", "Fresh, ripe dates", "Fresh ripe dates fell"],
+    ["What was placed below her to drink from?", "A stream", "A stream beneath"],
+    ["Ayah 25: what fell when Maryam shook the palm?", "Fresh dates", "Fresh ripe dates fell"],
+    ["What is Sariy, per Ibn Abbas?", "A river or stream", "A stream beneath"],
+    ["What fell from the palm, in 19:25?", "Fresh ripe dates", "Fresh ripe dates fell"]
+  ],
   // Rain on a dead land (7:57, 35:9, 16:65).
   "sign-rain": [
     ["What does Allah send down to grow our food?", "Rain", "The winds bring the clouds", "The rain falls"],

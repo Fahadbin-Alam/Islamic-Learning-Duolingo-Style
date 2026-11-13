@@ -92,8 +92,8 @@ function tur(): SignArt {
   const staff = staffOf(38, 104, 64, 100);
   const snake = animalAt("snake", 34, 78, 0.36);
   const near = { x: 112, y: 90 };
-  // The bush grows from the far light to near, as the fire is come to.
-  const approach: SignKeys = { at: [0, at3(0.36), at3(0.46)], opacity: [0, 0, 1], scale: [0.18, 0.18, 1], y: [-20, -20, 0] };
+  // The bush grows from the far light to near, as the fire is come to (once the far fire's words are gone).
+  const approach: SignKeys = { at: [0, at3(0.38), at3(0.48)], opacity: [0, 0, 1], scale: [0.18, 0.18, 1], y: [-20, -20, 0] };
   return {
     kind: "tur",
     ms: 12000,
@@ -173,19 +173,19 @@ function staff(): SignArt {
       { name: "the truth stands", svg: light, keys: showFrom(0.82, 0.9), loop: { move: "twinkle", ms: 2000, low: 0.6 } },
       { name: "ropes and staffs thrown, left", svg: leftThings, keys: fall },
       { name: "ropes and staffs thrown, right", svg: rightThings, keys: fall },
-      { name: "seeming to move, left", svg: leftThings, keys: seemsToMove(0.78), origin: { x: 32, y: 100 }, loop: wriggle },
-      { name: "seeming to move, right", svg: rightThings, keys: seemsToMove(0.7), origin: { x: 128, y: 100 }, loop: wriggle },
+      { name: "seeming to move, left", svg: leftThings, keys: seemsToMove(0.76), origin: { x: 32, y: 100 }, loop: wriggle },
+      { name: "seeming to move, right", svg: rightThings, keys: seemsToMove(0.68), origin: { x: 128, y: 100 }, loop: wriggle },
       { name: "Musa's staff", svg: musaStaff, keys: { at: [0, 0.44, 0.48, 0.5, 0.54], opacity: [0, 0, 1, 1, 0], y: [-40, -40, 0, 0, 0] } },
       {
         name: "great serpent",
         svg: serpent,
         origin: { x: 80, y: 97 },
         keys: {
-          at: [0, 0.5, 0.54, 0.64, 0.7, 0.72, 0.78, 0.8, 0.84],
-          opacity: [0, 0, 1, 1, 1, 1, 1, 1, 1],
-          scale: [0.5, 0.5, 1, 1, 1, 1, 1, 1, 1],
-          x: [0, 0, 0, 0, 34, 34, -40, -40, 0],
-          scaleX: [1, 1, 1, 1, 1, -1, -1, 1, 1]
+          at: [0, 0.5, 0.54, 0.64, 0.68, 0.7, 0.76, 0.78, 0.8, 0.84],
+          opacity: [0, 0, 1, 1, 1, 1, 1, 1, 1, 1],
+          scale: [0.5, 0.5, 1, 1, 1, 1, 1, 1, 1, 1],
+          x: [0, 0, 0, 0, 34, 34, -40, -40, -40, 0],
+          scaleX: [1, 1, 1, 1, 1, -1, -1, -1, 1, 1]
         },
         loop: { move: "bob", ms: 900, y: 0.8 }
       }
@@ -258,7 +258,7 @@ function khidr(): SignArt {
   // The wall leans over, about to fall, its foot sunk on one side; set straight, it stands upright on the ground.
   const wall = bricksOf(52, 62.4, 56, 25.6) + `<rect x="51" y="61" width="58" height="2" fill="#B07A47"/>`;
   const cracks = `<path d="M70 62.4 l3 5 l-2 4 l4 6 M94 63 l-2 6 l3 5 M84 76 l2 5 l-2 5" stroke="#6E4524" stroke-width="0.9" fill="none" stroke-linejoin="round"/>`;
-  const leaning = { at: [0, 0.5, 0.54, 0.7, 0.76], opacity: [0, 0, 1, 1, 1], rotate: [8, 8, 8, 8, 0] };
+  const leaning = { at: [0, 0.52, 0.56, 0.7, 0.76], opacity: [0, 0, 1, 1, 1], rotate: [8, 8, 8, 8, 0] };
   const frontGround = `<rect y="88" width="160" height="32" fill="#DDBB82"/><path d="M0 88 L160 88" stroke="#C9A468" stroke-width="1"/><path d="M8 100 l6 0 M128 104 l7 0 M30 108 l5 0" stroke="#C9A468" stroke-width="0.8" stroke-linecap="round"/>`;
   const townPalm = palm(111, 88, 36, "#4F8A3C");
   const cutaway = `<path d="M60 92 L100 92 L100 107 L60 107 Z" fill="#B58A54" opacity="0.9"/><path d="M60 92 L100 92" stroke="#9C7342" stroke-width="0.8" stroke-dasharray="2 2"/>`;
@@ -292,11 +292,11 @@ function khidr(): SignArt {
         keys: { at: [0, 0.36, 0.42, 0.45, 0.48, 0.51, 0.52], x: [60, 60, 0, 0, -4, -8, -8], y: [0, 0, 0, 0, -9, 10, 10], rotate: [0, 0, 0, 0, -40, -90, -90], opacity: [0, 0, 1, 1, 1, 0, 0] },
         loop: bob
       },
-      { name: "the town", svg: town, keys: { at: [0, 0.5, 0.54], opacity: [0, 0, 1] } },
-      { name: "palm of the town", svg: townPalm, origin: { x: 111, y: 88 }, keys: { at: [0, 0.5, 0.54], opacity: [0, 0, 1] }, loop: { move: "sway", ms: 3400, angle: 1.6 } },
+      { name: "the town", svg: town, keys: { at: [0, 0.52, 0.56], opacity: [0, 0, 1] } },
+      { name: "palm of the town", svg: townPalm, origin: { x: 111, y: 88 }, keys: { at: [0, 0.52, 0.56], opacity: [0, 0, 1] }, loop: { move: "sway", ms: 3400, angle: 1.6 } },
       { name: "wall about to fall", svg: wall, origin: { x: 52, y: 88 }, keys: leaning },
       { name: "cracks", svg: cracks, origin: { x: 52, y: 88 }, keys: { ...leaning, opacity: [0, 0, 1, 1, 0] } },
-      { name: "ground in front", svg: frontGround, keys: { at: [0, 0.5, 0.54], opacity: [0, 0, 1] } },
+      { name: "ground in front", svg: frontGround, keys: { at: [0, 0.52, 0.56], opacity: [0, 0, 1] } },
       { name: "under the wall", svg: cutaway, keys: showFrom(0.84, 0.88) },
       { name: "the orphans' treasure", svg: chest, keys: { at: [0, 0.86, 0.9], opacity: [0, 0, 1], y: [6, 6, 0] } },
       { name: "gold glints", svg: glints, keys: showFrom(0.9, 0.92), loop: { move: "twinkle", ms: 900, low: 0.2 } }
@@ -312,8 +312,8 @@ function khidr(): SignArt {
   };
 }
 
-/** Where the mountains' inner sides are, `y` down: the left one from (42, 44) to (64, 96), the right one from (118, 44) to (96, 96). */
-const sideAt = (y: number) => ({ left: n(42 + (22 * (y - 44)) / 52), right: n(118 - (22 * (y - 44)) / 52) });
+/** Where the mountains' inner sides are, `y` down: the left one from (44, 50) to (64, 96), the right one from (116, 50) to (96, 96). */
+const sideAt = (y: number) => ({ left: n(44 + (20 * (y - 50)) / 46), right: n(116 - (20 * (y - 50)) / 46) });
 
 /** The gap between the mountains from `top` down to `foot`, as a shape. */
 const gapShape = (top: number, foot: number) => {
@@ -344,32 +344,33 @@ const copperStream = (x: number, top: number, foot: number) =>
   `<path d="M${x} ${top + 2} C${x - 1} ${n(top + (foot - top) * 0.4)} ${x + 0.6} ${n(top + (foot - top) * 0.7)} ${x - 0.6} ${foot - 2}" stroke="#FFC46B" stroke-width="0.9" fill="none" stroke-linecap="round"/>`;
 
 // The barrier between the two mountains: a gap between their sides, blocks of iron brought until it was filled level
-// with them, blown upon until it was like fire, molten copper poured over it, and it stood: Gog and Magog could not
+// with them, up to their tops (Ibn Kathir on 18:96), blown upon until it was like fire, molten copper poured over it, and it stood: Gog and Magog could not
 // climb over it nor dig through it (Quran 18:93, 18:96, 18:97). No one is drawn: not Dhul-Qarnayn, nor the people who
 // asked for the barrier, nor those behind it; the blocks and the copper come to their places by themselves.
 function barrier(): SignArt {
   const scene = `${sky("#C9E4F5", "#E4F0F6", 60)}<path d="M54 96 C66 88 94 88 106 96 Z" fill="#B9C7B0"/>`;
   const clouds = cloud(24, 26, 0.7, "#FFFFFF", 0.9) + cloud(104, 18, 0.55, "#FFFFFF", 0.85) + cloud(148, 30, 0.6, "#FFFFFF", 0.9);
   const mountains =
-    `<path d="M0 96 L0 56 C8 46 18 32 28 28 C34 30 38 36 42 44 L64 96 Z" fill="#8C7B6A"/><path d="M28 28 C34 30 38 36 42 44 L64 96 L46 96 C42 70 36 46 28 28 Z" fill="#000000" opacity="0.14"/>` +
-    `<path d="M160 96 L160 54 C152 44 142 30 132 26 C126 28 122 36 118 44 L96 96 Z" fill="#8C7B6A"/><path d="M132 26 C142 30 152 44 160 54 L160 96 L140 96 C140 70 138 44 132 26 Z" fill="#000000" opacity="0.14"/>` +
-    `<path d="M14 60 l6 -2 M22 76 l7 1 M138 64 l6 2 M146 80 l6 -1" stroke="#7A6A5A" stroke-width="0.9" stroke-linecap="round"/>`;
+    `<path d="M0 96 L0 57 C5 54 10 51 16 51 C20 51 23 49 27 49 C31 49 34 51 38 50.4 C41 49.9 43 49.8 44 50 L64 96 Z" fill="#8C7B6A"/><path d="M32 50.6 C38 50.2 42 49.8 44 50 L64 96 L46 96 C44 78 39 62 32 50.6 Z" fill="#000000" opacity="0.14"/>` +
+    `<path d="M160 96 L160 57 C155 54 150 51 144 51 C140 51 137 49 133 49 C129 49 126 51 122 50.4 C119 49.9 117 49.8 116 50 L96 96 Z" fill="#8C7B6A"/><path d="M144 51 C150 51 155 54 160 57 L160 96 L142 96 C143 80 144 64 144 51 Z" fill="#000000" opacity="0.14"/>` +
+    `<path d="M14 62 l6 -2 M22 78 l7 1 M138 66 l6 2 M146 82 l6 -1" stroke="#7A6A5A" stroke-width="0.9" stroke-linecap="round"/>`;
   const ground = `<rect y="96" width="160" height="24" fill="#C9B48E"/><path d="M0 96 L160 96" stroke="#B49E76" stroke-width="1"/><path d="M10 104 l6 0 M120 106 l7 0 M70 108 l5 0" stroke="#B49E76" stroke-width="0.8" stroke-linecap="round"/>`;
   const rows = [
-    [85, 96, 3],
-    [74, 85, 8],
-    [63, 74, 4],
-    [52, 63, 9]
+    [84.5, 96, 3],
+    [73, 84.5, 8],
+    [61.5, 73, 4],
+    [50, 61.5, 9]
   ];
   const blockKeys = (index: number): SignKeys => {
     const from = at3(0.2 + index * 0.04);
     return { at: [0, from, at3(from + 0.03)], opacity: [0, 0, 1], y: [-36, -36, 0] };
   };
-  const whole = gapShape(52, 96);
-  const redHot = `<path d="${whole}" fill="#FF6A2A" opacity="0.88"/><path d="M${sideAt(63).left} 63 L${sideAt(63).right} 63 M${sideAt(74).left} 74 L${sideAt(74).right} 74 M${sideAt(85).left} 85 L${sideAt(85).right} 85" stroke="#FFC15A" stroke-width="0.9" opacity="0.8"/>`;
+  const whole = gapShape(50, 96);
+  const seams = [61.5, 73, 84.5].map((y) => `M${sideAt(y).left} ${y} L${sideAt(y).right} ${y}`).join(" ");
+  const redHot = `<path d="${whole}" fill="#FF6A2A" opacity="0.88"/><path d="${seams}" stroke="#FFC15A" stroke-width="0.9" opacity="0.8"/>`;
   const heat = `${glow(80, 76, 30, "#FFB060", 0.05)}`;
   const fires = flame(68, 97, 12) + flame(80, 97, 15) + flame(92, 97, 12);
-  const coated = `<path d="${whole}" fill="#B8743F" opacity="0.92"/><path d="M${sideAt(56).left + 3} 56 L${sideAt(56).right - 3} 56" stroke="#E0A56A" stroke-width="1.2" stroke-linecap="round"/><path d="M58 66 L70 92 M92 60 L100 78" stroke="#D69257" stroke-width="1.4" stroke-linecap="round" opacity="0.7"/>`;
+  const coated = `<path d="${whole}" fill="#B8743F" opacity="0.92"/><path d="M${n(sideAt(54).left + 3)} 54 L${n(sideAt(54).right - 3)} 54" stroke="#E0A56A" stroke-width="1.2" stroke-linecap="round"/><path d="M58 66 L70 92 M92 60 L100 78" stroke="#D69257" stroke-width="1.4" stroke-linecap="round" opacity="0.7"/>`;
   const shine = `<path d="M60 60 l2 -3 l2 3 l-2 3 Z M98 70 l1.6 -2.4 l1.6 2.4 l-1.6 2.4 Z M76 84 l1.4 -2 l1.4 2 l-1.4 2 Z" fill="#FFF1D2"/>`;
   return {
     kind: "barrier",
@@ -383,9 +384,9 @@ function barrier(): SignArt {
       { name: "heat", svg: heat, keys: { at: [0, 0.4, 0.46, 0.6, 0.66], opacity: [0, 0, 1, 1, 0] }, loop: { move: "twinkle", ms: 900, low: 0.5 } },
       { name: "iron like fire", svg: redHot, keys: { at: [0, 0.42, 0.5, 0.74, 0.78], opacity: [0, 0, 1, 1, 0] }, loop: { move: "twinkle", ms: 1100, low: 0.75 } },
       { name: "fires at the foot", svg: fires, keys: { at: [0, 0.4, 0.44, 0.58, 0.62], opacity: [0, 0, 1, 1, 0] }, loop: { move: "bob", ms: 500, y: 0.6 } },
-      { name: "left pot", svg: potOf(46, 51), origin: { x: 46, y: 51 }, keys: { at: [0, 0.58, 0.62, 0.64, 0.76, 0.8], opacity: [0, 0, 1, 1, 1, 0], rotate: [0, 0, 0, 50, 50, 50] } },
-      { name: "right pot", svg: potOf(114, 51), origin: { x: 114, y: 51 }, keys: { at: [0, 0.58, 0.62, 0.64, 0.76, 0.8], opacity: [0, 0, 1, 1, 1, 0], rotate: [0, 0, 0, -50, -50, -50] } },
-      { name: "molten copper", svg: copperStream(56, 52, 96) + copperStream(80, 52, 96) + copperStream(104, 52, 96), origin: { x: 80, y: 52 }, keys: { at: [0, 0.63, 0.64, 0.72, 0.76, 0.8], opacity: [0, 0, 1, 1, 1, 0], scaleY: [0.02, 0.02, 0.04, 1, 1, 1] } },
+      { name: "left pot", svg: potOf(38, 50), origin: { x: 38, y: 50 }, keys: { at: [0, 0.58, 0.62, 0.64, 0.76, 0.8], opacity: [0, 0, 1, 1, 1, 0], rotate: [0, 0, 0, 50, 50, 50] } },
+      { name: "right pot", svg: potOf(122, 50), origin: { x: 122, y: 50 }, keys: { at: [0, 0.58, 0.62, 0.64, 0.76, 0.8], opacity: [0, 0, 1, 1, 1, 0], rotate: [0, 0, 0, -50, -50, -50] } },
+      { name: "molten copper", svg: copperStream(56, 50, 96) + copperStream(80, 50, 96) + copperStream(104, 50, 96), origin: { x: 80, y: 50 }, keys: { at: [0, 0.63, 0.64, 0.72, 0.76, 0.8], opacity: [0, 0, 1, 1, 1, 0], scaleY: [0.02, 0.02, 0.04, 1, 1, 1] } },
       { name: "barrier of iron and copper", svg: coated, keys: showFrom(0.72, 0.78) },
       { name: "shine", svg: shine, keys: showFrom(0.82, 0.86), loop: { move: "twinkle", ms: 1300, low: 0.15 } }
     ],

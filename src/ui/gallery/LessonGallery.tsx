@@ -907,6 +907,14 @@ const STATES: State[] = [
   { id: "scene-true-false", render: () => <SceneQuestionDemo lessonId="lesson-deep-prophet-salih-turns" ask="was a sign" /> },
   { id: "scene-ants", render: () => <SceneQuestionDemo lessonId="lesson-deep-prophet-sulayman-ant" ask="tell the other ants" /> },
   { id: "scene-birds", render: () => <SceneQuestionDemo lessonId="lesson-deep-mulk-birds" ask="holds the birds" /> },
+  // The Prophets' stories: the stick become a snake, the staff swallowing their tricks, the wall set straight, the iron up
+  // to the mountains' tops, the gourd plant over Yunus, the dates falling for Maryam.
+  { id: "scene-tur", render: () => <SceneQuestionDemo lessonId="lesson-deep-taha1-the-staff-became-a-snake" ask="What did the stick become" /> },
+  { id: "scene-staff", render: () => <SceneQuestionDemo lessonId="lesson-deep-araf4-staff-swallows" ask="What did the staff do" /> },
+  { id: "scene-khidr", render: () => <SceneQuestionDemo lessonId="lesson-deep-kahf3-the-wall-set-straight" ask="What did Al-Khidr fix" /> },
+  { id: "scene-barrier", render: () => <SceneQuestionDemo lessonId="lesson-deep-kahf4-the-iron-barrier" ask="How high did the blocks go" /> },
+  { id: "scene-yunus", render: () => <SceneQuestionDemo lessonId="lesson-deep-saffat5-the-gourd-plant" ask="What grew over him" /> },
+  { id: "scene-maryam", render: () => <SceneQuestionDemo lessonId="lesson-deep-maryam1-dates-and-a-stream" ask="What fell from the palm" /> },
   // Month questions on the year: Ashura in Muharram; Sha'ban, answered wrong (the right month turns green, its moon full).
   { id: "month", render: () => <MonthQuestionDemo lessonId="lesson-deep-days-ashura" ask="Ashura is in" /> },
   { id: "month-picked", render: () => <MonthQuestionDemo lessonId="lesson-deep-days-ashura" ask="Ashura is in" pick="right" /> },
