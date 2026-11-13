@@ -12,9 +12,11 @@ import { SkyGame } from "../lesson/SkyGame";
 import { skyTimesFor } from "../lesson/skyQuestions";
 import { MonthGame } from "../lesson/MonthGame";
 import { monthsFor } from "../lesson/monthQuestions";
-import { AnimalGame, AnimalPicture } from "../lesson/AnimalGame";
-import { animalsFor } from "../lesson/animalQuestions";
+import { CardGame, CardPicture } from "../lesson/CardGame";
+import { cardsFor } from "../lesson/cardQuestions";
 import { ANIMAL_KINDS } from "../lesson/animalArt";
+import { THING_KINDS } from "../lesson/thingArt";
+import type { CardKind } from "../lesson/cardArt";
 import { SurahCover } from "../lesson/SurahCover";
 import { ALBUM_SETS } from "../../data/albumSets";
 import { addToAlbum } from "../../services/pictureAlbum";
@@ -474,17 +476,17 @@ function MonthQuestionDemo({ lessonId, ask, pick, check }: { lessonId: string; a
 }
 
 /**
- * An animal question on picture cards, from a real lesson (?lang=bn, ur or ar): the first one whose prompt has `ask`.
+ * A question on picture cards, from a real lesson (?lang=bn, ur or ar): the first one whose prompt has `ask`.
  * `pick`: an answer already picked; `check`: and checked (the answer sheet up).
  */
-function AnimalQuestionDemo({ lessonId, ask, pick, check }: { lessonId: string; ask: string; pick?: "right" | "wrong"; check?: boolean }) {
+function CardQuestionDemo({ lessonId, ask, pick, check }: { lessonId: string; ask: string; pick?: "right" | "wrong"; check?: boolean }) {
   const query = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("lang") : null;
   const language = (["en", "bn", "ur", "ar"].includes(query ?? "") ? query : "en") as SupportedLanguage;
   setActiveLanguage(language);
   const english = LESSONS_BY_ID[lessonId];
   const index = Math.max(0, english.challenges.findIndex((challenge) => challenge.prompt.includes(ask)));
   const challenge = localizeLessonContent(english, language).challenges[index];
-  const animals = animalsFor(english.challenges[index]) ?? {};
+  const kinds = cardsFor(english.challenges[index]) ?? {};
   const wrongId = challenge.choices.find((choice) => choice.id !== challenge.correctChoiceId)?.id;
   const [selected, setSelected] = useState<string | undefined>(pick === "right" ? challenge.correctChoiceId : pick === "wrong" ? wrongId : undefined);
   const [checked, setChecked] = useState(Boolean(check));
@@ -492,10 +494,10 @@ function AnimalQuestionDemo({ lessonId, ask, pick, check }: { lessonId: string; 
   const correct = selected === challenge.correctChoiceId;
   return (
     <LessonScreen progress={0.45} hearts={FULL_HEARTS} onClose={noop}>
-      <AnimalGame
+      <CardGame
         prompt={challenge.prompt}
         choices={challenge.choices}
-        animals={animals}
+        kinds={kinds}
         correctChoiceId={challenge.correctChoiceId}
         selectedChoiceId={selected}
         result={checked ? { correct, correctLabel, why: shortWhy({ explanation: challenge.explanation, prompt: challenge.prompt, correctLabel }) } : undefined}
@@ -514,13 +516,13 @@ function AnimalQuestionDemo({ lessonId, ask, pick, check }: { lessonId: string; 
   );
 }
 
-/** Every animal the cards can draw, moving, each with its name: to look them all over at once. */
-function AnimalWall() {
+/** Every animal (or every thing) the cards can draw, moving, each with its name: to look them all over at once. */
+function CardWall({ kinds }: { kinds: CardKind[] }) {
   return (
     <ScrollView contentContainerStyle={styles.wall}>
-      {ANIMAL_KINDS.map((kind) => (
+      {kinds.map((kind) => (
         <View key={kind} style={styles.animalItem} testID={`zoo-${kind}`}>
-          <AnimalPicture kind={kind} width={136} height={104} still={false} />
+          <CardPicture kind={kind} width={136} height={104} still={false} />
           <Text style={styles.caption}>{kind}</Text>
         </View>
       ))}
@@ -860,14 +862,32 @@ const STATES: State[] = [
   { id: "month-qadr", render: () => <MonthQuestionDemo lessonId="lesson-deep-qadr1-in-the-month-of-ramadan" ask="Night of Al-Qadr" /> },
   // Animal questions on picture cards: the hoopoe that brought Sulayman news; the mosquito of 2:26, answered wrong;
   // Salih's she-camel among three; the scorpion among small creatures; the sea's whale and the land's lion together.
-  { id: "animal", render: () => <AnimalQuestionDemo lessonId="lesson-deep-prophet-sulayman-hoopoe" ask="brought Sulayman news" /> },
-  { id: "animal-picked", render: () => <AnimalQuestionDemo lessonId="lesson-deep-prophet-sulayman-hoopoe" ask="brought Sulayman news" pick="right" /> },
-  { id: "animal-right", render: () => <AnimalQuestionDemo lessonId="lesson-deep-prophet-sulayman-hoopoe" ask="brought Sulayman news" pick="right" check /> },
-  { id: "animal-wrong", render: () => <AnimalQuestionDemo lessonId="lesson-deep-baqarah1-mosquito" ask="2:26" pick="wrong" check /> },
-  { id: "animal-three", render: () => <AnimalQuestionDemo lessonId="lesson-prophets-early-messengers-hud-and-salih" ask="Salih's people" /> },
-  { id: "animal-sting", render: () => <AnimalQuestionDemo lessonId="lesson-deep-dua-adhkar-perfect-words" ask="stung" /> },
-  { id: "animal-sea", render: () => <AnimalQuestionDemo lessonId="lesson-surah-meaning-2-21-29" ask="ayah 26" /> },
-  { id: "animal-zoo", render: () => <AnimalWall /> },
+  { id: "animal", render: () => <CardQuestionDemo lessonId="lesson-deep-prophet-sulayman-hoopoe" ask="brought Sulayman news" /> },
+  { id: "animal-picked", render: () => <CardQuestionDemo lessonId="lesson-deep-prophet-sulayman-hoopoe" ask="brought Sulayman news" pick="right" /> },
+  { id: "animal-right", render: () => <CardQuestionDemo lessonId="lesson-deep-prophet-sulayman-hoopoe" ask="brought Sulayman news" pick="right" check /> },
+  { id: "animal-wrong", render: () => <CardQuestionDemo lessonId="lesson-deep-baqarah1-mosquito" ask="2:26" pick="wrong" check /> },
+  { id: "animal-three", render: () => <CardQuestionDemo lessonId="lesson-prophets-early-messengers-hud-and-salih" ask="Salih's people" /> },
+  { id: "animal-sting", render: () => <CardQuestionDemo lessonId="lesson-deep-dua-adhkar-perfect-words" ask="stung" /> },
+  { id: "animal-sea", render: () => <CardQuestionDemo lessonId="lesson-surah-meaning-2-21-29" ask="ayah 26" /> },
+  { id: "animal-zoo", render: () => <CardWall kinds={ANIMAL_KINDS} /> },
+  // Things on picture cards: the fresh dates that fell for Maryam; the iron softened for Dawud, answered wrong; foods,
+  // fruits and metals; the light, the fire, the water and the clay; the rain, the rivers, the sea; three answers; an
+  // animal among things; and a wall of every thing, moving.
+  { id: "cards", render: () => <CardQuestionDemo lessonId="lesson-surah-meaning-19-16-26" ask="fell from the palm" /> },
+  { id: "cards-picked", render: () => <CardQuestionDemo lessonId="lesson-surah-meaning-19-16-26" ask="fell from the palm" pick="right" /> },
+  { id: "cards-right", render: () => <CardQuestionDemo lessonId="lesson-surah-meaning-19-16-26" ask="fell from the palm" pick="right" check /> },
+  { id: "cards-wrong", render: () => <CardQuestionDemo lessonId="lesson-surah-meaning-34-10-21" ask="soften for Dawud" pick="wrong" check /> },
+  { id: "cards-food", render: () => <CardQuestionDemo lessonId="lesson-deep-fasting-suhur-to-iftar-dates-at-suhur" ask="suhur" /> },
+  { id: "cards-fruit", render: () => <CardQuestionDemo lessonId="lesson-deep-anam2-rain-gardens" ask="Which fruit" /> },
+  { id: "cards-metal", render: () => <CardQuestionDemo lessonId="lesson-deep-prophet-dawud-mountains-birds" ask="Which metal" /> },
+  { id: "cards-light", render: () => <CardQuestionDemo lessonId="lesson-deep-kahf2-angels-from-light" ask="angels created" /> },
+  { id: "cards-rain", render: () => <CardQuestionDemo lessonId="lesson-surah-meaning-71-10-20" ask="pouring down" /> },
+  { id: "cards-river", render: () => <CardQuestionDemo lessonId="lesson-deep-tawbah3-fine-dwellings" ask="flows beneath" /> },
+  { id: "cards-sea", render: () => <CardQuestionDemo lessonId="lesson-surah-meaning-38-15-26" ask="glorified Allah" /> },
+  { id: "cards-sky", render: () => <CardQuestionDemo lessonId="lesson-surah-meaning-38-27-40" ask="obeyed Sulayman" /> },
+  { id: "cards-three", render: () => <CardQuestionDemo lessonId="lesson-women-quran-depth-asiyah-and-steadfastness" ask="Asiyah asked" /> },
+  { id: "cards-mixed", render: () => <CardQuestionDemo lessonId="lesson-surah-meaning-7-73-93" ask="Salih's sign" /> },
+  { id: "thing-zoo", render: () => <CardWall kinds={THING_KINDS} /> },
   {
     id: "match",
     render: () => (

@@ -1,8 +1,9 @@
+import type { CardArt, CardMotion } from "./cardArt";
+
 /**
- * The animals of the animal questions (animalQuestions.ts), drawn for their picture cards (AnimalGame.tsx): each in a
- * box 100 wide and 80 high, facing right, in plain shapes. A flying animal's wings are drawn apart (`wings`), so they
- * can beat; each animal moves its own way (`motion`) in its own place (`home`). Only animals are drawn: never a
- * person, and nothing that stands for one.
+ * The animals of the picture cards (cardQuestions.ts, CardGame.tsx): each in a box 100 wide and 80 high, facing
+ * right, in plain shapes. A flying animal's wings are drawn apart (`wings`), so they can beat; each animal moves its
+ * own way (`motion`) in its own place (`home`). Only animals are drawn: never a person, and nothing that stands for one.
  */
 
 export type AnimalKind =
@@ -36,24 +37,6 @@ export type AnimalKind =
   | "locust"
   | "scorpion"
   | "snake";
-
-/** How an animal moves: walks on the spot, flies with beating wings, buzzes about, swims, or creeps along. */
-export type AnimalMotion = "walk" | "fly" | "buzz" | "swim" | "creep";
-/** Where it is drawn: on the sand under the sky, in the sky, in the sea, or on the ground close up. */
-export type AnimalHome = "land" | "sky" | "sea" | "ground";
-
-export type AnimalArt = {
-  kind: AnimalKind;
-  motion: AnimalMotion;
-  home: AnimalHome;
-  /** The animal, but for the wings of one that flies. */
-  body: string;
-  /** The wings, drawn over the body, beating up and down about `pivot` (the line where they join the body). */
-  wings?: string;
-  pivot?: number;
-};
-
-export const ANIMAL_BOX = { width: 100, height: 80 } as const;
 
 const INK = "#2B2B2B";
 const svg = (inner: string) => `<svg xmlns="http://www.w3.org/2000/svg" width="100" height="80" viewBox="0 0 100 80">${inner}</svg>`;
@@ -548,14 +531,15 @@ function snake() {
   );
 }
 
-const flyer = (kind: AnimalKind, art: { body: string; wings: string; pivot: number }, motion: AnimalMotion = "fly"): AnimalArt => ({
+const flyer = (kind: AnimalKind, art: { body: string; wings: string; pivot: number }, motion: CardMotion = "fly"): CardArt => ({
   kind,
   motion,
   home: "sky",
   ...art
 });
 
-const ART: Record<AnimalKind, () => AnimalArt> = {
+/** Each animal's drawing, how it moves and where it is drawn. */
+export const ANIMAL_ART: Record<AnimalKind, () => CardArt> = {
   camel: () => ({ kind: "camel", motion: "walk", home: "land", body: camel() }),
   horse: () => ({ kind: "horse", motion: "walk", home: "land", body: horseLike({ main: "#A2622F", far: "#80491F", mane: "#3D2617", ears: "short", tail: "full" }) }),
   donkey: () => ({ kind: "donkey", motion: "walk", home: "land", body: horseLike({ main: "#9EA4AA", far: "#80868D", light: "#E2E4E7", mane: "#4A4F55", ears: "long", tail: "tuft" }) }),
@@ -588,51 +572,4 @@ const ART: Record<AnimalKind, () => AnimalArt> = {
   snake: () => ({ kind: "snake", motion: "creep", home: "ground", body: snake() })
 };
 
-/**
- * Where each animal is drawn, stretched to fill its card's picture: the sand under the sky, the open sky with a cloud,
- * the sea with its bubbles, or the ground close up with pebbles and grass.
- */
-export function homeSvg(home: AnimalHome) {
-  const box = (inner: string) => `<svg xmlns="http://www.w3.org/2000/svg" width="100" height="80" viewBox="0 0 100 80" preserveAspectRatio="none">${inner}</svg>`;
-  switch (home) {
-    case "land":
-      return box(
-        `<rect width="100" height="80" fill="#D6EFFF"/><rect y="38" width="100" height="24" fill="#EAF6FF"/>` +
-          `<path d="M0 62 C20 58 40 60 60 59 C78 58 90 60 100 61 L100 80 L0 80 Z" fill="#F3D8A2"/>` +
-          `<path d="M0 72 C24 69 50 71 74 70 C86 70 94 71 100 72 L100 80 L0 80 Z" fill="#EACB8E"/>`
-      );
-    case "sky":
-      return box(
-        `<rect width="100" height="80" fill="#BFE4FF"/><rect y="50" width="100" height="30" fill="#DDF1FF"/>` +
-          `<ellipse cx="18" cy="16" rx="12" ry="4.5" fill="#FFFFFF" opacity="0.9"/><ellipse cx="26" cy="13" rx="7" ry="4" fill="#FFFFFF" opacity="0.9"/>` +
-          `<ellipse cx="84" cy="66" rx="13" ry="4.5" fill="#FFFFFF" opacity="0.85"/><ellipse cx="78" cy="63" rx="7" ry="4" fill="#FFFFFF" opacity="0.85"/>`
-      );
-    case "sea":
-      return box(
-        `<rect width="100" height="80" fill="#5AB7E8"/><rect y="44" width="100" height="36" fill="#3F9AD3"/>` +
-          `<path d="M0 74 C14 70 24 76 40 73 C56 70 66 76 82 73 C90 72 96 74 100 73 L100 80 L0 80 Z" fill="#E9D3A0"/>` +
-          `<circle cx="10" cy="56" r="2" fill="#FFFFFF" opacity="0.55"/><circle cx="15" cy="46" r="1.3" fill="#FFFFFF" opacity="0.55"/>` +
-          `<circle cx="90" cy="24" r="1.8" fill="#FFFFFF" opacity="0.55"/><circle cx="94" cy="14" r="1.2" fill="#FFFFFF" opacity="0.55"/>`
-      );
-    case "ground":
-      return box(
-        `<rect width="100" height="80" fill="#F6E7C8"/><rect y="58" width="100" height="22" fill="#EAD3A6"/>` +
-          `<ellipse cx="14" cy="68" rx="3.4" ry="1.6" fill="#D5B98A"/><ellipse cx="84" cy="66" rx="2.6" ry="1.3" fill="#D5B98A"/><ellipse cx="66" cy="76" rx="2" ry="1" fill="#D5B98A"/>` +
-          `<path d="M6 80 L8 72 L10 80 M90 80 L92 71 L94 80 M96 80 L97 74 L99 80" fill="#9CC46A"/>`
-      );
-  }
-}
-
-export const ANIMAL_KINDS = Object.keys(ART) as AnimalKind[];
-
-const drawn = new Map<AnimalKind, AnimalArt>();
-
-/** An animal's drawing, made once. */
-export function animalArt(kind: AnimalKind): AnimalArt {
-  let art = drawn.get(kind);
-  if (!art) {
-    art = ART[kind]();
-    drawn.set(kind, art);
-  }
-  return art;
-}
+export const ANIMAL_KINDS = Object.keys(ANIMAL_ART) as AnimalKind[];

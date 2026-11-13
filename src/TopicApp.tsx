@@ -206,8 +206,8 @@ import { SkyGame } from "./ui/lesson/SkyGame";
 import { skyTimesFor } from "./ui/lesson/skyQuestions";
 import { MonthGame } from "./ui/lesson/MonthGame";
 import { monthsFor } from "./ui/lesson/monthQuestions";
-import { AnimalGame } from "./ui/lesson/AnimalGame";
-import { animalsFor } from "./ui/lesson/animalQuestions";
+import { CardGame } from "./ui/lesson/CardGame";
+import { cardsFor } from "./ui/lesson/cardQuestions";
 import * as Speech from "expo-speech";
 import { findArabicVoice, recitationForArabic } from "./services/arabicVoice";
 import { playAyah, stopAyah } from "./services/ayahPlayer";
@@ -4005,8 +4005,9 @@ export default function TopicApp() {
   const answerTimes = pictureChallenge && !pictureChallenge.listen && pictureChallenge.type === "multiple_choice" ? skyTimesFor(pictureChallenge) : undefined;
   // Every answer a month (Ramadan, Sha'ban, Muharram): asked on the year, where each falls.
   const answerMonths = pictureChallenge && !pictureChallenge.listen && pictureChallenge.type === "multiple_choice" ? monthsFor(pictureChallenge) : undefined;
-  // Every answer an animal (the hoopoe, the crow, the eagle): asked on picture cards, each animal drawn and moving.
-  const answerAnimals = pictureChallenge && !pictureChallenge.listen && pictureChallenge.type === "multiple_choice" ? animalsFor(pictureChallenge) : undefined;
+  // Every answer an animal or a thing that is drawn (the hoopoe, the crow; dates, milk, honey; the rain, the wind):
+  // asked on picture cards, each drawn in its place and moving.
+  const answerCards = pictureChallenge && !pictureChallenge.listen && pictureChallenge.type === "multiple_choice" ? cardsFor(pictureChallenge) : undefined;
   const inTest = isTestSession(lessonSession);
   const testPassingScore = inTest && lesson ? lessonSession?.passingScore ?? testOutPassingScore(lesson.challenges.length) : 0;
   // The pages of the lesson: what the source says (when it is about this lesson), the words its questions ask
@@ -4023,7 +4024,7 @@ export default function TopicApp() {
     challenge && (challenge.isReview || (lesson && isRecallLesson(lesson)) || (lessonSession?.mode && lessonSession.mode !== "standard"))
   );
   const questionFormatNow = challenge
-    ? questionFormat(challenge, { recall: questionRecall, language: currentLanguage, pictures: Boolean(answerPictures), map: Boolean(answerPlaces), sky: Boolean(answerTimes), month: Boolean(answerMonths), animal: Boolean(answerAnimals) })
+    ? questionFormat(challenge, { recall: questionRecall, language: currentLanguage, pictures: Boolean(answerPictures), map: Boolean(answerPlaces), sky: Boolean(answerTimes), month: Boolean(answerMonths), cards: Boolean(answerCards) })
     : "choose";
   const checkShown = challenge && questionFormatNow === "check" ? checkCandidate(challenge) : undefined;
   const fillNow = challenge && questionFormatNow === "fill" ? fillPiece(challenge) : undefined;
@@ -4301,12 +4302,12 @@ export default function TopicApp() {
                 {...questionShared}
                 onSelect={(choiceId) => dispatch({ type: "select_choice", choiceId })}
               />
-            ) : questionFormatNow === "animal" && answerAnimals ? (
-              <AnimalGame
-                key={`${challenge.id}-animal-${lessonStep.attempt}`}
+            ) : questionFormatNow === "cards" && answerCards ? (
+              <CardGame
+                key={`${challenge.id}-cards-${lessonStep.attempt}`}
                 prompt={challenge.prompt}
                 choices={challenge.choices}
-                animals={answerAnimals}
+                kinds={answerCards}
                 correctChoiceId={challenge.correctChoiceId}
                 {...questionShared}
                 onSelect={(choiceId) => dispatch({ type: "select_choice", choiceId })}

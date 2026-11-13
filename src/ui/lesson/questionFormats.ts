@@ -12,9 +12,10 @@ import { hasArabic } from "../ArabicText";
 //   map     every answer a place: tap the right one where it is, on a map of the land (mapQuestions)
 //   sky     every answer a time of the day: tap the right one, and the sky plays to it (skyQuestions)
 //   month   every answer a month: tap the right one where it falls in the year, and its moon fills (monthQuestions)
-//   animal  every answer an animal: tap the right one on picture cards, each animal drawn and moving (animalQuestions)
+//   cards   every answer an animal or a thing that is drawn (dates, the rain, iron): tap the right one on picture
+//           cards, each drawn in its place and moving its own way (cardQuestions)
 
-export type QuestionFormat = "choose" | "blank" | "fill" | "check" | "map" | "sky" | "month" | "animal";
+export type QuestionFormat = "choose" | "blank" | "fill" | "check" | "map" | "sky" | "month" | "cards";
 
 /**
  * Whether questions are asked in more than one way (and quiz circles open with a matching round). Always on in
@@ -37,8 +38,8 @@ export type FormatContext = {
   sky?: boolean;
   /** Every answer is a month (monthsFor): asked on the year. */
   month?: boolean;
-  /** Every answer is an animal (animalsFor): asked on picture cards, each animal drawn and moving. */
-  animal?: boolean;
+  /** Every answer is an animal or a thing that is drawn (cardsFor): asked on picture cards, each drawn and moving. */
+  cards?: boolean;
 };
 
 const BLANK = /_{2,}/;
@@ -190,8 +191,8 @@ export function questionFormat(challenge: Pick<Challenge, "id" | "type" | "promp
   if (context.sky) return "sky";
   // Months are found on the year, in their order, the moon of the one picked filling.
   if (context.month) return "month";
-  // Animals are picked on picture cards, each one drawn in its place and moving its own way.
-  if (context.animal) return "animal";
+  // Animals and things are picked on picture cards, each one drawn in its place and moving its own way.
+  if (context.cards) return "cards";
   const roll = formatSeed(`${challenge.id}|${context.recall ? "recall" : "learn"}`) % 100;
   // Places are found on the map; places with their own photos are picture cards the other half of the time, so the
   // same question taught one way is often asked the other way later.
