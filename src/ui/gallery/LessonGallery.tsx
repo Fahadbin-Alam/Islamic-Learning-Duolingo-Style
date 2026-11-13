@@ -9,7 +9,7 @@ import { MatchGame } from "../lesson/WordGames";
 import { MapGame } from "../lesson/MapGame";
 import { mapPlacesFor } from "../lesson/mapQuestions";
 import { SkyGame } from "../lesson/SkyGame";
-import { skyTimesFor } from "../lesson/skyQuestions";
+import { answersArePrayers, skyTimesFor } from "../lesson/skyQuestions";
 import { SceneGame } from "../lesson/SceneGame";
 import { sceneQuestionFor } from "../lesson/sceneQuestions";
 import { MonthGame } from "../lesson/MonthGame";
@@ -555,6 +555,7 @@ function SkyQuestionDemo({ lessonId, ask, pick, check }: { lessonId: string; ask
         prompt={challenge.prompt}
         choices={challenge.choices}
         times={times}
+        byPrayer={answersArePrayers(english.challenges[index])}
         correctChoiceId={challenge.correctChoiceId}
         selectedChoiceId={selected}
         result={checked ? { correct, correctLabel, why: shortWhy({ explanation: challenge.explanation, prompt: challenge.prompt, correctLabel }) } : undefined}
@@ -898,6 +899,9 @@ const STATES: State[] = [
   { id: "sky-right", render: () => <SkyQuestionDemo lessonId="lesson-deep-fast-suhur-blessing" ask="suhur eaten" pick="right" check /> },
   { id: "sky-wrong", render: () => <SkyQuestionDemo lessonId="lesson-deep-insan4-prostrate-at-night" ask="who will call" pick="wrong" check /> },
   { id: "sky-zuhr", render: () => <SkyQuestionDemo lessonId="lesson-deep-prayer-sunnah-times-the-times-of-the-five-prayers" ask="pray Zuhr" /> },
+  // A prayer asked in the sky by its name (Maghrib, Fajr, Zuhr, Asr), each at its time; then answered right.
+  { id: "sky-prayer", render: () => <SkyQuestionDemo lessonId="lesson-deep-tur1-at-tur-in-maghrib" ask="recite At-Tur" /> },
+  { id: "sky-prayer-right", render: () => <SkyQuestionDemo lessonId="lesson-deep-tur1-at-tur-in-maghrib" ask="recite At-Tur" pick="right" check /> },
   // Story questions on their living scene: where the ark came to rest (waiting, picked, answered: the ark settles on
   // al-Judi); the twelve springs, answered wrong; a true-or-false on the she-camel; the ant's call; the birds held up.
   { id: "scene", render: () => <SceneQuestionDemo lessonId="lesson-deep-prophet-nuh-judi" ask="come to rest" /> },

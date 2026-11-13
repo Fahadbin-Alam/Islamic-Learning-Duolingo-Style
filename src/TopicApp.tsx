@@ -203,7 +203,7 @@ import { CheckGame, FillGame, GapGame, MatchGame } from "./ui/lesson/WordGames";
 import { MapGame } from "./ui/lesson/MapGame";
 import { mapPlacesFor } from "./ui/lesson/mapQuestions";
 import { SkyGame } from "./ui/lesson/SkyGame";
-import { skyTimesFor } from "./ui/lesson/skyQuestions";
+import { answersArePrayers, skyTimesFor } from "./ui/lesson/skyQuestions";
 import { MonthGame } from "./ui/lesson/MonthGame";
 import { monthsFor } from "./ui/lesson/monthQuestions";
 import { CardGame } from "./ui/lesson/CardGame";
@@ -4298,6 +4298,7 @@ export default function TopicApp() {
                 prompt={challenge.prompt}
                 choices={challenge.choices}
                 times={answerTimes}
+                byPrayer={answersArePrayers(pictureChallenge ?? challenge)}
                 correctChoiceId={challenge.correctChoiceId}
                 {...questionShared}
                 onSelect={(choiceId) => dispatch({ type: "select_choice", choiceId })}
