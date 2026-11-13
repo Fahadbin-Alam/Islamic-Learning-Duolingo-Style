@@ -12,6 +12,9 @@ import { SkyGame } from "../lesson/SkyGame";
 import { skyTimesFor } from "../lesson/skyQuestions";
 import { MonthGame } from "../lesson/MonthGame";
 import { monthsFor } from "../lesson/monthQuestions";
+import { AnimalGame, AnimalPicture } from "../lesson/AnimalGame";
+import { animalsFor } from "../lesson/animalQuestions";
+import { ANIMAL_KINDS } from "../lesson/animalArt";
 import { SurahCover } from "../lesson/SurahCover";
 import { ALBUM_SETS } from "../../data/albumSets";
 import { addToAlbum } from "../../services/pictureAlbum";
@@ -471,6 +474,61 @@ function MonthQuestionDemo({ lessonId, ask, pick, check }: { lessonId: string; a
 }
 
 /**
+ * An animal question on picture cards, from a real lesson (?lang=bn, ur or ar): the first one whose prompt has `ask`.
+ * `pick`: an answer already picked; `check`: and checked (the answer sheet up).
+ */
+function AnimalQuestionDemo({ lessonId, ask, pick, check }: { lessonId: string; ask: string; pick?: "right" | "wrong"; check?: boolean }) {
+  const query = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("lang") : null;
+  const language = (["en", "bn", "ur", "ar"].includes(query ?? "") ? query : "en") as SupportedLanguage;
+  setActiveLanguage(language);
+  const english = LESSONS_BY_ID[lessonId];
+  const index = Math.max(0, english.challenges.findIndex((challenge) => challenge.prompt.includes(ask)));
+  const challenge = localizeLessonContent(english, language).challenges[index];
+  const animals = animalsFor(english.challenges[index]) ?? {};
+  const wrongId = challenge.choices.find((choice) => choice.id !== challenge.correctChoiceId)?.id;
+  const [selected, setSelected] = useState<string | undefined>(pick === "right" ? challenge.correctChoiceId : pick === "wrong" ? wrongId : undefined);
+  const [checked, setChecked] = useState(Boolean(check));
+  const correctLabel = challenge.choices.find((choice) => choice.id === challenge.correctChoiceId)?.label ?? "";
+  const correct = selected === challenge.correctChoiceId;
+  return (
+    <LessonScreen progress={0.45} hearts={FULL_HEARTS} onClose={noop}>
+      <AnimalGame
+        prompt={challenge.prompt}
+        choices={challenge.choices}
+        animals={animals}
+        correctChoiceId={challenge.correctChoiceId}
+        selectedChoiceId={selected}
+        result={checked ? { correct, correctLabel, why: shortWhy({ explanation: challenge.explanation, prompt: challenge.prompt, correctLabel }) } : undefined}
+        mascotVariant="girl"
+        accent={accentOf(english)}
+        praiseSeed={challenge.id}
+        playSound={false}
+        onSelect={setSelected}
+        onCheck={() => setChecked(true)}
+        onContinue={() => {
+          setChecked(false);
+          setSelected(undefined);
+        }}
+      />
+    </LessonScreen>
+  );
+}
+
+/** Every animal the cards can draw, moving, each with its name: to look them all over at once. */
+function AnimalWall() {
+  return (
+    <ScrollView contentContainerStyle={styles.wall}>
+      {ANIMAL_KINDS.map((kind) => (
+        <View key={kind} style={styles.animalItem} testID={`zoo-${kind}`}>
+          <AnimalPicture kind={kind} width={136} height={104} still={false} />
+          <Text style={styles.caption}>{kind}</Text>
+        </View>
+      ))}
+    </ScrollView>
+  );
+}
+
+/**
  * A time question asked in the sky, from a real lesson (?lang=bn, ur or ar): the first one whose prompt has `ask`.
  * `pick`: an answer already picked; `check`: and checked (the answer sheet up).
  */
@@ -800,6 +858,16 @@ const STATES: State[] = [
   { id: "month-right", render: () => <MonthQuestionDemo lessonId="lesson-deep-days-ashura" ask="Ashura is in" pick="right" check /> },
   { id: "month-wrong", render: () => <MonthQuestionDemo lessonId="lesson-deep-fast-extra-shaban" ask="fast most" pick="wrong" check /> },
   { id: "month-qadr", render: () => <MonthQuestionDemo lessonId="lesson-deep-qadr1-in-the-month-of-ramadan" ask="Night of Al-Qadr" /> },
+  // Animal questions on picture cards: the hoopoe that brought Sulayman news; the mosquito of 2:26, answered wrong;
+  // Salih's she-camel among three; the scorpion among small creatures; the sea's whale and the land's lion together.
+  { id: "animal", render: () => <AnimalQuestionDemo lessonId="lesson-deep-prophet-sulayman-hoopoe" ask="brought Sulayman news" /> },
+  { id: "animal-picked", render: () => <AnimalQuestionDemo lessonId="lesson-deep-prophet-sulayman-hoopoe" ask="brought Sulayman news" pick="right" /> },
+  { id: "animal-right", render: () => <AnimalQuestionDemo lessonId="lesson-deep-prophet-sulayman-hoopoe" ask="brought Sulayman news" pick="right" check /> },
+  { id: "animal-wrong", render: () => <AnimalQuestionDemo lessonId="lesson-deep-baqarah1-mosquito" ask="2:26" pick="wrong" check /> },
+  { id: "animal-three", render: () => <AnimalQuestionDemo lessonId="lesson-prophets-early-messengers-hud-and-salih" ask="Salih's people" /> },
+  { id: "animal-sting", render: () => <AnimalQuestionDemo lessonId="lesson-deep-dua-adhkar-perfect-words" ask="stung" /> },
+  { id: "animal-sea", render: () => <AnimalQuestionDemo lessonId="lesson-surah-meaning-2-21-29" ask="ayah 26" /> },
+  { id: "animal-zoo", render: () => <AnimalWall /> },
   {
     id: "match",
     render: () => (
@@ -954,6 +1022,11 @@ const styles = StyleSheet.create({
   wallItem: {
     width: 300,
     padding: space.xs
+  },
+  animalItem: {
+    width: 152,
+    padding: space.xs,
+    alignItems: "center"
   },
   full: {
     flex: 1,
