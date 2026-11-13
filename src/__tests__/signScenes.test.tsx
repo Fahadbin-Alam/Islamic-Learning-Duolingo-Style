@@ -891,12 +891,16 @@ describe("the signs in creation, alive", () => {
     expect([shown("hundred-years", "the sun", 0.5), shown("hundred-years", "his food and drink, unchanged", 0.5), shown("hundred-years", "the bones raised", 0.5)]).toEqual([1, 1, 0]);
     expect([shown("hundred-years", "the donkey's bones", 0.68), shown("hundred-years", "the bones raised", 0.68), shown("hundred-years", "the donkey", 0.68), shown("hundred-years", "the donkey", 0.8), shown("hundred-years", "the bones raised", 0.8)]).toEqual([0, 1, 0, 1, 0]);
     expect([shown("hundred-years", "Allah is able to do all things", 0.8), shown("hundred-years", "Allah is able to do all things", 1), shown("hundred-years", "the donkey", 1)]).toEqual([0, 1, 1]);
-    // Yusuf's shirt: the shirt in Egypt; the caravan leaving with it for Canaan; its scent going on ahead, to the home;
-    // the bearer of good news there; and the light come back in the home, and sight with it.
+    // Yusuf's shirt: the shirt in Egypt, then the caravan there; the caravan leaving with it for Canaan; its scent going on
+    // ahead, to the home; the bearer of good news there; and the light come back in the home, and sight with it.
     expect(words("shirt")).toEqual(["Take this shirt of mine", "When the caravan left Egypt", "I find the scent of Yusuf", "The bearer of good news came", "He could see again"]);
     const camels = names("shirt", /^camel of the caravan/);
     expect([shown("shirt", "the shirt", 0.1), shown("shirt", "the shirt carried with the caravan", 0.1), shown("shirt", "the shirt", 0.3), shown("shirt", "the shirt carried with the caravan", 0.3)]).toEqual([1, 0, 0, 1]);
-    expect([camels.length, camels.map((name) => value("shirt", name, "x", 0.1)), camels.map((name) => value("shirt", name, "x", 0.4)), camels.map((name) => value("shirt", name, "x", 0.8))]).toEqual([2, [0, 0], [36, 36], [84, 84]]);
+    expect([camels.length, camels.map((name) => shown("shirt", name, 0.1)), camels.map((name) => shown("shirt", name, 0.17)), camels.map((name) => value("shirt", name, "x", 0.17))]).toEqual([2, [0, 0], [1, 1], [0, 0]]);
+    expect([camels.map((name) => value("shirt", name, "x", 0.4)), camels.map((name) => value("shirt", name, "x", 0.8))]).toEqual([
+      [36, 36],
+      [84, 84]
+    ]);
     expect([shown("shirt", "the scent of the shirt", 0.3), shown("shirt", "the scent of the shirt", 0.45), value("shirt", "the scent of the shirt", "x", 0.52), shown("shirt", "the scent come to the home", 0.45), shown("shirt", "the scent come to the home", 0.56)]).toEqual([0, 1, 52, 0, 1]);
     expect([shown("shirt", "good news at the home", 0.6), shown("shirt", "good news at the home", 0.75), shown("shirt", "light come back in the home", 0.75), shown("shirt", "light come back in the home", 0.9), shown("shirt", "sight come back", 0.95)]).toEqual([0, 1, 0, 1, 1]);
   });

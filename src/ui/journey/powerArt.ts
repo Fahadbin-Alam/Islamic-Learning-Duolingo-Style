@@ -243,11 +243,11 @@ const frog = (x: number, y: number, s = 1, left = false) => {
   const d = left ? -1 : 1;
   const p = (dx: number, dy: number) => `${n(x + dx * s * d)} ${n(y + dy * s)}`;
   return (
-    `<path d="M${p(-2.8, 0)} C${p(-3.6, -1.8)} ${p(-1.8, -2.8)} ${p(-0.4, -1.6)} L${p(0.4, 0)} Z" fill="#3E7D2E"/>` +
-    `<path d="M${p(-2.8, -0.8)} C${p(-2.6, -3.4)} ${p(0.6, -4.2)} ${p(2.4, -3.2)} C${p(3.4, -2.6)} ${p(3.2, -0.9)} ${p(2, -0.5)} Z" fill="#5BA03F"/>` +
-    `<path d="M${p(-1.4, -0.7)} C${p(-0.2, -1.6)} ${p(1.3, -1.3)} ${p(2, -0.5)} Z" fill="#B8D88A"/>` +
-    `<path d="M${p(1.3, -1.1)} L${p(1.7, 0)} L${p(2.7, 0)}" stroke="#3E7D2E" stroke-width="${n(0.5 * s)}" fill="none" stroke-linecap="round"/>` +
-    `<circle cx="${n(x + 1.5 * s * d)}" cy="${n(y - 3.5 * s)}" r="${n(0.8 * s)}" fill="#5BA03F"/>` +
+    `<path d="M${p(-2.8, 0)} C${p(-3.6, -1.8)} ${p(-1.8, -2.8)} ${p(-0.4, -1.6)} L${p(0.4, 0)} Z" fill="#7DB83A" stroke="#24501A" stroke-width="${n(0.4 * s)}" stroke-linejoin="round"/>` +
+    `<path d="M${p(-2.8, -0.8)} C${p(-2.6, -3.4)} ${p(0.6, -4.2)} ${p(2.4, -3.2)} C${p(3.4, -2.6)} ${p(3.2, -0.9)} ${p(2, -0.5)} Z" fill="#A6D84E" stroke="#24501A" stroke-width="${n(0.4 * s)}" stroke-linejoin="round"/>` +
+    `<path d="M${p(-1.4, -0.7)} C${p(-0.2, -1.6)} ${p(1.3, -1.3)} ${p(2, -0.5)} Z" fill="#EEF6C4"/>` +
+    `<path d="M${p(1.3, -1.1)} L${p(1.7, 0)} L${p(2.7, 0)}" stroke="#24501A" stroke-width="${n(0.5 * s)}" fill="none" stroke-linecap="round"/>` +
+    `<circle cx="${n(x + 1.5 * s * d)}" cy="${n(y - 3.5 * s)}" r="${n(0.8 * s)}" fill="#A6D84E" stroke="#24501A" stroke-width="${n(0.35 * s)}"/>` +
     `<circle cx="${n(x + 1.7 * s * d)}" cy="${n(y - 3.6 * s)}" r="${n(0.38 * s)}" fill="#1F2A1A"/>`
   );
 };
@@ -377,7 +377,7 @@ function fiveSigns(): SignArt {
     [118, 116, 1.1, true],
     [146, 112, 1.2, false]
   ]
-    .map(([x, y, s, left]) => frog(x as number, y as number, s as number, left as boolean))
+    .map(([x, y, s, left]) => frog(x as number, y as number, 1.25 * (s as number), left as boolean))
     .join("");
   const blood = `<rect y="68" width="160" height="16" fill="#A3322B"/><rect y="68" width="160" height="1.6" fill="#C24A40"/>${curls(74, 20, "#C9574C", 0.7)}${curls(80, 24, "#C9574C", 0.7, 14)}`;
   const bloodInJars = `<ellipse cx="46" cy="95.8" rx="1.1" ry="0.4" fill="#A3322B"/><ellipse cx="51" cy="96.8" rx="1.1" ry="0.4" fill="#A3322B"/>`;
@@ -908,8 +908,9 @@ function shirt(): SignArt {
   const road = `<path d="M0 100 C30 98 60 102 90 98 C110 95 124 90 136 82 L141 82 C130 92 114 100 92 104 C60 108 30 105 0 108 Z" fill="#E8D7AE"/>`;
   const camelS = 0.24;
   const camelTop = (foot: number) => n(foot - 73 * camelS);
-  // The caravan: waiting in Egypt; leaving; on its way, halfway; and come to the home.
-  const going = { at: [0, 0.18, 0.32, 0.58, 0.72], x: [0, 0, 36, 36, 84] };
+  // The caravan: come to Egypt once the shirt is there (not before, so that a question on what Yusuf sent waits on no
+  // camel); leaving; on its way, halfway; and come to the home.
+  const going = { at: [0, 0.13, 0.16, 0.18, 0.32, 0.58, 0.72], x: [0, 0, 0, 0, 36, 36, 84], opacity: [0, 0, 1, 1, 1, 1, 1] };
   const bundle = `${glow(46, 82, 6, "#FFF4C8", 0.16)}<rect x="43.6" y="80" width="5" height="3.2" rx="1" fill="#F4EEDC" stroke="#D8CBA6" stroke-width="0.4"/>`;
   const wisp = (x: number, y: number, width: number, opacity: number) =>
     `<path d="M${x} ${y} c3 -2.2 6 2.2 9 0 c3 -2.2 6 2.2 9 0 c3 -2.2 6 2.2 9 0" stroke="#F2BE4E" stroke-width="${width}" fill="none" stroke-linecap="round" opacity="${opacity}"/>`;
