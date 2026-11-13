@@ -10,6 +10,8 @@ import { MapGame } from "../lesson/MapGame";
 import { mapPlacesFor } from "../lesson/mapQuestions";
 import { SkyGame } from "../lesson/SkyGame";
 import { skyTimesFor } from "../lesson/skyQuestions";
+import { MonthGame } from "../lesson/MonthGame";
+import { monthsFor } from "../lesson/monthQuestions";
 import { SurahCover } from "../lesson/SurahCover";
 import { ALBUM_SETS } from "../../data/albumSets";
 import { addToAlbum } from "../../services/pictureAlbum";
@@ -428,6 +430,47 @@ function MapDemo({ lessonId, ask, pick, check }: { lessonId: string; ask: string
 }
 
 /**
+ * A month question asked on the year, from a real lesson (?lang=bn, ur or ar): the first one whose prompt has `ask`.
+ * `pick`: an answer already picked; `check`: and checked (the answer sheet up).
+ */
+function MonthQuestionDemo({ lessonId, ask, pick, check }: { lessonId: string; ask: string; pick?: "right" | "wrong"; check?: boolean }) {
+  const query = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("lang") : null;
+  const language = (["en", "bn", "ur", "ar"].includes(query ?? "") ? query : "en") as SupportedLanguage;
+  setActiveLanguage(language);
+  const english = LESSONS_BY_ID[lessonId];
+  const index = Math.max(0, english.challenges.findIndex((challenge) => challenge.prompt.includes(ask)));
+  const challenge = localizeLessonContent(english, language).challenges[index];
+  const months = monthsFor(english.challenges[index]) ?? {};
+  const wrongId = challenge.choices.find((choice) => choice.id !== challenge.correctChoiceId)?.id;
+  const [selected, setSelected] = useState<string | undefined>(pick === "right" ? challenge.correctChoiceId : pick === "wrong" ? wrongId : undefined);
+  const [checked, setChecked] = useState(Boolean(check));
+  const correctLabel = challenge.choices.find((choice) => choice.id === challenge.correctChoiceId)?.label ?? "";
+  const correct = selected === challenge.correctChoiceId;
+  return (
+    <LessonScreen progress={0.45} hearts={FULL_HEARTS} onClose={noop}>
+      <MonthGame
+        prompt={challenge.prompt}
+        choices={challenge.choices}
+        months={months}
+        correctChoiceId={challenge.correctChoiceId}
+        selectedChoiceId={selected}
+        result={checked ? { correct, correctLabel, why: shortWhy({ explanation: challenge.explanation, prompt: challenge.prompt, correctLabel }) } : undefined}
+        mascotVariant="girl"
+        accent={accentOf(english)}
+        praiseSeed={challenge.id}
+        playSound={false}
+        onSelect={setSelected}
+        onCheck={() => setChecked(true)}
+        onContinue={() => {
+          setChecked(false);
+          setSelected(undefined);
+        }}
+      />
+    </LessonScreen>
+  );
+}
+
+/**
  * A time question asked in the sky, from a real lesson (?lang=bn, ur or ar): the first one whose prompt has `ask`.
  * `pick`: an answer already picked; `check`: and checked (the answer sheet up).
  */
@@ -751,6 +794,12 @@ const STATES: State[] = [
   { id: "sky-right", render: () => <SkyQuestionDemo lessonId="lesson-deep-fast-suhur-blessing" ask="suhur eaten" pick="right" check /> },
   { id: "sky-wrong", render: () => <SkyQuestionDemo lessonId="lesson-deep-insan4-prostrate-at-night" ask="who will call" pick="wrong" check /> },
   { id: "sky-zuhr", render: () => <SkyQuestionDemo lessonId="lesson-deep-prayer-sunnah-times-the-times-of-the-five-prayers" ask="pray Zuhr" /> },
+  // Month questions on the year: Ashura in Muharram; Sha'ban, answered wrong (the right month turns green, its moon full).
+  { id: "month", render: () => <MonthQuestionDemo lessonId="lesson-deep-days-ashura" ask="Ashura is in" /> },
+  { id: "month-picked", render: () => <MonthQuestionDemo lessonId="lesson-deep-days-ashura" ask="Ashura is in" pick="right" /> },
+  { id: "month-right", render: () => <MonthQuestionDemo lessonId="lesson-deep-days-ashura" ask="Ashura is in" pick="right" check /> },
+  { id: "month-wrong", render: () => <MonthQuestionDemo lessonId="lesson-deep-fast-extra-shaban" ask="fast most" pick="wrong" check /> },
+  { id: "month-qadr", render: () => <MonthQuestionDemo lessonId="lesson-deep-qadr1-in-the-month-of-ramadan" ask="Night of Al-Qadr" /> },
   {
     id: "match",
     render: () => (
