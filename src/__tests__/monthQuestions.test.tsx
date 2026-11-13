@@ -79,7 +79,9 @@ const REVIEWED: Record<string, number> = {
   "In which month did the Quran come down?": 8,
   "In which month was the Quran revealed, per 2:185?": 8,
   "In which month is the Night of Al-Qadr?": 8,
-  "In which month was the Quran first sent down?": 8
+  "In which month was the Quran first sent down?": 8,
+  // Sunan an-Nasa'i 3236: Aishah said he ﷺ married her in Shawwal.
+  "In which month did he ﷺ marry Aishah?": 9
 };
 
 // Their answers are all months, but the year shows the months in order, and that would answer them.
@@ -135,7 +137,7 @@ describe("which questions are asked on the year", () => {
     expect(monthsFor(question("Ashura is in Muharram.", ["True", "False"], 0, "true_false"))).toBeUndefined();
   });
 
-  it("asks the course's 15 month questions on the year, each one read and checked", () => {
+  it("asks the course's 16 month questions on the year, each one read and checked", () => {
     const asked: Record<string, number> = {};
     for (const { challenge } of allChallenges()) {
       const months = monthsFor(challenge);
