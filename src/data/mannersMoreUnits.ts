@@ -1,8 +1,9 @@
 import { hadith, quran, quranQuote, type DeepUnit } from "./deepKit";
 
 // More Manners units: visiting the sick, asking permission to come in, the sunnah of going to sleep, and gifts.
-// Every card is one ayah or one sahih hadith of al-Bukhari (number as sunnah.com gives it), with its exact
-// English words to highlight. Only everyday adab that all scholars teach.
+// Every card is one ayah or one sahih hadith of al-Bukhari (number as sunnah.com gives it), or of Sunan Abi Dawud with
+// its grade (the du'a for Sa'd when he was ill, and the highest assembly at bedtime), with its exact English words to
+// highlight. Only everyday adab that all scholars teach.
 
 const SICK: DeepUnit = {
   key: "manners-visit-sick",
@@ -76,6 +77,19 @@ const SICK: DeepUnit = {
         { q: "Whom do we ask for healing in the du'a?", a: "Allah, Lord of the people", wrong: ["The stars", "A lucky charm", "The doctor only"], why: "Take away the disease, O the Lord of the people." },
         { q: "What kind of healing does the du'a ask for?", a: "Healing that leaves no illness", wrong: ["Healing for one day", "Half a healing", "Healing for money"], why: "A cure that leaves no disease." },
         { q: "Only Allah truly heals.", tf: true, why: "There is no cure but Yours." }
+      ]
+    },
+    {
+      slug: "a-dua-for-sad",
+      title: "A du'a for Sa'd",
+      line: "He ﷺ asked Allah to heal Sa'd and complete his hijrah.",
+      facts: ["Told by Sa'd ibn Abi Waqqas", "Sa'd fell ill in Makkah", "Hijrah: leaving for Allah"],
+      source: hadith("abudawud", "3104", "Sa'd ibn Abi Waqqas", "Sahih (Al-Albani)", "Aishah bint Sa'd said that her father said: I fell ill in Makkah, and the Messenger of Allah ﷺ came to visit me. He put his hand on my forehead, wiped my chest and belly, and said: O Allah, heal Sa'd and complete his hijrah.", "and complete his immigration"),
+      difficulty: 2,
+      questions: [
+        { q: "What did he ﷺ ask Allah to complete for Sa'd?", a: "His hijrah", wrong: ["His fast", "His new house", "His harvest"], why: "O Allah, heal up Sa'd and complete his immigration, he ﷺ said." },
+        { q: "Where was Sa'd when he fell ill?", a: "In Makkah", wrong: ["In Khaybar", "In Ta'if", "In Tabuk"], why: "I had a complaint at Mecca, Sa'd said, and the Messenger of Allah ﷺ came to visit him." },
+        { q: "He ﷺ came to visit Sa'd when he was ill.", tf: true, why: "The Messenger of Allah ﷺ came to pay a sick-visit to me, Sa'd said." }
       ]
     }
   ]
@@ -206,6 +220,19 @@ const SLEEP: DeepUnit = {
         { q: "What did he ﷺ say first on waking?", a: "Praise to Allah who gave us life", wrong: ["Five more minutes", "Nothing", "Where is breakfast?"], why: "All the praises are for Allah who has made us alive." },
         { q: "What is sleep compared to in the du'a?", a: "A kind of death", wrong: ["A game", "A journey abroad", "A punishment"], why: "Who made us alive after He made us die." },
         { q: "Before sleep he ﷺ said: in Your name, O Allah, I die and I live.", tf: true, why: "Bismika Allahumma amutu wa ahya." }
+      ]
+    },
+    {
+      slug: "the-highest-assembly",
+      title: "The highest assembly",
+      line: "At bedtime he ﷺ asked to be placed in the highest assembly.",
+      facts: ["Told by Abu al-Azhar al-Anmari", "Said on going to bed at night", "It begins: in the name of Allah"],
+      source: hadith("abudawud", "5054", "Abu al-Azhar al-Anmari", "Sahih (Al-Albani)", "Abu al-Azhar al-Anmari said: when the Messenger of Allah ﷺ went to his bed at night, he would say: in the name of Allah, I have laid down my side for Allah. O Allah, forgive me my sin, drive away my devil, free me from my responsibility, and place me in the highest assembly.", "place me in the highest assembly"),
+      difficulty: 2,
+      questions: [
+        { q: "Where did he ﷺ ask Allah to place him?", a: "In the highest assembly", wrong: ["In a high fort", "In a green valley", "In a big city"], why: "Place me in the highest assembly, he ﷺ would say on going to bed at night." },
+        { q: "What did he ﷺ say he had laid down for Allah?", a: "His side", wrong: ["His sword", "His cloak", "His staff"], why: "In the name of Allah, I have laid down my side for Allah, he ﷺ would say." },
+        { q: "He ﷺ said these words on going to bed at night.", tf: true, why: "He ﷺ said them when he went to his bed at night, Abu al-Azhar al-Anmari told." }
       ]
     }
   ]

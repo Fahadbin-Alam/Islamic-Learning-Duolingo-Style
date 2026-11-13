@@ -2,7 +2,8 @@ import { hadith, quran, quranQuote, type DeepUnit } from "./deepKit";
 
 // New companions for the Sahabah topic, each a unit of its own: Khubayb and Asim, Usayd ibn Hudayr, Thabit ibn
 // Qays, Al-Miqdad, Hakim ibn Hizam, and Sa'id ibn Zayd with his father. Every lesson is one sahih hadith of
-// al-Bukhari (number as sunnah.com gives it) or an ayah, with its exact English words to highlight.
+// al-Bukhari (number as sunnah.com gives it) or an ayah, with its exact English words to highlight. Usayd's hug is
+// from Sunan Abi Dawud, with its grade.
 
 const KHUBAYB: DeepUnit = {
   key: "khubayb",
@@ -105,7 +106,7 @@ const USAYD: DeepUnit = {
   key: "usayd",
   topicId: "sahabah",
   branchId: "sahabi-usayd-ibn-hudayr",
-  branch: { title: "Usayd ibn Hudayr", description: "An Ansari whose Quran brought the angels near, and who thanked Abu Bakr's family." },
+  branch: { title: "Usayd ibn Hudayr", description: "An Ansari whose Quran brought the angels near, who thanked Abu Bakr's family, and who hugged the Prophet ﷺ." },
   name: "Usayd ibn Hudayr",
   kind: "story",
   lessonType: "story",
@@ -159,6 +160,19 @@ const USAYD: DeepUnit = {
         { q: "Why did the army stop with no water?", a: "To look for Aishah's necklace", wrong: ["A camel was sick", "A storm came", "They were lost"], why: "Her necklace was lost, and they stayed to search for it." },
         { q: "What did Allah send down then?", a: "The ayah of tayammum", wrong: ["The ayah of fasting", "The ayah of Hajj", "The ayah of zakat"], why: "Allah revealed the verses of tayammum." },
         { q: "Usayd said it was not the first blessing from Abu Bakr's family.", tf: true, why: "O the family of Abu Bakr! This is not the first blessing of yours." }
+      ]
+    },
+    {
+      slug: "what-usayd-wanted",
+      title: "What Usayd wanted",
+      line: "Usayd only wanted to hug the Prophet ﷺ and kiss his side.",
+      facts: ["Told by Usayd ibn Hudayr", "He was joking and making people laugh", "He ﷺ poked him under the ribs with a stick"],
+      source: hadith("abudawud", "5224", "Usayd ibn Hudayr", "Sahih isnad (Al-Albani)", "Usayd ibn Hudayr was joking and making the people laugh when the Prophet ﷺ poked him under the ribs with a stick. Usayd said: let me take my due. He ﷺ said: take it. Usayd said: you are wearing a shirt, and I am not. So he ﷺ raised his shirt, and Usayd hugged him and began to kiss his side, and said: this is what I wanted, Messenger of Allah ﷺ.", "This is what I wanted, Messenger of Allah"),
+      difficulty: 2,
+      questions: [
+        { q: "What was Usayd doing when he ﷺ poked him with a stick?", a: "Joking and making people laugh", wrong: ["Selling dates in the market", "Drawing water at a well", "Mending his sandals"], why: "He was given to jesting and was talking to the people and making them laugh, Usayd told." },
+        { q: "What did Usayd do when he ﷺ raised his shirt?", a: "He hugged him and kissed his side", wrong: ["He sat down quietly", "He walked away smiling", "He called his friends over"], why: "The man embraced him and began to kiss his side, as Usayd ibn Hudayr told." },
+        { q: "Usayd said: this is what I wanted, Messenger of Allah ﷺ.", tf: true, why: "He hugged him ﷺ, kissed his side, and said: this is what I wanted." }
       ]
     }
   ]
