@@ -46,8 +46,8 @@ async function press(testID: string) {
 describe("New to Islam path", () => {
   const section = COURSE.sections.find((item) => item.topicId === "intro")!;
 
-  it("is a topic of thirteen units (four short, nine deep), each opening on its own first lesson", () => {
-    expect(section.branches.map((branch) => branch.id)).toEqual(["intro-basics", "intro-prophets", "intro-together", "intro-first-steps", "intro-fresh-start", "intro-quran-prophet", "intro-first-prayers", "intro-daily-life", "intro-easy-way", "intro-growing-in-faith", "intro-how-they-came-to-islam", "intro-questions-they-asked", "intro-short-words-to-live-by"]);
+  it("is a topic of fourteen units (four short, ten deep), each opening on its own first lesson", () => {
+    expect(section.branches.map((branch) => branch.id)).toEqual(["intro-basics", "intro-prophets", "intro-together", "intro-first-steps", "intro-fresh-start", "intro-quran-prophet", "intro-first-prayers", "intro-daily-life", "intro-easy-way", "intro-growing-in-faith", "intro-how-they-came-to-islam", "intro-questions-they-asked", "intro-short-words-to-live-by", "intro-starting-out"]);
     const statuses = learningApi.getPathNodes(makeUser()).filter((node) => node.topicId === "intro");
     for (const branch of section.branches) {
       const unit = statuses.filter((node) => node.branchId === branch.id);
