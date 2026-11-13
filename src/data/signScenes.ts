@@ -18,13 +18,48 @@ import { bukhari, quran, type MapSource } from "./seerahMap";
  * - the spider's house, the weakest of houses (Quran 29:41);
  * - the good word, like a good tree whose root is firm and whose branches are in the sky (Quran 14:24, 14:25), drawn
  *   as a date palm, the tree the Prophet ﷺ likened to the Muslim (Sahih al-Bukhari 4698);
- * - the camel, the sky, the mountains and the earth that we are told to look at (Quran 88:17 to 88:20).
+ * - the camel, the sky, the mountains and the earth that we are told to look at (Quran 88:17 to 88:20);
+ * - the birds above us, their wings spread and folded in, held up by none but the Most Merciful (Quran 67:19, 16:79,
+ *   24:41);
+ * - the seed we sow, which Allah makes grow (Quran 56:63, 56:64);
+ * - the water we drink, sent down from the clouds, sweet and not salty (Quran 56:68 to 56:70);
+ * - the fire we kindle from the green tree, a reminder and a gift for travelers (Quran 56:71 to 56:73, 36:80);
+ * - the shade He stretches out, the sun its guide, drawn in little by little (Quran 25:45, 25:46);
+ *
+ * and the parables told with things in creation (parableArt.ts draws them):
+ *
+ * - the foam on the flood and on melted metal, which passes away, while what benefits people remains (Quran 13:17);
+ * - the rain on three lands: good, hard and barren (Sahih al-Bukhari 79; the good land, Quran 7:58);
+ * - the deeds of those who reject their Lord, like ashes in a stormy wind (Quran 14:18);
+ * - the garden struck in the night, black and bare by the morning (Quran 68:17 to 68:24);
+ * - the two gardens of grapes, with palms around and crops between, whose fruit was destroyed (Quran 18:32 to 18:42).
  *
  * Each scene shows only what its ayahs say. Nothing in a scene is a person or an angel: only the land, the sky, the
- * sea, plants, animals and things.
+ * sea, plants, animals and things; the people of a parable are never drawn, only their gardens.
  */
 
-export type SignKind = "rain" | "clouds" | "fade" | "seed" | "seas" | "ships" | "mountains" | "bee" | "spider" | "tree" | "look";
+export type SignKind =
+  | "rain"
+  | "clouds"
+  | "fade"
+  | "seed"
+  | "seas"
+  | "ships"
+  | "mountains"
+  | "bee"
+  | "spider"
+  | "tree"
+  | "look"
+  | "birds"
+  | "sow"
+  | "water"
+  | "fire"
+  | "shade"
+  | "foam"
+  | "lands"
+  | "ashes"
+  | "garden"
+  | "twoGardens";
 
 export type SignScene = {
   id: string;
@@ -99,13 +134,76 @@ export const SIGN_SCENES: readonly SignScene[] = [
     kind: "look",
     caption: "Do they not look at the camels, how they were created? At the sky, how it was raised? At the mountains, how they were set firm? At the earth, how it was spread out?",
     sources: [quran(88, 17), quran(88, 18), quran(88, 19), quran(88, 20)]
+  },
+  {
+    id: "sign-birds",
+    kind: "birds",
+    caption: "Do they not see the birds above them, spreading their wings and folding them in? None holds them up but the Most Merciful. Each of them knows its own prayer and praise.",
+    sources: [quran(67, 19), quran(16, 79), quran(24, 41)]
+  },
+  {
+    id: "sign-sow",
+    kind: "sow",
+    caption: "Have you seen the seed you sow? Is it you who make it grow, or is it Allah who makes it grow?",
+    sources: [quran(56, 63), quran(56, 64)]
+  },
+  {
+    id: "sign-water",
+    kind: "water",
+    caption: "Have you seen the water you drink? Is it you who send it down from the clouds, or Allah? Had He willed, He would have made it salty. So why do you not give thanks?",
+    sources: [quran(56, 68), quran(56, 69), quran(56, 70)]
+  },
+  {
+    id: "sign-fire",
+    kind: "fire",
+    caption: "Have you seen the fire you kindle? Is it you who made its tree grow, or Allah? He made fire for you from the green tree, as a reminder and a gift for travelers.",
+    sources: [quran(56, 71), quran(56, 72), quran(56, 73), quran(36, 80)]
+  },
+  {
+    id: "sign-shade",
+    kind: "shade",
+    caption: "See how your Lord stretches out the shade; had He willed, He would have made it stand still. He made the sun its guide, then He draws it in, little by little.",
+    sources: [quran(25, 45), quran(25, 46)]
+  },
+  {
+    id: "sign-foam",
+    kind: "foam",
+    caption:
+      "Allah sends down rain and the valleys flow, each by its measure, and the flood carries foam on top; metal melted in the fire throws up foam too. The foam passes away, and what benefits people remains on the earth.",
+    sources: [quran(13, 17)]
+  },
+  {
+    id: "sign-lands",
+    kind: "lands",
+    caption:
+      "The guidance he ﷺ brought is like rain falling on the earth. Good land takes it in and grows much grass; hard land holds the water, so people drink and water their animals; and barren land neither holds it nor grows anything.",
+    sources: [quran(7, 58), bukhari("79")]
+  },
+  {
+    id: "sign-ashes",
+    kind: "ashes",
+    caption: "The deeds of those who reject their Lord are like ashes that the wind blows hard on a stormy day: they can keep nothing of what they earned.",
+    sources: [quran(14, 18)]
+  },
+  {
+    id: "sign-garden",
+    kind: "garden",
+    caption: "The owners of a garden full of fruit swore to pick it all at dawn and give nothing to the poor. In the night, while they slept, a calamity from Allah came upon it, and by morning it was black and bare.",
+    sources: [quran(68, 17), quran(68, 19), quran(68, 20), quran(68, 24)]
+  },
+  {
+    id: "sign-two-gardens",
+    kind: "twoGardens",
+    caption:
+      "A man had two gardens of grapes, with palms all around them, crops between them and a river flowing between them. But he grew proud and forgot his Lord, and all his fruit was destroyed, his vines fallen on their trellises.",
+    sources: [quran(18, 32), quran(18, 33), quran(18, 35), quran(18, 42)]
   }
 ];
 
 /**
  * The lessons that open on a scene, each read to check that it teaches what its scene shows (by the lesson's nodeId).
- * Left out: lessons that only touch a sign among other things (a whole passage of a surah), stories of people at sea
- * or in gardens, and the Day of Judgment's seas and mountains.
+ * Left out: lessons that only touch a sign among other things (a whole passage of a surah), stories of people at sea,
+ * and the Day of Judgment's seas and mountains. The gardens of the parables are drawn, never their owners.
  */
 export const SIGN_LESSONS: Record<string, string> = {
   // Rain on a dead land, which comes to life.
@@ -196,7 +294,54 @@ export const SIGN_LESSONS: Record<string, string> = {
   "deep-ghashiyah3-look-at-the-camel": "sign-look",
   "deep-ghashiyah3-the-sky-raised-high": "sign-look",
   "deep-ghashiyah3-mountains-and-earth": "sign-look",
-  "deep-ghashiyah3-spread-and-still-round": "sign-look"
+  "deep-ghashiyah3-spread-and-still-round": "sign-look",
+  // The birds held up in the sky.
+  "deep-mulk-birds": "sign-birds",
+  "surah-meaning-67-15-22": "sign-birds",
+  "deep-mulk3-birds-held-up": "sign-birds",
+  "deep-mulk3-gliding-and-flapping": "sign-birds",
+  "deep-nahl5-birds-held-in-the-sky": "sign-birds",
+  "deep-nur2-birds-glorify-allah": "sign-birds",
+  "surah-meaning-24-41-50": "sign-birds",
+  // The seed you sow.
+  "deep-waqiah3-what-you-sow": "sign-sow",
+  "deep-waqiah3-who-makes-it-grow": "sign-sow",
+  "surah-meaning-56-57-74": "sign-sow",
+  // The water you drink.
+  "deep-waqiah3-the-water-you-drink": "sign-water",
+  "deep-waqiah3-down-from-the-clouds": "sign-water",
+  "deep-waqiah3-a-dua-for-rain": "sign-water",
+  "deep-waqiah3-it-could-be-salty": "sign-water",
+  // The fire you kindle, from the green tree.
+  "deep-waqiah3-the-fire-you-kindle": "sign-fire",
+  "deep-waqiah3-green-trees-that-spark": "sign-fire",
+  "deep-waqiah3-a-reminder-of-the-fire": "sign-fire",
+  "deep-waqiah3-a-gift-for-travelers": "sign-fire",
+  "deep-waqiah3-fire-for-everyone": "sign-fire",
+  "deep-yasin3-fire-from-green-trees": "sign-fire",
+  // The shade stretched out and drawn in.
+  "deep-furqan2-the-spreading-shadow": "sign-shade",
+  "surah-meaning-25-45-60": "sign-shade",
+  // The foam on the flood.
+  "deep-raad2-foam-on-the-flood": "sign-foam",
+  "deep-raad2-metal-in-the-fire": "sign-foam",
+  "deep-raad2-hearts-like-valleys": "sign-foam",
+  // The rain on three lands.
+  "deep-raad2-rain-on-three-lands": "sign-lands",
+  "deep-araf2-good-land": "sign-lands",
+  // The ashes in a stormy wind.
+  "surah-meaning-14-13-21": "sign-ashes",
+  "deep-ibrahim2-deeds-like-ashes": "sign-ashes",
+  // The garden struck in the night.
+  "surah-meaning-68-17-33": "sign-garden",
+  "deep-qalam3-the-garden-owners": "sign-garden",
+  "deep-qalam3-a-secret-plan": "sign-garden",
+  "deep-qalam3-like-a-dark-night": "sign-garden",
+  // The two gardens.
+  "deep-kahf2-the-two-gardens": "sign-two-gardens",
+  "deep-kahf2-the-garden-ruined": "sign-two-gardens",
+  "surah-meaning-18-32-44": "sign-two-gardens",
+  "quran-surah-kahf-wealth-and-gardens": "sign-two-gardens"
 };
 
 export type LessonSign = { scene: SignScene; lessonSlug: string };

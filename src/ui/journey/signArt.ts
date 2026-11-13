@@ -1,5 +1,8 @@
 import type { SignKind } from "../../data/signScenes";
-import { ANIMAL_ART } from "../lesson/animalArt";
+import { PARABLE_ART } from "./parableArt";
+import { DAY_SKY, GUSTS, animalAt, camelAt, cloud, dateBunch, flame, flower, glow, n, nightSky, palm, peaks, rainStreaks, sky, stars, tuft, type SignArt, type SignPart } from "./signDraw";
+
+export { SIGN_BOX, type SignArt, type SignKeys, type SignLoop, type SignPart, type SignWord } from "./signDraw";
 
 /**
  * The scenes of the signs in creation (signScenes.ts), drawn in a box 160 wide and 120 high (4:3, the lesson photo's
@@ -7,159 +10,6 @@ import { ANIMAL_ART } from "../lesson/animalArt";
  * (`keys`), and some move round and round on their own as long as it is seen (`loop`): rain falling, waves going by,
  * a palm swaying. A word or two at a time says what is shown (`words`). Nothing drawn is a person or an angel.
  */
-
-export const SIGN_BOX = { width: 160, height: 120 } as const;
-
-/** Values at times through the story (0 to 1), straight between; before the first and after the last, held. */
-export type SignKeys = {
-  at: number[];
-  opacity?: number[];
-  /** Moved, in the box's units. */
-  x?: number[];
-  y?: number[];
-  scale?: number[];
-  scaleX?: number[];
-  scaleY?: number[];
-  /** Turned, in degrees, about the part's `origin`. */
-  rotate?: number[];
-};
-
-/**
- * A part's own motion, round and round: falling down (rain) or sliding across to the right (waves, ripples, gusts;
- * `reverse`: to the left) as two copies, one `period` apart (the box's height or width when not given); bobbing to
- * and fro; twinkling; swaying about its origin; swimming there and back, turning at each end; or a drop falling
- * and fading.
- */
-export type SignLoop =
-  | { move: "fall" | "slide"; ms: number; period?: number; reverse?: boolean }
-  | { move: "bob"; ms: number; x?: number; y?: number; rotate?: number; phase?: number }
-  | { move: "twinkle"; ms: number; low?: number; phase?: number }
-  | { move: "sway"; ms: number; angle: number; phase?: number }
-  | { move: "swim"; ms: number; x: number; phase?: number }
-  | { move: "drip"; ms: number; distance: number; phase?: number };
-
-export type SignPart = {
-  name: string;
-  /** Its shapes, in the box's units (an SVG fragment, without the <svg> around it). */
-  svg: string;
-  keys?: SignKeys;
-  loop?: SignLoop;
-  /** The point it grows and turns about (the box's middle when not given). */
-  origin?: { x: number; y: number };
-  /** Only this part of the box shows it (rain from under a cloud). */
-  clip?: { x: number; y: number; w: number; h: number };
-};
-
-/** A word or two shown over the scene while the story is between `from` and `to`. */
-export type SignWord = { text: string; from: number; to: number };
-
-/**
- * A scene: its story's length, its parts and its words. `stillAt` is where in its story it stands still with reduce
- * motion, when its end does not show the sign (the crops' story ends on bare soil); else at its end.
- */
-export type SignArt = { kind: SignKind; ms: number; parts: SignPart[]; words: SignWord[]; stillAt?: number };
-
-const n = (value: number) => Number(value.toFixed(1));
-
-// Skies, ground and weather shared by the scenes.
-
-const sky = (top: string, low: string, line = 62) => `<rect width="160" height="120" fill="${top}"/><rect y="${line}" width="160" height="${120 - line}" fill="${low}"/>`;
-const DAY_SKY = sky("#BFE3FA", "#DDF1FC");
-
-/** A cloud of three puffs on a flat foot, `s` times its size, its foot's middle at (x, y). */
-function cloud(x: number, y: number, s: number, fill: string, opacity = 1) {
-  const p = (dx: number, dy: number) => `${n(x + dx * s)} ${n(y + dy * s)}`;
-  return (
-    `<path d="M${p(-16, 0)} C${p(-22, 0)} ${p(-22, -8)} ${p(-15, -8)} C${p(-15, -15)} ${p(-6, -18)} ${p(-1, -12)} ` +
-    `C${p(3, -20)} ${p(15, -18)} ${p(15, -9)} C${p(22, -10)} ${p(24, 0)} ${p(17, 0)} Z" fill="${fill}" opacity="${opacity}"/>`
-  );
-}
-
-/** A swirl of wind: a few long strokes with curled ends, across the whole box. */
-const GUSTS =
-  `<g fill="none" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" opacity="0.85">` +
-  `<path d="M6 30 C26 26 44 32 60 28 C66 26 66 20 61 21"/><path d="M84 46 C104 42 120 48 138 43 C144 41 143 35 138 36"/>` +
-  `<path d="M20 58 C34 55 46 60 58 57"/><path d="M100 22 C112 19 122 23 132 20"/></g>`;
-
-/** Rain: thin slanting streaks over the whole box, in a pattern that repeats every 120 down. */
-function rainStreaks(left = 0, right = 160, top = 0, bottom = 120, color = "#5B8FC7") {
-  let d = "";
-  let k = 0;
-  for (let y = top; y < bottom; y += 10) {
-    for (let x = left + ((k * 7) % 13); x < right; x += 13) d += `M${n(x)} ${n(y)} l-1.2 5 `;
-    k += 1;
-  }
-  return `<path d="${d.trim()}" stroke="${color}" stroke-width="0.9" stroke-linecap="round" opacity="0.85"/>`;
-}
-
-/** A tuft of grass with its foot at (x, y). */
-const tuft = (x: number, y: number, color = "#5FA344", h = 6) =>
-  `<path d="M${n(x - 3)} ${y} Q${n(x - 3)} ${n(y - h * 0.6)} ${n(x - 4.5)} ${n(y - h)} Q${n(x - 1.4)} ${n(y - h * 0.5)} ${n(x)} ${n(y - h * 1.15)} Q${n(x + 1.4)} ${n(y - h * 0.5)} ${n(x + 4.5)} ${n(y - h)} Q${n(x + 3)} ${n(y - h * 0.6)} ${n(x + 3)} ${y} Z" fill="${color}"/>`;
-
-/** A flower on its stem, its foot at (x, y). */
-const flower = (x: number, y: number, petal: string, h = 9) =>
-  `<path d="M${x} ${y} L${x} ${n(y - h)}" stroke="#4E9A3A" stroke-width="1.1"/>` +
-  `<circle cx="${n(x - 2)}" cy="${n(y - h)}" r="1.9" fill="${petal}"/><circle cx="${n(x + 2)}" cy="${n(y - h)}" r="1.9" fill="${petal}"/>` +
-  `<circle cx="${x}" cy="${n(y - h - 2)}" r="1.9" fill="${petal}"/><circle cx="${x}" cy="${n(y - h + 2)}" r="1.9" fill="${petal}"/>` +
-  `<circle cx="${x}" cy="${n(y - h)}" r="1.4" fill="#FFD84A"/>`;
-
-/** Mountains: a range of peaks, each [x of its foot's middle, height, half width], their feet on `base`. */
-function peaks(list: [number, number, number][], base: number, fill: string, snow = true) {
-  return list
-    .map(([x, h, w]) => {
-      const top = base - h;
-      const cap = snow
-        ? `<path d="M${n(x - w * 0.24)} ${n(top + h * 0.24)} L${x} ${top} L${n(x + w * 0.24)} ${n(top + h * 0.24)} L${n(x + w * 0.1)} ${n(top + h * 0.2)} L${n(x)} ${n(top + h * 0.27)} L${n(x - w * 0.1)} ${n(top + h * 0.2)} Z" fill="#FFFFFF"/>`
-        : "";
-      return `<path d="M${n(x - w)} ${base} L${x} ${top} L${n(x + w)} ${base} Z" fill="${fill}"/><path d="M${x} ${top} L${n(x + w)} ${base} L${n(x + w * 0.35)} ${base} Z" fill="#000000" opacity="0.12"/>${cap}`;
-    })
-    .join("");
-}
-
-/** A date palm: its trunk from its foot at (x, y) up to its crown, `h` high, bending a little to the right. */
-function palm(x: number, y: number, h: number, fronds = "#4F9A3C") {
-  const top = y - h;
-  const tx = x + h * 0.08;
-  let rings = "";
-  for (let i = 1; i < 7; i += 1) {
-    const yy = n(y - (h * i) / 7);
-    const xx = n(x + (tx - x) * (i / 7));
-    rings += `<path d="M${n(xx - 2.2)} ${yy} Q${xx} ${n(yy + 1.4)} ${n(xx + 2.2)} ${yy}" stroke="#8A5A33" stroke-width="0.8" fill="none"/>`;
-  }
-  const frond = (dx: number, dy: number) =>
-    `<path d="M${n(tx)} ${n(top)} Q${n(tx + dx * 0.5)} ${n(top + dy * 0.2 - 6)} ${n(tx + dx)} ${n(top + dy)} Q${n(tx + dx * 0.45)} ${n(top + dy * 0.2 - 2)} ${n(tx)} ${n(top + 1.5)} Z" fill="${fronds}"/>`;
-  return (
-    `<path d="M${n(x - 2.6)} ${y} Q${n(x + (tx - x) * 0.4 - 2.6)} ${n(y - h * 0.5)} ${n(tx - 1.6)} ${n(top)} L${n(tx + 1.6)} ${n(top)} Q${n(x + (tx - x) * 0.4 + 2.6)} ${n(y - h * 0.5)} ${n(x + 2.6)} ${y} Z" fill="#A87444"/>` +
-    rings +
-    frond(-h * 0.55, h * 0.1) +
-    frond(h * 0.55, h * 0.12) +
-    frond(-h * 0.42, -h * 0.12) +
-    frond(h * 0.42, -h * 0.1) +
-    frond(-h * 0.2, -h * 0.2) +
-    frond(h * 0.22, -h * 0.2)
-  );
-}
-
-/** Ripe dates hanging under a palm's crown at (x, y). */
-const dateBunch = (x: number, y: number) =>
-  [
-    [0, 0],
-    [2.4, 0.8],
-    [-2.4, 0.8],
-    [1.2, 2.6],
-    [-1.2, 2.6],
-    [0, 4.2]
-  ]
-    .map(([dx, dy]) => `<ellipse cx="${n(x + dx)}" cy="${n(y + dy)}" rx="1.3" ry="1.7" fill="#9C3D1E"/>`)
-    .join("") + `<path d="M${x} ${n(y - 3)} L${x} ${y}" stroke="#C9A25A" stroke-width="0.8"/>`;
-
-/** The camel of the animal cards, set in the scene at (x, y), `s` times its card's size. */
-function camelAt(x: number, y: number, s: number) {
-  const body = ANIMAL_ART.camel()
-    .body.replace(/^<svg[^>]*>/, "")
-    .replace(/<\/svg>$/, "");
-  return `<g transform="translate(${x} ${y}) scale(${s})">${body}</g>`;
-}
 
 /** The rain's clouds: driven in from the left, over the land while it rains, then on to the right. */
 const CLOUD_AT = [0, 0.06, 0.18, 0.32, 0.68, 0.72, 0.8, 0.96];
@@ -667,7 +517,372 @@ function look(): SignArt {
   };
 }
 
-export const SIGN_ART: Record<SignKind, () => SignArt> = { rain, clouds, fade, seed, seas, ships, mountains, bee, spider, tree, look };
+/**
+ * A swallow seen from below, its head up, its middle at (x, y), `s` times its size: its body, and each wing apart
+ * (each turning about its shoulder), so its wings can beat, spread and fold.
+ */
+function swallow(x: number, y: number, s: number) {
+  const p = (dx: number, dy: number) => `${n(x + dx * s)} ${n(y + dy * s)}`;
+  const body =
+    `<path d="M${p(-2.2, 4)} L${p(-4.8, 13.5)} L${p(-1.1, 7.6)} L${p(0, 8.8)} L${p(1.1, 7.6)} L${p(4.8, 13.5)} L${p(2.2, 4)} Z" fill="#22324D"/>` +
+    `<ellipse cx="${x}" cy="${n(y + s)}" rx="${n(4.2 * s)}" ry="${n(6.6 * s)}" fill="#22324D"/>` +
+    `<ellipse cx="${x}" cy="${n(y + 2.8 * s)}" rx="${n(2.8 * s)}" ry="${n(4.4 * s)}" fill="#F4F1EA"/>` +
+    `<circle cx="${x}" cy="${n(y - 5.4 * s)}" r="${n(3.4 * s)}" fill="#22324D"/>` +
+    `<ellipse cx="${x}" cy="${n(y - 3 * s)}" rx="${n(2.4 * s)}" ry="${n(1.5 * s)}" fill="#C8553D"/>` +
+    `<circle cx="${n(x - 1.3 * s)}" cy="${n(y - 6 * s)}" r="${n(0.55 * s)}" fill="#FFFFFF"/><circle cx="${n(x + 1.3 * s)}" cy="${n(y - 6 * s)}" r="${n(0.55 * s)}" fill="#FFFFFF"/>`;
+  // A long wing swept out to its point, a paler stripe under it; `side` -1 for the left wing, 1 for the right.
+  const wing = (side: number) => {
+    const sx = x + side * 2.6 * s;
+    const sy = y - 1.4 * s;
+    const q = (dx: number, dy: number) => `${n(sx + side * dx * s)} ${n(sy + dy * s)}`;
+    return {
+      svg:
+        `<path d="M${q(0, -2)} C${q(9, -6.4)} ${q(20, -5.8)} ${q(29, 1.5)} C${q(20, -0.8)} ${q(10, 1.4)} ${q(0, 3)} Z" fill="#2A3B5C"/>` +
+        `<path d="M${q(2, 1)} C${q(10, -1.8)} ${q(19, -1.6)} ${q(25.5, 0.9)} C${q(18, 0.3)} ${q(10, 1.8)} ${q(2, 2.4)} Z" fill="#4A6185"/>`,
+      origin: { x: n(sx), y: n(sy) }
+    };
+  };
+  return { body, left: wing(-1), right: wing(1) };
+}
+
+/** How a bird's wings go through its story: [time, how far raised (degrees, + up), how far spread (1 open)]. */
+type WingStroke = [number, number, number];
+
+/** Beats of the wings from `from` to `to`, each `beat` long: up, level, down, level. */
+function beating(from: number, to: number, beat: number, up = 34, down = 26): WingStroke[] {
+  const out: WingStroke[] = [];
+  // Whole beats only, so the last one ends by `to`.
+  const beats = Math.floor((to - from) / beat + 1e-9);
+  for (let i = 0; i < beats; i += 1) {
+    const t = from + i * beat;
+    out.push([t, 0, 1], [t + beat * 0.25, up, 1], [t + beat * 0.5, 0, 1], [t + beat * 0.75, -down, 1]);
+  }
+  out.push([to, 0, 1]);
+  return out;
+}
+
+/** The parts of a swallow on its way through the story: its wings by their strokes, all of it along `path`. */
+function swallowParts(name: string, x: number, y: number, s: number, strokes: WingStroke[], path: { at: number[]; x: number[]; y: number[] }, bob: SignPart["loop"]): SignPart[] {
+  const bird = swallow(x, y, s);
+  const at = strokes.map(([time]) => n(time * 1000) / 1000);
+  // Its path, at the times its wings use, so its body and wings go together.
+  const along = (values: number[]) => at.map((time) => n(keyAt(path.at, values, time)));
+  const wing = (side: number, own: { svg: string; origin: { x: number; y: number } }): SignPart => ({
+    name: `${name} ${side < 0 ? "left" : "right"} wing`,
+    svg: own.svg,
+    origin: own.origin,
+    keys: { at, x: along(path.x), y: along(path.y), rotate: strokes.map(([, up]) => n(-side * up)), scaleX: strokes.map(([, , open]) => open) },
+    loop: bob
+  });
+  return [wing(-1, bird.left), wing(1, bird.right), { name, svg: bird.body, origin: { x, y }, keys: { at, x: along(path.x), y: along(path.y) }, loop: bob }];
+}
+
+// The birds above them, their wings spread and folded in: none holds them up but the Most Merciful
+// (Quran 67:19, 16:79, 24:41).
+function birds(): SignArt {
+  const air = `<rect width="160" height="120" fill="#8DCBF3"/><rect y="38" width="160" height="82" fill="#AFDCF7"/><rect y="72" width="160" height="48" fill="#D2EDFB"/>`;
+  const sun = `<circle cx="24" cy="34" r="12" fill="#FFF2C4" opacity="0.6"/><circle cx="24" cy="34" r="7.4" fill="#FFE07A"/>`;
+  const hills =
+    `<path d="M0 100 C24 92 52 96 80 93 C108 90 132 95 160 92 L160 120 L0 120 Z" fill="#8CC56A"/>` +
+    `<circle cx="22" cy="94" r="5" fill="#4F9A3C"/><circle cx="30" cy="96" r="4" fill="#5FA344"/><circle cx="138" cy="91" r="5.5" fill="#4F9A3C"/>` +
+    `<path d="M0 108 C40 104 80 106 120 104 C140 103 150 104 160 105 L160 120 L0 120 Z" fill="#79B65A"/>`;
+  const far = (x: number, y: number) => `<path d="M${x - 4} ${y - 1.4} Q${x - 2} ${y - 2.6} ${x} ${y} Q${x + 2} ${y - 2.6} ${x + 4} ${y - 1.4}" stroke="#3E5568" stroke-width="0.9" fill="none" stroke-linecap="round"/>`;
+  // Both swallows: rising in with their wings beating, gliding with them spread, folding them in to dip, and
+  // spreading them again, held up in the air.
+  const strokes = (lag: number): WingStroke[] => [
+    ...beating(0, 0.24 + lag, 0.034),
+    ...beating(0.27 + lag, 0.31 + lag, 0.04, 26, 18).slice(1),
+    [0.34 + lag, 8, 1],
+    [0.52 + lag, 8, 1],
+    [0.56 + lag, -40, 0.42],
+    [0.6 + lag, -42, 0.4],
+    [0.63 + lag, 10, 1],
+    [0.65 + lag, 8, 1],
+    [0.68 + lag, -40, 0.42],
+    [0.71 + lag, 10, 1],
+    [1, 8, 1]
+  ];
+  const path = (lag: number, dx: number, rise: number) => ({
+    at: [0, 0.24 + lag, 0.34 + lag, 0.52 + lag, 0.6 + lag, 0.63 + lag, 0.68 + lag, 0.71 + lag, 1],
+    x: [dx, 0, 1.5, 4, 5, 5.5, 6, 6.5, 9],
+    y: [rise, 0, -1, -3, 6, 2, 7, 0, -2]
+  });
+  return {
+    kind: "birds",
+    ms: 10500,
+    parts: [
+      { name: "sky", svg: air },
+      { name: "sun", svg: sun },
+      { name: "clouds", svg: cloud(132, 30, 0.75, "#FFFFFF") + cloud(58, 52, 0.5, "#FFFFFF", 0.85), loop: { move: "bob", ms: 9000, x: 4 } },
+      { name: "hills", svg: hills },
+      { name: "far birds", svg: far(36, 52) + far(46, 47) + far(140, 66), keys: { at: [0, 1], x: [0, 22] }, loop: { move: "bob", ms: 3400, y: 1.4 } },
+      ...swallowParts("small swallow", 124, 50, 0.6, strokes(0.02), path(0.02, 16, 70), { move: "bob", ms: 2600, y: 1.2, phase: 0.4 }),
+      ...swallowParts("swallow", 70, 68, 1, strokes(0), path(0, -18, 60), { move: "bob", ms: 2600, y: 1.4 })
+    ],
+    words: [
+      { text: "Birds in the sky", from: 0.02, to: 0.28 },
+      { text: "Their wings spread", from: 0.3, to: 0.5 },
+      { text: "And folded in", from: 0.52, to: 0.74 },
+      { text: "None holds them up but the Most Merciful", from: 0.76, to: 1 }
+    ]
+  };
+}
+
+// The seed you sow: is it you who make it grow, or Allah? (Quran 56:63, 56:64).
+function sow(): SignArt {
+  const far = `<path d="M0 64 C30 58 60 62 90 59 C120 56 140 60 160 58 L160 72 L0 72 Z" fill="#9CCB7A"/><circle cx="20" cy="60" r="4" fill="#4F9A3C"/><circle cx="146" cy="57" r="4.5" fill="#4F9A3C"/>`;
+  // The plowed field: its furrows closer together further off.
+  const rows = [74, 80, 88, 98, 110];
+  const field =
+    `<rect y="70" width="160" height="50" fill="#A0703F"/>` +
+    rows
+      .map(
+        (y, i) =>
+          `<path d="M0 ${y} C40 ${y - 1.5} 80 ${y + 1} 120 ${y - 0.5} C140 ${y - 1} 150 ${y} 160 ${y}" stroke="#7F5530" stroke-width="${n(0.8 + i * 0.5)}" fill="none"/><path d="M0 ${n(y - 1.6 - i * 0.3)} C40 ${n(y - 3 - i * 0.3)} 80 ${n(y - 0.6 - i * 0.3)} 120 ${n(y - 2 - i * 0.3)} C140 ${n(y - 2.6 - i * 0.3)} 150 ${n(y - 1.6 - i * 0.3)} 160 ${n(y - 1.6 - i * 0.3)}" stroke="#B8875A" stroke-width="${n(0.5 + i * 0.3)}" fill="none"/>`
+      )
+      .join("");
+  const near = [18, 42, 66, 90, 114, 138];
+  const back = [30, 58, 86, 114, 142];
+  const seedAt = (x: number, y: number, k = 1) => `<ellipse cx="${x}" cy="${y}" rx="${n(2.3 * k)}" ry="${n(1.5 * k)}" fill="#F2CF6B" stroke="#B8902F" stroke-width="0.5"/>`;
+  // The furrow raked over the seeds.
+  const raked = (y: number, list: number[]) => list.map((x) => `<path d="M${x - 4} ${y} Q${x} ${y - 2.2} ${x + 4} ${y}" stroke="#7F5530" stroke-width="1.6" fill="#93653A" stroke-linecap="round"/>`).join("");
+  const sprout = (x: number, y: number, k: number) =>
+    `<path d="M${x} ${y} L${x} ${n(y - 4 * k)}" stroke="#5A9E3E" stroke-width="${n(1 * k)}"/><path d="M${x} ${n(y - 3.4 * k)} Q${n(x - 3.2 * k)} ${n(y - 5.6 * k)} ${n(x - 3.6 * k)} ${n(y - 3 * k)} Q${n(x - 1.6 * k)} ${n(y - 2.6 * k)} ${x} ${n(y - 3.4 * k)} Z M${x} ${n(y - 3.8 * k)} Q${n(x + 3.2 * k)} ${n(y - 6 * k)} ${n(x + 3.6 * k)} ${n(y - 3.4 * k)} Q${n(x + 1.6 * k)} ${n(y - 3 * k)} ${x} ${n(y - 3.8 * k)} Z" fill="#6DB24F"/>`;
+  // A stalk of wheat with its leaves, and its ear apart (it ripens later).
+  const stalk = (x: number, y: number, h: number) =>
+    `<path d="M${x} ${y} Q${n(x - 0.6)} ${n(y - h * 0.5)} ${x} ${n(y - h)}" stroke="#4E9A3A" stroke-width="1.6" fill="none"/>` +
+    `<path d="M${x} ${n(y - h * 0.3)} Q${n(x - h * 0.24)} ${n(y - h * 0.44)} ${n(x - h * 0.3)} ${n(y - h * 0.68)}" stroke="#5FA344" stroke-width="1.4" fill="none"/>` +
+    `<path d="M${x} ${n(y - h * 0.5)} Q${n(x + h * 0.22)} ${n(y - h * 0.62)} ${n(x + h * 0.28)} ${n(y - h * 0.84)}" stroke="#5FA344" stroke-width="1.4" fill="none"/>`;
+  const ear = (x: number, y: number, h: number, k: number) =>
+    `<ellipse cx="${x}" cy="${n(y - h - 3.6 * k)}" rx="${n(2 * k)}" ry="${n(4.4 * k)}" fill="#E2BE4E"/><path d="M${x} ${n(y - h - 7.8 * k)} L${x} ${n(y - h - 10.8 * k)} M${n(x - 1.3 * k)} ${n(y - h - 7.2 * k)} L${n(x - 2.5 * k)} ${n(y - h - 10 * k)} M${n(x + 1.3 * k)} ${n(y - h - 7.2 * k)} L${n(x + 2.5 * k)} ${n(y - h - 10 * k)}" stroke="#E2BE4E" stroke-width="0.6"/>` +
+    `<path d="M${n(x - 1.6 * k)} ${n(y - h - 4.6 * k)} L${n(x + 1.6 * k)} ${n(y - h - 4.6 * k)} M${n(x - 1.8 * k)} ${n(y - h - 2.4 * k)} L${n(x + 1.8 * k)} ${n(y - h - 2.4 * k)}" stroke="#B8902F" stroke-width="0.4" opacity="0.6"/>`;
+  // A handful of seeds thrown in from the left, spreading as they fly, onto a furrow; then the earth covers them.
+  const throwAt = (t: number, reach: number) => ({
+    at: [0, t, t + 0.025, t + 0.05, t + 0.075, t + 0.1, 0.36, 0.42],
+    x: [-reach, -reach, n(-reach * 0.62), n(-reach * 0.34), n(-reach * 0.12), 0, 0, 0],
+    y: [-44, -44, -56, -56, -40, 0, 0, 0],
+    scale: [0.2, 0.2, 0.42, 0.66, 0.86, 1, 1, 1],
+    opacity: [0, 0, 1, 1, 1, 1, 1, 0]
+  });
+  const sway = { move: "bob" as const, ms: 3000, x: 0.7 };
+  const sun = `<circle cx="134" cy="24" r="13" fill="#FFE7A0" opacity="0.6"/><circle cx="134" cy="24" r="8.5" fill="#FFC93C"/>`;
+  return {
+    kind: "sow",
+    ms: 10000,
+    parts: [
+      { name: "sky", svg: DAY_SKY },
+      { name: "sun", svg: sun, loop: { move: "twinkle", ms: 2600, low: 0.8 } },
+      { name: "far fields", svg: far },
+      { name: "plowed field", svg: field },
+      { name: "far seeds", svg: back.map((x) => seedAt(x, 87, 0.8)).join(""), origin: { x: 86, y: 87 }, keys: throwAt(0.18, 110) },
+      { name: "near seeds", svg: near.map((x) => seedAt(x, 97)).join(""), origin: { x: 78, y: 97 }, keys: throwAt(0.06, 100) },
+      { name: "earth over the seeds", svg: raked(88, back) + raked(98, near), keys: { at: [0, 0.34, 0.42], opacity: [0, 0, 1] } },
+      { name: "far shoots", svg: back.map((x) => sprout(x, 87, 1.1)).join(""), origin: { x: 86, y: 87 }, keys: { at: [0, 0.48, 0.58], scaleY: [0, 0, 1] } },
+      { name: "near shoots", svg: near.map((x) => sprout(x, 97, 1.5)).join(""), origin: { x: 78, y: 97 }, keys: { at: [0, 0.46, 0.56], scaleY: [0, 0, 1] } },
+      { name: "far wheat", svg: back.map((x) => stalk(x, 87, 20)).join(""), origin: { x: 86, y: 87 }, keys: { at: [0, 0.62, 0.8], scaleY: [0, 0, 1] }, loop: sway },
+      { name: "near wheat", svg: near.map((x) => stalk(x, 97, 30)).join(""), origin: { x: 78, y: 97 }, keys: { at: [0, 0.62, 0.8], scaleY: [0, 0, 1] }, loop: sway },
+      { name: "ears", svg: back.map((x) => ear(x, 87, 20, 0.85)).join("") + near.map((x) => ear(x, 97, 30, 1.15)).join(""), keys: { at: [0, 0.8, 0.86], opacity: [0, 0, 1] }, loop: sway }
+    ],
+    words: [
+      { text: "The seed you sow", from: 0.02, to: 0.4 },
+      { text: "Who makes it grow?", from: 0.42, to: 0.6 },
+      { text: "Allah makes it grow", from: 0.62, to: 1 }
+    ]
+  };
+}
+
+/** A clay water jug standing at (x, y). */
+const jug = (x: number, y: number) =>
+  `<path d="M${x - 4} ${y} C${n(x - 6.6)} ${y - 3} ${n(x - 6.6)} ${y - 8} ${x - 3} ${y - 10} L${n(x - 2.4)} ${y - 13} L${n(x + 2.4)} ${y - 13} L${x + 3} ${y - 10} C${n(x + 6.6)} ${y - 8} ${n(x + 6.6)} ${y - 3} ${x + 4} ${y} Z" fill="#C5703F"/>` +
+  `<ellipse cx="${x}" cy="${y - 13}" rx="2.8" ry="0.9" fill="#A85A30"/><path d="M${x + 3} ${n(y - 11.5)} C${n(x + 7.5)} ${n(y - 11.5)} ${n(x + 7.5)} ${y - 6} ${n(x + 4.6)} ${y - 5}" stroke="#A85A30" stroke-width="1.1" fill="none"/>` +
+  `<path d="M${n(x - 5.6)} ${y - 6} Q${x} ${n(y - 4.8)} ${n(x + 5.6)} ${y - 6}" stroke="#E3A06A" stroke-width="0.8" fill="none"/>`;
+
+// The water you drink: sent down from the clouds, sweet and not salty, so give thanks (Quran 56:68 to 56:70).
+function water(): SignArt {
+  const land =
+    peaks(
+      [
+        [30, 46, 34],
+        [66, 30, 24]
+      ],
+      82,
+      "#A08C78",
+      false
+    ) + `<path d="M0 80 C40 78 80 81 120 79 C140 78 150 79 160 80 L160 120 L0 120 Z" fill="#E8C99A"/><path d="M0 104 C40 101 80 104 120 102 C140 101 150 102 160 103 L160 120 L0 120 Z" fill="#DDB984"/>`;
+  const stream = (width: number, color: string) => `<path d="M50 80 C54 84 46 86 52 89 C58 92 66 90 76 93" stroke="${color}" stroke-width="${width}" fill="none" stroke-linecap="round"/>`;
+  const pool = `<ellipse cx="100" cy="96" rx="33" ry="7.4" fill="#7CC0EE"/><ellipse cx="100" cy="96.6" rx="30" ry="6" fill="#3E8ED0"/>`;
+  const stones = [
+    [66, 97, 3.4],
+    [70, 101, 2.6],
+    [131, 98, 3],
+    [126, 102, 2.4],
+    [84, 103, 2.2]
+  ]
+    .map(([x, y, r]) => `<ellipse cx="${x}" cy="${y}" rx="${r}" ry="${n(r * 0.66)}" fill="#A79E92"/><ellipse cx="${x}" cy="${n(y - r * 0.2)}" rx="${n(r * 0.6)}" ry="${n(r * 0.3)}" fill="#C4BCB0"/>`)
+    .join("");
+  const ripples = `<g stroke="#FFFFFF" stroke-width="0.8" fill="none" opacity="0.75"><path d="M76 95 q3 -1.4 6 0 M94 98 q3 -1.4 6 0 M110 94 q3 -1.4 6 0 M122 97 q3 -1.4 6 0 M86 93 q3 -1.4 6 0"/></g>`;
+  const glints = `<path d="M92 92 l0.8 1.8 l1.8 0.8 l-1.8 0.8 l-0.8 1.8 l-0.8 -1.8 l-1.8 -0.8 l1.8 -0.8 Z M114 97 l0.7 1.5 l1.5 0.7 l-1.5 0.7 l-0.7 1.5 l-0.7 -1.5 l-1.5 -0.7 l1.5 -0.7 Z M142 84 l0.7 1.5 l1.5 0.7 l-1.5 0.7 l-0.7 1.5 l-0.7 -1.5 l-1.5 -0.7 l1.5 -0.7 Z" fill="#FFFFFF"/>`;
+  const green =
+    [62, 74, 128, 136, 88, 116].map((x, i) => tuft(x, 92 + (i % 3) * 4, i % 2 ? "#5FA344" : "#6DB24F", 5 + (i % 2))).join("") +
+    flower(72, 104, "#F47C9B", 7) +
+    flower(122, 105, "#FFFFFF", 7) +
+    flower(58, 99, "#F6B73C", 6);
+  const sun = `<circle cx="134" cy="24" r="13" fill="#FFE7A0" opacity="0.6"/><circle cx="134" cy="24" r="8.5" fill="#FFC93C"/>`;
+  const clouds = (fill: string) => cloud(30, 34, 1.05, fill) + cloud(72, 30, 1.2, fill) + cloud(108, 38, 0.8, fill);
+  const away = { at: [0, 0.26, 0.36, 0.52, 0.66], x: [-130, -130, 0, 0, 150] };
+  return {
+    kind: "water",
+    ms: 10000,
+    parts: [
+      { name: "clear sky", svg: DAY_SKY },
+      { name: "grey sky", svg: sky("#9DAEC0", "#B6C4D2"), keys: { at: [0, 0.3, 0.38, 0.52, 0.62], opacity: [0, 0, 1, 1, 0] } },
+      { name: "sun", svg: sun, keys: { at: [0, 0.3, 0.36, 0.56, 0.64], opacity: [1, 1, 0, 0, 1] }, loop: { move: "twinkle", ms: 2600, low: 0.8 } },
+      { name: "mountains and sand", svg: land },
+      // The rain in front of the mountains, from under the clouds.
+      { name: "rain", svg: rainStreaks(4, 128, 0, 120, "#5B8FC7"), clip: { x: 4, y: 38, w: 124, h: 56 }, keys: { at: [0, 0.36, 0.4, 0.5, 0.54], opacity: [0, 0, 1, 1, 0] }, loop: { move: "fall", ms: 650 } },
+      { name: "white clouds", svg: clouds("#FFFFFF"), keys: away },
+      { name: "rain clouds", svg: clouds("#7F8EA1"), keys: { ...away, opacity: [0, 0, 1, 1, 0] } },
+      { name: "stream", svg: stream(2.4, "#5AA7DE") },
+      { name: "full stream", svg: stream(4.6, "#7CC0EE") + stream(1.6, "#3E8ED0"), keys: { at: [0, 0.4, 0.48], opacity: [0, 0, 1] } },
+      { name: "pool", svg: pool, origin: { x: 100, y: 96 }, keys: { at: [0, 0.4, 0.54], scale: [0.72, 0.72, 1] } },
+      { name: "ripples", svg: ripples, clip: { x: 70, y: 90, w: 60, h: 12 }, loop: { move: "slide", ms: 4200, period: 60 } },
+      { name: "stones", svg: stones },
+      { name: "grass and flowers", svg: green, origin: { x: 100, y: 102 }, keys: { at: [0, 0.6, 0.72], scaleY: [0, 0, 1] }, loop: { move: "bob", ms: 2600, x: 0.5 } },
+      { name: "palm", svg: palm(146, 96, 40), origin: { x: 146, y: 96 }, loop: { move: "sway", ms: 4600, angle: 1.3 } },
+      { name: "jug", svg: jug(134, 104) },
+      { name: "camel", svg: camelAt(24, 63, 0.38), origin: { x: 42, y: 91 }, keys: { at: [0, 0.58, 0.74], x: [-120, -120, 0] }, loop: { move: "bob", ms: 1200, y: 0.5, rotate: 1 } },
+      { name: "glints", svg: glints, keys: { at: [0, 0.78, 0.82], opacity: [0, 0, 1] }, loop: { move: "twinkle", ms: 1500, low: 0.15 } }
+    ],
+    words: [
+      { text: "The water you drink", from: 0.02, to: 0.26 },
+      { text: "Down from the clouds", from: 0.28, to: 0.54 },
+      { text: "Sweet, not salty", from: 0.56, to: 0.78 },
+      { text: "So give thanks", from: 0.8, to: 1 }
+    ]
+  };
+}
+
+/** A drawing in the dark: every color in it made one night's color. */
+const inTheDark = (svg: string, color = "#26253C") => svg.replace(/fill="#[0-9A-Fa-f]{6}"/g, `fill="${color}"`).replace(/stroke="#[0-9A-Fa-f]{6}"/g, `stroke="${color}"`);
+
+// The fire you kindle: from the green tree, a reminder, and a gift for travelers (Quran 56:71 to 56:73, 36:80).
+function fire(): SignArt {
+  const land = `<path d="M0 86 C30 80 60 84 96 82 C124 80 144 83 160 82 L160 120 L0 120 Z" fill="#3B3653"/><path d="M0 102 C40 99 80 102 120 100 C140 99 150 100 160 101 L160 120 L0 120 Z" fill="#302B46"/>`;
+  const twinkles: [number, number][] = [
+    [12, 16],
+    [34, 40],
+    [52, 22],
+    [70, 46],
+    [104, 18],
+    [124, 38],
+    [142, 14],
+    [150, 50],
+    [88, 30],
+    [22, 58]
+  ];
+  // The green tree: a bush of green branches, its leaves dark by night and bright in the firelight.
+  const tree = (leaf: string, light: string) =>
+    `<path d="M24 92 L24 76 M24 82 L16 72 M24 80 L32 70" stroke="#5A4630" stroke-width="2" stroke-linecap="round"/>` +
+    `<circle cx="24" cy="66" r="11" fill="${leaf}"/><circle cx="14" cy="72" r="7" fill="${light}"/><circle cx="34" cy="70" r="7.5" fill="${light}"/><circle cx="22" cy="58" r="6" fill="${light}"/>`;
+  const hearth =
+    [
+      [70, 99],
+      [77, 101.6],
+      [86, 102.2],
+      [95, 101],
+      [100, 98]
+    ]
+      .map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="4" ry="2.4" fill="#6E6A78"/><ellipse cx="${x}" cy="${n(y - 0.7)}" rx="2.4" ry="1.1" fill="#8D8999"/>`)
+      .join("") + `<path d="M74 98 L96 93 M76 93 L96 99" stroke="#6B4A2E" stroke-width="3" stroke-linecap="round"/>`;
+  // Two green branches, one rubbed along the other till it sparks.
+  const fixedStick = `<path d="M64 95 L98 89" stroke="#4E8A3A" stroke-width="2.2" stroke-linecap="round"/>`;
+  const rubbed = `<path d="M70 86 L94 96" stroke="#5FA344" stroke-width="2.2" stroke-linecap="round"/>`;
+  const rubs = (() => {
+    const at: number[] = [0, 0.04];
+    const x: number[] = [0, 0];
+    for (let t = 0.06, i = 0; t <= 0.24; t += 0.02, i += 1) {
+      at.push(n(t * 100) / 100);
+      x.push(i % 2 ? -3.4 : 3.4);
+    }
+    at.push(0.27, 0.32);
+    x.push(0, 0);
+    return { at, x, opacity: at.map((time) => (time < 0.27 ? 1 : 0)) };
+  })();
+  const sparks = `<circle cx="82" cy="91" r="0.9" fill="#FFE07A"/><circle cx="79" cy="89" r="0.7" fill="#FFB347"/><circle cx="85" cy="88.6" r="0.6" fill="#FFE07A"/><circle cx="83" cy="86.4" r="0.6" fill="#FFFFFF"/>`;
+  const rising = (dx: number) => `<circle cx="${82 + dx}" cy="80" r="0.8" fill="#FFD84A"/><circle cx="${87 + dx}" cy="76" r="0.6" fill="#FFB347"/><circle cx="${78 + dx}" cy="74" r="0.6" fill="#FFE07A"/>`;
+  const tent = `<path d="M124 92 L140 72 L156 92 Z" fill="#B89A70"/><path d="M140 72 L156 92 L147 92 Z" fill="#9C805A"/><path d="M136 92 L140 80 L144 92 Z" fill="#5E4A34"/><path d="M124 92 L119 96" stroke="#8A5A33" stroke-width="0.7"/>`;
+  // A camel resting by its tent, facing the fire.
+  const camel = animalAt("camel", 102, 66, 0.3, true);
+  const lit = { at: [0, 0.78, 0.88], opacity: [0, 0, 1] };
+  return {
+    kind: "fire",
+    ms: 10500,
+    parts: [
+      { name: "night sky", svg: nightSky(84) },
+      { name: "stars", svg: stars(twinkles), loop: { move: "twinkle", ms: 2400, low: 0.45 } },
+      { name: "land", svg: land },
+      { name: "glow", svg: glow(84, 92, 62, "#FFB347", 0.07), keys: { at: [0, 0.26, 0.42], opacity: [0, 0, 1] }, loop: { move: "twinkle", ms: 1800, low: 0.7 } },
+      { name: "travelers by night", svg: inTheDark(tent + camel) },
+      { name: "travelers in the firelight", svg: tent + camel, keys: lit },
+      { name: "tree by night", svg: inTheDark(tree("#3F8F3F", "#55A64C"), "#1E3A2C") },
+      { name: "green tree", svg: tree("#3F8F3F", "#55A64C"), keys: { at: [0, 0.3, 0.38], opacity: [0, 0, 1] }, loop: { move: "sway", ms: 4200, angle: 1.2 }, origin: { x: 24, y: 92 } },
+      { name: "hearth", svg: hearth },
+      { name: "green branch", svg: fixedStick, keys: { at: [0, 0.27, 0.32], opacity: [1, 1, 0] } },
+      { name: "rubbing branch", svg: rubbed, keys: rubs },
+      { name: "sparks", svg: sparks, keys: { at: [0, 0.12, 0.14, 0.27, 0.3], opacity: [0, 0, 1, 1, 0] }, loop: { move: "twinkle", ms: 400, low: 0 } },
+      { name: "fire", svg: flame(85, 97, 24), origin: { x: 85, y: 97 }, keys: { at: [0, 0.24, 0.3, 0.42], scale: [0, 0, 0.4, 1] }, loop: { move: "sway", ms: 900, angle: 4 } },
+      { name: "inner fire", svg: flame(86, 97, 13), origin: { x: 86, y: 97 }, keys: { at: [0, 0.26, 0.32, 0.42], scale: [0, 0, 0.5, 1] }, loop: { move: "twinkle", ms: 640, low: 0.55 } },
+      { name: "rising sparks", svg: rising(0), keys: { at: [0, 0.4, 0.44], opacity: [0, 0, 1] }, loop: { move: "drip", ms: 1500, distance: -22 } },
+      { name: "more rising sparks", svg: rising(4), keys: { at: [0, 0.44, 0.48], opacity: [0, 0, 1] }, loop: { move: "drip", ms: 1500, distance: -22, phase: 0.5 } }
+    ],
+    words: [
+      { text: "The fire you kindle", from: 0.02, to: 0.28 },
+      { text: "From the green tree", from: 0.3, to: 0.54 },
+      { text: "A reminder", from: 0.56, to: 0.76 },
+      { text: "A gift for travelers", from: 0.78, to: 1 }
+    ]
+  };
+}
+
+// The shade He stretches, the sun its guide, and the shade He draws in, little by little (Quran 25:45, 25:46).
+function shade(): SignArt {
+  const dawn = `<rect width="160" height="120" fill="#B9C6DE"/><rect y="40" width="160" height="80" fill="#D3D6E4"/><rect y="68" width="160" height="52" fill="#F2D6B8"/>`;
+  const land = (dune: string, top: string, low: string) =>
+    `<path d="M0 86 C20 78 40 80 56 86 Z M96 86 C116 76 140 78 160 84 L160 86 Z" fill="${dune}"/>` +
+    `<path d="M0 86 C40 84 80 86 120 85 C140 84 150 85 160 86 L160 120 L0 120 Z" fill="${top}"/><path d="M0 102 C40 100 80 102 120 101 C140 100 150 101 160 102 L160 120 L0 120 Z" fill="${low}"/>`;
+  const sun = `<circle cx="146" cy="96" r="14" fill="#FFE7A0" opacity="0.6"/><circle cx="146" cy="96" r="8.5" fill="#FFC93C"/>`;
+  // The palm's shadow, lying away from the sun: stretched out long at sunrise, drawn in as the sun climbs.
+  const palmShadow = `<path d="M60 95 L-14 95.4 L-14 100.6 L60 99.2 Z M-14 98 m-15 0 a15 5 0 1 0 30 0 a15 5 0 1 0 -30 0" fill="#4A3A2C" opacity="0.42"/>`;
+  const rock = `<path d="M106 98 C106 92 110 90 114 90 C119 90 122 93 122 98 Z" fill="#B49A7A"/><path d="M114 90 C119 90 122 93 122 98 L117 98 Z" fill="#9C8263"/>`;
+  const rockShadow = `<path d="M108 96.6 L78 97.4 C74 97.6 74 100.6 78 100.8 L108 100 Z" fill="#4A3A2C" opacity="0.42"/>`;
+  const grass = [20, 40, 84, 98, 132, 150].map((x, i) => tuft(x, 98 + (i % 3) * 3, "#7FA34A", 5)).join("");
+  const shadow = { at: [0, 0.08, 0.3, 0.4, 0.66, 1], scaleX: [0, 0, 1, 1, 0.62, 0.34], opacity: [0, 0, 1, 1, 1, 1] };
+  return {
+    kind: "shade",
+    ms: 10500,
+    parts: [
+      { name: "dawn sky", svg: dawn },
+      { name: "day sky", svg: DAY_SKY, keys: { at: [0, 0.36, 0.62], opacity: [0, 0, 1] } },
+      { name: "clouds", svg: cloud(36, 30, 0.7, "#FFFFFF", 0.9) + cloud(92, 22, 0.55, "#FFFFFF", 0.8), loop: { move: "bob", ms: 9000, x: 5 } },
+      { name: "sun", svg: sun, keys: { at: [0, 0.06, 0.3, 0.4, 0.66, 1], x: [0, 0, -2, -4, -14, -26], y: [0, 0, -12, -18, -34, -50] }, loop: { move: "twinkle", ms: 2600, low: 0.8 } },
+      { name: "land", svg: land("#E2C38E", "#E9CF9F", "#DDBE88") },
+      // Before the sun is up, the whole land lies in shade.
+      { name: "land in shade", svg: land("#B7A386", "#BBA88A", "#B09C7C"), keys: { at: [0, 0.08, 0.3], opacity: [1, 1, 0] } },
+      { name: "grass", svg: grass, loop: { move: "bob", ms: 2600, x: 0.5 } },
+      { name: "palm's shadow", svg: palmShadow, origin: { x: 60, y: 97 }, keys: shadow },
+      { name: "rock's shadow", svg: rockShadow, origin: { x: 108, y: 98 }, keys: shadow },
+      { name: "rock", svg: rock },
+      { name: "palm", svg: palm(58, 97, 50), origin: { x: 58, y: 97 }, loop: { move: "sway", ms: 4600, angle: 1.2 } }
+    ],
+    words: [
+      { text: "He stretches the shade", from: 0.04, to: 0.38 },
+      { text: "The sun is its guide", from: 0.4, to: 0.66 },
+      { text: "Then He draws it in, little by little", from: 0.68, to: 1 }
+    ]
+  };
+}
+
+export const SIGN_ART: Record<SignKind, () => SignArt> = { rain, clouds, fade, seed, seas, ships, mountains, bee, spider, tree, look, birds, sow, water, fire, shade, ...PARABLE_ART };
 
 const drawn = new Map<SignKind, SignArt>();
 
