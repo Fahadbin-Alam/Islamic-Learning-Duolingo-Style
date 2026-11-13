@@ -161,7 +161,86 @@ export const LOW_SUN = `<svg xmlns="http://www.w3.org/2000/svg" width="40" heigh
 
 export const MOON = `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="#FFF3B8" opacity="0.14"/><path d="M24.5 6.5A14 14 0 1 0 33.5 26 11 11 0 0 1 24.5 6.5Z" fill="#FFF0B0"/></svg>`;
 
-export const STAR = `<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"><path d="M5 0.6l1 3.4 3.4 1-3.4 1L5 9.4l-1-3.4L0.6 5l3.4-1Z" fill="#FFFFFF"/></svg>`;
+const STAR_PATH = "M5 0.6l1 3.4 3.4 1-3.4 1L5 9.4l-1-3.4L0.6 5l3.4-1Z";
+
+export const STAR = `<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"><path d="${STAR_PATH}" fill="#FFFFFF"/></svg>`;
+
+/**
+ * The stars turn across the night as the sky does: they rise in the east on the left, cross high in the south and
+ * set in the west on the right, turning around the sky's pole under the southern horizon (at Madinah it is about a
+ * third as far under it as the sun climbs at midday). They turn 6 degrees an hour, gentler than the sky's own 15, so
+ * the night drifts by as a sky plays.
+ */
+export const STAR_TURN = 6;
+
+/** Where the stars turn around (in the middle, under the sand), and how far out they reach to fill the sky. */
+export function starPole(frame: SkyFrame) {
+  const y = frame.horizon + Math.round(frame.ry * 0.37);
+  return { x: frame.cx, y, r: Math.ceil(Math.hypot(frame.width / 2, y)) + 8 };
+}
+
+/** How far the stars have turned at `hour`, in degrees, clockwise (none at midnight). */
+export const starTurn = (hour: number) => STAR_TURN * (hour - 24);
+
+/** A star on the turning sky: how far it is from the pole, which way (at midnight), how big, and which set it twinkles with. */
+export type SkyStar = { r: number; angle: number; size: number; set: number };
+
+/** Where a star is at `hour`, turned with the sky around the pole. */
+export function starAt(frame: SkyFrame, star: SkyStar, hour: number) {
+  const pole = starPole(frame);
+  const angle = star.angle + (starTurn(hour) * Math.PI) / 180;
+  return { x: pole.x + star.r * Math.cos(angle), y: pole.y + star.r * Math.sin(angle) };
+}
+
+/** Whether a star is in the sky over the sand, where it can be seen. */
+function starShows(frame: SkyFrame, star: SkyStar, hour: number) {
+  const at = starAt(frame, star, hour);
+  return at.x > -star.size && at.x < frame.width + star.size && at.y > -star.size && at.y < frame.horizon - 2;
+}
+
+/**
+ * The stars of a sky: about `count` seen at once, scattered evenly over the turning sky, keeping only the ones that
+ * are over the sand at some time while the stars show (a sky of the day has none). The same sky draws the same stars.
+ */
+export function skyStars(frame: SkyFrame, scene: { id: string; from: number; to: number }, count: number): SkyStar[] {
+  const hours: number[] = [];
+  const steps = Math.max(1, Math.ceil((scene.to - scene.from) / 0.25));
+  for (let index = 0; index <= steps; index += 1) {
+    const hour = scene.from + ((scene.to - scene.from) * index) / steps;
+    if (keyed(STAR_KEYS, hour) > 0) hours.push(hour);
+  }
+  if (!hours.length) return [];
+  const pole = starPole(frame);
+  const inner = pole.y - frame.horizon;
+  // Enough stars over the whole turning sky for about `count` of them to be in the sky at once.
+  const total = Math.round((count * Math.PI * (pole.r * pole.r - inner * inner)) / (frame.width * frame.horizon));
+  const rand = seeded(scene.id);
+  const stars: SkyStar[] = [];
+  for (let index = 0; index < total; index += 1) {
+    const star = {
+      r: Math.sqrt(inner * inner + rand(index * 4) * (pole.r * pole.r - inner * inner)),
+      angle: rand(index * 4 + 1) * Math.PI * 2,
+      size: 4 + Math.round(rand(index * 4 + 2) * 4),
+      set: index % 3
+    };
+    if (hours.some((hour) => starShows(frame, star, hour))) stars.push(star);
+  }
+  return stars;
+}
+
+/** One set of the stars, drawn on a square as wide as the turning sky, its pole in the middle. */
+export function starSetSvg(stars: readonly SkyStar[], set: number, side: number) {
+  const half = side / 2;
+  const paths = stars
+    .filter((star) => star.set === set)
+    .map((star) => {
+      const x = half + star.r * Math.cos(star.angle) - star.size / 2;
+      const y = half + star.r * Math.sin(star.angle) - star.size / 2;
+      return `<path transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${(star.size / 10).toFixed(2)})" d="${STAR_PATH}"/>`;
+    })
+    .join("");
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${side}" height="${side}" viewBox="0 0 ${side} ${side}"><g fill="#FFFFFF">${paths}</g></svg>`;
+}
 
 /** A small dune in a seeded spot: the same sky draws the same sand. */
 function seeded(seed: string) {
