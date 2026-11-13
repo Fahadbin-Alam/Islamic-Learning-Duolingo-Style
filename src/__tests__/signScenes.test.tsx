@@ -5,7 +5,7 @@ jest.mock("../services/gameAudio", () => ({
 
 import React from "react";
 import { Animated, StyleSheet } from "react-native";
-import { act, fireEvent, render, screen } from "@testing-library/react-native";
+import { fireEvent, render, screen } from "@testing-library/react-native";
 import { LESSONS_BY_ID } from "../data/course";
 import { DAY_SKY_LESSONS } from "../data/daySky";
 import { hajjMapForLesson } from "../data/hajjMap";
@@ -69,7 +69,17 @@ const ABOUT: Record<string, RegExp[]> = {
   "sign-bee": [/bee|honey/i],
   "sign-spider": [/spider/i, /house|home/i],
   "sign-tree": [/tree|palm/i],
-  "sign-look": [/look/i, /camel|sky|mountain|earth/i]
+  "sign-look": [/look/i, /camel|sky|mountain|earth/i],
+  "sign-birds": [/bird/i, /wing|sky|air|hold|held|glorif/i],
+  "sign-sow": [/sow|seed|plant/i, /grow/i],
+  "sign-water": [/water|rain/i, /drink|cloud|salt|sweet|fresh|thank|fruitful/i],
+  "sign-fire": [/fire/i, /tree|kindle|light|travel|remind|spark/i],
+  "sign-shade": [/shade|shadow/i, /sun|stretch|spread/i],
+  "sign-foam": [/foam|scum|valley|flood/i, /rain|water|metal|gold|fire/i],
+  "sign-lands": [/land|soil|earth/i, /rain|water/i],
+  "sign-ashes": [/ash/i, /wind|storm|blow/i],
+  "sign-garden": [/garden|harvest|fruit/i, /night|morning|dawn|burn|black|struck|pick|poor|fruit/i],
+  "sign-two-gardens": [/garden/i, /two|grape|palm|river|ruin|destroy/i]
 };
 
 const SOURCES: Record<string, string[]> = {
@@ -83,7 +93,17 @@ const SOURCES: Record<string, string[]> = {
   "sign-bee": ["Quran 16:68", "Quran 16:69"],
   "sign-spider": ["Quran 29:41"],
   "sign-tree": ["Quran 14:24", "Quran 14:25", "Sahih al-Bukhari 4698"],
-  "sign-look": ["Quran 88:17", "Quran 88:18", "Quran 88:19", "Quran 88:20"]
+  "sign-look": ["Quran 88:17", "Quran 88:18", "Quran 88:19", "Quran 88:20"],
+  "sign-birds": ["Quran 67:19", "Quran 16:79", "Quran 24:41"],
+  "sign-sow": ["Quran 56:63", "Quran 56:64"],
+  "sign-water": ["Quran 56:68", "Quran 56:69", "Quran 56:70"],
+  "sign-fire": ["Quran 56:71", "Quran 56:72", "Quran 56:73", "Quran 36:80"],
+  "sign-shade": ["Quran 25:45", "Quran 25:46"],
+  "sign-foam": ["Quran 13:17"],
+  "sign-lands": ["Quran 7:58", "Sahih al-Bukhari 79"],
+  "sign-ashes": ["Quran 14:18"],
+  "sign-garden": ["Quran 68:17", "Quran 68:19", "Quran 68:20", "Quran 68:24"],
+  "sign-two-gardens": ["Quran 18:32", "Quran 18:33", "Quran 18:35", "Quran 18:42"]
 };
 
 const part = (kind: SignKind, name: string): SignPart => {
@@ -92,7 +112,7 @@ const part = (kind: SignKind, name: string): SignPart => {
   return found;
 };
 /** A part's keyed value at `t` of its story (or `rest` when it has no such key). */
-const value = (kind: SignKind, name: string, key: "opacity" | "x" | "y" | "scale" | "scaleX" | "scaleY", t: number, rest = key === "x" || key === "y" ? 0 : 1) => {
+const value = (kind: SignKind, name: string, key: "opacity" | "x" | "y" | "scale" | "scaleX" | "scaleY" | "rotate", t: number, rest = key === "x" || key === "y" || key === "rotate" ? 0 : 1) => {
   const keys = part(kind, name).keys;
   const values = keys?.[key];
   return keys && values ? keyAt(keys.at, values, t) : rest;
@@ -107,7 +127,7 @@ describe("the signs in creation, alive", () => {
   });
 
   test("every lesson with a scene is a real lesson about its sign, and opens on it", () => {
-    expect(Object.keys(SIGN_LESSONS).length).toBe(77);
+    expect(Object.keys(SIGN_LESSONS).length).toBe(114);
     for (const [nodeId, id] of Object.entries(SIGN_LESSONS)) {
       const lesson = LESSONS_BY_ID[`lesson-${nodeId}`] as Lesson | undefined;
       expect([nodeId, Boolean(lesson)]).toEqual([nodeId, true]);
@@ -257,6 +277,103 @@ describe("the signs in creation, alive", () => {
     ];
     expect(signArt("look").words.map((word) => word.text)).toEqual(look.map(([text]) => text));
     for (const [text, check] of look) expect([text, check()]).toEqual([text, true]);
+
+    // The birds rise into the sky beating their wings, glide with them spread, fold them in, and are held up at the end.
+    for (const bird of ["swallow", "small swallow"]) {
+      const beats = part("birds", `${bird} right wing`).keys!;
+      const early = beats.rotate!.filter((_, index) => beats.at[index] <= 0.24);
+      const turns = early.filter((angle, index) => index > 0 && Math.sign(angle) !== Math.sign(early[index - 1]) && angle !== 0).length;
+      expect([bird, turns >= 8]).toEqual([bird, true]);
+      expect([value("birds", `${bird} right wing`, "rotate", 0.42), value("birds", `${bird} right wing`, "scaleX", 0.42)]).toEqual([-8, 1]);
+      expect([value("birds", `${bird} right wing`, "rotate", 0.59) > 30, value("birds", `${bird} right wing`, "scaleX", 0.59) < 0.5]).toEqual([true, true]);
+      expect([value("birds", `${bird} left wing`, "rotate", 0.59) < -30, value("birds", `${bird} right wing`, "rotate", 1), value("birds", `${bird} right wing`, "scaleX", 1)]).toEqual([true, -8, 1]);
+      // Its body and wings go together.
+      for (const t of [0.1, 0.3, 0.6, 0.9]) {
+        const at = (name: string) => [value("birds", name, "x", t), value("birds", name, "y", t)];
+        expect([bird, t, at(`${bird} left wing`), at(`${bird} right wing`)]).toEqual([bird, t, at(bird), at(bird)]);
+      }
+      expect([value("birds", bird, "y", 0) > 50, Math.abs(value("birds", bird, "y", 1)) <= 5]).toEqual([true, true]);
+    }
+    expect([wordAt("birds", 0.42), wordAt("birds", 0.62), wordAt("birds", 1)]).toEqual(["Their wings spread", "And folded in", "None holds them up but the Most Merciful"]);
+
+    // The seed sown: thrown onto the furrows, covered with earth, then shoots, then wheat with its ears.
+    expect([shown("sow", "near seeds", 0.02), shown("sow", "near seeds", 0.3), value("sow", "near seeds", "scale", 0.3), shown("sow", "near seeds", 0.45)]).toEqual([0, 1, 1, 0]);
+    expect([shown("sow", "earth over the seeds", 0.3), shown("sow", "earth over the seeds", 0.45), value("sow", "near shoots", "scaleY", 0.4), value("sow", "near shoots", "scaleY", 0.6)]).toEqual([0, 1, 0, 1]);
+    expect([value("sow", "near wheat", "scaleY", 0.6), value("sow", "near wheat", "scaleY", 0.85), shown("sow", "ears", 0.7), shown("sow", "ears", 1)]).toEqual([0, 1, 0, 1]);
+    expect([wordAt("sow", 0.2), wordAt("sow", 0.5), wordAt("sow", 1)]).toEqual(["The seed you sow", "Who makes it grow?", "Allah makes it grow"]);
+
+    // The water: rain from the clouds fills the pool, then the land turns green and a camel comes to drink.
+    expect([shown("water", "rain", 0.1), shown("water", "rain", 0.45), shown("water", "rain", 1)]).toEqual([0, 1, 0]);
+    expect([value("water", "pool", "scale", 0.1) < 1, value("water", "pool", "scale", 1), value("water", "camel", "x", 0.5) <= -100, value("water", "camel", "x", 1)]).toEqual([true, 1, true, 0]);
+    expect([value("water", "grass and flowers", "scaleY", 0.5), value("water", "grass and flowers", "scaleY", 1), wordAt("water", 0.45), wordAt("water", 0.65)]).toEqual([
+      0,
+      1,
+      "Down from the clouds",
+      "Sweet, not salty"
+    ]);
+
+    // The fire: a green branch rubbed on another sparks, the fire grows, the green tree it came from shows, and the
+    // travelers by their tent are lit by it.
+    const rubs = part("fire", "rubbing branch").keys!;
+    expect(new Set(rubs.x!.filter((_, index) => rubs.at[index] >= 0.06 && rubs.at[index] <= 0.24)).size).toBe(2);
+    expect([shown("fire", "sparks", 0.2), shown("fire", "rubbing branch", 0.4), value("fire", "fire", "scale", 0.2), value("fire", "fire", "scale", 0.5)]).toEqual([1, 0, 0, 1]);
+    expect([shown("fire", "green tree", 0.2), shown("fire", "green tree", 0.45), shown("fire", "travelers in the firelight", 0.7), shown("fire", "travelers in the firelight", 1)]).toEqual([0, 1, 0, 1]);
+    expect([wordAt("fire", 0.45), wordAt("fire", 1)]).toEqual(["From the green tree", "A gift for travelers"]);
+
+    // The shade: the land in shade, the palm's shadow stretched out long as the sun comes up, then drawn in, little by
+    // little, as the sun climbs.
+    const stretch = (t: number) => value("shade", "palm's shadow", "scaleX", t);
+    expect([shown("shade", "land in shade", 0), shown("shade", "land in shade", 0.4), stretch(0.05), stretch(0.35)]).toEqual([1, 0, 0, 1]);
+    expect([stretch(0.66) < stretch(0.4), stretch(1) < stretch(0.66), stretch(1) > 0]).toEqual([true, true, true]);
+    const sunY = (t: number) => value("shade", "sun", "y", t);
+    expect([sunY(0), sunY(0.4) < 0, sunY(0.66) < sunY(0.4), sunY(1) < sunY(0.66)]).toEqual([0, true, true, true]);
+
+    // The foam: rain fills the valleys, the big one's stream wider; foam rides the flood and the melted gold, then
+    // passes away, and the clear water, the green bank and the shining gold remain.
+    expect(part("foam", "streams").svg).toMatch(/stroke-width="7"[\s\S]*stroke-width="3"/);
+    expect([shown("foam", "rain", 0.1), shown("foam", "rain", 0.5), value("foam", "streams", "scaleY", 0.2)]).toEqual([1, 0, 1]);
+    for (const name of ["foam", "foam on the gold"]) {
+      expect([name, shown("foam", name, 0.2), shown("foam", name, 0.4), shown("foam", name, 0.8), value("foam", name, "x", 0.6) > value("foam", name, "x", 0.4)]).toEqual([name, 0, 1, 0, true]);
+    }
+    expect([shown("foam", "clear water", 0.4), shown("foam", "clear water", 1), value("foam", "plants", "scaleY", 1), shown("foam", "gold shining", 1)]).toEqual([0, 1, 1, 1]);
+
+    // The three lands, each in its turn: the good one grows grass, the hard one holds the water (a goat drinks), the
+    // barren one keeps nothing; then all three together.
+    const dimmed = (t: number) => ["good land dimmed", "hard land dimmed", "barren land dimmed"].map((name) => shown("lands", name, t));
+    expect([dimmed(0.2), dimmed(0.42), dimmed(0.64), dimmed(0.86), dimmed(1)]).toEqual([
+      [0, 0, 0],
+      [0, 1, 1],
+      [1, 0, 1],
+      [1, 1, 0],
+      [0, 0, 0]
+    ]);
+    expect([shown("lands", "rain", 0.15), shown("lands", "rain", 0.4), value("lands", "grass on the good land", "scaleY", 0.3), value("lands", "grass on the good land", "scaleY", 0.5)]).toEqual([1, 0, 0, 1]);
+    expect([value("lands", "water held in the hard land", "scale", 0.35), value("lands", "water held in the hard land", "scale", 1), value("lands", "goat", "x", 0.5) < -50, value("lands", "goat", "x", 0.7)]).toEqual([
+      1,
+      1,
+      true,
+      0
+    ]);
+    expect(signArt("lands").words.map((word) => word.text)).toEqual(["Rain falls on three lands", "Good land grows grass", "Hard land holds water", "Barren land keeps nothing"]);
+
+    // The ashes: a heap, then a stormy wind that blows it all away; standing still, the wind is blowing it.
+    const puffs = signArt("ashes").parts.filter((each) => /^ash \d$/.test(each.name));
+    expect(puffs.length).toBe(4);
+    expect([value("ashes", "heap of ashes", "scaleY", 0.4), value("ashes", "heap of ashes", "scaleY", 1), shown("ashes", "stormy wind", 0.3), shown("ashes", "stormy wind", 0.6)]).toEqual([1, 0, 0, 1]);
+    expect(puffs.map((each) => shown("ashes", each.name, 1))).toEqual([0, 0, 0, 0]);
+    const still = signArt("ashes").stillAt!;
+    expect([wordAt("ashes", still), puffs.some((each) => shown("ashes", each.name, still) === 1 && value("ashes", each.name, "x", still) > 0)]).toEqual(["A stormy wind blows", true]);
+
+    // The garden: full of fruit by day, struck in the night, black and bare by the morning.
+    expect([shown("garden", "fruit", 0.3), shown("garden", "trees", 0.3), shown("garden", "night", 0.2), shown("garden", "night", 0.5) > 0.5, shown("garden", "the blow by night", 0.5)]).toEqual([1, 1, 0, true, 1]);
+    expect([shown("garden", "fruit", 0.7), shown("garden", "trees", 0.7), shown("garden", "burnt trees", 0.7), shown("garden", "burnt trees", 1), shown("garden", "night", 1)]).toEqual([0, 0, 1, 1, 0]);
+
+    // The two gardens: grapes, then palms around and crops between, then the river; then the fruit gone and the vines
+    // fallen on their trellises in a storm.
+    expect([shown("twoGardens", "grapes", 0.3), value("twoGardens", "palms", "scaleY", 0.2), value("twoGardens", "palms", "scaleY", 0.45), value("twoGardens", "crops", "scaleY", 0.5)]).toEqual([1, 0, 1, 1]);
+    expect([value("twoGardens", "river", "scaleY", 0.45), value("twoGardens", "river", "scaleY", 0.65), shown("twoGardens", "stormy sky", 0.6), shown("twoGardens", "stormy sky", 1)]).toEqual([0, 1, 0, 1]);
+    expect([shown("twoGardens", "grapes", 1), value("twoGardens", "crops", "scaleY", 1) < 0.5, shown("twoGardens", "left vines", 1), shown("twoGardens", "left vines fallen", 1)]).toEqual([0, true, 0, 1]);
+    expect([value("twoGardens", "left vines fallen", "rotate", 1) < 0, value("twoGardens", "right vines fallen", "rotate", 1) > 0]).toEqual([true, true]);
   });
 
   test("every word and caption is translated in every language", () => {
