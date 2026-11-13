@@ -308,6 +308,7 @@ import { flowPictures, getLessonPicture, pictureForLesson, choicePictures, pictu
 import { hajjMapForLesson } from "./data/hajjMap";
 import { skyForLesson } from "./data/daySky";
 import { moonForLesson } from "./data/moonSky";
+import { signForLesson } from "./data/signScenes";
 import { journeyForLesson } from "./data/seerahMap";
 import { HajjMapBanner, HajjMapSheet } from "./ui/journey/HajjMap";
 import { DayOfPrayerBanner, DayOfPrayerSheet } from "./ui/journey/DayOfPrayer";
@@ -3978,6 +3979,9 @@ export default function TopicApp() {
   // A lesson about the moon or the months (the moon split, the new moon, its stages, the twelve months) opens on the
   // moon's sky.
   const lessonMoon = pictureLesson && !lessonJourney && !lessonSky ? moonForLesson(pictureLesson) : undefined;
+  // A lesson about one of Allah's signs in creation (rain on a dead land, the two seas, the ships, the bee...) opens
+  // on that sign's scene, alive.
+  const lessonSign = pictureLesson && !lessonJourney && !lessonSky && !lessonMoon ? signForLesson(pictureLesson) : undefined;
   // Every page shows a big picture: what it teaches (the bridge, the ark, a market...), else the lesson's own, else
   // one that fits the topic, never the same one twice in a row (flowPictures).
   const learnQueue = state.lessonQueue.flatMap((step, index) => (isLearnStep(step) ? [{ step, index }] : []));
@@ -3989,7 +3993,7 @@ export default function TopicApp() {
           page: step.page,
           text: step.page === "teach" && step.index !== undefined && pictureLesson.challenges[step.index] ? teachText(pictureLesson.challenges[step.index]) : undefined
         })),
-        { startPicture: lessonPicture, cover: Boolean(lessonSurah) || Boolean(lessonJourney) || Boolean(lessonSky) || Boolean(lessonMoon) }
+        { startPicture: lessonPicture, cover: Boolean(lessonSurah) || Boolean(lessonJourney) || Boolean(lessonSky) || Boolean(lessonMoon) || Boolean(lessonSign) }
       )
     : [];
   const shownPictureAt = learnQueue.findIndex(({ index }) => index === state.stepIndex);
@@ -4254,6 +4258,7 @@ export default function TopicApp() {
             journey={lessonJourney}
             sky={lessonSky}
             moon={lessonMoon}
+            sign={lessonSign}
             teacher={lessonTeacher}
             surah={lessonSurah}
             deeper={lesson.learnDeeper}

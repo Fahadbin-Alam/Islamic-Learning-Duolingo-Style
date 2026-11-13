@@ -6,6 +6,7 @@ import { HAJJ_MAP_LESSONS, HAJJ_STOPS, hajjMapForLesson } from "../../data/hajjM
 import { MOON_SCENES, moonForLesson } from "../../data/moonSky";
 import { pictureForLesson } from "../../data/lessonPictures";
 import { journeyForLesson, SEERAH_JOURNEYS } from "../../data/seerahMap";
+import { SIGN_SCENES, signForLesson } from "../../data/signScenes";
 import { setActiveLanguage } from "../../i18n";
 import { localizeLessonContent } from "../../services/contentLocalization";
 import type { Lesson, SupportedLanguage } from "../../types";
@@ -17,17 +18,19 @@ import { HajjMapBanner, HajjMapSheet } from "../journey/HajjMap";
 import { JourneyMap } from "../journey/JourneyMap";
 import { LifeMapBanner, LifeMapSheet } from "../journey/LifeMap";
 import { MoonSky } from "../journey/MoonSky";
+import { SignSceneView } from "../journey/SignScene";
 import { colors, fonts, space } from "../theme";
 
 /**
  * The Seerah and Hajj maps (src/ui/journey), for checking them by eye on the web:
  * #gallery-journey: every scene, with each lesson's own roads and touches (?still=0 lets them move);
- * #gallery-journey-lesson:<lesson id>: a Seerah, Hajj, sky or moon lesson's first page as the app shows it (?lang=bn, ur or ar);
+ * #gallery-journey-lesson:<lesson id>: a Seerah, Hajj, sky, moon or sign lesson's first page as the app shows it (?lang=bn, ur or ar);
  * #gallery-journey-life: the map of his life ﷺ, playing;
  * #gallery-journey-hajj: the map of Hajj, playing;
  * #gallery-journey-prayer: the day of prayer in the sky, playing;
  * #gallery-journey-skies: every sky at its end (?still=0 plays them);
- * #gallery-journey-moons: every moon sky at its end (?still=0 plays them).
+ * #gallery-journey-moons: every moon sky at its end (?still=0 plays them);
+ * #gallery-journey-signs: every sign in creation at its end (?still=0 plays them).
  */
 
 const noop = () => undefined;
@@ -48,6 +51,7 @@ function LessonStart({ lessonId }: { lessonId: string }) {
   const daySky = journey ? undefined : skyForLesson(english);
   // As in the app: the moon only for a lesson with no map and no day's sky.
   const moon = journey || daySky ? undefined : moonForLesson(english);
+  const sign = journey || daySky || moon ? undefined : signForLesson(english);
   const lesson = localizeLessonContent(english, language());
   return (
     <LessonScreen progress={0.06} hearts={HEARTS} onClose={noop}>
@@ -61,7 +65,8 @@ function LessonStart({ lessonId }: { lessonId: string }) {
         journey={journey}
         sky={daySky}
         moon={moon}
-        teacher={teacherFor(hajj ? "hajj" : sky ? "prayer" : moon ? "akhirah" : "prophets")}
+        sign={sign}
+        teacher={teacherFor(hajj ? "hajj" : sky ? "prayer" : moon ? "akhirah" : sign ? "quran_tafseer" : "prophets")}
         mascotVariant="boy"
         accent={ACCENT}
         onContinue={noop}
@@ -146,6 +151,24 @@ function AllMoons() {
   );
 }
 
+/** Every sign in creation, at its end (or playing, with ?still=0). */
+function AllSigns() {
+  setActiveLanguage(language());
+  const moving = Platform.OS === "web" && typeof window !== "undefined" && new URLSearchParams(window.location.search).get("still") === "0";
+  return (
+    <ScrollView style={styles.full} contentContainerStyle={styles.wall}>
+      {SIGN_SCENES.map((scene) => (
+        <View key={scene.id} style={styles.wallItem} testID={`sign-${scene.id}`}>
+          <Text style={styles.caption}>{scene.id}</Text>
+          <View style={styles.mapBox}>
+            <SignSceneView scene={scene} width={360} height={270} still={!moving} testID={`sign-scene-${scene.kind}`} />
+          </View>
+        </View>
+      ))}
+    </ScrollView>
+  );
+}
+
 /** Every scene, and again for each lesson that adds its own road, note or touch; then the Hajj stops. */
 function AllScenes() {
   setActiveLanguage(language());
@@ -179,6 +202,7 @@ export default function JourneyGallery({ hash }: { hash: string }) {
   if (hash.startsWith("#gallery-journey-prayer")) return <PrayerDemo />;
   if (hash.startsWith("#gallery-journey-skies")) return <AllSkies />;
   if (hash.startsWith("#gallery-journey-moons")) return <AllMoons />;
+  if (hash.startsWith("#gallery-journey-signs")) return <AllSigns />;
   return <AllScenes />;
 }
 
