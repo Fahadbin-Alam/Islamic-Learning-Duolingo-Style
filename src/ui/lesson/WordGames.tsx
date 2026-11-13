@@ -231,7 +231,19 @@ export function GameFrame({
   const [rootHeight, setRootHeight] = useState(0);
   const [viewHeight, setViewHeight] = useState(0);
   const revealAt = useRef<number | undefined>(undefined);
-  const room = useMemo<GameRoom>(() => ({ height: viewHeight, reveal: (contentY) => (revealAt.current = contentY) }), [viewHeight]);
+  // Counts the points asked for, so a point that moves (the question above it laid out again) is looked at again.
+  const [revealAsked, setRevealAsked] = useState(0);
+  const room = useMemo<GameRoom>(
+    () => ({
+      height: viewHeight,
+      reveal: (contentY) => {
+        if (revealAt.current === contentY) return;
+        revealAt.current = contentY;
+        setRevealAsked((count) => count + 1);
+      }
+    }),
+    [viewHeight]
+  );
   // Once the answer sheet is up, the point the game asked to keep in sight scrolls up above it if the sheet covers it.
   useEffect(() => {
     if (!checked) {
@@ -246,7 +258,7 @@ export function GameFrame({
       if (want > shownBottom) scroller.current?.scrollTo?.({ y: scrolled.current + want - shownBottom, animated: true });
     }, 60);
     return () => clearTimeout(timer);
-  }, [checked, rootHeight, sheetHeight, viewHeight]);
+  }, [checked, rootHeight, sheetHeight, viewHeight, revealAsked]);
   const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     scrolled.current = event.nativeEvent.contentOffset.y;
   };
