@@ -96,7 +96,13 @@ const ABOUT: Record<string, RegExp[]> = {
   "sign-khidr": [/Khidr|two seas|fish|boat|wall/i, /Musa|sea|fish|boat|wall|treasure|orphan|knowledge/i],
   "sign-barrier": [/barrier|wall/i, /Dhul-Qarnayn|mountain|iron|copper|Ya'?juj/i],
   "sign-yunus": [/Yunus|Dhun-Nun|fish|whale|gourd/i, /fish|whale|ship|dark|gourd|shore|believed|town/i],
-  "sign-maryam": [/palm|far/i, /Maryam/i]
+  "sign-maryam": [/palm|far/i, /Maryam/i],
+  "sign-dawud": [/Dawud/i, /mountain|bird|iron|armou?r|mail/i],
+  "sign-house": [/House|Ka'?bah|valley|Hajj/i, /Ibrahim|Isma'?il|foundation|crops|Hajj|camel|raise|built|build/i],
+  "sign-zamzam": [/Safa|Marwa|Zamzam/i, /Hajar|water|seven|sa'?i|Jurhum|sign|symbol/i],
+  "sign-throne": [/throne|glass|palace/i, /Saba|Sulayman|queen|favou?r/i],
+  "sign-mihrab": [/Zakariyya|Maryam/i, /mihrab|prayer room|provision|food|from Allah|good child/i],
+  "sign-cool-fire": [/fire/i, /Ibrahim|furnace|cool|safe/i]
 };
 
 const SOURCES: Record<string, string[]> = {
@@ -136,7 +142,13 @@ const SOURCES: Record<string, string[]> = {
   "sign-khidr": ["Quran 18:60", "Quran 18:61", "Quran 18:63", "Quran 18:71", "Quran 18:77", "Quran 18:79", "Quran 18:82"],
   "sign-barrier": ["Quran 18:93", "Quran 18:94", "Quran 18:96", "Quran 18:97"],
   "sign-yunus": ["Quran 37:140", "Quran 37:142", "Quran 21:87", "Quran 21:88", "Quran 37:145", "Quran 37:146", "Quran 37:147", "Quran 37:148"],
-  "sign-maryam": ["Quran 19:22", "Quran 19:23", "Quran 19:24", "Quran 19:25", "Quran 19:26"]
+  "sign-maryam": ["Quran 19:22", "Quran 19:23", "Quran 19:24", "Quran 19:25", "Quran 19:26"],
+  "sign-dawud": ["Quran 21:79", "Quran 21:80", "Quran 34:10", "Quran 34:11", "Quran 38:18", "Quran 38:19"],
+  "sign-house": ["Quran 14:37", "Quran 2:127", "Quran 22:26", "Quran 22:27"],
+  "sign-zamzam": ["Quran 2:158", "Sahih al-Bukhari 3364"],
+  "sign-throne": ["Quran 27:38", "Quran 27:40", "Quran 27:41", "Quran 27:44"],
+  "sign-mihrab": ["Quran 3:37", "Quran 3:38"],
+  "sign-cool-fire": ["Quran 21:68", "Quran 21:69", "Quran 21:70", "Quran 37:97"]
 };
 
 const part = (kind: SignKind, name: string): SignPart => {
@@ -160,7 +172,7 @@ describe("the signs in creation, alive", () => {
   });
 
   test("every lesson with a scene is a real lesson about its sign, and opens on it", () => {
-    expect(Object.keys(SIGN_LESSONS).length).toBe(275);
+    expect(Object.keys(SIGN_LESSONS).length).toBe(319);
     for (const [nodeId, id] of Object.entries(SIGN_LESSONS)) {
       const lesson = LESSONS_BY_ID[`lesson-${nodeId}`] as Lesson | undefined;
       expect([nodeId, Boolean(lesson)]).toEqual([nodeId, true]);
@@ -562,6 +574,60 @@ describe("the signs in creation, alive", () => {
     expect([shown("maryam", "ripe dates", 0.5), shown("maryam", "ripe dates", 0.62), value("maryam", "palm tree", "rotate", 0.5), value("maryam", "palm tree", "rotate", 0.61) !== 0]).toEqual([0, 1, 0, true]);
     expect(dates.map((each) => [value("maryam", each.name, "y", 0.6), value("maryam", each.name, "y", 0.8) > 40])).toEqual(dates.map(() => [0, true]));
     expect([shown("maryam", "a calm light", 0.8), shown("maryam", "a calm light", 1)]).toEqual([0, 1]);
+  });
+
+  test("the scenes of Allah's favors to His Prophets show each moment in its order, and draw no Prophet and no person", () => {
+    const favors: SignKind[] = ["dawud", "house", "zamzam", "throne", "mihrab", "cool-fire"];
+    for (const kind of favors) {
+      for (const each of signArt(kind).parts) {
+        const person = /\b(prophet|man|men|woman|women|person|people|king|queen|soldiers?|helper|servant|angels?|jinn|child|children|boy|girl|baby|mother|father|son|face|hand|feet|foot)\b/i;
+        expect([kind, each.name, person.test(each.name)]).toEqual([kind, each.name, false]);
+      }
+    }
+    const words = (kind: SignKind) => signArt(kind).words.map((word) => word.text);
+    // Dawud: the mountains glorifying, the birds gathered in, the iron glowing and bending, then the coat of mail, its
+    // rings joined row by row from the top, and shining.
+    expect(words("dawud")).toEqual(["The mountains glorified with him", "And the birds, gathered", "Iron made soft for him", "Make coats of mail", "The rings just right"]);
+    expect([shown("dawud", "praise from the mountains", 0.15), shown("dawud", "birds gathered, left", 0.2), shown("dawud", "birds gathered, left", 0.35), value("dawud", "birds gathered, right", "x", 0.2), value("dawud", "birds gathered, right", "x", 0.35)]).toEqual([1, 0, 1, 44, 0]);
+    expect([shown("dawud", "iron", 0.45), shown("dawud", "iron bending", 0.45), shown("dawud", "iron", 0.56), shown("dawud", "iron bending", 0.56), shown("dawud", "coat of mail", 0.56)]).toEqual([1, 0, 0, 1, 0]);
+    const bands = [1, 2, 3, 4].map((band) => `rings of the coat, band ${band}`);
+    expect([bands.map((name) => shown("dawud", name, 0.62)), bands.map((name) => shown("dawud", name, 0.7) === 1), bands.map((name) => shown("dawud", name, 0.8))]).toEqual([
+      [0, 0, 0, 0],
+      [true, false, false, false],
+      [1, 1, 1, 1]
+    ]);
+    expect([shown("dawud", "iron bending", 0.8), shown("dawud", "coat of mail", 1), shown("dawud", "rings shining", 0.8), shown("dawud", "rings shining", 1)]).toEqual([0, 1, 0, 1]);
+    // The House: a dry valley; its stones rising course by course, from the ground up; accepted; the call going out;
+    // and the camels coming from every side, along the paths.
+    expect(words("house")).toEqual(["A valley without crops", "Raising the foundations of the House", "Our Lord, accept from us", "Proclaim the Hajj to the people", "From every distant path"]);
+    const courses = [1, 2, 3, 4, 5].map((course) => `stones of the House, course ${course}`);
+    expect([courses.map((name) => shown("house", name, 0.18)), courses.map((name) => shown("house", name, 0.32) === 1), courses.map((name) => shown("house", name, 0.5))]).toEqual([
+      [0, 0, 0, 0, 0],
+      [true, true, false, false, false],
+      [1, 1, 1, 1, 1]
+    ]);
+    expect([shown("house", "accepted", 0.5), shown("house", "accepted", 0.62), shown("house", "the call going out, 1", 0.66), shown("house", "the call going out, 1", 0.7) > 0]).toEqual([0, 1, 0, true]);
+    expect([shown("house", "camel coming, left", 0.8), shown("house", "paths to the House", 0.8), shown("house", "camel coming, left", 1), value("house", "camel coming, left", "x", 1), shown("house", "paths to the House", 1)]).toEqual([0, 0, 1, 0, 1]);
+    // Safa and Marwah: the footsteps going between them, counted seven times; then the water of Zamzam; then a bird
+    // circling over it.
+    expect(words("zamzam")).toEqual(["Safa and Marwah", "Seven times between them", "The water of Zamzam", "A bird circling over the water"]);
+    const times = [1, 2, 3, 4, 5, 6, 7].map((time) => `time ${time}`);
+    expect([times.map((name) => shown("zamzam", name, 0.2)), times.filter((name) => shown("zamzam", name, 0.4) === 1).length, times.map((name) => shown("zamzam", name, 0.55))]).toEqual([[0, 0, 0, 0, 0, 0, 0], 4, [1, 1, 1, 1, 1, 1, 1]]);
+    expect([shown("zamzam", "footsteps between them", 0.3), shown("zamzam", "the water of Zamzam", 0.58), shown("zamzam", "footsteps between them", 0.7), shown("zamzam", "the water of Zamzam", 0.7)]).toEqual([1, 0, 0, 1]);
+    expect([shown("zamzam", "a bird circling over the water", 0.7), shown("zamzam", "a bird circling over the water", 0.9)]).toEqual([0, 1]);
+    // The throne: far off in Saba; here, with a flash, before the glance returns; the favor of his Lord; changed; and
+    // the floor become glass over water.
+    expect(words("throne")).toEqual(["Her throne, far away", "Before your glance returns", "From the favor of my Lord", "Her throne, disguised", "A palace paved with glass"]);
+    expect([shown("throne", "her throne, far off", 0.2), shown("throne", "her throne, here", 0.2), shown("throne", "her throne, far off", 0.3), shown("throne", "her throne, here", 0.3), shown("throne", "in the blink of an eye", 0.26)]).toEqual([1, 0, 0, 1, 1]);
+    expect([shown("throne", "her throne, changed", 0.5), shown("throne", "her throne, here", 0.7), shown("throne", "her throne, changed", 0.7), shown("throne", "the glass", 0.7), shown("throne", "water under the glass", 1), shown("throne", "the glass", 1)]).toEqual([0, 0, 1, 0, 1, 1]);
+    // The mihrab: the door opens by itself, the provision is there, from Allah; and there, Zakariyya calls on his Lord.
+    expect(words("mihrab")).toEqual(["In the mihrab", "Each time he came in", "He found provision with her", "It is from Allah", "There, Zakariyya called on his Lord"]);
+    expect([value("mihrab", "the door", "scaleX", 0.1), value("mihrab", "the door", "scaleX", 0.35) < 0.2, shown("mihrab", "provision with her", 0.38), shown("mihrab", "provision with her", 0.5)]).toEqual([1, true, 0, 1]);
+    expect([shown("mihrab", "from Allah", 0.58), shown("mihrab", "from Allah", 0.7), shown("mihrab", "calling on his Lord", 0.78), shown("mihrab", "calling on his Lord", 0.9)]).toEqual([0, 1, 0, 1]);
+    // The fire: blazing; then, at the word, cool and calm; and safe.
+    expect(words("cool-fire")).toEqual(["A great blazing fire", "O fire, be coolness", "And safety for Ibrahim"]);
+    expect([shown("cool-fire", "the blazing fire", 0.3), shown("cool-fire", "the fire made cool", 0.3), shown("cool-fire", "the blazing fire", 0.5), shown("cool-fire", "the fire made cool", 0.5)]).toEqual([1, 0, 0, 1]);
+    expect([shown("cool-fire", "safety", 0.6), shown("cool-fire", "safety", 0.8), shown("cool-fire", "heat of the fire", 1), shown("cool-fire", "coolness", 1)]).toEqual([0, 1, 0, 1]);
   });
 
   test("every word and caption is translated in every language", () => {
