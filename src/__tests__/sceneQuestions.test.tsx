@@ -79,7 +79,7 @@ describe("which questions are asked on a scene", () => {
     const asks = sceneAsks();
     // Each one was read with its scene: its right answer is what the moment shows, and the scene before it does not
     // show it. A question changed in the course fails here until it is read again.
-    expect(asks.length).toBe(475);
+    expect(asks.length).toBe(513);
     let places = 0;
     for (const ask of asks) {
       const found = ALL_CHALLENGES.filter(({ challenge }) => challenge.prompt === ask.prompt && rightOf(challenge) === ask.answer);
@@ -97,7 +97,7 @@ describe("which questions are asked on a scene", () => {
         ]);
       }
     }
-    expect(places).toBe(664);
+    expect(places).toBe(720);
   });
 
   it("finds a question by its prompt and its right answer, so another question with the same prompt is not asked on it", () => {
@@ -474,6 +474,99 @@ describe("where the scene waits and where it stops", () => {
       [0, 0, 1, 1]
     ]);
     expect(moved("What color was the cow?", "the yellow cow", "x")).toEqual([-90, 0]);
+  });
+
+  it("waits on the stories of Allah's power before anything of the answer shows, and shows it once answered, at rest", () => {
+    // Wherever a question on these scenes waits or stops, nothing is halfway through moving or coming into sight.
+    const powers = ["sign-overturned", "sign-five-signs", "sign-sabbath", "sign-west-east", "sign-four-birds", "sign-hundred-years", "sign-shirt"];
+    for (const ask of sceneAsks().filter((each) => powers.includes(each.sceneId))) {
+      const kind = SIGN_SCENES.find((each) => each.id === ask.sceneId)!.kind;
+      for (const t of Object.values(sceneMoment(kind, ask.from, ask.to)!)) {
+        for (const part of signArt(kind).parts) {
+          for (const [key, values] of Object.entries(part.keys ?? {})) {
+            if (key === "at") continue;
+            const at = (time: number) => keyAt(part.keys!.at, values as number[], Math.min(1, Math.max(0, time)));
+            expect([ask.prompt, t, part.name, key, at(t) === at(t - 0.004) || at(t) === at(t + 0.004)]).toEqual([ask.prompt, t, part.name, key, true]);
+          }
+        }
+      }
+    }
+    // Lut's town. The morning: the night, its stars and lamps; then the morning. Turned over: upright; then upside down.
+    expect(shown("When was the punishment set to come, in 11:81?", ["stars", "lamps in the homes", "morning"])).toEqual([
+      [1, 1, 0],
+      [0, 0, 1]
+    ]);
+    expect(moved("What did Allah do to the town?", "the town", "rotate")).toEqual([0, 180]);
+    expect([moved("What happened to the rest, in 37:136?", "the town", "rotate"), shown("What happened to the rest, in 37:136?", ["stones on it, layer on layer"])]).toEqual([[0, 180], [[0], [1]]]);
+    // The stones: none yet, and a clear sky; then falling from a dark sky, and lying on it.
+    expect(shown("What rained on it?", ["stones of baked clay falling", "stones on it, a first layer", "dark sky of the stones"])).toEqual([
+      [0, 0, 0],
+      [1, 1, 1]
+    ]);
+    expect(shown("What did Allah leave, in 51:37?", ["a clear sign"])).toEqual([[0], [1]]);
+    // Pharaoh's people: the drought, and none of the five yet; then all five in turn, to the blood.
+    const signs = ["the flood", "a swarm of locusts", "lice", "frogs", "the river turned to blood"];
+    expect(shown("Ayahs 127-141: what are they about?", ["the burning sun of the drought", ...signs])).toEqual([
+      [1, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 1]
+    ]);
+    expect(shown("Which creatures were signs to Pharaoh's people, in Al-A'raf?", ["the flood", "a swarm of locusts", "frogs"])).toEqual([
+      [1, 0, 0],
+      [0, 0, 1]
+    ]);
+    expect(shown("Which of these was a sign sent in 7:133?", ["lice", "frogs"])).toEqual([
+      [1, 0],
+      [0, 1]
+    ]);
+    expect(shown("What happened to their water, per Ibn Kathir?", ["the river turned to blood", "blood in their jars"])).toEqual([
+      [0, 0],
+      [1, 1]
+    ]);
+    expect(shown("What did they do after each sign was lifted, in 7:135?", ["the river turned to blood"])).toEqual([[1], [0]]);
+    // The town by the sea: the day before their Sabbath, no fish; then their Sabbath, and the fish on the water.
+    expect(shown("When did the fish come, in 7:163?", ["fish showing on the sea", "the Sabbath, the day it is", "day 6 of the week, the day it is"])).toEqual([
+      [0, 0, 1],
+      [1, 1, 0]
+    ]);
+    // Dhul-Qarnayn: nothing yet; then the means. The sun high, no way yet; then the way west, and the sun gone down to it.
+    expect(shown("What did Allah give him, in 18:84?", ["the means to all things"])).toEqual([[0], [1]]);
+    const west = signArt("west-east")
+      .parts.filter((each) => each.name.startsWith("the way to where the sun sets"))
+      .map((each) => each.name);
+    expect([moved("How far did he go, per Ibn Kathir?", "the sun going down in the west", "x"), shown("How far did he go, per Ibn Kathir?", west)]).toEqual([
+      [0, -56],
+      [west.map(() => 0), west.map(() => 1)]
+    ]);
+    expect(shown("What did the eastern people lack, in 18:90?", ["no shelter from the sun", "the heat of the day"])).toEqual([
+      [0, 0],
+      [1, 1]
+    ]);
+    // The four birds: none yet; then the four. Called: the hills lit, no bird; then the birds back where they stood.
+    const birds = ["bird 1", "bird 2", "bird 3", "bird 4"];
+    expect(shown("How many birds was he told to take?", birds)).toEqual([birds.map(() => 0), birds.map(() => 1)]);
+    expect(shown("When he called them, what did the birds do?", [...birds, "light on hill 1", "light on hill 5"])).toEqual([
+      [0, 0, 0, 0, 1, 1],
+      [1, 1, 1, 1, 0, 0]
+    ]);
+    // The hundred years: the donkey, no tree; then the donkey's bones, and the tree grown. Then the bones raised.
+    expect(shown("How long did the man stay dead, in 2:259?", ["the donkey", "the donkey's bones", "a tree grown in a hundred years"])).toEqual([
+      [1, 0, 0],
+      [0, 1, 1]
+    ]);
+    expect(shown("Ayahs 258-260: what are they about?", ["the donkey's bones", "the donkey"])).toEqual([
+      [1, 0],
+      [0, 1]
+    ]);
+    expect(shown("What did he say after seeing it?", ["Allah is able to do all things"])).toEqual([[0], [1]]);
+    // Yusuf's shirt: no shirt and no camel yet; then the shirt. The good news; then the light come back in the home.
+    expect(shown("What did Yusuf send to his father, in 12:93?", ["the shirt", "camel of the caravan, behind", "camel of the caravan, in front"])).toEqual([
+      [0, 0, 0],
+      [1, 0, 0]
+    ]);
+    expect(shown("What happened when the shirt touched his face, in 12:96?", ["good news at the home", "light come back in the home", "sight come back"])).toEqual([
+      [1, 0, 0],
+      [1, 1, 1]
+    ]);
   });
 
   it("goes quickly up to the moment, and plays the moment at the story's pace, never too long", () => {

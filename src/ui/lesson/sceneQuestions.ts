@@ -481,6 +481,66 @@ const ASKS: Record<string, readonly Ask[]> = {
     ["What colour was the cow, in ayah 69?", "Bright yellow", "Bright yellow, pleasing to see"],
     ["What color was the cow, in 2:69?", "Bright yellow", "Bright yellow, pleasing to see"]
   ],
+  // Lut's town: by night, the morning, turned upside down, the stones of baked clay, and the clear sign (11:81-83, 29:35).
+  "sign-overturned": [
+    ["When was the punishment set to come, in 11:81?", "In the morning", "Their appointed time is the morning"],
+    ["What did Allah do to the town?", "Turned it upside down", "We turned it upside down"],
+    ["What happened to the town, in 11:82?", "Turned upside down", "We turned it upside down"],
+    ["What did Allah destroy, in 53:53?", "The overthrown cities", "We turned it upside down"],
+    ["Allah turned those cities upside down.", "True", "We turned it upside down"],
+    ["What happened to the rest, in 37:136?", "They were destroyed", "We turned it upside down", "Stones of baked clay, layer on layer"],
+    ["What rained on it?", "Stones of baked clay", "Stones of baked clay, layer on layer"],
+    ["What fell on Lut's people, in 7:84?", "A rain of stones", "Stones of baked clay, layer on layer"],
+    ["From where was the punishment, in 29:34?", "From the sky", "Stones of baked clay, layer on layer"],
+    ["What did Sijjil mean, per Ibn Abbas?", "Stones of clay", "Stones of baked clay, layer on layer"],
+    ["What covered them, per Ibn Kathir?", "Stones of Sijjil", "Stones of baked clay, layer on layer"],
+    ["What does 53:54 say?", "There covered them what covered", "Stones of baked clay, layer on layer"],
+    ["What did Allah leave, in 51:37?", "A sign", "We left a clear sign"]
+  ],
+  // Pharaoh's people: the drought, then the flood, the locusts, the lice, the frogs and the blood, each lifted in its
+  // turn (7:130, 7:133, 7:135, 43:50).
+  "sign-five-signs": [
+    ["Ayahs 127-141: what are they about?", "Signs on Pharaoh", "The flood", "The blood"],
+    ["Which creatures were signs to Pharaoh's people, in Al-A'raf?", "Locusts, lice and frogs", "The locusts", "The frogs"],
+    ["Which of these was a sign sent in 7:133?", "Frogs", "The frogs"],
+    ["What happened to their water, per Ibn Kathir?", "It turned to blood", "The blood"],
+    ["What did they do after each sign was lifted, in 7:135?", "Broke their promise", "Each time it was lifted, they broke their word"],
+    ["What did they do when the torment was removed, in 43:50?", "Broke their covenant", "Each time it was lifted, they broke their word"],
+    ["How often did they break it, per Ibn Kathir?", "On each occasion", "Each time it was lifted, they broke their word"]
+  ],
+  // The town by the sea: its fish came on their Sabbath, and not on other days (7:163).
+  "sign-sabbath": [
+    ["When did the fish come, in 7:163?", "On the Sabbath", "Their fish came on their Sabbath"],
+    ["Which day's rule did they break?", "The Sabbath", "Their fish came on their Sabbath"],
+    ["Ayahs 159-171: what are they about?", "The Sabbath town", "Their fish came on their Sabbath"]
+  ],
+  // Dhul-Qarnayn: the means to all things, to where the sun sets, and to where it rises, on a land with no shelter (18:84-90).
+  "sign-west-east": [
+    ["What did Allah give him, in 18:84?", "The means of everything", "We gave him the means to all things"],
+    ["How far did he go, per Ibn Kathir?", "The farthest west one could reach", "To where the sun sets"],
+    ["What did the eastern people lack, in 18:90?", "Shelter from the sun", "No shelter from the sun"]
+  ],
+  // Ibrahim's four birds: taken, a part of them on each hill, called, and coming back in haste (2:260).
+  "sign-four-birds": [
+    ["How many birds was he told to take?", "Four", "Take four birds"],
+    ["How many birds were there?", "Four", "Take four birds"],
+    ["When he called them, what did the birds do?", "Came flying to him", "Then call them", "They will come to you in haste"],
+    ["What happened when Ibrahim called them?", "They came flying to him", "Then call them", "They will come to you in haste"]
+  ],
+  // The hundred years: the town fallen on its roofs, the hundred years, the food and drink, the bones raised (2:259).
+  "sign-hundred-years": [
+    ["How long did the man stay dead, in 2:259?", "A hundred years", "Allah made him die for a hundred years"],
+    ["How long did the man stay dead with his donkey?", "A hundred years", "Allah made him die for a hundred years"],
+    ["How long was the man in ayah 259 dead?", "A hundred years", "Allah made him die for a hundred years"],
+    ["Ayahs 258-260: what are they about?", "Giving life", "We raise the bones, then clothe them with flesh"],
+    ["What did he say after seeing it?", "Allah is able to do all things", "Allah is able to do all things"]
+  ],
+  // Yusuf's shirt: sent with the caravan, its scent, the bearer of good news, and sight come back (12:93, 12:94, 12:96).
+  "sign-shirt": [
+    ["What did Yusuf send to his father, in 12:93?", "His shirt", "Take this shirt of mine"],
+    ["What did Yusuf send to make his father see again?", "His shirt", "Take this shirt of mine"],
+    ["What happened when the shirt touched his face, in 12:96?", "His sight returned", "He could see again"]
+  ],
   // Rain on a dead land (7:57, 35:9, 16:65).
   "sign-rain": [
     ["What does Allah send down to grow our food?", "Rain", "The winds bring the clouds", "The rain falls"],

@@ -938,6 +938,15 @@ const STATES: State[] = [
   { id: "scene-qiblah", render: () => <SceneQuestionDemo lessonId="lesson-surah-meaning-2-142-147" ask="Which way did the qiblah turn to" /> },
   { id: "scene-saba", render: () => <SceneQuestionDemo lessonId="lesson-deep-saba1-the-dam-burst" ask="What did Allah send" /> },
   { id: "scene-cow", render: () => <SceneQuestionDemo lessonId="lesson-surah-meaning-2-62-71" ask="What color was the cow?" /> },
+  // Allah's power in the stories: Lut's town turned upside down, the frogs on Pharaoh's people, the fish on the Sabbath,
+  // the land with no shelter from the sun, the four birds, the hundred years, Yusuf's shirt.
+  { id: "scene-overturned", render: () => <SceneQuestionDemo lessonId="lesson-deep-prophet-lut-stones" ask="What did Allah do to the town" /> },
+  { id: "scene-five-signs", render: () => <SceneQuestionDemo lessonId="lesson-deep-araf4-five-signs" ask="Which of these was a sign sent in 7:133" /> },
+  { id: "scene-sabbath", render: () => <SceneQuestionDemo lessonId="lesson-deep-araf5-sabbath-town" ask="When did the fish come" /> },
+  { id: "scene-west-east", render: () => <SceneQuestionDemo lessonId="lesson-deep-kahf4-journey-to-the-east" ask="What did the eastern people lack" /> },
+  { id: "scene-four-birds", render: () => <SceneQuestionDemo lessonId="lesson-deep-prophet-ibrahim-birds" ask="How many birds was he told to take" /> },
+  { id: "scene-hundred-years", render: () => <SceneQuestionDemo lessonId="lesson-deep-baqarah3-hundred-years" ask="How long did the man stay dead" /> },
+  { id: "scene-shirt", render: () => <SceneQuestionDemo lessonId="lesson-deep-yusuf5-the-scent-of-yusuf" ask="What did Yusuf send to his father" /> },
   // Month questions on the year: Ashura in Muharram; Sha'ban, answered wrong (the right month turns green, its moon full).
   { id: "month", render: () => <MonthQuestionDemo lessonId="lesson-deep-days-ashura" ask="Ashura is in" /> },
   { id: "month-picked", render: () => <MonthQuestionDemo lessonId="lesson-deep-days-ashura" ask="Ashura is in" pick="right" /> },
