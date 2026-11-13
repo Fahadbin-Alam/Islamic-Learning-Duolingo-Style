@@ -153,7 +153,7 @@
   },
   {
     "kind": "course",
-    "text": "Combed hair and washed clothes, caring for your hair, white clothes, the trace of Allah's blessings, the siwak, and the best of perfumes."
+    "text": "Combed hair and washed clothes, caring for your hair, white clothes, the trace of Allah's blessings, the siwak, the best of perfumes, and honoring the elder."
   },
   {
     "kind": "arabic",
@@ -502,6 +502,10 @@
   {
     "kind": "course",
     "text": "Musk, the best scent"
+  },
+  {
+    "kind": "course",
+    "text": "Give it to the elder"
   },
   {
     "kind": "course",
@@ -29049,6 +29053,10 @@
   },
   {
     "kind": "course",
+    "text": "Wisdom in poetry"
+  },
+  {
+    "kind": "course",
     "text": "Parents and Elders"
   },
   {
@@ -29314,6 +29322,10 @@
   {
     "kind": "course",
     "text": "Do not turn your cheek"
+  },
+  {
+    "kind": "course",
+    "text": "No pride in him"
   },
   {
     "kind": "course",
@@ -32725,7 +32737,7 @@
   },
   {
     "kind": "course",
-    "text": "Abu Hurairah's kitten, Jarir serving Anas, a du'a for Abu Zayd, a gift for the Mothers, the best at Badr, and a safety for the Ummah."
+    "text": "Abu Hurairah's kitten, Jarir serving Anas, a du'a for Abu Zayd, a gift for the Mothers, the best at Badr, a safety for the Ummah, Adi's two stories, and a horse race."
   },
   {
     "kind": "arabic",
@@ -32745,7 +32757,7 @@
   },
   {
     "kind": "course",
-    "text": "The name Allah gave them, their followers, a du'a for their children, and the day of Bu'ath."
+    "text": "The name Allah gave them, their followers, a du'a for their children, the day of Bu'ath, and his ﷺ words in his last illness."
   },
   {
     "kind": "arabic",
@@ -34553,6 +34565,18 @@
   },
   {
     "kind": "course",
+    "text": "The lady from al-Hirah"
+  },
+  {
+    "kind": "course",
+    "text": "Umar knew his worth"
+  },
+  {
+    "kind": "course",
+    "text": "The horse race"
+  },
+  {
+    "kind": "course",
     "text": "A run to save the camels"
   },
   {
@@ -34590,6 +34614,10 @@
   {
     "kind": "course",
     "text": "The day of Bu'ath"
+  },
+  {
+    "kind": "course",
+    "text": "Like salt in food"
   },
   {
     "kind": "course",
@@ -36422,6 +36450,10 @@
   {
     "kind": "course",
     "text": "Who he loved most"
+  },
+  {
+    "kind": "course",
+    "text": "Umm Abdullah"
   },
   {
     "kind": "course",
@@ -39137,6 +39169,10 @@
   },
   {
     "kind": "course",
+    "text": "A fire from Hijaz"
+  },
+  {
+    "kind": "course",
     "text": "Ten big signs"
   },
   {
@@ -41297,7 +41333,7 @@
   },
   {
     "kind": "course",
-    "text": "On hearing the mu'adhdhin, a du'a for the imams, Umm Sulaim's words, a du'a for light, the istikharah, and four before Asr."
+    "text": "On hearing the mu'adhdhin, a du'a for the imams, Umm Sulaim's words, a du'a for light, the istikharah, four before Asr, and the Mu'awwidhat."
   },
   {
     "kind": "arabic",
@@ -41802,6 +41838,10 @@
   {
     "kind": "course",
     "text": "Four before Asr"
+  },
+  {
+    "kind": "course",
+    "text": "The Mu'awwidhat after prayer"
   },
   {
     "kind": "course",
@@ -45473,27 +45513,23 @@
   },
   {
     "kind": "question",
-    "text": "In whose house did the Prophet ﷺ pass away?"
+    "text": "In which surah did Allah clear Aishah's name?"
   },
   {
     "kind": "question",
-    "text": "Umm Salamah's"
+    "text": "An-Nur"
   },
   {
     "kind": "question",
-    "text": "Fatimah's"
+    "text": "Al-Baqarah"
   },
   {
     "kind": "question",
-    "text": "Aishah's"
+    "text": "Al-Kahf"
   },
   {
     "kind": "question",
-    "text": "Hafsah's"
-  },
-  {
-    "kind": "question",
-    "text": "It was the day of her turn."
+    "text": "Ayahs 11 to 20 of Surah An-Nur, the 24th surah."
   },
   {
     "kind": "lesson",
@@ -66209,10 +66245,6 @@
   },
   {
     "kind": "question",
-    "text": "Al-Kahf"
-  },
-  {
-    "kind": "question",
     "text": "Banu Isra'il, the Children of Israel, is another name for Surat al-Isra, surah 17."
   },
   {
@@ -66994,6 +67026,82 @@
   {
     "kind": "question",
     "text": "He ﷺ called musk the best of perfumes."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about sunnahs of looking neat?"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ was told to give the siwak to the older man."
+  },
+  {
+    "kind": "lesson",
+    "text": "Two men were with him, one older"
+  },
+  {
+    "kind": "lesson",
+    "text": "A revelation came about the siwak"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 50"
+  },
+  {
+    "kind": "question",
+    "text": "To whom was he ﷺ told to give the siwak?"
+  },
+  {
+    "kind": "question",
+    "text": "The taller one"
+  },
+  {
+    "kind": "question",
+    "text": "The stronger one"
+  },
+  {
+    "kind": "question",
+    "text": "The older one"
+  },
+  {
+    "kind": "question",
+    "text": "The younger one"
+  },
+  {
+    "kind": "question",
+    "text": "He was asked to show proper respect and give it to the elder of the two, Aishah said."
+  },
+  {
+    "kind": "question",
+    "text": "What came to him ﷺ about the siwak?"
+  },
+  {
+    "kind": "question",
+    "text": "A letter"
+  },
+  {
+    "kind": "question",
+    "text": "A gift"
+  },
+  {
+    "kind": "question",
+    "text": "A guest"
+  },
+  {
+    "kind": "question",
+    "text": "A revelation"
+  },
+  {
+    "kind": "question",
+    "text": "A revelation came to him about the merit of using the tooth-stick, Aishah said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ was told to honor the elder of the two men."
+  },
+  {
+    "kind": "question",
+    "text": "A revelation came, and he ﷺ was asked to give the siwak to the elder, Aishah said."
   },
   {
     "kind": "lesson",
@@ -71801,10 +71909,6 @@
   },
   {
     "kind": "question",
-    "text": "Al-Baqarah"
-  },
-  {
-    "kind": "question",
     "text": "It is the last ayah of Surah Al-Baqarah."
   },
   {
@@ -76122,10 +76226,6 @@
   {
     "kind": "question",
     "text": "A disgrace"
-  },
-  {
-    "kind": "question",
-    "text": "A gift"
   },
   {
     "kind": "question",
@@ -86645,6 +86745,62 @@
   },
   {
     "kind": "lesson",
+    "text": "He ﷺ said that some poetry holds wisdom."
+  },
+  {
+    "kind": "lesson",
+    "text": "Some poetry, not all of it"
+  },
+  {
+    "kind": "lesson",
+    "text": "Wisdom: words that are true and of use"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 6145"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ say some poetry contains?"
+  },
+  {
+    "kind": "question",
+    "text": "Mistakes"
+  },
+  {
+    "kind": "question",
+    "text": "Wisdom"
+  },
+  {
+    "kind": "question",
+    "text": "Some poetry contains wisdom, the Messenger of Allah ﷺ said, as Ubayy ibn Ka'b told."
+  },
+  {
+    "kind": "question",
+    "text": "How much poetry did he ﷺ say holds wisdom?"
+  },
+  {
+    "kind": "question",
+    "text": "Most of it"
+  },
+  {
+    "kind": "question",
+    "text": "Some of it"
+  },
+  {
+    "kind": "question",
+    "text": "Some poetry contains wisdom, he ﷺ said, so not all of it."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ said that some poetry contains wisdom."
+  },
+  {
+    "kind": "question",
+    "text": "Some poetry contains wisdom, the Messenger of Allah ﷺ said, Ubayy ibn Ka'b told."
+  },
+  {
+    "kind": "lesson",
     "text": "The last test: everything about good speech!"
   },
   {
@@ -89717,6 +89873,86 @@
   },
   {
     "kind": "lesson",
+    "text": "Can you still remember these about humility?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Whoever rides a donkey and milks sheep has no pride in him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Jubayr ibn Mut'im"
+  },
+  {
+    "kind": "lesson",
+    "text": "He also wore a cloak"
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ told him this"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 2001"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ say of one who does these things?"
+  },
+  {
+    "kind": "question",
+    "text": "He will have many friends"
+  },
+  {
+    "kind": "question",
+    "text": "There is no pride in him"
+  },
+  {
+    "kind": "question",
+    "text": "He will grow rich"
+  },
+  {
+    "kind": "question",
+    "text": "He will be famous"
+  },
+  {
+    "kind": "question",
+    "text": "Whoever does these, then there is no pride in him, he ﷺ told Jubayr ibn Mut'im."
+  },
+  {
+    "kind": "question",
+    "text": "What did Jubayr say he rode?"
+  },
+  {
+    "kind": "question",
+    "text": "A fast camel"
+  },
+  {
+    "kind": "question",
+    "text": "A strong mule"
+  },
+  {
+    "kind": "question",
+    "text": "A donkey"
+  },
+  {
+    "kind": "question",
+    "text": "A fine horse"
+  },
+  {
+    "kind": "question",
+    "text": "I rode a donkey, wore a cloak, and I milked the sheep, Jubayr ibn Mut'im said."
+  },
+  {
+    "kind": "question",
+    "text": "Jubayr said he milked the sheep."
+  },
+  {
+    "kind": "question",
+    "text": "Jubayr ibn Mut'im rode a donkey, wore a cloak and milked the sheep, he said."
+  },
+  {
+    "kind": "lesson",
     "text": "The last test: everything about humility!"
   },
   {
@@ -91677,10 +91913,6 @@
   },
   {
     "kind": "question",
-    "text": "An-Nur"
-  },
-  {
-    "kind": "question",
     "text": "Al-Masad"
   },
   {
@@ -92422,10 +92654,6 @@
   {
     "kind": "question",
     "text": "An old man"
-  },
-  {
-    "kind": "question",
-    "text": "A guest"
   },
   {
     "kind": "question",
@@ -102018,10 +102246,6 @@
   {
     "kind": "question",
     "text": "What did they earn, and then give away?"
-  },
-  {
-    "kind": "question",
-    "text": "A fine horse"
   },
   {
     "kind": "question",
@@ -111893,10 +112117,6 @@
   },
   {
     "kind": "question",
-    "text": "A letter"
-  },
-  {
-    "kind": "question",
     "text": "Khadija coming to you with a dish having meat soup."
   },
   {
@@ -117612,10 +117832,6 @@
     "text": "She meant: after your death."
   },
   {
-    "kind": "lesson",
-    "text": "Told by Jubayr ibn Mut'im"
-  },
-  {
     "kind": "source",
     "text": "Sahih al-Bukhari 3659"
   },
@@ -120790,6 +121006,14 @@
   {
     "kind": "question",
     "text": "His own"
+  },
+  {
+    "kind": "question",
+    "text": "Hafsah's"
+  },
+  {
+    "kind": "question",
+    "text": "Aishah's"
   },
   {
     "kind": "question",
@@ -126557,10 +126781,6 @@
   },
   {
     "kind": "question",
-    "text": "A donkey"
-  },
-  {
-    "kind": "question",
     "text": "He was still wounded from the Trench."
   },
   {
@@ -131306,10 +131526,6 @@
   {
     "kind": "question",
     "text": "Who is the better of the two?"
-  },
-  {
-    "kind": "question",
-    "text": "The older one"
   },
   {
     "kind": "question",
@@ -142309,6 +142525,206 @@
   },
   {
     "kind": "lesson",
+    "text": "Can you still remember these about small stories of the Sahabah?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Adi lived to see a lady travel safely from al-Hirah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Adi ibn Hatim"
+  },
+  {
+    "kind": "lesson",
+    "text": "A howdah is a covered seat on a camel"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ told Adi what he would live to see"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3595"
+  },
+  {
+    "kind": "question",
+    "text": "Where did the lady in the howdah travel from?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Hirah"
+  },
+  {
+    "kind": "question",
+    "text": "Najran"
+  },
+  {
+    "kind": "question",
+    "text": "I saw a lady in a howdah traveling from al-Hirah, Adi ibn Hatim said."
+  },
+  {
+    "kind": "question",
+    "text": "What did Adi say he helped to open?"
+  },
+  {
+    "kind": "question",
+    "text": "The forts of Ta'if"
+  },
+  {
+    "kind": "question",
+    "text": "The gates of Makkah"
+  },
+  {
+    "kind": "question",
+    "text": "The treasures of Khosrau"
+  },
+  {
+    "kind": "question",
+    "text": "The gates of Khaybar"
+  },
+  {
+    "kind": "question",
+    "text": "Adi said he was one of those who opened the treasures of Khosrau, son of Hurmuz."
+  },
+  {
+    "kind": "question",
+    "text": "The lady went round the Ka'bah fearing no one but Allah."
+  },
+  {
+    "kind": "question",
+    "text": "She would go round the Ka'bah fearing none but Allah, he ﷺ had told Adi, and Adi saw it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Umar praised Adi for holding firm when others turned away."
+  },
+  {
+    "kind": "lesson",
+    "text": "He came to Umar with a delegation"
+  },
+  {
+    "kind": "lesson",
+    "text": "Umar called the men one by one"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 4394"
+  },
+  {
+    "kind": "question",
+    "text": "How did Umar call the men of the delegation?"
+  },
+  {
+    "kind": "question",
+    "text": "All at once"
+  },
+  {
+    "kind": "question",
+    "text": "Tribe by tribe"
+  },
+  {
+    "kind": "question",
+    "text": "Oldest first"
+  },
+  {
+    "kind": "question",
+    "text": "One by one, by name"
+  },
+  {
+    "kind": "question",
+    "text": "He started calling the men one by one, calling each by his name, Adi said."
+  },
+  {
+    "kind": "question",
+    "text": "What did Umar say Adi did when the others broke their promises?"
+  },
+  {
+    "kind": "question",
+    "text": "He sold his camels"
+  },
+  {
+    "kind": "question",
+    "text": "He wrote them a letter"
+  },
+  {
+    "kind": "question",
+    "text": "He kept his promises"
+  },
+  {
+    "kind": "question",
+    "text": "He went on a journey"
+  },
+  {
+    "kind": "question",
+    "text": "You fulfilled your promises when they broke theirs, Umar told Adi."
+  },
+  {
+    "kind": "question",
+    "text": "Umar said Adi accepted Islam when others disbelieved."
+  },
+  {
+    "kind": "question",
+    "text": "You embraced Islam when they disbelieved, Umar told Adi ibn Hatim."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Umar took part in a horse race the Prophet ﷺ held."
+  },
+  {
+    "kind": "lesson",
+    "text": "Lean horses ran from al-Hafya' to Thaniyat al-Wada'"
+  },
+  {
+    "kind": "lesson",
+    "text": "The others ran on to the masjid of Bani Zurayq"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 2868"
+  },
+  {
+    "kind": "question",
+    "text": "Where did the horses not made lean race to?"
+  },
+  {
+    "kind": "question",
+    "text": "The masjid of Bani Salimah"
+  },
+  {
+    "kind": "question",
+    "text": "The masjid at Dhul-Hulayfah"
+  },
+  {
+    "kind": "question",
+    "text": "The masjid of Bani Zurayq"
+  },
+  {
+    "kind": "question",
+    "text": "The masjid of Quba"
+  },
+  {
+    "kind": "question",
+    "text": "From Thaniyah, the other horses raced to the masjid of Bani Zurayq, Ibn Umar said."
+  },
+  {
+    "kind": "question",
+    "text": "Who said he took part in that horse race?"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Umar said he was among them when the Prophet ﷺ held that race."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ held a race between horses."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ arranged for a horse race, and Ibn Umar took part in it."
+  },
+  {
+    "kind": "lesson",
     "text": "The last test: everything about small stories of the Sahabah!"
   },
   {
@@ -142993,6 +143409,74 @@
   },
   {
     "kind": "lesson",
+    "text": "He ﷺ said the Ansar would become few, like salt in food."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ said it in his last illness"
+  },
+  {
+    "kind": "lesson",
+    "text": "Accept the good of their good-doers, he ﷺ said"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3800"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ say the Ansar would become like?"
+  },
+  {
+    "kind": "question",
+    "text": "Leaves on a tree"
+  },
+  {
+    "kind": "question",
+    "text": "Salt in a meal"
+  },
+  {
+    "kind": "question",
+    "text": "Sand in the desert"
+  },
+  {
+    "kind": "question",
+    "text": "Drops of rain"
+  },
+  {
+    "kind": "question",
+    "text": "The Ansar will decrease till they become just like salt in a meal, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "Where did he ﷺ sit to say it, in his last illness?"
+  },
+  {
+    "kind": "question",
+    "text": "On the minbar"
+  },
+  {
+    "kind": "question",
+    "text": "At the door"
+  },
+  {
+    "kind": "question",
+    "text": "On his camel"
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ came out wrapped in a sheet till he sat on the pulpit, Ibn Abbas said."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ said the Ansar would grow fewer while people grew many."
+  },
+  {
+    "kind": "question",
+    "text": "The people will go on increasing, but the Ansar will go on decreasing, he ﷺ said."
+  },
+  {
+    "kind": "lesson",
     "text": "The last test: everything about the Ansar!"
   },
   {
@@ -143014,10 +143498,6 @@
   {
     "kind": "question",
     "text": "They shielded him ﷺ from the people of which city?"
-  },
-  {
-    "kind": "question",
-    "text": "Najran"
   },
   {
     "kind": "question",
@@ -145346,10 +145826,6 @@
   {
     "kind": "question",
     "text": "What did Ibrahim ask for first in 26:83?"
-  },
-  {
-    "kind": "question",
-    "text": "Wisdom"
   },
   {
     "kind": "question",
@@ -155973,14 +156449,6 @@
   },
   {
     "kind": "question",
-    "text": "On the minbar"
-  },
-  {
-    "kind": "question",
-    "text": "On his camel"
-  },
-  {
-    "kind": "question",
     "text": "Abdullah ibn Mughaffal saw him."
   },
   {
@@ -160865,14 +161333,6 @@
   },
   {
     "kind": "question",
-    "text": "In which surah did Allah clear Aishah's name?"
-  },
-  {
-    "kind": "question",
-    "text": "Ayahs 11 to 20 of Surah An-Nur, the 24th surah."
-  },
-  {
-    "kind": "question",
     "text": "Whom did Aishah say she would thank for clearing her?"
   },
   {
@@ -160985,6 +161445,50 @@
   },
   {
     "kind": "lesson",
+    "text": "He ﷺ gave Aishah the kunyah Umm Abdullah."
+  },
+  {
+    "kind": "lesson",
+    "text": "A kunyah is a name like Umm or Abu"
+  },
+  {
+    "kind": "lesson",
+    "text": "Each of her co-wives had a kunyah"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Ibn Majah 3739"
+  },
+  {
+    "kind": "question",
+    "text": "What kunyah did he ﷺ give Aishah?"
+  },
+  {
+    "kind": "question",
+    "text": "You are Umm Abdullah, he ﷺ said, when she told him the other wives had a kunyah."
+  },
+  {
+    "kind": "question",
+    "text": "What did Aishah say all his other wives had?"
+  },
+  {
+    "kind": "question",
+    "text": "A kunyah"
+  },
+  {
+    "kind": "question",
+    "text": "Aishah told him: all of your wives have a kunyah except me."
+  },
+  {
+    "kind": "question",
+    "text": "Aishah said she was the only wife without a kunyah."
+  },
+  {
+    "kind": "question",
+    "text": "All of your wives have a kunyah except me, she said; he ﷺ named her Umm Abdullah."
+  },
+  {
+    "kind": "lesson",
     "text": "The Prophet ﷺ passed away in Aishah's house, resting on her."
   },
   {
@@ -160998,6 +161502,22 @@
   {
     "kind": "source",
     "text": "Sahih al-Bukhari 3100"
+  },
+  {
+    "kind": "question",
+    "text": "In whose house did the Prophet ﷺ pass away?"
+  },
+  {
+    "kind": "question",
+    "text": "Umm Salamah's"
+  },
+  {
+    "kind": "question",
+    "text": "Fatimah's"
+  },
+  {
+    "kind": "question",
+    "text": "It was the day of her turn."
   },
   {
     "kind": "question",
@@ -165894,10 +166414,6 @@
   {
     "kind": "question",
     "text": "Fifty at a time"
-  },
-  {
-    "kind": "question",
-    "text": "All at once"
   },
   {
     "kind": "question",
@@ -183418,6 +183934,66 @@
   {
     "kind": "question",
     "text": "No one gets a warning."
+  },
+  {
+    "kind": "lesson",
+    "text": "Before the Hour, a fire will come out of Hijaz."
+  },
+  {
+    "kind": "lesson",
+    "text": "The camels at Busra will be lit by it"
+  },
+  {
+    "kind": "lesson",
+    "text": "Busra is a town in Sham, far to the north"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 7118"
+  },
+  {
+    "kind": "question",
+    "text": "From which land will the fire come out?"
+  },
+  {
+    "kind": "question",
+    "text": "Hijaz"
+  },
+  {
+    "kind": "question",
+    "text": "A fire will come out of the land of Hijaz before the Hour, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "What will its light fall on at Busra?"
+  },
+  {
+    "kind": "question",
+    "text": "The walls of the houses"
+  },
+  {
+    "kind": "question",
+    "text": "The tops of the palms"
+  },
+  {
+    "kind": "question",
+    "text": "The faces of the people"
+  },
+  {
+    "kind": "question",
+    "text": "The necks of the camels"
+  },
+  {
+    "kind": "question",
+    "text": "The fire will throw light on the necks of the camels at Busra, he ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "The fire's light will reach as far as Busra."
+  },
+  {
+    "kind": "question",
+    "text": "The fire from Hijaz will light up the necks of the camels at Busra, he ﷺ said."
   },
   {
     "kind": "lesson",
@@ -202001,10 +202577,6 @@
   },
   {
     "kind": "question",
-    "text": "The taller one"
-  },
-  {
-    "kind": "question",
     "text": "Whoever is faster"
   },
   {
@@ -212097,10 +212669,6 @@
   },
   {
     "kind": "question",
-    "text": "A fast camel"
-  },
-  {
-    "kind": "question",
     "text": "A big tent"
   },
   {
@@ -216294,6 +216862,50 @@
   {
     "kind": "question",
     "text": "Four rak'ahs before Asr bring his ﷺ du'a for mercy."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about du'as and the prayer?"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ told Uqbah to recite the Mu'awwidhat after every prayer."
+  },
+  {
+    "kind": "lesson",
+    "text": "Mu'awwidhat: surahs of seeking refuge"
+  },
+  {
+    "kind": "lesson",
+    "text": "Recited once the prayer is over"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 1523"
+  },
+  {
+    "kind": "question",
+    "text": "When was Uqbah told to recite the Mu'awwidhat?"
+  },
+  {
+    "kind": "question",
+    "text": "The Messenger of Allah ﷺ commanded me to recite them after every prayer, Uqbah said."
+  },
+  {
+    "kind": "question",
+    "text": "Who said he was told to recite them after every prayer?"
+  },
+  {
+    "kind": "question",
+    "text": "The Messenger of Allah ﷺ commanded me to recite the Mu'awwidhat, Uqbah ibn Amir said."
+  },
+  {
+    "kind": "question",
+    "text": "The Mu'awwidhat are recited after every prayer."
+  },
+  {
+    "kind": "question",
+    "text": "Recite the Mu'awwidhat after every prayer, he ﷺ commanded Uqbah ibn Amir."
   },
   {
     "kind": "lesson",
@@ -345617,10 +346229,6 @@
   },
   {
     "kind": "question",
-    "text": "Most of it"
-  },
-  {
-    "kind": "question",
     "text": "And of knowledge, you (mankind) have been given only a little."
   },
   {
@@ -346770,10 +347378,6 @@
   {
     "kind": "question",
     "text": "Outside the town"
-  },
-  {
-    "kind": "question",
-    "text": "At the door"
   },
   {
     "kind": "question",
@@ -391910,10 +392514,6 @@
   {
     "kind": "question",
     "text": "Can their partners do any of it, per Ibn Kathir?"
-  },
-  {
-    "kind": "question",
-    "text": "Some of it"
   },
   {
     "kind": "question",
@@ -509653,10 +510253,6 @@
   },
   {
     "kind": "question",
-    "text": "Drops of rain"
-  },
-  {
-    "kind": "question",
     "text": "Including ants in darkness."
   },
   {
@@ -529457,10 +530053,6 @@
   },
   {
     "kind": "question",
-    "text": "He will be famous"
-  },
-  {
-    "kind": "question",
     "text": "A Qattat will not enter Paradise."
   },
   {
@@ -534634,10 +535226,6 @@
   {
     "kind": "question",
     "text": "A Reminder"
-  },
-  {
-    "kind": "question",
-    "text": "A revelation"
   },
   {
     "kind": "question",
@@ -560198,10 +560786,6 @@
   {
     "kind": "question",
     "text": "What does Allah repeat, per Ibn Kathir?"
-  },
-  {
-    "kind": "question",
-    "text": "Mistakes"
   },
   {
     "kind": "question",

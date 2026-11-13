@@ -2074,6 +2074,19 @@ const SPEECH: DeepUnit = {
         { q: "Who gets a house in the middle of Jannah?", a: "One who leaves lies, even joking", wrong: ["One who jokes a lot", "One who travels", "One who sleeps early"], why: "No lying, not even to make people laugh." },
         { q: "Who gets the highest house?", a: "One with good character", wrong: ["The richest", "The loudest", "The strongest"], why: "Good character is the top." }
       ]
+    },
+    {
+      slug: "wisdom-in-poetry",
+      title: "Wisdom in poetry",
+      line: "He ﷺ said that some poetry holds wisdom.",
+      facts: ["Told by Ubayy ibn Ka'b", "Some poetry, not all of it", "Wisdom: words that are true and of use"],
+      source: hadith("bukhari", "6145", "Ubayy ibn Ka'b", "Sahih", "Ubayy ibn Ka'b said: the Messenger of Allah ﷺ said: some poetry contains wisdom.", "Some poetry contains wisdom"),
+      difficulty: 1,
+      questions: [
+        { q: "What did he ﷺ say some poetry contains?", a: "Wisdom", wrong: ["Gold", "Sadness", "Mistakes"], why: "Some poetry contains wisdom, the Messenger of Allah ﷺ said, as Ubayy ibn Ka'b told." },
+        { q: "How much poetry did he ﷺ say holds wisdom?", a: "Some of it", wrong: ["All of it", "None of it", "Most of it"], why: "Some poetry contains wisdom, he ﷺ said, so not all of it." },
+        { q: "He ﷺ said that some poetry contains wisdom.", tf: true, why: "Some poetry contains wisdom, the Messenger of Allah ﷺ said, Ubayy ibn Ka'b told." }
+      ]
     }
   ]
 };

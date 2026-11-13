@@ -2,15 +2,16 @@ import { hadith, type DeepUnit } from "./deepKit";
 
 // One more Sahabah unit: small stories of the Sahabah, from Jami at-Tirmidhi, Sahih Muslim and Sahih al-Bukhari.
 // How Abu Hurairah got his name, Jarir serving Anas, a du'a for Abu Zayd, Abdur-Rahman ibn Awf and the Mothers of the
-// Believers, Jibril asking about Badr, and the Companions as a safety for the Ummah. Every card is one sahih or hasan
-// hadith with its number, narrator and grade, and its exact English words to highlight. None of these hadith is
-// taught anywhere else in the app.
+// Believers, Jibril asking about Badr, the Companions as a safety for the Ummah, what Adi ibn Hatim lived to see, what
+// Umar said of Adi, and the horse race Ibn Umar took part in. Every card is one sahih or hasan hadith with its number,
+// narrator and grade, and its exact English words to highlight. None of these hadith is taught anywhere else in the
+// app, and the distances in the horse race (a later narrator's words) are not asked.
 
 const STORIES: DeepUnit = {
   key: "sahaba-small-stories",
   topicId: "sahabah",
   branchId: "sahaba-small-stories",
-  branch: { title: "Small stories of the Sahabah", description: "Abu Hurairah's kitten, Jarir serving Anas, a du'a for Abu Zayd, a gift for the Mothers, the best at Badr, and a safety for the Ummah." },
+  branch: { title: "Small stories of the Sahabah", description: "Abu Hurairah's kitten, Jarir serving Anas, a du'a for Abu Zayd, a gift for the Mothers, the best at Badr, a safety for the Ummah, Adi's two stories, and a horse race." },
   name: "small stories of the Sahabah",
   kind: "story",
   lessonType: "story",
@@ -91,6 +92,45 @@ const STORIES: DeepUnit = {
         { q: "What did he ﷺ say the stars are for the sky?", a: "A source of safety", wrong: ["A source of rain", "A source of luck", "A source of fear"], why: "The stars are a source of security for the sky, he ﷺ said." },
         { q: "Which prayer did they wait to pray with him ﷺ?", a: "Isha", wrong: ["Fajr", "Zuhr", "Asr"], why: "After Maghrib they sat on, to pray Isha with him ﷺ, Abu Musa said." },
         { q: "He ﷺ said his Companions are a safety for the Ummah.", tf: true, why: "My Companions are a source of security for the Umma, he ﷺ said." }
+      ]
+    },
+    {
+      slug: "the-lady-from-al-hirah",
+      title: "The lady from al-Hirah",
+      line: "Adi lived to see a lady travel safely from al-Hirah.",
+      facts: ["Told by Adi ibn Hatim", "A howdah is a covered seat on a camel", "He ﷺ told Adi what he would live to see"],
+      source: hadith("bukhari", "3595", "Adi ibn Hatim", "Sahih", "Adi ibn Hatim said: I was with the Prophet ﷺ when a man came and complained of poverty, and another complained of robbers on the roads. He ﷺ said: Adi, have you seen al-Hirah? If you live long, you will see a lady in a howdah travel from al-Hirah until she goes round the Ka'bah, fearing no one but Allah. And if you live long, the treasures of Khosrau will be opened. Adi later said: I saw a lady in a howdah travel from al-Hirah and go round the Ka'bah, fearing no one but Allah, and I was one of those who opened the treasures of Khosrau, son of Hurmuz.", "I saw a lady in a Howdah traveling from Al-Hira"),
+      difficulty: 2,
+      questions: [
+        { q: "Where did the lady in the howdah travel from?", a: "Al-Hirah", wrong: ["Khaybar", "Najran", "Tabuk"], why: "I saw a lady in a howdah traveling from al-Hirah, Adi ibn Hatim said." },
+        { q: "What did Adi say he helped to open?", a: "The treasures of Khosrau", wrong: ["The gates of Khaybar", "The forts of Ta'if", "The gates of Makkah"], why: "Adi said he was one of those who opened the treasures of Khosrau, son of Hurmuz." },
+        { q: "The lady went round the Ka'bah fearing no one but Allah.", tf: true, why: "She would go round the Ka'bah fearing none but Allah, he ﷺ had told Adi, and Adi saw it." }
+      ]
+    },
+    {
+      slug: "umar-knew-adi",
+      title: "Umar knew his worth",
+      line: "Umar praised Adi for holding firm when others turned away.",
+      facts: ["Told by Adi ibn Hatim", "He came to Umar with a delegation", "Umar called the men one by one"],
+      source: hadith("bukhari", "4394", "Adi ibn Hatim", "Sahih", "Adi ibn Hatim said: we came to Umar in a delegation, and he began calling the men one by one, each by his name. I said: do you not know me, O Commander of the Believers? He said: yes. You accepted Islam when they disbelieved, you came when they turned away, you kept your promises when they broke theirs, and you knew the truth when they denied it. Adi said: then I do not mind.", "you fulfilled your promises when they broke theirs"),
+      difficulty: 2,
+      questions: [
+        { q: "How did Umar call the men of the delegation?", a: "One by one, by name", wrong: ["All at once", "Tribe by tribe", "Oldest first"], why: "He started calling the men one by one, calling each by his name, Adi said." },
+        { q: "What did Umar say Adi did when the others broke their promises?", a: "He kept his promises", wrong: ["He went on a journey", "He sold his camels", "He wrote them a letter"], why: "You fulfilled your promises when they broke theirs, Umar told Adi." },
+        { q: "Umar said Adi accepted Islam when others disbelieved.", tf: true, why: "You embraced Islam when they disbelieved, Umar told Adi ibn Hatim." }
+      ]
+    },
+    {
+      slug: "the-horse-race",
+      title: "The horse race",
+      line: "Ibn Umar took part in a horse race the Prophet ﷺ held.",
+      facts: ["Told by Abdullah ibn Umar", "Lean horses ran from al-Hafya' to Thaniyat al-Wada'", "The others ran on to the masjid of Bani Zurayq"],
+      source: hadith("bukhari", "2868", "Abdullah ibn Umar", "Sahih", "Ibn Umar said: the Prophet ﷺ held a race for the horses that had been made lean, from al-Hafya' to Thaniyat al-Wada', and for the horses that had not been made lean, from Thaniyah to the masjid of Bani Zurayq. And I was one of those who took part in that race.", "I was also amongst those who took part in that horse race"),
+      difficulty: 2,
+      questions: [
+        { q: "Where did the horses not made lean race to?", a: "The masjid of Bani Zurayq", wrong: ["The masjid of Quba", "The masjid of Bani Salimah", "The masjid at Dhul-Hulayfah"], why: "From Thaniyah, the other horses raced to the masjid of Bani Zurayq, Ibn Umar said." },
+        { q: "Who said he took part in that horse race?", a: "Abdullah ibn Umar", wrong: ["Abdullah ibn Abbas", "Abdullah ibn Mas'ud", "Abdullah ibn Amr"], why: "Ibn Umar said he was among them when the Prophet ﷺ held that race." },
+        { q: "He ﷺ held a race between horses.", tf: true, why: "The Prophet ﷺ arranged for a horse race, and Ibn Umar took part in it." }
       ]
     }
   ]
