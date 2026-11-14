@@ -79,7 +79,7 @@ describe("which questions are asked on a scene", () => {
     const asks = sceneAsks();
     // Each one was read with its scene: its right answer is what the moment shows, and the scene before it does not
     // show it. A question changed in the course fails here until it is read again.
-    expect(asks.length).toBe(611);
+    expect(asks.length).toBe(638);
     let places = 0;
     for (const ask of asks) {
       const found = ALL_CHALLENGES.filter(({ challenge }) => challenge.prompt === ask.prompt && rightOf(challenge) === ask.answer);
@@ -97,7 +97,7 @@ describe("which questions are asked on a scene", () => {
         ]);
       }
     }
-    expect(places).toBe(857);
+    expect(places).toBe(898);
   });
 
   it("finds a question by its prompt and its right answer, so another question with the same prompt is not asked on it", () => {
@@ -835,6 +835,170 @@ describe("where the scene waits and where it stops", () => {
     expect(shown("What did he do on the way back from Eid prayer?", ["the way home, another way, part 1", "the way home, another way, part 3", "light over the home"])).toEqual([
       [0, 0, 0],
       [1, 1, 1]
+    ]);
+  });
+
+  it("waits on the scenes of everyday charity before anything of the answer shows, and shows it once answered, at rest", () => {
+    // Wherever a question on these scenes waits or stops, nothing is halfway through moving or coming into sight.
+    const everyday = ["sign-thirsty-dog", "sign-thorny-branch", "sign-planting", "sign-waqf"];
+    const asks = sceneAsks().filter((each) => everyday.includes(each.sceneId));
+    expect(asks.length).toBe(27);
+    for (const ask of asks) {
+      const kind = SIGN_SCENES.find((each) => each.id === ask.sceneId)!.kind;
+      for (const t of Object.values(sceneMoment(kind, ask.from, ask.to)!)) {
+        for (const part of signArt(kind).parts) {
+          for (const [key, values] of Object.entries(part.keys ?? {})) {
+            if (key === "at") continue;
+            const at = (time: number) => keyAt(part.keys!.at, values as number[], Math.min(1, Math.max(0, time)));
+            expect([ask.prompt, t, part.name, key, at(t) === at(t - 0.004) || at(t) === at(t + 0.004)]).toEqual([ask.prompt, t, part.name, key, true]);
+          }
+        }
+      }
+    }
+    // Water for a thirsty dog: the dog licking the mud, and no shoe yet; then the shoe, up from the well full of water.
+    expect([shown("How did the man carry the water?", ["mud the dog licks", "the shoe, full of water", "drops from the shoe"]), moved("How did the man carry the water?", "the shoe, full of water", "y")]).toEqual([
+      [
+        [1, 0, 0],
+        [1, 1, 1]
+      ],
+      [8, -6]
+    ]);
+    // Up to the dog: the shoe carried along the way and poured out for it.
+    expect([shown("How did the man carry water up to the dog?", ["the way to the dog", "water poured out for the dog"]), moved("How did the man carry water up to the dog?", "the shoe, full of water", "x")]).toEqual([
+      [
+        [0, 0],
+        [1, 1]
+      ],
+      [0, 44]
+    ]);
+    // The dog drinking, and nothing more yet; then the light where the good was done, its sparks risen, and the dog's
+    // tail wagging.
+    for (const [prompt, answer] of [
+      ["What did Allah do for him?", "Thanked and forgave him"],
+      ["What did Allah do for the man?", "Forgave him"],
+      ["What did Allah do for him?", "Allah thanked him and forgave him"]
+    ]) {
+      expect(shown(prompt, ["water poured out for the dog", "light where the good was done", "a spark of the good deed, rising 5", "the dog's tail, wagging"], answer)).toEqual([
+        [1, 0, 0, 0],
+        [1, 1, 1, 1]
+      ]);
+    }
+    // Then a lamb and two sparrows come to the water too: a reward for any living being.
+    expect([
+      shown("Is there reward for kindness to animals?", ["light where the good was done", "a lamb comes to drink", "a sparrow comes to drink", "another sparrow comes to drink"]),
+      moved("Is there reward for kindness to animals?", "a lamb comes to drink", "x")
+    ]).toEqual([
+      [
+        [0, 0, 0, 0],
+        [1, 1, 1, 1]
+      ],
+      [-98, 0]
+    ]);
+    // The thorny branch: the way along the road, and no branch yet; then it falls across the way and is moved off it,
+    // down to the roadside.
+    expect([shown("What did the man move off the path?", ["the thorny branch", "the way on along the road 3"]), moved("What did the man move off the path?", "the thorny branch", "y")]).toEqual([
+      [
+        [0, 0],
+        [1, 1]
+      ],
+      [-34, 17]
+    ]);
+    expect([moved("What did he ﷺ tell Abu Barzah to do?", "the thorny branch", "x"), moved("What did he ﷺ tell Abu Barzah to do?", "the thorny branch", "y")]).toEqual([
+      [0, -14],
+      [0, 17]
+    ]);
+    // A thorn across the way; then moved, the light where the road was cleared, and camels, a donkey and sheep along it.
+    expect([
+      shown("You see a thorn on the path. What do you do?", ["the thorny branch", "light where the road was cleared", "a camel on the road", "sheep on the road"]),
+      moved("You see a thorn on the path. What do you do?", "the thorny branch", "y")
+    ]).toEqual([
+      [
+        [1, 0, 0, 0],
+        [1, 1, 1, 1]
+      ],
+      [0, 17]
+    ]);
+    // Moved off, and nothing more yet; then the light and its sparks, and those on the road passing safely.
+    for (const prompt of ["Clearing a path of harm is a good deed.", "Moving harm off a path is a good deed to do.", "Helping strangers on the road gets reward.", "Moving something harmful off the path is a ____."]) {
+      expect([prompt, shown(prompt, ["light where the road was cleared", "a spark of the good deed, rising 5", "a camel on the road", "a donkey on the road", "sheep on the road"]), moved(prompt, "the thorny branch", "y")]).toEqual([
+        prompt,
+        [
+          [0, 0, 0, 0, 0],
+          [1, 1, 1, 1, 1]
+        ],
+        [17, 17]
+      ]);
+    }
+    // Planting: the tree in fruit, and no one eating yet; then a bird eats, a fruit is taken home, and a goat eats.
+    expect(
+      shown("Who eating from it counts?", ["fruit on the tree", "a bird eats", "the way from the home to the tree", "a goat eats", "the fruit the bird eats", "the fruit taken home", "the low fruit the goat eats"])
+    ).toEqual([
+      [1, 0, 0, 0, 1, 1, 1],
+      [1, 1, 1, 1, 0, 0, 0]
+    ]);
+    // The bird has eaten; then a person's fruit and an animal's.
+    expect(shown("Who can eat from the plant and still bring you reward?", ["the fruit the bird eats", "the fruit taken home", "a goat eats", "the low fruit the goat eats"])).toEqual([
+      [0, 1, 0, 1],
+      [0, 0, 1, 0]
+    ]);
+    // All three have eaten, and no light yet; then the sparks of charity rise for the one who planted it.
+    for (const prompt of ["A bird eats fruit from your tree. What is it for you?", "An animal eats from a tree you planted. What do you get?", "Planting seeds can be worship.", "Planting can be a good deed in Islam."]) {
+      expect([prompt, shown(prompt, ["a goat eats", "light behind the tree", "a spark of charity, rising 1", "a spark of charity, rising 5"]), moved(prompt, "a spark of charity, rising 5", "y")]).toEqual([
+        prompt,
+        [
+          [1, 0, 0, 0],
+          [1, 1, 1, 1]
+        ],
+        [0, -22]
+      ]);
+    }
+    // Umar's land: the best he had, no wall yet; then the land kept within its walls, its dates taken out to the poor
+    // and to relatives, and the silver brought to buy it sent back.
+    expect([shown("What is a waqf?", ["the back wall", "the front wall", "the gate", "silver to buy the land, sent back"]), moved("What is a waqf?", "a basket of its dates for the poor", "x")]).toEqual([
+      [
+        [0, 0, 0, 0],
+        [1, 1, 1, 1]
+      ],
+      [0, -50]
+    ]);
+    expect([
+      shown("What did Umar do with his best land?", ["the gate", "a basket of its dates for the poor", "a basket of its dates for relatives", "silver to buy the land, sent back"]),
+      moved("What did Umar do with his best land?", "a basket of its dates for relatives", "x")
+    ]).toEqual([
+      [
+        [1, 0, 0, 0],
+        [1, 0, 0, 1]
+      ],
+      [0, 50]
+    ]);
+    // Its dates given out, and no silver yet; then the silver comes to the gate, which stays shut, and goes back.
+    expect([
+      shown("Umar's land could be sold later.", ["a basket of its dates for the poor", "the road", "silver to buy the land, sent back"]),
+      [0.53, 0.545, 0.58].map((t) => value("waqf", "silver to buy the land, sent back", "x", t)),
+      value("waqf", "the gate stays shut", "opacity", 0.56)
+    ]).toEqual([
+      [
+        [1, 0, 0],
+        [0, 1, 1]
+      ],
+      [-58, -58, 0],
+      1
+    ]);
+    // No keeper's home yet; then his basket, and dates for a friend taken along the way to the friend's home.
+    expect([shown("What could the keeper do?", ["the keeper's home", "dates for the keeper", "dates for a friend", "the way to a friend's home"]), moved("What could the keeper do?", "dates for a friend", "x")]).toEqual([
+      [
+        [0, 0, 0, 0],
+        [1, 1, 1, 1]
+      ],
+      [0, -36]
+    ]);
+    // The storeroom empty; then what is left goes out to the poor, not into it.
+    expect([shown("What could he not do?", ["the keeper's storeroom, empty", "a basket not stored", "the way out to the poor"]), moved("What could he not do?", "a basket not stored", "x")]).toEqual([
+      [
+        [1, 0, 0],
+        [1, 1, 1]
+      ],
+      [0, -91]
     ]);
   });
 

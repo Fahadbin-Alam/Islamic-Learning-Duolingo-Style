@@ -850,6 +850,50 @@ const ASKS: Record<string, readonly Ask[]> = {
     ["What came first on Eid?", "The Eid prayer", "The prayer first, then the khutbah"],
     ["On Friday the khutbah comes first; on Eid the prayer does.", "True", "The prayer first, then the khutbah"],
     ["What did he do on the way back from Eid prayer?", "Took a different road", "Home by another way"]
+  ],
+  // Water for a thirsty dog: he drank from a well, saw a dog licking mud from thirst, filled his shoe with water and
+  // gave it a drink; Allah thanked him and forgave him; a reward for any living being (Sahih al-Bukhari 2363, 2466).
+  "sign-thirsty-dog": [
+    ["How did the man carry the water?", "In his shoe", "He filled his shoe with water"],
+    ["How did the man carry water up to the dog?", "In his shoe", "He filled his shoe with water", "And gave the dog a drink"],
+    ["How did the man carry water for the dog?", "In his shoe", "He filled his shoe with water", "And gave the dog a drink"],
+    ["What did Allah do for him?", "Thanked and forgave him", "Allah thanked him and forgave him"],
+    ["What did Allah do for the man?", "Forgave him", "Allah thanked him and forgave him"],
+    ["What did Allah do for him?", "Allah thanked him and forgave him", "Allah thanked him and forgave him"],
+    ["Is there reward for kindness to animals?", "Yes, for every living thing", "Allah thanked him and forgave him", "A reward for any living being"],
+    ["There is reward only for kindness to people, not animals.", "False", "Allah thanked him and forgave him", "A reward for any living being"],
+    ["There is a reward for being kind to any living being.", "True", "Allah thanked him and forgave him", "A reward for any living being"]
+  ],
+  // A thorny branch moved out of the way: Allah thanked him and forgave him; and removing harm from the way is charity
+  // (Sahih al-Bukhari 652, 2989). ("What did Allah do for him?", "Forgave him" is also asked of the trader who forgave
+  // his debtors, so it stays as it is.)
+  "sign-thorny-branch": [
+    ["What did the man move off the path?", "A thorny branch", "A thorny branch across the way", "He moved it out of the way"],
+    ["What did he ﷺ tell Abu Barzah to do?", "Remove harm from paths", "He moved it out of the way"],
+    ["You see a thorn on the path. What do you do?", "Move it: that is charity", "He moved it out of the way", "Removing harm from the way is charity"],
+    ["Clearing a path of harm is a good deed.", "True", "Allah thanked him and forgave him", "Removing harm from the way is charity"],
+    ["Moving harm off a path is a good deed to do.", "True", "Allah thanked him and forgave him", "Removing harm from the way is charity"],
+    ["Helping strangers on the road gets reward.", "True", "Allah thanked him and forgave him", "Removing harm from the way is charity"],
+    ["Moving something harmful off the path is a ____.", "charity", "Allah thanked him and forgave him", "Removing harm from the way is charity"]
+  ],
+  // A tree planted or a seed sown: what a bird, a person or an animal eats from it is charity for the one who planted
+  // it (Sahih al-Bukhari 2320, 6012).
+  "sign-planting": [
+    ["Who eating from it counts?", "A bird, person or animal", "A bird eats from it", "An animal eats from it"],
+    ["Who can eat from the plant and still bring you reward?", "A person or an animal", "A person eats from it", "An animal eats from it"],
+    ["A bird eats fruit from your tree. What is it for you?", "Charity", "Charity for the one who planted it"],
+    ["An animal eats from a tree you planted. What do you get?", "Reward like charity", "Charity for the one who planted it"],
+    ["Planting seeds can be worship.", "True", "Charity for the one who planted it"],
+    ["Planting can be a good deed in Islam.", "True", "Charity for the one who planted it"]
+  ],
+  // Umar's land at Khaybar: the land itself kept and its fruit given in charity, never sold, given away or inherited;
+  // its keeper may eat from it and feed a friend, storing nothing for himself (Sahih al-Bukhari 2737, 2777).
+  "sign-waqf": [
+    ["What is a waqf?", "Property kept for charity forever", "Keep the land itself", "Never sold, gifted or inherited"],
+    ["What did Umar do with his best land?", "Gave its fruit to charity forever", "And give its fruit in charity", "Never sold, gifted or inherited"],
+    ["Umar's land could be sold later.", "False", "Never sold, gifted or inherited"],
+    ["What could the keeper do?", "Eat from it and feed a friend", "Its keeper may eat and feed a friend"],
+    ["What could he not do?", "Store things for himself", "Storing nothing for himself"]
   ]
 };
 
