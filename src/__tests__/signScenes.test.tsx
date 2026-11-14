@@ -135,7 +135,11 @@ const ABOUT: Record<string, RegExp[]> = {
   "sign-yemen": [/Yemen|Mu'?adh/i, /zakat|prayers?|shahadah|Tawhid|testimony|rich|poor/i],
   "sign-bayruha": [/Bayruha|3:92|what (you|we) love|Abu Talhah/i, /garden|give|gave|spend|love|charity|goodness|righteousness|birr/i],
   "sign-fitr": [/zakat al-Fitr/i, /sa'|dates|barley|food|Eid|prayer|poor/i],
-  "sign-eid": [/\bEid\b/i, /prayer|dates|musalla|khutbah|spear|road|way|recit|come out/i]
+  "sign-eid": [/\bEid\b/i, /prayer|dates|musalla|khutbah|spear|road|way|recit|come out/i],
+  "sign-thirsty-dog": [/\bdog\b/i, /thirst|water|shoe|well/i],
+  "sign-thorny-branch": [/thorn|harm/i, /road|path|way/i],
+  "sign-planting": [/plant|sows?\b|seed/i, /eats?\b|bird|animal/i],
+  "sign-waqf": [/waqf|endowment|Khaybar/i, /land|fruit|keeper|sold|store/i]
 };
 
 const SOURCES: Record<string, string[]> = {
@@ -211,7 +215,11 @@ const SOURCES: Record<string, string[]> = {
   "sign-yemen": ["Sahih al-Bukhari 1395", "Sahih al-Bukhari 1496"],
   "sign-bayruha": ["Quran 3:92", "Sahih al-Bukhari 1461"],
   "sign-fitr": ["Sahih al-Bukhari 1503", "Sahih al-Bukhari 1506"],
-  "sign-eid": ["Sahih al-Bukhari 953", "Sahih al-Bukhari 494", "Sahih al-Bukhari 956", "Sahih al-Bukhari 986"]
+  "sign-eid": ["Sahih al-Bukhari 953", "Sahih al-Bukhari 494", "Sahih al-Bukhari 956", "Sahih al-Bukhari 986"],
+  "sign-thirsty-dog": ["Sahih al-Bukhari 2363", "Sahih al-Bukhari 2466"],
+  "sign-thorny-branch": ["Sahih al-Bukhari 652", "Sahih al-Bukhari 2989"],
+  "sign-planting": ["Sahih al-Bukhari 2320", "Sahih al-Bukhari 6012"],
+  "sign-waqf": ["Sahih al-Bukhari 2737", "Sahih al-Bukhari 2777"]
 };
 
 const part = (kind: SignKind, name: string): SignPart => {
@@ -235,7 +243,7 @@ describe("the signs in creation, alive", () => {
   });
 
   test("every lesson with a scene is a real lesson about its sign, and opens on it", () => {
-    expect(Object.keys(SIGN_LESSONS).length).toBe(538);
+    expect(Object.keys(SIGN_LESSONS).length).toBe(549);
     for (const [nodeId, id] of Object.entries(SIGN_LESSONS)) {
       const lesson = LESSONS_BY_ID[`lesson-${nodeId}`] as Lesson | undefined;
       expect([nodeId, Boolean(lesson)]).toEqual([nodeId, true]);
@@ -1164,6 +1172,87 @@ describe("the signs in creation, alive", () => {
     // Another way: no part of the way home is a part of the way out.
     const outPaths = out.map((name) => part("eid", name).svg);
     expect(home.filter((name) => outPaths.includes(part("eid", name).svg))).toEqual([]);
+  });
+
+  test("the scenes of everyday charity show each moment in its order, and draw no Prophet, no Companion and no person", () => {
+    const everyday: SignKind[] = ["thirsty-dog", "thorny-branch", "planting", "waqf"];
+    for (const kind of everyday) {
+      for (const each of signArt(kind).parts) {
+        const person = /\b(prophet|man|men|woman|women|person|people|king|queen|helper|servant|angels?|guests?|wife|child|children|boy|girl|baby|mother|father|son|face|hands?|feet|foot|Umar|teeth|mouth)\b/i;
+        expect([kind, each.name, person.test(each.name)]).toEqual([kind, each.name, false]);
+      }
+      // A good deed's reward is sparks rising from where it was done: nothing comes down from the sky.
+      expect([kind, signArt(kind).parts.filter((each) => /\b(rays?|beams?)\b|coming down|from the sky/i.test(each.name)).map((each) => each.name)]).toEqual([kind, []]);
+    }
+    const words = (kind: SignKind) => signArt(kind).words.map((word) => word.text);
+    const names = (kind: SignKind, pattern: RegExp) => signArt(kind).parts.filter((each) => pattern.test(each.name)).map((each) => each.name);
+    // Water for a thirsty dog: a dashed way comes to the well and goes down into it, and the water stirs where he drank;
+    // the dog comes, panting, and licks the mud; the shoe rises out of the well, full of water, goes along the way to
+    // the dog and pours the water out, and the dog drinks; it lifts its head and wags its tail as sparks rise from
+    // where the good was done; and a lamb and two sparrows come to the water too. Each moment ends at rest.
+    expect(words("thirsty-dog")).toEqual(["Thirsty, he drank from a well", "A dog licking mud from thirst", "He filled his shoe with water", "And gave the dog a drink", "Allah thanked him and forgave him", "A reward for any living being"]);
+    const dog = ["the thirsty dog", "the dog's head, licking", "the dog's tail, hanging"];
+    expect([shown("thirsty-dog", "the way to the well", 0), shown("thirsty-dog", "the way to the well", 0.16), shown("thirsty-dog", "the way down into the well", 0.16), dog.map((name) => shown("thirsty-dog", name, 0.16)), shown("thirsty-dog", "mud the dog licks", 0.16)]).toEqual([0, 1, 1, [0, 0, 0], 0]);
+    expect([dog.map((name) => [shown("thirsty-dog", name, 0.32), value("thirsty-dog", name, "x", 0.32)]), value("thirsty-dog", "the dog's head, licking", "rotate", 0.32), shown("thirsty-dog", "mud the dog licks", 0.32), shown("thirsty-dog", "the shoe, full of water", 0.32)]).toEqual([dog.map(() => [1, 0]), -68, 1, 0]);
+    expect([shown("thirsty-dog", "the shoe, full of water", 0.48), value("thirsty-dog", "the shoe, full of water", "y", 0.48), value("thirsty-dog", "the shoe, full of water", "scale", 0.48), value("thirsty-dog", "the shoe, full of water", "rotate", 0.48), shown("thirsty-dog", "drops from the shoe", 0.48), shown("thirsty-dog", "water poured out for the dog", 0.48)]).toEqual([1, -6, 1, 0, 1, 0]);
+    expect([value("thirsty-dog", "the shoe, full of water", "x", 0.64), value("thirsty-dog", "the shoe, full of water", "rotate", 0.64), shown("thirsty-dog", "water poured out for the dog", 0.64), value("thirsty-dog", "water poured out for the dog", "scale", 0.64), shown("thirsty-dog", "the way to the dog", 0.64), value("thirsty-dog", "the dog's head, licking", "rotate", 0.64), shown("thirsty-dog", "light where the good was done", 0.64)]).toEqual([44, 95, 1, 1, 1, -68, 0]);
+    const deed = names("thirsty-dog", /^a spark of the good deed, rising \d$/);
+    expect([shown("thirsty-dog", "the shoe, full of water", 0.82), value("thirsty-dog", "the dog's head, licking", "rotate", 0.82), shown("thirsty-dog", "the dog's tail, hanging", 0.82), shown("thirsty-dog", "the dog's tail, wagging", 0.82), shown("thirsty-dog", "light where the good was done", 0.82), deed.map((name) => [shown("thirsty-dog", name, 0.82), value("thirsty-dog", name, "y", 0.82)])]).toEqual([0, 8, 0, 1, 1, deed.map(() => [1, -24])]);
+    const living = ["a lamb comes to drink", "a sparrow comes to drink", "another sparrow comes to drink"];
+    expect([deed.length, living.map((name) => shown("thirsty-dog", name, 0.82)), living.map((name) => [shown("thirsty-dog", name, 1), value("thirsty-dog", name, "x", 1), value("thirsty-dog", name, "y", 1)])]).toEqual([5, [0, 0, 0], living.map(() => [1, 0, 0])]);
+    // The thorny branch: the dashed way goes along the road; the wind blows a thorny branch across it; the branch moves
+    // itself off the road, and the way goes on; sparks rise from where it lay; and camels, a donkey and sheep pass
+    // along the clear road.
+    expect(words("thorny-branch")).toEqual(["Walking along a way", "A thorny branch across the way", "He moved it out of the way", "Allah thanked him and forgave him", "Removing harm from the way is charity"]);
+    const along = names("thorny-branch", /^the way along the road \d$/);
+    const on = names("thorny-branch", /^the way on along the road \d$/);
+    expect([along.map((name) => shown("thorny-branch", name, 0)), along.map((name) => shown("thorny-branch", name, 0.18)), shown("thorny-branch", "the thorny branch", 0.18), on.map((name) => shown("thorny-branch", name, 0.18))]).toEqual([
+      [0, 0, 0],
+      [1, 1, 1],
+      0,
+      [0, 0, 0]
+    ]);
+    const branch = (t: number) => (["opacity", "x", "y", "rotate"] as const).map((key) => value("thorny-branch", "the thorny branch", key, t));
+    expect([branch(0.4), shown("thorny-branch", "a gust of wind", 0.25), shown("thorny-branch", "a gust of wind", 0.4), on.map((name) => shown("thorny-branch", name, 0.4))]).toEqual([[1, 0, 0, 0], 1, 0, [0, 0, 0]]);
+    expect([branch(0.6), on.map((name) => shown("thorny-branch", name, 0.6)), shown("thorny-branch", "light where the road was cleared", 0.6)]).toEqual([[1, -14, 17, 30], [1, 1, 1], 0]);
+    const cleared = names("thorny-branch", /^a spark of the good deed, rising \d$/);
+    expect([cleared.length, shown("thorny-branch", "light where the road was cleared", 0.8), cleared.map((name) => [shown("thorny-branch", name, 0.8), value("thorny-branch", name, "y", 0.8)])]).toEqual([5, 1, cleared.map(() => [1, -24])]);
+    const passing = names("thorny-branch", /on the road$/);
+    expect([passing, passing.map((name) => value("thorny-branch", name, "x", 0.8) > 60), passing.map((name) => [shown("thorny-branch", name, 1), value("thorny-branch", name, "x", 1)])]).toEqual([
+      ["a camel on the road", "another camel on the road", "a donkey on the road", "sheep on the road"],
+      [true, true, true, true],
+      passing.map(() => [1, 0])
+    ]);
+    // Planting: a seed falls into the soil, which covers it; a sprout, then a tree with its fruit; a bird eats a fruit;
+    // a fruit goes along a dashed way to a home; a goat eats the low fruit; then sparks rise from the tree.
+    expect(words("planting")).toEqual(["Plant a tree or sow a seed", "It grows and bears fruit", "A bird eats from it", "A person eats from it", "An animal eats from it", "Charity for the one who planted it"]);
+    expect([shown("planting", "the way to the soil", 0.16), shown("planting", "a seed, sown", 0.16), value("planting", "a seed, sown", "y", 0.16), shown("planting", "the soil over the seed", 0.16), shown("planting", "a sprout", 0.16), shown("planting", "the tree, grown", 0.16)]).toEqual([1, 0, 12, 1, 0, 0]);
+    const fruits = ["the fruit the bird eats", "the fruit taken home", "the low fruit the goat eats"];
+    expect([shown("planting", "the tree, grown", 0.32), value("planting", "the tree, grown", "scale", 0.32), shown("planting", "fruit on the tree", 0.32), fruits.map((name) => shown("planting", name, 0.32)), shown("planting", "a sprout", 0.32), shown("planting", "a bird eats", 0.32)]).toEqual([1, 1, 1, [1, 1, 1], 0, 0]);
+    expect([[shown("planting", "a bird eats", 0.48), value("planting", "a bird eats", "x", 0.48), value("planting", "a bird eats", "y", 0.48)], fruits.map((name) => shown("planting", name, 0.48)), shown("planting", "the way from the home to the tree", 0.48)]).toEqual([[1, 0, 0], [0, 1, 1], 0]);
+    expect([shown("planting", "the way from the home to the tree", 0.64), [shown("planting", "the fruit taken home", 0.64), value("planting", "the fruit taken home", "x", 0.64), value("planting", "the fruit taken home", "y", 0.64)], shown("planting", "a goat eats", 0.64)]).toEqual([1, [1, -55, 18.6], 0]);
+    expect([[shown("planting", "a goat eats", 0.82), value("planting", "a goat eats", "x", 0.82)], fruits.map((name) => shown("planting", name, 0.82)), shown("planting", "light behind the tree", 0.82)]).toEqual([[1, 0], [0, 0, 0], 0]);
+    const charity = names("planting", /^a spark of charity, rising \d$/);
+    expect([charity.length, shown("planting", "light behind the tree", 1), charity.map((name) => [shown("planting", name, 1), value("planting", name, "y", 1)]), shown("planting", "a bird eats", 1), shown("planting", "a goat eats", 1)]).toEqual([5, 1, charity.map(() => [1, -22]), 1, 1]);
+    // Umar's land at Khaybar: its palms, ripe; a wall rises around the land, with its gate; baskets of its dates go out
+    // to a home of the poor and to relatives; silver comes to buy it and goes back, and the dates ripen again; the
+    // keeper's home, his dates, and a basket for a friend; and a basket goes to his storeroom, stops, and goes on to the
+    // home of the poor: the storeroom stays empty.
+    expect(words("waqf")).toEqual(["Land at Khaybar, the best he had", "Keep the land itself", "And give its fruit in charity", "Never sold, gifted or inherited", "Its keeper may eat and feed a friend", "Storing nothing for himself"]);
+    const walls = ["the back wall", "the side walls", "the front wall", "the gate"];
+    expect([shown("waqf", "ripe dates", 0.16), shown("waqf", "the best he had", 0.16), walls.map((name) => shown("waqf", name, 0.16)), walls.map((name) => shown("waqf", name, 0.32)), value("waqf", "the front wall", "scaleY", 0.32)]).toEqual([1, 1, [0, 0, 0, 0], [1, 1, 1, 1], 1]);
+    const given = ["a basket of its dates for the poor", "a basket of its dates for relatives"];
+    expect([given.map((name) => shown("waqf", name, 0.32)), given.map((name) => [shown("waqf", name, 0.48), value("waqf", name, "x", 0.48), value("waqf", name, "y", 0.48)]), shown("waqf", "ripe dates", 0.48)]).toEqual([[0, 0], [[1, -50, 10], [1, 50, 10]], 0]);
+    expect([0.53, 0.64].map((t) => value("waqf", "silver to buy the land, sent back", "x", t))).toEqual([-58, 0]);
+    expect([shown("waqf", "silver to buy the land, sent back", 0.64), shown("waqf", "ripe dates", 0.64), given.map((name) => shown("waqf", name, 0.64)), shown("waqf", "the keeper's home", 0.64)]).toEqual([1, 1, [0, 0], 0]);
+    expect([shown("waqf", "the keeper's home", 0.82), shown("waqf", "the keeper's storeroom, empty", 0.82), value("waqf", "dates for the keeper", "x", 0.82), [value("waqf", "dates for a friend", "x", 0.82), value("waqf", "dates for a friend", "y", 0.82)], shown("waqf", "silver to buy the land, sent back", 0.82)]).toEqual([1, 1, -26, [-36, 16], 0]);
+    expect([0.82, 0.87, 1].map((t) => [shown("waqf", "a basket not stored", t), value("waqf", "a basket not stored", "x", t), value("waqf", "a basket not stored", "y", t)])).toEqual([
+      [0, 0, 0],
+      [1, -9, 0],
+      [1, -91, 15]
+    ]);
+    // Nothing is ever put in the storeroom: it has no basket and no dates in it.
+    expect(part("waqf", "the keeper's storeroom, empty").svg.includes("<ellipse")).toBe(false);
   });
 
   test("every word and caption is translated in every language", () => {
