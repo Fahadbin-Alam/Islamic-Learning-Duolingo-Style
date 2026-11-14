@@ -13,10 +13,10 @@ import { crescent, home } from "./trialArt";
  */
 
 /** Keys that show a part from `from` to `to`, then hide it from `hide` to `gone`. */
-const showWhile = (from: number, to: number, hide: number, gone: number): SignKeys => ({ at: [0, from, to, hide, gone], opacity: [0, 0, 1, 1, 0] });
+export const showWhile = (from: number, to: number, hide: number, gone: number): SignKeys => ({ at: [0, from, to, hide, gone], opacity: [0, 0, 1, 1, 0] });
 
 /** A four-pointed spark of light, its middle at (x, y), `r` from its middle to its points. */
-const sparkle = (x: number, y: number, r: number, fill: string) => {
+export const sparkle = (x: number, y: number, r: number, fill: string) => {
   const k = r * 0.26;
   return `<path d="M${x} ${n(y - r)} L${n(x + k)} ${n(y - k)} L${n(x + r)} ${y} L${n(x + k)} ${n(y + k)} L${x} ${n(y + r)} L${n(x - k)} ${n(y + k)} L${n(x - r)} ${y} L${n(x - k)} ${n(y - k)} Z" fill="${fill}"/>`;
 };
@@ -25,7 +25,7 @@ const sparkle = (x: number, y: number, r: number, fill: string) => {
 const ring = (x: number, y: number, r: number, color = "#FFF3CF") => `<ellipse cx="${x}" cy="${y}" rx="${r}" ry="${n(r * 0.55)}" stroke="${color}" stroke-width="0.9" fill="none"/>`;
 
 /** A dashed way along `d` (an SVG path). */
-const way = (d: string, color = "#FFF0C4", width = 1.2) => `<path d="${d}" stroke="${color}" stroke-width="${width}" stroke-dasharray="2 2.2" fill="none" stroke-linecap="round"/>`;
+export const way = (d: string, color = "#FFF0C4", width = 1.2) => `<path d="${d}" stroke="${color}" stroke-width="${width}" stroke-dasharray="2 2.2" fill="none" stroke-linecap="round"/>`;
 
 /** A sack of grain tied at its neck, its foot's middle at (x, y), `s` times its size (6.4 wide). */
 const sack = (x: number, y: number, s = 1, fill = "#C9A66B") =>
@@ -39,7 +39,7 @@ const coin = (x: number, y: number, r = 1.5) =>
   `<circle cx="${x}" cy="${y}" r="${r}" fill="#DDE2E8" stroke="#98A2AD" stroke-width="0.4"/><circle cx="${x}" cy="${y}" r="${n(r * 0.55)}" fill="none" stroke="#B8C0C9" stroke-width="0.3"/>`;
 
 /** A basket heaped with dates, its foot's middle at (x, y). */
-const basketOfDates = (x: number, y: number) =>
+export const basketOfDates = (x: number, y: number) =>
   `<path d="M${n(x - 4)} ${n(y - 4)} L${n(x + 4)} ${n(y - 4)} L${n(x + 3)} ${y} L${n(x - 3)} ${y} Z" fill="#B88A4A"/>` +
   `<path d="M${n(x - 3.6)} ${n(y - 2.6)} L${n(x + 3.6)} ${n(y - 2.6)} M${n(x - 3.3)} ${n(y - 1.3)} L${n(x + 3.3)} ${n(y - 1.3)}" stroke="#946A34" stroke-width="0.4"/>` +
   [-2.4, -0.8, 0.8, 2.4, -1.6, 0, 1.6, -0.8, 0.8]
@@ -65,7 +65,7 @@ const spear = (x: number, y: number, h: number) =>
   `<ellipse cx="${x}" cy="${y}" rx="1.6" ry="0.5" fill="#000000" opacity="0.15"/>`;
 
 /** A low mud-brick wall from x1 to x2, its foot at y. */
-const wall = (x1: number, x2: number, y: number, h = 3) =>
+export const wall = (x1: number, x2: number, y: number, h = 3) =>
   `<rect x="${x1}" y="${n(y - h)}" width="${n(x2 - x1)}" height="${h}" fill="#C7A272"/><path d="M${x1} ${n(y - h)} L${x2} ${n(y - h)}" stroke="#AD8758" stroke-width="0.6"/>`;
 
 /** Ripe crops in a row from x1 to x2, their foot at y. */

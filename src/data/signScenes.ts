@@ -154,7 +154,20 @@ import { bukhari, muslim, quran, type MapSource } from "./seerahMap";
  * - zakat al-Fitr: a sa' of dates or of barley for every one, young or old, given before the Eid prayer (Sahih
  *   al-Bukhari 1503, 1506);
  * - the morning of Eid: dates first, an odd number; out to the open prayer ground, a short spear planted before him;
- *   the prayer first, then the khutbah; and home by another way (Sahih al-Bukhari 953, 494, 956, 986).
+ *   the prayer first, then the khutbah; and home by another way (Sahih al-Bukhari 953, 494, 956, 986);
+ *
+ * and everyday charity (charityArt.ts draws them):
+ *
+ * - water for a thirsty dog: a man who had drunk from a well saw a dog licking mud from thirst, filled his shoe with
+ *   water and gave it a drink, and Allah thanked him and forgave him; there is a reward for serving any living being
+ *   (Sahih al-Bukhari 2363, 2466);
+ * - a thorny branch moved out of the way, for which Allah thanked him and forgave him; and removing harm from the way
+ *   is charity (Sahih al-Bukhari 652, 2989);
+ * - a tree planted or a seed sown: what a bird, a person or an animal eats from it is charity for the one who planted
+ *   it (Sahih al-Bukhari 2320, 6012);
+ * - Umar's land at Khaybar, the best he had: the land itself kept, its fruit given in charity, never sold, given away
+ *   or inherited; its keeper may eat from it and feed a friend, storing nothing for himself (Sahih al-Bukhari 2737,
+ *   2777).
  *
  * Each scene shows only what its ayahs say. Nothing in a scene is a person or an angel: only the land, the sky, the
  * sea, plants, animals and things; the people of a parable are never drawn, only their gardens, and no Prophet and no
@@ -165,7 +178,7 @@ import { bukhari, muslim, quran, type MapSource } from "./seerahMap";
  * neither drawn nor named, and four birds are never drawn cut apart; Ibrahim's guests are only their greeting and the
  * meal they did not touch, those who worked for Sulayman are not drawn, nothing is drawn for Pharaoh's stakes, and the
  * one who kindled the fire is not drawn, only his fire; and no one who gives or receives is drawn, only what is given,
- * going along a dashed way.
+ * going along a dashed way: the one who watered the dog, moved the branch or planted the tree is only his dashed way.
  */
 
 export type SignKind =
@@ -241,7 +254,11 @@ export type SignKind =
   | "yemen"
   | "bayruha"
   | "fitr"
-  | "eid";
+  | "eid"
+  | "thirsty-dog"
+  | "thorny-branch"
+  | "planting"
+  | "waqf";
 
 export type SignScene = {
   id: string;
@@ -740,6 +757,33 @@ export const SIGN_SCENES: readonly SignScene[] = [
     caption:
       "On the morning of Eid al-Fitr he ﷺ ate an odd number of dates before going out. At the open prayer ground a short spear was planted before him; he began with the prayer, then gave the khutbah, and came home by another way.",
     sources: [bukhari("953"), bukhari("494"), bukhari("956"), bukhari("986")]
+  },
+  {
+    id: "sign-thirsty-dog",
+    kind: "thirsty-dog",
+    caption:
+      "A man walking on a way grew very thirsty, went down a well and drank. Coming out, he saw a dog panting and licking mud from thirst. He went down again, filled his shoe with water and gave the dog a drink. Allah thanked him and forgave him. He ﷺ said: there is a reward for serving any living being.",
+    sources: [bukhari("2363"), bukhari("2466")]
+  },
+  {
+    id: "sign-thorny-branch",
+    kind: "thorny-branch",
+    caption:
+      "While a man was walking along a way, he found a thorny branch on it and moved it out of the way, and Allah thanked him for it and forgave him. And removing harm from the way is charity.",
+    sources: [bukhari("652"), bukhari("2989")]
+  },
+  {
+    id: "sign-planting",
+    kind: "planting",
+    caption: "No Muslim plants a tree or sows a seed, and then a bird, a person or an animal eats from it, but it is charity for him.",
+    sources: [bukhari("2320"), bukhari("6012")]
+  },
+  {
+    id: "sign-waqf",
+    kind: "waqf",
+    caption:
+      "Umar got land at Khaybar, the best he ever had. The Prophet ﷺ said: if you wish, keep the land itself and give its fruit in charity. So Umar gave it, on condition that it is never sold, given away or inherited; and whoever keeps it may eat from it fairly and feed a friend, storing nothing for himself.",
+    sources: [bukhari("2737"), bukhari("2777")]
   }
 ];
 
@@ -1365,7 +1409,22 @@ export const SIGN_LESSONS: Record<string, string> = {
   "deep-eid-everyone-out": "sign-eid",
   "deep-eid-order-final-quiz": "sign-eid",
   "deep-qaf1-recited-on-eid": "sign-eid",
-  "deep-qamar1-recited-on-eid": "sign-eid"
+  "deep-qamar1-recited-on-eid": "sign-eid",
+  // Water for a thirsty dog.
+  "deep-zakat-everyday-thirsty-dog": "sign-thirsty-dog",
+  "deep-mercy-the-thirsty-dog": "sign-thirsty-dog",
+  "deep-hadith-stories-the-thirsty-dog": "sign-thirsty-dog",
+  // A thorny branch moved out of the way: removing harm from the way.
+  "deep-kids-small-deeds-the-thorny-branch": "sign-thorny-branch",
+  "deep-zakat-everyday-road": "sign-thorny-branch",
+  "manners-neighbors-and-guests-helping-neighbors": "sign-thorny-branch",
+  "deep-intro-questions-they-asked-something-that-benefits": "sign-thorny-branch",
+  // A tree planted: what a bird, a person or an animal eats from it is charity.
+  "deep-zakat-everyday-tree": "sign-planting",
+  "deep-mercy-plant-a-tree": "sign-planting",
+  // Umar's land at Khaybar, kept for charity.
+  "deep-zakat-everyday-umar-land": "sign-waqf",
+  "deep-book-wills-the-keeper-of-a-waqf": "sign-waqf"
 };
 
 export type LessonSign = { scene: SignScene; lessonSlug: string };
